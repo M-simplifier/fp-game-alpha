@@ -127,7 +127,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "2d08e7de100e99dbbfa741e95ca01ed601b86abc329bc6530aebb36a8fdce020",
+      "sha256_lf": "3a57806e9074fbd806f50f0cba5f0c6e8e504c13fa2216cca8089844661b1da9",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -290,7 +290,7 @@
     },
     {
       "path": "docs/new-game.md",
-      "sha256_lf": "c4f55d2cd5b312c442419539ac080bd9c6debd9fff328db91bcd0e32e7677dca",
+      "sha256_lf": "5240cf546f6e3be29daed96c0fea79289afa24ed17d141bbb0442af2632a49a1",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -476,6 +476,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "docs/purpose.md",
+      "sha256_lf": "7b4f0d57f84f7576b2950a7cd79ce1bb5057f51f92fe47ca57203bd8fbdc1894",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "docs/research-references.md",
       "sha256_lf": "ccabfe354063f3e748387d93b25588dd4d7234656b0c6ee24bb7e8a3af88ad75",
       "origin": {
@@ -538,7 +549,7 @@
     },
     {
       "path": "docs/terminal-starter.md",
-      "sha256_lf": "4549c5b80b6701da85a0dc9aefb520bc56d1744ca62195ff61bb915a6eec0c8d",
+      "sha256_lf": "3d4041e300669b5ab99016c5df45d0277eb7fa27562781c9cbe266a78f029ae7",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -3473,7 +3484,18 @@
     },
     {
       "path": "templates/terminal-adventure/docs/DEVELOPMENT.md",
-      "sha256_lf": "af20398b4e74180af1de89e1706ba49183032afab2b89fbb966f853d97929444",
+      "sha256_lf": "bd322e03852612c150def7b743eb3bcf879509a50b91cda3cc62500fad3d8639",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "templates/terminal-adventure/docs/TECHNICAL-GUIDES.md",
+      "sha256_lf": "61bf6eb92c8be3366504939684e8e9ea31a28aa9f3dd63f2a69bef433a2e6dd7",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
