@@ -15,9 +15,13 @@ mkBoard [Cart V 2 2] [1] [2] -- cart begins at column 2, rows 1..2
 ```
 
 `Cart` and `Move` values are proposals. `mkBoard` checks counts, dimensions,
-collisions and fish-row bounds; `legal` checks each step. World construction
-is hidden; `positions` and `remaining` are read-only projections. The bit mask
-counts fish still present, not a score or arbitrary quantity.
+collisions and fish-row bounds with overflow-safe coordinate comparisons;
+`legal` checks the starting state and each step. A `World` remembers its board,
+so passing a state to a different board is rejected. World construction and
+record-update fields are hidden; `positions` and `remaining` are ordinary
+read-only projection functions. The bit mask counts fish still present, not a
+score or arbitrary quantity. The public API compiler fixture confirms that a
+consumer cannot record-update `positions`.
 
 The test graph is finite, fully observed and controlled by one participant.
 `forceReach` answers reachability for that graph. It does not prove fairness,
