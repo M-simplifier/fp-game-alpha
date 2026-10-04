@@ -119,7 +119,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "fc53e208ebd1623fb103136b4c77254dcd6e4905fe319e99c00dfbf857e5b284",
+      "sha256_lf": "1105f053de518e0a2c63edb0cfccd40a55916d11944a5d46d7b77b43439be649",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -590,8 +590,19 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "docs/research-iteration-latency.md",
+      "sha256_lf": "518840aab234ed75a87552107f7d6ac2f707e3af771200539c5ff5200962d62f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "docs/research-references.md",
-      "sha256_lf": "96c82cde3053ea7badbb42f2affade69565a682fca16f8785d2a9fb5f1e62606",
+      "sha256_lf": "2a8ea9b64075014e2a79a1b6f3c3ca05d0eb68a2ec52430540a6baf6ac013fd7",
       "origin": {
         "kind": "author-supplied-curated-historical-research",
         "origin": "REFERENCES.md",
@@ -2447,7 +2458,7 @@
     },
     {
       "path": "references/afterlight/README.md",
-      "sha256_lf": "164c32a9048a4bc31512c608b4d079c15ad9b92260f043018ac433cb83a7162f",
+      "sha256_lf": "5dc3616352d87825f9c814730eba8710beec220e7542947389cc4d1ecd3bd031",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/README.md",
@@ -2473,7 +2484,7 @@
     },
     {
       "path": "references/afterlight/afterlight-arena.cabal",
-      "sha256_lf": "54736e5b1952cc804e811ea62013741f51cec6d921950372ef7a1063cd8909d8",
+      "sha256_lf": "60c104de34ea33cb7048e813e05015852cee34150e421baf96453e3fb614f70d",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/afterlight-arena.cabal",
@@ -2619,6 +2630,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "references/afterlight/docs/TEST-OPTIMIZATION-MANIFEST.json",
+      "sha256_lf": "9339f74b35918a920b4e11207a8961a35d812139bb2dac8eb2adddd4df15eb3a",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "references/afterlight/docs/baseline/README.original.txt",
       "sha256_lf": "00707c148f86d603e0e7218a598c9ecdeb4cedb8795e37b48f7f8d88773325e9",
       "origin": {
@@ -2687,7 +2709,7 @@
     },
     {
       "path": "references/afterlight/docs/qa/SOURCE-AUDIT.json",
-      "sha256_lf": "b76e4e8ed4f64a46d2c9a7d280c6ce52a01c2e80e5ae0e9b3a370cb078530f7a",
+      "sha256_lf": "71ae6b8f2cdf4d393af961a632d2227b9b01c20e28976d202ba24ea053b80951",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/docs/qa/SOURCE-AUDIT.json",
@@ -2833,7 +2855,7 @@
     },
     {
       "path": "references/afterlight/scripts/audit-source.py",
-      "sha256_lf": "d16fdb60cc205d7ff63ab091f676d45b7db90323ba227bc9eae490d80aba91c9",
+      "sha256_lf": "52345a30c2055eb98b6111a2b2d0d2a4380b3f388f63e9206a0983dc4e95a0e4",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/scripts/audit-source.py",
@@ -2937,6 +2959,17 @@
         "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
         "source_sha256_lf": "c7db60f7eb1b294d3a8a8cbb337be6af4cbc934e0c1462d08bd48bc1e379aaec",
         "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+      },
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/afterlight/scripts/test-audit-source.py",
+      "sha256_lf": "31521f0978d22e70824d126ceb65a2465aae0c856083bb0f61be6ea3d976dcb4",
+      "origin": {
+        "kind": "authored-for-public-alpha"
       },
       "license": "references/afterlight/LICENSE",
       "maturity": "experimental",
@@ -3282,13 +3315,24 @@
     },
     {
       "path": "references/afterlight/test/Parity.hs",
-      "sha256_lf": "98f43e55c2e0ce3c2ef7f3f6ad17cd3cd02f329f5ea8b5399081348acdc08e67",
+      "sha256_lf": "d00db2a503b821eb374b321b0045443f92fd694be0de9ca946e5dafe1f8128f7",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/test/Parity.hs",
         "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
         "source_sha256_lf": "b23dcb833353366ac5feff64d2a8c0ce463d6e1ff1a0c267055c200b32306d02",
         "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+      },
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/afterlight/test/TerrainEquality.hs",
+      "sha256_lf": "a65dd3da71ce4a542d6b47d5f9e934fd540752e1a9d12be214929eb3b98ca884",
+      "origin": {
+        "kind": "authored-for-public-alpha"
       },
       "license": "references/afterlight/LICENSE",
       "maturity": "experimental",

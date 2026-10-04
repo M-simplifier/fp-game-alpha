@@ -34,6 +34,8 @@ import Original.Garden.View qualified as OldView
 import Original.Garden.World qualified as OldWorld
 import System.Exit (exitFailure)
 import System.IO (BufferMode (LineBuffering), hSetBuffering, stdout)
+import System.Mem (performGC)
+import TerrainEquality qualified as Terrain
 import Test.QuickCheck hiding (label, scale)
 import Test.QuickCheck.Random (mkQCGen)
 
@@ -120,6 +122,44 @@ matches current old@(Legacy world _ _ pilot) =
     && simulationPilot current == pilot
     && A.observe AfterlightSession Gardener current == legacyView old
 
+-- Only the long IO route uses identity-assisted equality. All values remain
+-- independently constructed and every cache miss uses complete structural Eq.
+matchesCached :: Terrain.Cache -> Simulation -> Legacy -> IO Bool
+matchesCached cache current old@(Legacy world _ _ pilot) = do
+  sameWorld <- Terrain.worldEq cache (simulationWorld current) world
+  if sameWorld && simulationPilot current == pilot
+    then Terrain.sessionEq cache (A.observe AfterlightSession Gardener current) (legacyView old)
+    else pure False
+
+terrainEqualityRegression :: IO ()
+terrainEqualityRegression = do
+  cache <- Terrain.newCache
+  let world = smallWorld
+      changed = world {worldCells = M.insert (Cell 0 0 0) Gold (worldCells world)}
+      worlds = [world, world {worldCells = M.fromList (M.toList (worldCells world))}, changed, world {worldLife = worldLife world - 1}, world]
+      view = A.observe AfterlightSession Gardener (beginSimulation world)
+      changedScene = (exactScene view) {sceneCells = worldCells changed}
+      views =
+        [ view,
+          view {exactScene = changedScene},
+          view {interpolatedScene = changedScene},
+          view {exactScene = (exactScene view) {sceneLife = -1}},
+          view {interpolatedScene = (interpolatedScene view) {sceneLife = -1}},
+          view
+        ]
+  forM_ worlds $ \other -> do
+    performGC
+    actual <- Terrain.worldEq cache world other
+    check "cached terrain equality agrees with complete World Eq" (actual == (world == other))
+    reversed <- Terrain.worldEq cache other world
+    check "cached terrain equality checks both World operands" (reversed == (other == world))
+  forM_ views $ \other -> do
+    performGC
+    actual <- Terrain.sessionEq cache view other
+    check "cached terrain equality agrees with complete SessionView Eq" (actual == (view == other))
+    reversed <- Terrain.sessionEq cache other view
+    check "cached terrain equality checks both SessionView operands" (reversed == (other == view))
+
 compareFrames :: [Frame] -> World -> Bool
 compareFrames inputs initial = go (beginSimulation initial) (seedLegacy initial) inputs
   where
@@ -185,9 +225,11 @@ crossSave label world = do
     _ -> check (label <> " decode") False
 
 tourRegression :: IO World
-tourRegression = go (0 :: Int) (beginSimulation initialWorld) (seedLegacy OldWorld.initialWorld) ""
+tourRegression = do
+  cache <- Terrain.newCache
+  go cache (0 :: Int) (beginSimulation initialWorld) (seedLegacy OldWorld.initialWorld) ""
   where
-    go count current old previousStage
+    go cache count current old previousStage
       | count > 7000 = check "tour terminated within 7000 frames" False >> pure initialWorld
       | Tour.expeditionDone (simulationPilot current) = do
           let result = simulationWorld current
@@ -212,14 +254,15 @@ tourRegression = go (0 :: Int) (beginSimulation initialWorld) (seedLegacy OldWor
             Right (next, output) -> do
               let (expected, effects) = oldFrame request old
                   stage = OldTour.tourStage (simulationWorld next) <> " " <> show (simulationPilot next)
-              unless (output == effects && matches next expected) $
+              equal <- if output == effects then matchesCached cache next expected else pure False
+              unless equal $
                 check ("tour frame " <> show count) False
               if stage /= previousStage
                 then do
                   putStrLn ("MILESTONE " <> stage <> " " <> show (worldTick (simulationWorld next)))
                   crossSave stage (simulationWorld next)
                 else pure ()
-              go (count + 1) next expected stage
+              go cache (count + 1) next expected stage
 
 photoParity :: Bool
 photoParity = and [show current == show original | (current, original) <- take 1800 (iterate advance (first, oldFirst))]
@@ -234,6 +277,7 @@ photoParity = and [show current == show original | (current, original) <- take 1
 main :: IO ()
 main = do
   hSetBuffering stdout LineBuffering
+  terrainEqualityRegression
   check "entire authored terrain + initial World" (initialWorld == OldWorld.initialWorld)
   let cases =
         [ ( "zero-tick press survives release",

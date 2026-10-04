@@ -104,3 +104,7 @@ These links were recorded in research inspected on 3–4 October 2026. They are 
 compares the existing Python orchestration with an opt-in Haskell build/check slice.
 It records bootstrap costs, platform boundaries and compatibility checks separately
 from the maintained game core and current development entrypoints.
+
+[Measured iteration and parity latency](research-iteration-latency.md) separates
+one-shot CI/local observations from guarantees and records the reviewed test-only
+terrain equality optimization without changing the frozen oracle.
