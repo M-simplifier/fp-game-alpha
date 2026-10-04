@@ -4,8 +4,41 @@
   "self_hash": "manifest excluded to avoid recursive hash",
   "files": [
     {
+      "path": ".agents/skills/fp-gamedev/SKILL.md",
+      "sha256_lf": "4156e4daaa40fb94894b3bcd3a67a5d0a0b4dff563e4a4ee662fe349dfc9f81b",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": ".agents/skills/game-platform/SKILL.md",
+      "sha256_lf": "894e39facd47cd60b3a7e1156fea7ebc13712d6e4b4a3dc7f0243ce84e14d93e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": ".agents/skills/haskell-excellence/SKILL.md",
+      "sha256_lf": "11fa47affabeb20d20b86ceba793166ca9cf45f084efb6dbccb7d6b27471feb2",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": ".agents/skills/new-game/SKILL.md",
-      "sha256_lf": "d385e834ea23e9606b24177eeca5fd0dd45f5d4a4048d633e3f1d911d30c9a33",
+      "sha256_lf": "f4aa1afeea79c0d7f636044333883b3fd7a846d57384d51775c10e070479fe58",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -94,7 +127,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "440049f8e46a851b335845e502f02c90c9fa1bc84457f8d6b0edf89a3679aa4c",
+      "sha256_lf": "2d08e7de100e99dbbfa741e95ca01ed601b86abc329bc6530aebb36a8fdce020",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -232,7 +265,7 @@
     },
     {
       "path": "docs/haskell.md",
-      "sha256_lf": "eb2211594a06016909b84746d620d769d0180a5d284d3b27562dc977afa11c56",
+      "sha256_lf": "c624bd591f8abe170c878f3758a4327006db5700b203507ffa6bb7eb25eb5f21",
       "origin": {
         "kind": "author-supplied-public-doc-candidate",
         "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
@@ -257,7 +290,7 @@
     },
     {
       "path": "docs/new-game.md",
-      "sha256_lf": "4549c5b80b6701da85a0dc9aefb520bc56d1744ca62195ff61bb915a6eec0c8d",
+      "sha256_lf": "c4f55d2cd5b312c442419539ac080bd9c6debd9fff328db91bcd0e32e7677dca",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -268,11 +301,176 @@
     },
     {
       "path": "docs/platforms.md",
-      "sha256_lf": "48cbd2d711bf5d82f1d54d37e5cd8feb9ee2fe3244a649fd2309093a3130f006",
+      "sha256_lf": "38104b24b25c91bf6555665bbedd550a2a886184d27e2e2d4d4f9584a7ecd9b7",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
       "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/LICENSE.upstream",
+      "sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/PROVENANCE.json",
+      "sha256_lf": "fcfa8c21663b133947d6f6874dab221f6daa6d1844bdc5c7266c6eb74ad14fc4",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/README.md",
+      "sha256_lf": "9915b0317441131fd95de2a5f2885eed97a86f5c82cc20349d78e7b5a0d5e4ba",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/afterlight.md",
+      "sha256_lf": "1fb74dc0c8d94dde95b7c2307553d8ffca8378cb3e9e297eab034e0b58b5f4f9",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/browser.md",
+      "sha256_lf": "190e837e5b4a6825f135e5da931e2d2d43a54b05c57ca174083b60a7fc2cf43a",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/code-reading.md",
+      "sha256_lf": "da2dae354462b7af2c1d35b7b0716e4c98b5aaa5bb66324c8c706692234a412b",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/editors.md",
+      "sha256_lf": "8096729536b3c7557ef22f381eb075b367d71c55f418ef40e5aaa7588470ce5f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/performance.md",
+      "sha256_lf": "230a2ba29521668dbd24263a3897a70347852d3e7beb07f284e1d78aef75a903",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/simulation.md",
+      "sha256_lf": "e13c755a09ec1f011659887079d8b700a4f464f927258112a215312629e620c8",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/space-and-resources.md",
+      "sha256_lf": "209bfbcc0eeb63114212a934aaeaee322b5f247ade747f658a92a6a28fee5f71",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/stack.md",
+      "sha256_lf": "a5687f9e36a17395348f1435e4e3425f48a70e06d40668b53d509825d9578087",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/time-and-state.md",
+      "sha256_lf": "92f3e67bef87682c6abf3e5cc05403b59417559f50ad9520a4a034fcb012b530",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/games/verification.md",
+      "sha256_lf": "77061f341185f71b13f441320d31e25b800e40f21cf25839f4d492d3797ec96e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/haskell/technique-choices.md",
+      "sha256_lf": "12f4fd267f66b1cd162dae9829b7b44fbd74666d72d67902972d8ee01cd93a66",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/practice/haskell/verification-review.md",
+      "sha256_lf": "f77019ca9dfe25738f9f77621e985951181900c56bd8a3f1cbd7a75b899c119c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "docs/practice/LICENSE.upstream",
       "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"
@@ -330,6 +528,17 @@
     {
       "path": "docs/support/routes.json",
       "sha256_lf": "2df80ca45cd1c049e9a63778e47ea46606fc2ab1e5d51c1df83fd590e601e335",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/terminal-starter.md",
+      "sha256_lf": "4549c5b80b6701da85a0dc9aefb520bc56d1744ca62195ff61bb915a6eec0c8d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -545,7 +754,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "984590cc5703b4ae705fddf11cab022a286e8b4b5369d345afdb73a2051b192c",
+      "sha256_lf": "6fd861e1dfb2d0a94d67d2bc2c26b2bfb11fb57df68dda73d9a71b4312027675",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -3429,7 +3638,7 @@
     },
     {
       "path": "tools/scaffold.py",
-      "sha256_lf": "b21575669b7f1077b8c4a7cc2a2f7eccb8de192d7e2e3b8d167d69ad32e28594",
+      "sha256_lf": "061dbfdd5ce02501106890d9c49746cf19d2354697da6d49ecaf489b3212c0cc",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

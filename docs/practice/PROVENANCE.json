@@ -1,0 +1,163 @@
+{
+  "source": "https://github.com/M-simplifier/garden-of-afterlight",
+  "commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+  "license": "LICENSE.upstream",
+  "files": [
+    {
+      "path": "docs/practice/haskell/technique-choices.md",
+      "upstream_path": ".agents/skills/haskell-excellence/references/technique-choices.md",
+      "upstream_sha256": "b5d1f7dfb60d55a9261b45096a8e7dfe0e848d101b28e60d27fb159c4df78b5e",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "8cb3785e3a892f8e4a70104e9ede2ca26da4b374"
+    },
+    {
+      "path": "docs/practice/haskell/verification-review.md",
+      "upstream_path": ".agents/skills/haskell-excellence/references/verification-review.md",
+      "upstream_sha256": "d88099fe2f60c4c20a76b8ca627a9895054407b92ed62088f3928b064d3cfaea",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "e719933c222f965f8447e4e8503e7ca1c383a5d3"
+    },
+    {
+      "path": "docs/practice/games/afterlight.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/afterlight.md",
+      "upstream_sha256": "a1069fb0c612f6853f5bcaab885610eedda7ede8f82e07e60a4bbe91cb30e3db",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "533d85f650172a131b25ae66b4f310dd567526ca"
+    },
+    {
+      "path": "docs/practice/games/browser.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/browser.md",
+      "upstream_sha256": "9f6012079ef8ada9f7f12bd96471902b30330aa576fffb0c8a660b4d592664ca",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "70bb6fcab2687ad444f8a97dc4b02bd3d2b257ca"
+    },
+    {
+      "path": "docs/practice/games/code-reading.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/code-reading.md",
+      "upstream_sha256": "808b634f41aafc5fd5fbcbcf6c1da4006e0cc990b526350bc0c71b068573dbfd",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "7b8e4e956a8a73f14fdeb14d59e8b42c8cd3f9ea"
+    },
+    {
+      "path": "docs/practice/games/editors.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/editors.md",
+      "upstream_sha256": "fdbfd8c759aeea3e541765102d9532e3856ec5090c85363ce9527a74725ed341",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "f9f392f72fa40b6047fd2fd7b168f8c37b85194e"
+    },
+    {
+      "path": "docs/practice/games/performance.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/performance.md",
+      "upstream_sha256": "cfafa11837d96a31e7c9db4b7c13ba28432ff38cd872cf9d70e4f6c1b8066f2f",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "76881aa12f3d513e6b4f826f36fb07e9637dca09"
+    },
+    {
+      "path": "docs/practice/games/simulation.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/simulation.md",
+      "upstream_sha256": "e423e58707be821b6f1369146890e8d233591c03f8f91b9b4237f443d0674276",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "91474bac39fa02503bb3dfba83da09461463217a"
+    },
+    {
+      "path": "docs/practice/games/space-and-resources.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/space-and-resources.md",
+      "upstream_sha256": "406aab58cef409bd1b24d3a0617953e8a660fef201a8e735bece1a2ab50a9523",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "e0ec50754fad173341bec004f93a774c2d2fb14c"
+    },
+    {
+      "path": "docs/practice/games/stack.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/stack.md",
+      "upstream_sha256": "4c89690fd4c1bd8a68c12c3e78ce834404e9f2fe4b3a6d31f70e2a491904d552",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "default stack clarified as example",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "0a7b885e4078ea70b517a9fa5cd7fd2dd7f69a49"
+    },
+    {
+      "path": "docs/practice/games/time-and-state.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/time-and-state.md",
+      "upstream_sha256": "5915969e52d27f1949966aeba08f26ead5ef5ddafc6796696369c6957b78c192",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "97e314e510a9e0f7d6cc05f5c20a56c2bea4b329"
+    },
+    {
+      "path": "docs/practice/games/verification.md",
+      "upstream_path": ".agents/skills/fp-gamedev/references/verification.md",
+      "upstream_sha256": "b857d830f16c8ede61a543b38645d82f257153920f0e200a4654d43ca2c04419",
+      "upstream_commit": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+      "adaptations": [
+        "scope preface",
+        "local route links",
+        "original technical content retained",
+        "trailing newline normalized during text materialization"
+      ],
+      "upstream_git_blob_sha": "5c6f1e02cb8dfa08c17c18d1a70df371a0b90955"
+    }
+  ]
+}

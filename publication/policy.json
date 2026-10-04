@@ -25,11 +25,15 @@
     "tlaplus/tlaplus",
     "ucsd-progsys/liquidhaskell",
     "google-deepmind/open_spiel",
-    "microsoft/TextWorld"
+    "microsoft/TextWorld",
+    "M-simplifier/garden-of-afterlight"
   ],
   "authored_public_skills": [
     ".agents/skills/new-game/SKILL.md",
-    ".agents/skills/play-game/SKILL.md"
+    ".agents/skills/play-game/SKILL.md",
+    ".agents/skills/haskell-excellence/SKILL.md",
+    ".agents/skills/fp-gamedev/SKILL.md",
+    ".agents/skills/game-platform/SKILL.md"
   ],
   "selections": [
     {
@@ -155,6 +159,26 @@
     {
       "prefix": "research/headless/",
       "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": ".agents/skills/haskell-excellence/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": ".agents/skills/fp-gamedev/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": ".agents/skills/game-platform/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "docs/practice/",
+      "license": "docs/practice/LICENSE.upstream",
       "maturity": "experimental"
     }
   ]

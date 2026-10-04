@@ -1,85 +1,116 @@
-# Start and continue an independent game
+# From a game brief to a working game
 
-Launch Codex in this clone and invoke `$new-game` with your game idea. The
-project-local skill routes to this document. Codex searches repository
-`.agents/skills` locations; see [the official skill discovery guide](https://learn.chatgpt.com/docs/build-skills).
-An assistant is optional: the CLI and normal Cabal commands also work directly.
+Invoke `$new-game` in this clone and give the AI your game idea and target
+platform. The goal is a **new game designed for that brief**, normally built
+from scratch around the small `game-transition` / `game-arena` core. Afterlight
+and the other references are sources of tested ideas, not mandatory templates,
+genres, renderer choices or inherited worlds.
 
-## Only ask for missing decisions
+The AI should own the technical preparation and implementation loop so the
+user can concentrate on the game. A generated directory or an inventory of
+unsupported platforms is not the requested outcome.
 
-Use the request, existing project data and doctor output first. Ask at most
-four compact questions, combining related decisions when useful:
+## 1. Recover the intent, ask little
 
-1. Game name and the smallest interesting player action/feedback loop
-2. First target/rendering route, selected from the actual support contract
-3. Independent destination directory, usually beside this foundation clone
-4. Game license/credit, only if the user wants to choose it now
+Reuse what is already known. Ask only about decisions that change the game:
 
-Detect the OS/tools instead of asking again. Keep VSCode, Neovim or terminal
-editing optional. Do not ask about scores, engines, networking or deployment
-before the requested loop needs them. If the user requests an unverified
-graphics/Web/mobile route, disclose the gap and choose it for explicit route
-development only with their instruction. Never silently substitute terminal.
-Use the [guarantee scope](guarantees.md) when a game's requested invariant
-needs stronger evidence than finite gameplay tests.
-Use the [review finding and prevention ledger](failure-prevention.md) to turn
-newly found bugs into scoped boundary checks and an explicit acceptance record.
-Unspecified licensing remains **unlicensed for user additions**; original
-foundation/template MIT notices remain separate.
+- What does the player do, and what makes that decision interesting?
+- Required platform and interaction: browser, desktop, phone, controller,
+  mouse, touch, multiplayer, or a particular visual/HTML presentation
+- The first playable result that will tell us whether the idea works
+- Destination or license only when it must be chosen now
 
-## Executable path
+A full brief can answer all of these; do not repeat a fixed questionnaire.
+Record a short `GAME-SPEC.md` with the intended player loop, necessary platform
+constraints and a concrete observable acceptance. Keep uncertain design choices
+explicit and revise them through play, not through an ever-growing preflight.
 
-The initial maintained template is a native terminal adventure. It provides
-one complete turn/input/view loop, an explicit Machine/Arena adapter, validated
-versioned saves, config, regressions and independent build/CI. It is the first
-development route, not the full platform ambition or a commercial certification.
+## 2. Design this game's types and boundaries
 
-```sh
-python tools/fp_game.py doctor
-python tools/fp_game.py plan my-game "../My Game" --title "My Game"
-python tools/fp_game.py scaffold my-game "../My Game" --title "My Game" --dry-run
-python tools/fp_game.py scaffold my-game "../My Game" --title "My Game"
-cd "../My Game"
-python tools/fp_game.py build
-python tools/fp_game.py check
-python tools/fp_game.py test
-python tools/fp_game.py run --smoke
-python tools/fp_game.py run
-```
+Read [the core API](architecture.md), [Haskell practice](haskell.md) and the
+[relevant game-development guidance](practice/README.md). Define domain vocabulary, authoritative
+state, inputs, effects and observations for this game. Reuse `Step` / `Machine`
+and add `Arena` where participant actions and observations need it. The core
+must not force a particular ECS, FRP network, scoring scheme, renderer or
+representation.
 
-Plan and dry-run perform no filesystem writes. Scaffold rejects an existing
-destination, including an empty directory or symlink, and reserves a new
-directory exclusively. A failed write leaves an explicit incomplete marker,
-never a success report. The defaults are native/terminal and unlicensed
-additions; `--target` and `--rendering` cannot make an absent route work.
-An explicit MIT game license uses `--license MIT --author "Your credit"`.
+Keep gameplay rules in the Haskell core; adapt platform input to those rules
+and interpret their outputs at the shell. Rendering is a projection, not a
+second simulation. Choose additional mathematical structure when it helps a
+real invariant or composition; do not add abstractions just to resemble a
+reference.
 
-## Continue into the user's actual game
+Inspect only relevant reference modules for a concrete problem: ordered input,
+fixed ticks, saves, asset ownership, browser ABI, or another needed boundary.
+Copying a whole existing game and changing its title does not satisfy a new
+brief. Any reused implementation must keep its notices and be justified by
+this game's requirements.
 
-Write the agreed mechanic and next observable result in the generated
-`GAME-SPEC.md`. The game owns editable `src/`, `app/`, `test/`, `assets/`,
-`config/`, `docs/` and a local `.agents/skills/game-dev/` entry. Continue from
-that directory with `$game-dev` and its versioned development guide.
+## 3. Prepare an independent workspace and its actual platform
 
-Implement a real change after scaffolding: for example a collectible that
-unlocks the exit. Change the state, authoritative rule, feedback/view, save
-policy and blocked/unlocked regressions. Build/test/play that change. Then
-continue with the next requirement. Do not end at a renamed template or a
-demonstration run when the user asked for game development.
+Create the game outside this foundation checkout unless the user chose otherwise.
+Use ordinary Cabal packages and pin the shared core, either as a fixed source
+revision or vendored source with package versions, per-file hashes and notices.
+The game must own its editable source, platform host, tests, assets, spec and
+continuation instructions. It must not depend on an accidental sibling checkout.
 
-The generator vendors kernel source pinned to exact package versions and an
-immutable upstream commit, with per-file hashes and versioned canonical docs.
-The game directory builds after the starter clone is unavailable. There are no
-required absolute paths, floating main refs or sibling checkouts. Framework
-updates cannot rewrite user game code. Review API/contracts, pins, docs and
-save migrations explicitly when upgrading; no automatic migration is promised.
+Use [setup](setup.md) and [platform records](platforms.md) as evidence and recipes.
+A planned or unverified route is work to perform for the requested platform,
+not a reason to silently generate a terminal game. Research the required official
+toolchain, choose bounded dependencies, build a tiny real host/input probe,
+then connect the new core. Report actual access/installation blockers promptly;
+do not claim a platform works just because a different host's core test passed.
+Respect permissions for tool installation, downloads and deployment.
 
-## Acceptance
+The current `fp_game.py scaffold` command is an **optional terminal-adventure
+example**, not a universal generator or a requirement to use this workflow.
+Its limited flags must not limit the AI's ability to author a different Cabal
+project and host. See [that example's commands](terminal-starter.md) when the
+requested game really fits them. Compiler inspection/editor tools can also be
+used independently; see [tooling](tooling.md) and [editors](editors.md).
 
-The maintained end-to-end check generates outside the starter clone, adds a
-key/locked-exit mechanic, verifies both branches and persistence, copies only
-the game into an isolated path with spaces, builds/runs using its own files,
-then adds and tests a second gameplay change without regeneration. That
-sequence establishes a development route on each host where it actually runs.
-Consult [verification](verification.md) for measured results; a configured
-workflow or planned renderer does not count as completed acceptance.
+## 4. Implement a real playable slice, then continue
+
+1. Implement the brief's first meaningful rule and its domain tests
+2. Connect actual input and a visible or audible consequence on the target host
+3. Build and run that slice; inspect the result instead of stopping at compilation
+4. Play it, identify the highest-impact gap, and change the game
+5. Rebuild and verify the changed path without regenerating the workspace
+
+Use procedural/self-authored assets when practical; record third-party provenance
+and redistribution obligations when needed. Add saves, networking, performance
+work and deeper guarantees when the slice actually requires them. Do not wait
+for every engine experiment to finish before delivering a working increment.
+
+Add a local `$game-dev` entry routing to that game's `GAME-SPEC.md`, commands,
+architecture and next requirement. It should continue the current project,
+not repeat setup or force a reference layout. User edits are authoritative;
+never regenerate over them.
+
+## 5. Build the harness around the game
+
+Pair the behavior with useful checks: invariant-preserving constructors,
+compiler/API rejection tests, property tests, deterministic replay and appropriate
+formal tools. See [guarantee scope](guarantees.md) and
+[the prevention ledger](failure-prevention.md). Review/playtest findings should
+lead to a mechanism preventing their class where feasible, not just a patch.
+
+For abstract play, add a player projection and action adapter and use
+[headless gameplay](headless-play.md). The supplied Station pilot is an example;
+it is not automatically an adapter for every new game. Keep source-informed
+analysis separate from fresh-player evaluation. Headless play complements
+real-host checks for controls, graphics, sound and device performance.
+
+When game rules change, update their own tests and save compatibility deliberately.
+Historical parity with an old game is useful to preserve that reference; it is
+not a requirement that a new game's intentional behavior remain identical.
+
+## Acceptance of this development experience
+
+Success means a concrete brief became its own game, using the shared core and
+relevant knowledge, on the requested target, with one meaningful play/feedback/
+revision cycle. Record what ran, what changed, and the remaining limits. A template
+smoke test, terminal-only check for a graphical request, copied demo or a polished
+research catalog is not a substitute. Existing evidence for the optional terminal
+starter remains useful but does not establish this broader workflow on every
+platform.

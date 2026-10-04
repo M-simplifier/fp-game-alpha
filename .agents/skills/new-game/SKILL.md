@@ -1,20 +1,21 @@
 ---
 name: new-game
-description: Start a user's independent pure functional game project from this foundation and continue into their actual gameplay implementation. Use for a new game workspace, not generic Haskell questions.
+description: Turn a game brief and platform requirements into a new playable pure functional Haskell game using the shared core and relevant technical knowledge; continue beyond setup into actual gameplay implementation.
 ---
 
-Read [the creation and continuation workflow](../../../docs/new-game.md) and
-[the supported routes](../../../docs/platforms.md). Reuse known decisions;
-detect tools and OS before asking at most four missing questions.
+Read [the intent-first workflow](../../../docs/new-game.md), then the relevant
+[core API](../../../docs/architecture.md) and [platform evidence](../../../docs/platforms.md).
+Use `$haskell-excellence`, `$fp-gamedev` and `$game-platform` for the relevant
+implementation decisions, without loading unrelated guides.
+Reuse known decisions and ask only for missing game-changing requirements.
 
-Select a real route, show its alpha limits, and follow doctor → plan →
-scaffold → build/check/test/run. Keep the game outside the starter checkout
-by default, preserve existing directories, and leave game licensing independent.
+Design this game's domain types, rules, observations and host from its brief.
+References teach techniques; they are not mandatory generation templates.
+The terminal scaffold is optional and must not substitute for another target.
+Own environment preparation, implementation and verification within permissions.
 
-After the first scaffold works, implement the user's promised mechanic through
-state/rules/view/regressions. Continue in the generated project's local
-`$game-dev` workflow. A renamed demo or a successful scaffold is not completion.
-
-For an implemented game's decision loop, use [headless play](../../../docs/headless-play.md)
-and `$play-game`. The bundled pilot is Station; adding a new game requires a
-player projection and host adapter over its own authoritative kernel.
+Deliver a real playable slice on the requested host, then revise it from play.
+Keep an independent workspace, pinned core, game spec and local continuation
+entry. Stop at a genuine blocker, not merely at a route marked unverified.
+Use [headless play](../../../docs/headless-play.md) for abstract decision feedback
+and real-host checks for presentation and input. Never claim checks not run.
