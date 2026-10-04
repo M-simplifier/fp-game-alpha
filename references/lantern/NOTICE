@@ -1,0 +1,4 @@
+Selected from the author's MIT Lantern technical source. The pure puzzle rule
+was adapted for checked board construction and the shared libraries in this
+repository. No illustration or other artwork is redistributed with this
+package. The shared Transition and Arena modules retain their own MIT notices.

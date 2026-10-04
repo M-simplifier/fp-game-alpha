@@ -15,7 +15,8 @@ Tests/runtime verified exhaustion, recovery and deliberate save-version rejectio
 The compact record is [Windows development evidence](evidence/windows-development.json).
 This is gameplay/extension acceptance for that small terminal route, not an
 enjoyment evaluation, a graphical route, or a proof for arbitrary extensions.
-The three-OS CI now runs the same development check; its new outcome is pending.
+The [first-user CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37175110782)
+passed the same development check on Windows, Linux and macOS.
 
 Windows LLVM ar initially failed under space-containing paths. The project
 sets `ar-options: --rsp-quoting=posix` only on Windows. Cabal's
@@ -67,3 +68,13 @@ GitHub checkouts on Linux, Windows and macOS. A configured job is not a passing
 job: consult its actual result before making a platform claim. Graphical,
 browser, server deployment and mobile performance are outside this bootstrap
 verification scope.
+
+## Lantern reference
+
+The Lantern source in `references/lantern/` compiles with
+`-Wall -Wcompat -Werror` and its law test passes locally on Windows with the
+above GHC/Cabal versions. It checks board-construction rejection, the
+original rule through `Step` and `Arena`, invalid admission, and closure plus
+forced reachability of one explicit four-state graph. This is a finite example
+for one board, not an SMT result or a guarantee for arbitrary boards. Its
+three-OS CI result is pending.
