@@ -143,3 +143,18 @@ exclusive control of their local cache.
   prior episode readable; the regression uses multi-byte text.
 - Scope: Station's headless transport and local Python journal. These checks do
   not prove all codecs safe or turn the local files into an adversarial sandbox.
+
+## Scratch browser host: controls retain identity across redraws
+
+Paper Circuit's first Undo handler refreshed the SVG then focused Restart.
+A keyboard user's next activation could therefore restart the game. The
+production input router now returns the invoked control's semantic selector,
+which the host focuses after redraw. Its DOM-stub regression checks Undo,
+Restart, tile selection and invalid input. This checks routing identity;
+actual browser focus/keyboard behavior remains a separate pending check.
+
+Static ES-module imports also execute before an enclosing startup `try` body.
+A failed engine/shim import could leave the preparation message indefinitely.
+The host now awaits dynamic imports inside the startup error boundary. This
+structurally includes dependency loading in error handling; actual browser
+network-failure injection has not been run.

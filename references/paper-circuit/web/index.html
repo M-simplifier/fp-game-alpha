@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Paper Circuit</title>
+<style>html{background:#e4eadd;color:#23372e;font-family:system-ui}body{margin:0;min-height:100vh;display:grid;place-items:center}main{width:min(96vw,520px);padding:18px 0}#game svg{display:block;width:100%;height:auto;filter:drop-shadow(0 15px 22px #20342520)}[role=button]{cursor:pointer;touch-action:manipulation}[role=button]:focus{outline:none;filter:drop-shadow(0 0 3px #156b79)}footer{font-size:12px;text-align:center;color:#627264;margin-top:12px}#status{padding:24px;text-align:center}</style></head>
+<body><main><div id="status" role="status">Preparing the Haskell puzzle…</div><div id="game"></div><footer>Pure Haskell rules and SVG · tiny shared core · no gameplay in JavaScript</footer></main>
+<script type="module">
+const host = document.querySelector('#game'), status = document.querySelector('#status');
+try {
+  const { loadGame } = await import('./engine.mjs');
+  const { applyControl } = await import('./controls.mjs');
+  const response = await fetch('./game.wasm');
+  if (!response.ok) throw new Error(`Download failed (${response.status})`);
+  const make = await loadGame(await response.arrayBuffer());
+  const game = make();
+  const paint = () => { host.innerHTML = game.svg(); };
+  paint(); status.hidden = true;
+  function act(target) {
+    try {
+      const focus = applyControl(target,game);
+      if (!focus) return;
+      paint(); host.querySelector(focus)?.focus();
+    } catch(error) { status.hidden=false; status.textContent='Could not apply input: '+error.message; }
+  }
+  host.addEventListener('click', event => act(event.target));
+  host.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); act(event.target); } });
+  addEventListener('pagehide', event => { if (!event.persisted) game.close(); });
+} catch(error) { status.hidden=false; status.textContent='Could not start: '+error.message; }
+</script></body></html>

@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {applyControl} from './controls.mjs';
+const calls=[];
+const game={rotate:n=>calls.push(['rotate',n]),restart:()=>calls.push(['restart']),undo:()=>calls.push(['undo'])};
+const target=(selector,value={})=>({closest:s=>s===selector?value:null});
+assert.equal(applyControl(target('[data-command=undo]'),game),'[data-command=undo]');
+assert.deepEqual(calls,[['undo']]);
+assert.equal(applyControl(target('[data-command=reset]'),game),'[data-command=reset]');
+assert.equal(applyControl(target('[data-cell]',{dataset:{cell:'7'}}),game),'[data-cell="7"]');
+assert.equal(applyControl(target('[data-cell]',{dataset:{cell:'4294967296'}}),game),null);
+assert.equal(applyControl(target('nothing'),game),null);
+assert.deepEqual(calls,[['undo'],['restart'],['rotate',7]]);
+console.log('PASS: production input handler preserves control identity and rejects invalid cells (DOM stub, not browser keyboard QA)');

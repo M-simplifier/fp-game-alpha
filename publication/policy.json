@@ -180,6 +180,16 @@
       "prefix": "docs/practice/",
       "license": "docs/practice/LICENSE.upstream",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "references/paper-circuit/",
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/paper-circuit/web/vendor-shim/",
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental"
     }
   ]
 }

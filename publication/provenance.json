@@ -1080,5 +1080,138 @@
     "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
     "source_sha256_lf": "00707c148f86d603e0e7218a598c9ecdeb4cedb8795e37b48f7f8d88773325e9",
     "public_adaptation": "unchanged historical README bytes stored as plain-text evidence; old relative links are not current navigation"
+  },
+  "references/paper-circuit/web/vendor-shim/package.json": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "4025e157abfadd44037158899001a4ea0407651c2ee9c8a9f51d5c9d0ecf613c",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/LICENSE-MIT": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/LICENSE-APACHE": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/wasi_defs.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "0db0f42ba330749a7b05095ea1fd0ff63fd2b30e84cead30fe4c28359d15f194",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/index.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "7e2fd52ee3f728bb0b1d6e449724e0f13e3d586bb25bde6e02a66366175b5605",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/debug.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "a91848ee180529e2a60c05dfb9584cad19cd4e1c6f391fdb76a938bcae4c0328",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/fs_opfs.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "4b96aaeb5ac5986cf802cbf22b975c656682d22a38248160c96fc2ded5644869",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/fs_mem.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "85dbc9e0ee784d9ff8b55452644e00bf7058e32355aab974f8b71d7d85772324",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/wasi.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "168eb977a826f75ab0c39f9322f78cc58dbd5b233019ad1d6a7e940af8a7c4aa",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/fd.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "9e82e1fc1bfd3e3573f64349dc42b4b624ed61d24e5c553f2bb4d041444f166c",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/web/vendor-shim/dist/strace.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "ece435d3784d928d02bff4d015b7cb686f8c06de8536ff9f8ebc38a8f403a3be",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/paper-circuit/vendor/game-arena/game-arena.cabal": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-arena/game-arena.cabal"
+  },
+  "references/paper-circuit/vendor/game-arena/LICENSE": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-arena/LICENSE"
+  },
+  "references/paper-circuit/vendor/game-transition/LICENSE": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-transition/LICENSE"
+  },
+  "references/paper-circuit/vendor/game-transition/game-transition.cabal": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-transition/game-transition.cabal"
+  },
+  "references/paper-circuit/vendor/game-arena/test/Laws.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-arena/test/Laws.hs"
+  },
+  "references/paper-circuit/vendor/game-arena/src/Game/Arena.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-arena/src/Game/Arena.hs"
+  },
+  "references/paper-circuit/vendor/game-arena/src/Game/Arena/Finite.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-arena/src/Game/Arena/Finite.hs"
+  },
+  "references/paper-circuit/vendor/game-transition/test/Laws.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-transition/test/Laws.hs"
+  },
+  "references/paper-circuit/vendor/game-transition/src/Game/Transition.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+    "source_path": "libraries/game-transition/src/Game/Transition.hs"
   }
 }

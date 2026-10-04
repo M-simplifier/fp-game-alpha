@@ -32,6 +32,7 @@ jobs:
       - run: python tools/test_river_api.py
       - run: python tools/test_station_api.py
       - run: python tools/test_play.py
+      - run: node references/paper-circuit/web/controls.test.mjs
       - run: python research/quantity/check.py check
       - run: python tools/test_workspace.py
 

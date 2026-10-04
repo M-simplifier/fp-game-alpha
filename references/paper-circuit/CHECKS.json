@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "activity": "scratch game authored from a brief, then extended with once-only Undo",
+  "core_reuse": "Game.Transition and Game.Arena only; no Afterlight game source",
+  "native": {
+    "ghc": "9.6.6",
+    "result": "passed",
+    "checks": [
+      "constructive win",
+      "invalid Cell values",
+      "budget/end/reset",
+      "one-use Undo",
+      "304 direct/Arena comparisons"
+    ]
+  },
+  "wasm": {
+    "ghc": "9.14.1.20260330",
+    "result": "built and executed via browser WASI shim under Node24.19.0",
+    "sha256": "a87e2260f1b94ed55648318164050c4a41a0322dcbee07479c90eea3ce842d48",
+    "checks": [
+      "independent sessions",
+      "invalid input",
+      "win/loss/reset/undo",
+      "SVG output",
+      "200 allocation/render/free cycles"
+    ]
+  },
+  "controls": {
+    "result": "production applyControl with DOM stubs passed",
+    "scope": "routing/focus target identity only, not real browser focus"
+  },
+  "visual": "Haskell SVG rasterized and inspected; not a browser screenshot",
+  "browser_ui": "not_run",
+  "platform_claim": "not a general browser/mobile/graphical DX acceptance",
+  "source_sha256": {
+    "app/Browser.hs": "a31b2f1708c9ccad9f86d113c5ee6013f1290c2b812fc5aee9b0d04dee3a26a6",
+    "src/Paper/Game.hs": "2954c13c3ebec8ae1dfd7d499c0a5e0ebab47ac5ffddec7544792ca7a15d4289",
+    "src/Paper/View.hs": "bb0cc466c51dd036e111f92b19c391792e65179eabb2a74bd513499bece976fd",
+    "test/Laws.hs": "cc944ceec0bf282886d061095765900d5616aba9548e4139df6829562b897eb5",
+    "web/controls.mjs": "bef50f52d77eb0f03291409cd999e2d3dfeba36c9292c9fa1e77daa86d2b4bab",
+    "web/controls.test.mjs": "8ce981157ecfe7a3c838ecd34f4f18c4147dde45676fb105ad40733a6f269149",
+    "web/engine.mjs": "1c283e751b8517504364cca4e038b5f3f04e839a88fcfa78a62f051df0ccb9c8",
+    "web/index.html": "657dcfe0cae7c0dbb5e99cc2202c00f2a2486b93a48c3cff423cfa1b25859fd9",
+    "web/smoke.mjs": "5db8dfa9c5ed816d921194af21c700da92a823e1aa9c6b697ff72b82c4fb8830"
+  }
+}

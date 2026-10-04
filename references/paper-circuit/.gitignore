@@ -1,0 +1,6 @@
+.build/
+*.o
+*.hi
+*_stub.h
+web/game.wasm
+__pycache__/
