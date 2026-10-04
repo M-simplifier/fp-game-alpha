@@ -1,0 +1,10 @@
+.build/
+.runtime/
+dist-newstyle/
+__pycache__/
+*.hi
+*.o
+*.exe
+*.vsix
+cabal.project.local
+generated-games/

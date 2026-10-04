@@ -1,0 +1,28 @@
+name: alpha-checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  source-and-kernel:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d # v2
+        with:
+          ghc-version: '9.6.7'
+          cabal-version: '3.12.1.0'
+          cabal-update: false
+      - run: python tools/publication.py check
+      - run: python tools/docs_lint.py
+      - run: cabal build all --offline
+      - run: cabal test all --offline --test-show-details=direct

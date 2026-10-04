@@ -1,0 +1,38 @@
+{
+  "libraries/game-transition/LICENSE": {
+    "origin": "gallery/functional-arcade/vendor/game-transition-0.1.0.0/LICENSE",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "kind": "selected-author-supplied-technical-source"
+  },
+  "libraries/game-arena/LICENSE": {
+    "origin": "gallery/functional-arcade/vendor/game-arena/LICENSE",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "kind": "selected-author-supplied-technical-source"
+  },
+  "libraries/game-arena/test/Laws.hs": {
+    "origin": "gallery/functional-arcade/vendor/game-arena/test/Laws.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+    "kind": "selected-author-supplied-technical-source"
+  },
+  "libraries/game-transition/src/Game/Transition.hs": {
+    "origin": "gallery/functional-arcade/vendor/game-transition-0.1.0.0/src/Game/Transition.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "4fd1fd5c985f781529e28dba350f99f565ff10a786e6078ebbe0700e460e6475",
+    "kind": "selected-author-supplied-technical-source"
+  },
+  "libraries/game-arena/src/Game/Arena.hs": {
+    "origin": "gallery/functional-arcade/vendor/game-arena/src/Game/Arena.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "a5873a9b59b468da2c7b88ab90ca00d78aa781e11ba1c0a3fc7b5143d5c4acf6",
+    "kind": "selected-author-supplied-technical-source"
+  },
+  "libraries/game-arena/src/Game/Arena/Finite.hs": {
+    "origin": "gallery/functional-arcade/vendor/game-arena/src/Game/Arena/Finite.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "d576d2048609a45ef09215aaf7f2d5373046fd5513d04e32826ca6dcd4898a4b",
+    "kind": "selected-author-supplied-technical-source"
+  }
+}

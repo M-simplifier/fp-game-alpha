@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "max_source_bytes": 524288,
+  "public_repository_links": ["M-simplifier/fp-game-alpha"],
+  "selections": [
+    {"prefix": "LICENSE", "license": "LICENSE", "maturity": "completed"},
+    {"prefix": ".git", "license": "LICENSE", "maturity": "completed"},
+    {"prefix": "README.md", "license": "LICENSE", "maturity": "experimental"},
+    {"prefix": "PUBLICATION-MANIFEST", "license": "LICENSE", "maturity": "completed"},
+    {"prefix": "cabal.project", "license": "LICENSE", "maturity": "experimental"},
+    {"prefix": "docs/", "license": "LICENSE", "maturity": "experimental"},
+    {"prefix": "publication/", "license": "LICENSE", "maturity": "completed"},
+    {"prefix": "tools/", "license": "LICENSE", "maturity": "experimental"},
+    {"prefix": "libraries/game-transition/", "license": "libraries/game-transition/LICENSE", "maturity": "experimental"},
+    {"prefix": "libraries/game-arena/", "license": "libraries/game-arena/LICENSE", "maturity": "experimental"}
+  ]
+}

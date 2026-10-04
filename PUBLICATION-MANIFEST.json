@@ -1,0 +1,300 @@
+{
+  "schema": 1,
+  "digest_format": "SHA256 of UTF-8 source with LF newlines",
+  "self_hash": "manifest excluded to avoid recursive hash",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256_lf": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256_lf": "7ef58f8a0bee4e524f29e977afa13b5ae5bd5da5d63e4f3250d505298c605b63",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": ".gitignore",
+      "sha256_lf": "e56d5358ef6ccec6256811da62a7e20a6325ddbc56fc805434ce0c3708eb0d21",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "LICENSE",
+      "sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "PUBLICATION-MANIFEST.json",
+      "sha256_lf": null,
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "PUBLICATION-MANIFEST.md",
+      "sha256_lf": "97be0cd296692e1a808ca71cf8a4709d5b7d4803164637ce58efdb297e58128f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "README.md",
+      "sha256_lf": "2e99d96a1a49ca9c262a39f97f10a190fdaf519fce797e886f0c624e620acd6c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "cabal.project",
+      "sha256_lf": "239fcbd8fc400f2f0214e677a116b557f97888045322dac1c0a74e480e3023ab",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/acceptance.md",
+      "sha256_lf": "1e58989a4679ed168a067f649ede676122c6931e576dae805ad640d63ea4941b",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256_lf": "73315b669752cb2261e0a263dc97f8286ad3e1049c2dd8cd9025fa115dc00a17",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/roadmap.md",
+      "sha256_lf": "6503492e4c5a2bf78e849f26873f172a9ecc9f250e8faaa150d76379f4826c19",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/verification.md",
+      "sha256_lf": "8437e0f223fcb9716bf071ff85a6daf56f067a194fa3b30545600d6335c6f338",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-arena/LICENSE",
+      "sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "origin": {
+        "origin": "gallery/functional-arcade/vendor/game-arena/LICENSE",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+        "kind": "selected-author-supplied-technical-source"
+      },
+      "license": "libraries/game-arena/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-arena/game-arena.cabal",
+      "sha256_lf": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "libraries/game-arena/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-arena/src/Game/Arena.hs",
+      "sha256_lf": "8433e468e45f9602da1d83a676ead73bc0da8c17f0f2ef6c0affb8cdaedebc18",
+      "origin": {
+        "origin": "gallery/functional-arcade/vendor/game-arena/src/Game/Arena.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "a5873a9b59b468da2c7b88ab90ca00d78aa781e11ba1c0a3fc7b5143d5c4acf6",
+        "kind": "selected-author-supplied-technical-source"
+      },
+      "license": "libraries/game-arena/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-arena/src/Game/Arena/Finite.hs",
+      "sha256_lf": "f4fb8aa96d2b3f0bf626550bec1cf36ecce1caefaa3a47aa6f82caf6743f7c78",
+      "origin": {
+        "origin": "gallery/functional-arcade/vendor/game-arena/src/Game/Arena/Finite.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "d576d2048609a45ef09215aaf7f2d5373046fd5513d04e32826ca6dcd4898a4b",
+        "kind": "selected-author-supplied-technical-source"
+      },
+      "license": "libraries/game-arena/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-arena/test/Laws.hs",
+      "sha256_lf": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+      "origin": {
+        "origin": "gallery/functional-arcade/vendor/game-arena/test/Laws.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+        "kind": "selected-author-supplied-technical-source"
+      },
+      "license": "libraries/game-arena/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-transition/LICENSE",
+      "sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "origin": {
+        "origin": "gallery/functional-arcade/vendor/game-transition-0.1.0.0/LICENSE",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+        "kind": "selected-author-supplied-technical-source"
+      },
+      "license": "libraries/game-transition/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-transition/game-transition.cabal",
+      "sha256_lf": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "libraries/game-transition/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-transition/src/Game/Transition.hs",
+      "sha256_lf": "f4ca9908eedd9c7bc6c33105f7136af7e03d326635983cac2106c542067d9202",
+      "origin": {
+        "origin": "gallery/functional-arcade/vendor/game-transition-0.1.0.0/src/Game/Transition.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "4fd1fd5c985f781529e28dba350f99f565ff10a786e6078ebbe0700e460e6475",
+        "kind": "selected-author-supplied-technical-source"
+      },
+      "license": "libraries/game-transition/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "libraries/game-transition/test/Laws.hs",
+      "sha256_lf": "1f28e487e74b663fcbdd5be07dcf63d61a3b099fd83a693315f47fedb29d85fa",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "libraries/game-transition/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "publication/policy.json",
+      "sha256_lf": "5cbdb39a0e1fedf0c3d784da9ebcf74c85847ab4e1de85279e4289c37c71aa14",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "publication/provenance.json",
+      "sha256_lf": "5cb034d3e3af5a9aa0841513a0ef4d109ae2a89d5c43fe78826688c58814d8a2",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/docs_lint.py",
+      "sha256_lf": "ec2de90da8ab7a5e92165624f7de169c8a57e39fa463b1552f09c66c3f8d389f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/publication.py",
+      "sha256_lf": "695794fcc0fa86c203bc343b029f45cc145bb8eef530c3177922f2cdcc1e6dc6",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    }
+  ]
+}

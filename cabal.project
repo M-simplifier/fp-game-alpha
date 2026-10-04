@@ -1,0 +1,7 @@
+packages:
+  libraries/game-transition
+  libraries/game-arena
+
+-- The first-user kernel needs only packages shipped with GHC.
+active-repositories: :none
+tests: True
