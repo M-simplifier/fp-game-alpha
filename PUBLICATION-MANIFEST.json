@@ -5,7 +5,18 @@
   "files": [
     {
       "path": ".agents/skills/new-game/SKILL.md",
-      "sha256_lf": "2857000d13733e3065826edb4f612e66d114561bf1d72ae2853c5c586844ce58",
+      "sha256_lf": "d385e834ea23e9606b24177eeca5fd0dd45f5d4a4048d633e3f1d911d30c9a33",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": ".agents/skills/play-game/SKILL.md",
+      "sha256_lf": "331fa0af5a2c4cf9eb75e8e96551bcf4645f3394986210db45698fe1006e15c7",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -27,7 +38,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "0fd6374abfe712a3f0095f80bdece55b9a256767eb861adac2a775d690034883",
+      "sha256_lf": "0109c73cadb9cb3b07944cdbc98e005e45e0345848441dbdf6aec429237a0d8d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -83,7 +94,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "4346c73e955058ba64ea494c79fac4c487c87e5caa86940340ce29aaf99b276d",
+      "sha256_lf": "440049f8e46a851b335845e502f02c90c9fa1bc84457f8d6b0edf89a3679aa4c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -196,7 +207,7 @@
     },
     {
       "path": "docs/failure-prevention.md",
-      "sha256_lf": "16f885c86c1ebf78b03c5f80810819e416964561d90010e9285accf94fad5120",
+      "sha256_lf": "748aafee277a2fbcda71ec8ad4de844c131cfe128f9f2392b44166bc233b09d6",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -227,6 +238,17 @@
         "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
         "origin": "docs/reference/readability.md",
         "source_sha256_lf": "2ece4af9a50732ed2bef90520645804795c2d94061e85f6bf3e17b1f18df848b"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/headless-play.md",
+      "sha256_lf": "ea296fdfce6280c59eecb400080ca5224f32894290b72a657bdd07bb52a52d24",
+      "origin": {
+        "kind": "authored-for-public-alpha"
       },
       "license": "LICENSE",
       "maturity": "experimental",
@@ -523,7 +545,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "11060127d6b7b1841407fbd080d29e34d138e06377019d95bde24b7483c93867",
+      "sha256_lf": "984590cc5703b4ae705fddf11cab022a286e8b4b5369d345afdb73a2051b192c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2675,6 +2697,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "references/station/app/HeadlessMain.hs",
+      "sha256_lf": "53dca9c7f7d9526651e7f8a33c38f1fe5375d00b90981c39aff5865b5c2f0fe7",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "references/station/src/Station/Adapter.hs",
       "sha256_lf": "2e5042ba8998b9cb89b3c46cf7fc5fecadf06357935aa617b0da484c74c8f173",
       "origin": {
@@ -2701,7 +2734,7 @@
     },
     {
       "path": "references/station/station.cabal",
-      "sha256_lf": "9fcbaf478eec9f63a40845526f44ff7c62c5acfbc5351a2947d57ec992157caa",
+      "sha256_lf": "37791ae501e43f763c4d5f8abe2c0dd8d0861f26d0856602640c6cd963d03b9d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2867,6 +2900,39 @@
         "kind": "authored-for-public-alpha"
       },
       "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/headless/README.md",
+      "sha256_lf": "1551fd7b9fa4aa8bc4594f10e05d3dda41321e61e4eb22d97f9e31a75a9b20fd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/headless/station-original-source-informed.json",
+      "sha256_lf": "fd26461a749e7d1464b851e5bf1b14cd025bb048fe457fba38435a82935fae52",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/headless/station-source-informed.json",
+      "sha256_lf": "0b49f89be080f32b6b94f0c352d5e6b6c856ea1b5aaf6cf320a3afe030d3bb2c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
       "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"
@@ -3340,6 +3406,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "tools/play.py",
+      "sha256_lf": "884218b518814b5774a145eff902e3677059d578574ba30a876e1b3d85f6fb4b",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "tools/publication.py",
       "sha256_lf": "49d83dfa8687ca04d7849ef7081dcaf0812ecbfddac2de356398a287b3a3f77c",
       "origin": {
@@ -3375,6 +3452,17 @@
     {
       "path": "tools/test_lantern_api.py",
       "sha256_lf": "1fb80da21355742b4fd5a0d995012ff0b73b15da6b592caa32ec21390fe50c71",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/test_play.py",
+      "sha256_lf": "5d110d382759d4fa6dd9ab8eaafe5a9755551318c50c2d0063d04335cf8cbe4b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

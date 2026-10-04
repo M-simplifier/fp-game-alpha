@@ -129,3 +129,17 @@ a writable extraction cache. A passing archive digest alone does not attest
 installed/extracted bytes. This mechanism is not protection against another
 process mutating the files concurrently after verification; builds assume
 exclusive control of their local cache.
+
+## Headless transport: preserve turns and readable journals
+
+- Failure class: decoding untrusted decimal turns directly into bounded `Int`
+  can wrap an enormous number into the current turn, accepting a stale/invalid
+  transport request. Decode to `Integer`, compare to the exact visible turn,
+  and never narrow the request. Positive and negative wrap aliases are tested
+  in `tools/test_play.py` against the actual Haskell executable.
+- Failure class: a character-count limit permits multi-byte reasons whose saved
+  journal exceeds its own read-size limit. Check the serialized UTF-8 byte count
+  before replacing the previous journal. An oversized write must leave the
+  prior episode readable; the regression uses multi-byte text.
+- Scope: Station's headless transport and local Python journal. These checks do
+  not prove all codecs safe or turn the local files into an adversarial sandbox.

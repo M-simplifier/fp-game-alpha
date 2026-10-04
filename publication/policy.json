@@ -23,10 +23,13 @@
     "raysan5/raylib",
     "stevana/quickcheck-state-machine",
     "tlaplus/tlaplus",
-    "ucsd-progsys/liquidhaskell"
+    "ucsd-progsys/liquidhaskell",
+    "google-deepmind/open_spiel",
+    "microsoft/TextWorld"
   ],
   "authored_public_skills": [
-    ".agents/skills/new-game/SKILL.md"
+    ".agents/skills/new-game/SKILL.md",
+    ".agents/skills/play-game/SKILL.md"
   ],
   "selections": [
     {
@@ -142,6 +145,16 @@
     {
       "prefix": "references/afterlight/web/patches/LICENSE-h-raylib.txt",
       "license": "references/afterlight/licenses/h-raylib-LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": ".agents/skills/play-game/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "research/headless/",
+      "license": "LICENSE",
       "maturity": "experimental"
     }
   ]
