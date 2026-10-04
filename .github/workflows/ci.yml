@@ -29,4 +29,5 @@ jobs:
       - run: python tools/fp_game.py build
       - run: python tools/fp_game.py test
       - run: python tools/test_lantern_api.py
+      - run: python research/quantity/check.py check
       - run: python tools/test_workspace.py

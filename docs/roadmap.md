@@ -12,7 +12,7 @@
 | Red Dune 0.6 | Locally acquired; selection pending | Official Library transfer, size/SHA and metadata verified; source/license review and local validation still required |
 | Red Dune 0.7 | Excluded | Work in progress; do not mix into the stable 0.6 publication |
 | SMT/TLC/SBV and platform research | Deferred experimental material | Select small reproducible experiments after first-user acceptance; no universal guarantee inferred |
-| LiquidHaskell / Qty | Authorized; locally acquired | Source identity and portability review; retain negative cases and selected-binder proof scope; pinned LH environment not yet reproduced |
+| LiquidHaskell / Qty | Selected source-only quantity lab; stronger proof blocked on pinned checker setup | Frozen original/annotation sources, GHC negative examples and full finite oracle route; historical selected-binder SAFE25 and mutants remain separate, pinned LH environment not yet reproduced |
 
 The supplied Red Dune 0.6 report includes the author's suite, old 960-profile
 goldens, 15 mutants, HTTP and a short S01 new-food trace. Independent final
@@ -21,7 +21,8 @@ unfinished. None of these historical claims constitutes public-clone acceptance.
 
 The first milestone is an independent terminal game workspace, actual key
 and stamina development, relocation, and ordinary Cabal acceptance. Lantern
-is the first additional reference. The next milestones add Garden, Tapline,
-Station and River, then optional graphical/Web profiles. Toolchains,
+is the first additional reference; Tapline follows as a pure-core example.
+The next milestones add Garden, Station and River, then optional graphical/Web
+profiles. Toolchains,
 large binaries and repeated raw logs belong in reproducible downloads or
 appropriate release artifacts, not in the source repository.
