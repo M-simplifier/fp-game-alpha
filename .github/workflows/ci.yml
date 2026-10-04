@@ -6,6 +6,17 @@ on:
 permissions:
   contents: read
 jobs:
+  public-page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - run: python3 tools/check_site.py
+      - run: node --check site/site.js
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site
+
   source-and-kernel:
     strategy:
       fail-fast: false
@@ -28,6 +39,10 @@ jobs:
       - run: python tools/test_formatter.py
       - run: python tools/formatter.py install
       - run: python tools/formatter.py check
+      - if: runner.os == 'Linux'
+        run: python references/afterlight/scripts/check-cpp-format.py
+      - if: runner.os == 'Linux'
+        run: python references/afterlight/scripts/test-cpp-format.py
       - run: python tools/test_formatter.py --integration
       - run: python tools/fp_game.py doctor
       - run: python tools/fp_game.py build
@@ -79,3 +94,37 @@ jobs:
         run: npm run build
       - name: Test syntax, trusted inference, and cache lifecycle
         run: node --test --test-concurrency=1 dist/tests/core.test.cjs dist/tests/audit.test.cjs dist/tests/reader.test.cjs dist/tests/native.test.cjs
+
+  deploy-page:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [public-page, source-and-kernel, afterlight-pure-core, haskell-design-linux]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Only publish the current main revision
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          if [ "$current" = "$GITHUB_SHA" ]; then
+            echo 'publish=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'A newer main revision exists; skipping this older deployment.'
+            echo 'publish=false' >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.current.outputs.publish == 'true'
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - if: steps.current.outputs.publish == 'true'
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

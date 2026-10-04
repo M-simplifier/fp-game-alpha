@@ -1,5 +1,8 @@
 # fp-game-alpha
 
+[日本語の紹介ページ — 壊れないゲーム開発](https://m-simplifier.github.io/fp-game-alpha/)
+
+
 A Haskell foundation for AI-driven, pure functional game development. Clone it,
 invoke `$new-game`, and give the AI your game brief and platform requirements.
 The intended workflow designs a new game around the small shared core, prepares

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>壊れないゲーム開発 — fp-game-alpha</title>
+  <meta name="description" content="AIに、間違えづらく、効率よく作るための思考の枠組みを。守るべきゲームのルールをHaskellの型と純粋関数で表し、変更のたびに確かめる。開発基盤・実装例・制作スキルを公開しています。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:title" content="壊れないゲーム開発 — fp-game-alpha">
+  <meta property="og:description" content="AIに、間違えづらい思考のフレームワークを。型・純粋関数・検証を、自分のゲームづくりへ。">
+  <meta property="og:url" content="https://m-simplifier.github.io/fp-game-alpha/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://m-simplifier.github.io/fp-game-alpha/">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">本文へ移動</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="fp-game-alpha 先頭へ"><span class="brand-mark" aria-hidden="true">↦</span> fp-game-alpha <span class="alpha">α</span></a>
+    <nav aria-label="主な内容">
+      <a href="#practice">何を守るか</a><a href="#thinking">AIの設計</a><a href="#examples">実装例</a>
+      <a class="nav-start" href="#start">制作を始める <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="hero section-wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> 純粋関数型のゲーム開発 / 公開α</p>
+        <h1 id="hero-title">壊れない<br>ゲーム開発<span class="period">。</span></h1>
+        <p class="hero-sub">AIに、間違えづらく、<br>効率よく作るための<span class="phrase">思考の枠組みを。</span></p>
+        <p class="hero-description">守るべきゲームのルールを、型と純粋関数で表す。変更を重ねるたびに、そのルールを確かめる。設計から実装、検証までの進め方を、あなたのAIへ渡します。</p>
+        <div class="hero-actions"><a class="button primary" href="#start">自分のAIに企画を渡す <span aria-hidden="true">↗</span></a><a class="text-link" href="#practice">何を防げるかを見る <span aria-hidden="true">↓</span></a></div>
+        <p class="hero-note">Haskellの経験は問いません。作りたいゲームから始めます。</p>
+      </div>
+      <figure class="hero-figure">
+        <img src="https://m-simplifier.github.io/garden-of-afterlight/guide/assets/night.png" width="1600" height="900" alt="実装例『余光の庭』。夜空に浮かぶ島と光る庭を、Haskellで描画したゲーム画面。" fetchpriority="high">
+        <div class="figure-overlay"><span>Garden of Afterlight</span><strong>ルールを純粋関数で書いた、<br>実際のゲーム。</strong><a href="https://m-simplifier.github.io/garden-of-afterlight/guide/">画面とコードから設計を読む <span aria-hidden="true">↗</span></a></div>
+        <figcaption>実装例：余光の庭 / 公開済みゲームの画面</figcaption>
+      </figure>
+    </section>
+
+    <div class="project-strip section-wrap"><p><strong>fp-game-alpha</strong> は、Haskellの開発基盤、実装例、AI向けの制作スキルを公開するプロジェクトです。</p><a href="https://github.com/M-simplifier/fp-game-alpha">GitHubで読む <span aria-hidden="true">↗</span></a></div>
+
+    <section class="section-wrap section-space" id="practice" aria-labelledby="practice-title">
+      <div class="section-heading"><p class="eyebrow">01 / 守るルールを、コードにする</p><h2 id="practice-title">変更を重ねても、<br>守りたいルールがある。</h2><p>資源を使えば、そのぶんだけ減る。古い操作で、次の手番を進めない。こうした条件を、AIへの注意書きだけで終わらせず、型や状態の更新方法、検証に組み込みます。</p></div>
+      <div class="evidence-layout">
+        <div class="evidence-copy"><span class="small-tag">実例 / Station Dispatch</span><h3>同じ操作がもう一度届いても、<br>次の依頼には使わせない。</h3><p>配達を選ぶと、体力が減り、次の依頼へ進みます。前の手番を指す操作が再び届いた場合は、受け付けずに現在の状態を保ちます。</p><p>この記録では、入力を受け付ける入口で手番を照合しています。ゲームのルールを更新するstep関数も手番を検査し、状態を直接書き換える経路は外へ公開しません。</p><a class="text-link" href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/app/HeadlessMain.hs">入力を受け付けるコードを読む <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/src/Station/Domain.hs">型とstep関数を読む <span aria-hidden="true">↗</span></a><p class="example-scope">一つのゲーム内の手番を扱う例です。別セッション間の操作や保存の競合は、別に設計・検証します。</p></div>
+        <div class="trace-panel" aria-label="Stationの実行記録">
+          <div class="trace-header"><span>Stationの実行記録</span><span id="trace-count">1 / 3</span></div>
+          <div class="trace-body"><p class="trace-label" id="trace-label">最初の状態</p><h4 id="trace-title">1件目の依頼を待っています</h4><dl class="stats"><div><dt>体力</dt><dd id="trace-energy">8</dd></div><div><dt>現在の手番</dt><dd id="trace-turn">1</dd></div><div><dt>届いた気持ち</dt><dd id="trace-delivered">0</dd></div></dl><div class="trace-command"><span>入力</span><code id="trace-command">起動</code></div><p id="trace-description" class="trace-description" aria-live="polite">「各駅便で届ける」という、1件目への操作を送ります。</p><div class="trace-buttons"><button id="trace-next" class="button primary" type="button">1件目を届ける <span aria-hidden="true">→</span></button><button id="trace-reset" class="reset-button" type="button">最初から</button></div></div>
+          <p class="trace-foot">Haskellの実行結果を順に表示しています。<a href="evidence/station-trace.json">元の応答と参照版</a></p>
+        </div>
+      </div>
+      <div class="guard-grid">
+        <article><span class="guard-number">A</span><h3>取り違えを、型で拒否する</h3><p>水の数量と鉱石の数量を、別の型で表す。両者を混ぜて計算するコードは、コンパイラが拒否します。</p><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/research/quantity">数量の型と拒否例を読む <span aria-hidden="true">↗</span></a></article>
+        <article><span class="guard-number">B</span><h3>失敗時の状態を、勝手に進めない</h3><p>資源が足りない操作は、理由を返す。成功した場合だけ次の状態を受け取るので、処理の途中まで資源が減る形を避けられます。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/src/Station/Adapter.hs">拒否と状態の扱いを読む <span aria-hidden="true">↗</span></a></article>
+        <article><span class="guard-number">C</span><h3>変えた結果を、繰り返し確かめる</h3><p>画面を開かずにルールを動かし、操作の履歴を再現する。正常な操作に加え、失敗すべき操作や変更前後の違いを調べます。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/headless-play.md">実行と再現の方法を読む <span aria-hidden="true">↗</span></a></article>
+      </div>
+    </section>
+
+    <section class="thinking section-space" id="thinking" aria-labelledby="thinking-title"><div class="section-wrap">
+      <div class="section-heading"><p class="eyebrow">02 / AIが設計するときの考え方</p><h2 id="thinking-title">AIに渡すのは、<br>正しさを組み立てる手順。</h2><p>制作スキルは、企画を読み、守る条件を決め、コードと検証へ落とす進め方をAIに伝えます。判断の根拠を毎回探し直す手間や、誤った設計による手戻りを減らすことを目指しています。</p></div>
+      <ol class="thinking-steps"><li><span>01</span><h3>何を守るか、企画から決める</h3><p>プレイヤーは何を選び、何が変わるのか。資源の上限、手番、セーブの整合性など、ゲームで守る条件を明確にします。</p></li><li><span>02</span><h3>型と関数で、ルールを表す</h3><p>状態、操作、起きた出来事を区別し、ゲームのルールを純粋関数で書きます。描画や音、保存との接続は、その外側で扱います。</p></li><li><span>03</span><h3>動かして、壊れ方も調べる</h3><p>最初の一場面を実装して遊び、変更します。型の検査、テスト、操作の再現、必要に応じた形式検証で、守る条件を確かめます。</p></li></ol>
+      <article class="learning-example" aria-labelledby="learning-title">
+        <div><p class="eyebrow">実例 / Lanternの公開API</p><h3 id="learning-title">見つけた失敗を、<br>次の設計に生かす。</h3><p>Lanternでは、外部のコードから盤面の検査を迂回して状態を書き換えられる抜け道を修正しました。読むための関数と、変更できる内部のフィールドを分け、その違いをコンパイラで検査しています。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/failure-prevention.md">発見・修正・規約への反映を読む <span aria-hidden="true">↗</span></a></div>
+        <div class="code-evidence"><p>外部コードによる、禁止したい書き換え</p><pre><code>escape board =
+  (initial board) {positions = []}</code></pre><p class="compile-result"><span aria-hidden="true">×</span> コンパイラが拒否</p><p>正しい読み取りはコンパイルでき、書き換えは意図した理由で失敗することを検査します。この確認方法も、AI向けの設計・レビュー規約に含めています。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_lantern_api.py">実際のコンパイル検査を読む <span aria-hidden="true">↗</span></a></div>
+      </article>
+      <div class="thinking-bottom"><p>繰り返せる作業はツールへ。何を作り、どの条件を守るかという判断には、企画に合った知識と実装例を使います。</p><a class="text-link" href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/new-game.md">AIに渡す制作手順を読む <span aria-hidden="true">↗</span></a></div>
+    </div></section>
+
+    <section class="section-wrap section-space" id="examples" aria-labelledby="examples-title"><div class="section-heading"><p class="eyebrow">03 / ゲームから確かめる</p><h2 id="examples-title">実装と、その考え方を読む。</h2><p>異なるゲームを作りながら、設計と共通のAPIを磨いています。作りたい企画に合わせて、必要な実装を参照できます。</p></div>
+      <div class="example-list"><a class="example-row" href="https://m-simplifier.github.io/garden-of-afterlight/guide/"><span class="example-kind">3D / Haskell・raylib</span><div><h3>Garden of Afterlight <span>余光の庭</span></h3><p>採掘、贈答、浮島への飛行。画面の動きから、純粋なルールと描画・音のつなぎ方を読みます。</p></div><span class="example-arrow" aria-hidden="true">↗</span></a><a class="example-row" href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/paper-circuit"><span class="example-kind">2D / Haskell・SVG</span><div><h3>Paper Circuit</h3><p>パイプを回し、庭へ水を届けるパズル。独自の企画から作り、既存コードへ「一度だけ戻す」操作を加えた例です。</p><span class="example-scope">ブラウザ向けソース。実ブラウザの操作確認は未完了。</span></div><span class="example-arrow" aria-hidden="true">↗</span></a><a class="example-row" href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/station"><span class="example-kind">意思決定 / Haskell</span><div><h3>Station Dispatch</h3><p>限られた体力と速達札で、6件の依頼を配達。手番、資源、拒否される操作を、小さいルールから追えます。</p></div><span class="example-arrow" aria-hidden="true">↗</span></a></div>
+      <p class="research-direction">目指すのは、純粋関数型ゲームエンジン。研究を続けながら、いま制作に使える基盤と知見をαとして公開しています。<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/purpose.md">研究の目的を読む</a></p>
+    </section>
+
+    <section class="start section-space" id="start" aria-labelledby="start-title"><div class="section-wrap start-grid"><div class="start-copy"><p class="eyebrow">04 / 自分のゲームを始める</p><h2 id="start-title">作りたいゲームを、<br>あなたのAIへ。</h2><p>企画と制作手順をコピーして、ファイル編集とコマンド実行ができるAIへ渡してください。AIが公開資料を読み、環境の準備と最初の一場面の実装を進めます。</p><p>Haskellの経験は問いません。必要な環境や、まだ決まっていない企画の部分は、AIと確認できます。</p><p class="start-scope">現在は公開αです。任意の企画から作る経路は実験的で、遊ぶ環境に応じた準備と動作確認が必要です。<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/platforms.md">対象ごとの確認状況</a></p><a class="text-link" href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/new-game.md">詳しい制作の始め方 <span aria-hidden="true">↗</span></a></div>
+      <form id="brief-form" class="brief-form"><label for="game-brief">どんなゲームを作りたいですか？</label><textarea id="game-brief" rows="5" placeholder="例：限られた水を配って、畑を育てるパズル。配る順番によって収穫が変わる。" required></textarea><label for="game-target">遊ぶ環境 <span class="optional">任意</span></label><input id="game-target" placeholder="例：パソコンのブラウザ。相談して決めてもかまいません。"><button id="copy-brief" class="button primary" type="submit" disabled>企画と制作手順をコピー <span aria-hidden="true">↗</span></button><p id="copy-status" class="copy-status" aria-live="polite">コピーした内容を、AIとの会話に貼り付けてください。</p><details id="prompt-details"><summary>AIへ渡す内容を見る</summary><label class="visually-hidden" for="ai-prompt">AIへ渡す制作指示</label><textarea id="ai-prompt" rows="14" readonly></textarea></details><noscript><p>企画と次のリンクをAIへ渡し、READMEとnew-gameスキルを読んで制作を進めるよう依頼してください。</p><p>https://github.com/M-simplifier/fp-game-alpha</p></noscript></form>
+    </div></section>
+
+    <section class="section-wrap section-space questions" aria-labelledby="questions-title"><div><p class="eyebrow">使う前に</p><h2 id="questions-title">いま使えるものと、<br>確かめている範囲。</h2></div><div class="question-list">
+      <details><summary>「壊れない」とは、何を目指していますか？</summary><p>ゲームのルールを守ることを、設計の中心に置く開発です。例えば、不正な値を型や生成関数で拒否し、失敗する操作は状態を変えず、変更後も同じ条件が守られるか検証します。</p><p>現在のαでは、型で拒否できるコード、有限の操作を調べたテスト、前提を定めた形式検証を、それぞれの範囲とともに公開しています。描画、入力、保存、実行環境も個別に確かめる対象です。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/guarantees.md">保証の対象・前提・検証記録を読む</a></details>
+      <details><summary>どんなAIへ渡せばよいですか？</summary><p>公開リポジトリを読み、作業フォルダのファイルを編集し、ビルドや実行を行えるAIが対象です。Codexなど、対応するAIの作業環境で始められます。スキル名を認識しない場合も、コピーされる指示文に読むファイルを含めています。</p><p>会話だけのAIを使う場合は、企画や設計の相談から始め、実装・実行できる環境へ引き継いでください。</p></details>
+      <details><summary>どの環境のゲームを作れますか？</summary><p>作りたい企画と環境に合わせ、AIが必要なホストと接続を設計します。公開済みの実装例には、ネイティブ、ブラウザ向けソース、ターミナルのスターターがあります。共通コアの検査と、各環境での実際の操作確認は区別しています。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/platforms.md">現在の対応経路と確認状況を見る</a></details>
+      <details><summary>作ったゲームのコードも理解したいです。</summary><p>学習用の<code>learn-code</code>スキルを用意しています。自分のゲームの操作を一つ選び、実際の型と関数、変更前後の値をAIと読み解きます。Haskellの知識は前提にせず、気になった動きから始められます。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/learn-code.md">自分のゲームのコードをAIと読む</a><p>Afterlightの日本語ガイドでは、採掘の動きから、状態の更新、音、描画までを図とコードで説明しています。</p><a href="https://m-simplifier.github.io/garden-of-afterlight/guide/">Afterlightの設計を読む</a></details>
+    </div></section>
+  </main>
+  <footer class="site-footer section-wrap"><div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">↦</span> fp-game-alpha</a><p>純粋関数型ゲーム開発の基盤と研究</p></div><nav aria-label="資料"><a href="https://github.com/M-simplifier/fp-game-alpha">GitHub</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/README.md">技術ガイド</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/public-page/README.ja.md">このページの設計と根拠</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/LICENSE">MIT License</a><a href="https://github.com/M-simplifier/fp-game-alpha/issues">相談・不具合</a></nav></footer>
+</body>
+</html>

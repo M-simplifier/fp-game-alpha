@@ -74,6 +74,16 @@
       "maturity": "experimental"
     },
     {
+      "prefix": "site/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "research/public-page/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
       "prefix": "LICENSE",
       "license": "LICENSE",
       "maturity": "completed"
@@ -380,6 +390,11 @@
     },
     {
       "prefix": "formatter.json",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "research/readability/",
       "license": "LICENSE",
       "maturity": "experimental"
     }

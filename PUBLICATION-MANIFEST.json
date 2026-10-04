@@ -119,7 +119,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "b2fd9caaebe553454c8d1c34c5a16095925ecaad6eb7aa0e727a0e8f3b02bb77",
+      "sha256_lf": "91e90c702593522b46e3222e94f5e87b01fe320810c3da09413288d5d9a1653b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -175,7 +175,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "262c403733a0bf2064b22636a6d4130f67c5f3e71f53c992fdd1d9cf2bc2a42f",
+      "sha256_lf": "62a4f9454ab9c773848dfa0062005b4c59c055f3c394fccee0b1e09609da0900",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2388,7 +2388,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "8856d86ec12c93943a8c08c4d6372e0c722666be428f798c3b74a041246b89cd",
+      "sha256_lf": "596410b9413f66ae2bc00a45f300c157c9c159060ec40144c047a226d83d903d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2436,7 +2436,7 @@
     },
     {
       "path": "references/afterlight/README.md",
-      "sha256_lf": "cb95943efaa815ca8cd2158fee0e3fc5c58a2d9a8afdb704468d2e3d6311f2f3",
+      "sha256_lf": "164c32a9048a4bc31512c608b4d079c15ad9b92260f043018ac433cb83a7162f",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/README.md",
@@ -2598,7 +2598,7 @@
     },
     {
       "path": "references/afterlight/docs/FORMAT-MANIFEST.json",
-      "sha256_lf": "d0061a9769103f0dbbf4f3301a423a47f15b23f03d4168c18643b504209455dd",
+      "sha256_lf": "9a12d8068c391d6301fb1054a561b8f2bdfd21c9401a9a6eee70a1d19255467d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2653,6 +2653,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "references/afterlight/docs/qa/CPP-FORMAT-CHECK.json",
+      "sha256_lf": "6f096fb03694f1c90dfee36bf102c853f548f54127abad546fd6ddc69f9a33e9",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "references/afterlight/docs/qa/PUBLIC-CORE-CHECK.json",
       "sha256_lf": "02410e79fdae010887747afd7e598c257d799b75591a3d1f21bddecd380aaef1",
       "origin": {
@@ -2665,7 +2676,7 @@
     },
     {
       "path": "references/afterlight/docs/qa/SOURCE-AUDIT.json",
-      "sha256_lf": "219b18d9d1eb1b7af7dd3258dc3974fda37f4625a313bdaf5617cf4c3be31cf2",
+      "sha256_lf": "b76e4e8ed4f64a46d2c9a7d280c6ce52a01c2e80e5ae0e9b3a370cb078530f7a",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/docs/qa/SOURCE-AUDIT.json",
@@ -2736,7 +2747,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Render.hs",
-      "sha256_lf": "86247cfa2e5a0a3f71b703ad976d9874962330fcb2c3155c6fe000112850833c",
+      "sha256_lf": "a7fedd1c90b155db9c0b90905750d54c16a94fe1a1500a7599c9eae6871bc253",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Render.hs",
@@ -2766,7 +2777,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Render/Radiance.hs",
-      "sha256_lf": "0338ad14ed56a1491c2acfbee85a52c50c46eb8ec7598e89d69a65edf15939a1",
+      "sha256_lf": "955c95f638a884af1539747838234ad38967c2cbb35284f74b3858f2a2521431",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Render/Radiance.hs",
@@ -2796,7 +2807,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Runtime.hs",
-      "sha256_lf": "fefe76a5e9a36c99c3643dfa07bca0798de3e5b8eaa025f2815875f9bad78b33",
+      "sha256_lf": "b499fe04dc34e60627c4adbdfd773a88920c3dc47f47e9109e089a492392641e",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Runtime.hs",
@@ -2827,6 +2838,17 @@
     {
       "path": "references/afterlight/scripts/check-core.py",
       "sha256_lf": "57c28d25cb355a1a2be76dd0a4ee1597e3ad331b0197ac1dd265dd040f4c3856",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/afterlight/scripts/check-cpp-format.py",
+      "sha256_lf": "a102224d272690b20967f7d2ec8b14d2c7259829dd3fbb164d57eef054316433",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2913,6 +2935,17 @@
     {
       "path": "references/afterlight/scripts/test-check-core.py",
       "sha256_lf": "f66ca58b6903a6240a75a7bcdf3f64549df4b0f3eeeb5768fb9dac53674f389e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/afterlight/scripts/test-cpp-format.py",
+      "sha256_lf": "1cfbb1fba093e0e54cc83a58136ad694f38e672a8974bd0877610e7d248ed825",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5131,7 +5164,7 @@
     },
     {
       "path": "references/station/README.md",
-      "sha256_lf": "7061572e661f060d0233f0fc7f3e930d6efe0e88e0548e505828baa2face77dd",
+      "sha256_lf": "2fb1b3eb78dc88decdfb586f7c86aaccf8fad3e56cd640dc6ff90f37317b837f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5142,7 +5175,7 @@
     },
     {
       "path": "references/station/app/HeadlessMain.hs",
-      "sha256_lf": "befe2b57ef60e9ed84412b594c29276c2146a134f26e2231c19f11c51e8ace39",
+      "sha256_lf": "ee0b93ddbaba05bad549afd59ba9ad25feb55b27c004a4c11161d189edfe760a",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5527,6 +5560,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "research/public-page/README.ja.md",
+      "sha256_lf": "0e53dd11ba7304df1c7383321cbe3a37a72027784dc1e4ccfcd8c2024353841f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "research/quantity/README.md",
       "sha256_lf": "511615a69d09467b9f14c907e6e9e0ce1f7647d07699bc11393b7af0f8a65ef8",
       "origin": {
@@ -5775,6 +5819,105 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "research/readability/compare_station.py",
+      "sha256_lf": "2589dd17c7a81189d99240ea0276319676edbf0e3d34c4ed7836cfe4ae3eee28",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/readability/station-refactor.md",
+      "sha256_lf": "b5644afba4741052f25ac58589962250711fa81cada0becc103d5db916d43c3a",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/.nojekyll",
+      "sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/README.md",
+      "sha256_lf": "8361861f82283cc09f9f6968c80ea8b615ba688df0e6f8dab6882454af2b9e5c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/evidence/station-trace.json",
+      "sha256_lf": "c18e65fe51606f68a817d70683e33ae949ad855e312adade3383a4858aa8190f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/icon.svg",
+      "sha256_lf": "ff189eafeb0c66a7405922d2a8b53b85a50ef9502b6a2486ccd9a5e6dc1047c2",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/index.html",
+      "sha256_lf": "f9d9a6e7bc26f903b95662204b99ebd349b2b29b89fd746bf3a6cb14f4b0ed2c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/site.js",
+      "sha256_lf": "389a9277af53cd101488694e6a4c8cbae88ee7ef16b1e37055a58d87c9f39a54",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/style.css",
+      "sha256_lf": "02b5be1dda5abc970dd3cdb92e7ceed24ad98f93aa0223aa54053775a3cc35cd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "templates/terminal-adventure/GAME-SPEC.md.tmpl",
       "sha256_lf": "cb5cc4c9872cdfc26d5cb793c6b3019e6d2d147066deebdfb7fd8a60b442a380",
       "origin": {
@@ -5995,6 +6138,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "tools/check_site.py",
+      "sha256_lf": "60a86bd9ec2db6abcbcd7b888d6cc185ccc51a0099f321cd3d9acb6c252889ca",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "tools/docs_lint.py",
       "sha256_lf": "63d2e81797038009f72cabd778bcc4cff6d31cec816ce780a96e34e4ec453941",
       "origin": {
@@ -6106,7 +6260,7 @@
     },
     {
       "path": "tools/test_play.py",
-      "sha256_lf": "5d110d382759d4fa6dd9ab8eaafe5a9755551318c50c2d0063d04335cf8cbe4b",
+      "sha256_lf": "b808f9e635ca25f7215b5a796689552e79257a7979ca8f48e85e7938ab94c64b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

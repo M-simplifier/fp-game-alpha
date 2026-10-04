@@ -79,7 +79,7 @@
     {
       "path": "runtime/Garden/Render.hs",
       "origin_sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
-      "current_sha256": "86247cfa2e5a0a3f71b703ad976d9874962330fcb2c3155c6fe000112850833c",
+      "current_sha256": "a7fedd1c90b155db9c0b90905750d54c16a94fe1a1500a7599c9eae6871bc253",
       "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
     },
     {
@@ -103,7 +103,7 @@
     {
       "path": "runtime/Garden/Render/Radiance.hs",
       "origin_sha256": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
-      "current_sha256": "0338ad14ed56a1491c2acfbee85a52c50c46eb8ec7598e89d69a65edf15939a1",
+      "current_sha256": "955c95f638a884af1539747838234ad38967c2cbb35284f74b3858f2a2521431",
       "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
     },
     {
@@ -121,7 +121,7 @@
     {
       "path": "runtime/Garden/Runtime.hs",
       "origin_sha256": "c3538af71b2028526171d51e850d42a545132ca8291019b35f9d92e670127784",
-      "current_sha256": "fefe76a5e9a36c99c3643dfa07bca0798de3e5b8eaa025f2815875f9bad78b33",
+      "current_sha256": "b499fe04dc34e60627c4adbdfd773a88920c3dc47f47e9109e089a492392641e",
       "reason": "World/Clock/Pilot fold -> pure Garden.Session; Arena.play and complete observe; original effects retained; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
     },
     {
