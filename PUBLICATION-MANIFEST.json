@@ -94,7 +94,7 @@
     },
     {
       "path": "cabal.project",
-      "sha256_lf": "b55ba369f63c9c911540932012d47d572ee5e3b3c2e45ebf8895acc35a1a404e",
+      "sha256_lf": "aa2691238f3ea01ce33e0aabb3a89e05da0b6671b68eaa042d113fb8864d7d09",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -207,7 +207,7 @@
     },
     {
       "path": "docs/roadmap.md",
-      "sha256_lf": "b07b5a3db0da4693b6da0024b07ddceb38826bd7c8cbcf7e0b43998a78343dcf",
+      "sha256_lf": "c514c59093c0b3050e92e260b2812abd84c03b1aa8b8cfa6da94b84ba09b8413",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -445,7 +445,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "13e87c19cd5f199ae25b87a97abc7f774fe7e62d0db398e5ccb34e1af7486f01",
+      "sha256_lf": "926d5dfd092ba38cefe0d77c6f1185c3f2f5810ea7abb099dd19d67c3f74874e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -456,7 +456,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "53e2e7023f35047a36d1514f4d53d0f743fd26bfc5668f5dc7322a4893479b94",
+      "sha256_lf": "7e3eaca1e0bd01c2e80bbd99106b895c33848d4fd1633fe6c4f8eb55c587423e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -552,6 +552,123 @@
         "kind": "authored-for-public-alpha"
       },
       "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/LICENSE",
+      "sha256_lf": "f8d843d369ea056d5188e4edc646b3be4f68f0a79b04d6f40bca2a2fc67d157c",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/licenses/original-games/ordered-input-LICENSE",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "f8d843d369ea056d5188e4edc646b3be4f68f0a79b04d6f40bca2a2fc67d157c"
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/README.md",
+      "sha256_lf": "fa89b1f290cb4a260c6ea3b584a65bebaca4f09f641bdc90df5ee2e646f33385",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/src/Tapline/Adapter.hs",
+      "sha256_lf": "87a4d17f28c242e278533f6af5ea1ae80bc19eab4973a7bed058396a6679a678",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/src/Tapline/Clock.hs",
+      "sha256_lf": "b209a9384c5ad9081084a3b7a34cbbc980270a74f5409a80ea4d2591482a0852",
+      "origin": {
+        "kind": "refactored-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Tapline/Clock.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "4c9023df666ca322d6a47163d4985be8b809468988f34305948d16434742b076",
+        "transformation": "Added wall/active time documentation; clock rules unchanged."
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/src/Tapline/Domain.hs",
+      "sha256_lf": "7f0c17aba0808b588b8f2aedb2c6478f0dbc3e5e790efa2cb17f3c4a268d697f",
+      "origin": {
+        "kind": "refactored-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Tapline/Domain.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "eea4c5e4328a2205910a40d89ad6b3aa43422262dd64ef70d8bad693a5e3de12",
+        "transformation": "Named due-boundary processing and documented frame ordering without changing transition cases."
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/src/Tapline/Input.hs",
+      "sha256_lf": "eeb623b196caf0af81a9981be7275cc64d122e06c3881278f535aa1c4c9c4e70",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Tapline/Input.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "eeb623b196caf0af81a9981be7275cc64d122e06c3881278f535aa1c4c9c4e70"
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/src/Tapline/View.hs",
+      "sha256_lf": "6f5456de7e6df567db734d4ad6e01618efce32eba936ee5f7e4119a42ded2b00",
+      "origin": {
+        "kind": "refactored-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Tapline/View.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "ca45b7aa72728fbef6bf7d0bb218c4ef2924f88281924138d533c3187f445b26",
+        "transformation": "Documented pure rendering projection; rendering logic unchanged."
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/tapline.cabal",
+      "sha256_lf": "b7c967f149ed8aa679a7279dc1f25632113e458ecdbda404f8de4494fae88576",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/tapline/test/Laws.hs",
+      "sha256_lf": "67e1bdccd4364a93d929372e443da618d1fb2b44751ce31f1c7a1c00f3647bb9",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/tapline/LICENSE",
       "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"
@@ -767,7 +884,7 @@
     },
     {
       "path": "tools/fp_game.py",
-      "sha256_lf": "f1d1adfe3e5f04282d5b1fe7f04a8d779a1b17e53c5d6690674319ec48873c5d",
+      "sha256_lf": "65aeb47843ea652d40f0cbe1c8e815f3a0fcda7e8929e0b7f52cb03f51a2e292",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

@@ -4,7 +4,7 @@
 | --- | --- | --- |
 | Transition / Arena / Finite | Selected MIT kernel; executable alpha | Preserve API, test laws and document assumptions |
 | Garden | Selected for next reference milestone | Pure rules, clock/input/view; preserve pause/reset and scheduler boundaries |
-| Tapline | Selected for next reference milestone | Ordered taps, exact deadline, reset precedence and six-round regression |
+| Tapline | Selected experimental pure-core reference | Six-round trace and Step/Arena regression; exact deadline, ordered duplicate taps, reset barrier and focus pause; no graphical host claim |
 | Station | Selected for next reference milestone | Turns, stale rejection, saves and asynchronous UI IDs |
 | River Home | Selected for next reference milestone | Original pure simulation and invariant/save regressions |
 | Complete Afterlight | Staged for source/license review | Full Session/Arena, native renderer/audio and Web host; original parity evidence is historical until rerun here |

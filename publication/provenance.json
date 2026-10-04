@@ -50,5 +50,38 @@
     "origin": "fixtures/lantern/src/Lantern.hs",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689"
+  },
+  "references/tapline/src/Tapline/Clock.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Tapline/Clock.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "4c9023df666ca322d6a47163d4985be8b809468988f34305948d16434742b076",
+    "transformation": "Added wall/active time documentation; clock rules unchanged."
+  },
+  "references/tapline/src/Tapline/Input.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Tapline/Input.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "eeb623b196caf0af81a9981be7275cc64d122e06c3881278f535aa1c4c9c4e70"
+  },
+  "references/tapline/src/Tapline/Domain.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Tapline/Domain.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "eea4c5e4328a2205910a40d89ad6b3aa43422262dd64ef70d8bad693a5e3de12",
+    "transformation": "Named due-boundary processing and documented frame ordering without changing transition cases."
+  },
+  "references/tapline/src/Tapline/View.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Tapline/View.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "ca45b7aa72728fbef6bf7d0bb218c4ef2924f88281924138d533c3187f445b26",
+    "transformation": "Documented pure rendering projection; rendering logic unchanged."
+  },
+  "references/tapline/LICENSE": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/licenses/original-games/ordered-input-LICENSE",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "f8d843d369ea056d5188e4edc646b3be4f68f0a79b04d6f40bca2a2fc67d157c"
   }
 }
