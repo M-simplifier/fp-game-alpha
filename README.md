@@ -1,9 +1,18 @@
 # fp-game-alpha
 
-A Haskell foundation for starting and continuing your own pure functional
-game. Clone it, invoke `$new-game` in Codex, and develop an independent game
-outside this checkout. The game owns editable source, tests, assets, config,
-versioned docs, saves and a local `$game-dev` skill.
+A Haskell foundation for AI-driven, pure functional game development. Clone it,
+invoke `$new-game`, and give the AI your game brief and platform requirements.
+The intended workflow designs a new game around the small shared core, prepares
+its host, implements a playable slice, and continues from play feedback.
+References are learning material, not mandatory game templates.
+
+See [the development workflow](docs/new-game.md). It separates the intended
+experience from the platform checks already completed; the foundation is still
+alpha and does not establish that every target or generated game is correct.
+
+## Optional terminal starter
+
+This command path is one maintained example, not a restriction on `$new-game`.
 
 With Python 3.12+, GHC 9.6.7 and Cabal 3.12.1.0 on PATH:
 
@@ -61,3 +70,14 @@ redistribution are separate acceptance stages.
 through the Haskell Arena, inspect consequences, and produce a replayable player
 journal. Use `$play-game` or `python tools/play.py --help`. The pilot evaluates
 abstract decisions; it is not a human-fun guarantee or a renderer benchmark.
+
+## Purpose-specific skills
+
+- `$new-game`: brief and platform to a new game designed around the shared core
+- `$fp-gamedev`: implement and refine this game’s rules and runtime boundaries
+- `$haskell-excellence`: types, errors, effects, resources, evaluation and verification
+- `$game-platform`: host preparation, build, assets and distribution
+- `$play-game`: actual player decisions through the current headless adapter
+
+The [technical knowledge index](docs/practice/README.md) is the canonical guide;
+these entries route to the relevant knowledge without making every task read it all.

@@ -53,3 +53,10 @@ Score each dimension 0 (obscured or missing), 1 (usable with explanation), or 2 
 For an alpha reference-game designation, use 11/14 as a review trigger, not an automated quality proof; no dimension may be 0. Any false guarantee, hidden rules duplication, unchecked advertised route, private data, or incompatible asset license blocks release regardless of score.
 
 A reviewer records two useful strengths, the three highest-impact improvements at most, and the exact files and transitions supporting the result. Preserve behavior with tests when changing readability.
+
+## Deeper implementation practice
+
+For error ADTs, totality, effects/cancellation, abstraction choice and lazy-space
+behavior, read [technique choices](practice/haskell/technique-choices.md).
+For independent models, generators, shrinking and resource/codec checks, read
+[verification and review](practice/haskell/verification-review.md).
