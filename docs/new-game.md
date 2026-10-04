@@ -75,7 +75,10 @@ example**, not a universal generator or a requirement to use this workflow.
 Its limited flags must not limit the AI's ability to author a different Cabal
 project and host. See [that example's commands](terminal-starter.md) when the
 requested game really fits them. Compiler inspection/editor tools can also be
-used independently; see [tooling](tooling.md) and [editors](editors.md).
+used independently; see [tooling](tooling.md), [editors](editors.md), and
+[Haskell Design / haskell-editor-setup](haskell-design.md) for structured
+map/outline/show reading and the original design-view adapters. Keep its guide
+or a pinned public link reachable in the new game when using it.
 
 ## 4. Implement a real playable slice, then continue
 
