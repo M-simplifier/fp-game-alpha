@@ -11,6 +11,11 @@ module Paper.Game
     Phase (..),
     World,
     initial,
+    Level,
+    LevelError (..),
+    level,
+    defaultLevel,
+    initialWith,
     movesLeft,
     phase,
     tiles,
@@ -68,17 +73,43 @@ data UndoUse = Available | Spent deriving (Eq, Show)
 -- None of these record selectors are exported. Only step can change a World.
 -- History stores one position, not another World, so undo cannot restore its use.
 data World = World
-  { currentPosition :: Position,
+  { sessionLevel :: Level,
+    currentPosition :: Position,
     previousPosition :: Maybe Position,
     undoUse :: UndoUse
   }
   deriving (Eq, Show)
 
--- A designed route is scrambled; decoys are not part of the witness solution.
+-- This bounded level family changes the budget and inlet scramble only.
+-- Keep the constructor private: every non-default level has a checked witness.
+data Level = Level Int Int deriving (Eq, Show)
+
+data LevelError = BudgetRange | RotationRange | WitnessFailed deriving (Eq, Show)
+
+defaultLevel :: Level
+defaultLevel = Level 18 1
+
+level :: Integer -> Integer -> Either LevelError Level
+level budget inletRotation
+  | budget < 1 || budget > 100 = Left BudgetRange
+  | inletRotation < 0 || inletRotation > 3 = Left RotationRange
+  | phase solved /= Won = Left WitnessFailed
+  | otherwise = Right candidate
+  where
+    -- Bounds above are checked before either conversion is demanded.
+    candidate = Level (fromInteger budget) (fromInteger inletRotation)
+    witness = replicate (fromInteger ((2 - inletRotation) `mod` 4)) (Cell 0) ++ map Cell [2, 2, 11, 11]
+    solved = foldl (\world location -> fst (step (Rotate location) world)) (initialWith candidate) witness
+
 initial :: World
-initial =
+initial = initialWith defaultLevel
+
+-- A designed route is scrambled; decoys are not part of the witness solution.
+initialWith :: Level -> World
+initialWith config@(Level budget inletRotation) =
   World
-    { currentPosition = Position startingGrid 18,
+    { sessionLevel = config,
+      currentPosition = Position startingGrid budget,
       previousPosition = Nothing,
       undoUse = Available
     }
@@ -88,7 +119,7 @@ initial =
       | number `elem` [2, 10, 11, 15] = Elbow
       | otherwise = Straight
     spin number = M.findWithDefault 1 number startingRotations
-    startingRotations = M.fromList [(0, 1), (1, 0), (2, 2), (6, 1), (10, 0), (11, 2), (15, 3)]
+    startingRotations = M.fromList [(0, inletRotation), (1, 0), (2, 2), (6, 1), (10, 0), (11, 2), (15, 3)]
 
 movesLeft :: World -> Int
 movesLeft = positionMoves . currentPosition
@@ -153,7 +184,7 @@ phase world
 
 -- Read this dispatcher first: restart and undo are allowed even after game over.
 step :: Command -> World -> (World, [Outcome])
-step Restart _ = (initial, [Restarted])
+step Restart world = (initialWith (sessionLevel world), [Restarted])
 step Undo world = undoPrevious world
 step (Rotate location) world = rotateTile location world
 

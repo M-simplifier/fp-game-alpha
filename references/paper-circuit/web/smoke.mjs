@@ -28,4 +28,5 @@ for(const cell of [0,2,2,11,11]) a.rotate(cell);
 assert.equal(a.moves(),0); assert.equal(a.phase(),'won');
 a.close(); a.close(); assert.throws(()=>a.svg(),/closed/); b.close();
 for(let i=0;i<200;i++){const c=create(); c.rotate(0); assert.ok(c.svg().includes('17 turns')); c.close();}
+create.close();
 console.log('PASS: actual Haskell Wasm gameplay, invalid inputs, independent sessions, win/loss/reset, SVG and lifecycle (not a browser UI test)');

@@ -1,0 +1,173 @@
+{
+  "status": "spec-oracle-vectors-not-kernel-tests",
+  "prng": "RDF-RNG-1",
+  "vectors": [
+    {
+      "state": "1",
+      "draws": [
+        {
+          "next_state": "33554433",
+          "output": "5180492295206395165"
+        },
+        {
+          "next_state": "1126174793148417",
+          "output": "12380297144915551517"
+        },
+        {
+          "next_state": "3659449627584515",
+          "output": "13389498078930870103"
+        },
+        {
+          "next_state": "2306758490171379329",
+          "output": "5599127315341312413"
+        },
+        {
+          "next_state": "585415316980522496",
+          "output": "1036278371763004928"
+        },
+        {
+          "next_state": "12683848079143609325",
+          "output": "14440594066559445721"
+        },
+        {
+          "next_state": "3609032897813531829",
+          "output": "15011257152325972353"
+        },
+        {
+          "next_state": "1206631074890568497",
+          "output": "12425867847131019661"
+        }
+      ]
+    },
+    {
+      "state": "2",
+      "draws": [
+        {
+          "next_state": "67108866",
+          "output": "10360984590412790330"
+        },
+        {
+          "next_state": "2252349586296834",
+          "output": "6313850216121551418"
+        },
+        {
+          "next_state": "7318899221614599",
+          "output": "8523403104418470859"
+        },
+        {
+          "next_state": "4612390805516072195",
+          "output": "10712354718662629463"
+        },
+        {
+          "next_state": "1168297359193717763",
+          "output": "1035061299422946135"
+        },
+        {
+          "next_state": "4612364969183830361",
+          "output": "11710299936521772053"
+        },
+        {
+          "next_state": "874586939947601386",
+          "output": "9003267605001360770"
+        },
+        {
+          "next_state": "681279948472439182",
+          "output": "2613925162753872662"
+        }
+      ]
+    },
+    {
+      "state": "18446744073709551615",
+      "draws": [
+        {
+          "next_state": "18442240611487580160",
+          "output": "17954947803125907456"
+        },
+        {
+          "next_state": "13835058914275621887",
+          "output": "10373061909235543779"
+        },
+        {
+          "next_state": "5758697399176404478",
+          "output": "3777559059212774342"
+        },
+        {
+          "next_state": "11811533921607156160",
+          "output": "14219777844791603904"
+        },
+        {
+          "next_state": "17803801406600052339",
+          "output": "7794997853504412167"
+        },
+        {
+          "next_state": "10883754037072287738",
+          "output": "15971747034571295058"
+        },
+        {
+          "next_state": "10318665935075904641",
+          "output": "16969614881404372893"
+        },
+        {
+          "next_state": "1865728100963596106",
+          "output": "9221922101790188898"
+        }
+      ]
+    }
+  ],
+  "time": {
+    "ticks_per_hour": 1200,
+    "ticks_per_day": 28800,
+    "sandstorm_72h_ticks": 86400,
+    "sandstorm_real_seconds_1x": 4320
+  },
+  "need_remainder": {
+    "daily_water": 6000,
+    "quantum_ticks": 20,
+    "denominator": 28800,
+    "first_due": 4,
+    "first_remainder": 4800,
+    "daily_sum": 6000
+  },
+  "cancellation": [
+    {
+      "input_qty": 1000,
+      "progress": 0,
+      "required": 100,
+      "return_recipe": 1000,
+      "loss_recipe": 0
+    },
+    {
+      "input_qty": 1000,
+      "progress": 33,
+      "required": 100,
+      "return_recipe": 670,
+      "loss_recipe": 330
+    },
+    {
+      "input_qty": 1000,
+      "progress": 99,
+      "required": 100,
+      "return_recipe": 10,
+      "loss_recipe": 990
+    }
+  ],
+  "initial_s01": {
+    "residents": 40,
+    "water_ml": 480000,
+    "ration_g": 240000,
+    "metal_g": 600000,
+    "stone_g": 800000,
+    "glass_g": 100000,
+    "parts": 200,
+    "circuit": 40,
+    "tools": 20,
+    "fuel_g": 120000,
+    "biomass_g": 40000,
+    "medicine_dose": 40,
+    "battery_J": 360000000,
+    "pantry_water_ml": 120000,
+    "pantry_ration_g": 60000,
+    "target_tick_from_start": 79200,
+    "target_explanation": "day1 06:00 to day3 end =66h"
+  }
+}

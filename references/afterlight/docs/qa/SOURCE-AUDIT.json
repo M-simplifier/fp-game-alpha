@@ -167,6 +167,29 @@
       "reason": "Include relocated runtime sources in the conservative Japanese glyph inventory"
     }
   ],
+  "reviewed_test_optimization": {
+    "schema": 1,
+    "kind": "reviewed-test-optimization",
+    "purpose": "Avoid repeated structural equality of unchanged terrain in the full parity route; preserve every original assertion and all frozen oracle bytes. This is a semantic test implementation change, not formatting.",
+    "evidence": "../../../docs/research-iteration-latency.md",
+    "files": [
+      {
+        "path": "test/Parity.hs",
+        "previous_formatted_sha256": "98f43e55c2e0ce3c2ef7f3f6ad17cd3cd02f329f5ea8b5399081348acdc08e67",
+        "current_sha256": "d00db2a503b821eb374b321b0045443f92fd694be0de9ca946e5dafe1f8128f7"
+      },
+      {
+        "path": "test/TerrainEquality.hs",
+        "previous_formatted_sha256": null,
+        "current_sha256": "a65dd3da71ce4a542d6b47d5f9e934fd540752e1a9d12be214929eb3b98ca884"
+      },
+      {
+        "path": "afterlight-arena.cabal",
+        "previous_formatted_sha256": null,
+        "current_sha256": "60c104de34ea33cb7048e813e05015852cee34150e421baf96453e3fb614f70d"
+      }
+    ]
+  },
   "oracle_modules_verified": 18,
   "recovered_gallery_core_matched": [],
   "gallery_comparison_status": "not_run: original private gallery is not a public dependency",

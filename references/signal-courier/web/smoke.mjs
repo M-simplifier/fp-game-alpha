@@ -1,0 +1,24 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {loadGame} from './engine.mjs';
+import './controls.test.mjs';
+const create=await loadGame(await readFile(new URL('./game.wasm',import.meta.url)));
+const a=create(), b=create(), initial=a.svg();
+assert.ok(initial.includes('Signal Courier')); assert.equal(a.ticks(),0);
+for(const bad of [-1,8,2**32,NaN,1.5])assert.equal(a.input(bad),false);
+const trace=[...Array(37).fill(2),5,...Array(149).fill(2),5,...Array(149).fill(2),5,...Array(100).fill(2)];
+for(const code of trace)a.input(code);
+assert.equal(a.phase(),'complete');assert.equal(a.ticks(),422);assert.ok(a.svg().includes('All lanterns delivered'));assert.equal(b.svg(),initial);
+await writeFile(new URL('../.build/won.svg',import.meta.url),a.svg());
+a.restart();assert.equal(a.svg(),initial);
+for(let i=0;i<10801;i++)a.input(0);assert.equal(a.phase(),'exhausted');a.input(6);assert.equal(a.ticks(),0);
+a.restart();
+const roof=[5,...Array(27).fill(2),3,...Array(30).fill(0),...Array(20).fill(2),5,...Array(12).fill(2),...Array(30).fill(0)];
+for(const code of [...Array(37).fill(2),...roof,...Array(89).fill(2),...roof,...Array(89).fill(2),...roof,...Array(24).fill(2)])a.input(code);
+assert.equal(a.phase(),'complete');assert.equal(a.ticks(),605);assert.ok(a.svg().includes('stamps 3/3'));
+a.restart();for(let i=0;i<10378;i++)a.input(0);for(const code of trace.slice(0,422))a.input(code);
+assert.equal(a.phase(),'complete');assert.equal(a.ticks(),10800);const finalSvg=a.svg();a.input(2);assert.equal(a.svg(),finalSvg);
+a.restart();for(let i=0;i<10800;i++)a.input(0);assert.equal(a.phase(),'exhausted');const exhaustedSvg=a.svg();a.input(5);assert.equal(a.svg(),exhaustedSvg);
+a.close();a.close();assert.throws(()=>a.svg(),/closed/);b.close();
+for(let i=0;i<200;i++){const c=create();c.input(5);c.svg();c.close()}
+console.log('PASS actual Wasm: 422-tick win, SVG, invalid codes, independent sessions, timeout/retry/reset, 200 lifecycle cycles; host scheduler/input unit tests (not browser UI)');

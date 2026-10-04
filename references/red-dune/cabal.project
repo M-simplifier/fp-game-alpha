@@ -1,0 +1,4 @@
+packages: .
+          ../../libraries/game-arena
+          ../../libraries/game-transition
+active-repositories: :none

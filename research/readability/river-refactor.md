@@ -7,7 +7,7 @@ reader can see which day's weather feeds each calculation. Initial state and
 save restoration also pair each value with its private `Game` field.
 
 This is a bounded readability revision of
-[`Life.Domain`](../../references/river/src/Life/Domain.hs). The comparison
+[`Life.Domain`](../../references/river/src/Life/Domain.hs). The original comparison
 baseline is public commit `715b1b4f44d242609c2028c5d7b68ea5e3cddb7f`.
 Before publication, main `9fd07cb` was integrated, retaining its publication
 selection and code-learning instructions. River's incoming sources did not
@@ -203,9 +203,10 @@ with AST safety and idempotence enabled.
 | `python tools/docs_lint.py` | Pass after the report and guide update. |
 | `python tools/publication.py snapshot`, then `check` | Pass; refreshed current hashes and new research entries retain all original source digests, licenses, maturity and existing selection rules. |
 
-The final comparison contains 26,488,887 bytes with SHA-256
+The original author-reported comparison contains 26,488,887 bytes with SHA-256
 `49bede75411a57d19d195045aec41275cd133b21b483cb0530a4a89bfb3f0249`.
-It is local evidence on the final integrated sources, not an exact-head CI claim.
+It is historical local evidence for that earlier integration, not an exact-head CI claim.
+The current-main integration is separately reproduced below.
 
 The first documentation check caught a local research link in the shared
 Haskell guide that broke when copied into an independent generated game.
@@ -232,5 +233,43 @@ debt consumed by real domain ticks.
 
 This is not exhaustive over River's large state space or arbitrary traces.
 Graphical rendering, real-host input, storage durability, performance,
-beginner comprehension and learning transfer remain unverified. No unrelated
-game or whole-project suite was rerun as local evidence for this change.
+beginner comprehension and learning transfer remain unverified. The original author did not rerun unrelated
+games or the whole-project suite; subsequent integration checks are listed below.
+
+
+## Current-main integration (2026-10-04 UTC)
+
+PR #24 head `76a9d71465e292088ba3c59ec8527b467f47347b` was locally
+merged with public main `c44f31a522102512dcd6eca8f100ba5ab1df31ca`.
+The merge retains both main's numeric-decoding prevention rule and this
+revision's conditional guidance. The only conflicted file was the generated
+publication manifest; it was regenerated with main's current compact generator.
+No River rule, test expectation, comparator consumer, or workflow was changed
+by conflict resolution.
+
+On GHC 9.6.7 and Python 3.12.14,
+`python research/readability/compare_river.py c44f31a` passes with 37,863
+byte-identical observations and coverage `(5,42,896,30,11)`. This run produces
+26,451,024 bytes with SHA-256
+`c13f23495fbf9466224624a3397f56f88bf58a5ce7f9c2892b08a3536be4d9b7`.
+The baseline and merged consumer output match exactly within this run. Its
+byte count and digest differ from the historical author's run above; those
+results are recorded separately rather than treated as a portable golden.
+
+The unchanged River law suite also passes when compiled directly with
+`-XGHC2021 -Wall -Wcompat -Werror`, and the external public API check passes.
+These are local integrated-tree observations, not exact-head CI results.
+
+Additional integration gates pass locally: root offline build and all nine root
+Cabal test suites; documentation lint; publication snapshot/check (758 selected
+files); tool tests; pinned whole-repository formatter check; formatter integration
+tests (one platform-specific skip); Lantern and Station external API checks;
+play tests; and generated independent-game workspace acceptance. The offline
+root build used the available Cabal 3.16.1.0, not the CI baseline Cabal 3.12.1.0.
+The first tool-test attempt lacked GHC on PATH; it was rerun successfully after
+selecting the existing GHC 9.6.7 toolchain. No new toolchain was installed.
+Paper Circuit controls and opaque-API checks, quantity source-only checks
+(including eight expected type rejections and 631,024 oracle rows twice), and
+bounded live-tuning semantics/CLI checks also pass. LiquidHaskell, full editor
+jobs, Afterlight jobs, browser-host play, and platform-matrix CI were not run
+for this local integration.

@@ -263,7 +263,7 @@
     "origin": "gallery/functional-arcade/src/Life/Domain.hs",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
-    "transformation": "Added domain-rule and save-boundary Haddock; applied pinned Ormolu layout and named private Game field construction and overnight state dependencies. Scoped baseline comparisons found no rule or codec output differences."
+    "transformation": "Added domain-rule and save-boundary Haddock; applied pinned Ormolu layout and named private Game field construction and overnight state dependencies. Scoped baseline comparisons found no rule or codec output differences; the local current-main integration comparison against c44f31a is recorded separately in research/readability/river-refactor.md."
   },
   "references/river/src/Life/Clock.hs": {
     "kind": "selected-author-supplied-technical-source",
@@ -1870,5 +1870,2049 @@
     "kind": "copied-public-MIT-notice",
     "origin": "https://github.com/M-simplifier/fp-game-alpha/blob/39a7e51952ffe7495f5086d5687a7a1b58ab4dd7/LICENSE",
     "source_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d"
+  },
+  "references/red-dune/.gitignore": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1eb6b92cf751972b4f2139d01d76e91ced66b6913576cb22a18eec6099664df8",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/CHECK-SUMMARY.md": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "b2de46e19b05a69779fa41670299b965ff0762c9fe269f14ff6628d5d2c84182",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/FIXTURE-SELECTION.json": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f1e95983e7785dcd3fce9e62f85aacaab764efeabe2d2aaa00eb00a7f50db120",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/FOUNDATION-MANIFEST.json": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6c2b1e6d50d6b434fb4ee7bd5f5b603865384c33b772d1ef673234359cce9341",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/FOUNDATION-TESTED2487-MANIFEST.json": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6656aba02cde3fd66b3b6c4b0c40eb3b5850b589bfc4e862108b0a77a5a347ed",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/LICENSE": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/PROVENANCE.md": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "32f1bba159b1cd4a612bbd834ceb8a59c64ac808020ccaf906d57455e391c7e7",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/README.md": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "da07d0daa0370bebf3aab1f85ba48124b85149401f7b879c1733b688ad889bd1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/RESTORE-MANIFEST.json": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c514976a04878d12971d17fe245a761a6462a405eba97c5e0d9866af271c0c24",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/SOURCE-ALLOWLIST.json": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/SOURCE-SELECTION.json": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "d895225460d2233ac19048aa8021246a466ace3077f4c611d8bc10677c9cb927",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/app/BenchM1Replay.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "4a76b9b26dd015857f5312f5af318fbf5f4b732f90fa2a3f39c266118aa24f4e",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "app/BenchM1Replay.hs",
+    "original_sha256": "4a76b9b26dd015857f5312f5af318fbf5f4b732f90fa2a3f39c266118aa24f4e",
+    "encoding": "raw"
+  },
+  "references/red-dune/app/Main.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "cea613eeae66e208ddc74da93fbe1a1f4a7060656bb65bfd4e9cb7073737c8f7",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "app/Main.hs",
+    "original_sha256": "cea613eeae66e208ddc74da93fbe1a1f4a7060656bb65bfd4e9cb7073737c8f7",
+    "encoding": "raw"
+  },
+  "references/red-dune/app/ReplayUISession.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "5898083d8d5473ea34d6b60bfd22be63972317e6dd93809dadb50a124675398b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "app/ReplayUISession.hs",
+    "original_sha256": "5898083d8d5473ea34d6b60bfd22be63972317e6dd93809dadb50a124675398b",
+    "encoding": "raw"
+  },
+  "references/red-dune/app/UIShellMain.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "47b8525cdcabd9c9ccc04c74bc141e30c0241b7a697f03cf57bd3c7b8f672240",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "app/UIShellMain.hs",
+    "original_sha256": "47b8525cdcabd9c9ccc04c74bc141e30c0241b7a697f03cf57bd3c7b8f672240",
+    "encoding": "raw"
+  },
+  "references/red-dune/cabal.project": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "d70660c4ee4c1146be59625de32b68e8fb46c0686efdbd2227fb1ed6d71af837",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/data/content-v1.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/content-v1.json",
+    "original_sha256": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6",
+    "encoding": "raw"
+  },
+  "references/red-dune/data/m1-rules/rules-v1.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "cc05f53e3b0563fc98b6c12fa46d7d805670baf386f8dbe8e01de4ed68b4e65b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/m1-rules/rules-v1.json",
+    "original_sha256": "cc05f53e3b0563fc98b6c12fa46d7d805670baf386f8dbe8e01de4ed68b4e65b",
+    "encoding": "raw"
+  },
+  "references/red-dune/data/m1-rules/s01-layout-v1.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "d72214a72ca4a37e328cfaee4cb6e3dbaabcf170e4ea05f0a8447d5597114718",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/m1-rules/s01-layout-v1.json",
+    "original_sha256": "d72214a72ca4a37e328cfaee4cb6e3dbaabcf170e4ea05f0a8447d5597114718",
+    "encoding": "raw"
+  },
+  "references/red-dune/data/m1-workforce/credit-golden.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "9e82e0354b92270ca5890f71e733727697268a81077d572c5ba11d7c60f97a82",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/m1-workforce/credit-golden.txt",
+    "original_sha256": "9e82e0354b92270ca5890f71e733727697268a81077d572c5ba11d7c60f97a82",
+    "encoding": "raw"
+  },
+  "references/red-dune/data/needs-golden.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "84dc9f8ea0243a337f5399afa9d63906893af1421cab42fad32b885278643915",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/needs-golden.json",
+    "original_sha256": "84dc9f8ea0243a337f5399afa9d63906893af1421cab42fad32b885278643915",
+    "encoding": "raw"
+  },
+  "references/red-dune/data/numeric-golden.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a91f5216ec14d51b0877f94a7e0713ad587dca68c8839607d79c75be98a25959",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/numeric-golden.json",
+    "original_sha256": "a91f5216ec14d51b0877f94a7e0713ad587dca68c8839607d79c75be98a25959",
+    "encoding": "raw"
+  },
+  "references/red-dune/data/session/activation-v1-golden.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "2b98ded33ee09cf7c73837fa24243ceea3d6fe339cdc80946e940a00bc1adc46",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/session/activation-v1-golden.json",
+    "original_sha256": "2b98ded33ee09cf7c73837fa24243ceea3d6fe339cdc80946e940a00bc1adc46",
+    "encoding": "raw"
+  },
+  "references/red-dune/data/session/uuid-v4-golden.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1d31b7a4615e46186f39173d28b402b08d4274bdd0d9eb9140c7bad3640210d0",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/session/uuid-v4-golden.json",
+    "original_sha256": "1d31b7a4615e46186f39173d28b402b08d4274bdd0d9eb9140c7bad3640210d0",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/cancellation-compat/frozen-0.2/output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1853cc14ab3e55448fba0391cbe6661dfec24a9031bb56340ff67e0736e7b196",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/cancellation-compat/frozen-0.2/output.txt",
+    "original_sha256": "1853cc14ab3e55448fba0391cbe6661dfec24a9031bb56340ff67e0736e7b196",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/migration-scope.md": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "11d6bba4901ef90d4e7be8fc1cf106d4cf2a6f1e67cb177c3f6345e5cff721b3",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile0-lots1.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "958efab47e3bfa0c38e172770721a918457ffe8ec927b0e6b3267e1e8bdad1d1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots1.output.txt",
+    "original_sha256": "958efab47e3bfa0c38e172770721a918457ffe8ec927b0e6b3267e1e8bdad1d1",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile0-lots8.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "ea7d711601888ab0d707041b7892e592b731b9537ddab5407ad17184551b69d7",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots8.output.txt",
+    "original_sha256": "ea7d711601888ab0d707041b7892e592b731b9537ddab5407ad17184551b69d7",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile1-lots1.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c0219920e09e0d782ab406d102f7ecb8c65df69073cb03f996736f4a0a9dec91",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots1.output.txt",
+    "original_sha256": "c0219920e09e0d782ab406d102f7ecb8c65df69073cb03f996736f4a0a9dec91",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile1-lots8.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "eb587e0ddefee4cbe251bb554f4c4af0f9f2ef559eb92b253e375db74ced54d0",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots8.output.txt",
+    "original_sha256": "eb587e0ddefee4cbe251bb554f4c4af0f9f2ef559eb92b253e375db74ced54d0",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile2-lots1.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "958efab47e3bfa0c38e172770721a918457ffe8ec927b0e6b3267e1e8bdad1d1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots1.output.txt",
+    "original_sha256": "958efab47e3bfa0c38e172770721a918457ffe8ec927b0e6b3267e1e8bdad1d1",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile2-lots8.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "ea7d711601888ab0d707041b7892e592b731b9537ddab5407ad17184551b69d7",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots8.output.txt",
+    "original_sha256": "ea7d711601888ab0d707041b7892e592b731b9537ddab5407ad17184551b69d7",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile3-lots1.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c0219920e09e0d782ab406d102f7ecb8c65df69073cb03f996736f4a0a9dec91",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots1.output.txt",
+    "original_sha256": "c0219920e09e0d782ab406d102f7ecb8c65df69073cb03f996736f4a0a9dec91",
+    "encoding": "raw"
+  },
+  "references/red-dune/evidence/return-placement/frozen-0.3/profile3-lots8.output.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "eb587e0ddefee4cbe251bb554f4c4af0f9f2ef559eb92b253e375db74ced54d0",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots8.output.txt",
+    "original_sha256": "eb587e0ddefee4cbe251bb554f4c4af0f9f2ef559eb92b253e375db74ced54d0",
+    "encoding": "raw"
+  },
+  "references/red-dune/fixtures-base64/data/session/activation-v1-golden.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "9c0cfde226b8aeacc47438ac6fb58c1832d3af774fb5daa53fad6fa4882f5bda",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "data/session/activation-v1-golden.cbor",
+    "original_sha256": "a2d3d6fcb7c13b32d01d6e82e4cc1054b12eb4128c78e8e252624f72cbf33e7f",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/cancellation-compat/frozen-0.2/after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "ba99311443d79c3319c5261f14e3ceaf71f94299141dd074e54cebd50f60d416",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/cancellation-compat/frozen-0.2/after.cbor",
+    "original_sha256": "6b8a7d846db50fcc2781cd8f583cbe0121205affa9a5538ca791d0bc0a29ed9c",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/cancellation-compat/frozen-0.2/before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f1ab23e504c85b556394f68afe86d33e34a70e71e78d103d96cf6548262dbc31",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/cancellation-compat/frozen-0.2/before.cbor",
+    "original_sha256": "f471fa996052ebc67af25cff8f27e2f6439cebe4e672a4a2c4a76990343fb76e",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/cancellation-compat/frozen-0.2/input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c5e845b0590273403d9a9f7acaa4460f1d4d4129d8ee5c4a34ebe9b2df0ba475",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/cancellation-compat/frozen-0.2/input.cbor",
+    "original_sha256": "d2b9b1b9ca9c49e3f6ab17d7abd31bea2b451d8d5caf3b67830a0977f2edfcfe",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/cancelled-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "45d25e5bdfaaaaa48f2ab580eec9a1267b30e7b5f694a9a657648d75553326fd",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/cancelled-v1.cbor",
+    "original_sha256": "3bde65c3812c34b50d692803f9bdd1215b7446e31be04e4d83e14f62c98d5a19",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/cancelled-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "46f6137e6bb093772207595ce8feebe3382dd1dfff874bd475c6c7baeea401b1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/cancelled-v2.cbor",
+    "original_sha256": "de1608b6d3a2a7b8039fa178aae74fcea5275246522c4cfb4e0a81ca045c4fb9",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/cancelled-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3a1206eda99f87c4745e838f66ae2ba39d924d316bc4b17769b68bdddf4edb4e",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/cancelled-v3.cbor",
+    "original_sha256": "894df6695b3d2343c0a47ff2850cd4168c3f28f881e04febd4f11d0fb193689b",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/completed-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f4649caed881d0a8d65156ea3f0eb0862e74a34e003a6d14cf4320146d72385a",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/completed-v1.cbor",
+    "original_sha256": "9563d7b9e10fb38aae2a865573d8e7a24f2918ec2ca7799a12005f079f5052e8",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/completed-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "feaf64631dc4d3feaba1f0405219943c226979a174fb50aad6dfd2386ccf3ba0",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/completed-v2.cbor",
+    "original_sha256": "d7f29483f0d8f21cf61dec9b321b6333a7ece27fbb38c85d5ca92dc6645a15a6",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/completed-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a3dc372bfdf1c201b0b565d240826e939d52bfae20f4feec3a179e8fd7731b20",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/completed-v3.cbor",
+    "original_sha256": "8dee28138d2daec335beae366b3f86523056870db302db8bcc7a40bbf1972fcc",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/cook-balance-v2-running-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "bc68cbeece61102e2ba0dc458e22d0ec847d0130fe0dfa46c7781938501e2d30",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/cook-balance-v2-running-v3.cbor",
+    "original_sha256": "66b0de11af073e52c8d96219897349d3f44218cfbfa336c7079cb9bfeef4dec6",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/failed-expiry-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "2726c4bc1e72abce10403d94a42f1c34bdb5db1a73fe091208014ee45296481d",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/failed-expiry-v1.cbor",
+    "original_sha256": "65c48a82fa75c820bc5eb6089dce7c65274660cbc3506c175cf2ec64b183f1b3",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/failed-expiry-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "7132f88901e8aac35613d58bd3c296ae33ddb8d59f966ba65a4ac8ed5ed4d7b5",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/failed-expiry-v2.cbor",
+    "original_sha256": "e28be409c1c74befceb80900052055ed143ee5ce988d5a45423c3bdc47dbb491",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/failed-expiry-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "4ccea233eb13017cecde8efdb360c37b5ed9172b9ccbcdc9ebdac94ee1246d78",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/failed-expiry-v3.cbor",
+    "original_sha256": "3e03d9e66eefa5317ce7ed3b774385f34efa5559a9e86713ed37707ba8b6b459",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-cancelled-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8bc3935904197b87ae94af16a10afd828d87b0f3762ba97eb5d2e68df3d87456",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-cancelled-v1.cbor",
+    "original_sha256": "6afe65498c8540afc2bf131fe1911167a8bf24c2c55619b5250ebf0c69acf018",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-cancelled-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "e9c126ed750cfe8faaeabfd798328421179e34c05dd056ab2ab62bae69bafcb1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-cancelled-v2.cbor",
+    "original_sha256": "e371ef6f4330a3ef28eca5a4785bdf8691377df0e3dd5c78bf519e9ebc3ff83c",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-cancelled-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "5c5770df6881d36cf98f1562f06d6fdfb7d894b51c1e18b2486048da3e5da213",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-cancelled-v3.cbor",
+    "original_sha256": "4b95037025f039739d032dce9e7316d1d51432bd9b6e664880e55ba3a60c9886",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-completed-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a50f19e689537f4c6ab66b37fac2c95c6535548bddef5ae80b5bb72c490f2253",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-completed-v1.cbor",
+    "original_sha256": "3443d0a4fe434286023a975526b56d04d12ef41dc3834c89c4a9228056a8a8d3",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-completed-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3e5d0a8e5480953d298dfba24acc29fda2e8ab11495bbd10b038459fbb85a2c5",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-completed-v2.cbor",
+    "original_sha256": "b4cea888ad9055f4782cfb217e6fb67987760bed259e7b8ade5bd2089e5e2b1a",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-completed-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "66a7c2f046d774493d0b40be80bcd0ac3746f5a0190005edefa0695b094c58d4",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-completed-v3.cbor",
+    "original_sha256": "5c70cca9fa74253fd586e83a94c8c4ac5a319dc18764d3bf49c12fbbf3facccc",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-planned-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "0823cb9cc8cda2044ebbd58e9aecb062077828deb9487859d38fda7f6025a84c",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-planned-v1.cbor",
+    "original_sha256": "db4533f1fefaadb1dfdc3231fb7e1e31182236f3fdbd19b0548f35a855de4ac7",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-planned-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "ec10f4ad6d429044f42a5a23b35ae765c5c8503b762cb46ebb0468d9ffc1ad17",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-planned-v2.cbor",
+    "original_sha256": "e6ce8d7074ceb5db88cbd8968bb6f05a3291a9a13b6518a46a29c64e2bee2525",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-planned-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8b0ce9c3aea500d6cc3a7b019c8beecf26e1e0029beb3be36ebb2cd86d92f7ba",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-planned-v3.cbor",
+    "original_sha256": "aae34d22c2fb94c64523ac410ec40aa66013516a612cb1725198932c685f323b",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-running-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "b5ff44c4851f3ce2e75eb96401c2a83443b8e08efb15743b27da9317965da75f",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-running-v1.cbor",
+    "original_sha256": "8bd921115e6224f3b1d54eb582bd74c03afb7018222609e23c1f0031c5bec47e",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-running-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8cdea6f4a3a55431c547864a4b397403f8be5258ec2bf5f488b00b69b7b646a8",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-running-v2.cbor",
+    "original_sha256": "4f984760b424d28bf66ab9fec4b6852a7f2119e5c2509157a44c8490de361f21",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/maintenance-running-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "043c332cfd1258c688cecdf3d7a2df2b0366e71dc9614ad105d7b830f4417e0a",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/maintenance-running-v3.cbor",
+    "original_sha256": "34da5aba2f80a86d43ba971f12d48d97b8f20c1bc90ad58bf4ee3dd3edad6ee2",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/natural-running-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "dbf643a39102aec585cfda3ec6ef677ff4f8d20b9b050c3400801bfc34def734",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/natural-running-v1.cbor",
+    "original_sha256": "40dd00e0d3d3036bf0eb238dd7513c6cdb826548bb842ef596755c3bdf262cbe",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/natural-running-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1627b05f3984479abbc9ddcaadf4696f38e70b9ed2016fae951cc030d4f99d35",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/natural-running-v2.cbor",
+    "original_sha256": "5dc199176510c8a4d85bb296c5b127440a8bc41068ade4cddf41a47a16edb054",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/natural-running-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1e8cbe82a695395aeaea70f60ab602995b0d976e4165e66e2df83acdf55e38b2",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/natural-running-v3.cbor",
+    "original_sha256": "c75eeb2687856aa63bd02456987b6a6fc9b34347a99764804ac38f134c40ef41",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/planned-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "0ce941c0070cb175aa5b36ad0d920233b3b87be3dc269fcfdace29df922f40b3",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/planned-v1.cbor",
+    "original_sha256": "9d6b20bd59088b034994d6b8cb5cd2c65824773029abb482cfbfe795cebd73ec",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/planned-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "39b91c66fccfdf359f299311f48ab168c77a04cad7a873a24ab647303ce374c1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/planned-v2.cbor",
+    "original_sha256": "f634c8074c85aeb9f25ff5c3835f66bba082a6b08fee175fe111b1fee71303ef",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/planned-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "22adda886f64d6dd587f1c913515d843eae37e52905f706d2f0e555b58c208ca",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/planned-v3.cbor",
+    "original_sha256": "d724386b4a0b9cf797234903dfe0db57141222de3a1ebb8224ede3b9653c1756",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/running-wip-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f0da76cf725c916678a46446b10fd2937e3d5ad87f20a17e8d2b42bc192eb87e",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/running-wip-v1.cbor",
+    "original_sha256": "74bc8d3ad88380ec1d8162c31ab71034f216d27b05e3e0bd347e693db3e6d75d",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/running-wip-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "7aa60ad9d5f2bd27748ae82b82a8e279c694fbdfb1590e5c3bb48103f984b5ab",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/running-wip-v2.cbor",
+    "original_sha256": "debf970fb03e1cf853336a7069902b871bcf84b40b77c8834236e4f2befee408",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/running-wip-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "81660f952dd78fbda0fb31a14b548dfe4cb32940c54893fc6cf306dde7f655d7",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/running-wip-v3.cbor",
+    "original_sha256": "ae3a6c19598998921a06844c772d27bada203db033b2bec3f8319df558dda4b6",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-carrying-food-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "22e9afaa1b3499b826c1169c01b6ecfa96330bd9c2f4a73c10a67e0acaff7ea1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-carrying-food-v1.cbor",
+    "original_sha256": "aa1585979bf78b06b7005dca10185637bce1b5347b914edd4ae320ce85711b2b",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-carrying-food-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3daa170ebee1c67bdbdb5490cf31b3eb8fb5b022b60d68eacc0d1a66a974ade3",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-carrying-food-v2.cbor",
+    "original_sha256": "1d872c08277f28b2e15e425a8786929aed710112b412525ceb43d0fbdd0092a4",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-carrying-food-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f78eae157ce1d23ade1d981bbb8f5c42861f049a042a18ee8df4b217af0fa9b1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-carrying-food-v3.cbor",
+    "original_sha256": "65b9c66de79864f1089d1054ab5d5f257e3cdcf37a7f6dab77f54f8f960d7ebf",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-delivered-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "b9592dafb29f3cfefafcfc6c7d0649858d33df0d452fcc9b323c42dc698be542",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-delivered-v1.cbor",
+    "original_sha256": "2d5a29897ca35316cd2f6870b3feb0180e33dee45bbfe79fb24666cf702f469a",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-delivered-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "759bfd9a33a66b666f3f14aabdc90574cf6dc172573d864349b5e090b27f6d00",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-delivered-v2.cbor",
+    "original_sha256": "c1e8b61ee6a8e716efb1578942973980cf0dccc807e3524b484f6d6012eff625",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-delivered-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f6a6f36034aaf1c621de0b851600aad0bd69a1bd313fd422c7325ca1a5014fd3",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-delivered-v3.cbor",
+    "original_sha256": "39c652a16ada58789a3b89cdef8e2f0298cd9b94b1a34c93a63ed8a3004daed9",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-reserved-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "76dc1080031a079e900e60581ad15e03c4114b8a9d5a074c5007effb148e7b23",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-reserved-v1.cbor",
+    "original_sha256": "20518133069ea78b2848f6067775bf8481bca3dc2623bcf4dbefdfb5cb9cbc1e",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-reserved-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "29e9cb9f91054cde4084d09702b1e64df90c713cf632535ef0d08d99e25ada05",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-reserved-v2.cbor",
+    "original_sha256": "8a0f0fe74667e3a4e66ef03fe99c3a7bfc3ebde9bcf776d06955ffb162345408",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/transport-reserved-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f2615df7d4e6ee54bcc0cd6f92cd43f1b857a9484254816c5df23609b0f82d06",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/transport-reserved-v3.cbor",
+    "original_sha256": "1b9df921d60b2a3653ada92b0b3bb4ba3b83e2b8f7f13218bcba851d9afe457a",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/waiting-inputs-v1.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6623d2433156d0a312bf0e566472a564eb6da51e8039ced3c6115858580ff3a2",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/waiting-inputs-v1.cbor",
+    "original_sha256": "5215879c5253bc738ff6c77bfbeb75fe6575046e36e7c2a7cb20c14c7cc2a8d1",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/waiting-inputs-v2.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "490b9cb3453f0c494232ba7b3d62af3eecfab45ab8ea2f0271c4082385a43ecf",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/waiting-inputs-v2.cbor",
+    "original_sha256": "519c55e0b6acfb22ce7fb47c98818158055d30306916e93096c6eb26be54aa8d",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/migration-fixtures/waiting-inputs-v3.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "4ebdf455f3beda3872b9f65f1c48a9f9050de360f464a1f2470cb3f3c5622e99",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/migration-fixtures/waiting-inputs-v3.cbor",
+    "original_sha256": "66a4f74fcf8c0cbbdef2ed9a9ce4bf1beb85e5138eedd3d9d96136b24c941e66",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile0-lots1.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f2d563f0f928e34d7375cdb8ee8818baba888e3c554d0d1adca05f57b36a0c61",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots1.after.cbor",
+    "original_sha256": "cdc48673f6476271dc32eaf27e40844960d47e6baf04ead41eccc7422c8a875a",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile0-lots1.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "e76b73cc848ddf916ed84d6dc3e2a75e049d65beb075774e7af6b67142bcf9f6",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots1.before.cbor",
+    "original_sha256": "72bdf457d87c2a0b48f32973afb7fd1f943a7bfeae2df0e98011164d26b7c380",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile0-lots1.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "198c911922edf30ddb563cd2a2df2cac1aac2a2da203334ff7d5f09229950d32",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots1.input.cbor",
+    "original_sha256": "039eedb637eb402c58dc7319e85a21c7df0e9ad4d4b3435ec016552dc977de74",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile0-lots8.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "0139940ec107f2cad2f3c97f0a4c13814df641e154174d0fa9063d68fe537498",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots8.after.cbor",
+    "original_sha256": "06247ec2f96dfb249f8987d58e793c1fea089e5aa620e0252391fbab4e729752",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile0-lots8.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "aa450db0b276322ad459a5204da9ba4afb73f3f6a493f354f7c3eac9b2dbc7d2",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots8.before.cbor",
+    "original_sha256": "d88651763e887e0ac15b1c6d96671d24f3653ae73c1a98e65948cd4e4e1faab7",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile0-lots8.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8d98d14410873048d7b81911c7f953cc8ba3d4f9803e8dd3c9cdfcab67b20a9c",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile0-lots8.input.cbor",
+    "original_sha256": "18d75a8faa113b5aacf2d17dbaa4f51d7ca877606a1a32bee76b003d6f2d2834",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile1-lots1.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "51b32bc24caafb0bc7816bda0859741b83d62f31aefca48d35fffcff90a9c6b3",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots1.after.cbor",
+    "original_sha256": "c89fcc95a3af199902e55a1594c35dccfab0c17c07dcdecf0bee2a972e2f8d3a",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile1-lots1.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "2dab79aa66f5757581c834259e537ba8216984dc790542f67fd75569f133f4c2",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots1.before.cbor",
+    "original_sha256": "8633f51a0d1aeafcf541bd71c14b78d8226faf402b9097d17c3d96c1acbbe674",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile1-lots1.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "766af6dab7881d79238732aa0741755ffd7eb00ed35463540fe35561b71777b7",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots1.input.cbor",
+    "original_sha256": "1adf2c15a93dfe27c8617d9ce242d3466ae7ea3ef570ed70362b366269a4ec4d",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile1-lots8.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6c6095eef3fdc8e6281f03cf590a0322246de254b28e8bb880c1b5187b04cb93",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots8.after.cbor",
+    "original_sha256": "273afe4f68788edcd897a683b8860956a7128e99d0bb4a5780bfd176fb34d9be",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile1-lots8.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "e33bd5a9cb245aadc48d8e6491c712a3779623a396f6f7e9e74821b15ceb3ec1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots8.before.cbor",
+    "original_sha256": "ee50cf8382f26402172d5f9b2be0d92666f60705881ea34988d6f02865e27ff4",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile1-lots8.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "326323d97895d2b7ea9a52883466ec1e47e87c04178bc4b03b08e1d5f564704b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile1-lots8.input.cbor",
+    "original_sha256": "e239c8f15bcdb6b4c715bf61787cd915b3998a2853aa41e553443ae41c0a9578",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile2-lots1.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "db210eac5e54afa4f46d5eefded429d7c49ce3008378b096ee01719fe044f129",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots1.after.cbor",
+    "original_sha256": "c57216b7363bccb5fc4404d628292cb3d9b90018578137aa61cf78324820d853",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile2-lots1.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "000dfdcf098c7dc9656c313d3282c4166aef1f2d536017e67fca40642ef39215",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots1.before.cbor",
+    "original_sha256": "b24292f16d4824fb36f01d899e0dbfe760caf60668f94a633dc20da38ee2ac75",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile2-lots1.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "bb9a21e5550dbca79cd9bf683f69ad7f27ee3278a9b1cc44a07c49eaccfe8f78",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots1.input.cbor",
+    "original_sha256": "9ff4f53d8980eb4b9dd017f41cbcff1ff8d05d9069f37addf125b912665222be",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile2-lots8.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "dddee062f3755e42191efaa2cac896c5c66c8c79f72603d10d62fcd01542e31b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots8.after.cbor",
+    "original_sha256": "5b670dc553ffba454cd89ce6c6db63ed32396ddcbf2e57fcebcc30c750da700c",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile2-lots8.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "02e9a447c284f45ed6bc56158833f1c731509fdcf9944450963c7fcee79e0afe",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots8.before.cbor",
+    "original_sha256": "1a53ed46e3fed09d9cdb4a3a73edf5c5b6b6af9a9ff968d480db559eba48cffd",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile2-lots8.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "4c2500d910a28ac537a0bb83dd0772fabb3b1030b1e437b73affacbebd205f08",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile2-lots8.input.cbor",
+    "original_sha256": "78a04c51adb6335a5eae476e041473ed9be9a0580a7294dd7225cf70df87c8d7",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile3-lots1.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3311c17f501ae0b6df31b09b109936c77e4463142fffb01fd588cbde06c299c8",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots1.after.cbor",
+    "original_sha256": "71c7b6826ad067c64930493d80377ff5fc8ef4704cc45b7aeda6f4b45ec28978",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile3-lots1.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "69af2df7e23088efd5aa5e19bdb405f2f8cba95bfeecda19c4eac87cb1e2d656",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots1.before.cbor",
+    "original_sha256": "70060d291315709002a6106d75493a0556acc8c66f68626e8f328b13739f0255",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile3-lots1.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "9b425d1795d341b66c39451f8030e76493ce452bd4ba37e5b380035457c07707",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots1.input.cbor",
+    "original_sha256": "c96846ff0712bfceca99516306329b0ecb1335f9f2cee44b0995957292733196",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile3-lots8.after.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c90165b54de24d324e1f3021c95afe83a86434fdd4b801ad05bb3d928c9271c5",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots8.after.cbor",
+    "original_sha256": "c7d3569b3ca47f246b3d02bde5824d502d709f8802ac35f2bf773fb8439bd1a0",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile3-lots8.before.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "17c5900dbc53c1aa8dc70b8cc759b4f72e06a07e59115d8397948e68af0cad92",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots8.before.cbor",
+    "original_sha256": "f9e09ef04078c7101422c75517236677cf2be4b9f5e11db43733e2fe4cd66945",
+    "encoding": "base64"
+  },
+  "references/red-dune/fixtures-base64/evidence/return-placement/frozen-0.3/profile3-lots8.input.cbor.base64": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "db41eef718961ed11e14f038d034dce42790b842fc07820b0c4cb83596b8b676",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "evidence/return-placement/frozen-0.3/profile3-lots8.input.cbor",
+    "original_sha256": "6b4d77cda334b60b41ee54165845ee973c9c5f4990d221794531de8a15fed116",
+    "encoding": "base64"
+  },
+  "references/red-dune/red-dune-federation.cabal": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "ee45585cd0f2b52c54592954304958442e54510f883cba90c54db10eda28dd81",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/src/Colony/Arena.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "bdc8a96f5c63723a88af04600809c21c4e090cdf1289d5ec2e78e9fee90e0313",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Arena.hs",
+    "original_sha256": "bdc8a96f5c63723a88af04600809c21c4e090cdf1289d5ec2e78e9fee90e0313",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/CheckpointLibrary.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a6a84e1c640c108493fde2dcb1995cb0018f5449c20dbddf8fb58750857f9061",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/CheckpointLibrary.hs",
+    "original_sha256": "a6a84e1c640c108493fde2dcb1995cb0018f5449c20dbddf8fb58750857f9061",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Codec.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "76f477ae09a423cee113c52dd5ded0aa6f996a1031f7a4ea37e9ff3f8e5ec171",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Codec.hs",
+    "original_sha256": "76f477ae09a423cee113c52dd5ded0aa6f996a1031f7a4ea37e9ff3f8e5ec171",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Codec/CBOR.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Codec/CBOR.hs",
+    "original_sha256": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Codec/SHA256.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Codec/SHA256.hs",
+    "original_sha256": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Codec/Value.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Codec/Value.hs",
+    "original_sha256": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/CombinedFixture.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c3f6047cab7cb44213242efe111f37c168240da3ea1e380a341feebd8bdd2dcc",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/CombinedFixture.hs",
+    "original_sha256": "c3f6047cab7cb44213242efe111f37c168240da3ea1e380a341feebd8bdd2dcc",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Construction.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "03dd24b6175b615a382ac14f7066cca1fab1df9a64c5885145f98ecf1a42f919",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Construction.hs",
+    "original_sha256": "03dd24b6175b615a382ac14f7066cca1fab1df9a64c5885145f98ecf1a42f919",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Content.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Content.hs",
+    "original_sha256": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/ContentCodec.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "252b1b365eb9a94b0d85a521cd04cd638295fae6ee766ef63dab9ef02d407ffa",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/ContentCodec.hs",
+    "original_sha256": "252b1b365eb9a94b0d85a521cd04cd638295fae6ee766ef63dab9ef02d407ffa",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Fixture.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Fixture.hs",
+    "original_sha256": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Inventory.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Inventory.hs",
+    "original_sha256": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/JSON.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/JSON.hs",
+    "original_sha256": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Jobs.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "7a5372a7c177e2c87563bee95ebd9e850beefb7160501bb7afdd140d63cb8e69",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Jobs.hs",
+    "original_sha256": "7a5372a7c177e2c87563bee95ebd9e850beefb7160501bb7afdd140d63cb8e69",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/KnownCatalog.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "fb95736b2d4a6165e76f571ae9252b0d639425be53e03a5b8391d18ffe02ff4e",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/KnownCatalog.hs",
+    "original_sha256": "fb95736b2d4a6165e76f571ae9252b0d639425be53e03a5b8391d18ffe02ff4e",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/LegacyV3.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f16138f58eba3d2f1e6bbb080c1ab5f5098fb363d516b00e52a3dfd6cedf3f07",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/LegacyV3.hs",
+    "original_sha256": "f16138f58eba3d2f1e6bbb080c1ab5f5098fb363d516b00e52a3dfd6cedf3f07",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/M1Commands.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a2a6d6c221aee278cc5268f6e73fba375b55d5a16863de1e8b74e9aac867e96b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/M1Commands.hs",
+    "original_sha256": "a2a6d6c221aee278cc5268f6e73fba375b55d5a16863de1e8b74e9aac867e96b",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/M1Infrastructure.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "d26be2473c5303622d49b5bde9c2297ae308a533e897d885101420ff1798011b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/M1Infrastructure.hs",
+    "original_sha256": "d26be2473c5303622d49b5bde9c2297ae308a533e897d885101420ff1798011b",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/M1Logistics.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6cfcb0b8c58b3750f69ba25ff38af923a9e80c9031d7b3b040512e1232e73292",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/M1Logistics.hs",
+    "original_sha256": "6cfcb0b8c58b3750f69ba25ff38af923a9e80c9031d7b3b040512e1232e73292",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/M1Rules.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3f84e25c0db90f41b9cc537711c4e0818871f8eb780e423d267510649f9e98af",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/M1Rules.hs",
+    "original_sha256": "3f84e25c0db90f41b9cc537711c4e0818871f8eb780e423d267510649f9e98af",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/M1Scheduler.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "cce302b83ff28cc1c1b333c27ba44fa083aac104a188975bf4c870b0fb9a7095",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/M1Scheduler.hs",
+    "original_sha256": "cce302b83ff28cc1c1b333c27ba44fa083aac104a188975bf4c870b0fb9a7095",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/M1State.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f3b7ae7b5eeb54cb6fe630b4a88b09f330295d5d8e7ca96b43555cf2a92a145d",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/M1State.hs",
+    "original_sha256": "f3b7ae7b5eeb54cb6fe630b4a88b09f330295d5d8e7ca96b43555cf2a92a145d",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/M1View.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "e713309415e3bb5b9b96a5a1b13d6ce5bf6f7c568e7ccdcf36adb4585bb8673a",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/M1View.hs",
+    "original_sha256": "e713309415e3bb5b9b96a5a1b13d6ce5bf6f7c568e7ccdcf36adb4585bb8673a",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Maintenance.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Maintenance.hs",
+    "original_sha256": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Migrate.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "e9083273aaf5cc91ef910bd27bb42d0967e07c98d53d50544600018110a51adb",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Migrate.hs",
+    "original_sha256": "e9083273aaf5cc91ef910bd27bb42d0967e07c98d53d50544600018110a51adb",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Needs.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "90a4e13bc66b0541f0abe032450231feaad532c6af84abcd3ce36582ed70d2cd",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Needs.hs",
+    "original_sha256": "90a4e13bc66b0541f0abe032450231feaad532c6af84abcd3ce36582ed70d2cd",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Pickup.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "794cab5dc663e2f651f696f0b15e63e088bd6db6db2c3117bf5c6504ab3f01f3",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Pickup.hs",
+    "original_sha256": "794cab5dc663e2f651f696f0b15e63e088bd6db6db2c3117bf5c6504ab3f01f3",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Power.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Power.hs",
+    "original_sha256": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Presentation.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "dcd2a8d7ad6526d5d51502ed20e20edaa55149567802580958af330ea097a113",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Presentation.hs",
+    "original_sha256": "dcd2a8d7ad6526d5d51502ed20e20edaa55149567802580958af330ea097a113",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/RNG.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/RNG.hs",
+    "original_sha256": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Ruleset.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a0642ed0ce887618b75ea47fc9e00a419ab391f76930029008b30e9699f6c986",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Ruleset.hs",
+    "original_sha256": "a0642ed0ce887618b75ea47fc9e00a419ab391f76930029008b30e9699f6c986",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/S01Fixture.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1ce209e4f37d9b2f944faa991c94e00dacbfb38a884fd8e0ecde4be5bd619892",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/S01Fixture.hs",
+    "original_sha256": "1ce209e4f37d9b2f944faa991c94e00dacbfb38a884fd8e0ecde4be5bd619892",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Save.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "cc07e69da198f216c40eef48ab8f3dac00aa4dac19140bea8154c1be89d342e2",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Save.hs",
+    "original_sha256": "cc07e69da198f216c40eef48ab8f3dac00aa4dac19140bea8154c1be89d342e2",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Scheduler.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "d6780bcc1945ecbb3bc8067486fb155520177164f3387e5a5b112d0265269b63",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Scheduler.hs",
+    "original_sha256": "d6780bcc1945ecbb3bc8067486fb155520177164f3387e5a5b112d0265269b63",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/SchedulerCore.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "f40da91c8e134036a8ce9362754e4dc600f2ec9b8807e9f8f8476faedf424821",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/SchedulerCore.hs",
+    "original_sha256": "f40da91c8e134036a8ce9362754e4dc600f2ec9b8807e9f8f8476faedf424821",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Session.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1ea32c42132738fba14ddc87616b627effff444e525afa06875e97138002413e",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Session.hs",
+    "original_sha256": "1ea32c42132738fba14ddc87616b627effff444e525afa06875e97138002413e",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/SessionTrace.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "896199edfec2c71ff6ed60eb3ec213467f5af7a424c6bb100ab34334e0ebe834",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/SessionTrace.hs",
+    "original_sha256": "896199edfec2c71ff6ed60eb3ec213467f5af7a424c6bb100ab34334e0ebe834",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Space.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "d0c74b62c9b93b0a00c315a6f100bd4b67548148d7b0693adee25ca3605dae3b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Space.hs",
+    "original_sha256": "d0c74b62c9b93b0a00c315a6f100bd4b67548148d7b0693adee25ca3605dae3b",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/SupplyChainFixture.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/SupplyChainFixture.hs",
+    "original_sha256": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Topology.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Topology.hs",
+    "original_sha256": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Transport.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "cd0feea2f7a52f989e85a9bb78392def5d6a77a2ad2e973ecaf35ce2af660453",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Transport.hs",
+    "original_sha256": "cd0feea2f7a52f989e85a9bb78392def5d6a77a2ad2e973ecaf35ce2af660453",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Types.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Types.hs",
+    "original_sha256": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/UIFixture.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "374e33f3436f06141aa26244bc3599a3e52d07829734e5acd20586e4181183cd",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/UIFixture.hs",
+    "original_sha256": "374e33f3436f06141aa26244bc3599a3e52d07829734e5acd20586e4181183cd",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/UIShell.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "270ec77458bb258a88237f2e358ed7c49ed1d594c9810329973c1f922d68d758",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/UIShell.hs",
+    "original_sha256": "270ec77458bb258a88237f2e358ed7c49ed1d594c9810329973c1f922d68d758",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Units.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Units.hs",
+    "original_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/Workforce.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "fc2bce749efec74ba9f75301232b4a9c25f84b7aeb8665bd18ca9bb663e6eeb8",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/Workforce.hs",
+    "original_sha256": "fc2bce749efec74ba9f75301232b4a9c25f84b7aeb8665bd18ca9bb663e6eeb8",
+    "encoding": "raw"
+  },
+  "references/red-dune/src/Colony/World.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "be4b8e310ea109a17870b78a252de67ea00844d1bda6c753b4d91c423eb7240b",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "src/Colony/World.hs",
+    "original_sha256": "be4b8e310ea109a17870b78a252de67ea00844d1bda6c753b4d91c423eb7240b",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/BranchWriteTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "07a4c6098bbc202f731821076e490c5836872b261d9067879deaedb8530fb473",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/BranchWriteTests.hs",
+    "original_sha256": "07a4c6098bbc202f731821076e490c5836872b261d9067879deaedb8530fb473",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/CancellationProfileTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "cdeac7d63e0f36b072c41c8beb6de3a63b261b0b848fbb72b7d31b97bd33ba53",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/CancellationProfileTests.hs",
+    "original_sha256": "cdeac7d63e0f36b072c41c8beb6de3a63b261b0b848fbb72b7d31b97bd33ba53",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/CheckpointLibraryTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "4ec11baf43ca3abdd5fd64d12c28e382525fc3a53c6144b6ad859f0fe7eb0098",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/CheckpointLibraryTests.hs",
+    "original_sha256": "4ec11baf43ca3abdd5fd64d12c28e382525fc3a53c6144b6ad859f0fe7eb0098",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/CodecTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "ff0f53baccead6b318b5f7fb85f1989788964360e48ad62ed3e1a0c14f72a2f4",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/CodecTests.hs",
+    "original_sha256": "ff0f53baccead6b318b5f7fb85f1989788964360e48ad62ed3e1a0c14f72a2f4",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/CombinedInterruptionTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6f1f85b006ff1ce3a34de3545673209cd153483a5e72fadc9da6d843aa8af759",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/CombinedInterruptionTests.hs",
+    "original_sha256": "6f1f85b006ff1ce3a34de3545673209cd153483a5e72fadc9da6d843aa8af759",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/ConstructionTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "7f0163498ca407c266488542ca9f57b4912a337b38a1dab81dcbcbd2224640ce",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/ConstructionTests.hs",
+    "original_sha256": "7f0163498ca407c266488542ca9f57b4912a337b38a1dab81dcbcbd2224640ce",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/ContentTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "6d344c710ad4bdd05398f0c5846a2ed39fe9eac1b391d0fc9c4479585efe2deb",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/ContentTests.hs",
+    "original_sha256": "6d344c710ad4bdd05398f0c5846a2ed39fe9eac1b391d0fc9c4479585efe2deb",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/IntegrityTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "b0a3f20a7d412ea777a5fb6c3910ab3e987ec9535f86a67c09e8bd2aca29d808",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/IntegrityTests.hs",
+    "original_sha256": "b0a3f20a7d412ea777a5fb6c3910ab3e987ec9535f86a67c09e8bd2aca29d808",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/InventoryTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8cd14093ba1386e961ddd5fcb46ee2007582984572fd1c8048db8cfa1627fe53",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/InventoryTests.hs",
+    "original_sha256": "8cd14093ba1386e961ddd5fcb46ee2007582984572fd1c8048db8cfa1627fe53",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1BoundaryTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "47d6a463a68f0aa54f7b8dd9135ecfc3752ef91b3e8894406a8b417480419942",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1BoundaryTests.hs",
+    "original_sha256": "47d6a463a68f0aa54f7b8dd9135ecfc3752ef91b3e8894406a8b417480419942",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1CacheTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8a7bb67c65205c73a1fce665dea4254946945298dacadc272ae2d4de5fcbee90",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1CacheTests.hs",
+    "original_sha256": "8a7bb67c65205c73a1fce665dea4254946945298dacadc272ae2d4de5fcbee90",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1DriverTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "d785d077c2a104f9b915098eeb160ad0cf37b54b0d7eb16563034a70073c25fc",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1DriverTests.hs",
+    "original_sha256": "d785d077c2a104f9b915098eeb160ad0cf37b54b0d7eb16563034a70073c25fc",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1IntegrityTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "30010e0c36369655a4977e73f9ce97f204981fbfcb65eb28b61681625f764eba",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1IntegrityTests.hs",
+    "original_sha256": "30010e0c36369655a4977e73f9ce97f204981fbfcb65eb28b61681625f764eba",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1PickupTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "39d3f1a763152d0abf4c81f2bcc504baff93620e625d004cc6400e017e9642ee",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1PickupTests.hs",
+    "original_sha256": "39d3f1a763152d0abf4c81f2bcc504baff93620e625d004cc6400e017e9642ee",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1SchemaTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "7caf299d17d3d3581c497cbed376e933945912a50e2cac9546c133e1b4dca802",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1SchemaTests.hs",
+    "original_sha256": "7caf299d17d3d3581c497cbed376e933945912a50e2cac9546c133e1b4dca802",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1StateMachineTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "799dec58dfcf77c474357913617f9815a3f2590920504d7730e23bd694fddcf6",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1StateMachineTests.hs",
+    "original_sha256": "799dec58dfcf77c474357913617f9815a3f2590920504d7730e23bd694fddcf6",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/M1Tests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c44f18a2facc7618e4651b392b433628c3a1d87146634ee3da25acce8dfbd539",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/M1Tests.hs",
+    "original_sha256": "c44f18a2facc7618e4651b392b433628c3a1d87146634ee3da25acce8dfbd539",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/MaintenanceIntegrationTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "8a7b6dd84160d37b1d9cc9d9e759ccb0c8c7940853359138b151605c598b9808",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/MaintenanceIntegrationTests.hs",
+    "original_sha256": "8a7b6dd84160d37b1d9cc9d9e759ccb0c8c7940853359138b151605c598b9808",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/MaintenanceLocationTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "567e71acff0b7019237ba950b066548b5fac8cfd1d89e84f07d75fbb32657907",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/MaintenanceLocationTests.hs",
+    "original_sha256": "567e71acff0b7019237ba950b066548b5fac8cfd1d89e84f07d75fbb32657907",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/MaintenanceTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "44adcc527c71feb05696886efeb8609f3770b488d682935609000a6272d0a583",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/MaintenanceTests.hs",
+    "original_sha256": "44adcc527c71feb05696886efeb8609f3770b488d682935609000a6272d0a583",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/MigrationTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "e4f123de461e97c39131a633e9d65d38c3610548d9119192796cc31de6d9cf31",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/MigrationTests.hs",
+    "original_sha256": "e4f123de461e97c39131a633e9d65d38c3610548d9119192796cc31de6d9cf31",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/PowerNeedsTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "176a526a4b34ff246a0ef5b471fcdd308c571772366cd2386f90f17c270873cc",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/PowerNeedsTests.hs",
+    "original_sha256": "176a526a4b34ff246a0ef5b471fcdd308c571772366cd2386f90f17c270873cc",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/PresentationTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "0b157beebedc012b990a0b3c191d8edd881c767a6ef5e9fa7b84b22b2cc1ebaf",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/PresentationTests.hs",
+    "original_sha256": "0b157beebedc012b990a0b3c191d8edd881c767a6ef5e9fa7b84b22b2cc1ebaf",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/RecipeSnapshotTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "616dc1ec25bd15d262a8a7a5ad8af4853dcdcbdab66fca9cca26136948b472ef",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/RecipeSnapshotTests.hs",
+    "original_sha256": "616dc1ec25bd15d262a8a7a5ad8af4853dcdcbdab66fca9cca26136948b472ef",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/ReturnPlacementTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "57d36ebe7729fe75382dabcd6b67af3443e9c0f02bf15d4e992518d8aba8118c",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/ReturnPlacementTests.hs",
+    "original_sha256": "57d36ebe7729fe75382dabcd6b67af3443e9c0f02bf15d4e992518d8aba8118c",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/S01PlayerTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "fcdec740008dc6b0b55e7f56fa1b9f22f4290727bafdd5c834e9c2efd3529ecc",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/S01PlayerTests.hs",
+    "original_sha256": "fcdec740008dc6b0b55e7f56fa1b9f22f4290727bafdd5c834e9c2efd3529ecc",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SHA256Tests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "984bbc61dcbfab2d1f661b1aa9f2b91d5fb26ad9507fbc4e4d763a12d20439f1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SHA256Tests.hs",
+    "original_sha256": "984bbc61dcbfab2d1f661b1aa9f2b91d5fb26ad9507fbc4e4d763a12d20439f1",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SaveReceiptBarrier.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3008af1bcbac155554efad66478a344b0740711fd223fcc280dd00a548cf081f",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SaveReceiptBarrier.hs",
+    "original_sha256": "3008af1bcbac155554efad66478a344b0740711fd223fcc280dd00a548cf081f",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SaveTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "7c4d4ba3b60b773ea9f316c25ea64c4db44159b75bc19e52e42d8610f1540f3d",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SaveTests.hs",
+    "original_sha256": "7c4d4ba3b60b773ea9f316c25ea64c4db44159b75bc19e52e42d8610f1540f3d",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SchedulerTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "bdfa09bb612ccc8bd2a3d9aac5b798d864a993cfcc844c97c337050bcb8424f3",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SchedulerTests.hs",
+    "original_sha256": "bdfa09bb612ccc8bd2a3d9aac5b798d864a993cfcc844c97c337050bcb8424f3",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SessionTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "9cf623ee1ea5ed7e4c8a98d837e91704db5778d84405663374a7391d1d894795",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SessionTests.hs",
+    "original_sha256": "9cf623ee1ea5ed7e4c8a98d837e91704db5778d84405663374a7391d1d894795",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SnapshotCatalogTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "10f8da4b97ea9f730fa3b5e4c06b9c58f2ed85a46c73145098a539b768f2b165",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SnapshotCatalogTests.hs",
+    "original_sha256": "10f8da4b97ea9f730fa3b5e4c06b9c58f2ed85a46c73145098a539b768f2b165",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SpaceTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "3a3062fbc455cad6168b3c01ec1c7bd6be2a4cbb976f18edcf960e7ff4996718",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SpaceTests.hs",
+    "original_sha256": "3a3062fbc455cad6168b3c01ec1c7bd6be2a4cbb976f18edcf960e7ff4996718",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/SupplyChainTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "a63366be782bed7362087bd338d8cf5d59bf8003350ae541ecca63d894122da1",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/SupplyChainTests.hs",
+    "original_sha256": "a63366be782bed7362087bd338d8cf5d59bf8003350ae541ecca63d894122da1",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/TransportTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "2142722fa83aeafea4dd84441849d254f98aa78ec50c653391bf392b1912d41f",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/TransportTests.hs",
+    "original_sha256": "2142722fa83aeafea4dd84441849d254f98aa78ec50c653391bf392b1912d41f",
+    "encoding": "raw"
+  },
+  "references/red-dune/test/WorkforceTests.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c5e824f2bdc384917489efd1a500959d5ae7db3f9a97197130772825da0423be",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "test/WorkforceTests.hs",
+    "original_sha256": "c5e824f2bdc384917489efd1a500959d5ae7db3f9a97197130772825da0423be",
+    "encoding": "raw"
+  },
+  "references/red-dune/tools/check.py": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "c2f331f8213032466db229a9d85d9844caffa4ac78366ddd68777f7e59327165",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/tools/test_restore.py": {
+    "kind": "authored-public-reference-packaging",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "39ac5b44f2d23ad29910609df19bbd718819fa130fdf2543eeb250b01ac22e3c",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+  },
+  "references/red-dune/ui/app.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "0096a682201d2c64912b9b2cc56fb782fa3dcee91aee1a6bfa4cf0ae33f3966e",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "ui/app.js",
+    "original_sha256": "0096a682201d2c64912b9b2cc56fb782fa3dcee91aee1a6bfa4cf0ae33f3966e",
+    "encoding": "raw"
+  },
+  "references/red-dune/ui/index.html": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "fd4a2ddf760c8dbdbde0590e5e35335a9aec5a058350c397faf8c18fba2cc378",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "ui/index.html",
+    "original_sha256": "fd4a2ddf760c8dbdbde0590e5e35335a9aec5a058350c397faf8c18fba2cc378",
+    "encoding": "raw"
+  },
+  "references/red-dune/ui/style.css": {
+    "kind": "selected-author-supplied-technical-source",
+    "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+    "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
+    "transfer_sha256": "1ce0ed9c1196dbff32655b249dcc7fcd7dcf293d6636f762f22b66e964a3180d",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "origin": "ui/style.css",
+    "original_sha256": "1ce0ed9c1196dbff32655b249dcc7fcd7dcf293d6636f762f22b66e964a3180d",
+    "encoding": "raw"
+  },
+  "references/signal-courier/web/vendor-shim/package.json": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "4025e157abfadd44037158899001a4ea0407651c2ee9c8a9f51d5c9d0ecf613c",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/LICENSE-MIT": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/LICENSE-APACHE": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/wasi_defs.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "0db0f42ba330749a7b05095ea1fd0ff63fd2b30e84cead30fe4c28359d15f194",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/index.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "7e2fd52ee3f728bb0b1d6e449724e0f13e3d586bb25bde6e02a66366175b5605",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/debug.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "a91848ee180529e2a60c05dfb9584cad19cd4e1c6f391fdb76a938bcae4c0328",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/fs_opfs.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "4b96aaeb5ac5986cf802cbf22b975c656682d22a38248160c96fc2ded5644869",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/fs_mem.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "85dbc9e0ee784d9ff8b55452644e00bf7058e32355aab974f8b71d7d85772324",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/wasi.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "168eb977a826f75ab0c39f9322f78cc58dbd5b233019ad1d6a7e940af8a7c4aa",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/fd.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "9e82e1fc1bfd3e3573f64349dc42b4b624ed61d24e5c553f2bb4d041444f166c",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/web/vendor-shim/dist/strace.js": {
+    "kind": "public-third-party",
+    "package": "@bjorn3/browser_wasi_shim",
+    "version": "0.4.2",
+    "source": "https://github.com/bjorn3/browser_wasi_shim",
+    "sha256": "ece435d3784d928d02bff4d015b7cb686f8c06de8536ff9f8ebc38a8f403a3be",
+    "license_choice": "MIT (upstream also offers Apache-2.0)"
+  },
+  "references/signal-courier/vendor/game-arena/game-arena.cabal": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-arena/game-arena.cabal"
+  },
+  "references/signal-courier/vendor/game-arena/LICENSE": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-arena/LICENSE"
+  },
+  "references/signal-courier/vendor/game-transition/LICENSE": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-transition/LICENSE"
+  },
+  "references/signal-courier/vendor/game-transition/game-transition.cabal": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-transition/game-transition.cabal"
+  },
+  "references/signal-courier/vendor/game-arena/test/Laws.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-arena/test/Laws.hs"
+  },
+  "references/signal-courier/vendor/game-arena/src/Game/Arena.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-arena/src/Game/Arena.hs"
+  },
+  "references/signal-courier/vendor/game-arena/src/Game/Arena/Finite.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-arena/src/Game/Arena/Finite.hs"
+  },
+  "references/signal-courier/vendor/game-transition/test/Laws.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-transition/test/Laws.hs"
+  },
+  "references/signal-courier/vendor/game-transition/src/Game/Transition.hs": {
+    "kind": "vendored-public-core",
+    "source_commit": "6526ef6",
+    "source_tree": "98b10f200fb44a3302b90a6cedeb35e7c98daf45",
+    "source_path": "libraries/game-transition/src/Game/Transition.hs"
+  },
+  "references/signal-courier/.agents/skills/game-dev/SKILL.md": {
+    "kind": "authored-public-development-skill",
+    "review": "Reviewed exact file: only project continuation or code-learning guidance; no private configuration, credentials, personal context or background automation instructions",
+    "adaptation": "Signal Courier local routes and pinned public reading links"
+  },
+  "references/signal-courier/.agents/skills/learn-code/SKILL.md": {
+    "kind": "authored-public-development-skill",
+    "review": "Reviewed exact file: only project continuation or code-learning guidance; no private configuration, credentials, personal context or background automation instructions",
+    "adaptation": "Signal Courier local routes and pinned public reading links"
   }
 }

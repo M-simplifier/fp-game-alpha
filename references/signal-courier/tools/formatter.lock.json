@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "version": "0.9.0.0",
+  "source": "https://github.com/tweag/ormolu/releases/tag/0.9.0.0",
+  "profiles": {
+    "Linux-x86_64": {
+      "asset": "ormolu-x86_64-linux.zip",
+      "url": "https://github.com/tweag/ormolu/releases/download/0.9.0.0/ormolu-x86_64-linux.zip",
+      "bytes": 8744258,
+      "sha256": "367eb4969986504cf171f71f91e24ea5d7d9d97c41701e8e6eef9b642fd0d201",
+      "members": [
+        "ormolu"
+      ]
+    },
+    "Windows-x86_64": {
+      "asset": "ormolu-x86_64-windows.zip",
+      "url": "https://github.com/tweag/ormolu/releases/download/0.9.0.0/ormolu-x86_64-windows.zip",
+      "bytes": 18555622,
+      "sha256": "afcde0c0a9bace9c8ae9bd98d027620b2901947670dfc54f63fa44c221d5b19d",
+      "members": [
+        "ormolu.exe"
+      ]
+    },
+    "Darwin-x86_64": {
+      "asset": "ormolu-x86_64-darwin.zip",
+      "url": "https://github.com/tweag/ormolu/releases/download/0.9.0.0/ormolu-x86_64-darwin.zip",
+      "bytes": 7823089,
+      "sha256": "6d098117122b10d26c0a2976beeb729b322a23825789b7f1817541dc6041ab19",
+      "members": [
+        "ormolu"
+      ]
+    },
+    "Darwin-arm64": {
+      "asset": "ormolu-aarch64-darwin.zip",
+      "url": "https://github.com/tweag/ormolu/releases/download/0.9.0.0/ormolu-aarch64-darwin.zip",
+      "bytes": 23481402,
+      "sha256": "39efe03a0f41385bd5a1a7f874acf195fb5f6d09673be96a24f708508bb86a20",
+      "members": [
+        "libcharset.1.dylib",
+        "libffi.7.dylib",
+        "libgmp.10.dylib",
+        "libiconv.2.dylib",
+        "ormolu"
+      ]
+    }
+  }
+}
