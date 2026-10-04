@@ -88,5 +88,20 @@ fields plus ordinary projections, binds a world to its board, validates the
 original state before indexing, and compares coordinates without addition.
 Local GHC now rejects the external record-update fixture for the intended
 reason and accepts the projection client. Tests reject `maxBound`/`minBound`
-coordinates and a state from another board. The correction's three-OS CI is
-tracked separately; the earlier run does not validate this correction.
+coordinates and a state from another board. The
+[correction CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37177560148)
+passed on Windows, Linux and macOS.
+
+## Quantity source-only checks
+
+The selected frozen `Colony.Units` source and annotation-only copy match
+their recorded SHA-256 values. On local Windows GHC 9.6.7,
+`python research/quantity/check.py check` passed eight intended GHC type
+rejections, two positive compilations, and 631,024 oracle inputs against
+both modules with identical outputs. The compact
+[source-only record](evidence/quantity-windows.json) contains the case map,
+category counts and output hashes. A deliberately missing compiler makes
+`doctor` fail; a GHC error must match the named type/constructor diagnostic.
+This is finite source-only validation. LiquidHaskell, its six proof mutants,
+Z3 and the other historical research tools were not run in this checkout.
+The new three-OS CI step is pending.
