@@ -109,6 +109,10 @@ from the maintained game core and current development entrypoints.
 one-shot CI/local observations from guarantees and records the reviewed test-only
 terrain equality optimization without changing the frozen oracle.
 
+[Editor CI dependency-cache experiment](research-ci-cache.md) records the exact
+cold PR miss and main cache population, trust boundaries and key inputs. Warm
+reuse and any overall workflow speedup remain unmeasured.
+
 ## Validated change → play research
 
 [Live-tuning source, tests, and measured workflow comparison](../research/live-tuning/README.md)
