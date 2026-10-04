@@ -54,6 +54,14 @@ revision or vendored source with package versions, per-file hashes and notices.
 The game must own its editable source, platform host, tests, assets, spec and
 continuation instructions. It must not depend on an accidental sibling checkout.
 
+Keep the relevant technical knowledge reachable from the new game's local
+continuation guide. Copy selected guides with their notices, or link to a
+reviewed public commit and record that revision. Include guidance for the game's
+timing, input, saves, rendering or performance when those boundaries matter.
+Opening the new game in a later AI session must not require private memory or
+the original foundation checkout to rediscover these instructions. Public
+reading links may require network access; they must not become build dependencies.
+
 Use [setup](setup.md) and [platform records](platforms.md) as evidence and recipes.
 A planned or unverified route is work to perform for the requested platform,
 not a reason to silently generate a terminal game. Research the required official
@@ -83,7 +91,7 @@ work and deeper guarantees when the slice actually requires them. Do not wait
 for every engine experiment to finish before delivering a working increment.
 
 Add a local `$game-dev` entry routing to that game's `GAME-SPEC.md`, commands,
-architecture and next requirement. It should continue the current project,
+architecture, selected technical guides and next requirement. It should continue the current project,
 not repeat setup or force a reference layout. User edits are authoritative;
 never regenerate over them.
 

@@ -6,6 +6,10 @@ The intended workflow designs a new game around the small shared core, prepares
 its host, implements a playable slice, and continues from play feedback.
 References are learning material, not mandatory game templates.
 
+The long-term aim is a pure functional game engine whose design and APIs are
+refined through different real games. This alpha shares the useful parts now;
+see [the research direction and what the alpha provides](docs/purpose.md).
+
 See [the development workflow](docs/new-game.md). It separates the intended
 experience from the platform checks already completed; the foundation is still
 alpha and does not establish that every target or generated game is correct.
@@ -26,7 +30,7 @@ python tools/fp_game.py test
 python tools/fp_game.py run
 ```
 
-The first maintained route is a native terminal adventure, with real rules,
+This optional starter is a native terminal adventure, with real rules,
 view, validated saves and a Machine/Arena adapter. Add your actual mechanic
 after generation; the starter is no longer required. Kernel versions/source
 hashes are pinned locally. Standard Cabal works, and your game's license is

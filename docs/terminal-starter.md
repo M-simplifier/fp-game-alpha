@@ -1,38 +1,23 @@
-# Start and continue an independent game
+# Optional terminal-adventure starter
 
-Launch Codex in this clone and invoke `$new-game` with your game idea. The
-project-local skill routes to this document. Codex searches repository
-`.agents/skills` locations; see [the official skill discovery guide](https://learn.chatgpt.com/docs/build-skills).
-An assistant is optional: the CLI and normal Cabal commands also work directly.
+Use this example when the requested game fits a turn-based terminal adventure,
+or when you deliberately want to study a small independent workspace. It can
+be created with the CLI and ordinary Cabal commands without an assistant.
+For a different brief or platform, follow [the new-game workflow](new-game.md).
+`$new-game` starts from that workflow and selects this example only when useful.
 
-## Only ask for missing decisions
-
-Use the request, existing project data and doctor output first. Ask at most
-four compact questions, combining related decisions when useful:
-
-1. Game name and the smallest interesting player action/feedback loop
-2. First target/rendering route, selected from the actual support contract
-3. Independent destination directory, usually beside this foundation clone
-4. Game license/credit, only if the user wants to choose it now
-
-Detect the OS/tools instead of asking again. Keep VSCode, Neovim or terminal
-editing optional. Do not ask about scores, engines, networking or deployment
-before the requested loop needs them. If the user requests an unverified
-graphics/Web/mobile route, disclose the gap and choose it for explicit route
-development only with their instruction. Never silently substitute terminal.
-Use the [guarantee scope](guarantees.md) when a game's requested invariant
-needs stronger evidence than finite gameplay tests.
-Use the [review finding and prevention ledger](failure-prevention.md) to turn
-newly found bugs into scoped boundary checks and an explicit acceptance record.
+Choose the game name, destination and any requested license using decisions
+already made. The commands below implement native/terminal only; their flags
+do not constrain which games the broader development workflow may create.
 Unspecified licensing remains **unlicensed for user additions**; original
 foundation/template MIT notices remain separate.
 
 ## Executable path
 
-The initial maintained template is a native terminal adventure. It provides
+The maintained terminal template provides
 one complete turn/input/view loop, an explicit Machine/Arena adapter, validated
-versioned saves, config, regressions and independent build/CI. It is the first
-development route, not the full platform ambition or a commercial certification.
+versioned saves, config, regressions and independent build/CI. Its acceptance
+record applies to this example's development route.
 
 ```sh
 python tools/fp_game.py doctor
@@ -60,6 +45,8 @@ Write the agreed mechanic and next observable result in the generated
 `GAME-SPEC.md`. The game owns editable `src/`, `app/`, `test/`, `assets/`,
 `config/`, `docs/` and a local `.agents/skills/game-dev/` entry. Continue from
 that directory with `$game-dev` and its versioned development guide.
+The local technical-guide index also links to selected public game-development
+knowledge at a fixed revision. These reading links do not affect offline builds.
 
 Implement a real change after scaffolding: for example a collectible that
 unlocks the exit. Change the state, authoritative rule, feedback/view, save
