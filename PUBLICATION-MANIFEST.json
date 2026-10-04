@@ -4539,7 +4539,7 @@
     },
     {
       "path": "references/paper-circuit/CHECKS.json",
-      "sha256_lf": "b03bf5610f8579ffbbabf72df9ea23b550bc7a48283fb57daf9bb28a4c66620c",
+      "sha256_lf": "dc32725e0b28a41d9fec7e2b3c23f86a4489b69544a51e3a6e062e6ad552cf18",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4572,7 +4572,7 @@
     },
     {
       "path": "references/paper-circuit/README.md",
-      "sha256_lf": "bc289d6dfee7f6b23e448a41d5fe2340700e96f92da61e166c2b38e7c588db91",
+      "sha256_lf": "8c80a6275da41623e741eaa8fa5338b02adbff50916a237f35d9188e085cf9af",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4583,7 +4583,7 @@
     },
     {
       "path": "references/paper-circuit/app/Browser.hs",
-      "sha256_lf": "b7a05a8e02d244f9232618daa03cff2583861722bb87fea8fd0d95b0139b063a",
+      "sha256_lf": "1ba232b17ea27e99f8473ccf34ce9a4f449fef57fcb9c1be55a9d73646862f7c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4594,7 +4594,7 @@
     },
     {
       "path": "references/paper-circuit/build-web.sh",
-      "sha256_lf": "d46f881525b572b5e7c0d23112ce4666581c237500ec61d3e6a32b50b6f246a6",
+      "sha256_lf": "0ec4e8bbedb1a99a3d1a94b777cc9c59d4454e827bd2f57d4ab8a14b08acf481",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4616,7 +4616,18 @@
     },
     {
       "path": "references/paper-circuit/docs/development.md",
-      "sha256_lf": "1db54f45067c6feded64403549d39bb6d34e3a1eec33f0013b686663057e10a3",
+      "sha256_lf": "42c7b290b3fc594b84fea7c0b9ae050006e1a31ba84e7e6018b4439f23b45f69",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/docs/live-tuning.md",
+      "sha256_lf": "01132f24ea10daf16e076c734d61caa1062c51ba3d4ca55409f9260fd28131ad",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4627,7 +4638,7 @@
     },
     {
       "path": "references/paper-circuit/docs/readability-review.md",
-      "sha256_lf": "12ee0fa7d79f738bec95762563b9d2e0f5a1eba2cb96fc26bd0f72bd88248042",
+      "sha256_lf": "250ac7889062d86c2be8cecf51caad6719383cfa4da17daa11b4abe24a7c413c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4649,7 +4660,7 @@
     },
     {
       "path": "references/paper-circuit/paper-circuit.cabal",
-      "sha256_lf": "07db46eb8c3036309b206979b3e8fd6c2132b97f5592ab41dda7bb9c0894e407",
+      "sha256_lf": "f8cd9f8821a799389642c69a664c6240037c4af324b2c7a361ee24fece35420f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4660,7 +4671,18 @@
     },
     {
       "path": "references/paper-circuit/src/Paper/Game.hs",
-      "sha256_lf": "285bd866510a1c2f3280db719c6744a7b749233ac87572434e561dcff8885c72",
+      "sha256_lf": "e27059dbca8effe92876cb59d6421643574eb159b047657fbf7a6e0ce522484d",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/src/Paper/Tuning.hs",
+      "sha256_lf": "fe988f0f5ad3c5312d8c9dd40a31e8381a748289e228281e298ea55d61382c30",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4703,8 +4725,41 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "references/paper-circuit/test/Tuning.hs",
+      "sha256_lf": "ad8c2111e4cc18ffa13359d5b80b2729ec67918bf064a5b4b777790e70e581a9",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/api-rejections/ForgeCatalog.hs",
+      "sha256_lf": "6e7292b624f4f909eb1704ab09a75c291560d82c3b9fea46f7d9bde27b646ea8",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "references/paper-circuit/test/api-rejections/ForgeCell.hs",
       "sha256_lf": "c6fc6510e411c7c5f933c9f58217d4f494531d8bc86bf2ea2f18eebcd1f0b3d3",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/api-rejections/ForgeLevel.hs",
+      "sha256_lf": "053591907638b7beae54c8869182c61125a711ff65b40bd72271798a3987ff25",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4737,7 +4792,7 @@
     },
     {
       "path": "references/paper-circuit/test/check-opaque-api.sh",
-      "sha256_lf": "7978c0d310c69708036393572008e9bcbb55fd1389cb6e472a99d7c3642519a0",
+      "sha256_lf": "b6184d23bd999b2f0a47bbe191f588776f50717ffbd6c800b07d26b299b28484",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4749,6 +4804,39 @@
     {
       "path": "references/paper-circuit/test/compare-baseline.sh",
       "sha256_lf": "0a5efaca5f768ac5c775359ec4c891eef6c7a7bf4671ee219329990ee76ec267",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/iteration/measure.py",
+      "sha256_lf": "84ff50e08b0970eae2a9e603cc263b479e42fcae69979b678fd8ea89280beb6c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/iteration/measurements.json",
+      "sha256_lf": "a11c16621da9af8e143278982db218ac70abffbb780359ae75a97600caec9f1c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/iteration/probe.mjs",
+      "sha256_lf": "7270c2640b55a245783832e594001991c86a5d25ddc5322f85682f94f396e79e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4898,7 +4986,7 @@
     },
     {
       "path": "references/paper-circuit/web/engine.mjs",
-      "sha256_lf": "1c283e751b8517504364cca4e038b5f3f04e839a88fcfa78a62f051df0ccb9c8",
+      "sha256_lf": "d00ea727a1a7cf3078bbabbdf23a4ee30de54d877db0e9f76bbe3e4f96d446d6",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4909,7 +4997,18 @@
     },
     {
       "path": "references/paper-circuit/web/index.html",
-      "sha256_lf": "657dcfe0cae7c0dbb5e99cc2202c00f2a2486b93a48c3cff423cfa1b25859fd9",
+      "sha256_lf": "a4b1348c0c1462395b3dc22f75e1dde45f28fe14075b4334442565c196b8ff0a",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/level.txt",
+      "sha256_lf": "39eb90c8008af0987269df528fc78bddd2a2a2fbde43db265d0194a20bb709df",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4920,7 +5019,29 @@
     },
     {
       "path": "references/paper-circuit/web/smoke.mjs",
-      "sha256_lf": "71b34807b31719b711feeb8f3bff3d27b5c3de5ea692dac156c7b6b306284bb5",
+      "sha256_lf": "270312bb60a36420eeb2b2e74e6743e318595e47940dcc43e99aec5468f5e548",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/tuning.mjs",
+      "sha256_lf": "5bea212e2da53b87e6790fe87b2eae6e928649b48f01841bc2fb3e4f63229466",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/tuning.test.mjs",
+      "sha256_lf": "9d33590fe990f16a76167ddea639c600650b8ecfe00e5b2e725ee6e089e85bc7",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

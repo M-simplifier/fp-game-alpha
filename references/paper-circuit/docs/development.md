@@ -9,6 +9,8 @@ Do not regenerate it to make a feature change.
 
 - [Paper.Game](../src/Paper/Game.hs): opaque Cell/World, pipe connectivity,
   budget, win/loss, restart, once-per-attempt Undo and original Arena transition
+- [Paper.Tuning](../src/Paper/Tuning.hs): bounded record admission and staged
+  catalog; see [live tuning](live-tuning.md) for session adoption and checks
 - [Paper.View](../src/Paper/View.hs): pure SVG projection from the player scene
 - [Browser](../app/Browser.hs): owned StablePtr/IORef session, validated numeric
   input, SVG allocation/free and Haskell runtime exports
