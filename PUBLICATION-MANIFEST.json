@@ -94,7 +94,7 @@
     },
     {
       "path": "cabal.project",
-      "sha256_lf": "b55ba369f63c9c911540932012d47d572ee5e3b3c2e45ebf8895acc35a1a404e",
+      "sha256_lf": "2b9d58c74f3104227534ca8e7aef45bd2d48660ddfacdf2d3b59b6a8d49b23cb",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -274,7 +274,7 @@
     },
     {
       "path": "docs/roadmap.md",
-      "sha256_lf": "c4c435cda28bd841e94236b84844c27e2dbc780cc1b71891c5138908afe2280d",
+      "sha256_lf": "d843f1f442ccc5d612e7d7fcbfedfa51c0e65b0d5fcefc485f90974001337f86",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -512,7 +512,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "2f7ed9f0c06acdd44b8dda212a439de1848a02687f21fadbb1c4cb323759533e",
+      "sha256_lf": "38628382186b87e6a91e9f6188f8f8f47451f257f53d0a3e2e570f5ed1ff939a",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -523,12 +523,156 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "bf74416989e26b4e1ec3eed923474074784144d9d3720da025b202df6ae3357b",
+      "sha256_lf": "463165cf72a9f7c2a81716804540bf357647246656a4902cd982ddc5a4384ca4",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
       "license": "LICENSE",
       "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/LICENSE",
+      "sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/licenses/original-games/rules-garden-LICENSE",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/README.md",
+      "sha256_lf": "a93ac9aac3e795d2c29881662c27005da7fec836fbeb2e27056614f7c8657ab6",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/garden.cabal",
+      "sha256_lf": "374cc792ba213af77174c786f3b31e6650cc412ae4d1dfab7727c1ec663d4e19",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/src/Garden/Adapter.hs",
+      "sha256_lf": "b9136c9f79882bb537b15f0e317f5e805ce4348e256911aa64f4fa1bd1e69774",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/src/Garden/Clock.hs",
+      "sha256_lf": "0503db1926a24eeb356beddf509a42823458a652de8f892ad8488c528501eb4b",
+      "origin": {
+        "kind": "refactored-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Garden/Clock.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "1835bf0bec771496e198c7e7f5e4702d1d61defc403982dbbb39dde6e31dca1e",
+        "transformation": "Documented clock debt; scheduler rules unchanged."
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/src/Garden/Input.hs",
+      "sha256_lf": "d4fae8e5b3837f3275e0cd19eb7cf1f933c2002a31ebe6588acb29c41cd07624",
+      "origin": {
+        "kind": "refactored-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Garden/Input.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "12c1dc8b404c1de85933bfff7a747a93760e1f55704288229c4fa2a3ffebb664",
+        "transformation": "Reject out-of-board pixels before coordinate subtraction, avoiding Int wrap; ordinary board mapping retained."
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/src/Garden/Session.hs",
+      "sha256_lf": "c7b572a1a7fb0a825f2f325fc1624c3dc85773ea876fb4048b28eeb439d34702",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Garden/Session.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "c7b572a1a7fb0a825f2f325fc1624c3dc85773ea876fb4048b28eeb439d34702"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/src/Garden/Simulation.hs",
+      "sha256_lf": "94d770a50c163481fa41869ae9b14c730b268799a896a5937e6ae478735c3df5",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Garden/Simulation.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "94d770a50c163481fa41869ae9b14c730b268799a896a5937e6ae478735c3df5"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/src/Garden/View.hs",
+      "sha256_lf": "4c79e263b68eb5c37c159a22df44a9f538215f837e03978894b1723062e25890",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Garden/View.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "4c79e263b68eb5c37c159a22df44a9f538215f837e03978894b1723062e25890"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/src/Garden/World.hs",
+      "sha256_lf": "271c1fe8d4193d722a1c644866f32546fe0b7b2620665583ccad71e282df9475",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Garden/World.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "271c1fe8d4193d722a1c644866f32546fe0b7b2620665583ccad71e282df9475"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/garden/test/Laws.hs",
+      "sha256_lf": "2128e1359024f325383d0f42581b7ae3e1dd629ade19e5afd7c6f38d874a9892",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"
     },
@@ -1082,7 +1226,7 @@
     },
     {
       "path": "tools/fp_game.py",
-      "sha256_lf": "f1d1adfe3e5f04282d5b1fe7f04a8d779a1b17e53c5d6690674319ec48873c5d",
+      "sha256_lf": "76476debfbd5a264aae8a61129fe14e4ca4de823a602b8f8924bfddae00b9621",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

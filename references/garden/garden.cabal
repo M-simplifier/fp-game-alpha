@@ -1,0 +1,25 @@
+cabal-version: 3.0
+name: garden-reference
+version: 0.1.0.0
+synopsis: Pure simulation garden with explicit session and clock boundaries
+description: Deterministic finite world and frame scheduler over shared Step/Arena APIs.
+license: MIT
+license-file: LICENSE
+build-type: Simple
+
+common checked
+  default-language: GHC2021
+  ghc-options: -Wall -Wcompat -Werror
+
+library
+  import: checked
+  hs-source-dirs: src
+  exposed-modules: Garden.World, Garden.Simulation, Garden.Session, Garden.Clock, Garden.View, Garden.Input, Garden.Adapter
+  build-depends: base >=4.18 && <5, containers, game-transition ==0.1.0.0, game-arena ==0.1.0.0
+
+test-suite garden-laws
+  import: checked
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Laws.hs
+  build-depends: base, garden-reference, game-transition, game-arena

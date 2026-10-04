@@ -69,7 +69,8 @@ def source_dirs(project):
     if config.exists():
         names = json.loads(config.read_text(encoding='utf-8'))['source_dirs']
     else:
-        names = ['libraries/game-transition/src', 'libraries/game-arena/src', 'references/lantern/src', 'src']
+        names = ['libraries/game-transition/src', 'libraries/game-arena/src',
+                 'references/lantern/src', 'references/garden/src', 'src']
     paths = [(project / name).resolve() for name in names]
     if any(not path.is_relative_to(project) for path in paths):
         raise ValueError('Declared source directories must remain inside this project.')

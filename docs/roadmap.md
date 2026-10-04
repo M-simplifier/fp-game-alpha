@@ -3,7 +3,7 @@
 | Material | Initial disposition | Scope and next acceptance |
 | --- | --- | --- |
 | Transition / Arena / Finite | Selected MIT kernel; executable alpha | Preserve API, test laws and document assumptions |
-| Garden | Selected for next reference milestone | Pure rules, clock/input/view; preserve pause/reset and scheduler boundaries |
+| Garden | Selected experimental pure-core reference | Deterministic world, event and clock adapters, pause/reset/debt and bounded input checks; no graphical host claim |
 | Tapline | Selected for next reference milestone | Ordered taps, exact deadline, reset precedence and six-round regression |
 | Station | Selected for next reference milestone | Turns, stale rejection, saves and asynchronous UI IDs |
 | River Home | Selected for next reference milestone | Original pure simulation and invariant/save regressions |
