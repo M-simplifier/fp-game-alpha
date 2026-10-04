@@ -70,10 +70,13 @@ def prepare(slug, destination, title, target, rendering, license_choice, author)
                 name = 'vendor/' + package + '/' + path.relative_to(base).as_posix()
                 files[name] = path.read_bytes().replace(b'\r\n', b'\n')
                 foundation_files[name] = sha256(files[name])
-    for source in ['architecture.md', 'haskell.md', 'failure-prevention.md', 'editors.md', 'verification.md', 'formatting.md']:
+    for source in ['architecture.md', 'haskell.md', 'failure-prevention.md', 'editors.md', 'verification.md', 'formatting.md', 'learn-code.md', 'learn-code-station.ja.md']:
         path = ROOT / 'docs' / source
         files['docs/' + source] = path.read_bytes().replace(b'\r\n', b'\n')
         foundation_files['docs/' + source] = sha256(files['docs/' + source])
+    learning_skill = '.agents/skills/learn-code/SKILL.md'
+    files[learning_skill] = (ROOT / learning_skill).read_bytes().replace(b'\r\n', b'\n')
+    foundation_files[learning_skill] = sha256(files[learning_skill])
     # Preserve linked Haskell knowledge in independently continued games.
     for source in ['haskell/technique-choices.md', 'haskell/verification-review.md', 'LICENSE.upstream']:
         path = ROOT / 'docs/practice' / source

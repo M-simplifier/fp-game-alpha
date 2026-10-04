@@ -44,6 +44,10 @@ class ScaffoldDistribution(unittest.TestCase):
                 shutil.copytree(scaffold.ROOT / folder, root / folder,
                                 ignore=shutil.ignore_patterns('__pycache__', '.build', 'dist-newstyle'))
             shutil.copy2(scaffold.ROOT / 'LICENSE', root / 'LICENSE')
+            learning_skill = '.agents/skills/learn-code/SKILL.md'
+            target = root / learning_skill
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(scaffold.ROOT / learning_skill, target)
             for name in ['editors/vscode/package.json', 'editors/vscode/extension.js',
                          'editors/vscode/LICENSE', 'editors/neovim/fp-game.lua']:
                 target = root / name

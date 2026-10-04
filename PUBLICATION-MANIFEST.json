@@ -74,8 +74,19 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": ".agents/skills/learn-code/SKILL.md",
+      "sha256_lf": "74a51ba11901f4c22399e40df817424cedd430b81f8bc690fea108abc567bf17",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": ".agents/skills/new-game/SKILL.md",
-      "sha256_lf": "90d31d2b88f643d25fa1f6418cef0dcf4aa500e06b35a661cc213c2705ce4b0a",
+      "sha256_lf": "3027624ff857a0a28d075ef965cecfa4c6cf21037e63eec1ea413f1ebf572132",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -164,7 +175,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "fea9ffb69320a08e3d21e81f452c11d99d9fc25e8eaa0becb3fddf5e0e06a8de",
+      "sha256_lf": "62a4f9454ab9c773848dfa0062005b4c59c055f3c394fccee0b1e09609da0900",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -348,8 +359,30 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "docs/learn-code-station.ja.md",
+      "sha256_lf": "e3748c8a51ea9df0f2ece61774aef5537babeede461920069d098b188741d7d6",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/learn-code.md",
+      "sha256_lf": "3dffaf05ddaa411311b29236e4b52f1fe541be0c841869ad79b822122b710311",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "docs/new-game.md",
-      "sha256_lf": "75c36f6d0823beedec731372a3fc37af37d049e5746ccd5cdb8a5bfb9ef9e178",
+      "sha256_lf": "89b46b298eca631470c46b3b29e30c1aedcfffbb0c82ce92f56765d58fbcb1f3",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2355,7 +2388,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "8032254e725a4e4f2894a3667e6034c075ab1fffe781c2b16629de6484ccb79e",
+      "sha256_lf": "596410b9413f66ae2bc00a45f300c157c9c159060ec40144c047a226d83d903d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5853,7 +5886,7 @@
     },
     {
       "path": "site/index.html",
-      "sha256_lf": "1ebb7217e995162f0c74408fd7675f0c145ddabf63fac973d7cec73d73bd30a4",
+      "sha256_lf": "f9d9a6e7bc26f903b95662204b99ebd349b2b29b89fd746bf3a6cb14f4b0ed2c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5974,7 +6007,7 @@
     },
     {
       "path": "templates/terminal-adventure/docs/TECHNICAL-GUIDES.md",
-      "sha256_lf": "61bf6eb92c8be3366504939684e8e9ea31a28aa9f3dd63f2a69bef433a2e6dd7",
+      "sha256_lf": "427832d8496228036fadf4898fe686869c38eab84026f9cabce97aa9f7bb17dd",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -6007,7 +6040,7 @@
     },
     {
       "path": "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl",
-      "sha256_lf": "e07287f0fe9e97127ec571027acecf12122e51585d3d288ab9742603f1fba8a9",
+      "sha256_lf": "61a076705d4dbc99ed94e432bcc41a6447a1828d6c4d6ed15b6b19861ee2ca3e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -6183,7 +6216,7 @@
     },
     {
       "path": "tools/scaffold.py",
-      "sha256_lf": "09359854d10e1d0e70dd3e9ea23e9dc9693e1676f9bd2006e72569585d7a2bf4",
+      "sha256_lf": "ba722bc97523e7f7d2912a5d4c6302c5f3e8a037a4752fb39fdf33161ff55253",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -6260,7 +6293,7 @@
     },
     {
       "path": "tools/test_tools.py",
-      "sha256_lf": "96b3f82ad95dfc01a75aa74589ba4700ed18194d9bf6d4321606010489a4a9e7",
+      "sha256_lf": "62ef7426a8d6fb74bafdf34d463db6e76d8ce0d97f206755c35efdcd22f42a0e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
