@@ -16,7 +16,7 @@
       "path": "runtime/Garden/Render/Radiance.hs",
       "baseline_sha256": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
       "pre_format_sha256": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
-      "formatted_sha256": "0338ad14ed56a1491c2acfbee85a52c50c46eb8ec7598e89d69a65edf15939a1"
+      "formatted_sha256": "955c95f638a884af1539747838234ad38967c2cbb35284f74b3858f2a2521431"
     },
     {
       "path": "runtime/Garden/Render/Resources.hs",
@@ -28,13 +28,13 @@
       "path": "runtime/Garden/Render.hs",
       "baseline_sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
       "pre_format_sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
-      "formatted_sha256": "86247cfa2e5a0a3f71b703ad976d9874962330fcb2c3155c6fe000112850833c"
+      "formatted_sha256": "a7fedd1c90b155db9c0b90905750d54c16a94fe1a1500a7599c9eae6871bc253"
     },
     {
       "path": "runtime/Garden/Runtime.hs",
       "baseline_sha256": "c3538af71b2028526171d51e850d42a545132ca8291019b35f9d92e670127784",
       "pre_format_sha256": "282804d33ccffeae82dbc2acb6bda5a09361e4c6485365e1e6503c738453414b",
-      "formatted_sha256": "fefe76a5e9a36c99c3643dfa07bca0798de3e5b8eaa025f2815875f9bad78b33"
+      "formatted_sha256": "b499fe04dc34e60627c4adbdfd773a88920c3dc47f47e9109e089a492392641e"
     },
     {
       "path": "src/Garden/Arena.hs",
@@ -103,20 +103,6 @@
       "formatted_sha256": "53e32d0ec03d9f00f014fef42a372edfe24596992f4edcc47ff33fd1b58413ad"
     }
   ],
-  "verbatim_cpp_declarations": {
-    "runtime/Garden/Render/Radiance.hs": [
-      "acquireRadiance"
-    ],
-    "runtime/Garden/Render.hs": [
-      "renderInterface",
-      "renderMenu"
-    ],
-    "runtime/Garden/Runtime.hs": [
-      "beginGarden",
-      "advancePreparation",
-      "stepFrame"
-    ]
-  },
   "cpp_normalized_comparison": [
     {
       "path": "runtime/Garden/Render/Radiance.hs",
@@ -155,5 +141,31 @@
       "same": true
     }
   ],
-  "cpp_scope": "Both native and wasm CPP configurations normalized with cpp -traditional-cpp -P then safe Ormolu; identical to public baseline after removing only new formatter-control comments. Not GPU/runtime execution."
+  "cpp_scope": "Both native and wasm CPP configurations normalized with cpp -traditional-cpp -P then safe Ormolu; identical to public baseline after removing only new formatter-control comments. Not GPU/runtime execution.",
+  "branch_formatted_cpp_declarations": {
+    "runtime/Garden/Render/Radiance.hs": [
+      "acquireRadiance"
+    ],
+    "runtime/Garden/Render.hs": [
+      "renderInterface",
+      "renderMenu"
+    ],
+    "runtime/Garden/Runtime.hs": [
+      "beginGarden",
+      "advancePreparation",
+      "stepFrame"
+    ]
+  },
+  "cpp_branch_formatting": {
+    "public_baseline_commit": "c5784f68b31c0e7810f4b8034de688821dba8aa3",
+    "method": "Both host projections formatted with pinned safe Ormolu using temporary CPP-boundary comments; only identical shared text is woven back. Narrow ORMOLU_DISABLE blocks remain.",
+    "command": "python references/afterlight/scripts/check-cpp-format.py",
+    "pre_follow_on_sha256": {
+      "runtime/Garden/Render/Radiance.hs": "0338ad14ed56a1491c2acfbee85a52c50c46eb8ec7598e89d69a65edf15939a1",
+      "runtime/Garden/Render.hs": "86247cfa2e5a0a3f71b703ad976d9874962330fcb2c3155c6fe000112850833c",
+      "runtime/Garden/Runtime.hs": "fefe76a5e9a36c99c3643dfa07bca0798de3e5b8eaa025f2815875f9bad78b33"
+    },
+    "canonical_hashes_unchanged": true,
+    "scope": "Source-only canonical equivalence, not host compilation, GPU, audio, browser execution or timing evidence."
+  }
 }

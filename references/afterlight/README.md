@@ -97,7 +97,19 @@ on all devices, or compatibility with arbitrary future changes is made.
 
 Live Haskell sources use pinned Ormolu 0.9.0.0. `docs/FORMAT-MANIFEST.json` records
 exact before/after hashes; the original `BASELINE-MANIFEST.json` and frozen oracle
-remain intact. Six definitions with mid-expression CPP retain their original text
-inside explicit formatter-control comments, while surrounding code is formatted.
-Both native and Wasm preprocessed forms of those three modules match public pre-format commit `2487f7b`
-after safe normalization. This does not establish native GPU or browser execution.
+remain intact. Six definitions contain mid-declaration CPP, which Ormolu cannot
+parse directly. Their bodies are formatted by a branch-aware weave using the
+same pinned Ormolu; the narrow formatter-control blocks remain. Check them with:
+
+    python references/afterlight/scripts/check-cpp-format.py
+
+Use `--write` to reproduce their formatting. This needs the verified formatter
+cache (`python tools/formatter.py install`) and `cpp` on PATH. The script formats
+both native and Wasm branches, rejects disagreement in shared text, and compares
+both complete preprocessed modules with the reviewed canonical hashes before
+writing anything. It refuses to relock semantic drift as formatting.
+
+All six native/Wasm module projections remain identical to public pre-format
+commit `2487f7b` after safe normalization; the follow-on formatting also preserves
+the reviewed post-formatter baseline. This does not establish native GPU or
+browser execution.
