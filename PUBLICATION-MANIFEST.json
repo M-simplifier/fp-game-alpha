@@ -335,7 +335,7 @@
     },
     {
       "path": "docs/haskell.md",
-      "sha256_lf": "f5b88c8932f1b622ffc45fbbf209555bb2e904ad68d318dc92b7f3e0397f6ddf",
+      "sha256_lf": "01c870ee1b917d183a6f1c4d656db690788a478babb0fabe674db873a01bef03",
       "origin": {
         "kind": "author-supplied-public-doc-candidate",
         "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
@@ -2399,7 +2399,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "e865905bfd8a08253e062305a2bc0a18afbb83a918d0fb15fc176f4e2e502738",
+      "sha256_lf": "2e19927ffc3165a4c8ea93f158ca626c02cd60f5f2684a5c27769cf159dac72e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5055,7 +5055,7 @@
     },
     {
       "path": "references/river/README.md",
-      "sha256_lf": "7e80a1d567e81b84151d2ba674c4c28d7216d5575c1cfdbdc6af43414bdbf1cc",
+      "sha256_lf": "03c906da3ec5eae8295f36afd0c0a6b05466bf0cb053e38c063add5b1376b4b5",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5102,13 +5102,13 @@
     },
     {
       "path": "references/river/src/Life/Domain.hs",
-      "sha256_lf": "c0f33267fdd7f9438ebfc0db4f3bc5ba4b8d1d9335a97d291944d1efdad7f780",
+      "sha256_lf": "148d63f9cf5434aeea08311c2f9058f7a751136326acf29ea3edf7f2ae7a5c6c",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Life/Domain.hs",
         "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
         "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
-        "transformation": "Added domain-rule and save-boundary Haddock; executable rule cases unchanged."
+        "transformation": "Added domain-rule and save-boundary Haddock; applied pinned Ormolu layout and named private Game field construction and overnight state dependencies. Scoped baseline comparisons found no rule or codec output differences."
       },
       "license": "references/river/LICENSE",
       "maturity": "experimental",
@@ -5819,8 +5819,41 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "research/readability/RiverProbe.hs",
+      "sha256_lf": "2916b4a3cb17fcde18f3d1492756bd8e52d7faa858d52f90be4901b737e974ee",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/readability/compare_river.py",
+      "sha256_lf": "d6eeda4a9b9c77bac5593000e9231a16ba0dd9fceb0815b91c8f9be73d2fecc1",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "research/readability/compare_station.py",
       "sha256_lf": "2589dd17c7a81189d99240ea0276319676edbf0e3d34c4ed7836cfe4ae3eee28",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/readability/river-refactor.md",
+      "sha256_lf": "9de6ccf1f6c10b501836e98a711e303101c99e567bdc5b952cbc7df4f9b967e9",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
