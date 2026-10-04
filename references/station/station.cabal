@@ -1,0 +1,27 @@
+cabal-version: 3.0
+name: station-dispatch-reference
+version: 0.1.0.0
+synopsis: Six-order dispatch game with private authoritative state
+description: Complete clock-free dispatch rules and Step/Arena protocol adapter.
+license: MIT
+license-file: LICENSE
+build-type: Simple
+
+common checked
+  default-language: GHC2021
+  ghc-options: -Wall -Wcompat -Werror
+
+library
+  import: checked
+  hs-source-dirs: src
+  exposed-modules: Station.Domain, Station.Adapter
+  build-depends: base >=4.18 && <5, text,
+                 game-transition ==0.1.0.0, game-arena ==0.1.0.0
+
+test-suite station-laws
+  import: checked
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Laws.hs
+  build-depends: base, station-dispatch-reference,
+                 game-transition, game-arena

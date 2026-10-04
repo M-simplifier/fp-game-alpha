@@ -71,7 +71,8 @@ def source_dirs(project):
     else:
         names = ['libraries/game-transition/src', 'libraries/game-arena/src',
                  'references/lantern/src', 'references/garden/src',
-                 'references/tapline/src', 'references/river/src', 'src']
+                 'references/tapline/src', 'references/river/src',
+                 'references/station/src', 'src']
     paths = [(project / name).resolve() for name in names]
     if any(not path.is_relative_to(project) for path in paths):
         raise ValueError('Declared source directories must remain inside this project.')
