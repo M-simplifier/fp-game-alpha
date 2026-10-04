@@ -149,7 +149,10 @@ part of this run. The
 [River CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37180747216)
 passed on Windows, Linux and macOS. A fresh public branch clone on Windows
 also passed the source gate, docs links, full Cabal suite and independent
-generated-game development acceptance.
+generated-game development acceptance. A subsequent public-API test compiles
+read-only River projections and rejects outside `Game` record update for the
+record-selector diagnostic. `Cell` is intentionally constructible input and
+gets checked by the domain, rather than this compiler fixture.
 
 ## Station Dispatch pure core
 
@@ -161,4 +164,8 @@ option agreement, Step/Arena behavior, stale replay and a rule-deletion
 mutation. A separate GHC outside-client fixture compiles projections and
 rejects GameState update and TurnId construction for their intended reasons.
 The original JSON save, asynchronous UI/storage and browser host are outside
-this increment. Public three-OS CI and fresh-clone checks are pending.
+this increment. The
+[Station CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37181698800)
+passed on Windows, Linux and macOS. A fresh public branch clone on Windows
+also passed the source gate, docs links, external API compilation, full Cabal
+suite and independent generated-game development acceptance.

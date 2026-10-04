@@ -27,7 +27,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "0cdb7196d426e3e8cd7ef46d8ec72594caf550db9c56538c084f4f32997a23ab",
+      "sha256_lf": "6105e0268e12f8bf7b0de76af7d21feab1f2c0a493753058970a82295851bcb8",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -196,7 +196,7 @@
     },
     {
       "path": "docs/failure-prevention.md",
-      "sha256_lf": "89be5bb777996f0974a3f4362446a037d912bd2ad0a0b460b2e40fa506065382",
+      "sha256_lf": "845d8ad6338ea71dab19e356f779316c4a232d594aa289e9e63bd1186bb7044b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -329,7 +329,7 @@
     },
     {
       "path": "docs/verification.md",
-      "sha256_lf": "3d953d2c7792c486380ac19dff6876fbb5a55015aa78f945b22fabadb20ab26d",
+      "sha256_lf": "74f8b3b5c6945d25ee46bfa5dcacb1634a324e2c4e5ba0a14631b42a4e28ca1f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -794,7 +794,7 @@
     },
     {
       "path": "references/river/README.md",
-      "sha256_lf": "1f06483cad12086b9a03a21adb91e0454571b461485c606c2a96386d121460f9",
+      "sha256_lf": "7e80a1d567e81b84151d2ba674c4c28d7216d5575c1cfdbdc6af43414bdbf1cc",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -857,6 +857,28 @@
     {
       "path": "references/river/test/Laws.hs",
       "sha256_lf": "f17a3ee9190aeeeaf87d9bddb36e7f2ed509225a3ab921cbf400dedbd628bd64",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/test/ReadRiver.hs",
+      "sha256_lf": "589b506448e3750771f3101a9a30a2f4c60106a932bbad8a19a86e6feb188bdd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/test/RejectRiverUpdate.hs",
+      "sha256_lf": "f1b3a97aaf5000ce5b5d469e9dd972efa18dc0e17d40806cb72bbb0dd23d2496",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -1591,6 +1613,17 @@
     {
       "path": "tools/test_lantern_api.py",
       "sha256_lf": "1fb80da21355742b4fd5a0d995012ff0b73b15da6b592caa32ec21390fe50c71",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/test_river_api.py",
+      "sha256_lf": "0339dc88fa1cf6bec5d74e66e412a63bb4f305cdf92e81e82fd404d22f6161dc",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

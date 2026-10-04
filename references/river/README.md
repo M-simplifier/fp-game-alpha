@@ -36,7 +36,11 @@ Save round-trip and continuation checks cover selected scenarios. There is no
 automatic migration, crash-durable storage, or guarantee for arbitrary future
 game changes.
 
-Run `python tools/fp_game.py test` at the foundation root. The public test
+Run `python tools/fp_game.py test` and `python tools/test_river_api.py` at the
+foundation root. The latter compiles an outside reader, then requires GHC to
+reject an attempted `Game` record update for the record-selector reason.
+`Cell` remains publicly constructible, so callers may submit an out-of-range
+coordinate; the domain validates its use. The public game test
 checks the authored journey, weather/crop/wood differences, overnight report,
 save rejection and continuation, direct Step/Arena agreement, protocol
 rejection, finite invariant-preserving prefixes, extreme tick saturation,
