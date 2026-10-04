@@ -288,7 +288,7 @@
     },
     {
       "path": "docs/formatting.md",
-      "sha256_lf": "505f6ed97407d3eba441e5908a994de6881fd4bee7e6a497d3b50f797a5a61e4",
+      "sha256_lf": "a59acb4fb46dc4d54137327ca2a780605b18fe2414fc35bb0bfe28f1804ad0ad",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5974,7 +5974,7 @@
     },
     {
       "path": "tools/formatter.lock.json",
-      "sha256_lf": "5cf22a2c001d9fee3ee98b06154e41198d55698918fcc7cf3371be491cca4c3c",
+      "sha256_lf": "da7f851116f3624d01b00d0018978c8b01bd86a59ba044046ec46b7f6e91a967",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5985,7 +5985,7 @@
     },
     {
       "path": "tools/formatter.py",
-      "sha256_lf": "031b3cf5eaa28e77db0ebe15175bed6c8c4826306799828ddd284028717cab18",
+      "sha256_lf": "be915f97d2283cde52fbaf8b9d63fa434d29d0ac329acafdbf1f7e4993afe135",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -6051,7 +6051,7 @@
     },
     {
       "path": "tools/test_formatter.py",
-      "sha256_lf": "7a9a98b88f59a1f4ab273621c58dfa7f32714f6499a2f4171a4432220befcf1b",
+      "sha256_lf": "d6fa23e254b62974fcf3bca639b792adc2eb1b5ca61fee85ee020481bf3d7182",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
