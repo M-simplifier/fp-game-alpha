@@ -163,22 +163,23 @@ dryGoal = 7200
 initialGame :: Game
 initialGame =
   Game
-    450
-    650
-    0
-    1
-    1
-    0
-    (Map.fromList [(c, Bed Empty False) | c <- cropCells])
-    (Map.fromList [(c, Bundle 0 False) | c <- woodCells])
-    Set.empty
-    Set.empty
-    Set.empty
-    NoBuild
-    0
-    0
-    NotPromised
-    Nothing
+    { gPlayerX = 450,
+      gPlayerZ = 650,
+      gFacingX = 0,
+      gFacingZ = 1,
+      gDay = 1,
+      gTicks = 0,
+      gBeds = Map.fromList [(c, Bed Empty False) | c <- cropCells],
+      gWood = Map.fromList [(c, Bundle 0 False) | c <- woodCells],
+      gRoofs = Set.empty,
+      gPaths = Set.empty,
+      gSeats = Set.empty,
+      gBuild = NoBuild,
+      gTurnips = 0,
+      gDryWood = 0,
+      gDinner = NotPromised,
+      gNight = Nothing
+    }
 
 playerPosition :: Game -> (Int, Int)
 playerPosition g = (gPlayerX g, gPlayerZ g)
@@ -517,50 +518,53 @@ cook g = case gDinner g of
 -- weather and shelter, then the next day starts at tick zero. Repeated render
 -- frames or elapsed wall time cannot run this transition by themselves.
 sleep :: Game -> (Game, [Effect])
-sleep g =
-  changed message $
-    waterRain
-      rested
-        { gDay = min maxDay (gDay g + 1),
+sleep closingDay = changed message nextMorning
+  where
+    -- Rain reaches the closing day's plots before growth consumes their water.
+    wateredTonight = waterRain closingDay
+    nextDay = min maxDay (gDay closingDay + 1)
+    afterNight =
+      wateredTonight
+        { gDay = nextDay,
           gTicks = 0,
-          gBeds = Map.map grow (gBeds rested),
-          gWood = Map.mapWithKey dryOvernight (gWood g),
+          gBeds = Map.map grow (gBeds wateredTonight),
+          gWood = Map.mapWithKey dryOvernight (gWood closingDay),
           gNight = Just night
         }
-  where
-    rested = waterRain g
+    -- Apply the new day's rain only after recording the completed night.
+    nextMorning = waterRain afterNight
     grownCount =
       length
         [ ()
-        | Bed stage watered <- Map.elems (gBeds rested),
+        | Bed stage watered <- Map.elems (gBeds wateredTonight),
           watered,
           stage == Planted || stage == Sprouting
         ]
     rainCount =
       length
         [ ()
-        | (c, Bed stage _) <- Map.toList (gBeds rested),
-          weather g == Rainy,
+        | (c, Bed stage _) <- Map.toList (gBeds wateredTonight),
+          weather closingDay == Rainy,
           stage /= Empty,
-          not (isRoofed c g)
+          not (isRoofed c closingDay)
         ]
     woodChanges =
-      [ (c, n, after, isRoofed c g)
-      | (c, bundle@(Bundle n True)) <- Map.toAscList (gWood g),
+      [ (c, n, after, isRoofed c closingDay)
+      | (c, bundle@(Bundle n True)) <- Map.toAscList (gWood closingDay),
         let Bundle after _ = dryOvernight c bundle
       ]
-    night = NightReport (gDay g) grownCount rainCount woodChanges
+    night = NightReport (gDay closingDay) grownCount rainCount woodChanges
     -- Each night is one meaningful drying step.  No wall clock, render tick,
     -- offline interval, or time spent walking can bypass the overnight care.
     dryOvernight c (Bundle n loaded) =
-      let amount = if weather g == Rainy && not (isRoofed c g) then dryGoal `div` 8 else dryGoal `div` 2
+      let amount = if weather closingDay == Rainy && not (isRoofed c closingDay) then dryGoal `div` 8 else dryGoal `div` 2
        in Bundle (if loaded then min dryGoal (n + amount) else 0) loaded
     grow (Bed s watered) = Bed (if watered then growStage s else s) False
     growStage Empty = Empty
     growStage Planted = Sprouting
     growStage Sprouting = Ripe
     growStage Ripe = Ripe
-    tomorrow = weatherFor (min maxDay (gDay g + 1))
+    tomorrow = weatherFor nextDay
     message =
       if tomorrow == Rainy
         then "雨の朝。屋根のない畑には雨が届き、薪はゆっくり乾きます。"
@@ -725,22 +729,23 @@ fromRaw r = do
   dinner <- enumValue (rDinner r)
   pure $
     Game
-      (n (rX r))
-      (n (rZ r))
-      (n (rFX r))
-      (n (rFZ r))
-      (n (rDay r))
-      (n (rTicks r))
-      (Map.fromList bs)
-      (Map.fromList [(Cell (n x) (n z), Bundle (n amount) l) | (x, z, amount, l) <- rWood r])
-      (cells (rRoofs r))
-      (cells (rPaths r))
-      (cells (rSeats r))
-      buildKind
-      (n (rTurnips r))
-      (n (rDryWood r))
-      dinner
-      (fmap restoreNight (rNight r))
+      { gPlayerX = n (rX r),
+        gPlayerZ = n (rZ r),
+        gFacingX = n (rFX r),
+        gFacingZ = n (rFZ r),
+        gDay = n (rDay r),
+        gTicks = n (rTicks r),
+        gBeds = Map.fromList bs,
+        gWood = Map.fromList [(Cell (n x) (n z), Bundle (n amount) l) | (x, z, amount, l) <- rWood r],
+        gRoofs = cells (rRoofs r),
+        gPaths = cells (rPaths r),
+        gSeats = cells (rSeats r),
+        gBuild = buildKind,
+        gTurnips = n (rTurnips r),
+        gDryWood = n (rDryWood r),
+        gDinner = dinner,
+        gNight = fmap restoreNight (rNight r)
+      }
   where
     n = fromInteger
     restoreNight (RawNight d grown rainCount changes) =

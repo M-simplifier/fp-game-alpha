@@ -263,7 +263,7 @@
     "origin": "gallery/functional-arcade/src/Life/Domain.hs",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
-    "transformation": "Added domain-rule and save-boundary Haddock; executable rule cases unchanged."
+    "transformation": "Added domain-rule and save-boundary Haddock; applied pinned Ormolu layout and named private Game field construction and overnight state dependencies. Scoped baseline comparisons found no rule or codec output differences; the local current-main integration comparison against c44f31a is recorded separately in research/readability/river-refactor.md."
   },
   "references/river/src/Life/Clock.hs": {
     "kind": "selected-author-supplied-technical-source",

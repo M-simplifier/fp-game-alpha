@@ -22,6 +22,18 @@ A function should have one explainable job at one level of abstraction. Name imp
 
 Extract a helper when it gives a domain concept a useful name, isolates an invariant, or removes a repeated decision. Do not extract every expression into a one-use trampoline. Avoid both giant rule functions and a maze of tiny helpers that require constant jumping.
 
+When a transition uses the closing state to calculate a night, round or turn,
+then applies the next state's conditions, name the values at that boundary.
+River's overnight revision keeps closing-day weather visible beside drying
+and the report, then applies morning rain to the result. Local bindings suffice;
+a simple one-update rule needs no
+staged pipeline. The names describe dependencies, not imperative evaluation order.
+
+When constructing a wide record with several same-typed fields, use its existing
+field names so a reader can pair each value with its role without counting
+constructor arguments. Keep private fields private; named construction adds no
+validation. A small, clear pair does not need a new record or wrapper.
+
 Length and nesting are review signals, not universal line limits. A well-shaped pattern match may be clearer than a shorter point-free expression. Keep public signatures explicit and names consistent across code, UI, tests, and documentation.
 
 ## Reading path for every reference game

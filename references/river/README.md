@@ -19,6 +19,15 @@ from `InteractionBoundary`; a no-input movement boundary means `Tick 0 0`.
 An invalid build is admitted and resolved as an in-world no-op with a notice,
 because the domain rule, rather than the protocol adapter, owns construction.
 
+In `sleep`, follow `closingDay` → `wateredTonight` → `afterNight` →
+`nextMorning`. The closing day's rain waters exposed plots before growth;
+wood drying and the factual night report use that same day's weather and roofs.
+After growth consumes the plots' water, the next morning's rain may water them
+again. For example, sleeping after the sunny `DayOne` scenario grows all three
+watered plots to `Sprouting` and dries both loaded racks to 50%. Day two then
+starts rainy: the roofed plot stays unwatered and the exposed plots receive rain.
+These are pure state values, not extra clock ticks or IO phases.
+
 For a complete tiny trace, `replay riverStep [Tick 0 0, ChooseBuild Roof]
 initialGame` yields the same state/effects as two calls to `advance`. Split
 each command with `splitCommand` and `play RiverArena` yields the same result.
@@ -54,6 +63,9 @@ The original `Life.Domain` and `Life.Clock` and per-title MIT notice were
 selected from the author's technical snapshot
 `5335bb14f9ca644fbdc62a00be892f33ad590ba6`. The publication manifest
 records original digests; only explanatory Haddock was added to the domain
-rules. This edition adds the named-view adapter, executable focused checks
-and a reading path. It includes no private Git history, binary, artwork,
-font, or graphical host.
+rules in the initial selection. This edition also uses pinned formatting,
+named private `Game` field construction and explicit overnight state values;
+the [readability report](../../research/readability/river-refactor.md) records
+the behavior comparison and its limits. It adds the named-view adapter,
+executable focused checks and a reading path. It includes no private Git
+history, binary, artwork, font, or graphical host.
