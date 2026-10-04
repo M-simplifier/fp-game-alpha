@@ -55,3 +55,10 @@ the CLI path for first-user acceptance.
 Read [the type and arena guide](architecture.md) after the first tests. Native
 graphics, browser, server and mobile toolchains require separate acceptance
 and are tracked in [the milestones](roadmap.md).
+
+## Consistent Haskell formatting
+
+Use the [pinned project-local formatter](formatting.md) for explicit setup,
+non-writing checks, owned-source formatting and external HLS integration.
+Run `python tools/formatter.py plan`, then `install` when permitted;
+`check` never downloads and `write` never targets vendored source.

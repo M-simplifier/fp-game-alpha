@@ -14,11 +14,18 @@ for(const cell of [0,2,2,11,11]) assert.equal(a.rotate(cell),true);
 assert.equal(a.phase(),'won'); assert.equal(a.moves(),13);
 assert.ok(a.svg().includes('Both gardens are watered'));
 assert.equal(a.rotate(4),false); assert.equal(b.moves(),18);
+assert.equal(a.undo(),true); assert.equal(a.phase(),'playing'); assert.equal(a.moves(),14);
+assert.equal(a.rotate(11),true); assert.equal(a.phase(),'won'); assert.equal(a.undo(),false);
 await writeFile(new URL('../.build/won.svg',import.meta.url),a.svg());
 a.restart(); assert.equal(a.svg(),initial);
 assert.equal(a.undo(),false); a.rotate(0); assert.equal(a.undo(),true); assert.equal(a.moves(),18); a.rotate(0); assert.equal(a.undo(),false); a.restart();
 for(let i=0;i<18;i++) a.rotate(4);
 assert.equal(a.phase(),'out-of-moves'); assert.equal(a.moves(),0);
+assert.equal(a.rotate(4),false); assert.equal(a.undo(),true); assert.equal(a.phase(),'playing'); assert.equal(a.moves(),1);
+a.restart();
+for(let i=0;i<13;i++) a.rotate(4);
+for(const cell of [0,2,2,11,11]) a.rotate(cell);
+assert.equal(a.moves(),0); assert.equal(a.phase(),'won');
 a.close(); a.close(); assert.throws(()=>a.svg(),/closed/); b.close();
 for(let i=0;i<200;i++){const c=create(); c.rotate(0); assert.ok(c.svg().includes('17 turns')); c.close();}
 console.log('PASS: actual Haskell Wasm gameplay, invalid inputs, independent sessions, win/loss/reset, SVG and lifecycle (not a browser UI test)');

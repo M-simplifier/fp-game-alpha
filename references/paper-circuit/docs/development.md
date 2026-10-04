@@ -50,3 +50,11 @@ dependencies. The separately vendored code revision is in
 Those guides include other games' technical examples. Paper Circuit does not
 inherit their renderer, rules, assets or previous validation. For offline reading,
 copy only needed guides with their MIT notice and deliberately update links.
+
+## Keep changes readable
+
+Use the README's first-turn reading path and `docs/readability-review.md` when
+reviewing handwritten or AI-generated changes. Name new state by its game role,
+keep the public constructors/selectors intentionally opaque, and preserve the
+single pure rule implementation behind Machine/Arena. Add a rule regression
+before extending the example; do not treat the rubric score as proof of quality.

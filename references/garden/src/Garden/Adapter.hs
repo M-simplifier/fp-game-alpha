@@ -1,18 +1,29 @@
 {-# LANGUAGE TypeFamilies #-}
+
 -- | Two protocol layers over the original pure session and scheduler rules.
 module Garden.Adapter
-  ( Garden (..), garden, Player (..), Boundary (..), GardenArena (..)
-  , ProtocolError (..), splitGarden
-  , ElapsedMicros (..), GardenFrame (..), GardenClock (..), gardenClock
-  , GardenClockArena (..), splitGardenFrame
-  ) where
+  ( Garden (..),
+    garden,
+    Player (..),
+    Boundary (..),
+    GardenArena (..),
+    ProtocolError (..),
+    splitGarden,
+    ElapsedMicros (..),
+    GardenFrame (..),
+    GardenClock (..),
+    gardenClock,
+    GardenClockArena (..),
+    splitGardenFrame,
+  )
+where
 
 import Game.Arena
 import Game.Transition
-import qualified Garden.Clock as Clock
-import qualified Garden.Session as Session
-import qualified Garden.Simulation as Simulation
-import qualified Garden.View as View
+import Garden.Clock qualified as Clock
+import Garden.Session qualified as Session
+import Garden.Simulation qualified as Simulation
+import Garden.View qualified as View
 
 -- | One explicit command or simulation tick is a complete kernel boundary.
 data Garden = Garden
@@ -27,8 +38,11 @@ instance Machine Garden where
   machine _ = garden
 
 data Player = Gardener deriving (Eq, Ord, Show)
+
 data Boundary = PlayerBoundary | SimulationTick deriving (Eq, Show)
+
 data ProtocolError = WrongBoundary | WrongParticipants deriving (Eq, Show)
+
 data GardenArena = GardenArena
 
 instance Machine GardenArena where
@@ -58,7 +72,9 @@ splitGarden (Session.Input command) = (PlayerBoundary, singleton Gardener comman
 -- | Distinguishes host elapsed microseconds from logical world ticks. The
 -- scheduler clamps negative readings and applies its own five-tick cap.
 newtype ElapsedMicros = ElapsedMicros Integer deriving (Eq, Ord, Show)
+
 data GardenFrame = GardenFrame ElapsedMicros [Session.Command] deriving (Eq, Show)
+
 data GardenClock = GardenClock
 
 -- | Owns both the session and scheduler debt. Control commands and elapsed
@@ -66,7 +82,7 @@ data GardenClock = GardenClock
 gardenClock :: Step (Session.Session, Clock.Clock) GardenFrame [Simulation.Effect]
 gardenClock = Step $ \(GardenFrame (ElapsedMicros elapsed) commands) (session, clock) ->
   let (next, nextClock, effects) = Clock.frame elapsed commands session clock
-  in ((next, nextClock), effects)
+   in ((next, nextClock), effects)
 
 instance Machine GardenClock where
   type State GardenClock = (Session.Session, Clock.Clock)

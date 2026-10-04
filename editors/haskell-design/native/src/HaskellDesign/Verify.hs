@@ -1,34 +1,38 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+
 module HaskellDesign.Verify (verify) where
 
 import Control.Exception (IOException, SomeException, displayException, try)
-import Control.Monad (unless, when, forM)
+import Control.Monad (forM, unless, when)
 import Data.Aeson
 import Data.Aeson.Types (parseEither)
-import qualified Data.ByteString as B
+import Data.ByteString qualified as B
 import Data.List (sortOn)
 import Data.Maybe (fromMaybe)
-import Data.Ord (Down(..))
+import Data.Ord (Down (..))
 import Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.Encoding as E
-import System.Directory
-import System.Exit (ExitCode(..))
-import System.FilePath
-import System.Info (os)
-import System.IO.Temp (withTempDirectory)
-import System.Process
-import System.Timeout (timeout)
+import Data.Text qualified as T
+import Data.Text.Encoding qualified as E
 import HaskellDesign.Model
 import HaskellDesign.Scope
+import System.Directory
+import System.Exit (ExitCode (..))
+import System.FilePath
+import System.IO.Temp (withTempDirectory)
+import System.Info (os)
+import System.Process
+import System.Timeout (timeout)
 
 failure :: String -> IO a
 failure = ioError . userError
 
 data Component = Component FilePath [String] (Maybe String)
+
 instance FromJSON Component where
   parseJSON = withObject "component" $ \o -> Component <$> o .: "path" <*> o .:? "ghcOptions" .!= [] <*> o .:? "unsupportedReason"
+
 data Config = Config (Maybe FilePath) [String] [Component]
+
 instance FromJSON Config where
   parseJSON = withObject ".haskell-design.json" $ \o -> do
     version <- o .: "version"
@@ -39,27 +43,30 @@ compilerOptions :: FilePath -> FilePath -> IO (Maybe FilePath, [String])
 compilerOptions root file = do
   let path = root </> ".haskell-design.json"
   exists <- doesFileExist path
-  Config ghc options components <- if not exists then pure (Config Nothing [] []) else do
-    link <- pathIsSymbolicLink path
-    when link $ failure "Linked compiler configuration is unsupported."
-    size <- getFileSize path
-    when (size > 2000000) $ failure "Compiler configuration exceeds the 2 MB limit."
-    either failure pure . eitherDecodeStrict' =<< B.readFile path
+  Config ghc options components <-
+    if not exists
+      then pure (Config Nothing [] [])
+      else do
+        link <- pathIsSymbolicLink path
+        when link $ failure "Linked compiler configuration is unsupported."
+        size <- getFileSize path
+        when (size > 2000000) $ failure "Compiler configuration exceeds the 2 MB limit."
+        either failure pure . eitherDecodeStrict' =<< B.readFile path
   resolved <- forM components $ \(Component prefix args reason) -> do
     p <- canonicalizePath (if isAbsolute prefix then prefix else root </> prefix)
     unless (within root p) $ failure "Component path is outside project."
     pure (p, args, reason)
-  let matches = sortOn (Down . length . (\(p,_,_) -> p)) [c | c@(p,_,_) <- resolved, within p file]
+  let matches = sortOn (Down . length . (\(p, _, _) -> p)) [c | c@(p, _, _) <- resolved, within p file]
   args <- case matches of
-    (_,_,Just reason):_ -> failure reason
-    (_,extra,Nothing):_ -> pure extra
+    (_, _, Just reason) : _ -> failure reason
+    (_, extra, Nothing) : _ -> pure extra
     [] | not (null components) -> failure ".haskell-design.json: no compiler component matches this file. Add its folder to components."
     [] -> pure []
   pure (fmap (\g -> if any isPathSeparator g && not (isAbsolute g) then root </> g else g) ghc, options ++ args)
 
 run :: FilePath -> FilePath -> [String] -> Int -> IO Text
 run root binary args seconds = do
-  result <- timeout (seconds * 1000000) (readCreateProcessWithExitCode (proc binary args) { cwd = Just root } "")
+  result <- timeout (seconds * 1000000) (readCreateProcessWithExitCode (proc binary args) {cwd = Just root} "")
   case result of
     Nothing -> failure "GHC verification timed out."
     Just (code, output, errors)
@@ -106,10 +113,15 @@ verify root file source helperSource ghcPath cacheDir = do
     let ghc = fromMaybe (fromMaybe "ghc" ghcPath) configured
     (binary, libdir) <- helper root ghc helperSource cacheDir
     let includes = ["-i" ++ root </> p | p <- ["", "src", "app", "test", "tests"]]
-    output <- run root binary (libdir:file:includes ++ options) 30
+    output <- run root binary (libdir : file : includes ++ options) 30
     value <- either failure pure (eitherDecodeStrict' (E.encodeUtf8 output))
-    (status, signatures, evidence, dependencies) <- either failure pure $ parseEither (withObject "GHC result" $ \o ->
-      (,,,) <$> o .: "status" <*> o .: "signatures" <*> o .: "evidence" <*> o .:? "dependencies" .!= []) value
+    (status, signatures, evidence, dependencies) <-
+      either failure pure $
+        parseEither
+          ( withObject "GHC result" $ \o ->
+              (,,,) <$> o .: "status" <*> o .: "signatures" <*> o .: "evidence" <*> o .:? "dependencies" .!= []
+          )
+          value
     unless (status `elem` [Pure, IOUsed]) $ failure "Invalid GHC verification response."
     files <- sourceFiles root >>= mapM canonicalizePath
     deps <- mapM (canonicalizePath . (root </>)) dependencies
@@ -118,8 +130,9 @@ verify root file source helperSource ghcPath cacheDir = do
     after <- fingerprint root
     final <- hash <$> readSource file
     unless (before == after && final == hash source) $ failure "Source or configuration changed during verification. Read it again."
-    pure initial { verStatus = status, verSignatures = signatures, verEvidence = map reason evidence, verDependencies = Just (deps ++ configs), verWorkspaceHash = Just before }
+    pure initial {verStatus = status, verSignatures = signatures, verEvidence = map reason evidence, verDependencies = Just (deps ++ configs), verWorkspaceHash = Just before}
   case result of
     Right proof -> pure proof
-    Left (err :: SomeException) -> pure initial { verError = Just (T.take 12000 (T.pack (displayException err))) }
-  where reason e = e { evidenceReason = "GHCが推論した型・式にIOが現れます。", evidenceName = if "$" `T.isPrefixOf` evidenceName e then "インスタンス・生成された定義" else evidenceName e }
+    Left (err :: SomeException) -> pure initial {verError = Just (T.take 12000 (T.pack (displayException err)))}
+  where
+    reason e = e {evidenceReason = "GHCが推論した型・式にIOが現れます。", evidenceName = if "$" `T.isPrefixOf` evidenceName e then "インスタンス・生成された定義" else evidenceName e}

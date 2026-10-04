@@ -1,4 +1,5 @@
 {-# LANGUAGE PatternSynonyms #-}
+
 -- Real renderer/allocator exercise without input polling, pointer capture,
 -- audio, saves or a visible/focused window. Runtime art remains external.
 module Main (main) where
@@ -16,8 +17,8 @@ import Garden.World
 import Raylib.Core
 import Raylib.Types
 import Raylib.Util (drawing)
-import System.Mem (performMajorGC)
 import System.Directory (createDirectoryIfMissing)
+import System.Mem (performMajorGC)
 import Text.Printf (printf)
 
 main :: IO ()
@@ -32,28 +33,28 @@ main = do
           photo = (beginPhoto (sceneEye view) (sceneForward view)) {photoGrid = False}
       syncChunks resources view
       let cases =
-            [ ("day-" <> show q, (1280,720), preset q, view, Nothing) | q <- [FullQuality, BalancedQuality, LightQuality] ] <>
-            [ ("night", (1280,720), preset FullQuality, view {sceneVeil = 0.94}, Nothing),
-              ("dusk", (1280,720), preset BalancedQuality, view {sceneVeil = 0.60}, Nothing),
-              ("wide-odd", (1367,769), preset FullQuality, view, Just photo {photoFov = 100, photoRoll = 0.45}),
-              ("portrait-tele", (701,1001), preset BalancedQuality, view, Just photo {photoFov = 20}),
-              ("no-shadows", (1280,720), (preset FullQuality) {shadows = NoShadows}, view, Nothing),
-              ("no-ao", (1280,720), (preset FullQuality) {occlusion = NoOcclusion}, view, Nothing),
-              ("no-clouds", (1280,720), (preset FullQuality) {clouds = ClearSky}, view, Nothing),
-              ("no-bloom", (1280,720), (preset FullQuality) {bloom = False}, view, Nothing),
-              ("restored-high", (1280,720), preset FullQuality, view, Nothing)
-            ]
-      rows <- forM cases $ \(name, (w,h), settings, scene, portrait) -> do
+            [("day-" <> show q, (1280, 720), preset q, view, Nothing) | q <- [FullQuality, BalancedQuality, LightQuality]]
+              <> [ ("night", (1280, 720), preset FullQuality, view {sceneVeil = 0.94}, Nothing),
+                   ("dusk", (1280, 720), preset BalancedQuality, view {sceneVeil = 0.60}, Nothing),
+                   ("wide-odd", (1367, 769), preset FullQuality, view, Just photo {photoFov = 100, photoRoll = 0.45}),
+                   ("portrait-tele", (701, 1001), preset BalancedQuality, view, Just photo {photoFov = 20}),
+                   ("no-shadows", (1280, 720), (preset FullQuality) {shadows = NoShadows}, view, Nothing),
+                   ("no-ao", (1280, 720), (preset FullQuality) {occlusion = NoOcclusion}, view, Nothing),
+                   ("no-clouds", (1280, 720), (preset FullQuality) {clouds = ClearSky}, view, Nothing),
+                   ("no-bloom", (1280, 720), (preset FullQuality) {bloom = False}, view, Nothing),
+                   ("restored-high", (1280, 720), preset FullQuality, view, Nothing)
+                 ]
+      rows <- forM cases $ \(name, (w, h), settings, scene, portrait) -> do
         setWindowSize w h
         writeIORef (resourceQuality resources) settings
         let draw = drawing (renderSceneWith portrait resources scene 0)
         replicateM_ 12 draw
         performMajorGC
-        timings <- forM [1..60 :: Int] $ \n -> do
+        timings <- forM [1 .. 60 :: Int] $ \n -> do
           start <- getTime
           draw
           end <- getTime
-          pure (printf "%s,%d,%.4f\n" name n ((end-start)*1000))
+          pure (printf "%s,%d,%.4f\n" name n ((end - start) * 1000))
         takeScreenshot (".runtime/render-check/" <> name <> ".png")
         putStrLn ("render-check passed: " <> name)
         pure (concat timings)

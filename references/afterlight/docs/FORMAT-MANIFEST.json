@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "reference_public_commit": "2487f7b31f75af65fa430123efbc4b67ca883b93",
+  "formatter": "Ormolu 0.9.0.0",
+  "archive_sha256": "367eb4969986504cf171f71f91e24ea5d7d9d97c41701e8e6eef9b642fd0d201",
+  "mode": "inplace with default AST safety and --check-idempotence",
+  "scope": "Formatting-only changes; frozen original oracle is excluded. Baseline source hashes remain unchanged in BASELINE-MANIFEST.",
+  "files": [
+    {
+      "path": "runtime/Garden/Render/GPU.hs",
+      "baseline_sha256": "8a80b98e2c4986d42c79cca8dd4550330f2e6cdcad2a9611e44ccaaaa97a6d2c",
+      "pre_format_sha256": "8a80b98e2c4986d42c79cca8dd4550330f2e6cdcad2a9611e44ccaaaa97a6d2c",
+      "formatted_sha256": "a8dc36d4e079cdf89ac5b1b07d75f4ada22784e649bf75e93b79e02ebf00eecc"
+    },
+    {
+      "path": "runtime/Garden/Render/Radiance.hs",
+      "baseline_sha256": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
+      "pre_format_sha256": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
+      "formatted_sha256": "0338ad14ed56a1491c2acfbee85a52c50c46eb8ec7598e89d69a65edf15939a1"
+    },
+    {
+      "path": "runtime/Garden/Render/Resources.hs",
+      "baseline_sha256": "1a338075976df9b41debe50d698471abe89ce81fd6154af8fd1ead6e525cf8b5",
+      "pre_format_sha256": "1a338075976df9b41debe50d698471abe89ce81fd6154af8fd1ead6e525cf8b5",
+      "formatted_sha256": "90477ba81d0240f111c17db50348321ef2c70e96133b9a0a6e13ffe36d7f2192"
+    },
+    {
+      "path": "runtime/Garden/Render.hs",
+      "baseline_sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
+      "pre_format_sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
+      "formatted_sha256": "86247cfa2e5a0a3f71b703ad976d9874962330fcb2c3155c6fe000112850833c"
+    },
+    {
+      "path": "runtime/Garden/Runtime.hs",
+      "baseline_sha256": "c3538af71b2028526171d51e850d42a545132ca8291019b35f9d92e670127784",
+      "pre_format_sha256": "282804d33ccffeae82dbc2acb6bda5a09361e4c6485365e1e6503c738453414b",
+      "formatted_sha256": "fefe76a5e9a36c99c3643dfa07bca0798de3e5b8eaa025f2815875f9bad78b33"
+    },
+    {
+      "path": "src/Garden/Arena.hs",
+      "baseline_sha256": null,
+      "pre_format_sha256": "5a8a25acdded4035a10c8977e0a08599a811e0f67b5163a81f7d4c6578c8015a",
+      "formatted_sha256": "69a83ca21ccb3bf97c6f1eebe22a04ab33091fdbc3ca99ecaece9f99aed92fdc"
+    },
+    {
+      "path": "src/Garden/Mesh.hs",
+      "baseline_sha256": "0c45ffd7b80dee5804903db2a196a3be718373d8a278b1cc396a69ccd89f8fff",
+      "pre_format_sha256": "0c45ffd7b80dee5804903db2a196a3be718373d8a278b1cc396a69ccd89f8fff",
+      "formatted_sha256": "0b15ff620c9d85f325e3e5f0a271a26d1078aeb4f3a0daabce37687d7f4e4009"
+    },
+    {
+      "path": "src/Garden/Render/Chunk.hs",
+      "baseline_sha256": "a3a8ad33ac367dd500d805479c5fc87b6b46626d8f3fece3b0293cf200892714",
+      "pre_format_sha256": "a3a8ad33ac367dd500d805479c5fc87b6b46626d8f3fece3b0293cf200892714",
+      "formatted_sha256": "cf9ed65a4ead7097f8d0b0db3ffaef87adb407519e956ee0688437ff1a998253"
+    },
+    {
+      "path": "src/Garden/Render/Invalidation.hs",
+      "baseline_sha256": "e85072f2710a01db6985c0d4e117895a86e052ffe20542c3a7fdf8b443719a4c",
+      "pre_format_sha256": "e85072f2710a01db6985c0d4e117895a86e052ffe20542c3a7fdf8b443719a4c",
+      "formatted_sha256": "b4bbc791f500390057f33f6f8adac85fb3406d78d912dee7dc50a3c4151f052e"
+    },
+    {
+      "path": "src/Garden/Render/Settings.hs",
+      "baseline_sha256": "876ed1bd94fc183459d4103ffbd7503c2a9d873b0769df1c10272de0bdb192d6",
+      "pre_format_sha256": "876ed1bd94fc183459d4103ffbd7503c2a9d873b0769df1c10272de0bdb192d6",
+      "formatted_sha256": "12afe4c01f80eee7572b8ccb5c3a638a3bee1d2358270a1811018bab5fc1a816"
+    },
+    {
+      "path": "src/Garden/Session.hs",
+      "baseline_sha256": null,
+      "pre_format_sha256": "4027e6d64aa9ff7226cb0b06d6124421c07f1ac9e5ed0557824595791394322d",
+      "formatted_sha256": "8b72256b538d47ec172265df853333f164cb57a856e761a0de13717bfab3ec97"
+    },
+    {
+      "path": "test/Parity.hs",
+      "baseline_sha256": null,
+      "pre_format_sha256": "b23dcb833353366ac5feff64d2a8c0ce463d6e1ff1a0c267055c200b32306d02",
+      "formatted_sha256": "98f43e55c2e0ce3c2ef7f3f6ad17cd3cd02f329f5ea8b5399081348acdc08e67"
+    },
+    {
+      "path": "tools/GardenCheck.hs",
+      "baseline_sha256": "2ea81bbb582e0f907db0a1586ed99f0b3a0d841412262baaf164a1aabeb6a068",
+      "pre_format_sha256": "2ea81bbb582e0f907db0a1586ed99f0b3a0d841412262baaf164a1aabeb6a068",
+      "formatted_sha256": "396862a6e9962b99e139513ae8a104432c333d3730033a4a38c3f9123e34fdf1"
+    },
+    {
+      "path": "tools/GardenMain.hs",
+      "baseline_sha256": "aab8802f61156d2dbc7c6a85e425420cf72dc76e4d1839b104ead85113119d31",
+      "pre_format_sha256": "aab8802f61156d2dbc7c6a85e425420cf72dc76e4d1839b104ead85113119d31",
+      "formatted_sha256": "77ebeab56a4c1d756903246c5aa6b4ace3ed7f7981a71658bfd2a06c91fe0c8d"
+    },
+    {
+      "path": "tools/GardenRenderCheck.hs",
+      "baseline_sha256": "200cb941c59cb8d01c3027403f02582b4d7cd287bdc875488a54fe3664d7b8cc",
+      "pre_format_sha256": "200cb941c59cb8d01c3027403f02582b4d7cd287bdc875488a54fe3664d7b8cc",
+      "formatted_sha256": "f6eedcf3f69edc6b474ccb969198fc6bda7a519eb242a0646bc5c1560a0f0b5f"
+    },
+    {
+      "path": "web/BrowserMain.hs",
+      "baseline_sha256": "443e71dff726e2de16031ac7a2a8b395245199a720e9bdb2468d224ed8387114",
+      "pre_format_sha256": "443e71dff726e2de16031ac7a2a8b395245199a720e9bdb2468d224ed8387114",
+      "formatted_sha256": "53e32d0ec03d9f00f014fef42a372edfe24596992f4edcc47ff33fd1b58413ad"
+    }
+  ],
+  "verbatim_cpp_declarations": {
+    "runtime/Garden/Render/Radiance.hs": [
+      "acquireRadiance"
+    ],
+    "runtime/Garden/Render.hs": [
+      "renderInterface",
+      "renderMenu"
+    ],
+    "runtime/Garden/Runtime.hs": [
+      "beginGarden",
+      "advancePreparation",
+      "stepFrame"
+    ]
+  },
+  "cpp_normalized_comparison": [
+    {
+      "path": "runtime/Garden/Render/Radiance.hs",
+      "configuration": "native",
+      "normalized_preprocessed_sha256": "e0488bac6f5deed3c58c9c51f80e9772998e3e3845577401646f8e20da078a07",
+      "same": true
+    },
+    {
+      "path": "runtime/Garden/Render/Radiance.hs",
+      "configuration": "wasm",
+      "normalized_preprocessed_sha256": "754a3f38252252b32b813a5da890ebafc81c0aa0cbeb328eab53c1d3734bec60",
+      "same": true
+    },
+    {
+      "path": "runtime/Garden/Render.hs",
+      "configuration": "native",
+      "normalized_preprocessed_sha256": "b01b4d7297a4355fc0c2e622e1d6d838bbf0cb2a41d3c8fe8be8586abbd41d54",
+      "same": true
+    },
+    {
+      "path": "runtime/Garden/Render.hs",
+      "configuration": "wasm",
+      "normalized_preprocessed_sha256": "87df8ef8dd8f7639a33b46491190f74aafb48f817ba373cf12beee7c5f88e4c4",
+      "same": true
+    },
+    {
+      "path": "runtime/Garden/Runtime.hs",
+      "configuration": "native",
+      "normalized_preprocessed_sha256": "67914ac21f10f281b64392396b1d125fdd103f0775439e72647e34fa9db68848",
+      "same": true
+    },
+    {
+      "path": "runtime/Garden/Runtime.hs",
+      "configuration": "wasm",
+      "normalized_preprocessed_sha256": "0e4623ff2e0ce63de2da5f48e04d096d2f85bd4d5c5e980791516a699f2b528f",
+      "same": true
+    }
+  ],
+  "cpp_scope": "Both native and wasm CPP configurations normalized with cpp -traditional-cpp -P then safe Ormolu; identical to public baseline after removing only new formatter-control comments. Not GPU/runtime execution."
+}

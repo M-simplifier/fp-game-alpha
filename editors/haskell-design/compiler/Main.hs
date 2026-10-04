@@ -1,35 +1,8 @@
 {-# LANGUAGE LambdaCase #-}
+
 -- This helper uses the GHC 9.6 API. It typechecks and desugars; it never runs main.
 module Main where
 
-import GHC hiding (exprType)
-import GHC.Builtin.Names (ioTyConName)
-import GHC.Builtin.Types.Prim (statePrimTyCon, realWorldTyCon)
-import GHC.Core
-import GHC.Core.DataCon
-import GHC.Core.Class (ClassATItem(..), classATItems)
-import GHC.Core.Coercion.Axiom (coAxiomBranches, fromBranches, coAxBranchRHS)
-import GHC.Core.FamInstEnv (fi_fam, famInstRHS, reduceTyFamApp_maybe)
-import GHC.Core.Reduction (reductionReducedType)
-import Language.Haskell.Syntax.Basic (Role(..))
-import GHC.Core.TyCo.Rep (Type(..), Scaled(..))
-import GHC.Core.TyCon
-import GHC.Core.Type
-import GHC.Core.Utils (exprType)
-import GHC.Driver.Session
-import GHC.Driver.Flags
-import qualified GHC.LanguageExtensions.Type as LangExt
-import GHC.Driver.Env (hsc_logger, hscEPS)
-import GHC.Unit.External (eps_fam_inst_env)
-import GHC.Tc.Types (tcg_fam_inst_env)
-import GHC.Types.Name hiding (varName)
-import GHC.Types.Var
-import GHC.Types.Id (isImplicitId)
-import GHC.Types.Basic (Origin(..))
-import GHC.Unit.Module.ModGuts
-import GHC.Unit.Module.Graph
-import GHC.Utils.Outputable (ppr)
-import GHC.Driver.Ppr (showSDoc)
 import Control.Exception (SomeException, displayException, try)
 import Control.Monad (forM, unless, when)
 import Control.Monad.IO.Class
@@ -37,11 +10,39 @@ import Data.Char (ord)
 import Data.Data (Data, cast, gmapQ)
 import Data.List (find, nub)
 import Data.Maybe (catMaybes)
+import GHC hiding (exprType)
+import GHC.Builtin.Names (ioTyConName)
+import GHC.Builtin.Types.Prim (realWorldTyCon, statePrimTyCon)
+import GHC.Core
+import GHC.Core.Class (ClassATItem (..), classATItems)
+import GHC.Core.Coercion.Axiom (coAxBranchRHS, coAxiomBranches, fromBranches)
+import GHC.Core.DataCon
+import GHC.Core.FamInstEnv (famInstRHS, fi_fam, reduceTyFamApp_maybe)
+import GHC.Core.Reduction (reductionReducedType)
+import GHC.Core.TyCo.Rep (Scaled (..), Type (..))
+import GHC.Core.TyCon
+import GHC.Core.Type
+import GHC.Core.Utils (exprType)
+import GHC.Driver.Env (hscEPS, hsc_logger)
+import GHC.Driver.Flags
+import GHC.Driver.Ppr (showSDoc)
+import GHC.Driver.Session
+import GHC.LanguageExtensions.Type qualified as LangExt
+import GHC.Tc.Types (tcg_fam_inst_env)
+import GHC.Types.Basic (Origin (..))
+import GHC.Types.Id (isImplicitId)
+import GHC.Types.Name hiding (varName)
+import GHC.Types.Var
+import GHC.Unit.External (eps_fam_inst_env)
+import GHC.Unit.Module.Graph
+import GHC.Unit.Module.ModGuts
+import GHC.Utils.Outputable (ppr)
+import Language.Haskell.Syntax.Basic (Role (..))
 import Numeric (showHex)
 import System.Directory (canonicalizePath)
 import System.Environment (getArgs)
 import System.Exit (exitFailure)
-import System.IO (hPutStrLn, hSetEncoding, stdout, stderr, utf8)
+import System.IO (hPutStrLn, hSetEncoding, stderr, stdout, utf8)
 
 -- Find concrete IO, not a proof that every instantiation is pure. Abstract
 -- effects and unavailable family reductions add no evidence of their own.
@@ -75,8 +76,11 @@ containsIO inspectFields reduceFamily depth seen ty
       | not (inspectFields tc), Nothing <- tyConClass_maybe tc = False
       | isAlgTyCon tc && length args >= length (tyConTyVars tc) =
           let subst = substTyWith (tyConTyVars tc) (take (length (tyConTyVars tc)) args)
-          in or [ containsIO inspectFields reduceFamily (depth - 1) (tc:seen) (subst arg)
-                | dc <- tyConDataCons tc, Scaled _ arg <- dataConOrigArgTys dc ]
+           in or
+                [ containsIO inspectFields reduceFamily (depth - 1) (tc : seen) (subst arg)
+                | dc <- tyConDataCons tc,
+                  Scaled _ arg <- dataConOrigArgTys dc
+                ]
       | otherwise = False
 
 -- Inspect unoptimised Core so IO in non-exported helpers and expressions counts.
@@ -97,7 +101,7 @@ bindingHasIO :: (Type -> Bool) -> Id -> CoreExpr -> Bool
 bindingHasIO inspect ident body = inspect (varType ident) || any inspect (coreTypes body)
 
 -- Keep evidence from dead local bindings as well: desugaring can discard them.
-typedIds :: Data a => a -> [Id]
+typedIds :: (Data a) => a -> [Id]
 typedIds node = case cast node of
   Just v -> [v | isId v]
   Nothing -> concat (gmapQ typedIds node)
@@ -106,13 +110,13 @@ typedIds node = case cast node of
 -- including their compulsory unfoldings. Their generated bodies are library
 -- implementation, not source expressions. Use the AST origin (never a name
 -- prefix) to distinguish them from user-written instance methods such as $c==.
-generatedBindings :: Data a => a -> [Name]
+generatedBindings :: (Data a) => a -> [Name]
 generatedBindings node = case (cast node :: Maybe (HsBind GhcTc)) of
-  Just FunBind{fun_id = L _ ident, fun_matches = MG{mg_ext = ext}}
+  Just FunBind {fun_id = L _ ident, fun_matches = MG {mg_ext = ext}}
     | mg_origin ext == Generated -> [varName ident]
-  Just (XHsBindsLR AbsBinds{abs_exports = exports, abs_binds = binds}) ->
+  Just (XHsBindsLR AbsBinds {abs_exports = exports, abs_binds = binds}) ->
     let names = generatedBindings binds
-    in names ++ [varName (abe_poly e) | e <- exports, varName (abe_mono e) `elem` names]
+     in names ++ [varName (abe_poly e) | e <- exports, varName (abe_mono e) `elem` names]
   _ -> concat (gmapQ generatedBindings node)
 
 js :: String -> String
@@ -123,22 +127,27 @@ js s = '"' : concatMap escape s ++ "\""
     escape '\n' = "\\n"
     escape '\r' = "\\r"
     escape '\t' = "\\t"
-    escape c | ord c < 32 = let h = showHex (ord c) "" in "\\u" ++ replicate (4 - length h) '0' ++ h
-             | otherwise = [c]
+    escape c
+      | ord c < 32 = let h = showHex (ord c) "" in "\\u" ++ replicate (4 - length h) '0' ++ h
+      | otherwise = [c]
 
 obj :: [(String, String)] -> String
-obj pairs = "{" ++ comma [js k ++ ":" ++ v | (k,v) <- pairs] ++ "}"
+obj pairs = "{" ++ comma [js k ++ ":" ++ v | (k, v) <- pairs] ++ "}"
+
 arr :: [String] -> String
 arr xs = "[" ++ comma xs ++ "]"
+
 comma :: [String] -> String
 comma [] = ""
 comma [x] = x
-comma (x:xs) = x ++ "," ++ comma xs
+comma (x : xs) = x ++ "," ++ comma xs
 
 location :: Name -> Int
 location n = case nameSrcSpan n of RealSrcSpan s _ -> srcSpanStartLine s; _ -> 1
+
 label :: Name -> String
 label = occNameString . nameOccName
+
 statusName :: Bool -> String
 statusName True = "io"
 statusName False = "pure"
@@ -151,37 +160,41 @@ analyse libdir files options = runGhc (Just libdir) $ do
   -- Compulsory instance-default copies are distinguished by AST origin below.
   (flags, leftovers, _) <- parseDynamicFlags logger defaults (map noLoc (options ++ ["-O0", "-fignore-interface-pragmas", "-fno-code", "-fno-defer-type-errors", "-fno-defer-typed-holes", "-fno-defer-out-of-scope-variables"]))
   unless (null leftovers) $ liftIO $ fail "Unrecognised GHC options"
-  _ <- setSessionDynFlags flags { ghcLink = NoLink, verbosity = 0 }
+  _ <- setSessionDynFlags flags {ghcLink = NoLink, verbosity = 0}
   targets <- mapM (\file -> guessTarget file Nothing Nothing) files
   setTargets targets
   -- A proof can be reused only when all mutable home-module inputs are tracked.
   -- CPP, custom preprocessors and plugins can read arbitrary non-.hs inputs.
   let untracked df = xopt LangExt.Cpp df || xopt LangExt.TemplateHaskell df || xopt LangExt.QuasiQuotes df || gopt Opt_Pp df || not (null (pluginModNames df)) || not (null (externalPluginSpecs df))
-      rejectUntracked dfs = when (any untracked dfs) $
-        liftIO $ fail "CPP・Template Haskell・QuasiQuotes・独自プリプロセッサ・コンパイラプラグインを使うソース依存があります。この版では入力の変更を追跡できないため、GHCの確認結果を保持しません。設計ビューは利用できます。"
+      rejectUntracked dfs =
+        when (any untracked dfs)
+          $ liftIO
+          $ fail "CPP・Template Haskell・QuasiQuotes・独自プリプロセッサ・コンパイラプラグインを使うソース依存があります。この版では入力の変更を追跡できないため、GHCの確認結果を保持しません。設計ビューは利用できます。"
   rejectUntracked [flags]
   graph <- depanal [] False
   rejectUntracked (map ms_hspp_opts (mgModSummaries graph))
   -- A module pragma can override the no-defer flags. Do not publish type
   -- information that GHC accepted by postponing errors until runtime.
-  when (any (\s -> any (\flag -> gopt flag (ms_hspp_opts s)) [Opt_DeferTypeErrors, Opt_DeferTypedHoles, Opt_DeferOutOfScopeVariables]) (mgModSummaries graph)) $
-    liftIO $ fail "エラーを実行時まで延期する設定があるため、型情報を解析できません。"
+  when (any (\s -> any (\flag -> gopt flag (ms_hspp_opts s)) [Opt_DeferTypeErrors, Opt_DeferTypedHoles, Opt_DeferOutOfScopeVariables]) (mgModSummaries graph))
+    $ liftIO
+    $ fail "エラーを実行時まで延期する設定があるため、型情報を解析できません。"
   -- An ANN pragma can evaluate code even without TemplateHaskell enabled.
   forM (mgModSummaries graph) $ \summary -> do
     parsed <- parseModule summary
-    let annotation (L _ AnnD{}) = True
+    let annotation (L _ AnnD {}) = True
         annotation _ = False
-    when (any annotation (hsmodDecls (unLoc (pm_parsed_source parsed)))) $
-      liftIO $ fail "ANNアノテーションの評価は実行しません。設計ビューは利用できます。"
+    when (any annotation (hsmodDecls (unLoc (pm_parsed_source parsed))))
+      $ liftIO
+      $ fail "ANNアノテーションの評価は実行しません。設計ビューは利用できます。"
   result <- load LoadAllTargets
-  case result of Failed -> liftIO $ fail "GHC could not typecheck the module"; Succeeded -> pure ()
+  case result of { Failed -> liftIO $ fail "GHC could not typecheck the module"; Succeeded -> pure () }
   forM files $ \file -> do
     wanted <- liftIO $ canonicalizePath file
     matches <- forM (mgModSummaries graph) $ \summary -> do
       path <- liftIO $ traverse canonicalizePath (ml_hs_file (ms_location summary))
       pure $ if path == Just wanted then Just summary else Nothing
     summary <- case catMaybes matches of
-      s:_ -> pure s
+      s : _ -> pure s
       [] -> liftIO $ fail "GHC did not load the requested source file"
     typed <- parseModule summary >>= typecheckModule
     desugared <- desugarModule typed
@@ -189,7 +202,7 @@ analyse libdir files options = runGhc (Just libdir) $ do
     external <- liftIO $ hscEPS env
     info <- getModuleInfo (ms_mod summary) >>= maybe (liftIO $ fail "No module information") pure
     dflags <- getSessionDynFlags
-    let rendered = showSDoc dflags { pprCols = 100000 } . ppr
+    let rendered = showSDoc dflags {pprCols = 100000} . ppr
         local v = nameModule_maybe (varName v) == Just (ms_mod summary) && not (isImplicitId v) && take 1 (label (varName v)) /= "$"
         ids = [v | AnId v <- modInfoTyThings info, local v]
         signatures = [obj [("name", js (label (varName v))), ("type", js (rendered (varType v))), ("line", show (location (varName v)))] | v <- ids]
@@ -204,19 +217,23 @@ analyse libdir files options = runGhc (Just libdir) $ do
         generated = generatedBindings (tm_typechecked_source typed)
         -- Check every binding's type, and all bodies originating in this source,
         -- including user-written instance methods with generated Core names.
-        checks = [(v, if varName v `elem` generated then inspect (varType v) else bindingHasIO inspect v rhs) | (v,rhs) <- binds]
+        checks = [(v, if varName v `elem` generated then inspect (varType v) else bindingHasIO inspect v rhs) | (v, rhs) <- binds]
         tycons = mg_tcs (coreModule desugared)
         constructors = [dataConWrapId dc | tc <- tycons, isAlgTyCon tc, dc <- tyConDataCons tc]
         declared = [(v, inspect (varType v)) | v <- ids ++ constructors]
-        typeBodies = [(tyConName tc, rhs) | tc <- tycons, Just rhs <- [synTyConRhs_maybe tc]]
-                  ++ [(tyConName tc, coAxBranchRHS branch) | tc <- tycons, Just axiom <- [isClosedSynFamilyTyConWithAxiom_maybe tc], branch <- fromBranches (coAxiomBranches axiom)]
-                  ++ [(fi_fam inst, famInstRHS inst) | inst <- mg_fam_insts (coreModule desugared)]
-                  ++ [(tyConName tc, rhs) | cls <- tycons, Just c <- [tyConClass_maybe cls], ATI tc (Just (rhs, _)) <- classATItems c]
+        typeBodies =
+          [(tyConName tc, rhs) | tc <- tycons, Just rhs <- [synTyConRhs_maybe tc]]
+            ++ [(tyConName tc, coAxBranchRHS branch) | tc <- tycons, Just axiom <- [isClosedSynFamilyTyConWithAxiom_maybe tc], branch <- fromBranches (coAxiomBranches axiom)]
+            ++ [(fi_fam inst, famInstRHS inst) | inst <- mg_fam_insts (coreModule desugared)]
+            ++ [(tyConName tc, rhs) | cls <- tycons, Just c <- [tyConClass_maybe cls], ATI tc (Just (rhs, _)) <- classATItems c]
         aliases = [(name, rhs, inspect rhs) | (name, rhs) <- typeBodies]
         sourceIO = [v | v <- typedIds (tm_typechecked_source typed), inspect (varType v)]
-        overall = any snd (checks ++ declared) || any (\(_,_,found) -> found) aliases || not (null sourceIO)
-        reasons = nub ([obj [("name", js (label (varName v))), ("line", show (location (varName v))), ("status", js "io"), ("type", js (rendered (varType v)))] | (v,found) <- checks ++ declared ++ [(v, True) | v <- sourceIO], found]
-                    ++ [obj [("name", js (label n)), ("line", show (location n)), ("status", js "io"), ("type", js (rendered rhs))] | (n,rhs,found) <- aliases, found])
+        overall = any snd (checks ++ declared) || any (\(_, _, found) -> found) aliases || not (null sourceIO)
+        reasons =
+          nub
+            ( [obj [("name", js (label (varName v))), ("line", show (location (varName v))), ("status", js "io"), ("type", js (rendered (varType v)))] | (v, found) <- checks ++ declared ++ [(v, True) | v <- sourceIO], found]
+                ++ [obj [("name", js (label n)), ("line", show (location n)), ("status", js "io"), ("type", js (rendered rhs))] | (n, rhs, found) <- aliases, found]
+            )
         reachable seen s
           | ms_mod s `elem` seen = []
           | otherwise = s : concat [reachable (ms_mod s : seen) dep | dep <- mgModSummaries graph, moduleName (ms_mod dep) `elem` map (unLoc . snd) (ms_textual_imps s ++ ms_srcimps s)]
@@ -235,8 +252,8 @@ main = do
           Right output -> putStrLn (if batch then arr output else head output)
           Left err -> hPutStrLn stderr (displayException err) >> exitFailure
   case args of
-    "--batch":libdir:rest -> case break (== "--") rest of
-      (files, _:options) | not (null files) -> run libdir files options True
+    "--batch" : libdir : rest -> case break (== "--") rest of
+      (files, _ : options) | not (null files) -> run libdir files options True
       _ -> fail "Batch mode requires FILE ... -- GHC_OPTIONS"
-    libdir:file:options -> run libdir [file] options False
+    libdir : file : options -> run libdir [file] options False
     _ -> hPutStrLn stderr "Usage: haskell-design-ghc LIBDIR FILE [GHC_OPTION ...]" >> exitFailure

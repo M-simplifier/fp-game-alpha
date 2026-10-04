@@ -29,20 +29,19 @@ import Control.Monad (forM_, unless)
 import Data.Char (ord)
 import Data.IORef
 import Data.Map.Strict qualified as M
+import Data.Maybe (catMaybes)
 import Data.Set qualified as S
 import Foreign (Ptr, castPtr, free, malloc, peek, poke, with, withArrayLen)
 import Foreign.C.String (withCString)
 import Foreign.C.Types (CInt)
 import Garden.Mesh
+import Garden.Render.Chunk
 import Garden.Render.GPU (loadCheckedShader, withShader)
+import Garden.Render.Invalidation (changedSince)
 import Garden.Render.Radiance (Radiance, acquireRadiance, releaseRadiance)
 import Garden.Render.Settings
-import System.Environment (lookupEnv)
-import Data.Maybe (catMaybes)
-import Garden.Render.Invalidation (changedSince)
 import Garden.Types (Cell (..), Chunk, Gem (..), Material (..), Threat (..), V3 (..), center)
 import Garden.View (SceneView (..), uiCorpus)
-import Garden.Render.Chunk
 import Raylib.Core
 import Raylib.Core.Models
 import Raylib.Core.Text
@@ -52,6 +51,7 @@ import Raylib.Internal.Foreign (Freeable (rlFreeDependents), c'free)
 import Raylib.Types hiding (Material)
 import Raylib.Types qualified as RL
 import Raylib.Util.Math (matrixIdentity)
+import System.Environment (lookupEnv)
 
 data PreparedModel = PreparedModel !Model !(Ptr Model)
 
@@ -97,14 +97,17 @@ acquireResources window = mask_ $ do
       chunks <- newIORef (-1, M.empty)
       kin <- traverse (geometry worldShader . kinSculpture) (M.fromList [(g, g) | g <- [Jade, Rose, Azure, Honey]])
       enemy <- traverse (geometry worldShader . enemySculpture) (M.fromList [(k, k) | k <- [Wanderer .. SkyMoth]])
-      overrides <- mapM (\(key, env) -> fmap ((key,) <$>) (lookupEnv env))
-        [("quality","GARDEN_QUALITY"),("scale","GARDEN_SCALE"),("shadows","GARDEN_SHADOWS"),("clouds","GARDEN_CLOUDS"),("ao","GARDEN_AO"),("bloom","GARDEN_BLOOM")]
+      overrides <-
+        mapM
+          (\(key, env) -> fmap ((key,) <$>) (lookupEnv env))
+          [("quality", "GARDEN_QUALITY"), ("scale", "GARDEN_SCALE"), ("shadows", "GARDEN_SHADOWS"), ("clouds", "GARDEN_CLOUDS"), ("ao", "GARDEN_AO"), ("bloom", "GARDEN_BLOOM")]
       settings <- either (ioError . userError) pure (parseSettings (catMaybes overrides))
       quality <- newIORef settings
       lights <- newIORef []
       relic <- geometry worldShader relicGeometry
       pure (Resources window worldShader radiance preparedFont chunks kin enemy quality lights relic)
-    ) `onException` (readIORef cleanupRef >>= releaseAll)
+    )
+    `onException` (readIORef cleanupRef >>= releaseAll)
 
 releaseResources :: Resources -> IO ()
 releaseResources resources = mask_ $ do
@@ -200,7 +203,8 @@ prepareModel window shader geometry = mask_ $ do
                 }
           let metadata = styled {model'meshes = [compact]}
           pure (PreparedModel metadata ptr)
-        ) `onException` rlFreeDependents styled ptr
+        )
+        `onException` rlFreeDependents styled ptr
 
 releaseModel :: WindowResources -> PreparedModel -> IO ()
 releaseModel window (PreparedModel model ptr) = do
@@ -272,7 +276,9 @@ stepChunkLoading budget (ChunkLoading resources view _ pending) = mask_ $ do
 
 prepareChunk :: Resources -> SceneView -> [(Cell, Material)] -> IO [PreparedModel]
 prepareChunk resources view contents =
-  prepareGeometry (resourceWindow resources) (resourceShader resources)
+  prepareGeometry
+    (resourceWindow resources)
+    (resourceShader resources)
     (terrainGeometry (sceneCells view) contents <> ornamentGeometry (sceneCells view) contents)
 
 sceneLights :: SceneView -> [V3]
@@ -302,7 +308,7 @@ syncChunks resources view = mask $ \restore -> do
     window = resourceWindow resources
 
 chunkEntries :: Chunk -> M.Map Cell Material -> [(Cell, Material)]
-chunkEntries key cells = [(c,m) | c <- chunkCells key, Just m <- [M.lookup c cells]]
+chunkEntries key cells = [(c, m) | c <- chunkCells key, Just m <- [M.lookup c cells]]
 
 uniform :: Resources -> Shader -> String -> ShaderUniformData -> IO ()
 uniform resources shader name value = setShaderValue shader name value (resourceWindow resources)

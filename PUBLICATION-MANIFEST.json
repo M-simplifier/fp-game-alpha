@@ -64,7 +64,7 @@
     },
     {
       "path": ".agents/skills/haskell-excellence/SKILL.md",
-      "sha256_lf": "11fa47affabeb20d20b86ceba793166ca9cf45f084efb6dbccb7d6b27471feb2",
+      "sha256_lf": "dbf4afa8431f262042c9231b30b34d6d7e28765c694e36b4fdac66be09afe972",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -75,7 +75,7 @@
     },
     {
       "path": ".agents/skills/new-game/SKILL.md",
-      "sha256_lf": "89fd4bca9d5de9081da1fd3058bbdbf79a72101c191e2dd2f7c91212005da903",
+      "sha256_lf": "90d31d2b88f643d25fa1f6418cef0dcf4aa500e06b35a661cc213c2705ce4b0a",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -108,7 +108,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "7ec23a2ca0f6b07b1102ac30621b447d8a8ba6caa9c7aabf04e04b4256882a48",
+      "sha256_lf": "b2fd9caaebe553454c8d1c34c5a16095925ecaad6eb7aa0e727a0e8f3b02bb77",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -208,7 +208,7 @@
     },
     {
       "path": "docs/editors.md",
-      "sha256_lf": "d5c95aaef9c40f977b0d4e3da58a3f153370f56d065d11d362e76ee9e81185d9",
+      "sha256_lf": "f14bcecd2ebc6cb94b4d635bda49b5ba76875f862b56c51edb7d5187842895fb",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -287,6 +287,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "docs/formatting.md",
+      "sha256_lf": "505f6ed97407d3eba441e5908a994de6881fd4bee7e6a497d3b50f797a5a61e4",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "docs/guarantees.md",
       "sha256_lf": "bd33a975184d249b5a4172587e90c973e0252885d31db3af9405203033f51951",
       "origin": {
@@ -313,7 +324,7 @@
     },
     {
       "path": "docs/haskell.md",
-      "sha256_lf": "c624bd591f8abe170c878f3758a4327006db5700b203507ffa6bb7eb25eb5f21",
+      "sha256_lf": "f5b88c8932f1b622ffc45fbbf209555bb2e904ad68d318dc92b7f3e0397f6ddf",
       "origin": {
         "kind": "author-supplied-public-doc-candidate",
         "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
@@ -338,7 +349,7 @@
     },
     {
       "path": "docs/new-game.md",
-      "sha256_lf": "4fb9029041e42cb2a818cdf8d91cef0657f93f95959140c92c34204fcaf4373a",
+      "sha256_lf": "75c36f6d0823beedec731372a3fc37af37d049e5746ccd5cdb8a5bfb9ef9e178",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -525,7 +536,7 @@
     },
     {
       "path": "docs/purpose.md",
-      "sha256_lf": "7b4f0d57f84f7576b2950a7cd79ce1bb5057f51f92fe47ca57203bd8fbdc1894",
+      "sha256_lf": "1be88d1684f84cecdcb30709765d3d78cb5a503642cf427a0aa4829d4e735083",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -575,7 +586,7 @@
     },
     {
       "path": "docs/setup.md",
-      "sha256_lf": "31ee434249a4cd28500ad757fb22d789ecc3d719fdd41dbbf62c33ae234549d7",
+      "sha256_lf": "821197e04eff41458e4283a4015532cdfc94ff6e89ab28a8747243e7bf27b95a",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -837,7 +848,7 @@
     },
     {
       "path": "editors/haskell-design/compiler/Main.hs",
-      "sha256_lf": "ce34733024a46e446a23862ae34345b076cdb1ef3fe7cdc665fe14123dda0af7",
+      "sha256_lf": "e3a3c21101850140e6283242585e459df0f31ec9ba38fb0c31016c954bd56699",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/compiler/Main.hs",
@@ -1033,7 +1044,7 @@
     },
     {
       "path": "editors/haskell-design/native/app/Main.hs",
-      "sha256_lf": "08b7e53f9245c5cb1ccf51c27bad2246d34596115e406e7108920e6980b900fe",
+      "sha256_lf": "b47027da729782dfd1cfa60b190c3fd361d1c407e0ed5b2557427e2947c8645f",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/app/Main.hs",
@@ -1520,7 +1531,7 @@
     },
     {
       "path": "editors/haskell-design/native/src/HaskellDesign/Model.hs",
-      "sha256_lf": "182d7c1c93a6ccf38597f504b03b6029f6925ebef803a06a2adc9c4f0e2e82cb",
+      "sha256_lf": "104829030a4dde9f6f3ba18c06fefecb69c5253e95fc054d4714ccc6d4a7149c",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Model.hs",
@@ -1534,7 +1545,7 @@
     },
     {
       "path": "editors/haskell-design/native/src/HaskellDesign/Project.hs",
-      "sha256_lf": "60729cea1c94fa3a97b7c600af3fc19ac7438b2611b8f64917e6ccd15aabcbcc",
+      "sha256_lf": "fc2dda1ea53ea94f5b91653835f097b9249f6dba5a12c1457be2bd25c91b815d",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Project.hs",
@@ -1548,7 +1559,7 @@
     },
     {
       "path": "editors/haskell-design/native/src/HaskellDesign/Reader.hs",
-      "sha256_lf": "d2c998d9092e7da791770a072e738dcbd4a89779dafe1cca785e5ed2a73dde14",
+      "sha256_lf": "acc81831c27ec03c822856ce1dfc1662d4bc9f85709d88f782845ebd12e5aa4d",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Reader.hs",
@@ -1562,7 +1573,7 @@
     },
     {
       "path": "editors/haskell-design/native/src/HaskellDesign/Scope.hs",
-      "sha256_lf": "4e046345bf9f2b776a2f5e4599a2a108121d17550ac61cbbcf2aaf32654d2cc0",
+      "sha256_lf": "0857c7ec7a08502962e35e28b9cd1d1304f1028268baa3050fbc77e1e07d9476",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Scope.hs",
@@ -1576,7 +1587,7 @@
     },
     {
       "path": "editors/haskell-design/native/src/HaskellDesign/Tree.hs",
-      "sha256_lf": "9e781fbaeb41fb0ba4036b62ad32dca357d81885e3f7e40b7737eba404d77362",
+      "sha256_lf": "53a87c45c1f7b26ea3d703d6c12658526b426d7db7473425bc915269ffd6dd0b",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Tree.hs",
@@ -1590,7 +1601,7 @@
     },
     {
       "path": "editors/haskell-design/native/src/HaskellDesign/Verify.hs",
-      "sha256_lf": "7b31681fe63f3aee98ba500f967333f04433a92dfcd2bdc2ae5559110ddb1c5b",
+      "sha256_lf": "17e50d79c10eaedde056c2850fda86bbc12c365af45a511a94d8ecd6970a1190",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Verify.hs",
@@ -2215,6 +2226,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "formatter.json",
+      "sha256_lf": "9e1db4dbf067e738c5b0f0d7cc9f69a96b9e6a37e5b4d8d9f732b3f9cc405d31",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "libraries/game-arena/LICENSE",
       "sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
       "origin": {
@@ -2241,7 +2263,7 @@
     },
     {
       "path": "libraries/game-arena/src/Game/Arena.hs",
-      "sha256_lf": "8433e468e45f9602da1d83a676ead73bc0da8c17f0f2ef6c0affb8cdaedebc18",
+      "sha256_lf": "08d15eaa8a13966734abf8b6c110625f35dde716263bdad2c19b04d9fdd8d77e",
       "origin": {
         "origin": "gallery/functional-arcade/vendor/game-arena/src/Game/Arena.hs",
         "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
@@ -2255,7 +2277,7 @@
     },
     {
       "path": "libraries/game-arena/src/Game/Arena/Finite.hs",
-      "sha256_lf": "f4fb8aa96d2b3f0bf626550bec1cf36ecce1caefaa3a47aa6f82caf6743f7c78",
+      "sha256_lf": "ce396e78e36a2dc829157b52e86f368d6733a44de0ee7d929fddcdd64a684f95",
       "origin": {
         "origin": "gallery/functional-arcade/vendor/game-arena/src/Game/Arena/Finite.hs",
         "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
@@ -2269,7 +2291,7 @@
     },
     {
       "path": "libraries/game-arena/test/Laws.hs",
-      "sha256_lf": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+      "sha256_lf": "05005934d41e516d91d40eada89f2016e6b9dd99ac4fdbc994997671f386cda8",
       "origin": {
         "origin": "gallery/functional-arcade/vendor/game-arena/test/Laws.hs",
         "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
@@ -2308,7 +2330,7 @@
     },
     {
       "path": "libraries/game-transition/src/Game/Transition.hs",
-      "sha256_lf": "f4ca9908eedd9c7bc6c33105f7136af7e03d326635983cac2106c542067d9202",
+      "sha256_lf": "811b03719b7ec72b49bb17118ee7b3e9123152c4895b9926ded5a3b25b78854d",
       "origin": {
         "origin": "gallery/functional-arcade/vendor/game-transition-0.1.0.0/src/Game/Transition.hs",
         "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
@@ -2322,7 +2344,7 @@
     },
     {
       "path": "libraries/game-transition/test/Laws.hs",
-      "sha256_lf": "1f28e487e74b663fcbdd5be07dcf63d61a3b099fd83a693315f47fedb29d85fa",
+      "sha256_lf": "390f00b442cf68cdb5fa14c32b101fefaff2d042f41bef94681f1e655e91d9b5",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2333,7 +2355,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "5a3031ce2d1c10ea13e8792be152fa696fb0c867a422c8b827fdc26c322aeb62",
+      "sha256_lf": "c6c81db9397381891cc12ebcade92059fd520dbc9d261b34bdc25d695b9e4b52",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2381,7 +2403,7 @@
     },
     {
       "path": "references/afterlight/README.md",
-      "sha256_lf": "2d8350c84a10a8aef2d3799f7f18f0b84ad0684bb5221e774842dabebdca6845",
+      "sha256_lf": "cb95943efaa815ca8cd2158fee0e3fc5c58a2d9a8afdb704468d2e3d6311f2f3",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/README.md",
@@ -2542,6 +2564,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "references/afterlight/docs/FORMAT-MANIFEST.json",
+      "sha256_lf": "d0061a9769103f0dbbf4f3301a423a47f15b23f03d4168c18643b504209455dd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "references/afterlight/docs/baseline/README.original.txt",
       "sha256_lf": "00707c148f86d603e0e7218a598c9ecdeb4cedb8795e37b48f7f8d88773325e9",
       "origin": {
@@ -2599,7 +2632,7 @@
     },
     {
       "path": "references/afterlight/docs/qa/SOURCE-AUDIT.json",
-      "sha256_lf": "780166a070389425fe8b831e4430705d05668ef468ea8cb4632302f01bdf8677",
+      "sha256_lf": "219b18d9d1eb1b7af7dd3258dc3974fda37f4625a313bdaf5617cf4c3be31cf2",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/docs/qa/SOURCE-AUDIT.json",
@@ -2670,7 +2703,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Render.hs",
-      "sha256_lf": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
+      "sha256_lf": "86247cfa2e5a0a3f71b703ad976d9874962330fcb2c3155c6fe000112850833c",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Render.hs",
@@ -2685,7 +2718,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Render/GPU.hs",
-      "sha256_lf": "8a80b98e2c4986d42c79cca8dd4550330f2e6cdcad2a9611e44ccaaaa97a6d2c",
+      "sha256_lf": "a8dc36d4e079cdf89ac5b1b07d75f4ada22784e649bf75e93b79e02ebf00eecc",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Render/GPU.hs",
@@ -2700,7 +2733,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Render/Radiance.hs",
-      "sha256_lf": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
+      "sha256_lf": "0338ad14ed56a1491c2acfbee85a52c50c46eb8ec7598e89d69a65edf15939a1",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Render/Radiance.hs",
@@ -2715,7 +2748,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Render/Resources.hs",
-      "sha256_lf": "1a338075976df9b41debe50d698471abe89ce81fd6154af8fd1ead6e525cf8b5",
+      "sha256_lf": "90477ba81d0240f111c17db50348321ef2c70e96133b9a0a6e13ffe36d7f2192",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Render/Resources.hs",
@@ -2730,7 +2763,7 @@
     },
     {
       "path": "references/afterlight/runtime/Garden/Runtime.hs",
-      "sha256_lf": "282804d33ccffeae82dbc2acb6bda5a09361e4c6485365e1e6503c738453414b",
+      "sha256_lf": "fefe76a5e9a36c99c3643dfa07bca0798de3e5b8eaa025f2815875f9bad78b33",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/runtime/Garden/Runtime.hs",
@@ -2745,7 +2778,7 @@
     },
     {
       "path": "references/afterlight/scripts/audit-source.py",
-      "sha256_lf": "8af84a86b1e80dba26ad0cf712220ed2b40bc4b3511fedc1f592fbd744982e51",
+      "sha256_lf": "d16fdb60cc205d7ff63ab091f676d45b7db90323ba227bc9eae490d80aba91c9",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/scripts/audit-source.py",
@@ -2857,7 +2890,7 @@
     },
     {
       "path": "references/afterlight/src/Garden/Arena.hs",
-      "sha256_lf": "5a8a25acdded4035a10c8977e0a08599a811e0f67b5163a81f7d4c6578c8015a",
+      "sha256_lf": "69a83ca21ccb3bf97c6f1eebe22a04ab33091fdbc3ca99ecaece9f99aed92fdc",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/src/Garden/Arena.hs",
@@ -2962,7 +2995,7 @@
     },
     {
       "path": "references/afterlight/src/Garden/Mesh.hs",
-      "sha256_lf": "0c45ffd7b80dee5804903db2a196a3be718373d8a278b1cc396a69ccd89f8fff",
+      "sha256_lf": "0b15ff620c9d85f325e3e5f0a271a26d1078aeb4f3a0daabce37687d7f4e4009",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/src/Garden/Mesh.hs",
@@ -3007,7 +3040,7 @@
     },
     {
       "path": "references/afterlight/src/Garden/Render/Chunk.hs",
-      "sha256_lf": "a3a8ad33ac367dd500d805479c5fc87b6b46626d8f3fece3b0293cf200892714",
+      "sha256_lf": "cf9ed65a4ead7097f8d0b0db3ffaef87adb407519e956ee0688437ff1a998253",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/src/Garden/Render/Chunk.hs",
@@ -3022,7 +3055,7 @@
     },
     {
       "path": "references/afterlight/src/Garden/Render/Invalidation.hs",
-      "sha256_lf": "e85072f2710a01db6985c0d4e117895a86e052ffe20542c3a7fdf8b443719a4c",
+      "sha256_lf": "b4bbc791f500390057f33f6f8adac85fb3406d78d912dee7dc50a3c4151f052e",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/src/Garden/Render/Invalidation.hs",
@@ -3037,7 +3070,7 @@
     },
     {
       "path": "references/afterlight/src/Garden/Render/Settings.hs",
-      "sha256_lf": "876ed1bd94fc183459d4103ffbd7503c2a9d873b0769df1c10272de0bdb192d6",
+      "sha256_lf": "12afe4c01f80eee7572b8ccb5c3a638a3bee1d2358270a1811018bab5fc1a816",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/src/Garden/Render/Settings.hs",
@@ -3067,7 +3100,7 @@
     },
     {
       "path": "references/afterlight/src/Garden/Session.hs",
-      "sha256_lf": "4027e6d64aa9ff7226cb0b06d6124421c07f1ac9e5ed0557824595791394322d",
+      "sha256_lf": "8b72256b538d47ec172265df853333f164cb57a856e761a0de13717bfab3ec97",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/src/Garden/Session.hs",
@@ -3172,7 +3205,7 @@
     },
     {
       "path": "references/afterlight/test/Parity.hs",
-      "sha256_lf": "b23dcb833353366ac5feff64d2a8c0ce463d6e1ff1a0c267055c200b32306d02",
+      "sha256_lf": "98f43e55c2e0ce3c2ef7f3f6ad17cd3cd02f329f5ea8b5399081348acdc08e67",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/test/Parity.hs",
@@ -3472,7 +3505,7 @@
     },
     {
       "path": "references/afterlight/tools/GardenCheck.hs",
-      "sha256_lf": "2ea81bbb582e0f907db0a1586ed99f0b3a0d841412262baaf164a1aabeb6a068",
+      "sha256_lf": "396862a6e9962b99e139513ae8a104432c333d3730033a4a38c3f9123e34fdf1",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/tools/GardenCheck.hs",
@@ -3487,7 +3520,7 @@
     },
     {
       "path": "references/afterlight/tools/GardenMain.hs",
-      "sha256_lf": "aab8802f61156d2dbc7c6a85e425420cf72dc76e4d1839b104ead85113119d31",
+      "sha256_lf": "77ebeab56a4c1d756903246c5aa6b4ace3ed7f7981a71658bfd2a06c91fe0c8d",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/tools/GardenMain.hs",
@@ -3502,7 +3535,7 @@
     },
     {
       "path": "references/afterlight/tools/GardenRenderCheck.hs",
-      "sha256_lf": "200cb941c59cb8d01c3027403f02582b4d7cd287bdc875488a54fe3664d7b8cc",
+      "sha256_lf": "f6eedcf3f69edc6b474ccb969198fc6bda7a519eb242a0646bc5c1560a0f0b5f",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/tools/GardenRenderCheck.hs",
@@ -3547,7 +3580,7 @@
     },
     {
       "path": "references/afterlight/web/BrowserMain.hs",
-      "sha256_lf": "443e71dff726e2de16031ac7a2a8b395245199a720e9bdb2468d224ed8387114",
+      "sha256_lf": "53e32d0ec03d9f00f014fef42a372edfe24596992f4edcc47ff33fd1b58413ad",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/afterlight/web/BrowserMain.hs",
@@ -4153,7 +4186,7 @@
     },
     {
       "path": "references/garden/src/Garden/Adapter.hs",
-      "sha256_lf": "b9136c9f79882bb537b15f0e317f5e805ce4348e256911aa64f4fa1bd1e69774",
+      "sha256_lf": "47bcd2ce5a41dd4ca7cc3675927680b4e416a7a8c34748b473397448bf7ac3fd",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4179,7 +4212,7 @@
     },
     {
       "path": "references/garden/src/Garden/Input.hs",
-      "sha256_lf": "d4fae8e5b3837f3275e0cd19eb7cf1f933c2002a31ebe6588acb29c41cd07624",
+      "sha256_lf": "fee5194fbded5a7a88eae6c7d23928aece31055a23a2f49df035a21fad408ab4",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Garden/Input.hs",
@@ -4194,7 +4227,7 @@
     },
     {
       "path": "references/garden/src/Garden/Session.hs",
-      "sha256_lf": "c7b572a1a7fb0a825f2f325fc1624c3dc85773ea876fb4048b28eeb439d34702",
+      "sha256_lf": "0d77757e714c70bbd37af32a6a6216bbca45d92690e6eb549487f2c457cd20cb",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Garden/Session.hs",
@@ -4208,7 +4241,7 @@
     },
     {
       "path": "references/garden/src/Garden/Simulation.hs",
-      "sha256_lf": "94d770a50c163481fa41869ae9b14c730b268799a896a5937e6ae478735c3df5",
+      "sha256_lf": "a7d9e4609ebb2e6ce5f1b3b587a2c98b5892ad9aa53af5bd9dfc9359a0735aaa",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Garden/Simulation.hs",
@@ -4222,7 +4255,7 @@
     },
     {
       "path": "references/garden/src/Garden/View.hs",
-      "sha256_lf": "4c79e263b68eb5c37c159a22df44a9f538215f837e03978894b1723062e25890",
+      "sha256_lf": "6bc7c5fc2e2862c3feb6ea92b15ee3aa0563a2cf3611d59180bf32421c0569d6",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Garden/View.hs",
@@ -4236,7 +4269,7 @@
     },
     {
       "path": "references/garden/src/Garden/World.hs",
-      "sha256_lf": "271c1fe8d4193d722a1c644866f32546fe0b7b2620665583ccad71e282df9475",
+      "sha256_lf": "afbee8ccf6e59c5382a0e0a1e972168f6a8dfe71cea3de5b413f136bd1675a90",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Garden/World.hs",
@@ -4250,7 +4283,7 @@
     },
     {
       "path": "references/garden/test/Laws.hs",
-      "sha256_lf": "2128e1359024f325383d0f42581b7ae3e1dd629ade19e5afd7c6f38d874a9892",
+      "sha256_lf": "68893f45a2d35b6a654761a7f70b0f46f370fd43fd8be43deac0b1686961ace2",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4305,7 +4338,7 @@
     },
     {
       "path": "references/lantern/src/Lantern.hs",
-      "sha256_lf": "76784ebf26774399e5411c72f16b564a2b3495b01abc5ec92cf650996c8422bf",
+      "sha256_lf": "fa2ae17a26161af1addfc545547b6f11b2ca5c11dad0e0f4fd3f93a74fad2aa3",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "fixtures/lantern/src/Lantern.hs",
@@ -4319,7 +4352,7 @@
     },
     {
       "path": "references/lantern/test/Laws.hs",
-      "sha256_lf": "d5f4e67bae52cdd4e0afc7c66d42f953b05a938915fd1a36f20effb82574ac94",
+      "sha256_lf": "8d1ce0f297bbca5a428b3528c37a6844c216c0f2eba1bac55876b9762606d92f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4330,7 +4363,7 @@
     },
     {
       "path": "references/lantern/test/RejectWorldUpdate.hs",
-      "sha256_lf": "e5e2256f8e7361cf6e0e52f9aae62646c3441be821d5708ed4459d45881c6cc9",
+      "sha256_lf": "994a942a1bc1450e01e35698ece4fd71c119daa8148f9d5dff9b901d6e10b952",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4341,7 +4374,7 @@
     },
     {
       "path": "references/lantern/test/WorldRead.hs",
-      "sha256_lf": "9e611b3b88d09fd74e98c9a7f4ebc724baf7402a21144ca33d1838da65bbf99f",
+      "sha256_lf": "ff5548674bc6b235a7934da46ad9e84181f9560c91e6cf93d45b20435d877f2e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4374,7 +4407,7 @@
     },
     {
       "path": "references/paper-circuit/CHECKS.json",
-      "sha256_lf": "6d558e281a39bf459d2fb6022a02b0366c4948388bf7c712d81328682be50993",
+      "sha256_lf": "b03bf5610f8579ffbbabf72df9ea23b550bc7a48283fb57daf9bb28a4c66620c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4407,7 +4440,7 @@
     },
     {
       "path": "references/paper-circuit/README.md",
-      "sha256_lf": "044af40a48402f4fa848694bd935d17965b72ee1a30ab8e0f7c2e5355b751197",
+      "sha256_lf": "bc289d6dfee7f6b23e448a41d5fe2340700e96f92da61e166c2b38e7c588db91",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4418,7 +4451,7 @@
     },
     {
       "path": "references/paper-circuit/app/Browser.hs",
-      "sha256_lf": "a31b2f1708c9ccad9f86d113c5ee6013f1290c2b812fc5aee9b0d04dee3a26a6",
+      "sha256_lf": "b7a05a8e02d244f9232618daa03cff2583861722bb87fea8fd0d95b0139b063a",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4451,7 +4484,18 @@
     },
     {
       "path": "references/paper-circuit/docs/development.md",
-      "sha256_lf": "89063c9832e9860877ba22fd7523cdce7fb8c6c158f0ed5dce4622b6d3924c3b",
+      "sha256_lf": "1db54f45067c6feded64403549d39bb6d34e3a1eec33f0013b686663057e10a3",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/docs/readability-review.md",
+      "sha256_lf": "12ee0fa7d79f738bec95762563b9d2e0f5a1eba2cb96fc26bd0f72bd88248042",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4484,7 +4528,7 @@
     },
     {
       "path": "references/paper-circuit/src/Paper/Game.hs",
-      "sha256_lf": "2954c13c3ebec8ae1dfd7d499c0a5e0ebab47ac5ffddec7544792ca7a15d4289",
+      "sha256_lf": "285bd866510a1c2f3280db719c6744a7b749233ac87572434e561dcff8885c72",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4495,7 +4539,18 @@
     },
     {
       "path": "references/paper-circuit/src/Paper/View.hs",
-      "sha256_lf": "bb0cc466c51dd036e111f92b19c391792e65179eabb2a74bd513499bece976fd",
+      "sha256_lf": "eef7d865300192518023544d264add4da4a554e132cfde5ca0fd2e4c1de1a651",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/CompareBaseline.hs",
+      "sha256_lf": "d999c9a5f4e52584557f5d6d5045e2dc857872698a3f46dbb010505a722c1a4c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4506,7 +4561,62 @@
     },
     {
       "path": "references/paper-circuit/test/Laws.hs",
-      "sha256_lf": "cc944ceec0bf282886d061095765900d5616aba9548e4139df6829562b897eb5",
+      "sha256_lf": "c8dcd450aa3b1eeb4b2338eb4e1314dea62ef0f0274e4bfef6e301dc8e147564",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/api-rejections/ForgeCell.hs",
+      "sha256_lf": "c6fc6510e411c7c5f933c9f58217d4f494531d8bc86bf2ea2f18eebcd1f0b3d3",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/api-rejections/ForgeWorld.hs",
+      "sha256_lf": "701f22762113fff35eaceb4e3e9191d67db3b16f5fa49d18456152a858b22315",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/api-rejections/UpdateWorld.hs",
+      "sha256_lf": "293fefa31818ae2cd9f99e03b3d542118d3e955445869e4f69e39c14f864c694",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/check-opaque-api.sh",
+      "sha256_lf": "7978c0d310c69708036393572008e9bcbb55fd1389cb6e472a99d7c3642519a0",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/compare-baseline.sh",
+      "sha256_lf": "0a5efaca5f768ac5c775359ec4c891eef6c7a7bf4671ee219329990ee76ec267",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4678,7 +4788,7 @@
     },
     {
       "path": "references/paper-circuit/web/smoke.mjs",
-      "sha256_lf": "5db8dfa9c5ed816d921194af21c700da92a823e1aa9c6b697ff72b82c4fb8830",
+      "sha256_lf": "71b34807b31719b711feeb8f3bff3d27b5c3de5ea692dac156c7b6b306284bb5",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4901,7 +5011,7 @@
     },
     {
       "path": "references/river/src/Life/Adapter.hs",
-      "sha256_lf": "67228eafd7e8862db43091bef69049f4bd87135f124020257174e621dda8d58c",
+      "sha256_lf": "9d2b43fa6939ba5d6cecfacddb66b3f71e724a4596cd9073195acd0ff77a9482",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4912,7 +5022,7 @@
     },
     {
       "path": "references/river/src/Life/Clock.hs",
-      "sha256_lf": "e29903084dcac4745a1a053443369474572addb16700d6d0ac656c7e157447d0",
+      "sha256_lf": "a1cc6421733198d29335c6d0353a3424a70bf087dfa833f19d7f1f7e55db7387",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Life/Clock.hs",
@@ -4926,7 +5036,7 @@
     },
     {
       "path": "references/river/src/Life/Domain.hs",
-      "sha256_lf": "6a323d5466b1b0bc79fd4a653518dfd382cf25fd6b3102da2060d7356a0709c5",
+      "sha256_lf": "c0f33267fdd7f9438ebfc0db4f3bc5ba4b8d1d9335a97d291944d1efdad7f780",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Life/Domain.hs",
@@ -4941,7 +5051,7 @@
     },
     {
       "path": "references/river/test/Laws.hs",
-      "sha256_lf": "f17a3ee9190aeeeaf87d9bddb36e7f2ed509225a3ab921cbf400dedbd628bd64",
+      "sha256_lf": "ff5f838022186368d26624aff6377928127839e1c2500549acaf571400b8315b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4963,7 +5073,7 @@
     },
     {
       "path": "references/river/test/RejectRiverUpdate.hs",
-      "sha256_lf": "f1b3a97aaf5000ce5b5d469e9dd972efa18dc0e17d40806cb72bbb0dd23d2496",
+      "sha256_lf": "c23be9384b0c1180eafb3091941602c8f58d5a9bffca827121ef71658d4c1a91",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -4999,7 +5109,7 @@
     },
     {
       "path": "references/station/app/HeadlessMain.hs",
-      "sha256_lf": "53dca9c7f7d9526651e7f8a33c38f1fe5375d00b90981c39aff5865b5c2f0fe7",
+      "sha256_lf": "befe2b57ef60e9ed84412b594c29276c2146a134f26e2231c19f11c51e8ace39",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5010,7 +5120,7 @@
     },
     {
       "path": "references/station/src/Station/Adapter.hs",
-      "sha256_lf": "2e5042ba8998b9cb89b3c46cf7fc5fecadf06357935aa617b0da484c74c8f173",
+      "sha256_lf": "624aa60d776246c248cd04a3c23e8d3e0e69885622681dc5fac75557c6507828",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5021,7 +5131,7 @@
     },
     {
       "path": "references/station/src/Station/Domain.hs",
-      "sha256_lf": "26e798ab329cd51b493c2b9d3fa8793bec12b0994075ee34ec559709ccfcbfb5",
+      "sha256_lf": "e8b331f7fb000638063ee6ac04bb3ade4c962a83681ff5b0c90509af40a6b041",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Station/Domain.hs",
@@ -5046,7 +5156,7 @@
     },
     {
       "path": "references/station/test/Laws.hs",
-      "sha256_lf": "9f90680b3fb73d239d68d96335dee2b9ed75809a83db0d0cb46feb0ffa8d4c61",
+      "sha256_lf": "ae02f3497670c5eba201def3bb531849556e0be2488906efba7797f06da964f0",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5068,7 +5178,7 @@
     },
     {
       "path": "references/station/test/RejectGameUpdate.hs",
-      "sha256_lf": "38e3533c408711908e8c568472e9815cb331786412a52413f2dbcf5719a30396",
+      "sha256_lf": "4d2e94b0013b25577ee0b47893b1000010639cbd64f34e17fbd24447d1cb2755",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5115,7 +5225,7 @@
     },
     {
       "path": "references/tapline/src/Tapline/Adapter.hs",
-      "sha256_lf": "87a4d17f28c242e278533f6af5ea1ae80bc19eab4973a7bed058396a6679a678",
+      "sha256_lf": "a99584cda983f748894bdeedbb2fe1dbb44e1a0d282027859b7127b23a04291a",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5126,7 +5236,7 @@
     },
     {
       "path": "references/tapline/src/Tapline/Clock.hs",
-      "sha256_lf": "b209a9384c5ad9081084a3b7a34cbbc980270a74f5409a80ea4d2591482a0852",
+      "sha256_lf": "0203dfed9ad45dcabb1497f99e03e0e80ef2dc63f6377af7e583a222e1eb1eb6",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Tapline/Clock.hs",
@@ -5141,7 +5251,7 @@
     },
     {
       "path": "references/tapline/src/Tapline/Domain.hs",
-      "sha256_lf": "7f0c17aba0808b588b8f2aedb2c6478f0dbc3e5e790efa2cb17f3c4a268d697f",
+      "sha256_lf": "c2b541c603060a1fc5f87b310bd7fc300c4c6da20b3b2548b56dd54ab885fbc0",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Tapline/Domain.hs",
@@ -5156,7 +5266,7 @@
     },
     {
       "path": "references/tapline/src/Tapline/Input.hs",
-      "sha256_lf": "eeb623b196caf0af81a9981be7275cc64d122e06c3881278f535aa1c4c9c4e70",
+      "sha256_lf": "a5ff4700594e5c75644cd4b905fa6a1aac8b0d6d7a3c8aa4c02688dd57d65bbf",
       "origin": {
         "kind": "selected-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Tapline/Input.hs",
@@ -5170,7 +5280,7 @@
     },
     {
       "path": "references/tapline/src/Tapline/View.hs",
-      "sha256_lf": "6f5456de7e6df567db734d4ad6e01618efce32eba936ee5f7e4119a42ded2b00",
+      "sha256_lf": "009a02b614a023fdc6bd404a1d7ed70bc5e23df5b9a05af832a0311adf26a161",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "gallery/functional-arcade/src/Tapline/View.hs",
@@ -5196,7 +5306,7 @@
     },
     {
       "path": "references/tapline/test/Laws.hs",
-      "sha256_lf": "67e1bdccd4364a93d929372e443da618d1fb2b44751ce31f1c7a1c00f3647bb9",
+      "sha256_lf": "478efef9fedb2396cdc59dadef0611e88761d0f490637bcd41ae3ce4bca63452",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5644,7 +5754,7 @@
     },
     {
       "path": "templates/terminal-adventure/README.md.tmpl",
-      "sha256_lf": "1e33c008c781daa81b909b00120980b2ae59ee8dd9c0ef4d4e386653a29d54f4",
+      "sha256_lf": "d791847ee2f31d3f86ee044d13be30f2574d357bd1609f345bf4ec3f12c64b54",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5655,7 +5765,7 @@
     },
     {
       "path": "templates/terminal-adventure/app/Main.hs",
-      "sha256_lf": "9a47cea1a9453d47c3bcd24067961dcd1690a272a3e1ae0121e8f34e1b6fe7a7",
+      "sha256_lf": "db204458d258043b618295aa078c87d320ecd1add4d4f976870107153aaf17c2",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5710,7 +5820,7 @@
     },
     {
       "path": "templates/terminal-adventure/docs/DEVELOPMENT.md",
-      "sha256_lf": "bd322e03852612c150def7b743eb3bcf879509a50b91cda3cc62500fad3d8639",
+      "sha256_lf": "bf3a3c7a68c5e543f2dec51857bed4ae848af915cd95cb394f31a18e27e5f275",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5722,6 +5832,17 @@
     {
       "path": "templates/terminal-adventure/docs/TECHNICAL-GUIDES.md",
       "sha256_lf": "61bf6eb92c8be3366504939684e8e9ea31a28aa9f3dd63f2a69bef433a2e6dd7",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "templates/terminal-adventure/formatter.json",
+      "sha256_lf": "dbd667f184684f67b7e2b8c0b71555b6607aec082e6cc7116a0d34ef9e6956a2",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5743,7 +5864,7 @@
     },
     {
       "path": "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl",
-      "sha256_lf": "f9698b07a8f3d7e3bb9c37b9f70707a94b742beab623b732061e260e68e004ef",
+      "sha256_lf": "e07287f0fe9e97127ec571027acecf12122e51585d3d288ab9742603f1fba8a9",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5754,7 +5875,7 @@
     },
     {
       "path": "templates/terminal-adventure/src/Game/Adapter.hs",
-      "sha256_lf": "e13592b4cf9498541d1550f4020e05655f0760962944a823f282ddbc49b936c1",
+      "sha256_lf": "52f4c7bcabb68de8bed4ea8973c8310738736faa7d2e4486c6a9cddc3cee0a50",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5765,7 +5886,7 @@
     },
     {
       "path": "templates/terminal-adventure/src/Game/Model.hs",
-      "sha256_lf": "70edf51d4654590c8cdabcd4c13f87a019107e91a3b20605d6ff29baddf461fe",
+      "sha256_lf": "6e92fe1a3e2d0067e4b75f7c69cecf15db230008c94d36b18b17d4411491badc",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5776,7 +5897,7 @@
     },
     {
       "path": "templates/terminal-adventure/src/Game/Model/Internal.hs",
-      "sha256_lf": "928f331cdf38d19f8bac6078538b6e799c5df93eb57e4dee9274f247dc2b2fea",
+      "sha256_lf": "867567138e9ec0006b1102007aaeb53edfee1253eeb657dacd60488706769cbf",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5787,7 +5908,7 @@
     },
     {
       "path": "templates/terminal-adventure/src/Game/Rules.hs",
-      "sha256_lf": "74138bbfade54ea9db5043d279da98095fdfbbe0516b2774a358f9e82da09011",
+      "sha256_lf": "53f8a00c7f1b1f985125b2ecdb38627ec3e12c3b5059344780dcd68d9d565c14",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5798,7 +5919,7 @@
     },
     {
       "path": "templates/terminal-adventure/src/Game/Save.hs",
-      "sha256_lf": "4d77644ff6a9f0bd679b41c72227c818eb1df2d617401aae23ab337a47d301bb",
+      "sha256_lf": "5ff176e7196a5465046a5c8e1e2f8af193d84cd0fa1e9b5fe1d3563fe7fa700f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5809,7 +5930,7 @@
     },
     {
       "path": "templates/terminal-adventure/src/Game/View.hs",
-      "sha256_lf": "6cae98f1bcb2aad0d028647720ae317965b4badd4e99a82ca6826a622ea66ec0",
+      "sha256_lf": "95048aaebcb3fde0a4b8674025630c16c05d84ad31b7e45e5fd21fa483cd55e0",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5820,7 +5941,7 @@
     },
     {
       "path": "templates/terminal-adventure/test/Spec.hs",
-      "sha256_lf": "a5b2d960728916c74e818ec455ff66f41f412de717e03c4da27a0e846e29e5d4",
+      "sha256_lf": "43640cec9798345d6e7d946458eec736b6d78b9db4dff55a184e80d424dafc6e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5831,7 +5952,7 @@
     },
     {
       "path": "tools/acceptance/features.py",
-      "sha256_lf": "23bc04ea883758dc7123b49b4a163b847a493fe29c4f6cabc3a003c57b348e3d",
+      "sha256_lf": "14da4e30d7d0615585fbc575761d89e6b58babb36d72431e93ab473b0448ae49",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5843,6 +5964,28 @@
     {
       "path": "tools/docs_lint.py",
       "sha256_lf": "63d2e81797038009f72cabd778bcc4cff6d31cec816ce780a96e34e4ec453941",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/formatter.lock.json",
+      "sha256_lf": "5cf22a2c001d9fee3ee98b06154e41198d55698918fcc7cf3371be491cca4c3c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/formatter.py",
+      "sha256_lf": "031b3cf5eaa28e77db0ebe15175bed6c8c4826306799828ddd284028717cab18",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5886,7 +6029,7 @@
     },
     {
       "path": "tools/scaffold.py",
-      "sha256_lf": "2eaa0a61d909ac195f88240264eb5429044a5c557cb6f1ab409b81b83e6e31d7",
+      "sha256_lf": "09359854d10e1d0e70dd3e9ea23e9dc9693e1676f9bd2006e72569585d7a2bf4",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5898,6 +6041,17 @@
     {
       "path": "tools/test_editors.py",
       "sha256_lf": "7d054d50d0342eb25c6dc7876c7ff42969744414e71343925cb1422affb2e11e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/test_formatter.py",
+      "sha256_lf": "7a9a98b88f59a1f4ab273621c58dfa7f32714f6499a2f4171a4432220befcf1b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

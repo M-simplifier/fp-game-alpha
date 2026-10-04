@@ -10,6 +10,7 @@ import Game.Transition
 import Game.View (render)
 
 data Adventure = Adventure
+
 data Player = LocalPlayer deriving (Eq, Show)
 
 instance Machine Adventure where

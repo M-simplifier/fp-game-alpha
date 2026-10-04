@@ -1,11 +1,11 @@
-{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module BrowserMain where
 
-import Garden.Runtime
 import Foreign (Ptr, castPtrToStablePtr, deRefStablePtr)
 import Foreign.C.Types (CInt (..))
+import Garden.Runtime
 import Raylib.Util (raylibApplication)
 
 startup :: IO GardenApp
@@ -69,11 +69,17 @@ setRenderOption pointer key value = withApp pointer $ \app -> do
 foreign export ccall "setRenderOption" setRenderOption :: Ptr () -> CInt -> CInt -> IO CInt
 
 foreign export ccall "loadingStage" loadingStage :: Ptr () -> IO CInt
+
 foreign export ccall "loadingDone" loadingDone :: Ptr () -> IO CInt
+
 foreign export ccall "loadingTotal" loadingTotal :: Ptr () -> IO CInt
+
 foreign export ccall "isReady" isReady :: Ptr () -> IO CInt
+
 foreign export ccall "preview" preview :: Ptr () -> IO ()
+
 foreign export ccall "setActive" setActive :: Ptr () -> CInt -> IO ()
+
 foreign export ccall "setQuality" setQuality :: Ptr () -> CInt -> IO ()
 
 raylibApplication 'startup 'mainLoop 'shouldClose 'teardown

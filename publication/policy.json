@@ -52,6 +52,7 @@
     "sponsors/sindresorhus",
     "stevana/quickcheck-state-machine",
     "tlaplus/tlaplus",
+    "tweag/ormolu",
     "ucsd-progsys/liquidhaskell"
   ],
   "authored_public_skills": [
@@ -368,6 +369,11 @@
     },
     {
       "prefix": "research/haskell-tooling/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "formatter.json",
       "license": "LICENSE",
       "maturity": "experimental"
     }
