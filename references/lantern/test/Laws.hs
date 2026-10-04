@@ -19,10 +19,28 @@ main = do
   check "count validation" (mkBoard [Cart V 2 2] [] [2] == Left CartPositionCountMismatch)
   check "fish-row validation" (mkBoard [Cart V 2 2] [1] [6] == Left InvalidFishRows)
   check "fish begins occupied" (mkBoard [Cart V 2 2] [1] [5] == Left InitiallyClearFishRow)
+  check "largest Int coordinate cannot wrap into board" $
+    mkBoard [Cart H 2 2] [maxBound :: Int] [2] == Left (InvalidCart 0)
+  check "smallest Int coordinate is invalid" $
+    mkBoard [Cart H 2 2] [minBound :: Int] [2] == Left (InvalidCart 0)
+  check "invalid size is rejected before width subtraction" $
+    mkBoard [Cart H 2 maxBound] [0] [2] == Left (InvalidCart 0)
+  other <- case mkBoard [Cart H 2 2] [1] [2] of
+    Left problem -> print problem >> exitFailure
+    Right valid -> pure valid
   let start = initial board
       win = Move 0 (-1)
       (finished, departure) = advance board win start
       witness = Lantern board
+      foreignWorld = initial other
+  check "state from a different board is rejected" $
+    not (wellFormed board foreignWorld)
+      && not (legal board foreignWorld win)
+      && advance board win foreignWorld == (foreignWorld, mempty)
+      && null (successors board foreignWorld)
+  check "Arena rejects foreign state before indexing" $
+    attempt witness () (singleton () win) foreignWorld ==
+      Rejected "This trolley cannot move that way." foreignWorld
   check "state stays well formed" (wellFormed board start && wellFormed board finished)
   check "one fish departs" (remaining finished == 0 && departure == Departed [2])
   check "post-win stability" (advance board win finished == (finished, mempty))

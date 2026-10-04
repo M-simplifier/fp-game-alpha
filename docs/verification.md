@@ -76,5 +76,17 @@ The Lantern source in `references/lantern/` compiles with
 above GHC/Cabal versions. It checks board-construction rejection, the
 original rule through `Step` and `Arena`, invalid admission, and closure plus
 forced reachability of one explicit four-state graph. This is a finite example
-for one board, not an SMT result or a guarantee for arbitrary boards. Its
-three-OS CI result is pending.
+for one board, not an SMT result or a guarantee for arbitrary boards. The
+[Lantern CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37176394511)
+passed on Windows, Linux and macOS.
+
+A later API review found that exported record selectors allowed outside state
+updates despite a hidden constructor; an actual GHC client compiled and a
+malformed-state move raised a list-index exception. It also found `Int`
+coordinate overflow in board validation. The repaired API uses private record
+fields plus ordinary projections, binds a world to its board, validates the
+original state before indexing, and compares coordinates without addition.
+Local GHC now rejects the external record-update fixture for the intended
+reason and accepts the projection client. Tests reject `maxBound`/`minBound`
+coordinates and a state from another board. The correction's three-OS CI is
+tracked separately; the earlier run does not validate this correction.

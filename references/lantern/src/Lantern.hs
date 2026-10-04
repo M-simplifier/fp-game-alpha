@@ -15,9 +15,11 @@ import Data.List (nub)
 data Axis = H | V deriving (Eq, Ord, Show, Read)
 -- | The fixed lane and length; the variable coordinate is a board position.
 data Cart = Cart { axis :: Axis, lane :: Int, size :: Int } deriving (Eq, Ord, Show, Read)
-data Board = Board { carts :: [Cart], initialPositions :: [Int], fishRows :: [Int] } deriving (Eq, Show)
--- | Constructed only by 'initial' and valid 'advance' from a checked board.
-data World = World { positions :: [Int], remaining :: Int } deriving (Eq, Ord, Show)
+data Board = Board { carts :: [Cart], initialPositions :: [Int], fishRows :: [Int] } deriving (Eq, Ord, Show)
+-- | Belongs to one checked board. Constructor and update fields stay private.
+data World = World
+  { worldBoard :: Board, worldPositions :: [Int], worldRemaining :: Int }
+  deriving (Eq, Ord, Show)
 data Move = Move Int Int deriving (Eq, Ord, Show, Read)
 -- | Departed rows in board order. The monoid appends outputs chronologically.
 newtype Departed = Departed [Int] deriving (Eq, Show)
@@ -37,24 +39,38 @@ data BoardError
   | InitiallyClearFishRow
   deriving (Eq, Show)
 
+-- | Read-only projection. Exporting a record selector would also allow an
+-- external record update even when the constructor is hidden.
+positions :: World -> [Int]
+positions = worldPositions
+
+-- | The finite mask of fish still present, not an arbitrary score.
+remaining :: World -> Int
+remaining = worldRemaining
+
+-- | Test the size before subtracting it from the board width. This avoids
+-- accepting @maxBound :: Int@ through overflow in @p + size@.
+validCartPosition :: Cart -> Int -> Bool
+validCartPosition cart p = size cart >= 2 && size cart <= 3
+  && lane cart >= 0 && lane cart < 6 && p >= 0 && p <= 6 - size cart
+
 -- | Check board geometry before creating a World. Distinct fish rows inside
 -- the six-by-six board also bound the bit mask to six bits.
 mkBoard :: [Cart] -> [Int] -> [Int] -> Either BoardError Board
 mkBoard vehicles starts fish
   | length vehicles /= length starts = Left CartPositionCountMismatch
   | invalid : _ <- [i | (i, cart, p) <- zip3 [0..] vehicles starts
-                     , size cart < 2 || size cart > 3 || lane cart < 0 || lane cart >= 6
-                       || p < 0 || p + size cart > 6] = Left (InvalidCart invalid)
+                     , not (validCartPosition cart p)] = Left (InvalidCart invalid)
   | null fish || length fish /= length (nub fish) || any (\row -> row < 0 || row >= 6) fish = Left InvalidFishRows
   | length initialCells /= length (nub initialCells) = Left InitialCollision
   | any (\row -> all ((/= row) . snd) initialCells) fish = Left InitiallyClearFishRow
   | otherwise = Right proposed
   where
     proposed = Board vehicles starts fish
-    initialCells = occupied proposed (World starts 0)
+    initialCells = occupied proposed (World proposed starts 0)
 
 initial :: Board -> World
-initial b = World (initialPositions b) (2 ^ length (fishRows b) - 1)
+initial b = World b (initialPositions b) (2 ^ length (fishRows b) - 1)
 
 cells :: Cart -> Int -> [(Int,Int)]
 cells (Cart H row n) p = [(p+i,row) | i <- [0..n-1]]
@@ -64,8 +80,9 @@ occupied :: Board -> World -> [(Int,Int)]
 occupied b s = concat (zipWith cells (carts b) (positions s))
 
 wellFormed :: Board -> World -> Bool
-wellFormed b s = length (positions s) == length (carts b)
-  && all (\(c,p) -> size c >= 2 && size c <= 3 && lane c >= 0 && lane c < 6 && p >= 0 && p + size c <= 6) (zip (carts b) (positions s))
+wellFormed b s = worldBoard s == b
+  && length (positions s) == length (carts b)
+  && all (uncurry validCartPosition) (zip (carts b) (positions s))
   && length cs == length (nub cs)
   && remaining s >= 0 && remaining s < 2 ^ length (fishRows b)
   where cs = occupied b s
@@ -77,18 +94,19 @@ replaceAt :: Int -> a -> [a] -> [a]
 replaceAt i a xs = take i xs ++ [a] ++ drop (i+1) xs
 
 legal :: Board -> World -> Move -> Bool
-legal b s (Move i d) = remaining s /= 0 && i >= 0 && i < length (carts b)
+legal b s (Move i d) = wellFormed b s && remaining s /= 0
+  && i >= 0 && i < length (carts b)
   && d `elem` [-1,1] && wellFormed b shifted
-  where shifted = s { positions = replaceAt i ((positions s !! i) + d) (positions s) }
+  where shifted = s { worldPositions = replaceAt i ((positions s !! i) + d) (positions s) }
 
 -- | The only collision/departure implementation. Invalid moves preserve state
 -- and emit no rows; 'admit' rejects the same moves before the rule runs.
 advance :: Board -> Move -> World -> (World, Departed)
 advance b action@(Move i d) s
   | not (legal b s action) = (s, Departed [])
-  | otherwise = (shifted {remaining = foldl clearBit (remaining s) departing}, Departed [fishRows b !! j | j <- departing])
+  | otherwise = (shifted {worldRemaining = foldl clearBit (remaining s) departing}, Departed [fishRows b !! j | j <- departing])
   where
-    shifted = s { positions = replaceAt i ((positions s !! i) + d) (positions s) }
+    shifted = s { worldPositions = replaceAt i ((positions s !! i) + d) (positions s) }
     departing = [j | (j,row) <- zip [0..] (fishRows b), testBit (remaining s) j,
                      all ((/= row) . snd) (occupied b shifted)]
 

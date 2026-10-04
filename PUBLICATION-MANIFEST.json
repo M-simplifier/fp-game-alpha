@@ -27,7 +27,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "b9b02d6331b840ac71a240654d8c2281811c84aec5979fe7fdef3a26330d8932",
+      "sha256_lf": "3ebc139d1e6ecdb512a680f4fd7feaad6f072c6c00afb56697d86509f26c0bce",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -318,7 +318,7 @@
     },
     {
       "path": "docs/verification.md",
-      "sha256_lf": "0a4771986527aa1cc5b88ed59c0cdd777599efb88d604fc07e14d6c7b20e745e",
+      "sha256_lf": "7362e31e3ad4883ef64b119ba2e8466e534771c3bc1a34e5a817395cb5e5318c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -556,7 +556,7 @@
     },
     {
       "path": "references/lantern/README.md",
-      "sha256_lf": "eb8c8aab7bf71e2fbdfec55af63ab007a3607c9f065ac9d2779b5ed87992db13",
+      "sha256_lf": "1d1a2393cbb164cfca2423220f14852d0b90693d42aa468c1ae1c0155cf11e90",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -578,7 +578,7 @@
     },
     {
       "path": "references/lantern/src/Lantern.hs",
-      "sha256_lf": "35a6eea35962fe5f8cf6f458ecc7d564f356dcb040e49c033f127615f0c51514",
+      "sha256_lf": "76784ebf26774399e5411c72f16b564a2b3495b01abc5ec92cf650996c8422bf",
       "origin": {
         "kind": "refactored-author-supplied-technical-source",
         "origin": "fixtures/lantern/src/Lantern.hs",
@@ -592,7 +592,29 @@
     },
     {
       "path": "references/lantern/test/Laws.hs",
-      "sha256_lf": "67bb9a0e7e3f91de76f759872f5bde331df66bc0a8eafb80d7998bc5c09ff5c3",
+      "sha256_lf": "d5f4e67bae52cdd4e0afc7c66d42f953b05a938915fd1a36f20effb82574ac94",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/test/RejectWorldUpdate.hs",
+      "sha256_lf": "e5e2256f8e7361cf6e0e52f9aae62646c3441be821d5708ed4459d45881c6cc9",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/test/WorldRead.hs",
+      "sha256_lf": "9e611b3b88d09fd74e98c9a7f4ebc724baf7402a21144ca33d1838da65bbf99f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -1094,6 +1116,17 @@
     {
       "path": "tools/test_editors.py",
       "sha256_lf": "7d054d50d0342eb25c6dc7876c7ff42969744414e71343925cb1422affb2e11e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/test_lantern_api.py",
+      "sha256_lf": "1fb80da21355742b4fd5a0d995012ff0b73b15da6b592caa32ec21390fe50c71",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
