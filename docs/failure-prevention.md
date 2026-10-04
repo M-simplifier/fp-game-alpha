@@ -109,3 +109,23 @@ path, type/API boundary, template, or systematic check. Route the lesson into
 the canonical guide and generated development path when a first user can
 benefit. Re-run the relevant actual compiler/runtime test, source publication
 gate and clean-clone route; keep untested proposals labelled as such.
+
+## Pinned source archives are not a verified extraction cache
+
+The Afterlight source-check helper originally verified archive hashes and
+extracted file names, but that did not establish extracted file contents.
+An existing cached symlink or hardlink could alias two expected paths: an
+extraction overwrite could leave both names present with the wrong bytes.
+This was found in a pre-publication review, not an observed compromised cache.
+
+The helper now rejects linked cache entries before writing, rejects archive
+links, and compares every extracted regular file with its pinned archive
+member before invoking Cabal. Cache tests cover hash mismatch, extra files,
+regular-file repair, hardlink rejection and symlink rejection. Compiler calls
+are mocked in those cache tests; the complete Haskell suites are separate.
+
+Apply this boundary whenever a version/hash-pinned archive is reused through
+a writable extraction cache. A passing archive digest alone does not attest
+installed/extracted bytes. This mechanism is not protection against another
+process mutating the files concurrently after verification; builds assume
+exclusive control of their local cache.

@@ -1,0 +1,97 @@
+cabal-version: 3.8
+name: garden-of-afterlight
+version: 0.1.0.0
+build-type: Simple
+license: MIT
+license-file: LICENSE
+author: M-simplifier
+synopsis: Pure Haskell voxel garden with native and browser hosts
+extra-source-files: README.md, tools/fixtures/garden-v3.txt, assets/shaders/*.vs, assets/shaders/*.fs
+
+flag native
+    description: Build the Windows host (external runtime assets required)
+    default: False
+    manual: True
+
+flag web
+    description: Build the browser reactor (see web/README.md)
+    default: False
+    manual: True
+
+common shared-options
+    ghc-options: -Wall
+    default-language: GHC2021
+    hs-source-dirs: src
+    build-depends:
+        base >=4.18 && <4.23,
+        bytestring >=0.11 && <0.13,
+        containers >=0.6 && <0.9,
+        directory >=1.3 && <1.4,
+        filepath >=1.4 && <1.6,
+        h-raylib >=5.5 && <5.7
+
+executable noema-garden
+    import: shared-options
+    if !flag(native)
+        buildable: False
+    main-is: GardenMain.hs
+    hs-source-dirs: tools, src
+    ghc-options: -O2 -threaded -rtsopts -with-rtsopts=-N2 -optl-mwindows
+    build-depends: Yampa >=0.15 && <0.16, time >=1.12 && <1.16
+    other-modules:
+        Garden.Types, Garden.World, Garden.Change, Garden.Checkpoint.Legacy, Garden.Render.Invalidation, Garden.Render.Chunk, Garden.Islands, Garden.Rules, Garden.Raycast,
+        Garden.View, Garden.Mesh, Garden.Clock, Garden.Signal, Garden.Tour,
+        Garden.Checkpoint, Garden.Host.Control, Garden.Input, Garden.Runtime, Garden.Photo,
+        Garden.Render, Garden.Render.Resources, Garden.Render.GPU, Garden.Render.Radiance, Garden.Render.Settings,
+        Garden.Audio, Garden.Soundscape
+
+executable noema-render-check
+    import: shared-options
+    if !flag(native)
+        buildable: False
+    main-is: GardenRenderCheck.hs
+    hs-source-dirs: tools, src
+    ghc-options: -O2 -threaded -rtsopts -with-rtsopts=-N2
+    build-depends: Yampa >=0.15 && <0.16, time >=1.12 && <1.16
+    other-modules:
+        Garden.Types, Garden.World, Garden.Change, Garden.Checkpoint.Legacy, Garden.Render.Invalidation, Garden.Render.Chunk, Garden.Islands, Garden.Rules, Garden.Raycast,
+        Garden.View, Garden.Mesh, Garden.Clock, Garden.Signal, Garden.Tour,
+        Garden.Checkpoint, Garden.Host.Control, Garden.Input, Garden.Runtime, Garden.Photo,
+        Garden.Render, Garden.Render.Resources, Garden.Render.GPU, Garden.Render.Radiance, Garden.Render.Settings,
+        Garden.Audio, Garden.Soundscape
+
+executable noema-garden-audio
+    import: shared-options
+    if !flag(native)
+        buildable: False
+    ghc-options: -O2
+    main-is: GardenAudio.hs
+    hs-source-dirs: tools, src
+    other-modules: Garden.Audio, Garden.Soundscape, Garden.Types
+
+executable afterlight-browser
+    import: shared-options
+    if !flag(web)
+        buildable: False
+    main-is: BrowserMain.hs
+    hs-source-dirs: web, src
+    c-sources: web/bridge.c
+    ghc-options: -O2 -no-hs-main -optl-mexec-model=reactor
+        "-optl-Wl,--export=hs_init,--export=startup,--export=mainLoop,--export=shouldClose,--export=teardown,--export=loadingStage,--export=loadingDone,--export=loadingTotal,--export=isReady,--export=preview,--export=setActive,--export=setQuality,--export=setRenderOption,--export=free,--export=__heap_base,--export=__global_base,--export=__data_end,--export=__stack_pointer,--import-memory,--global-base=134217728,--initial-memory=167772160,--max-memory=1073741824"
+    build-depends: Yampa >=0.15 && <0.16, time >=1.12 && <1.16
+    other-modules:
+        Garden.Types, Garden.World, Garden.Change, Garden.Checkpoint.Legacy, Garden.Render.Invalidation, Garden.Render.Chunk, Garden.Islands, Garden.Rules, Garden.Raycast,
+        Garden.View, Garden.Mesh, Garden.Clock, Garden.Signal, Garden.Tour,
+        Garden.Checkpoint, Garden.Host.Control, Garden.Input, Garden.Runtime, Garden.Photo,
+        Garden.Render, Garden.Render.Resources, Garden.Render.GPU, Garden.Render.Radiance, Garden.Render.Settings,
+        Garden.Audio, Garden.Soundscape
+
+executable noema-garden-check
+    ghc-options: -Wall -O2
+    default-language: GHC2021
+    main-is: GardenCheck.hs
+    hs-source-dirs: tools, src
+    build-depends: base, bytestring, containers, Yampa, QuickCheck ==2.15.0.1
+    other-modules:
+        Garden.Types, Garden.World, Garden.Change, Garden.Checkpoint.Legacy, Garden.Render.Invalidation, Garden.Render.Chunk, Garden.Islands, Garden.Rules, Garden.Raycast,
+        Garden.Render.Settings, Garden.Host.Control, Garden.Clock, Garden.Checkpoint, Garden.Signal, Garden.Tour, Garden.Mesh, Garden.Soundscape, Garden.Photo

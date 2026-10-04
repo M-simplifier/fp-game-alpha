@@ -1,0 +1,697 @@
+{
+  "schema": 1,
+  "repository": "M-simplifier/garden-of-afterlight",
+  "baseline": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+  "latest_origin_main_at_import": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+  "changes_since_previous_baseline": [],
+  "target_base": "839edb6b7a4799ef5e2edd1599729dc7dd14e1a9",
+  "files": [
+    {
+      "path": "LICENSE",
+      "origin": "LICENSE",
+      "sha256": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297",
+      "bytes": 1069,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/baseline/README.original.txt",
+      "origin": "README.md",
+      "sha256": "00707c148f86d603e0e7218a598c9ecdeb4cedb8795e37b48f7f8d88773325e9",
+      "bytes": 10781,
+      "mode": "100644"
+    },
+    {
+      "path": "assets/shaders/bloom.fs",
+      "origin": "assets/shaders/bloom.fs",
+      "sha256": "7a4432e904427b12502a4965663f2ff9268bde451194645814d5fba14aef586b",
+      "bytes": 754,
+      "mode": "100644"
+    },
+    {
+      "path": "assets/shaders/effects.fs",
+      "origin": "assets/shaders/effects.fs",
+      "sha256": "9970b0125313c3d8bc173e0b18a6d1e19d4d5b8b454fb8f6a5d97048a1c40ff7",
+      "bytes": 2728,
+      "mode": "100644"
+    },
+    {
+      "path": "assets/shaders/post.fs",
+      "origin": "assets/shaders/post.fs",
+      "sha256": "ff0d57bba95a6bef85d9a7213f102177bad5643156eee46aecf97ca988db6249",
+      "bytes": 2803,
+      "mode": "100644"
+    },
+    {
+      "path": "assets/shaders/sky.fs",
+      "origin": "assets/shaders/sky.fs",
+      "sha256": "8a32b3fea2374cd4a74d329b94aec968f63a6b922b17a7214477198bce5eb689",
+      "bytes": 3206,
+      "mode": "100644"
+    },
+    {
+      "path": "assets/shaders/voxel.fs",
+      "origin": "assets/shaders/voxel.fs",
+      "sha256": "017910c9b6c96141117e7d1444f3281b839de710c6984ab56c39238ec9bf1cc2",
+      "bytes": 3392,
+      "mode": "100644"
+    },
+    {
+      "path": "assets/shaders/voxel.vs",
+      "origin": "assets/shaders/voxel.vs",
+      "sha256": "1539664629d3fc1656d3c9f87ab193cfa20ecdad759347ea9a85fc25cf3d216f",
+      "bytes": 541,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/baseline/cabal.project",
+      "origin": "cabal.project",
+      "sha256": "124cd2f0cb590811d7668bef1e444eb106d6212ac24c1c2a2fe4ea35112ddf43",
+      "bytes": 12,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/rendering.md",
+      "origin": "docs/rendering.md",
+      "sha256": "eda4f33950bd885e7f6c476adaadc39002c32ff837b5bbf660d8e3ab5d8d89b9",
+      "bytes": 9810,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/baseline/garden-of-afterlight.cabal",
+      "origin": "garden-of-afterlight.cabal",
+      "sha256": "25ba22b202735335e647f5860fe2547f020b953fde7d99170ba2f7235f05e697",
+      "bytes": 4577,
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/Garden/Audio.hs",
+      "origin": "src/Garden/Audio.hs",
+      "sha256": "6b4d56f1ce0a7f98d52392ef0fdac7d4b7f8bfdde9deddb3e6ca27f079314fc9",
+      "bytes": 2897,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Change.hs",
+      "origin": "src/Garden/Change.hs",
+      "sha256": "1676e5cf58ee43f35279181152dc5d7e319dab02fb36d0c2158aefd96dc906fb",
+      "bytes": 2072,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Checkpoint.hs",
+      "origin": "src/Garden/Checkpoint.hs",
+      "sha256": "1d6f69adcfa0c1cb291445bb287d6ccdbb50608c4f752f8da9104a0d4bc2e3dd",
+      "bytes": 5030,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Checkpoint/Legacy.hs",
+      "origin": "src/Garden/Checkpoint/Legacy.hs",
+      "sha256": "b9d929d178c325abb220c6cc30678cb48d70bbdaf403410b73b5acdc0d8c373a",
+      "bytes": 1972,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Clock.hs",
+      "origin": "src/Garden/Clock.hs",
+      "sha256": "7631bb20a6c2501200e6d18bf1d9a59f540f7a09a455c216a6fc99270e2ffd22",
+      "bytes": 1879,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Host/Control.hs",
+      "origin": "src/Garden/Host/Control.hs",
+      "sha256": "fc91bf1182aefe8522dfafe0747fc34d02d1aecfc5f968fa2e4975687d0cd56b",
+      "bytes": 810,
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/Garden/Input.hs",
+      "origin": "src/Garden/Input.hs",
+      "sha256": "70569b1b57284ddf391ed75a4710cd6833998fbbddf0a8c437b48712162aeeae",
+      "bytes": 2907,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Islands.hs",
+      "origin": "src/Garden/Islands.hs",
+      "sha256": "3bdc657a51c3afa8d43fb5c04a070ce8e235d0da8501bd54547098007828a468",
+      "bytes": 3680,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Mesh.hs",
+      "origin": "src/Garden/Mesh.hs",
+      "sha256": "0c45ffd7b80dee5804903db2a196a3be718373d8a278b1cc396a69ccd89f8fff",
+      "bytes": 11212,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Photo.hs",
+      "origin": "src/Garden/Photo.hs",
+      "sha256": "6acb3d11befc2bf0d411d0ecd2167528698ad5e835f37816cd7f045d1fec30ee",
+      "bytes": 2738,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Raycast.hs",
+      "origin": "src/Garden/Raycast.hs",
+      "sha256": "8c02185c7f6f6e0e43c4e4e650b205c75745a9ae68dde08c2bbd6fad466c4f0b",
+      "bytes": 1892,
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/Garden/Render.hs",
+      "origin": "src/Garden/Render.hs",
+      "sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
+      "bytes": 18198,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Render/Chunk.hs",
+      "origin": "src/Garden/Render/Chunk.hs",
+      "sha256": "a3a8ad33ac367dd500d805479c5fc87b6b46626d8f3fece3b0293cf200892714",
+      "bytes": 1144,
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/Garden/Render/GPU.hs",
+      "origin": "src/Garden/Render/GPU.hs",
+      "sha256": "8a80b98e2c4986d42c79cca8dd4550330f2e6cdcad2a9611e44ccaaaa97a6d2c",
+      "bytes": 4583,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Render/Invalidation.hs",
+      "origin": "src/Garden/Render/Invalidation.hs",
+      "sha256": "e85072f2710a01db6985c0d4e117895a86e052ffe20542c3a7fdf8b443719a4c",
+      "bytes": 849,
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/Garden/Render/Radiance.hs",
+      "origin": "src/Garden/Render/Radiance.hs",
+      "sha256": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
+      "bytes": 11716,
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/Garden/Render/Resources.hs",
+      "origin": "src/Garden/Render/Resources.hs",
+      "sha256": "1a338075976df9b41debe50d698471abe89ce81fd6154af8fd1ead6e525cf8b5",
+      "bytes": 14557,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Render/Settings.hs",
+      "origin": "src/Garden/Render/Settings.hs",
+      "sha256": "876ed1bd94fc183459d4103ffbd7503c2a9d873b0769df1c10272de0bdb192d6",
+      "bytes": 4576,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Rules.hs",
+      "origin": "src/Garden/Rules.hs",
+      "sha256": "1c7456e51b1997a1f40701245e8bea4015a7418f359c93ace2f5fc0df21ac0d9",
+      "bytes": 15050,
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/Garden/Runtime.hs",
+      "origin": "src/Garden/Runtime.hs",
+      "sha256": "c3538af71b2028526171d51e850d42a545132ca8291019b35f9d92e670127784",
+      "bytes": 29006,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Signal.hs",
+      "origin": "src/Garden/Signal.hs",
+      "sha256": "64232f375a6bd1be7d0e0732e2eb24b0326e5347a4c63b7c51b96c335500302d",
+      "bytes": 416,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Soundscape.hs",
+      "origin": "src/Garden/Soundscape.hs",
+      "sha256": "328d4aa8a5b34506db67cd96772a147c2a819eebec4196411977caab7482b6bc",
+      "bytes": 4330,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Tour.hs",
+      "origin": "src/Garden/Tour.hs",
+      "sha256": "6861cdf2cf0b8c796bbbf488ceb5312ad83876c25af0878751f5ca72f2953119",
+      "bytes": 5723,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/Types.hs",
+      "origin": "src/Garden/Types.hs",
+      "sha256": "c973e13d1463fefc39c82ac5eb164681dd37fbaaf28b7395ff3318274eda4eb6",
+      "bytes": 5508,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/View.hs",
+      "origin": "src/Garden/View.hs",
+      "sha256": "4ea449351cca144aac1b97b9ca94f1852ac968e462991717695b57bca6fcf8e7",
+      "bytes": 7977,
+      "mode": "100644"
+    },
+    {
+      "path": "src/Garden/World.hs",
+      "origin": "src/Garden/World.hs",
+      "sha256": "dc9ead101cfa30a2e26f69aec76de149ee8c11963c10c008790e7894ea7a90d9",
+      "bytes": 8886,
+      "mode": "100644"
+    },
+    {
+      "path": "tools/GardenAudio.hs",
+      "origin": "tools/GardenAudio.hs",
+      "sha256": "0b6ac564acda21493b02526d5b65aa6491b292ecceec56bcf03f8f14c164189f",
+      "bytes": 98,
+      "mode": "100644"
+    },
+    {
+      "path": "tools/GardenCheck.hs",
+      "origin": "tools/GardenCheck.hs",
+      "sha256": "2ea81bbb582e0f907db0a1586ed99f0b3a0d841412262baaf164a1aabeb6a068",
+      "bytes": 16110,
+      "mode": "100644"
+    },
+    {
+      "path": "tools/GardenMain.hs",
+      "origin": "tools/GardenMain.hs",
+      "sha256": "aab8802f61156d2dbc7c6a85e425420cf72dc76e4d1839b104ead85113119d31",
+      "bytes": 1685,
+      "mode": "100644"
+    },
+    {
+      "path": "tools/GardenRenderCheck.hs",
+      "origin": "tools/GardenRenderCheck.hs",
+      "sha256": "200cb941c59cb8d01c3027403f02582b4d7cd287bdc875488a54fe3664d7b8cc",
+      "bytes": 3420,
+      "mode": "100644"
+    },
+    {
+      "path": "tools/Observe-Garden.ps1",
+      "origin": "tools/Observe-Garden.ps1",
+      "sha256": "65a2f2a6db1dc42c3c9bb1a597321aab073ca2446ee970c7bf7f454a7ed7ed13",
+      "bytes": 3608,
+      "mode": "100644"
+    },
+    {
+      "path": "tools/fixtures/garden-v3.txt",
+      "origin": "tools/fixtures/garden-v3.txt",
+      "sha256": "786a9b0fd198e2474ac9c60575871919101066aed31a0ba129c30af1dfe20c34",
+      "bytes": 1638,
+      "mode": "100644"
+    },
+    {
+      "path": "web/BrowserMain.hs",
+      "origin": "web/BrowserMain.hs",
+      "sha256": "443e71dff726e2de16031ac7a2a8b395245199a720e9bdb2468d224ed8387114",
+      "bytes": 2964,
+      "mode": "100644"
+    },
+    {
+      "path": "web/EXPERIENCE.md",
+      "origin": "web/EXPERIENCE.md",
+      "sha256": "2dce2fd297944dd1ada831eee02b39a3f10e3220e6e0a5a7b50010710d602faa",
+      "bytes": 18588,
+      "mode": "100644"
+    },
+    {
+      "path": "web/README.md",
+      "origin": "web/README.md",
+      "sha256": "e511717f9e533d06f3f796ed3273827ff0c7da0cb95d2b2cb7bfd79efe56b9aa",
+      "bytes": 12357,
+      "mode": "100644"
+    },
+    {
+      "path": "web/bridge.c",
+      "origin": "web/bridge.c",
+      "sha256": "f6c83668d8cbb89bca82dbb1bd4a69cf3e727313a3cfbb73e6710a8cf485e4f3",
+      "bytes": 859,
+      "mode": "100644"
+    },
+    {
+      "path": "web/build.sh",
+      "origin": "web/build.sh",
+      "sha256": "99cc5dea64bfdb61587f65d7d6b38ddef7615fa9234d7299ef2d88f46bce9f1b",
+      "bytes": 9539,
+      "mode": "100644"
+    },
+    {
+      "path": "web/cabal.project.template",
+      "origin": "web/cabal.project.template",
+      "sha256": "ca09e30f10b8c2e76e1d5a2808d3069b2ec1c7ee5bd49475640e7ba0bdf6ee69",
+      "bytes": 756,
+      "mode": "100644"
+    },
+    {
+      "path": "web/checks/abi.c",
+      "origin": "web/checks/abi.c",
+      "sha256": "f09132020b5a53c538bb63b5c7ba5bb0da9f799080994cca743e10393dabbfa1",
+      "bytes": 9226,
+      "mode": "100644"
+    },
+    {
+      "path": "web/checks/assets.py",
+      "origin": "web/checks/assets.py",
+      "sha256": "bcc7caf4e9a6cb52320509376c809f4c40e919e9ac29f813413259fa359af6e9",
+      "bytes": 10618,
+      "mode": "100644"
+    },
+    {
+      "path": "web/checks/build.py",
+      "origin": "web/checks/build.py",
+      "sha256": "fb18dba449c68ab1f59dadfd4a47fcf98f775b2a8db2228ab42a2eeddec4a025",
+      "bytes": 2628,
+      "mode": "100644"
+    },
+    {
+      "path": "web/flake.lock",
+      "origin": "web/flake.lock",
+      "sha256": "5e6a8883e034d8bbb46c53099aa3a457272acc14c3d68df27b6270aa5b69f4d9",
+      "bytes": 2182,
+      "mode": "100644"
+    },
+    {
+      "path": "web/flake.nix",
+      "origin": "web/flake.nix",
+      "sha256": "79e24ce69766ae4f7175e2ac32de55d0b1dbdf0330d060ed0d27902827a65d9e",
+      "bytes": 1368,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/README.md",
+      "origin": "web/host/README.md",
+      "sha256": "ab52d837d4f64d37cf7a213de98c1849e936a32f248d6e75ce0aa5f7cc0724fb",
+      "bytes": 10590,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/memory-guard.c",
+      "origin": "web/host/memory-guard.c",
+      "sha256": "c23212ffb887157f6829c30c7a0e0bee71802af61b673c000cb9f2f2c6fedd44",
+      "bytes": 1058,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/package-lock.json",
+      "origin": "web/host/package-lock.json",
+      "sha256": "97e963e7a9fe5312e31e811485768b7fd0a368bb7877f2a9b6d5361877e06532",
+      "bytes": 14853,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/package.json",
+      "origin": "web/host/package.json",
+      "sha256": "7f6c626372cf301ba05009386e757ac45a1fbc26f7bcd04b8ceedcd6a2f11533",
+      "bytes": 382,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/public/index.html",
+      "origin": "web/host/public/index.html",
+      "sha256": "8c56febe25bf6765b6fccb8884dd28e066e30755ae4ac05801edaac7dc30799f",
+      "bytes": 8833,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/refresh-memory.js",
+      "origin": "web/host/refresh-memory.js",
+      "sha256": "0665bda0989243ce92a9900852d8cd68365bfd196dfd68a2b0b8ea955dfc568e",
+      "bytes": 2826,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/bridge.js",
+      "origin": "web/host/src/bridge.js",
+      "sha256": "6cbd8199d003ecfc059e2f506fbee3d3c7b39933fbea434eb91a4f93c62443f8",
+      "bytes": 5493,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/files.js",
+      "origin": "web/host/src/files.js",
+      "sha256": "7666f59decd2c161d404f10b67f5754cc6a0d62fab7ce6e014b7f2a01d91e4b8",
+      "bytes": 10646,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/host.js",
+      "origin": "web/host/src/host.js",
+      "sha256": "492e078dd668598dedb03111cda9987aaf701f862ecc25242cf80cb9daab5c93",
+      "bytes": 22644,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/input.js",
+      "origin": "web/host/src/input.js",
+      "sha256": "41c4c38b9e83fa0a491af4b1ff1b0e1f87b4bc1309f65463be46a2383de5fdb0",
+      "bytes": 6356,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/loading.js",
+      "origin": "web/host/src/loading.js",
+      "sha256": "27c3681d6f2e351839eb9d87c080f6fc4f65b715e6c016d86668e88860254616",
+      "bytes": 2998,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/photos.js",
+      "origin": "web/host/src/photos.js",
+      "sha256": "4a25447cc8073da4ee882fa3f288f74eece8e9ccd706e38e765e06537e653a57",
+      "bytes": 2235,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/render-check.js",
+      "origin": "web/host/src/render-check.js",
+      "sha256": "804ee904fcaebb00b1b5dfed1e0ef833c9d07528420b07a65d2b79e263485afd",
+      "bytes": 1176,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/src/viewport.js",
+      "origin": "web/host/src/viewport.js",
+      "sha256": "341b3123e0580d12bb5a94a51d1ee89833ee933414b0c0264f22eebc76429dbc",
+      "bytes": 723,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/test/bridge.test.mjs",
+      "origin": "web/host/test/bridge.test.mjs",
+      "sha256": "b8fb6727847c59a463106aa859b2025b3bfd8bce2cadba8bf446f6ee050e013e",
+      "bytes": 3376,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/test/files.test.mjs",
+      "origin": "web/host/test/files.test.mjs",
+      "sha256": "cd1a828fb43de3d1a7b2efc7132c0704e827c40e5d789fab0c6729e262bdc372",
+      "bytes": 9468,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/test/input.test.mjs",
+      "origin": "web/host/test/input.test.mjs",
+      "sha256": "c38264bdf4bac4859967276669e56136721c6cf72166fed0f69c9a7b0c665548",
+      "bytes": 15375,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/test/loading.test.mjs",
+      "origin": "web/host/test/loading.test.mjs",
+      "sha256": "30788ee23761e7d779c05ae21634f1fda477dc4938c13191ec2f810d11d19a2f",
+      "bytes": 2846,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/test/photos.test.mjs",
+      "origin": "web/host/test/photos.test.mjs",
+      "sha256": "29eb1bc6c2eca968871c87d049359978df8827ac69317ab84abab4775a511718",
+      "bytes": 2267,
+      "mode": "100644"
+    },
+    {
+      "path": "web/host/test/resize.test.mjs",
+      "origin": "web/host/test/resize.test.mjs",
+      "sha256": "627ac9f10fbea14b28480228ac95a86df473b39b6184999036dffcb8950aa8e9",
+      "bytes": 4676,
+      "mode": "100644"
+    },
+    {
+      "path": "web/patches/LICENSE-h-raylib.txt",
+      "origin": "web/patches/LICENSE-h-raylib.txt",
+      "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+      "bytes": 11356,
+      "mode": "100644"
+    },
+    {
+      "path": "web/patches/README.md",
+      "origin": "web/patches/README.md",
+      "sha256": "0e21b005844e95ca087b38627dada981979581dc9634fed4bed2f33ba30ba106",
+      "bytes": 1710,
+      "mode": "100644"
+    },
+    {
+      "path": "web/patches/h-raylib-web.patch",
+      "origin": "web/patches/h-raylib-web.patch",
+      "sha256": "245082c0d9d2cfbbc2acd45603d23722f00380b66c9516caeab4951c17e2bc73",
+      "bytes": 14506,
+      "mode": "100644"
+    },
+    {
+      "path": "web/prepare-assets.py",
+      "origin": "web/prepare-assets.py",
+      "sha256": "0a50cb8e6d86be775d902f1ec48600e0aa3ebf880b3fc1f39958691960dc4fae",
+      "bytes": 7115,
+      "mode": "100644"
+    },
+    {
+      "path": "web/screen.vs",
+      "origin": "web/screen.vs",
+      "sha256": "cea051722a5cb24eefd159551bea29f92e5e4410103be039448723f21accec23",
+      "bytes": 300,
+      "mode": "100644"
+    },
+    {
+      "path": "web/serve.py",
+      "origin": "web/serve.py",
+      "sha256": "f3f781efcc2e69d211823c3e39c3bc51415bc97aa8ca085e947efed0a2f49b7c",
+      "bytes": 4913,
+      "mode": "100644"
+    },
+    {
+      "path": "web/wasm-link",
+      "origin": "web/wasm-link",
+      "sha256": "803d1a8082ae2166b57e3c387835173d1ebb509f4206e6d6596e1c40796d0b88",
+      "bytes": 763,
+      "mode": "100755"
+    }
+  ],
+  "oracle": [
+    {
+      "path": "test/oracle/Original/Garden/Change.hs",
+      "origin": "src/Garden/Change.hs",
+      "sha256": "a60becf154a3e79f219595d592c5f8f2fe2583c6e0ff1eaac0e9ee563c7e68b1",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Checkpoint.hs",
+      "origin": "src/Garden/Checkpoint.hs",
+      "sha256": "a066434e023237c117802bbd83a3bd674f549fd42ead98e42accca9e6897ed0b",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Checkpoint/Legacy.hs",
+      "origin": "src/Garden/Checkpoint/Legacy.hs",
+      "sha256": "a7ec46c2a51efe8f996b052934595133089bc6b6d5382e3966e5cfde6ffce426",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Clock.hs",
+      "origin": "src/Garden/Clock.hs",
+      "sha256": "1b27e3d9719ad50ffafb9b1972a3c4ad45995ced8cd8664789ff06679a19ead7",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Host/Control.hs",
+      "origin": "src/Garden/Host/Control.hs",
+      "sha256": "bf23d353359e4fc5ab079c03e2d84d20c1c2f77ac493b8cc71b9f3461629a889",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Islands.hs",
+      "origin": "src/Garden/Islands.hs",
+      "sha256": "acda2102df6211711a2384d3886b6e5a98361f1fcaada3d53b475f1d17c9f5bc",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Mesh.hs",
+      "origin": "src/Garden/Mesh.hs",
+      "sha256": "4c5820dcd43f46147d93c9ffe82f05c9d356b85771a3411edcbcc3fb92e9e4f7",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Photo.hs",
+      "origin": "src/Garden/Photo.hs",
+      "sha256": "d6c2d33b37db15263be134739eea8fab8d234c7622bec504c01863c826248b81",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Raycast.hs",
+      "origin": "src/Garden/Raycast.hs",
+      "sha256": "772ac9a1e453e94dbfd7645746d4067160a718fa29cfd396fa8058f4fcdd652d",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Render/Chunk.hs",
+      "origin": "src/Garden/Render/Chunk.hs",
+      "sha256": "9ea03db2dd4af59baa684775bbdce16b7bc4c86feab7fd5efc1c59bb0fa69124",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Render/Invalidation.hs",
+      "origin": "src/Garden/Render/Invalidation.hs",
+      "sha256": "dbf3e7e24c837fbd4dfd1f1bd2784aef88b93f15fc5a25d4dc4f772c16b95bba",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Render/Settings.hs",
+      "origin": "src/Garden/Render/Settings.hs",
+      "sha256": "2648df7c7e41ab56256afd9467a7ab22867ab3f69a0f62412f0bf8bb3b476ed2",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Rules.hs",
+      "origin": "src/Garden/Rules.hs",
+      "sha256": "640f48fe0dbddaf5054f8d964d9ef2ecd74d098b45aae23bca3c640105144d81",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Signal.hs",
+      "origin": "src/Garden/Signal.hs",
+      "sha256": "8ab5c2ee8a6562749910a74fefe23fcf1d0e204c24e6930cf4e8aac099993509",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Soundscape.hs",
+      "origin": "src/Garden/Soundscape.hs",
+      "sha256": "a24137517ace272d6552960efef491e5dd7cb10c65c3cbd7b936dcd8204c8701",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/Tour.hs",
+      "origin": "src/Garden/Tour.hs",
+      "sha256": "af50e02398a60ab8d63f9850056ca7349105987a8146805018e1e5f406881189",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/View.hs",
+      "origin": "src/Garden/View.hs",
+      "sha256": "327a10c48ae03f393fb4bf43cf696828de1153a352d7536955e924e4611c6885",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    },
+    {
+      "path": "test/oracle/Original/Garden/World.hs",
+      "origin": "src/Garden/World.hs",
+      "sha256": "dc3b172ba3bccc7506910ec2f2c54f162360b7d636b56ce630dc3c102fd45dfe",
+      "transformation": "Garden.* -> Original.Garden.*, except unchanged Garden.Types"
+    }
+  ],
+  "external_assets": {
+    "font": "NotoSansCJKjp-Regular.otf and glyphs.txt absent from original Git",
+    "audio": "Generated by original Garden.Soundscape / Garden.Audio",
+    "shaders": "All six original shaders are included"
+  },
+  "excluded": [
+    "editors/",
+    ".agents/",
+    "web/guide/ (documentation, not runtime)"
+  ]
+}

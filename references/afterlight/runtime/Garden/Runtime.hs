@@ -1,0 +1,591 @@
+{-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE CPP #-}
+
+module Garden.Runtime
+  ( GardenApp,
+    RenderQuality (..),
+    StartupStage (..),
+    startupProgress,
+    gardenReady,
+    beginGarden,
+    previewGarden,
+    setGardenActive,
+    setGardenQuality,
+    setGardenRenderOption,
+    startupGarden,
+    stepGarden,
+    shouldCloseGarden,
+    shutdownGarden,
+    runGarden,
+  )
+where
+
+import Control.Exception (IOException, bracket, bracketOnError, evaluate, finally, mask, mask_, onException, try)
+import Control.Monad (replicateM_, unless, void, when)
+import Data.IORef
+import Data.List (sort)
+import Data.Maybe (isJust)
+import Data.Time (defaultTimeLocale, formatTime, getZonedTime)
+import FRP.Yampa (ReactHandle, react, reactInit)
+import Game.Arena qualified as Arena
+import Garden.Arena (Afterlight (..), Gardener (..))
+import Garden.Audio
+import Garden.Checkpoint
+import Garden.Input
+import Garden.Host.Control
+import Garden.Photo
+import Garden.Render
+import Garden.Render.Resources
+import Garden.Render.Settings
+import Garden.Rules
+import Garden.Signal
+import Garden.Session
+import Garden.Tour qualified as Tour
+import Garden.Types
+import Garden.View
+import Garden.World
+import Raylib.Core
+import Raylib.Core.Audio (closeAudioDevice)
+import Raylib.Core.Text (drawText)
+import Raylib.Types
+import Raylib.Util (WindowResources, drawing)
+import System.Directory
+import System.Environment (lookupEnv)
+import System.FilePath (takeDirectory)
+#if !defined(wasm32_HOST_ARCH)
+import System.Mem (performMajorGC)
+#endif
+import Text.Printf (printf)
+import Text.Read (readMaybe)
+
+data Host = Host {hostPaused :: Bool, hostHidden :: Bool, hostDebug :: Bool, hostInvert :: Bool, hostSaved :: Maybe Bool, hostRecordUntil :: Double, hostPhoto :: Maybe Photo, hostPhotoMessage :: Maybe String, hostPhotoUntil :: Double}
+
+data Timing = Timing !Int !Float !Double !Double !Double !Double !Double !Double !Double
+
+data LightSignal = LightSignal !(ReactHandle [Cue] Float) !(IORef Float)
+
+-- Host resources and run options have one lifetime, separate from simulation.
+data Session = Session Resources AudioAssets LightSignal (IORef [Timing]) (Maybe Int) (Maybe Int) FilePath (Maybe String) !ControlMode !(IORef Bool)
+
+data FrameState = FrameState !Simulation !Host !Int !Double
+
+data RunOptions = RunOptions
+  { optionScene :: Maybe String,
+    optionFrameLimit :: Maybe Int,
+    optionShotFrame :: Maybe Int,
+    optionShotName :: FilePath,
+    optionTour :: Maybe String,
+    optionPaused :: Bool,
+    optionHidden :: Bool,
+    optionControl :: ControlMode
+  }
+
+data Startup = Startup !WindowResources !AudioAssets !RunOptions !Double
+
+data Preparation
+  = LoadWorld !Startup
+  | LoadResources !Startup !World !SceneView
+  | LoadChunks !Startup !Resources !World !SceneView !ChunkLoading !Double
+  | Warmup !Startup !Resources !World !SceneView
+
+data StartupStage = ReadyStage | WorldStage | ResourcesStage | ChunksStage | WarmupStage
+  deriving (Eq, Enum)
+
+data AppState = Loading !Preparation | Running !Session !FrameState | Finished !Session | Released
+
+-- A single render thread owns this handle. Each callback returns after one
+-- frame; the simulation clock and FRP continuation survive between callbacks.
+newtype GardenApp = GardenApp (IORef AppState)
+
+runGarden :: IO ()
+runGarden = bracket startupGarden shutdownGarden loop
+  where
+    loop app = do
+      stepGarden app
+      close <- shouldCloseGarden app
+      unless close (loop app)
+
+-- | Native convenience wrapper. Browser hosts use 'beginGarden' and advance
+-- preparation with 'stepGarden', returning to their event loop each time.
+startupGarden :: IO GardenApp
+startupGarden = bracketOnError beginGarden shutdownGarden $ \app -> do
+  let prepare = do
+        ready <- gardenReady app
+        unless ready (stepGarden app >> prepare)
+  prepare
+  pure app
+
+-- | Acquire only the window and audio host. World construction and uploads are
+-- deferred to callbacks. This does not require a browser activation gesture;
+-- the browser resumes its suspended AudioContext on the later play click.
+beginGarden :: IO GardenApp
+beginGarden = do
+  createDirectoryIfMissing True ".runtime/garden/screenshots"
+  ensureAudio
+  scene <- lookupEnv "GARDEN_SCENE"
+  frameLimit <- readEnv "GARDEN_FRAMES"
+  shotFrame <- readEnv "GARDEN_SHOT"
+  shotName <- maybe ".runtime/garden/screenshots/current.png" id <$> lookupEnv "GARDEN_IMAGE"
+  tour <- lookupEnv "GARDEN_TOUR"
+#if defined(wasm32_HOST_ARCH)
+  width <- maybe 1600 (max 1) <$> readEnv "GARDEN_WIDTH"
+  height <- maybe 900 (max 1) <$> readEnv "GARDEN_HEIGHT"
+#else
+  width <- maybe 1600 (max 960) <$> readEnv "GARDEN_WIDTH"
+  height <- maybe 900 (max 600) <$> readEnv "GARDEN_HEIGHT"
+#endif
+  pausedAtStart <- (== Just "1") <$> lookupEnv "GARDEN_PAUSED"
+  hiddenAtStart <- (== Just "0") <$> lookupEnv "GARDEN_HUD"
+  requestedControl <- lookupEnv "GARDEN_INPUT"
+  control <- either (ioError . userError) pure (controlMode requestedControl (any isJust [frameLimit, shotFrame] || isJust tour))
+  let options = RunOptions scene frameLimit shotFrame shotName tour pausedAtStart hiddenAtStart control
+#if defined(wasm32_HOST_ARCH)
+  -- CSS fits this drawing buffer to the page; GLFW's window-resize callback
+  -- otherwise replaces the requested resolution with the whole browser size.
+  setConfigFlags [Msaa4xHint]
+#else
+  setConfigFlags ([Msaa4xHint, WindowResizable] <> if control == ObserveOnly then [WindowHidden, WindowUnfocused, WindowAlwaysRun] else [])
+#endif
+  bracketOnError (initWindow width height "NOEMA - Garden of Afterlight") (closeWindow . Just) $ \window -> do
+#if defined(wasm32_HOST_ARCH)
+    -- requestAnimationFrame owns pacing; a browser callback must return.
+    setTargetFPS 0
+#else
+    setTargetFPS 120
+    setWindowMinSize 960 600
+#endif
+    setExitKey KeyNull
+    drawing $ clearBackground (Color 14 36 43 255) >> drawText "NOEMA / GARDEN OF AFTERLIGHT" 55 60 28 (Color 232 230 204 255) >> drawText "Growing the voxel garden..." 57 113 20 (Color 171 210 192 255)
+    bracketOnError
+      (loadAudioAssets window `onException` closeAudioDevice (Just window))
+      (shutdownAudio window) $ \audio -> do
+        began <- getTime
+        state <- newIORef (Loading (LoadWorld (Startup window audio options began)))
+        pure (GardenApp state)
+
+-- | Real completed work, not a synthetic percentage. Stage changes delimit
+-- world creation, common resources, chunk uploads, and the preview frame.
+startupProgress :: GardenApp -> IO (StartupStage, Int, Int)
+startupProgress (GardenApp stateRef) = do
+  state <- readIORef stateRef
+  case state of
+    Loading (LoadWorld _) -> pure (WorldStage, 0, 1)
+    Loading (LoadResources _ _ _) -> pure (ResourcesStage, 0, 1)
+    Loading (LoadChunks _ _ _ _ pending _) -> do
+      (done, total) <- chunkLoadingProgress pending
+      pure (ChunksStage, done, total)
+    Loading (Warmup _ _ _ _) -> pure (WarmupStage, 0, 1)
+    _ -> pure (ReadyStage, 1, 1)
+
+gardenReady :: GardenApp -> IO Bool
+gardenReady (GardenApp stateRef) = do
+  state <- readIORef stateRef
+  pure $ case state of
+    Running _ _ -> True
+    Finished _ -> True
+    _ -> False
+
+advancePreparation :: Preparation -> IO AppState
+advancePreparation (LoadWorld startup@(Startup _ _ options _)) = do
+  began <- getTime
+  source <- if optionControl options == ObserveOnly then pure initialWorld else loadSaved
+  world <- evaluate (chooseScene (optionScene options) source)
+  view <- evaluate (Arena.observe Afterlight Gardener world)
+  reportStartup "world" began
+  pure (Loading (LoadResources startup world view))
+advancePreparation (LoadResources startup@(Startup window _ _ _) world view) = do
+  began <- getTime
+  bracketOnError (acquireResources window) releaseResources $ \resources -> do
+    pending <- beginChunkLoading resources view
+    reportStartup "resources" began
+    chunksBegan <- getTime
+    pure (Loading (LoadChunks startup resources world view pending chunksBegan))
+advancePreparation preparation@(LoadChunks startup resources world view pending began) = do
+  complete <- stepChunkLoading 0.012 pending
+  if complete
+    then reportStartup "chunks" began >> pure (Loading (Warmup startup resources world view))
+    else pure (Loading preparation)
+advancePreparation (Warmup (Startup _ audio options began) resources world view) = do
+  warmupBegan <- getTime
+  -- A single browser preview primes the same full-quality shaders. Repeated
+  -- identical frames delay first play without presenting additional feedback.
+#if defined(wasm32_HOST_ARCH)
+  let warmupFrames = 1
+#else
+  let warmupFrames = 6
+#endif
+  replicateM_ warmupFrames $ do
+    when (optionControl options == Interactive) (updateAudio audio (worldVeil world) False)
+    drawing $ renderScene resources view 0 >> renderInterface resources view False 120
+#if !defined(wasm32_HOST_ARCH)
+  performMajorGC
+#endif
+  pointer <- newIORef False
+  focused <- isWindowFocused
+  applyPointer (optionControl options) pointer (wantsPointer (optionControl options) focused (optionPaused options) False)
+  start <- getTime
+  timings <- newIORef []
+  glow <- newIORef 0
+  handle <- reactInit (pure []) (\_ _ value -> writeIORef glow value >> pure False) lightEnvelope
+  let initialHost = Host (optionPaused options) (optionHidden options) False False Nothing 0 Nothing Nothing 0
+      session = Session resources audio (LightSignal handle glow) timings (optionFrameLimit options) (optionShotFrame options) (optionShotName options) (optionTour options) (optionControl options) pointer
+  putStrLn ("garden input=" <> show (optionControl options))
+  reportStartup "preview" warmupBegan
+  reportStartup "total" began
+  pure (Running session (FrameState (beginSimulation world) initialHost 0 start))
+
+reportStartup :: String -> Double -> IO ()
+reportStartup label began = do
+  now <- getTime
+  putStrLn (printf "garden startup %s_ms=%.2f" label ((now - began) * 1000))
+
+-- | Run at most one frame. A completed or released application is a no-op.
+stepGarden :: GardenApp -> IO ()
+stepGarden (GardenApp stateRef) = mask $ \restore -> do
+  state <- readIORef stateRef
+  case state of
+    Loading preparation -> do
+      -- Newly acquired Resources must become owned by the app before an async
+      -- exception can escape. Other phases already have all resources owned.
+      next <- case preparation of
+        LoadResources _ _ _ -> advancePreparation preparation
+        _ -> restore (advancePreparation preparation)
+      writeIORef stateRef next
+    Running session frame -> do
+      next <- restore (stepFrame session frame)
+      writeIORef stateRef (maybe (Finished session) (Running session) next)
+    Finished _ -> pure ()
+    Released -> pure ()
+
+-- | Redraw a ready preview after a host resize without consuming input,
+-- advancing simulation, updating audio, or changing the application state.
+previewGarden :: GardenApp -> IO ()
+previewGarden (GardenApp stateRef) = do
+  state <- readIORef stateRef
+  case state of
+    Running (Session resources _ _ _ _ _ _ _ _ _) (FrameState simulation _ _ _) -> do
+      let view = exactScene (Arena.observe AfterlightSession Gardener simulation)
+      drawing $ renderScene resources view 0 >> renderInterface resources view False 120
+    _ -> pure ()
+
+-- | Presentation-only preference. Apply after resource acquisition and before
+-- warmup to include it in the first preview; earlier calls are a no-op.
+setGardenQuality :: GardenApp -> RenderQuality -> IO ()
+setGardenQuality app quality = void (changeSettings app (const (Right (preset quality))))
+
+setGardenRenderOption :: GardenApp -> String -> String -> IO Bool
+setGardenRenderOption app key value = changeSettings app (setOption key value)
+
+changeSettings :: GardenApp -> (RenderSettings -> Either String RenderSettings) -> IO Bool
+changeSettings (GardenApp stateRef) change = do
+  state <- readIORef stateRef
+  case state of
+    Loading (LoadChunks _ resources _ _ _ _) -> apply resources
+    Loading (Warmup _ resources _ _) -> apply resources
+    Running (Session resources _ _ _ _ _ _ _ _ _) _ -> apply resources
+    _ -> pure False
+  where
+    apply resources = do
+      previous <- readIORef (resourceQuality resources)
+      case change previous of
+        Left message -> putStrLn message >> pure False
+        Right settings -> writeIORef (resourceQuality resources) settings >> pure True
+
+-- | A browser activation changes only host control. Preserve the photo camera
+-- and world, and discard elapsed loading/background time before resuming.
+setGardenActive :: GardenApp -> Bool -> IO ()
+setGardenActive (GardenApp stateRef) active = mask_ $ do
+  state <- readIORef stateRef
+  case state of
+    Running session (FrameState simulation host frame _) -> do
+      let Session _ _ _ _ _ _ _ _ control pointer = session
+      focused <- isWindowFocused
+      applyPointer control pointer (wantsPointer control focused (not active) False)
+      now <- getTime
+      writeIORef stateRef (Running session (FrameState (suspendSimulation simulation) (host {hostPaused = not active}) frame now))
+    _ -> pure ()
+
+-- | True after a frame has handled a close request, tour completion, frame
+-- limit, or successful save-and-exit. This query does not poll input twice.
+shouldCloseGarden :: GardenApp -> IO Bool
+shouldCloseGarden (GardenApp stateRef) = do
+  state <- readIORef stateRef
+  pure $ case state of
+    Loading _ -> False
+    Running _ _ -> False
+    Finished _ -> True
+    Released -> True
+
+-- | Release a session once. Hosts must stop scheduling frames before calling.
+shutdownGarden :: GardenApp -> IO ()
+shutdownGarden (GardenApp stateRef) = mask_ $ do
+  state <- atomicModifyIORef' stateRef (\old -> (Released, old))
+  case state of
+    Released -> pure ()
+    Loading preparation -> case preparation of
+      LoadWorld startup -> releaseStartup startup Nothing
+      LoadResources startup _ _ -> releaseStartup startup Nothing
+      LoadChunks startup resources _ _ _ _ -> releaseStartup startup (Just resources)
+      Warmup startup resources _ _ -> releaseStartup startup (Just resources)
+    Running session _ -> releaseSession session
+    Finished session -> releaseSession session
+
+releaseStartup :: Startup -> Maybe Resources -> IO ()
+releaseStartup (Startup window audio options _) resources =
+  when (optionControl options == Interactive) enableCursor
+    `finally` shutdownAudio window audio
+    `finally` mapM_ releaseResources resources
+    `finally` closeWindow (Just window)
+
+releaseSession :: Session -> IO ()
+releaseSession (Session resources audio _ timingRef _ _ _ _ control pointer) =
+  let window = resourceWindow resources
+      timings = do
+        rows <- reverse <$> readIORef timingRef
+        unless (null rows) (writeTiming rows)
+   in applyPointer control pointer False
+        `finally` shutdownAudio window audio
+        `finally` timings
+        `finally` releaseResources resources
+        `finally` closeWindow (Just window)
+
+stepFrame :: Session -> FrameState -> IO (Maybe FrameState)
+stepFrame (Session resources audio (LightSignal handle glow) timingRef limit shotFrame shotName tour control pointer) (FrameState simulation host frame previousTime) = do
+  let w = simulationWorld simulation
+      pilotBefore = simulationPilot simulation
+  now <- getTime
+#if defined(wasm32_HOST_ARCH)
+  let close = False
+#else
+  close <- windowShouldClose
+#endif
+  let completed = if tour == Just "islands" then Tour.expeditionDone pilotBefore else isJust tour && worldRestored w && null (worldBursts w)
+  if close || completed || maybe False (frame >=) limit
+    then do
+      when (control == Interactive && limit == Nothing && tour == Nothing) (void (saveCurrent w))
+      when (isJust tour) $
+        writeFile
+          ".runtime/garden/tour-result.txt"
+          ( unlines
+              ["pilot=" <> show pilotBefore, "feet=" <> show (playerFeet (worldPlayer w)), "stage=" <> Tour.tourStage w, "semantic_ticks=" <> show (worldTick w), "revision=" <> show (worldRevision w), "life=" <> show (worldLife w), "kin=" <> show (worldKin w)]
+          )
+      pure Nothing
+    else do
+      pressed <- if control == Interactive then readPresses else pure []
+      let esc = KeyEscape `elem` pressed
+          f2 = KeyF2 `elem` pressed
+          f3 = KeyF3 `elem` pressed
+          f11 = KeyF11 `elem` pressed
+          f5 = KeyF5 `elem` pressed
+          enter = KeyEnter `elem` pressed
+          invert = KeyI `elem` pressed
+          restart = KeyR `elem` pressed
+          photoToggle = KeyF6 `elem` pressed
+          wasPhoto = isJust (hostPhoto host)
+          photoExit = wasPhoto && (photoToggle || esc)
+          photoEnter = not wasPhoto && photoToggle
+          capture = KeyF12 `elem` pressed || wasPhoto && enter && not photoExit
+      when f11 toggleBorderlessWindowed
+#if !defined(wasm32_HOST_ARCH)
+      when (KeyF4 `elem` pressed) $ modifyIORef' (resourceQuality resources) (preset . nextQuality . renderQuality)
+#endif
+      focused <- isWindowFocused
+      let paused = if wasPhoto || photoEnter then hostPaused host else if control == Interactive && not focused && tour == Nothing && limit == Nothing then True else if esc then not (hostPaused host) else hostPaused host
+          startingPhoto = if photoExit then Nothing else if photoEnter then Just (beginPhoto (eye (worldPlayer w)) (forward (worldPlayer w))) else hostPhoto host
+          frozen = paused || isJust startingPhoto || photoExit
+      portrait <- case startingPhoto of
+        Nothing -> pure Nothing
+        Just p | photoEnter -> pure (Just p)
+        Just p -> do
+          controls <- pollPhotoInput pressed
+          -- Focus activation and a short key press can share a frame. Keep
+          -- queued button edges, while ignoring background camera motion.
+          let cameraActive =
+#if defined(wasm32_HOST_ARCH)
+                focused && not paused
+#else
+                focused
+#endif
+              activeControls = if cameraActive then controls else controls {photoMove = V3 0 0 0, photoLook = (0, 0), photoZoom = 0, photoTilt = 0, photoLight = 0}
+          pure (Just (if restart then beginPhoto (eye (worldPlayer w)) (forward (worldPlayer w)) else stepPhoto (realToFrac (now - previousTime)) activeControls p))
+      let updatedHost =
+            host
+              { hostPaused = paused,
+                hostHidden = hostHidden host /= f2,
+                hostDebug = hostDebug host /= f3,
+                hostInvert = if paused && invert && not wasPhoto then not (hostInvert host) else hostInvert host,
+                hostPhoto = portrait,
+                hostPhotoMessage = if photoEnter then Nothing else hostPhotoMessage host
+              }
+      applyPointer control pointer (wantsPointer control focused paused (isJust portrait))
+      observed <- if control == ObserveOnly || frozen || esc then pure idleInput else pollInput (hostInvert updatedHost) (playerSlot (worldPlayer w)) pressed
+      let driver = if tour == Just "islands" then IslandDriver else if isJust tour then StoryDriver else HumanDriver
+          boundary = FrameBoundary (now - previousTime) (if frozen || esc then Frozen else Advancing) driver
+      (nextSimulation, FrameEffects batches) <- either (ioError . userError . ("Afterlight frame rejected: " <>) . show) pure $
+        Arena.play AfterlightSession boundary (frameChoices observed (restart && not wasPhoto)) simulation
+      -- Consume every tick, including ticks with no cues, in chronological order.
+      mapM_ (\out -> void (react handle (1 / 60, Just out))) batches
+      let nextWorld = simulationWorld nextSimulation
+          cues = concat batches
+      nextPulse <- readIORef glow
+      afterSim <- getTime
+      let SessionView projected gameView = Arena.observe AfterlightSession Gardener nextSimulation
+          view = case portrait of
+            Nothing -> if capture then gameView {sceneTarget = NoTarget} else gameView
+            Just p -> projected {sceneEye = photoEye p, sceneForward = photoForward p, sceneTarget = NoTarget, sceneBursts = filter (\b -> burstCue b /= Return && burstCue b /= Wound) (sceneBursts projected)}
+      syncChunks resources view
+      afterMesh <- getTime
+      when (control == Interactive) $ do
+        updateAudio audio (sceneVeil view) frozen
+        playCues audio cues
+      let shouldSave = control == Interactive && (f5 || tour == Nothing && limit == Nothing && unTick (worldTick nextWorld) `div` 1800 > unTick (worldTick w) `div` 1800)
+      saved <- if shouldSave then saveCurrent nextWorld else pure False
+      let status = if shouldSave then Just saved else hostSaved updatedHost
+          recordUntil = if shouldSave then now + 3 else hostRecordUntil updatedHost
+      afterAudio <- getTime
+      (afterWorld, afterUI) <- drawing $ do
+        renderSceneWith portrait resources view (if isJust portrait then 0 else nextPulse)
+        mapM_ renderPhotoFrame portrait
+        tw <- getTime
+        unless capture $ case portrait of
+          Just p -> unless (hostHidden updatedHost) (renderPhotoChrome resources p (hostPhotoMessage updatedHost))
+          Nothing -> do
+            unless (hostHidden updatedHost) (renderInterface resources view (hostDebug updatedHost) (realToFrac (1 / max 0.0001 (now - previousTime))))
+            when (not paused && now < recordUntil) (renderSaveFeedback resources status)
+            when (paused && control == Interactive) (renderMenu resources status (hostInvert updatedHost))
+            when (now < hostPhotoUntil updatedHost) (mapM_ (renderPhotoToast resources) (hostPhotoMessage updatedHost))
+        tu <- getTime
+        pure (tw, tu)
+      afterPresent <- getTime
+      photoMessage <- if capture then Just <$> capturePhoto portrait else pure (hostPhotoMessage updatedHost)
+      when (afterPresent - now > 0.03) $
+        putStrLn (printf "slow frame=%d audio=%.2f world=%.2f ui=%.2f present=%.2f ms" frame ((afterAudio - afterMesh) * 1000) ((afterWorld - afterAudio) * 1000) ((afterUI - afterWorld) * 1000) ((afterPresent - afterUI) * 1000))
+      when (Just frame == shotFrame) (takeScreenshot shotName)
+      let pilotAfter = simulationPilot nextSimulation
+      when (tour == Just "islands" && pilotBefore /= pilotAfter) $ do
+        takeScreenshot (".runtime/garden/screenshots/expedition-" <> show pilotAfter <> ".png")
+        putStrLn ("Expedition " <> show pilotAfter <> " feet=" <> show (playerFeet (worldPlayer nextWorld)))
+      when (isJust tour && milestone w /= milestone nextWorld) $ do
+        takeScreenshot (".runtime/garden/screenshots/tour-" <> milestone nextWorld <> ".png")
+        putStrLn ("Tour " <> show (worldTick nextWorld) <> " " <> milestone nextWorld)
+      when ((isJust limit || isJust tour) && frame < 60000) $ modifyIORef' timingRef (Timing frame (sceneTime view) ((afterSim - now) * 1000) ((afterMesh - afterSim) * 1000) ((afterAudio - afterMesh) * 1000) ((afterWorld - afterAudio) * 1000) ((afterUI - afterWorld) * 1000) ((afterPresent - afterUI) * 1000) ((afterPresent - now) * 1000) :)
+      let continuedHost = updatedHost {hostSaved = status, hostRecordUntil = recordUntil, hostPhotoMessage = photoMessage, hostPhotoUntil = if capture then now + 4 else hostPhotoUntil updatedHost}
+          continue nextHost = Just (FrameState nextSimulation nextHost (frame + 1) now)
+      if paused && enter && not wasPhoto && not photoEnter
+        then do
+          success <- saveCurrent nextWorld
+          pure (if success then Nothing else continue (updatedHost {hostSaved = Just False, hostRecordUntil = now + 3}))
+        else pure (continue continuedHost)
+  where
+    milestone world = Tour.tourStage world <> "-" <> show (bonded world) <> "-" <> show (sheltered world)
+
+capturePhoto :: Maybe Photo -> IO String
+capturePhoto portrait = do
+  stamp <- formatTime defaultTimeLocale "%Y%m%d-%H%M%S" <$> getZonedTime
+  result <-
+    try
+      ( do
+          createDirectoryIfMissing True "Screenshots"
+          path <- available ("Screenshots/Garden-" <> stamp) (0 :: Int)
+          takeScreenshot path
+          exists <- doesFileExist path
+          size <- if exists then getFileSize path else pure 0
+          unless (size > 8) (ioError (userError "PNG export failed"))
+          writeFile (path <> ".txt") ("Garden of Afterlight / Photo settings\n" <> maybe "Gameplay camera" show portrait <> "\n")
+          pure path
+      ) ::
+      IO (Either IOException FilePath)
+  case result of
+    Right path -> putStrLn ("Photo saved: " <> path) >> pure ("撮影しました  " <> path)
+    Left problem -> putStrLn ("Photo failed: " <> show problem) >> pure "撮影できませんでした。保存先の空き容量と書き込み権限を確認してください。"
+  where
+    available stem n = do
+      let path = stem <> (if n == 0 then "" else "-" <> show n) <> ".png"
+      exists <- doesPathExist path
+      if exists then available stem (n + 1) else pure path
+
+saveCurrent :: World -> IO Bool
+saveCurrent w = do
+  path <- savePath
+  let temp = path <> ".next"
+  result <-
+    try
+      ( do
+          createDirectoryIfMissing True (takeDirectory path)
+          writeFile temp (encode w)
+          exists <- doesFileExist path
+          when exists (copyFile path (path <> ".previous"))
+          renameFile temp path
+      ) ::
+      IO (Either IOException ())
+  case result of
+    Right () -> putStrLn "Garden checkpoint saved." >> pure True
+    Left problem -> putStrLn ("Could not save; previous checkpoint retained: " <> show problem) >> pure False
+
+savePath :: IO FilePath
+savePath = maybe ".runtime/garden/save-v2.txt" id <$> lookupEnv "GARDEN_SAVE_PATH"
+
+loadSaved :: IO World
+loadSaved = do
+  path <- savePath
+  exists <- doesFileExist path
+  if not exists
+    then pure initialWorld
+    else do
+      raw <- readFile path
+      -- Finish lazy IO before a rejected file is copied: Windows holds a read
+      -- lock until EOF, and a parser may reject after only the first character.
+      _ <- evaluate (length raw)
+      case decode raw of
+        Right world -> putStrLn ("Loaded checkpoint: " <> show (worldTick world) <> " feet=" <> show (playerFeet (worldPlayer world))) >> pure world
+        Left problem -> do
+          backup <- unusedBackup path (0 :: Int)
+          copyFile path backup
+          putStrLn ("Unreadable checkpoint preserved at " <> backup <> ": " <> show problem)
+          pure initialWorld {worldNotice = RecordRecovered, worldNoticeUntil = Tick 600}
+  where
+    unusedBackup path n = do
+      let backup = path <> ".rejected" <> (if n == 0 then "" else "." <> show n)
+      exists <- doesFileExist backup
+      if exists then unusedBackup path (n + 1) else pure backup
+
+readEnv :: (Read a) => String -> IO (Maybe a)
+readEnv name = do value <- lookupEnv name; pure (value >>= readMaybe)
+
+chooseScene :: Maybe String -> World -> World
+chooseScene Nothing w = w
+chooseScene (Just label) _ = case label of
+  "night" -> base {worldVeil = 0.94, worldChapter = Nightfall, worldTick = Tick 30000, worldJourney = NightInvited}
+  "dusk" -> base {worldVeil = 0.56, worldChapter = LongDusk, worldTick = Tick 16000}
+  "sky" -> viewFrom (V3 0 500 0) (V3 0 540 70) base
+  "high" -> viewFrom (V3 (-37) 29 (-26)) (V3 0 13 38) base
+  "kin" -> viewFrom (V3 (-16) 5 (-5)) (V3 (-12) 5 1) base
+  "return" -> viewFrom (V3 (-8) 19 32) (V3 0 22 54) base {worldJourney = GardenRenewed, worldChapter = Homecoming}
+  _ -> base
+  where
+    base = initialWorld
+
+viewFrom :: V3 -> V3 -> World -> World
+viewFrom feet target w = w {worldPlayer = p {playerFeet = feet, playerYaw = atan2 x z, playerPitch = atan2 y (sqrt (x * x + z * z)), playerMotion = Flying}, worldJourney = if worldRestored w then GardenRenewed else Lightborne}
+  where
+    p = worldPlayer w; V3 x y z = minus target (plus feet (V3 0 1.65 0))
+
+writeTiming :: [Timing] -> IO ()
+writeTiming rows = do
+  writeFile ".runtime/garden/frame-times.csv" ("frame,semantic_seconds,simulation_ms,mesh_ms,audio_save_ms,render_ms,ui_ms,present_ms,frame_including_present_ms\n" <> concat [printf "%d,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n" f t s m a r u q p | Timing f t s m a r u q p <- rows])
+  let times = sort [p | Timing _ _ _ _ _ _ _ _ p <- rows]
+      percentile :: Double -> Double
+      percentile ratio = case drop (floor (ratio * fromIntegral (length times - 1))) times of x : _ -> x; [] -> 0
+  putStrLn (printf "garden frames=%d frame p50=%.3f p95=%.3f max=%.3f ms (includes paced present)" (length rows) (percentile 0.5) (percentile 0.95) (percentile 1))
+
+-- Only transitions touch the OS. Observers never read or change pointer state,
+-- including startup, focus loss, photo mode and teardown.
+applyPointer :: ControlMode -> IORef Bool -> Bool -> IO ()
+applyPointer ObserveOnly _ _ = pure ()
+applyPointer Interactive state wanted = do
+  previous <- readIORef state
+  when (previous /= wanted) $ do
+    if wanted then disableCursor else enableCursor
+    writeIORef state wanted
+    _ <- getMouseDelta
+    pure ()

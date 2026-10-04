@@ -1,0 +1,13 @@
+.runtime/
+.build/
+dist-newstyle/
+Screenshots/
+assets/audio/
+assets/garden-audio/
+assets/fonts/
+assets/licenses/
+web/host/public/host.js
+!tools/
+!tools/**
+
+web/host/node_modules/

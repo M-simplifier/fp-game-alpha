@@ -1,0 +1,5 @@
+packages: .
+          ../../libraries/game-transition
+          ../../libraries/game-arena
+optimization: 2
+constraints: Yampa ==0.15, QuickCheck ==2.15.0.1, h-raylib ==5.6.0.0
