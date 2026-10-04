@@ -83,7 +83,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "e1c737984abf018352b370738e708ba28a2119b42ff973a95b308aa778893545",
+      "sha256_lf": "a6167c77c7cfa6808da8a35908a0c794b89ba2434406ee1c4c1c6a4ce2f1bfe1",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -94,7 +94,7 @@
     },
     {
       "path": "cabal.project",
-      "sha256_lf": "23e338f88934cfd81a7920f56fd3e78604ad9f1c5df9b309f1e0508becb42ce3",
+      "sha256_lf": "5e1fbca29a0fc89d4f9d7fa2cc64b5bac134fb40992e09caef6c6a35c02fce18",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -285,7 +285,7 @@
     },
     {
       "path": "docs/roadmap.md",
-      "sha256_lf": "db1c0c8f1e91371cb6b8a70a1573cb90570eb1be11ac3e822a3e6cd2d568b593",
+      "sha256_lf": "146a50645a876b3ed53b50be347030499eb05b4da38e0c3e34ee813da61d9c6c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -329,7 +329,7 @@
     },
     {
       "path": "docs/verification.md",
-      "sha256_lf": "8a69993d7cec6c8c43596ff61688dec107939c050c36590f3e7784e85b38e619",
+      "sha256_lf": "68d85e61cbf11362b57af8170945912f2702c95d807347439903038512ef6ba3",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -523,7 +523,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "cfa9efc8de563ffa357e4b1082599f0961e52af4c0defff6bd32279b485d4793",
+      "sha256_lf": "efba4f560c76ec0bfd4fa48bee9db5aefed16e6a6704b8eba2758f1419a5ed2c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -534,7 +534,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "317f8b58d053624d33fe442a1b35e3f7ce5f821c7009af3f5ac976726bb1c88c",
+      "sha256_lf": "63bd5386162e0cef42b4b66bfe589aeb9084fd3570725f98674fdc928dc6e131",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -774,6 +774,93 @@
         "kind": "authored-for-public-alpha"
       },
       "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/LICENSE",
+      "sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/licenses/original-games/river-home-mobile-LICENSE",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297"
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/README.md",
+      "sha256_lf": "1f06483cad12086b9a03a21adb91e0454571b461485c606c2a96386d121460f9",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/river.cabal",
+      "sha256_lf": "f4d7076a10cfa9b671a67a153f2ab2a615255c64aa3628ecac0d1e529a346fef",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/src/Life/Adapter.hs",
+      "sha256_lf": "67228eafd7e8862db43091bef69049f4bd87135f124020257174e621dda8d58c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/src/Life/Clock.hs",
+      "sha256_lf": "e29903084dcac4745a1a053443369474572addb16700d6d0ac656c7e157447d0",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Life/Clock.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "e29903084dcac4745a1a053443369474572addb16700d6d0ac656c7e157447d0"
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/src/Life/Domain.hs",
+      "sha256_lf": "6a323d5466b1b0bc79fd4a653518dfd382cf25fd6b3102da2060d7356a0709c5",
+      "origin": {
+        "kind": "refactored-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Life/Domain.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
+        "transformation": "Added domain-rule and save-boundary Haddock; executable rule cases unchanged."
+      },
+      "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/river/test/Laws.hs",
+      "sha256_lf": "f17a3ee9190aeeeaf87d9bddb36e7f2ed509225a3ab921cbf400dedbd628bd64",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/river/LICENSE",
       "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"
@@ -1354,7 +1441,7 @@
     },
     {
       "path": "tools/fp_game.py",
-      "sha256_lf": "e3eff1314cd2b5b4e0d625ebd14e24196bd29b6b8d1cfd153728c0fb8176466a",
+      "sha256_lf": "6c777f4381fd3cccfa7ce3beb7dc15993e29b972e1b666835217086d81563e30",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

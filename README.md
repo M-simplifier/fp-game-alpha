@@ -41,6 +41,8 @@ The [Tapline pure-core reference](references/tapline/README.md) exercises
 ordered input, active time and six complete rounds through Step and Arena.
 The [Garden pure-core reference](references/garden/README.md) connects
 deterministic world updates to event and clock-frame adapters.
+The [River Home pure-core reference](references/river/README.md) covers a
+multi-day village journey, fixed ticks, validated saves and Step/Arena agreement.
 The [quantity source lab](research/quantity/README.md) has a GHC-only route
 for real type rejections and runtime-oracle checks; its recorded
 LiquidHaskell result is historical and remains separately scoped.
