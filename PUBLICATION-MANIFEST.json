@@ -16,7 +16,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "7ef58f8a0bee4e524f29e977afa13b5ae5bd5da5d63e4f3250d505298c605b63",
+      "sha256_lf": "43ef22f12aae571e414cf727d647580a746f4e1ebab732e1aa170a2060b98e08",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -40,7 +40,8 @@
       "path": "LICENSE",
       "sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
       "origin": {
-        "kind": "authored-for-public-alpha"
+        "kind": "existing-public-repository",
+        "commit": "187f0a8fa2baa5ae9029edf9992c766a7c27033a"
       },
       "license": "LICENSE",
       "maturity": "completed",
@@ -71,7 +72,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "2e99d96a1a49ca9c262a39f97f10a190fdaf519fce797e886f0c624e620acd6c",
+      "sha256_lf": "d634dc6465b539f280074bc467e7688c10b08ecdb67b8b07b257bac756c222da",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -125,8 +126,30 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "docs/setup.md",
+      "sha256_lf": "bb0e37761d5d2cfca23868b4106c274b9e0a8d1f40d07c873547819a0f317229",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/tooling.md",
+      "sha256_lf": "78ff9f713789f956cb35ca81c9a9b6cb22f5393104f4a03e7a734f7d0718f9fa",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "docs/verification.md",
-      "sha256_lf": "8437e0f223fcb9716bf071ff85a6daf56f067a194fa3b30545600d6335c6f338",
+      "sha256_lf": "9536197b45388f52b274739ec72a31ee7d5e204e07e3a396dd1b305dbd4974cb",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -265,7 +288,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "5cb034d3e3af5a9aa0841513a0ef4d109ae2a89d5c43fe78826688c58814d8a2",
+      "sha256_lf": "5740f2a54a4f0e46ac359975e9a4d1dc31078eb0b69a0c3a9de868f2127e52f4",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -277,6 +300,17 @@
     {
       "path": "tools/docs_lint.py",
       "sha256_lf": "ec2de90da8ab7a5e92165624f7de169c8a57e39fa463b1552f09c66c3f8d389f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/fp_game.py",
+      "sha256_lf": "20f653a3376681f460ce3fbd4820916d1be01e97ae616ac22e434cd282c3af6e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

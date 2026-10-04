@@ -14,6 +14,12 @@ The publication gate records one row per selected source file in
 bounded scan results; raw local logs and absolute machine paths are excluded
 from the public source. Documentation links pass the local linter.
 
+A clean local clone with an empty Cabal home exposed secure-repository
+bootstrap even with `--offline`. The CLI now supplies an isolated repository-free
+configuration and writes outputs/cache under `.build/`. This path is the
+first-user build/test contract; installing a compiler still requires explicit
+toolchain setup.
+
 The CI workflow repeats build/test, source export and document checks from
 GitHub checkouts on Linux, Windows and macOS. A configured job is not a passing
 job: consult its actual result before making a platform claim. Graphical,

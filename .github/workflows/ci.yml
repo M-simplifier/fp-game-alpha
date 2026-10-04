@@ -24,5 +24,6 @@ jobs:
           cabal-update: false
       - run: python tools/publication.py check
       - run: python tools/docs_lint.py
-      - run: cabal build all --offline
-      - run: cabal test all --offline --test-show-details=direct
+      - run: python tools/fp_game.py doctor
+      - run: python tools/fp_game.py build
+      - run: python tools/fp_game.py test

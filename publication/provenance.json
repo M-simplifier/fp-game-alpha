@@ -34,5 +34,9 @@
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "d576d2048609a45ef09215aaf7f2d5373046fd5513d04e32826ca6dcd4898a4b",
     "kind": "selected-author-supplied-technical-source"
+  },
+  "LICENSE": {
+    "kind": "existing-public-repository",
+    "commit": "187f0a8fa2baa5ae9029edf9992c766a7c27033a"
   }
 }
