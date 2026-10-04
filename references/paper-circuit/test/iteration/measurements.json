@@ -1,0 +1,52 @@
+{
+  "scope": "Warm initialized data runtime versus incremental source rebuild plus fresh Node/Wasm initialization; local file write through first rotated Haskell SVG hash, not a browser frame or file-watch latency",
+  "trials": [
+    {
+      "budget": 19,
+      "data_ms": 12.151610993896611,
+      "code_ms": 2754.7747759963386,
+      "observation": {
+        "moves": 18,
+        "svg": "95bb0e98272e3ea345230c60ba35b929736ed8f597b73f6092976be7fcd9311b"
+      }
+    },
+    {
+      "budget": 20,
+      "data_ms": 3.85534499946516,
+      "code_ms": 2584.4548960012617,
+      "observation": {
+        "moves": 19,
+        "svg": "1ec0b94c718e507dee5de2a6dda07ad7a0782c77258eb934788c38e201cc7410"
+      }
+    },
+    {
+      "budget": 19,
+      "data_ms": 2.9804600053466856,
+      "code_ms": 2310.183027002495,
+      "observation": {
+        "moves": 18,
+        "svg": "95bb0e98272e3ea345230c60ba35b929736ed8f597b73f6092976be7fcd9311b"
+      }
+    },
+    {
+      "budget": 20,
+      "data_ms": 9.311388988862745,
+      "code_ms": 2813.753260008525,
+      "observation": {
+        "moves": 19,
+        "svg": "1ec0b94c718e507dee5de2a6dda07ad7a0782c77258eb934788c38e201cc7410"
+      }
+    },
+    {
+      "budget": 19,
+      "data_ms": 24.521434010239318,
+      "code_ms": 2433.018870986416,
+      "observation": {
+        "moves": 18,
+        "svg": "95bb0e98272e3ea345230c60ba35b929736ed8f597b73f6092976be7fcd9311b"
+      }
+    }
+  ],
+  "median_data_ms": 9.311388988862745,
+  "median_code_ms": 2584.4548960012617
+}

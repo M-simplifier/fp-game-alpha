@@ -8,8 +8,12 @@ export async function loadGame(bytes) {
   wasi.initialize(instance);
   const api = instance.exports;
   api.hs_init(0, 0);
-  return () => {
-    const handle = api.newSession();
+  const catalog = api.newCatalog();
+  let open = true;
+  const checkCatalog = () => { if (!open) throw new Error("Catalog already closed"); };
+  const create = () => {
+    checkCatalog();
+    const handle = api.newSessionFrom(catalog);
     let live = true;
     function checked() { if (!live) throw new Error('Session already closed'); }
     return {
@@ -31,4 +35,17 @@ export async function loadGame(bytes) {
       close() { if (live) { live = false; api.freeSession(handle); } }
     };
   };
+  create.stage = text => {
+    checkCatalog();
+    if (typeof text !== 'string') return false;
+    const bytes = new TextEncoder().encode(text);
+    if (bytes.length > 128) return false; // Transport bound; Haskell validates content.
+    const pointer = api.allocateText(bytes.length);
+    try {
+      new Uint8Array(api.memory.buffer, pointer, bytes.length).set(bytes);
+      return api.stageCatalog(catalog, pointer, bytes.length) === 1;
+    } finally { api.freeText(pointer); }
+  };
+  create.close = () => { if (open) { open = false; api.freeCatalog(catalog); } };
+  return create;
 }

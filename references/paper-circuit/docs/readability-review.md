@@ -58,3 +58,18 @@ alias, not a proof of a legal angle. Neither GHC nor these tests establishes all
 possible traces. Native and Node/Wasm checks are recorded in `CHECKS.json`, with
 prior evidence preserved separately. No browser UI or repeated SVG visual
 inspection is claimed for this change.
+
+## Live-tuning addition (author review)
+
+`stage` admits a fixed record into an opaque `Catalog`; `level` handles the
+actual game constraints and constructive witness. `initialWith` creates a World
+with a captured `sessionLevel`, so tracing Restart does not require inspecting
+mutable browser state. Rotation/Undo still use the original rules. This adds
+one small public module and one private Level field, rather than embedding
+revision management in every gameplay command.
+
+Tradeoffs: the positional two-field Level stays private and small, and the
+witness is deliberately conservative rather than a general solver. Browser
+errors currently distinguish staged/rejected only; the pure API has typed
+errors, but the FFI does not expose their detail. Real browser usability and
+a novice reading exercise remain unverified.

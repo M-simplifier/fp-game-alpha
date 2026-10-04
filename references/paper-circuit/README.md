@@ -24,7 +24,7 @@ reopen the immediately preceding position if it has not been used.
    game, then looks up the tile. Its rotation changes from 1 to 2, its budget
    changes from 18 to 17, and the old position becomes the undo snapshot. The
    result is `Turned` cell 0. `Undo` restores that snapshot but spends the undo;
-   `Restart` restores the entire initial world. The native tests named
+   `Restart` restores the entire captured initial world. The native tests named
    `first rotation is clockwise` and `undo restores visible board and budget`
    check this exact interaction.
 3. Read `phase` and `wetCells` next: connected pipe openings spread water from
@@ -36,7 +36,11 @@ reopen the immediately preceding position if it has not been used.
    for SVG, [Browser](app/Browser.hs) for session ownership, and
    [the JS shell](web/engine.mjs) for the ABI. There is no clock or persistence.
 
-Small exercise: reduce the initial budget to 17 in `initial`. Update the budget
+For an actual edit-data-to-play path, see [validated level tuning](docs/live-tuning.md).
+It changes the turn budget and inlet scramble without rebuilding; active attempts
+keep their captured level. The original defaults below remain unchanged.
+
+Small exercise: reduce the default budget to 17 in `defaultLevel`. Update the budget
 expectations in [test/Laws.hs](test/Laws.hs) and [web/smoke.mjs](web/smoke.mjs),
 including the 17-turn loss trace and the last-turn win fixture (12 harmless
 rotations, then five winning rotations). Keep the constructive win, undo-budget
