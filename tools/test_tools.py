@@ -62,6 +62,14 @@ class ScaffoldDistribution(unittest.TestCase):
                 (root / 'editors/vscode/local-only.json').write_text('{}')
                 _, after = scaffold.prepare(*args)
                 self.assertEqual(before, after)
+                # Exercise leaf and parent-link rejection on Windows too, where
+                # creating a real symlink may require extra OS privileges.
+                for linked in [root / 'editors', root / 'editors/vscode',
+                               root / 'editors/vscode/extension.js']:
+                    with patch.object(Path, 'is_symlink', autospec=True,
+                                      side_effect=lambda path, link=linked: path == link):
+                        with self.assertRaisesRegex(ValueError, 'linked editor source'):
+                            scaffold.prepare(*args)
                 self.assertEqual({name for name in after if name.startswith('editors/')},
                     {'editors/vscode/package.json', 'editors/vscode/extension.js',
                      'editors/vscode/LICENSE', 'editors/neovim/fp-game.lua'})

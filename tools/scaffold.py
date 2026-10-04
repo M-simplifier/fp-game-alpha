@@ -91,7 +91,8 @@ def prepare(slug, destination, title, target, rendering, license_choice, author)
     for name in ['editors/vscode/package.json', 'editors/vscode/extension.js',
                  'editors/vscode/LICENSE', 'editors/neovim/fp-game.lua']:
         path = ROOT / name
-        if path.is_symlink():
+        if any(part.is_symlink() for part in [path, *path.parents]
+               if part.is_relative_to(ROOT)):
             raise ValueError('Scaffold refuses linked editor source: ' + name)
         files[name] = path.read_text(encoding='utf-8').replace('\r\n', '\n').encode('utf-8')
         foundation_files[name] = sha256(files[name])

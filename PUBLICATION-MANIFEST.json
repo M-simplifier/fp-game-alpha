@@ -5741,7 +5741,7 @@
     },
     {
       "path": "tools/scaffold.py",
-      "sha256_lf": "67d27bc3716abe47b35d19ac7678355fa3aacc994bca7fd91d29e3f845e66b7e",
+      "sha256_lf": "2eaa0a61d909ac195f88240264eb5429044a5c557cb6f1ab409b81b83e6e31d7",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5807,7 +5807,7 @@
     },
     {
       "path": "tools/test_tools.py",
-      "sha256_lf": "56c810edc8055bb420300e32a6950c77872621c5c5d81f52b972d35558575da1",
+      "sha256_lf": "96b3f82ad95dfc01a75aa74589ba4700ed18194d9bf6d4321606010489a4a9e7",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
