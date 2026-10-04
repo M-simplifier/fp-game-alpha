@@ -100,3 +100,21 @@ hit is acceleration, never proof of validation. Measure host first-frame/input
 response before choosing a workflow. Do not build a new DSL on these samples.
 See the [GHC 9.6.7 GHCi guide](https://downloads.haskell.org/ghc/9.6.7/docs/users_guide/ghci.html)
 and [Cabal component commands](https://cabal.readthedocs.io/en/3.12/cabal-commands.html).
+
+## Follow-on: bounded live tuning, independently measured
+
+The [live-tuning prototype](../research/live-tuning/README.md) now compares the
+three change → play workflows in a separate seven-cell CLI, with seven samples
+each and a new session plus accepted input in every observation. After pinned
+formatting, medians were 0.284 ms for data read/validate/stage/new/input/output,
+58.820 ms for persistent GHCi reload/new/input/output, and 960.813 ms for native
+compile/link/launch/new/input/output. Earlier corrected pre-format medians were
+0.227 / 43.610 / 863.988 ms; source-matched rerun hashes and samples accompany
+the prototype. This is neither a Paper Circuit nor browser benchmark.
+
+Keep tunable values in a small validated record only when the design calls for
+it. Successful loads stage rules for `new`; `restart` retains the current
+session's rules, and rejected loads preserve the complete runtime. No state
+migration, universal hot reload, configuration language or production adoption
+is implied. The next priority is measuring these loops in an actual game with
+visible play feedback and explicitly chosen session boundaries.

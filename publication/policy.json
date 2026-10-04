@@ -402,6 +402,11 @@
       "prefix": "references/red-dune/",
       "license": "references/red-dune/LICENSE",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "research/live-tuning/",
+      "license": "LICENSE",
+      "maturity": "experimental"
     }
   ]
 }

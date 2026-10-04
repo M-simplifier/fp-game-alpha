@@ -1,0 +1,294 @@
+{
+  "metadata": {
+    "measured_at": "2026-10-04T16:18:58.301504+00:00",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "ghc": "9.6.7",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "flags": [
+      "-O0",
+      "-Wall",
+      "-Werror"
+    ],
+    "samples": 7,
+    "source_sha256": {
+      "Main.hs": "c7dfeca9ccaf60475949f36d9600d603e4c347f071c479e515a4491dcfd83927",
+      "Probe.hs": "4829da3a302550d566faa39035a10156baf2af599bfeae13af4b08523e2e3d35",
+      "Tests.hs": "be288dacc74396b4d4644a9d70e5f59c9a26b55c08739c98f7fc0b1ecbe2722b",
+      "Game.hs": "d4154b89dacb53337adb38e5156808abae679b33aeb8e4da374fc557436b4ff5"
+    },
+    "scope": "Existing compiler and OS caches; cold means empty build artifact directory only. Bytecode GHCi. Native is compile+link+process start; data and GHCi are persistent. No browser/wasm or visual paint measured. All observations include a new session and accepted rightward input; output strings forced through stdout."
+  },
+  "summary": {
+    "native-cold-artifacts-build": {
+      "n": 1,
+      "median_ms": 929.1829479916487,
+      "min_ms": 929.1829479916487,
+      "max_ms": 929.1829479916487
+    },
+    "native-warm-unchanged-build": {
+      "n": 7,
+      "median_ms": 170.00468500191346,
+      "min_ms": 138.73814200633205,
+      "max_ms": 261.5843100065831
+    },
+    "interactive-host-build": {
+      "n": 1,
+      "median_ms": 1019.6780979895266,
+      "min_ms": 1019.6780979895266,
+      "max_ms": 1019.6780979895266
+    },
+    "data-host-start-first-board": {
+      "n": 1,
+      "median_ms": 3.7021180032752454,
+      "min_ms": 3.7021180032752454,
+      "max_ms": 3.7021180032752454
+    },
+    "data-saved-to-new-session-first-input": {
+      "n": 7,
+      "median_ms": 0.28419599402695894,
+      "min_ms": 0.2649289963301271,
+      "max_ms": 0.4429640102898702
+    },
+    "native-edited-build-launch-first-input": {
+      "n": 7,
+      "median_ms": 960.8127959945705,
+      "min_ms": 873.1047840119572,
+      "max_ms": 1167.4884249950992
+    },
+    "ghci-start-load-first-input": {
+      "n": 1,
+      "median_ms": 234.34040299616754,
+      "min_ms": 234.34040299616754,
+      "max_ms": 234.34040299616754
+    },
+    "ghci-edited-reload-new-session-first-input": {
+      "n": 7,
+      "median_ms": 58.820267993723974,
+      "min_ms": 45.263816995429806,
+      "max_ms": 86.60410999436863
+    }
+  },
+  "records": [
+    {
+      "label": "native-cold-artifacts-build",
+      "seconds": 0.9291829479916487,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o )\n[2 of 3] Compiling Main             ( Probe.hs, obj/Main.o )\n[3 of 3] Linking probe\n"
+    },
+    {
+      "label": "native-warm-unchanged-build",
+      "seconds": 0.20830281599774025,
+      "output": ""
+    },
+    {
+      "label": "native-warm-unchanged-build",
+      "seconds": 0.17000468500191346,
+      "output": ""
+    },
+    {
+      "label": "native-warm-unchanged-build",
+      "seconds": 0.13873814200633205,
+      "output": ""
+    },
+    {
+      "label": "native-warm-unchanged-build",
+      "seconds": 0.1623101520090131,
+      "output": ""
+    },
+    {
+      "label": "native-warm-unchanged-build",
+      "seconds": 0.139564456010703,
+      "output": ""
+    },
+    {
+      "label": "native-warm-unchanged-build",
+      "seconds": 0.2615843100065831,
+      "output": ""
+    },
+    {
+      "label": "native-warm-unchanged-build",
+      "seconds": 0.21530881499347743,
+      "output": ""
+    },
+    {
+      "label": "interactive-host-build",
+      "seconds": 1.0196780979895266,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, app-obj/Game.o )\n[2 of 3] Compiling Main             ( Main.hs, app-obj/Main.o )\n[3 of 3] Linking game\n"
+    },
+    {
+      "label": "data-host-start-first-board",
+      "seconds": 0.0037021180032752454,
+      "output": [
+        "Route: reach G. Commands: l r show load FILE new restart quit",
+        "[@.....G] PLAYING | moves=8 session=r0/8 staged=r0/8"
+      ]
+    },
+    {
+      "label": "data-saved-to-new-session-first-input",
+      "seconds": 0.00043553599971346557,
+      "output": [
+        "ACCEPTED for next new session; current session preserved",
+        "[@.....G] PLAYING | moves=8 session=r0/8 staged=r1/6",
+        "[@.....G] PLAYING | moves=6 session=r1/6 staged=r1/6",
+        "[.@....G] PLAYING | moves=5 session=r1/6 staged=r1/6"
+      ]
+    },
+    {
+      "label": "data-saved-to-new-session-first-input",
+      "seconds": 0.0004429640102898702,
+      "output": [
+        "ACCEPTED for next new session; current session preserved",
+        "[.@....G] PLAYING | moves=5 session=r1/6 staged=r2/7",
+        "[@.....G] PLAYING | moves=7 session=r2/7 staged=r2/7",
+        "[.@....G] PLAYING | moves=6 session=r2/7 staged=r2/7"
+      ]
+    },
+    {
+      "label": "data-saved-to-new-session-first-input",
+      "seconds": 0.00028419599402695894,
+      "output": [
+        "ACCEPTED for next new session; current session preserved",
+        "[.@....G] PLAYING | moves=6 session=r2/7 staged=r3/6",
+        "[@.....G] PLAYING | moves=6 session=r3/6 staged=r3/6",
+        "[.@....G] PLAYING | moves=5 session=r3/6 staged=r3/6"
+      ]
+    },
+    {
+      "label": "data-saved-to-new-session-first-input",
+      "seconds": 0.0002649289963301271,
+      "output": [
+        "ACCEPTED for next new session; current session preserved",
+        "[.@....G] PLAYING | moves=5 session=r3/6 staged=r4/7",
+        "[@.....G] PLAYING | moves=7 session=r4/7 staged=r4/7",
+        "[.@....G] PLAYING | moves=6 session=r4/7 staged=r4/7"
+      ]
+    },
+    {
+      "label": "data-saved-to-new-session-first-input",
+      "seconds": 0.000283642002614215,
+      "output": [
+        "ACCEPTED for next new session; current session preserved",
+        "[.@....G] PLAYING | moves=6 session=r4/7 staged=r5/6",
+        "[@.....G] PLAYING | moves=6 session=r5/6 staged=r5/6",
+        "[.@....G] PLAYING | moves=5 session=r5/6 staged=r5/6"
+      ]
+    },
+    {
+      "label": "data-saved-to-new-session-first-input",
+      "seconds": 0.000344208994647488,
+      "output": [
+        "ACCEPTED for next new session; current session preserved",
+        "[.@....G] PLAYING | moves=5 session=r5/6 staged=r6/7",
+        "[@.....G] PLAYING | moves=7 session=r6/7 staged=r6/7",
+        "[.@....G] PLAYING | moves=6 session=r6/7 staged=r6/7"
+      ]
+    },
+    {
+      "label": "data-saved-to-new-session-first-input",
+      "seconds": 0.0002788739948300645,
+      "output": [
+        "ACCEPTED for next new session; current session preserved",
+        "[.@....G] PLAYING | moves=6 session=r6/7 staged=r7/6",
+        "[@.....G] PLAYING | moves=6 session=r7/6 staged=r7/6",
+        "[.@....G] PLAYING | moves=5 session=r7/6 staged=r7/6"
+      ]
+    },
+    {
+      "label": "native-edited-build-launch-first-input",
+      "seconds": 1.1594102369999746,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o ) [Source file changed]\n[3 of 3] Linking probe [Objects changed]\n[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6\n",
+      "build_seconds": 1.1466422990051797
+    },
+    {
+      "label": "native-edited-build-launch-first-input",
+      "seconds": 1.0773048560076859,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o ) [Source file changed]\n[3 of 3] Linking probe [Objects changed]\n[.@....G] PLAYING | moves=6 session=r0/7 staged=r0/7\n",
+      "build_seconds": 1.0630098830006318
+    },
+    {
+      "label": "native-edited-build-launch-first-input",
+      "seconds": 0.9117065059981542,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o ) [Source file changed]\n[3 of 3] Linking probe [Objects changed]\n[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6\n",
+      "build_seconds": 0.8988801049999893
+    },
+    {
+      "label": "native-edited-build-launch-first-input",
+      "seconds": 1.1674884249950992,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o ) [Source file changed]\n[3 of 3] Linking probe [Objects changed]\n[.@....G] PLAYING | moves=6 session=r0/7 staged=r0/7\n",
+      "build_seconds": 1.154578557005152
+    },
+    {
+      "label": "native-edited-build-launch-first-input",
+      "seconds": 0.9608127959945705,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o ) [Source file changed]\n[3 of 3] Linking probe [Objects changed]\n[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6\n",
+      "build_seconds": 0.9482771189941559
+    },
+    {
+      "label": "native-edited-build-launch-first-input",
+      "seconds": 0.9510217890056083,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o ) [Source file changed]\n[3 of 3] Linking probe [Objects changed]\n[.@....G] PLAYING | moves=6 session=r0/7 staged=r0/7\n",
+      "build_seconds": 0.9383482960110996
+    },
+    {
+      "label": "native-edited-build-launch-first-input",
+      "seconds": 0.8731047840119572,
+      "output": "[1 of 3] Compiling Game             ( Game.hs, obj/Game.o ) [Source file changed]\n[3 of 3] Linking probe [Objects changed]\n[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6\n",
+      "build_seconds": 0.8602864179993048
+    },
+    {
+      "label": "ghci-start-load-first-input",
+      "seconds": 0.23434040299616754,
+      "output": [
+        "[.@....G] PLAYING | moves=7 session=r0/8 staged=r0/8"
+      ]
+    },
+    {
+      "label": "ghci-edited-reload-new-session-first-input",
+      "seconds": 0.05001133801124524,
+      "output": [
+        "[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6"
+      ]
+    },
+    {
+      "label": "ghci-edited-reload-new-session-first-input",
+      "seconds": 0.04870897700311616,
+      "output": [
+        "[.@....G] PLAYING | moves=6 session=r0/7 staged=r0/7"
+      ]
+    },
+    {
+      "label": "ghci-edited-reload-new-session-first-input",
+      "seconds": 0.06248203798895702,
+      "output": [
+        "[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6"
+      ]
+    },
+    {
+      "label": "ghci-edited-reload-new-session-first-input",
+      "seconds": 0.045263816995429806,
+      "output": [
+        "[.@....G] PLAYING | moves=6 session=r0/7 staged=r0/7"
+      ]
+    },
+    {
+      "label": "ghci-edited-reload-new-session-first-input",
+      "seconds": 0.08660410999436863,
+      "output": [
+        "[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6"
+      ]
+    },
+    {
+      "label": "ghci-edited-reload-new-session-first-input",
+      "seconds": 0.058820267993723974,
+      "output": [
+        "[.@....G] PLAYING | moves=6 session=r0/7 staged=r0/7"
+      ]
+    },
+    {
+      "label": "ghci-edited-reload-new-session-first-input",
+      "seconds": 0.0695684469974367,
+      "output": [
+        "[.@....G] PLAYING | moves=5 session=r0/6 staged=r0/6"
+      ]
+    }
+  ]
+}

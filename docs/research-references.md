@@ -108,3 +108,15 @@ from the maintained game core and current development entrypoints.
 [Measured iteration and parity latency](research-iteration-latency.md) separates
 one-shot CI/local observations from guarantees and records the reviewed test-only
 terrain equality optimization without changing the frozen oracle.
+
+## Validated change → play research
+
+[Live-tuning source, tests, and measured workflow comparison](../research/live-tuning/README.md)
+compares data admission, persistent GHCi reload and native build/launch in an
+independent tiny CLI. New sessions adopt staged rules; restart retains old rules.
+
+- [GHC 9.6.7 changes and recompilation](https://downloads.haskell.org/ghc/9.6.7/docs/users_guide/ghci.html#making-changes-and-recompilation)
+- [GHC 9.6.7 loading compiled code](https://downloads.haskell.org/ghc/9.6.7/docs/users_guide/ghci.html#loading-compiled-code)
+
+The manuals support reload/bytecode behavior, not the local timing numbers or
+state-preserving hot reload.

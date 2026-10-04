@@ -195,3 +195,17 @@ worker ownership in a later Promise.finally reaction could strand an intervening
 microtask's invalidation. Cleanup now runs inside the worker's try/finally. A
 queued-microtask regression failed before this repair (one scan instead of two)
 and requires that completion never drops a subsequent invalidation.
+
+## Live-tuning decoder: machine integer wrap before validation
+
+- **Detection:** Review admitted textual budget `18446744073709551622` as 6
+  on a 64-bit host when parsing directly to `Int`
+- **Missed guarantee:** Pure admission and private constructors did not validate
+  the original textual number before a lossy bounded conversion
+- **Repair / class prevention:** Parse `Integer`, validate the bounded domain,
+  and only then narrow. Inspect every external numeric construction path
+- **Executed evidence:** `research/live-tuning/check.py` passes 13 pure checks
+  and seven real CLI rejection cases, including huge positive/negative values
+  and unchanged complete runtime after failures
+- **Limit:** Finite regressions exercise this decoder; they do not prove every
+  parser safe or make arbitrary filesystem paths time-bounded
