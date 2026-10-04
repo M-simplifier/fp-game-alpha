@@ -39,16 +39,16 @@ main = do
       && advance board win foreignWorld == (foreignWorld, mempty)
       && null (successors board foreignWorld)
   check "Arena rejects foreign state before indexing" $
-    attempt witness () (singleton () win) foreignWorld ==
-      Rejected "This trolley cannot move that way." foreignWorld
+    attempt witness () (singleton () win) foreignWorld
+      == Rejected "This trolley cannot move that way." foreignWorld
   check "state stays well formed" (wellFormed board start && wellFormed board finished)
   check "one fish departs" (remaining finished == 0 && departure == Departed [2])
   check "post-win stability" (advance board win finished == (finished, mempty))
   check "bad index does not crash" (advance board (Move (-1) 1) start == (start, mempty))
   check "Arena executes the original rule" (play witness () (singleton () win) start == Right (finished, departure))
   check "invalid move is rejected before rule" $
-    attempt witness () (singleton () (Move 0 99)) start ==
-      Rejected "This trolley cannot move that way." start
+    attempt witness () (singleton () (Move 0 99)) start
+      == Rejected "This trolley cannot move that way." start
   check "Machine and explicit Step agree" (replay (machine witness) [win] start == (finished, departure))
   let below = fst (advance board (Move 0 1) start)
       bottom = fst (advance board (Move 0 1) below)

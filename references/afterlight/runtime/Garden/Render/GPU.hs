@@ -1,15 +1,16 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE PatternSynonyms #-}
+
 -- | Small, exception-safe GPU boundary; no garden state or rendering policy.
 module Garden.Render.GPU (loadCheckedShader, withShader, colorTarget, depthTarget, releaseTarget, bindTexture, blit, releaseAll) where
 
-import Control.Exception (bracket, bracket_, bracketOnError, finally, mask_)
+import Control.Exception (bracket, bracketOnError, bracket_, finally, mask_)
 import Control.Monad (unless, when)
 import Foreign (free, malloc, nullPtr, poke)
 import Raylib.Core
 import Raylib.Core.Textures (drawTexturePro)
-import Raylib.Internal.Foreign (Freeable (rlFreeDependents))
 import Raylib.Internal (WindowResources, managed)
+import Raylib.Internal.Foreign (Freeable (rlFreeDependents))
 import Raylib.Types
 import Raylib.Util.RLGL
 
@@ -25,7 +26,8 @@ loadCheckedShader window vertex fragment = mask_ $
 -- complete borrowed Shader alive until the queued batch has been flushed.
 withShader :: Shader -> IO a -> IO a
 withShader shader action =
-  bracket (bracketOnError malloc free (\ptr -> poke ptr shader >> pure ptr))
+  bracket
+    (bracketOnError malloc free (\ptr -> poke ptr shader >> pure ptr))
     (\ptr -> rlFreeDependents shader ptr `finally` free ptr)
     (\ptr -> bracket_ (c'beginShaderMode ptr) endShaderMode action)
 
@@ -77,10 +79,16 @@ bindTexture slot texture = do
   rlActiveTextureSlot 0
 
 blit :: RenderTexture -> (Int, Int) -> IO ()
-blit target (width, height) = drawTexturePro tex
-  (Rectangle 0 0 (fromIntegral (texture'width tex)) (negate (fromIntegral (texture'height tex))))
-  (Rectangle 0 0 (fromIntegral width) (fromIntegral height)) (Vector2 0 0) 0 (Color 255 255 255 255)
-  where tex = renderTexture'texture target
+blit target (width, height) =
+  drawTexturePro
+    tex
+    (Rectangle 0 0 (fromIntegral (texture'width tex)) (negate (fromIntegral (texture'height tex))))
+    (Rectangle 0 0 (fromIntegral width) (fromIntegral height))
+    (Vector2 0 0)
+    0
+    (Color 255 255 255 255)
+  where
+    tex = renderTexture'texture target
 
 releaseAll :: [IO ()] -> IO ()
 releaseAll = foldr finally (pure ())

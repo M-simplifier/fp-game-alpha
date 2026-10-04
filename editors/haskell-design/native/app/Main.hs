@@ -1,20 +1,21 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+
 module Main (main) where
 
 import Control.Exception (SomeException, displayException, try)
 import Data.Aeson
 import Data.Aeson.Types (parseEither)
-import qualified Data.ByteString as B
-import qualified Data.ByteString.Lazy as L
+import Data.ByteString qualified as B
+import Data.ByteString.Lazy qualified as L
 import Data.Text (Text)
-import qualified Data.Text.Encoding as E
+import Data.Text.Encoding qualified as E
 import GHC.IO.Encoding (setLocaleEncoding)
-import System.Environment (getArgs, getExecutablePath)
-import System.Exit (exitFailure)
-import System.FilePath ((</>), takeDirectory)
-import System.IO
 import HaskellDesign.Project
 import HaskellDesign.Reader
+import System.Environment (getArgs, getExecutablePath)
+import System.Exit (exitFailure)
+import System.FilePath (takeDirectory, (</>))
+import System.IO
 
 handle :: FilePath -> Value -> IO Value
 handle helper value = case parseEither (withObject "request" $ \o -> (,,,,) <$> o .:? "command" .!= ("project" :: Text) <*> o .:? "source" .!= "" <*> o .:? "file" .!= "Main.hs" <*> o .:? "verification" <*> o .:? "request") value of

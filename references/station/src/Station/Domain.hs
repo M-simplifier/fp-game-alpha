@@ -3,38 +3,39 @@
 -- | The complete, clock-free game rules. Only 'initialGame' and 'step' can
 -- construct authoritative game states; UI drafts and effects are not part of it.
 module Station.Domain
-  ( GameState
-  , TurnId
-  , turnNumber
-  , Choice (..)
-  , Stats (..)
-  , Order (..)
-  , ChoiceCost (..)
-  , ChoiceOption (..)
-  , Delivery (..)
-  , DomainError (..)
-  , Ending (..)
-  , initialGame
-  , currentTurn
-  , currentOrder
-  , completedTurns
-  , totalTurns
-  , maximumEnergy
-  , stats
-  , allOrders
-  , history
-  , choices
-  , choiceCost
-  , choiceLabel
-  , step
-  , ending
-  , endingTitle
-  , endingStory
-  , domainErrorText
-  ) where
+  ( GameState,
+    TurnId,
+    turnNumber,
+    Choice (..),
+    Stats (..),
+    Order (..),
+    ChoiceCost (..),
+    ChoiceOption (..),
+    Delivery (..),
+    DomainError (..),
+    Ending (..),
+    initialGame,
+    currentTurn,
+    currentOrder,
+    completedTurns,
+    totalTurns,
+    maximumEnergy,
+    stats,
+    allOrders,
+    history,
+    choices,
+    choiceCost,
+    choiceLabel,
+    step,
+    ending,
+    endingTitle,
+    endingStory,
+    domainErrorText,
+  )
+where
 
 import Data.Text (Text)
-import qualified Data.Text as Text
+import Data.Text qualified as Text
 
 -- No Read, Enum, Num, Generic or JSON instances can construct a TurnId.
 newtype TurnId = TurnId Int
@@ -49,53 +50,56 @@ data Choice = Express | Local | Defer
 -- | Read-only projection. Creating or updating a Stats value does not change a
 -- GameState, and no public function accepts a Stats value as game authority.
 data Stats = Stats
-  { energy :: !Int
-  , expressTickets :: !Int
-  , deliveredFeelings :: !Int
+  { energy :: !Int,
+    expressTickets :: !Int,
+    deliveredFeelings :: !Int
   }
   deriving (Eq, Show)
 
 data Order = Order
-  { orderNumber :: !Int
-  , orderName :: !Text
-  , orderStory :: !Text
-  , expressEnergy :: !Int
-  , expressValue :: !Int
-  , localValue :: !Int
+  { orderNumber :: !Int,
+    orderName :: !Text,
+    orderStory :: !Text,
+    expressEnergy :: !Int,
+    expressValue :: !Int,
+    localValue :: !Int
   }
   deriving (Eq, Show)
 
 data ChoiceCost = ChoiceCost
-  { energyCost :: !Int
-  , ticketCost :: !Int
-  , valueDelivered :: !Int
-  , energyRecovery :: !Int
+  { energyCost :: !Int,
+    ticketCost :: !Int,
+    valueDelivered :: !Int,
+    energyRecovery :: !Int
   }
   deriving (Eq, Show)
 
 -- | The projection is computed by the very same rule used by 'step'. A Right
 -- value describes the exact resulting resources, including capped recovery.
 data ChoiceOption = ChoiceOption
-  { optionChoice :: !Choice
-  , optionCost :: !ChoiceCost
-  , optionResult :: !(Either DomainError Stats)
+  { optionChoice :: !Choice,
+    optionCost :: !ChoiceCost,
+    optionResult :: !(Either DomainError Stats)
   }
   deriving (Eq, Show)
 
 data Delivery = Delivery
-  { deliveryTurn :: !TurnId
-  , deliveryOrder :: !Order
-  , deliveryChoice :: !Choice
-  , deliveryBefore :: !Stats
-  , deliveryAfter :: !Stats
+  { deliveryTurn :: !TurnId,
+    deliveryOrder :: !Order,
+    deliveryChoice :: !Choice,
+    deliveryBefore :: !Stats,
+    deliveryAfter :: !Stats
   }
   deriving (Eq, Show)
 
 data DomainError
   = GameFinished
-  | StaleTurn !TurnId !TurnId -- ^ Expected, received.
-  | InsufficientEnergy !Int !Int -- ^ Required, available.
-  | InsufficientTickets !Int !Int -- ^ Required, available.
+  | -- | Expected, received.
+    StaleTurn !TurnId !TurnId
+  | -- | Required, available.
+    InsufficientEnergy !Int !Int
+  | -- | Required, available.
+    InsufficientTickets !Int !Int
   deriving (Eq, Show)
 
 data Ending = SunsetMaster | KindDay | LettersTomorrow
@@ -104,8 +108,8 @@ data Ending = SunsetMaster | KindDay | LettersTomorrow
 -- Internal field labels are intentionally not exported: public record update
 -- cannot bypass step. History is chronological and bounded by totalTurns.
 data GameState = GameState
-  { gameStats :: !Stats
-  , gameHistory :: ![Delivery]
+  { gameStats :: !Stats,
+    gameHistory :: ![Delivery]
   }
   deriving (Eq, Show)
 
@@ -114,12 +118,12 @@ maximumEnergy = 8
 
 allOrders :: [Order]
 allOrders =
-  [ Order 1 "焼きたてパンのかご" "丘のパン屋さんから、夕食を待つ家族へ。まだ少し温かいかごです。" 2 4 1
-  , Order 2 "おばあちゃんへの花束" "帰省できなかった孫から、小さな花束。カードには「また会おうね」。" 3 6 2
-  , Order 3 "忘れものの楽譜" "となり町の音楽会へ、練習の書き込みがいっぱいの楽譜を届けます。" 2 5 1
-  , Order 4 "星見の望遠鏡" "今夜の星を楽しみにしている集会所へ。大きくて、少し重たい箱です。" 4 7 2
-  , Order 5 "手編みの赤いマフラー" "山あいで働く友だちへ、一目ずつ編んだ贈りもの。夕方の風が冷えてきました。" 2 6 1
-  , Order 6 "旅立ちの写真帳" "明日遠くへ引っ越す人へ。商店街のみんなの写真とひとことが詰まっています。" 3 7 2
+  [ Order 1 "焼きたてパンのかご" "丘のパン屋さんから、夕食を待つ家族へ。まだ少し温かいかごです。" 2 4 1,
+    Order 2 "おばあちゃんへの花束" "帰省できなかった孫から、小さな花束。カードには「また会おうね」。" 3 6 2,
+    Order 3 "忘れものの楽譜" "となり町の音楽会へ、練習の書き込みがいっぱいの楽譜を届けます。" 2 5 1,
+    Order 4 "星見の望遠鏡" "今夜の星を楽しみにしている集会所へ。大きくて、少し重たい箱です。" 4 7 2,
+    Order 5 "手編みの赤いマフラー" "山あいで働く友だちへ、一目ずつ編んだ贈りもの。夕方の風が冷えてきました。" 2 6 1,
+    Order 6 "旅立ちの写真帳" "明日遠くへ引っ越す人へ。商店街のみんなの写真とひとことが詰まっています。" 3 7 2
   ]
 
 totalTurns :: Int
@@ -160,9 +164,9 @@ applyCost cost before
   | otherwise =
       Right
         Stats
-          { energy = min maximumEnergy (energy before - energyCost cost + energyRecovery cost)
-          , expressTickets = expressTickets before - ticketCost cost
-          , deliveredFeelings = deliveredFeelings before + valueDelivered cost
+          { energy = min maximumEnergy (energy before - energyCost cost + energyRecovery cost),
+            expressTickets = expressTickets before - ticketCost cost,
+            deliveredFeelings = deliveredFeelings before + valueDelivered cost
           }
 
 choices :: GameState -> [ChoiceOption]

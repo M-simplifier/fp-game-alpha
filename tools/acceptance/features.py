@@ -28,8 +28,8 @@ def add_key(project):
     model, internal = 'src/Game/Model.hs', 'src/Game/Model/Internal.hs'
     rules, view, save = 'src/Game/Rules.hs', 'src/Game/View.hs', 'src/Game/Save.hs'
     edit.replace(internal, 'data Progress =', 'data KeyStatus = KeyOnBoard | KeyCarried deriving (Eq, Show)\n\ndata Progress =')
-    edit.replace(internal, '  , worldProgress :: Progress', '  , worldKey :: KeyStatus\n  , worldProgress :: Progress')
-    edit.replace(model, '  , initial,', '  , hasKey, keyCell\n  , initial,')
+    edit.replace(internal, '    worldProgress :: Progress', '    worldKey :: KeyStatus,\n    worldProgress :: Progress')
+    edit.replace(model, '    initial,', '    hasKey,\n    keyCell,\n    initial,')
     edit.replace(model, ' | Won |', ' | PickedUpKey | ExitLocked | Won |')
     edit.replace(model, '  | FinishedAwayFromExit', '  | FinishedWithoutKey\n  | FinishedAwayFromExit')
     edit.replace(model, 'initial :: World', 'keyCell :: (Int, Int)\nkeyCell = (0, 1)\n\nhasKey :: World -> Bool\nhasKey world = worldKey world == KeyCarried\n\ninitial :: World')
@@ -38,10 +38,10 @@ def add_key(project):
     edit.replace(model, 'restoreWorld column row turns won =', 'restoreWorld column row turns key won =')
     edit.replace(model, '      world = World', '      keyStatus = if key then KeyCarried else KeyOnBoard\n      world = World')
     edit.replace(model, '(Turn turns) progress', '(Turn turns) keyStatus progress')
-    edit.replace(model, '     ++ [FinishedAwayFromExit', '     ++ [FinishedWithoutKey | isWon world && not (hasKey world)]\n     ++ [FinishedAwayFromExit')
+    edit.replace(model, '        ++ [FinishedAwayFromExit', '        ++ [FinishedWithoutKey | isWon world && not (hasKey world)]\n        ++ [FinishedAwayFromExit')
     edit.replace(rules, 'coordinates (position next) == exitCell ->', 'coordinates (position next) == exitCell && hasKey next ->')
-    edit.replace(rules, '          | otherwise -> (next, [ExitUnavailable])', '          | coordinates (position next) == exitCell -> (next, [ExitLocked])\n          | otherwise -> (next, [ExitUnavailable])')
-    edit.replace(rules, 'in (world { Internal.worldPosition = nextPosition }, [Moved nextPosition])',
+    edit.replace(rules, '              | otherwise -> (next, [ExitUnavailable])', '              | coordinates (position next) == exitCell -> (next, [ExitLocked])\n              | otherwise -> (next, [ExitUnavailable])')
+    edit.replace(rules, 'in (world {Internal.worldPosition = nextPosition}, [Moved nextPosition])',
                  'in collectKey (world { Internal.worldPosition = nextPosition }) [Moved nextPosition]')
     edit.replace(rules, '-- | A deterministic playthrough', '''collectKey :: World -> [Event] -> (World, [Event])
 collectKey world events
@@ -81,8 +81,8 @@ def add_stamina(project):
     model, internal = 'src/Game/Model.hs', 'src/Game/Model/Internal.hs'
     rules, view, save = 'src/Game/Rules.hs', 'src/Game/View.hs', 'src/Game/Save.hs'
     edit.replace(internal, 'newtype Turn =', 'newtype Stamina = Stamina Int deriving (Eq, Show)\nnewtype Turn =')
-    edit.replace(internal, '  , worldKey ::', '  , worldStamina :: Stamina\n  , worldKey ::')
-    edit.replace(model, '  , hasKey,', '  , stamina, maxStamina\n  , hasKey,')
+    edit.replace(internal, '    worldKey ::', '    worldStamina :: Stamina,\n    worldKey ::')
+    edit.replace(model, '    hasKey,', '    stamina,\n    maxStamina,\n    hasKey,')
     edit.replace(model, 'Move Direction | UseExit', 'Move Direction | Rest | UseExit')
     edit.replace(model, ' | PickedUpKey |', ' | Rested | Exhausted | PickedUpKey |')
     edit.replace(model, '  | NegativeTurn Integer', '  | NegativeTurn Integer\n  | StaminaOutOfRange Int')
@@ -91,11 +91,11 @@ def add_stamina(project):
     edit.replace(model, 'Integer -> Bool -> Bool -> Either', 'Integer -> Int -> Bool -> Bool -> Either')
     edit.replace(model, 'restoreWorld column row turns key won =', 'restoreWorld column row turns energy key won =')
     edit.replace(model, '(Turn turns) keyStatus', '(Turn turns) (Stamina energy) keyStatus')
-    edit.replace(model, '     ++ [FinishedWithoutKey', '     ++ [StaminaOutOfRange (stamina world) | stamina world < 0 || stamina world > maxStamina]\n     ++ [FinishedWithoutKey')
-    edit.replace(rules, '        Move direction -> resolveMovement direction next', '''        Move direction
-          | stamina next == 0 -> (next, [Exhausted])
-          | otherwise -> resolveMovement direction next
-        Rest -> (next { Internal.worldStamina = Internal.Stamina (min maxStamina (stamina next + 1)) }, [Rested])''')
+    edit.replace(model, '        ++ [FinishedWithoutKey', '        ++ [StaminaOutOfRange (stamina world) | stamina world < 0 || stamina world > maxStamina]\n        ++ [FinishedWithoutKey')
+    edit.replace(rules, '            Move direction -> resolveMovement direction next', '''            Move direction
+              | stamina next == 0 -> (next, [Exhausted])
+              | otherwise -> resolveMovement direction next
+            Rest -> (next { Internal.worldStamina = Internal.Stamina (min maxStamina (stamina next + 1)) }, [Rested])''')
     edit.replace(rules, 'world { Internal.worldPosition = nextPosition }', 'world { Internal.worldPosition = nextPosition, Internal.worldStamina = Internal.Stamina (stamina world - 1) }')
     edit.replace(view, '["Turn " ++ show (turnCount world),', '["Turn " ++ show (turnCount world), "Stamina " ++ show (stamina world),')
     edit.replace(view, 'renderEvent PickedUpKey =', 'renderEvent Rested = "Rested to recover stamina."\nrenderEvent Exhausted = "Too tired to move. Rest first."\nrenderEvent PickedUpKey =')

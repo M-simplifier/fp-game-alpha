@@ -225,22 +225,24 @@ ornamentGeometry cells = concatMap ornament
   where
     ornament (Cell x y z, m)
       | m == Moss && h `mod` 4 == 0 =
-          onSurface $ concat
-            [ let a = fromIntegral branch * 2.094 + fromIntegral (h `mod` 7)
-                  r = fromIntegral step * 0.075
-                  pos = V3 (0.5 + cos a * r) (1 + fromIntegral step * 0.065) (0.5 + sin a * r)
-               in cube pos (V3 0.055 0.09 0.055) (RGB 0.38 0.61 0.35) 0
-                    <> cube
-                      (plus pos (V3 (-0.06) 0 0))
-                      (V3 0.18 0.035 0.08)
-                      (if h `mod` 17 == 0 && step > 3 then palette (Ore Rose) else RGB 0.33 0.53 0.30)
-                      0
-            | branch <- [0 .. 2 :: Int],
-              step <- [1 .. 5 :: Int]
-            ]
+          onSurface $
+            concat
+              [ let a = fromIntegral branch * 2.094 + fromIntegral (h `mod` 7)
+                    r = fromIntegral step * 0.075
+                    pos = V3 (0.5 + cos a * r) (1 + fromIntegral step * 0.065) (0.5 + sin a * r)
+                 in cube pos (V3 0.055 0.09 0.055) (RGB 0.38 0.61 0.35) 0
+                      <> cube
+                        (plus pos (V3 (-0.06) 0 0))
+                        (V3 0.18 0.035 0.08)
+                        (if h `mod` 17 == 0 && step > 3 then palette (Ore Rose) else RGB 0.33 0.53 0.30)
+                        0
+              | branch <- [0 .. 2 :: Int],
+                step <- [1 .. 5 :: Int]
+              ]
       | m == Water && h `mod` 7 == 0 =
-          onSurface $ cube (V3 0.16 1.012 0.18) (V3 0.6 0.035 0.6) (RGB 0.23 0.50 0.37) 0
-            <> cube (V3 0.39 1.04 0.40) (V3 0.16 0.15 0.16) (palette (Ore Rose)) 0.38
+          onSurface $
+            cube (V3 0.16 1.012 0.18) (V3 0.6 0.035 0.6) (RGB 0.23 0.50 0.37) 0
+              <> cube (V3 0.39 1.04 0.40) (V3 0.16 0.15 0.16) (palette (Ore Rose)) 0.38
       | m == Pearl && y > 7 && h `mod` 4 == 0 =
           onSurface $ cube (V3 0.17 1.005 0.17) (V3 0.66 0.07 0.66) (palette Gold) 0
       | otherwise = []
@@ -256,7 +258,9 @@ ornamentGeometry cells = concatMap ornament
                     (plus (plus base offset) (V3 (a * sx) (b * sy) (d * sz)))
                     normal
                     color
-                    glow 1 3
+                    glow
+                    1
+                    3
                 | V3 a b d <- corners
                 ]
             | Face _ normal corners <- faces

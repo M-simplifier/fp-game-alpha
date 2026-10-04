@@ -5,10 +5,10 @@ import GHC.IO.Encoding (setLocaleEncoding, utf8)
 import GHC.IO.Handle (hDuplicateTo)
 import Garden.Runtime (runGarden)
 import System.Directory (createDirectoryIfMissing, doesFileExist, setCurrentDirectory)
-import System.Exit (exitFailure)
 import System.Environment (getExecutablePath)
+import System.Exit (exitFailure)
 import System.FilePath (takeDirectory, (</>))
-import System.IO (BufferMode (LineBuffering), IOMode (AppendMode), hSetBuffering, hPutStrLn, stderr, stdout, withFile)
+import System.IO (BufferMode (LineBuffering), IOMode (AppendMode), hPutStrLn, hSetBuffering, stderr, stdout, withFile)
 
 main :: IO ()
 main = do

@@ -1,11 +1,12 @@
 -- | Versioned data, not an IO operation. Malformed input never makes a World.
 module Game.Save (encodeWorld, decodeWorld, SaveError (..), SaveField (..)) where
 
-import Game.Model
 import Data.List.NonEmpty (NonEmpty)
+import Game.Model
 import Text.Read (readMaybe)
 
 data SaveField = SavedColumn | SavedRow | SavedTurn | SavedProgress deriving (Eq, Show)
+
 data SaveError
   = SaveTooLarge
   | UnsupportedFormat
@@ -16,7 +17,7 @@ data SaveError
 encodeWorld :: World -> String
 encodeWorld world =
   let (column, row) = coordinates (position world)
-  in unwords ["FP-GAME-SAVE", "1", show column, show row, show (turnCount world), show (isWon world)] ++ "\n"
+   in unwords ["FP-GAME-SAVE", "1", show column, show row, show (turnCount world), show (isWon world)] ++ "\n"
 
 decodeWorld :: String -> Either SaveError World
 decodeWorld input
@@ -30,5 +31,5 @@ decodeWorld input
         either (Left . InvalidWorld) Right (restoreWorld x y turn finished)
       _ -> Left UnsupportedFormat
   where
-    parse :: Read value => SaveField -> String -> Either SaveError value
+    parse :: (Read value) => SaveField -> String -> Either SaveError value
     parse field value = maybe (Left (MalformedValue field)) Right (readMaybe value)

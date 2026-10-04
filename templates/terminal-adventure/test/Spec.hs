@@ -1,8 +1,8 @@
 module Main (main) where
 
 import Control.Monad (unless)
-import qualified Game.Arena as Arena
 import Game.Adapter (Adventure (..), Player (..))
+import Game.Arena qualified as Arena
 import Game.Model
 import Game.Rules
 import Game.Save
@@ -17,8 +17,11 @@ walk = foldl (\world command -> fst (advance command world)) initial
 main :: IO ()
 main = do
   let final = walk smokeCommands
-      states = scanl (\world command -> fst (advance command world)) initial
-        [Move North, Move West, UseExit, Move East, Move East, Move South, UseExit]
+      states =
+        scanl
+          (\world command -> fst (advance command world))
+          initial
+          [Move North, Move West, UseExit, Move East, Move East, Move South, UseExit]
   assert "observable exit playthrough" (isWon final && "Escaped!" `contains` render final)
   assert "rules preserve invariants" (all (null . invariantErrors) states)
   assert "wall still consumes one turn" (turnCount (fst (advance (Move West) initial)) == 1)
@@ -39,6 +42,6 @@ main = do
     contains needle haystack = any (prefix needle) (tails haystack)
     prefix [] _ = True
     prefix _ [] = False
-    prefix (x:xs) (y:ys) = x == y && prefix xs ys
+    prefix (x : xs) (y : ys) = x == y && prefix xs ys
     tails [] = [[]]
-    tails xs@(_:rest) = xs : tails rest
+    tails xs@(_ : rest) = xs : tails rest

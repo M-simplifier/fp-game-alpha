@@ -13,6 +13,13 @@ the refactor author's assessment; no independent beginner comprehension or
 human play study was conducted. The generation suggestions are candidates
 for later use and evaluation, not demonstrated learning transfer.
 
+The final integration merges public main
+`c5784f68b31c0e7810f4b8034de688821dba8aa3` (PR #18) into the existing
+Station branch and uses its pinned Ormolu 0.9.0.0 layout. The original
+refactor commit `4dd8ee346a79331d0f8f49c72795bfe0eb75031b` remains in the
+history. Initial validation and the narrower post-merge checks are separated
+below; an upstream CI result is not claimed for this branch's new head.
+
 ## Follow one player action
 
 Read [the Station overview](../../references/station/README.md), then follow
@@ -110,8 +117,9 @@ both the initial and terminal states.
   retain their existing grammar.
 - The JSON encoder, field order, feedback text, fallback branches and
   `[Outcome]` protocol remain unchanged. Transport errors still use presentation
-  strings; domain errors retain their ADT. No dependencies, formatter setup,
-  gameplay constants, independent oracles, or public signatures changed.
+  strings; domain errors retain their ADT. The Station refactor changes no
+  dependencies, gameplay constants, independent oracles, or public signatures.
+  Formatter setup and its lock are taken unchanged from the integrated main.
 
 ## Refinements to generation guidance
 
@@ -124,7 +132,7 @@ rather than introduce universal function-size limits.
 | Keep a requested revision separate from an authoritative token. | A client sends a number while the domain owns an opaque token. Compare the number without bounded conversion and acquire the token only through the existing projection. | Games without this protocol need no revision machinery. The domain must still reject stale tokens; naming decoded input does not confer authority. |
 | Verify the ordering where branches are moved. | A readability edit separates validation stages. Test overlapping failures, such as malformed input after completion, and compare the actual consumer's replies with the baseline. | Finite coverage is scoped to the current game. Packet equality does not establish beginner comprehension, human enjoyment, or compatibility of source-pinned journals. |
 
-## Verification and limits
+## Verification before main integration
 
 Commands were run with GHC 9.6.7, Cabal 3.12.1.0 and Python 3.14.2.
 The baseline passed all eight root Cabal suites, Station's public API fixtures,
@@ -133,7 +141,8 @@ The new validation-order regression was also run against the unchanged source
 before refactoring. There were no baseline test failures; Cabal's warning about
 no remote package servers is expected for the offline profile.
 
-After the source change, these checks passed:
+At refactor commit `4dd8ee346a79331d0f8f49c72795bfe0eb75031b`, before
+integrating main's formatter changes, these checks passed:
 
 | Command | Observed result |
 | --- | --- |
@@ -144,6 +153,23 @@ After the source change, these checks passed:
 | `python research/readability/compare_station.py BASELINE_BINARY CURRENT_BINARY` | 1,510 cases and 34,752 byte-identical packets over all 864 histories, 969 current-turn choices and 541 terminal histories. |
 | `python tools/docs_lint.py` | All 436 foundation and 57 rendered-game documents pass the link, skill and support checks. |
 | `python tools/publication.py snapshot` then `python tools/publication.py check` | The derived manifest is refreshed and all 454 selected files pass. All existing origins, licenses, maturity and review dispositions are preserved; only four current hashes and two new research entries change. |
+
+## Verification after main integration
+
+Only affected checks were repeated on the merged sources. The earlier full
+root build and eight-suite result above remains historical; it is not a new
+exact-head CI result. Local validation uses the same compiler and Python
+versions recorded above.
+
+| Check | Observed result |
+| --- | --- |
+| Locked Ormolu 0.9.0.0 on `references/station/app/HeadlessMain.hs` | The official Windows archive passes size/SHA-256, payload and version checks. Formatting and the subsequent non-writing check pass with AST safety and idempotence enabled. Only this owned source was written. |
+| `cabal --config-file=.build/cabal.config test station-dispatch-reference:station-laws --offline --builddir=.build/dist --test-show-details=direct` | Station passes over all 864 states, 969 attempts and 541 terminals, including ending counts, the independent resource trace, Step/Arena agreement, stale tokens and the rule-deletion mutation. |
+| `python tools/test_station_api.py` | Read-only compilation and both constructor/update rejections pass on the merged domain source. |
+| `python tools/test_play.py` | All nine tests pass on the rebuilt merged player, including validation precedence. |
+| `python research/readability/compare_station.py BASELINE_BINARY MERGED_BINARY` | Repeated against the original `2487f7b` player and the rebuilt merged player: all 1,510 cases and 34,752 packets are byte-identical over 864 histories, 969 choices and 541 terminal histories. |
+| `python tools/docs_lint.py` | All 449 foundation and 61 rendered-game documents pass. |
+| `python tools/publication.py snapshot` then `python tools/publication.py check` | All 468 selected files pass. The policy retains both main's formatter selection and this pilot's research selection. Reviewed provenance is preserved. |
 
 The [packet comparator](compare_station.py) takes binaries compiled from the
 baseline and current source. It grows the reachable history tree only from

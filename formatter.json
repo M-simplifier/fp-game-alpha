@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "source_roots": [
+    "templates/terminal-adventure/app",
+    "templates/terminal-adventure/src",
+    "templates/terminal-adventure/test",
+    "libraries/game-transition",
+    "libraries/game-arena",
+    "references/lantern",
+    "references/garden",
+    "references/tapline",
+    "references/river",
+    "references/station",
+    "references/paper-circuit",
+    "references/afterlight",
+    "editors/haskell-design/native/app",
+    "editors/haskell-design/native/src",
+    "editors/haskell-design/compiler"
+  ]
+}

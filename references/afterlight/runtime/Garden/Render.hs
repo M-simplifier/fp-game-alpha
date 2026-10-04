@@ -1,5 +1,5 @@
-{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE PatternSynonyms #-}
 
 module Garden.Render (renderScene, renderSceneWith, renderPhotoChrome, renderPhotoFrame, renderPhotoToast, renderInterface, renderMenu, renderSaveFeedback) where
 
@@ -9,9 +9,9 @@ import Data.List (sortOn)
 import Data.Map.Strict qualified as M
 import Garden.Mesh (palette)
 import Garden.Photo
-import Garden.Render.Resources
-import Garden.Render.Radiance
 import Garden.Render.Chunk
+import Garden.Render.Radiance
+import Garden.Render.Resources
 import Garden.Render.Settings
 import Garden.Types
 import Garden.View
@@ -44,8 +44,8 @@ renderSceneWith portrait resources view pulse = do
         Nothing -> Vector3 0 0 1
         Just p -> Vector3 (photoExposure p) (fromIntegral (fromEnum (photoGrade p))) (if photoBloom p then 1 else 0)
       chosen = settings {bloom = bloom settings && maybe True photoBloom portrait}
-      visible = visibleChunk (sceneEye view) f right upCorrect lens (fromIntegral sceneWidth/fromIntegral sceneHeight)
-      (sceneWidth, sceneHeight) = sceneSize (renderPlan (width,height) chosen)
+      visible = visibleChunk (sceneEye view) f right upCorrect lens (fromIntegral sceneWidth / fromIntegral sceneHeight)
+      (sceneWidth, sceneHeight) = sceneSize (renderPlan (width, height) chosen)
   lamps <- readIORef (resourceLights resources)
   let points = take 8 (sortOn (distance (sceneEye view)) lamps)
   uniform resources ws "lightCount" (ShaderUniformInt (length points))
@@ -53,8 +53,9 @@ renderSceneWith portrait resources view pulse = do
     setShaderValueV ws "lightPositions" (ShaderUniformVec3V (map toRay points)) (resourceWindow resources)
   (_, chunks) <- readIORef (resourceChunks resources)
   let opaque isShadow accepts = do
-        forM_ (M.toList chunks) $ \(key, models) -> when (accepts key) $
-          forM_ models (\m -> drawPrepared m (V3 0 0 0) 0 1 white)
+        forM_ (M.toList chunks) $ \(key, models) ->
+          when (accepts key) $
+            forM_ models (\m -> drawPrepared m (V3 0 0 0) 0 1 white)
         forM_ (resourceRelic resources) (\m -> drawRelic m (sceneTime view))
         drawKin isShadow resources view
         drawEnemies isShadow resources view
@@ -67,8 +68,17 @@ renderSceneWith portrait resources view pulse = do
           TerrainTarget c _ (Ore g) _ -> drawCubeWiresV (toRay (center c)) (Vector3 1.014 1.014 1.014) (toColor (palette (Ore g)) 0.82)
           TerrainTarget c _ _ _ -> drawCubeWiresV (toRay (center c)) (Vector3 1.012 1.012 1.012) (Color 232 224 167 150)
           _ -> pure ()
-  renderRadiance (resourceRadiance resources) chosen ws camera (sceneTime view) (sceneVeil view) grading
-    (if maybe True photoVignette portrait then 0.10 else 0) shadow scene
+  renderRadiance
+    (resourceRadiance resources)
+    chosen
+    ws
+    camera
+    (sceneTime view)
+    (sceneVeil view)
+    grading
+    (if maybe True photoVignette portrait then 0.10 else 0)
+    shadow
+    scene
   when (pulse > 0.04) $ drawRectangleGradientV 0 0 width height (Color 113 233 192 (round (pulse * 13))) (Color 243 223 148 0)
   forM_ [b | b <- sceneBursts view, burstCue b == Return] $ \b -> do
     let age = sceneTime view - fromIntegral (unTick (burstBorn b)) / 60
@@ -146,6 +156,8 @@ drawBursts view = forM_ (sceneBursts view) $ \burst -> do
         size = max 0.01 (0.12 * (1 - age / 1.15))
     drawCubeV (toRay p) (Vector3 size size size) hue
 
+-- CPP splits this declaration; retain both host branches verbatim.
+{- ORMOLU_DISABLE -}
 renderInterface :: Resources -> SceneView -> Bool -> Float -> IO ()
 renderInterface resources view debug fps = withUIScale $ \width height zoom -> do
   let wf = fromIntegral width
@@ -231,6 +243,10 @@ renderInterface resources view debug fps = withUIScale $ \width height zoom -> d
     drawText (printf "%.1f FPS  /  %.1f ms" fps (1000 / max 1 fps)) 33 143 16 ink
     drawText (printf "%.0f voxels / revision %d" (fromIntegral (M.size (sceneCells view)) :: Float) (sceneRevision view)) 33 163 15 ink
 
+{- ORMOLU_ENABLE -}
+
+-- CPP splits this declaration; retain both host branches verbatim.
+{- ORMOLU_DISABLE -}
 renderMenu :: Resources -> Maybe Bool -> Bool -> IO ()
 renderMenu resources saved invertY = withUIScale $ \w h _ -> do
   let x = fromIntegral w / 2 - 440; y = fromIntegral h / 2 - 205
@@ -265,6 +281,8 @@ renderMenu resources saved invertY = withUIScale $ \w h _ -> do
     )
     $ \(i, line) ->
       guide line gx (y + 70 + fromIntegral i * 34) 19 soft
+
+{- ORMOLU_ENABLE -}
 
 withUIScale :: (Int -> Int -> Float -> IO ()) -> IO ()
 withUIScale action = do

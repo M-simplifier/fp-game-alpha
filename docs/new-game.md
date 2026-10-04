@@ -125,3 +125,12 @@ smoke test, terminal-only check for a graphical request, copied demo or a polish
 research catalog is not a substitute. Existing evidence for the optional terminal
 starter remains useful but does not establish this broader workflow on every
 platform.
+
+## Own the formatter setup too
+
+For a hand-authored game or the optional scaffold, carry the
+[project-local formatter helper and lock](formatting.md) into the chosen game
+directory, declare owned source roots, and run plan/install/check within the
+user's permissions. Keep formatting separate from compiler/HLS provisioning.
+Continue through actual game implementation and verification; a setup plan
+alone is not the requested playable result.

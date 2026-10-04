@@ -31,10 +31,10 @@ buttonCommand x y
   | y >= 96 && y < 130 && x >= 28 && x < 160 = Just TogglePause
   | y >= 96 && y < 130 && x >= 174 && x < 310 = Just StepOnce
   | y >= 96 && y < 130 && x >= 324 && x < 480 = Just ResetSameSeed
-  | y >= 612 && y < 658 = selectAt (zip [0..] materials)
+  | y >= 612 && y < 658 = selectAt (zip [0 ..] materials)
   | otherwise = Nothing
   where
     selectAt [] = Nothing
-    selectAt ((i,m):rest)
-      | x >= 28 + i*134 && x < 28 + i*134 + 124 = Just (Select m)
+    selectAt ((i, m) : rest)
+      | x >= 28 + i * 134 && x < 28 + i * 134 + 124 = Just (Select m)
       | otherwise = selectAt rest

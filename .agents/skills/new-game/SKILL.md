@@ -21,3 +21,12 @@ Keep an independent workspace, pinned core, game spec and local continuation
 entry. Stop at a genuine blocker, not merely at a route marked unverified.
 Use [headless play](../../../docs/headless-play.md) for abstract decision feedback
 and real-host checks for presentation and input. Never claim checks not run.
+
+For every new Haskell workspace, own the [pinned formatter setup](../../../docs/formatting.md):
+copy the reusable helper/lock, choose owned source roots, inspect the plan and
+explicitly install within permissions. Run check/write/check and game tests.
+This applies to games authored from a brief; the template is optional.
+Propose editor-local external Ormolu settings without overwriting existing files.
+When the helper has no platform route, investigate an official installation or
+build within permissions and verify it before extending the repeatable helper.
+A missing tool route does not narrow the game brief or end authorized work.

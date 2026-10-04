@@ -70,7 +70,7 @@ def prepare(slug, destination, title, target, rendering, license_choice, author)
                 name = 'vendor/' + package + '/' + path.relative_to(base).as_posix()
                 files[name] = path.read_bytes().replace(b'\r\n', b'\n')
                 foundation_files[name] = sha256(files[name])
-    for source in ['architecture.md', 'haskell.md', 'failure-prevention.md', 'editors.md', 'verification.md']:
+    for source in ['architecture.md', 'haskell.md', 'failure-prevention.md', 'editors.md', 'verification.md', 'formatting.md']:
         path = ROOT / 'docs' / source
         files['docs/' + source] = path.read_bytes().replace(b'\r\n', b'\n')
         foundation_files['docs/' + source] = sha256(files['docs/' + source])
@@ -96,7 +96,7 @@ def prepare(slug, destination, title, target, rendering, license_choice, author)
             raise ValueError('Scaffold refuses linked editor source: ' + name)
         files[name] = path.read_text(encoding='utf-8').replace('\r\n', '\n').encode('utf-8')
         foundation_files[name] = sha256(files[name])
-    for name in ['fp_game.py', 'scaffold.py', 'toolchains.json']:
+    for name in ['fp_game.py', 'scaffold.py', 'toolchains.json', 'formatter.py', 'formatter.lock.json']:
         files['tools/' + name] = (ROOT / 'tools' / name).read_bytes().replace(b'\r\n', b'\n')
         foundation_files['tools/' + name] = sha256(files['tools/' + name])
     files['licenses/FOUNDATION-MIT.txt'] = (ROOT / 'LICENSE').read_bytes().replace(b'\r\n', b'\n')
@@ -129,6 +129,10 @@ def prepare(slug, destination, title, target, rendering, license_choice, author)
         '      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262\n'
         '      - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d\n'
         '        with:\n          ghc-version: \'9.6.7\'\n          cabal-version: \'3.12.1.0\'\n          cabal-update: false\n'
+        '      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065\n'
+        '        with:\n          python-version: \'3.12\'\n'
+        '      - run: python tools/formatter.py install\n'
+        '      - run: python tools/formatter.py check\n'
         '      - run: cabal --config-file=build.config build all --offline --builddir=.build/dist\n'
         '      - run: cabal --config-file=build.config test all --offline --builddir=.build/dist --test-show-details=direct\n'
         '      - run: cabal --config-file=build.config run ' + slug + ' --offline --builddir=.build/dist -- --smoke\n'

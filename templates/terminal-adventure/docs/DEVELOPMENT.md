@@ -76,3 +76,10 @@ MIT notices. CI uses the same standard Cabal commands as local development.
 Before shipping, establish your selected renderer/runtime, gameplay scope,
 save recovery, asset rights, platform/device performance and distribution
 requirements. The alpha provides a path for this work; it does not certify it.
+
+## Consistent Haskell formatting
+
+Use the [pinned project-local formatter](formatting.md) for explicit setup,
+non-writing checks, owned-source formatting and external HLS integration.
+Run `python tools/formatter.py plan`, then `install` when permitted;
+`check` never downloads and `write` never targets vendored source.

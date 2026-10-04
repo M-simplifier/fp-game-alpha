@@ -1,46 +1,134 @@
 {
-  "schema": 1,
-  "activity": "scratch game authored from a brief, then extended with once-only Undo",
+  "schema": 2,
+  "activity": "Paper Circuit readability refactor; original scratch-game and Undo evidence retained in history",
   "core_reuse": "Game.Transition and Game.Arena only; no Afterlight game source",
   "native": {
-    "ghc": "9.6.6",
+    "ghc": "9.6.7",
     "result": "passed",
     "checks": [
-      "constructive win",
+      "constructive win and first clockwise rotation",
       "invalid Cell values",
       "budget/end/reset",
-      "one-use Undo",
-      "304 direct/Arena comparisons"
+      "one-use Undo and latest-position restoration",
+      "undo after win and loss",
+      "refusal preserves history",
+      "victory takes precedence on the last turn",
+      "304 direct/Arena comparisons",
+      "3 expected compiler rejections: private Cell/World constructors and World history selector"
     ]
   },
   "wasm": {
     "ghc": "9.14.1.20260330",
     "result": "built and executed via browser WASI shim under Node24.19.0",
-    "sha256": "a87e2260f1b94ed55648318164050c4a41a0322dcbee07479c90eea3ce842d48",
+    "sha256": "488eac95fdc249ec307d4bde600851b65fdd7b8e07a522403e3fc0ff6a1774b1",
     "checks": [
       "independent sessions",
       "invalid input",
       "win/loss/reset/undo",
       "SVG output",
-      "200 allocation/render/free cycles"
+      "200 allocation/render/free cycles",
+      "undo after win and loss",
+      "victory takes precedence on the last turn"
     ]
   },
   "controls": {
     "result": "production applyControl with DOM stubs passed",
     "scope": "routing/focus target identity only, not real browser focus"
   },
-  "visual": "Haskell SVG rasterized and inspected; not a browser screenshot",
+  "visual": "not rerun for readability revision; original rasterized-SVG inspection is historical only",
   "browser_ui": "not_run",
   "platform_claim": "not a general browser/mobile/graphical DX acceptance",
   "source_sha256": {
-    "app/Browser.hs": "a31b2f1708c9ccad9f86d113c5ee6013f1290c2b812fc5aee9b0d04dee3a26a6",
-    "src/Paper/Game.hs": "2954c13c3ebec8ae1dfd7d499c0a5e0ebab47ac5ffddec7544792ca7a15d4289",
-    "src/Paper/View.hs": "bb0cc466c51dd036e111f92b19c391792e65179eabb2a74bd513499bece976fd",
-    "test/Laws.hs": "cc944ceec0bf282886d061095765900d5616aba9548e4139df6829562b897eb5",
+    "app/Browser.hs": "b7a05a8e02d244f9232618daa03cff2583861722bb87fea8fd0d95b0139b063a",
+    "src/Paper/Game.hs": "285bd866510a1c2f3280db719c6744a7b749233ac87572434e561dcff8885c72",
+    "src/Paper/View.hs": "eef7d865300192518023544d264add4da4a554e132cfde5ca0fd2e4c1de1a651",
+    "test/Laws.hs": "c8dcd450aa3b1eeb4b2338eb4e1314dea62ef0f0274e4bfef6e301dc8e147564",
     "web/controls.mjs": "bef50f52d77eb0f03291409cd999e2d3dfeba36c9292c9fa1e77daa86d2b4bab",
     "web/controls.test.mjs": "8ce981157ecfe7a3c838ecd34f4f18c4147dde45676fb105ad40733a6f269149",
     "web/engine.mjs": "1c283e751b8517504364cca4e038b5f3f04e839a88fcfa78a62f051df0ccb9c8",
     "web/index.html": "657dcfe0cae7c0dbb5e99cc2202c00f2a2486b93a48c3cff423cfa1b25859fd9",
-    "web/smoke.mjs": "5db8dfa9c5ed816d921194af21c700da92a823e1aa9c6b697ff72b82c4fb8830"
+    "web/smoke.mjs": "71b34807b31719b711feeb8f3bff3d27b5c3de5ea692dac156c7b6b306284bb5",
+    "test/check-opaque-api.sh": "7978c0d310c69708036393572008e9bcbb55fd1389cb6e472a99d7c3642519a0",
+    "test/api-rejections/ForgeCell.hs": "c6fc6510e411c7c5f933c9f58217d4f494531d8bc86bf2ea2f18eebcd1f0b3d3",
+    "test/api-rejections/ForgeWorld.hs": "701f22762113fff35eaceb4e3e9191d67db3b16f5fa49d18456152a858b22315",
+    "test/api-rejections/UpdateWorld.hs": "293fefa31818ae2cd9f99e03b3d542118d3e955445869e4f69e39c14f864c694",
+    "test/CompareBaseline.hs": "d999c9a5f4e52584557f5d6d5045e2dc857872698a3f46dbb010505a722c1a4c",
+    "test/compare-baseline.sh": "0a5efaca5f768ac5c775359ec4c891eef6c7a7bf4671ee219329990ee76ec267"
+  },
+  "compatibility": {
+    "baseline_commit": "2487f7b31f75af65fa430123efbc4b67ca883b93",
+    "baseline_source_sha256": "2954c13c3ebec8ae1dfd7d499c0a5e0ebab47ac5ffddec7544792ca7a15d4289",
+    "result": "passed local old/new comparison of public tile/water/budget/phase/undo observations and outcomes",
+    "traces": [
+      "all 104976 sequences of four commands over 16 rotations, Undo and Restart",
+      "200 deterministic 120-command traces"
+    ],
+    "limits": [
+      "finite traces, not exhaustive proof",
+      "derived Show World representation changed; not used as save format",
+      "requires the foundation Git clone with the pinned baseline history; standalone copies can still run native rules/API checks"
+    ],
+    "reproduce": "bash test/compare-baseline.sh"
+  },
+  "history": [
+    {
+      "description": "Evidence inherited before readability edits; not evidence for the new source",
+      "checks": {
+        "schema": 1,
+        "activity": "scratch game authored from a brief, then extended with once-only Undo",
+        "core_reuse": "Game.Transition and Game.Arena only; no Afterlight game source",
+        "native": {
+          "ghc": "9.6.6",
+          "result": "passed",
+          "checks": [
+            "constructive win",
+            "invalid Cell values",
+            "budget/end/reset",
+            "one-use Undo",
+            "304 direct/Arena comparisons"
+          ]
+        },
+        "wasm": {
+          "ghc": "9.14.1.20260330",
+          "result": "built and executed via browser WASI shim under Node24.19.0",
+          "sha256": "a87e2260f1b94ed55648318164050c4a41a0322dcbee07479c90eea3ce842d48",
+          "checks": [
+            "independent sessions",
+            "invalid input",
+            "win/loss/reset/undo",
+            "SVG output",
+            "200 allocation/render/free cycles"
+          ]
+        },
+        "controls": {
+          "result": "production applyControl with DOM stubs passed",
+          "scope": "routing/focus target identity only, not real browser focus"
+        },
+        "visual": "Haskell SVG rasterized and inspected; not a browser screenshot",
+        "browser_ui": "not_run",
+        "platform_claim": "not a general browser/mobile/graphical DX acceptance",
+        "source_sha256": {
+          "app/Browser.hs": "a31b2f1708c9ccad9f86d113c5ee6013f1290c2b812fc5aee9b0d04dee3a26a6",
+          "src/Paper/Game.hs": "2954c13c3ebec8ae1dfd7d499c0a5e0ebab47ac5ffddec7544792ca7a15d4289",
+          "src/Paper/View.hs": "bb0cc466c51dd036e111f92b19c391792e65179eabb2a74bd513499bece976fd",
+          "test/Laws.hs": "cc944ceec0bf282886d061095765900d5616aba9548e4139df6829562b897eb5",
+          "web/controls.mjs": "bef50f52d77eb0f03291409cd999e2d3dfeba36c9292c9fa1e77daa86d2b4bab",
+          "web/controls.test.mjs": "8ce981157ecfe7a3c838ecd34f4f18c4147dde45676fb105ad40733a6f269149",
+          "web/engine.mjs": "1c283e751b8517504364cca4e038b5f3f04e839a88fcfa78a62f051df0ccb9c8",
+          "web/index.html": "657dcfe0cae7c0dbb5e99cc2202c00f2a2486b93a48c3cff423cfa1b25859fd9",
+          "web/smoke.mjs": "5db8dfa9c5ed816d921194af21c700da92a823e1aa9c6b697ff72b82c4fb8830"
+        }
+      }
+    }
+  ],
+  "formatting": {
+    "version": "Ormolu 0.9.0.0",
+    "ast_safety": true,
+    "idempotence": true,
+    "additional_formatted_files": [
+      "app/Browser.hs",
+      "src/Paper/View.hs"
+    ],
+    "checks_after_final_layout": "root native Cabal tests; actual Wasm rebuild and Node smoke; no browser UI"
   }
 }
