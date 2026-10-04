@@ -43,6 +43,9 @@ The [Garden pure-core reference](references/garden/README.md) connects
 deterministic world updates to event and clock-frame adapters.
 The [River Home pure-core reference](references/river/README.md) covers a
 multi-day village journey, fixed ticks, validated saves and Step/Arena agreement.
+The [Station Dispatch pure-core reference](references/station/README.md) covers
+all six orders and three endings with an opaque turn token; JSON save and
+asynchronous UI acceptance remain pending.
 The [quantity source lab](research/quantity/README.md) has a GHC-only route
 for real type rejections and runtime-oracle checks; its recorded
 LiquidHaskell result is historical and remains separately scoped.

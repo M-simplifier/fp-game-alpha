@@ -145,4 +145,20 @@ weather and sheltered crop/wood differences, snapshot round-trip/rejection
 and next-command equivalence, direct Step/Arena results, boundary rejection,
 finite command-prefix invariants, tick saturation, clock debt and a deleted
 rule mutation. The original QuickCheck suite and a graphical host are not
-part of this run. Public three-OS CI and fresh-clone checks are pending.
+part of this run. The
+[River CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37180747216)
+passed on Windows, Linux and macOS. A fresh public branch clone on Windows
+also passed the source gate, docs links, full Cabal suite and independent
+generated-game development acceptance.
+
+## Station Dispatch pure core
+
+The local Windows GHC 9.6.7/Cabal 3.12.1.0 suite compiles the selected domain
+and adapter with `-Wall -Wcompat -Werror`. It enumerates all 864 states,
+969 attempted choices and 541 terminal histories of the fixed six-order
+game, checking ending distribution, resource/history invariants, visible
+option agreement, Step/Arena behavior, stale replay and a rule-deletion
+mutation. A separate GHC outside-client fixture compiles projections and
+rejects GameState update and TurnId construction for their intended reasons.
+The original JSON save, asynchronous UI/storage and browser host are outside
+this increment. Public three-OS CI and fresh-clone checks are pending.

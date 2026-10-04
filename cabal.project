@@ -5,6 +5,7 @@ packages:
   references/garden
   references/tapline
   references/river
+  references/station
 
 -- The first-user kernel needs only packages shipped with GHC.
 active-repositories: :none

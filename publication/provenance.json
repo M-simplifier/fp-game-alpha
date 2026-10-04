@@ -276,5 +276,17 @@
     "origin": "gallery/functional-arcade/licenses/original-games/river-home-mobile-LICENSE",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297"
+  },
+  "references/station/src/Station/Domain.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Station/Domain.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "26e798ab329cd51b493c2b9d3fa8793bec12b0994075ee34ec559709ccfcbfb5"
+  },
+  "references/station/LICENSE": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/licenses/original-games/station-dispatch-LICENSE",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "6b5d4dacd3546494f8e040f50d108ef1a54661346bbc6260a7d385c879d69bce"
   }
 }

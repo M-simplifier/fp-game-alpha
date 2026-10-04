@@ -27,7 +27,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "3a7d23dacb338058154bbc76c611acd61538cae7830d54a8acbedb5ebf6a00ef",
+      "sha256_lf": "0cdb7196d426e3e8cd7ef46d8ec72594caf550db9c56538c084f4f32997a23ab",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -83,7 +83,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "a6167c77c7cfa6808da8a35908a0c794b89ba2434406ee1c4c1c6a4ce2f1bfe1",
+      "sha256_lf": "7b13dfe82b24af53ec6b4cfe0ee30ea45057fb3ae833d09332be493540a6d520",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -94,7 +94,7 @@
     },
     {
       "path": "cabal.project",
-      "sha256_lf": "5e1fbca29a0fc89d4f9d7fa2cc64b5bac134fb40992e09caef6c6a35c02fce18",
+      "sha256_lf": "28ec4f6fadf7c5737013dba794d9b60565386c65c3bf898afa8622d52f89320b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -285,7 +285,7 @@
     },
     {
       "path": "docs/roadmap.md",
-      "sha256_lf": "146a50645a876b3ed53b50be347030499eb05b4da38e0c3e34ee813da61d9c6c",
+      "sha256_lf": "9771a4d56a0b30ae857367a4f8e6e9fe82b69c58df150ef5b1913b3f052e98b0",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -329,7 +329,7 @@
     },
     {
       "path": "docs/verification.md",
-      "sha256_lf": "68d85e61cbf11362b57af8170945912f2702c95d807347439903038512ef6ba3",
+      "sha256_lf": "3d953d2c7792c486380ac19dff6876fbb5a55015aa78f945b22fabadb20ab26d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -523,7 +523,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "efba4f560c76ec0bfd4fa48bee9db5aefed16e6a6704b8eba2758f1419a5ed2c",
+      "sha256_lf": "40efa190faec86e7f3cd82e4ebc10b06b2d0307664cd3ca0e42f45e2d2370749",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -534,7 +534,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "63bd5386162e0cef42b4b66bfe589aeb9084fd3570725f98674fdc928dc6e131",
+      "sha256_lf": "f51a4e8d003d2d96db361c37cb83398823b754d63415a876453b8e430849ce12",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -861,6 +861,111 @@
         "kind": "authored-for-public-alpha"
       },
       "license": "references/river/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/LICENSE",
+      "sha256_lf": "6b5d4dacd3546494f8e040f50d108ef1a54661346bbc6260a7d385c879d69bce",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/licenses/original-games/station-dispatch-LICENSE",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "6b5d4dacd3546494f8e040f50d108ef1a54661346bbc6260a7d385c879d69bce"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/README.md",
+      "sha256_lf": "7061572e661f060d0233f0fc7f3e930d6efe0e88e0548e505828baa2face77dd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/src/Station/Adapter.hs",
+      "sha256_lf": "2e5042ba8998b9cb89b3c46cf7fc5fecadf06357935aa617b0da484c74c8f173",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/src/Station/Domain.hs",
+      "sha256_lf": "26e798ab329cd51b493c2b9d3fa8793bec12b0994075ee34ec559709ccfcbfb5",
+      "origin": {
+        "kind": "selected-author-supplied-technical-source",
+        "origin": "gallery/functional-arcade/src/Station/Domain.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "26e798ab329cd51b493c2b9d3fa8793bec12b0994075ee34ec559709ccfcbfb5"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/station.cabal",
+      "sha256_lf": "9fcbaf478eec9f63a40845526f44ff7c62c5acfbc5351a2947d57ec992157caa",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/test/Laws.hs",
+      "sha256_lf": "9f90680b3fb73d239d68d96335dee2b9ed75809a83db0d0cb46feb0ffa8d4c61",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/test/ReadGame.hs",
+      "sha256_lf": "c4352e7b7220d23eaa81089e5afca6e69deee9cfd64c34b3d6b18b03938ceb44",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/test/RejectGameUpdate.hs",
+      "sha256_lf": "38e3533c408711908e8c568472e9815cb331786412a52413f2dbcf5719a30396",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/station/test/RejectTurnId.hs",
+      "sha256_lf": "4be4000a8f4815c791072e0e495ada0e7ef298b7549566942bee3e5b45097518",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/station/LICENSE",
       "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"
@@ -1441,7 +1546,7 @@
     },
     {
       "path": "tools/fp_game.py",
-      "sha256_lf": "6c777f4381fd3cccfa7ce3beb7dc15993e29b972e1b666835217086d81563e30",
+      "sha256_lf": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -1486,6 +1591,17 @@
     {
       "path": "tools/test_lantern_api.py",
       "sha256_lf": "1fb80da21355742b4fd5a0d995012ff0b73b15da6b592caa32ec21390fe50c71",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/test_station_api.py",
+      "sha256_lf": "72e480562a07cc9ee41646b57cece5b50a35c2a750acba682442536821c577f0",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
