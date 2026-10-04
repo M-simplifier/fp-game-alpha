@@ -104,4 +104,17 @@ category counts and output hashes. A deliberately missing compiler makes
 `doctor` fail; a GHC error must match the named type/constructor diagnostic.
 This is finite source-only validation. LiquidHaskell, its six proof mutants,
 Z3 and the other historical research tools were not run in this checkout.
-The new three-OS CI step is pending.
+The [source-only CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37178075499)
+passed on Windows, Linux and macOS, including independent game development
+acceptance on each checkout.
+
+## Tapline reference
+
+The selected Tapline core compiles with `-Wall -Wcompat -Werror` on local
+Windows GHC 9.6.7. Its test plays all six winning rounds and compares direct,
+Step and Arena execution. It checks the exact deadline, ordered repeated
+taps, reset as an indivisible batch barrier, focus-loss pause, pure render
+projection, and a deduplication mutation that diverges at frame two.
+`python tools/fp_game.py test` passed with the existing kernels and Lantern.
+This verifies the selected pure core and small trace suite; graphical host and
+device performance remain outside this reference. Three-OS CI is pending.
