@@ -158,3 +158,18 @@ A failed engine/shim import could leave the preparation message indefinitely.
 The host now awaits dynamic imports inside the startup error boundary. This
 structurally includes dependency loading in error handling; actual browser
 network-failure injection has not been run.
+
+## Build outputs must not become generated-game inputs
+
+Review of the Haskell Design integration exposed a distribution boundary error:
+terminal scaffolding recursively copied all editor files. After building the reader,
+ignored binaries, dependencies and local configuration could enter a new game; the
+text newline conversion could also modify binary bytes. Clean-checkout CI missed
+this usage-order problem.
+
+The generator now selects four reviewed wrapper source files explicitly, refuses
+linked wrapper sources, and leaves the optional reader distribution to its own setup
+route. A regression fixture adds binary outputs with NUL/CRLF, dependency/vendor/build
+folders and local settings, then asserts the entire generated file map is unchanged.
+Future distribution additions need an explicit source or binary selection contract;
+Git ignore status and a clean checkout are not sufficient export boundaries.

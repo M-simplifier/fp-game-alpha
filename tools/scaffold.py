@@ -85,11 +85,17 @@ def prepare(slug, destination, title, target, rendering, license_choice, author)
         name = path.relative_to(ROOT).as_posix()
         files[name] = path.read_bytes().replace(b'\r\n', b'\n')
         foundation_files[name] = sha256(files[name])
-    for path in sorted((ROOT / 'editors').rglob('*')):
-        if path.is_file() and 'test' not in path.parts and path.name not in {'test.lua'}:
-            name = path.relative_to(ROOT).as_posix()
-            files[name] = path.read_bytes().replace(b'\r\n', b'\n')
-            foundation_files[name] = sha256(files[name])
+    # Distribute only the terminal starter's reviewed source adapters. A reader
+    # installation may contain binaries, caches and private local configuration;
+    # recursive directory copying is not a distribution contract.
+    for name in ['editors/vscode/package.json', 'editors/vscode/extension.js',
+                 'editors/vscode/LICENSE', 'editors/neovim/fp-game.lua']:
+        path = ROOT / name
+        if any(part.is_symlink() for part in [path, *path.parents]
+               if part.is_relative_to(ROOT)):
+            raise ValueError('Scaffold refuses linked editor source: ' + name)
+        files[name] = path.read_text(encoding='utf-8').replace('\r\n', '\n').encode('utf-8')
+        foundation_files[name] = sha256(files[name])
     for name in ['fp_game.py', 'scaffold.py', 'toolchains.json']:
         files['tools/' + name] = (ROOT / 'tools' / name).read_bytes().replace(b'\r\n', b'\n')
         foundation_files['tools/' + name] = sha256(files['tools/' + name])

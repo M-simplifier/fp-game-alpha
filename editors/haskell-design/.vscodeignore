@@ -1,0 +1,17 @@
+**
+!package.json
+!README.md
+!LICENSE
+!CHANGELOG.md
+!THIRD_PARTY_NOTICES.md
+!dist/extension.cjs
+!dist/read.cjs
+!dist/haskell-design
+!dist/haskell-design.exe
+!dist/native-platform.json
+!dist/native-notices.txt
+!media/**
+!compiler/**
+!examples/**
+!docs/**
+!PORTING.md

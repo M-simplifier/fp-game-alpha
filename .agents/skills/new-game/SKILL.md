@@ -7,6 +7,8 @@ Read [the intent-first workflow](../../../docs/new-game.md), then the relevant
 [core API](../../../docs/architecture.md) and [platform evidence](../../../docs/platforms.md).
 Use `$haskell-excellence`, `$fp-gamedev` and `$game-platform` for the relevant
 implementation decisions, without loading unrelated guides.
+Use `$haskell-editor-setup` when structured code reading or an editor setup is
+needed; [Haskell Design](../../../docs/haskell-design.md) supports independent games.
 Reuse known decisions and ask only for missing game-changing requirements.
 
 Design this game's domain types, rules, observations and host from its brief.

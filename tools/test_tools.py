@@ -2,6 +2,10 @@
 import json
 from pathlib import Path
 import tempfile
+import shutil
+from unittest.mock import patch
+
+import scaffold
 import unittest
 
 import fp_game
@@ -29,6 +33,46 @@ class ExportScan(unittest.TestCase):
     def test_public_clone_suffix_is_normalized(self):
         value = 'https://github.com/M-simplifier/fp-game-alpha.git'
         self.assertEqual(publication.scan_text(value, self.policy), [])
+
+
+class ScaffoldDistribution(unittest.TestCase):
+    def test_reader_outputs_and_local_settings_never_enter_game(self):
+        with tempfile.TemporaryDirectory(prefix='scaffold-isolation-') as temporary:
+            root = Path(temporary) / 'foundation'
+            root.mkdir()
+            for folder in ['templates', 'libraries', 'docs', 'tools']:
+                shutil.copytree(scaffold.ROOT / folder, root / folder,
+                                ignore=shutil.ignore_patterns('__pycache__', '.build', 'dist-newstyle'))
+            shutil.copy2(scaffold.ROOT / 'LICENSE', root / 'LICENSE')
+            for name in ['editors/vscode/package.json', 'editors/vscode/extension.js',
+                         'editors/vscode/LICENSE', 'editors/neovim/fp-game.lua']:
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(scaffold.ROOT / name, target)
+            with patch.object(scaffold, 'ROOT', root):
+                args = ('example-game', Path(temporary) / 'game', 'Example',
+                        'native', 'terminal', 'unlicensed', None)
+                _, before = scaffold.prepare(*args)
+                for folder in ['dist', 'node_modules', 'native/vendor',
+                               'native/dist-newstyle', '.runtime']:
+                    target = root / 'editors/haskell-design' / folder / 'harmless.bin'
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(b'harmless\x00\r\n')
+                (root / 'editors/haskell-design/.haskell-design.json').write_text('{}')
+                (root / 'editors/vscode/local-only.json').write_text('{}')
+                _, after = scaffold.prepare(*args)
+                self.assertEqual(before, after)
+                # Exercise leaf and parent-link rejection on Windows too, where
+                # creating a real symlink may require extra OS privileges.
+                for linked in [root / 'editors', root / 'editors/vscode',
+                               root / 'editors/vscode/extension.js']:
+                    with patch.object(Path, 'is_symlink', autospec=True,
+                                      side_effect=lambda path, link=linked: path == link):
+                        with self.assertRaisesRegex(ValueError, 'linked editor source'):
+                            scaffold.prepare(*args)
+                self.assertEqual({name for name in after if name.startswith('editors/')},
+                    {'editors/vscode/package.json', 'editors/vscode/extension.js',
+                     'editors/vscode/LICENSE', 'editors/neovim/fp-game.lua'})
 
 
 class CompilerContract(unittest.TestCase):
