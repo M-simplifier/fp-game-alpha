@@ -56,8 +56,12 @@ for measured platform results and proof scope.
 - **Class prevention, implemented:** `tools/test_lantern_api.py` compiles a
   positive outside client, then requires GHC to reject a record-update client
   *for the record-selector reason*. Lantern law tests exercise malformed
-  positions and invalid admission. The generated starter also has an external
-  record-update rejection in `tools/test_workspace.py`.
+  positions and invalid admission. The generated starter has an external
+  record-update rejection in `tools/test_workspace.py`. River and Station now
+  have matching positive/negative outside-client fixtures in
+  `tools/test_river_api.py` and `tools/test_station_api.py`; Station also
+  rejects forged `TurnId` construction. Each fixture requires the relevant
+  compiler diagnostic instead of accepting any compilation failure.
 - **Limit:** A compile-negative test covers this public module and field, not
   every internal constructor, parser, lens, role/coercion or future export.
   Internal code and any new construction route still need review.
