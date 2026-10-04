@@ -590,6 +590,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "docs/research-ci-cache.md",
+      "sha256_lf": "ede7be735d21e26b341fea66387bab7fd3cfc08d8b59ea09ca4abfa842e33868",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "docs/research-iteration-latency.md",
       "sha256_lf": "d34c13d105574c09b7e4c4f09a175b830e745afdc848eba5bf2545e5bfdd554e",
       "origin": {
@@ -602,7 +613,7 @@
     },
     {
       "path": "docs/research-references.md",
-      "sha256_lf": "05c9b8808d70995fcaf0a985911d97c14c333ee0ddc36848eef50e42db5a1c4e",
+      "sha256_lf": "dcaee93f4432201591005ad906d5a552f735dcb0fe221e109a55d4a201f30190",
       "origin": {
         "kind": "author-supplied-curated-historical-research",
         "origin": "REFERENCES.md",
@@ -2410,7 +2421,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "7d391505fb106c7d2647178758cd5ba63675e1abf0f0c55fbbce8bc9c4e4f3cd",
+      "sha256_lf": "367420fc8fa70458b95ee6caa521933ead8e0e7ebce3b61b16a8309334d02dfe",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
