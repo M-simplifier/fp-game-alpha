@@ -1,5 +1,9 @@
 # Use saved-source tools from an editor
 
+For the richer Haskell Design declaration reader and editor view, see
+[Haskell Design setup](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md). The wrappers below are a separate,
+smaller compiler-command integration.
+
 The CLI is the stable editor-independent boundary. These optional small wrappers
 show real compiler results for the selected **saved** Haskell file. Save changes
 before querying. They do not index unsaved buffers or replace HLS.

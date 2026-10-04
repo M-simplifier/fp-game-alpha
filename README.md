@@ -93,3 +93,9 @@ whose Haskell core and SVG presentation were written from scratch. Only the
 small shared core is reused. Native and real-Wasm/Node checks pass; actual
 browser UI acceptance remains unverified. This example is not a required
 template for new games.
+
+### Read types and design
+
+[Haskell Design](docs/haskell-design.md) restores the original native map/outline/show
+reader, optional trusted inference, and VSCode/Neovim adapter sources. Start with
+the haskell-editor-setup skill; current-platform checks and remaining UI limits are explicit.

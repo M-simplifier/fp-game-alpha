@@ -52,3 +52,24 @@ jobs:
       - run: python references/afterlight/scripts/test-check-core.py
       - run: python references/afterlight/scripts/audit-source.py
       - run: python references/afterlight/scripts/check-core.py --download
+
+  haskell-design-linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: editors/haskell-design
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+        with:
+          ghc-version: '9.6.7'
+          cabal-version: '3.12.1.0'
+      - name: Restore locked editor dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check TypeScript
+        run: npm run check
+      - name: Build native reader and adapters
+        run: npm run build
+      - name: Test syntax, trusted inference, and cache lifecycle
+        run: node --test --test-concurrency=1 dist/tests/core.test.cjs dist/tests/audit.test.cjs dist/tests/reader.test.cjs dist/tests/native.test.cjs

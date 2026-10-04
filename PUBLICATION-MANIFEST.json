@@ -26,6 +26,43 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": ".agents/skills/haskell-editor-setup/LICENSE",
+      "sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297",
+      "origin": {
+        "kind": "public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/.agents/skills/haskell-editor-setup/LICENSE",
+        "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297"
+      },
+      "license": ".agents/skills/haskell-editor-setup/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": ".agents/skills/haskell-editor-setup/SKILL.md",
+      "sha256_lf": "97799b5e39abcc103061c3f790895d4f7d451c0afd362d926d8027fb4a8e8042",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": ".agents/skills/haskell-editor-setup/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": ".agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs",
+      "sha256_lf": "066630359c422b43312a8c7dd71127b84633a5a318a31f486930d5b20b36e1bf",
+      "origin": {
+        "kind": "public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/.agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs",
+        "source_sha256_lf": "066630359c422b43312a8c7dd71127b84633a5a318a31f486930d5b20b36e1bf"
+      },
+      "license": ".agents/skills/haskell-editor-setup/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": ".agents/skills/haskell-excellence/SKILL.md",
       "sha256_lf": "11fa47affabeb20d20b86ceba793166ca9cf45f084efb6dbccb7d6b27471feb2",
       "origin": {
@@ -71,7 +108,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "8582543286ebc3da07ec1fecc2911b1a3f086c277ffbdc888e8f9e56e9bd32bd",
+      "sha256_lf": "7ec23a2ca0f6b07b1102ac30621b447d8a8ba6caa9c7aabf04e04b4256882a48",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -127,7 +164,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "1629ceadc17c2b759687aff399af8348a596dd943bc4319f3f22043e7f96b840",
+      "sha256_lf": "172782a275d62215b9f68810e787dfee575fab141096488e62935ba2646b877c",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -171,7 +208,7 @@
     },
     {
       "path": "docs/editors.md",
-      "sha256_lf": "42c10045b62a1c08049f993e94a74eab411e869ba2c072f261a7ad0f4d24237b",
+      "sha256_lf": "d5c95aaef9c40f977b0d4e3da58a3f153370f56d065d11d362e76ee9e81185d9",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -257,6 +294,17 @@
         "origin": "GUARANTEES.md",
         "source_sha256": "4f2b79c2e7731b7fd983950636f631b7929ce322321303fe19482ed8f4df4195",
         "archive_sha256": "00f43a81132b1ba0bae2a7116e780ccc9a158207903ca6e9eccedde6e91d6585"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "docs/haskell-design.md",
+      "sha256_lf": "b61b08fabcabd5684b9ccf1bf7bb129d64a1ce5cc91648b2c22bc95439383f1e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
       },
       "license": "LICENSE",
       "maturity": "experimental",
@@ -367,7 +415,7 @@
     },
     {
       "path": "docs/practice/games/code-reading.md",
-      "sha256_lf": "da2dae354462b7af2c1d35b7b0716e4c98b5aaa5bb66324c8c706692234a412b",
+      "sha256_lf": "a55e10f6896c6987b2cfd5aa79dcf18fb176e2b03cb541ad767dd93780645ff8",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -378,7 +426,7 @@
     },
     {
       "path": "docs/practice/games/editors.md",
-      "sha256_lf": "8096729536b3c7557ef22f381eb075b367d71c55f418ef40e5aaa7588470ce5f",
+      "sha256_lf": "52c92d987883d2f35ad6663c28fb28645295ac85c0aba6e42d951b89eac5f800",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -581,6 +629,1526 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "editors/fixtures/portable-game/.gitignore",
+      "sha256_lf": "62e6da988451376eb148ff8d5a3384feff49ac77d39e4f6dce5e0ce7e6d56112",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/.gitignore",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "62e6da988451376eb148ff8d5a3384feff49ac77d39e4f6dce5e0ce7e6d56112"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/fixtures/portable-game/cabal.project",
+      "sha256_lf": "124cd2f0cb590811d7668bef1e444eb106d6212ac24c1c2a2fe4ea35112ddf43",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/cabal.project",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "124cd2f0cb590811d7668bef1e444eb106d6212ac24c1c2a2fe4ea35112ddf43"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/fixtures/portable-game/checks/RulesSpec.hs",
+      "sha256_lf": "e6f65c13b59c84290fe3962f08035ea727aa2a523fcd81abaa0df3174e812869",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/checks/RulesSpec.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e6f65c13b59c84290fe3962f08035ea727aa2a523fcd81abaa0df3174e812869"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/fixtures/portable-game/desktop/Main.hs",
+      "sha256_lf": "746021207a48cf4cca9f1a7a8030c8fe8f47d516170921f5ec40fe9372220682",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/desktop/Main.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "746021207a48cf4cca9f1a7a8030c8fe8f47d516170921f5ec40fe9372220682"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/fixtures/portable-game/editor-project.json",
+      "sha256_lf": "3140bb205064aaf5b96ea5efcdbf7a8e7b04f377b9d7f5a1e9b67165e6feeb4b",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/editor-project.json",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "3140bb205064aaf5b96ea5efcdbf7a8e7b04f377b9d7f5a1e9b67165e6feeb4b"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/fixtures/portable-game/engine/Lantern/Rules.hs",
+      "sha256_lf": "871543874d90d5654ca363e734c3b3df542209cbcf45a5f845494210b5533a95",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/engine/Lantern/Rules.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "871543874d90d5654ca363e734c3b3df542209cbcf45a5f845494210b5533a95"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/fixtures/portable-game/engine/Lantern/Types.hs",
+      "sha256_lf": "d9de1bbbcce61911a400dc3b202fcdd0596d7fca871437a86da587bef29d29b0",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/engine/Lantern/Types.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "d9de1bbbcce61911a400dc3b202fcdd0596d7fca871437a86da587bef29d29b0"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/fixtures/portable-game/lantern-courier.cabal",
+      "sha256_lf": "e45ab57d84afb4dc6b5ae05ff8a59b227704cb4aba4bc361e7370e792c9a0166",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/fixtures/portable-game/lantern-courier.cabal",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e45ab57d84afb4dc6b5ae05ff8a59b227704cb4aba4bc361e7370e792c9a0166"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/.gitignore",
+      "sha256_lf": "db92d205196f01042aa06cf0875cf980cde0347227df05ecdef5795c64e4da16",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/.gitignore",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "35bd38673bbf70eb0c421e6438d1c072b060ed9eea5d397023144fa9641d9382"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/.vscodeignore",
+      "sha256_lf": "df8866f2c9dbeaeb636ff6eb9dfde8c9dcb0b179c560940e7a29977dd4a88487",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/.vscodeignore",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "2951501f397afbcd97c36e3db18b2171ac2eb7cd5145010b2d3fe99ff9026070"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/CHANGELOG.md",
+      "sha256_lf": "ae52c4117856916ebd0fd540ef59acbff0410c351d17cafc833ac398ac66f45d",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/CHANGELOG.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ae52c4117856916ebd0fd540ef59acbff0410c351d17cafc833ac398ac66f45d"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/LICENSE",
+      "sha256_lf": "9ca33d6a447092c6738dac92c943fcfc49c09729e599f8632f810584536ffc82",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "9ca33d6a447092c6738dac92c943fcfc49c09729e599f8632f810584536ffc82"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/PORTING.md",
+      "sha256_lf": "50dedc35dee47f218b325163e0d29a16372a94668d2497643b00a6630e7a0b54",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/README.md",
+      "sha256_lf": "5bd68a7b1a788e0b6fc629ce7ac316fef0d09ebd40417b24df837f3eeb128c92",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/README.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ffdf14a6f415691309c28b84fefa61c162a5e99b00069d47ad1f5f74cd620505"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/THIRD_PARTY_NOTICES.md",
+      "sha256_lf": "1cb977e9a31675df4a9bea66e22e58527f8d5d58cd314d93c379fac10d304440",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/THIRD_PARTY_NOTICES.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "1cb977e9a31675df4a9bea66e22e58527f8d5d58cd314d93c379fac10d304440"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/compiler/Main.hs",
+      "sha256_lf": "ce34733024a46e446a23862ae34345b076cdb1ef3fe7cdc665fe14123dda0af7",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/compiler/Main.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ce34733024a46e446a23862ae34345b076cdb1ef3fe7cdc665fe14123dda0af7"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/docs/automatic-design.md",
+      "sha256_lf": "ddffe5a05e7acfce836e657193c70d653be82c7cd9e5ef3edf8a224727a98ef0",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/automatic-design.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ddffe5a05e7acfce836e657193c70d653be82c7cd9e5ef3edf8a224727a98ef0"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/docs/benchmarks/windows-0.6.0.json",
+      "sha256_lf": "f805202da86475dc10088ee82a6093a9bd01f9396e921b3515b221aa7b79f90a",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/benchmarks/windows-0.6.0.json",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "f805202da86475dc10088ee82a6093a9bd01f9396e921b3515b221aa7b79f90a"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/docs/implementation.md",
+      "sha256_lf": "effb2711a0586bb13616b0df6e65f62bf5809774eb33078c88b418bb6cfbdfcb",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/implementation.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "effb2711a0586bb13616b0df6e65f62bf5809774eb33078c88b418bb6cfbdfcb"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/docs/native.md",
+      "sha256_lf": "291265810cea6af25cea71edfee907e3454fed77bfb368db2b45847386387884",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/native.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "1df4ff29f5e06824b1f846168742b38c50124e68e2d3036949a235d6c6b7b3f0"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/docs/reader.md",
+      "sha256_lf": "d63b3ff679fc8ceea2d9ebb23721d14ef88f7940ca44c3d7e360aab30a7ec15e",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/reader.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "d63b3ff679fc8ceea2d9ebb23721d14ef88f7940ca44c3d7e360aab30a7ec15e"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/docs/verification.md",
+      "sha256_lf": "b4c474ef4a24d51878254382e04f75adc8b7fc065fa3f3ab0d3ce3f41f044069",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/verification.md",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7c0705aa6959aa34d8ae015f0b61b0a73b6692131d14807158d00ca03a41f7bc"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/examples/Application/Checkout.hs",
+      "sha256_lf": "8d9894f7d0f316a8636cd8d52a421e2260d1caf9ced3fb167456d7159e170181",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/examples/Application/Checkout.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "8d9894f7d0f316a8636cd8d52a421e2260d1caf9ced3fb167456d7159e170181"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/examples/Domain/Order.hs",
+      "sha256_lf": "fc882755ae2041297cd44c83478c6cd5c0dd6292e488e70f903a9d63d2f16627",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/examples/Domain/Order.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "fc882755ae2041297cd44c83478c6cd5c0dd6292e488e70f903a9d63d2f16627"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/examples/OrderSpec.hs",
+      "sha256_lf": "ca666dcc9887befc7f9510155d725a1de10ab96a7d9ef37feefe7a5e9e3a6216",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/examples/OrderSpec.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ca666dcc9887befc7f9510155d725a1de10ab96a7d9ef37feefe7a5e9e3a6216"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/lua/haskell-design/init.lua",
+      "sha256_lf": "a590fa91fe640cfbc7a2831b7345102a17ab17bb7138e5e82aea01596417da85",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/lua/haskell-design/init.lua",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "a590fa91fe640cfbc7a2831b7345102a17ab17bb7138e5e82aea01596417da85"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/media/design.css",
+      "sha256_lf": "7b8977f75c6927bd993087926672cd80f989e8db86abac47f0fc9a419bf1b93c",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/media/design.css",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7b8977f75c6927bd993087926672cd80f989e8db86abac47f0fc9a419bf1b93c"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/media/design.js",
+      "sha256_lf": "3b8cb92027c7450271fd6ff415af0d53d4ac03b50f4f5752bebc58690e7a346a",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/media/design.js",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "3b8cb92027c7450271fd6ff415af0d53d4ac03b50f4f5752bebc58690e7a346a"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/.gitignore",
+      "sha256_lf": "fd8e5e8de623a2126d905d81ef2d947f076a51ec07a322a65366490801ff8778",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/.gitignore",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "fd8e5e8de623a2126d905d81ef2d947f076a51ec07a322a65366490801ff8778"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/app/Main.hs",
+      "sha256_lf": "08b7e53f9245c5cb1ccf51c27bad2246d34596115e406e7108920e6980b900fe",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/app/Main.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "08b7e53f9245c5cb1ccf51c27bad2246d34596115e406e7108920e6980b900fe"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/cabal.project",
+      "sha256_lf": "e50fd571241b35f7dd1b3aa15ab2c1bf357ad368c3287999cbab033065e381b9",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/cabal.project",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e50fd571241b35f7dd1b3aa15ab2c1bf357ad368c3287999cbab033065e381b9"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/cabal.project.freeze",
+      "sha256_lf": "1778e6653ff004bd812e03ee4337ab4d26317006fae22bbcbd30b66901f2d435",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/cabal.project.freeze",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "1778e6653ff004bd812e03ee4337ab4d26317006fae22bbcbd30b66901f2d435"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/cbits/tree.c",
+      "sha256_lf": "df6d735ab6610bb6f8b98a1d3c3de33a729903fd4c93057b2bfd74a71370319d",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/cbits/tree.c",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "df6d735ab6610bb6f8b98a1d3c3de33a729903fd4c93057b2bfd74a71370319d"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/haskell-design.cabal",
+      "sha256_lf": "5c1abfc862e2723dc8589e78df888e76498846c92f0ae49496032b9bfdb18b87",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/haskell-design.cabal",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ba08783229d33c16041c5d8fa8b2b16ef53d10ea2fb101158b2d2d634ceda123"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/Cabal-syntax-3.10.3.0/LICENSE",
+      "sha256_lf": "897843a592f960bcc467db572835f242ba58e19711aea3f9fbd43d5dc8f11ea8",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/Cabal-syntax-3.10.3.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "897843a592f960bcc467db572835f242ba58e19711aea3f9fbd43d5dc8f11ea8"
+      },
+      "license": "editors/haskell-design/native/licenses/Cabal-syntax-3.10.3.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/Win32-2.13.3.0/LICENSE",
+      "sha256_lf": "be5f35ab473d27de3e13e04acd79119b97a661d10e3a3c0a826cee472462fb47",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/Win32-2.13.3.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "be5f35ab473d27de3e13e04acd79119b97a661d10e3a3c0a826cee472462fb47"
+      },
+      "license": "editors/haskell-design/native/licenses/Win32-2.13.3.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/array-0.5.8.0/LICENSE",
+      "sha256_lf": "87ededd935c29e5b06e2a42de021a11c753cbbb4be331992a2ffbef1281b03ef",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/array-0.5.8.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "87ededd935c29e5b06e2a42de021a11c753cbbb4be331992a2ffbef1281b03ef"
+      },
+      "license": "editors/haskell-design/native/licenses/array-0.5.8.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
+      "sha256_lf": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d"
+      },
+      "license": "editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/binary-0.8.9.1/LICENSE",
+      "sha256_lf": "b0400f7ccef7de35184d413828dabcd15e6970b11972d11c6100f869f6de1831",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/binary-0.8.9.1/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "b0400f7ccef7de35184d413828dabcd15e6970b11972d11c6100f869f6de1831"
+      },
+      "license": "editors/haskell-design/native/licenses/binary-0.8.9.1/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/bytestring-0.11.5.4/LICENSE",
+      "sha256_lf": "236de8169415cc6e1fd5fbb96035dd36dacc6444e8a600575566753cda4cbf7d",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/bytestring-0.11.5.4/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "236de8169415cc6e1fd5fbb96035dd36dacc6444e8a600575566753cda4cbf7d"
+      },
+      "license": "editors/haskell-design/native/licenses/bytestring-0.11.5.4/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/containers-0.6.7/LICENSE",
+      "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/containers-0.6.7/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
+      },
+      "license": "editors/haskell-design/native/licenses/containers-0.6.7/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/deepseq-1.4.8.1/LICENSE",
+      "sha256_lf": "bb015371a164f83d605ffefa79007f0cf42b8984d4e80cc6f11bdc14d60c8ea3",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/deepseq-1.4.8.1/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "bb015371a164f83d605ffefa79007f0cf42b8984d4e80cc6f11bdc14d60c8ea3"
+      },
+      "license": "editors/haskell-design/native/licenses/deepseq-1.4.8.1/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/directory-1.3.8.5/LICENSE",
+      "sha256_lf": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/directory-1.3.8.5/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557"
+      },
+      "license": "editors/haskell-design/native/licenses/directory-1.3.8.5/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/exceptions-0.10.7/AUTHORS.markdown",
+      "sha256_lf": "75bf4cabcb2f62f8b523dcc9fbf54209c02e979d9c8972e1902115b7e2232930",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/exceptions-0.10.7/AUTHORS.markdown",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "75bf4cabcb2f62f8b523dcc9fbf54209c02e979d9c8972e1902115b7e2232930"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/exceptions-0.10.7/LICENSE",
+      "sha256_lf": "09baf819c095749d4f8563600b5ffca346ed1124a2d964dc2085515627029091",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/exceptions-0.10.7/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "09baf819c095749d4f8563600b5ffca346ed1124a2d964dc2085515627029091"
+      },
+      "license": "editors/haskell-design/native/licenses/exceptions-0.10.7/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/filepath-1.4.301.0/LICENSE",
+      "sha256_lf": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/filepath-1.4.301.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd"
+      },
+      "license": "editors/haskell-design/native/licenses/filepath-1.4.301.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/ghc-bignum-1.3/LICENSE",
+      "sha256_lf": "e06de4065c35a04115f989bd4922ae9446a68c6cbd7f21a8c9703ad259e374ac",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/ghc-bignum-1.3/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e06de4065c35a04115f989bd4922ae9446a68c6cbd7f21a8c9703ad259e374ac"
+      },
+      "license": "editors/haskell-design/native/licenses/ghc-bignum-1.3/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/ghc-boot-th-9.6.7/LICENSE",
+      "sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/ghc-boot-th-9.6.7/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
+      },
+      "license": "editors/haskell-design/native/licenses/ghc-boot-th-9.6.7/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/ghc-prim-0.10.0/LICENSE",
+      "sha256_lf": "e17dc2656f2bdc4b5715a6a35fa4cdfa403b0e95a8d63e97366818e067fe6f6e",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/ghc-prim-0.10.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e17dc2656f2bdc4b5715a6a35fa4cdfa403b0e95a8d63e97366818e067fe6f6e"
+      },
+      "license": "editors/haskell-design/native/licenses/ghc-prim-0.10.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/mtl-2.3.1/LICENSE",
+      "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/mtl-2.3.1/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
+      },
+      "license": "editors/haskell-design/native/licenses/mtl-2.3.1/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/parsec-3.1.16.1/LICENSE",
+      "sha256_lf": "eae9baac9236cb84023f659665e9af6993de24d715350d2300a3c73d784a4252",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/parsec-3.1.16.1/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "eae9baac9236cb84023f659665e9af6993de24d715350d2300a3c73d784a4252"
+      },
+      "license": "editors/haskell-design/native/licenses/parsec-3.1.16.1/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/pretty-1.1.3.6/LICENSE",
+      "sha256_lf": "43ea4e43d7fa62834449ab5ba5a8dd07cd86ceea5cfafe385f3e236c88b493b4",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/pretty-1.1.3.6/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "43ea4e43d7fa62834449ab5ba5a8dd07cd86ceea5cfafe385f3e236c88b493b4"
+      },
+      "license": "editors/haskell-design/native/licenses/pretty-1.1.3.6/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/process-1.6.19.0/LICENSE",
+      "sha256_lf": "9297dea19dc57cb380328b8b9311352c9a73f9d2d81863dff454de55b85c0f20",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/process-1.6.19.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "9297dea19dc57cb380328b8b9311352c9a73f9d2d81863dff454de55b85c0f20"
+      },
+      "license": "editors/haskell-design/native/licenses/process-1.6.19.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/rts-1.0.2/LICENSE",
+      "sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/rts-1.0.2/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
+      },
+      "license": "editors/haskell-design/native/licenses/rts-1.0.2/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/sources.json",
+      "sha256_lf": "db04738e9d74cdb6333954400e65ca9ac69c72408ce6a98c487e7884eaa7facf",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/sources.json",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "20a28dd5503dc3ff71043af76b57cef0afa42d7e6602e060a2c5461fca000e5c"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/stm-2.5.1.0/LICENSE",
+      "sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/stm-2.5.1.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23"
+      },
+      "license": "editors/haskell-design/native/licenses/stm-2.5.1.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/template-haskell-2.20.0.0/LICENSE",
+      "sha256_lf": "29a12cdf7350473abfa64d71beb390216c6ad7827843726c9c3a7afab912be72",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/template-haskell-2.20.0.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "29a12cdf7350473abfa64d71beb390216c6ad7827843726c9c3a7afab912be72"
+      },
+      "license": "editors/haskell-design/native/licenses/template-haskell-2.20.0.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/text-2.0.2/LICENSE",
+      "sha256_lf": "cf522e3d53b8d1768695fe5b66438baf4514fcd64b7a95739960f2f5b50c6ee8",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/text-2.0.2/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "cf522e3d53b8d1768695fe5b66438baf4514fcd64b7a95739960f2f5b50c6ee8"
+      },
+      "license": "editors/haskell-design/native/licenses/text-2.0.2/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/text-2.0.2/simdutf__LICENSE-APACHE",
+      "sha256_lf": "0f009071e566feef91923797658317a78790393797d21eb85dfdb6126358c772",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/text-2.0.2/simdutf__LICENSE-APACHE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "0f009071e566feef91923797658317a78790393797d21eb85dfdb6126358c772"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/text-2.0.2/simdutf__LICENSE-MIT",
+      "sha256_lf": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/text-2.0.2/simdutf__LICENSE-MIT",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/time-1.12.2/LICENSE",
+      "sha256_lf": "7308114bd92aee5b33c1ff98e804a6f72ad2b90917bf06ed0b88ec278d07076b",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/time-1.12.2/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7308114bd92aee5b33c1ff98e804a6f72ad2b90917bf06ed0b88ec278d07076b"
+      },
+      "license": "editors/haskell-design/native/licenses/time-1.12.2/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/transformers-0.6.1.0/LICENSE",
+      "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/transformers-0.6.1.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
+      },
+      "license": "editors/haskell-design/native/licenses/transformers-0.6.1.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/unix-2.8.4.0/LICENSE",
+      "sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/licenses/unix-2.8.4.0/LICENSE",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23"
+      },
+      "license": "editors/haskell-design/native/licenses/unix-2.8.4.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/licenses/unix-2.8.6.0/LICENSE",
+      "sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "editors/haskell-design/native/licenses/unix-2.8.6.0/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/src/HaskellDesign/Model.hs",
+      "sha256_lf": "182d7c1c93a6ccf38597f504b03b6029f6925ebef803a06a2adc9c4f0e2e82cb",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Model.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "182d7c1c93a6ccf38597f504b03b6029f6925ebef803a06a2adc9c4f0e2e82cb"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/src/HaskellDesign/Project.hs",
+      "sha256_lf": "60729cea1c94fa3a97b7c600af3fc19ac7438b2611b8f64917e6ccd15aabcbcc",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Project.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "60729cea1c94fa3a97b7c600af3fc19ac7438b2611b8f64917e6ccd15aabcbcc"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/src/HaskellDesign/Reader.hs",
+      "sha256_lf": "d2c998d9092e7da791770a072e738dcbd4a89779dafe1cca785e5ed2a73dde14",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Reader.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "d2c998d9092e7da791770a072e738dcbd4a89779dafe1cca785e5ed2a73dde14"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/src/HaskellDesign/Scope.hs",
+      "sha256_lf": "4e046345bf9f2b776a2f5e4599a2a108121d17550ac61cbbcf2aaf32654d2cc0",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Scope.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "4e046345bf9f2b776a2f5e4599a2a108121d17550ac61cbbcf2aaf32654d2cc0"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/src/HaskellDesign/Tree.hs",
+      "sha256_lf": "9e781fbaeb41fb0ba4036b62ad32dca357d81885e3f7e40b7737eba404d77362",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Tree.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "9e781fbaeb41fb0ba4036b62ad32dca357d81885e3f7e40b7737eba404d77362"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/native/src/HaskellDesign/Verify.hs",
+      "sha256_lf": "7b31681fe63f3aee98ba500f967333f04433a92dfcd2bdc2ae5559110ddb1c5b",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/native/src/HaskellDesign/Verify.hs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e5b05547d692fbad55c27a3d0d9040eda37b11652fd1df64716f1ab982d311d1"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/package-lock.json",
+      "sha256_lf": "e307cef6ba3c897f81f4fd2e2204aed73a89866d164e4ecfb92b59634e4bf9b8",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/package-lock.json",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e307cef6ba3c897f81f4fd2e2204aed73a89866d164e4ecfb92b59634e4bf9b8"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/package.json",
+      "sha256_lf": "ae2f963b5fec0673f24eae27a6f314571ece44e0477459345a2bb0b9e0f4cff4",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/package.json",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ae2f963b5fec0673f24eae27a6f314571ece44e0477459345a2bb0b9e0f4cff4"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/plugin/haskell-design.lua",
+      "sha256_lf": "fd0b90b8a7f142cc3bbb37b27a2494d78516fe2a03b28665af2a7e18c8e72be4",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/plugin/haskell-design.lua",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "fd0b90b8a7f142cc3bbb37b27a2494d78516fe2a03b28665af2a7e18c8e72be4"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/benchmark-reader.mjs",
+      "sha256_lf": "7a84a7e0375eab097c245ce4d67704a8977c1b9b90b1c934ce1876ed0e82516b",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/benchmark-reader.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7a84a7e0375eab097c245ce4d67704a8977c1b9b90b1c934ce1876ed0e82516b"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/build-native.mjs",
+      "sha256_lf": "dddfa1fc1a479d6a27314358c3daee1f04564cc29cd5c26df25980b8ea7caf61",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/build-native.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "dddfa1fc1a479d6a27314358c3daee1f04564cc29cd5c26df25980b8ea7caf61"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/build.mjs",
+      "sha256_lf": "ba710f154746c57b65ef1830e5e33a8bf5e412ab508ccc54d1270a3f1eb24c26",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/build.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ba710f154746c57b65ef1830e5e33a8bf5e412ab508ccc54d1270a3f1eb24c26"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/native-notices.mjs",
+      "sha256_lf": "3e96b6e8edbd9dc3351829f143b5ddff0f7efe6125ca7e9a0d1f7fb545831c1a",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/native-notices.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "3e96b6e8edbd9dc3351829f143b5ddff0f7efe6125ca7e9a0d1f7fb545831c1a"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/package-neovim.mjs",
+      "sha256_lf": "460c454114632847f83003f7e8deeacfe5d755bd3ca0adbdd74c7662d7039b5a",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/package-neovim.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ce1444e6bfa8c9d6bc41604b933c63a36149f8408f373903f2c0d4a607668de4"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/package-vscode.mjs",
+      "sha256_lf": "c4d119edd4190c89f9ac8546aad6d412c6197d55e7fd19fe0cb99520e93599dd",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/package-vscode.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "c4d119edd4190c89f9ac8546aad6d412c6197d55e7fd19fe0cb99520e93599dd"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/preview.mjs",
+      "sha256_lf": "cf4bbbef3348ebd8b6adb09b7f8d22c69b1d91e5ccab01217205200e3b20a1f9",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/preview.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "cf4bbbef3348ebd8b6adb09b7f8d22c69b1d91e5ccab01217205200e3b20a1f9"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/test-neovim.mjs",
+      "sha256_lf": "3cb1b5c3fee435a38fe31da8e60f837eadee798bef0404ae269b04cba5e7657b",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/test-neovim.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "3cb1b5c3fee435a38fe31da8e60f837eadee798bef0404ae269b04cba5e7657b"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/test-packages.mjs",
+      "sha256_lf": "e4ab7e017995c58042932eef4b4c016353eab2a21c3d8161d5554ff47f3710b9",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/test-packages.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "d10e0d3db2fc077f6208aad18d7d82b6d28c86ab4c947670632a91c72af6f4dd"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/scripts/test-vscode.mjs",
+      "sha256_lf": "43a515540364ff9d38913e17c121f7d29ab658ea1805c93cd94f692a63ad3780",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/test-vscode.mjs",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "43a515540364ff9d38913e17c121f7d29ab658ea1805c93cd94f692a63ad3780"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/audit.ts",
+      "sha256_lf": "8b3a26146f83bfa436ed264aeb72ab08cdbe5aa73b955d233df887b62a42c6c9",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/audit.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "8b3a26146f83bfa436ed264aeb72ab08cdbe5aa73b955d233df887b62a42c6c9"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/auditScope.ts",
+      "sha256_lf": "d1fed8af5f27c4e13a9ee4a3c062eb5f50dac340543a0ed281a1b418d802724d",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/auditScope.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "d1fed8af5f27c4e13a9ee4a3c062eb5f50dac340543a0ed281a1b418d802724d"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/cli.ts",
+      "sha256_lf": "4349dce4b57b304a2fa8e69f06ebe580101784df1f1a30c234845f0667c41077",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/cli.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "4349dce4b57b304a2fa8e69f06ebe580101784df1f1a30c234845f0667c41077"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/compiler.ts",
+      "sha256_lf": "f8ea5e7b31a572a4193ef5c282fb7fe5bd4de0ae501ea47f5c5758a2498c334c",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/compiler.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e20d7e2ecc152b38993dfbb292103ffff6c111858ae9b363d6d1c72dc4a24f26"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/extension.ts",
+      "sha256_lf": "b54de97254320f312ade367d035bbc1aa1ec661c5beb52a09719b81bfaccb068",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/extension.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "b54de97254320f312ade367d035bbc1aa1ec661c5beb52a09719b81bfaccb068"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/fileTree.ts",
+      "sha256_lf": "83dd6ca574a1ad10aa4312dcc16c8d1cfcc11b5b8a7d7e872acb4063dc0fcef7",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/fileTree.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "83dd6ca574a1ad10aa4312dcc16c8d1cfcc11b5b8a7d7e872acb4063dc0fcef7"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/model.ts",
+      "sha256_lf": "58c1923b696023ed3753311213d9a27dfefc5cd8c9111c7b9a8f7f189566378b",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/model.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "58c1923b696023ed3753311213d9a27dfefc5cd8c9111c7b9a8f7f189566378b"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/native.ts",
+      "sha256_lf": "7ce50c7dc2202e52660d979b5dc9434dfdd3457f1ec1d27b135d57fa0cfaeca2",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/native.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7ce50c7dc2202e52660d979b5dc9434dfdd3457f1ec1d27b135d57fa0cfaeca2"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/projectConfig.ts",
+      "sha256_lf": "4517a309424da8fdb5efb9002a2ece4e006d31bec136c1fb85959b1027bb3f60",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/projectConfig.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "4517a309424da8fdb5efb9002a2ece4e006d31bec136c1fb85959b1027bb3f60"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/projector.ts",
+      "sha256_lf": "466460732ed8b03f9cba9a9fccfa6ebb150fa837a79b279e8d3c5f8d8c75f94e",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/projector.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "466460732ed8b03f9cba9a9fccfa6ebb150fa837a79b279e8d3c5f8d8c75f94e"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/read-cli.ts",
+      "sha256_lf": "497051d90bfb0f5c391951c08230d5c628971e54c9fbc439dbe86f4e2ff9826c",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/read-cli.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "497051d90bfb0f5c391951c08230d5c628971e54c9fbc439dbe86f4e2ff9826c"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/reader.ts",
+      "sha256_lf": "22c8fd40de419c1d122b751293fbf4c7e6cbe99a867ec34c838c1f24c863e130",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/reader.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "22c8fd40de419c1d122b751293fbf4c7e6cbe99a867ec34c838c1f24c863e130"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/src/workspace.ts",
+      "sha256_lf": "dee7cc7e5ffcd81edd7f085576962c72bb3a1cbdc36e18e82d49411a7f2a44cc",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/workspace.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "dee7cc7e5ffcd81edd7f085576962c72bb3a1cbdc36e18e82d49411a7f2a44cc"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/afterlight.test.ts",
+      "sha256_lf": "7594ec860452ad8c39239a278ad130fe602aeeebc413df3a4cfa325880a4b1c2",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/afterlight.test.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7594ec860452ad8c39239a278ad130fe602aeeebc413df3a4cfa325880a4b1c2"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/audit.test.ts",
+      "sha256_lf": "e5fc1779620a216884e5ec983eee022e76f828658dee71f115d7ff83d381151b",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/audit.test.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "e5fc1779620a216884e5ec983eee022e76f828658dee71f115d7ff83d381151b"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/core.test.ts",
+      "sha256_lf": "7164d2cf876d3dfcd1dac1dd9c29ad2cf39e8bcb28e3d458a629185257108cf3",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/core.test.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "7164d2cf876d3dfcd1dac1dd9c29ad2cf39e8bcb28e3d458a629185257108cf3"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/extension.test.ts",
+      "sha256_lf": "ee8fd2c786280a3111b0153509a906a299e3f32b01d09d818e4461295beacc27",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/extension.test.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "ee8fd2c786280a3111b0153509a906a299e3f32b01d09d818e4461295beacc27"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/native.test.ts",
+      "sha256_lf": "d9634f0f57aa312860abc89dc1ba79d996ee077c430400e2fde957f978c76580",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/native.test.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "d9634f0f57aa312860abc89dc1ba79d996ee077c430400e2fde957f978c76580"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/neovim-auto.lua",
+      "sha256_lf": "fad979a6b08e3bcd9662d7f2d938a665973ddbd9ca65a046c738b0edb8c3c1b8",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/neovim-auto.lua",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "fad979a6b08e3bcd9662d7f2d938a665973ddbd9ca65a046c738b0edb8c3c1b8"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/neovim-dirty.lua",
+      "sha256_lf": "d787863a4ebd2bfd369914d3cad2cd28e9ccf1cc3ae97033443df2a534af0c8a",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/neovim-dirty.lua",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "d787863a4ebd2bfd369914d3cad2cd28e9ccf1cc3ae97033443df2a534af0c8a"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/neovim-navigation.lua",
+      "sha256_lf": "41c9e0737b2d29cbd29a16d0372e3192497f941b784ae1e03e458d496c8e4669",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/neovim-navigation.lua",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "41c9e0737b2d29cbd29a16d0372e3192497f941b784ae1e03e458d496c8e4669"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/neovim-paths.lua",
+      "sha256_lf": "bd9eedce08579f50320bb7e830707111642a0fbb02f6ac1535cc1fe587450f9d",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/neovim-paths.lua",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "bd9eedce08579f50320bb7e830707111642a0fbb02f6ac1535cc1fe587450f9d"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/neovim.lua",
+      "sha256_lf": "de82b842a5360774dc2335e6e19b257b0ffe989b4647f24b70af19a72a74a0ea",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/neovim.lua",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "de82b842a5360774dc2335e6e19b257b0ffe989b4647f24b70af19a72a74a0ea"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/portable.test.ts",
+      "sha256_lf": "2b57b94eaaa24dd0bcfa7955bade8a85fbf2bdfb7fb29f3ed9e447bec7fda8e8",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/portable.test.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "2b57b94eaaa24dd0bcfa7955bade8a85fbf2bdfb7fb29f3ed9e447bec7fda8e8"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tests/reader.test.ts",
+      "sha256_lf": "2599fea8bc0cc1a1f111c487025cb99d61c872b2a4c470ae1bc8b03443c4ab1a",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/reader.test.ts",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "2599fea8bc0cc1a1f111c487025cb99d61c872b2a4c470ae1bc8b03443c4ab1a"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "editors/haskell-design/tsconfig.json",
+      "sha256_lf": "2a6fdbe0bb5607463f1b56065603e79f084403c3fb814e84a557184b9419500a",
+      "origin": {
+        "kind": "adapted-public-MIT-source",
+        "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tsconfig.json",
+        "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
+        "source_sha256_lf": "2a6fdbe0bb5607463f1b56065603e79f084403c3fb814e84a557184b9419500a"
+      },
+      "license": "editors/haskell-design/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "editors/neovim/fp-game.lua",
       "sha256_lf": "5ff3b3637f24d0c573eb18db3b110221289cf4f9bf11ea3e444bedd32e7a337e",
       "origin": {
@@ -765,7 +2333,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "df8ad19b15076a136acd34c46ffdbc70328a461d0bfaee637cb35f79543a62e5",
+      "sha256_lf": "d4b69f9dafbedf4f457d25c57e621dae9b7311485c3a333dbcbed89766b535f0",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -776,7 +2344,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "d058bff0ffb11d8822fe7671d52bb4384c3b00182b9dbf2f23f98a311e5be6bf",
+      "sha256_lf": "e5392eaa110528e5fc123e2d766d0cb7321c4d6d6e65ef541d4becb15381aae9",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
