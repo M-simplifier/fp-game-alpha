@@ -67,8 +67,8 @@ def scan_text(text, policy):
     for label, pattern in patterns.items():
         for found in re.finditer(pattern, text):
             failures.append({'rule': label, 'line': text.count('\n', 0, found.start()) + 1})
-    for found in re.finditer(r'https?://(?:github\.com|raw\.githubusercontent\.com)/([^/\s]+)/([^/\s)#?]+)', text):
-        repository = '/'.join(found.groups()).rstrip('.,')
+    for found in re.finditer(r"https?://(?:github\.com|raw\.githubusercontent\.com)/([^/\s\"'<>`]+)/([^/\s)#?\"'<>`]+)", text):
+        repository = '/'.join(found.groups()).rstrip('.,').removesuffix('.git')
         if repository not in policy['public_repository_links']:
             failures.append({'rule': 'undeclared-repository-link', 'line': text.count('\n', 0, found.start()) + 1})
     return failures

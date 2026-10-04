@@ -16,7 +16,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "43ef22f12aae571e414cf727d647580a746f4e1ebab732e1aa170a2060b98e08",
+      "sha256_lf": "6b8fc6d36a1dc4775408a5bccea09d35ea8a3e2fd94932a8f564e297d09bb311",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -310,7 +310,7 @@
     },
     {
       "path": "tools/fp_game.py",
-      "sha256_lf": "20f653a3376681f460ce3fbd4820916d1be01e97ae616ac22e434cd282c3af6e",
+      "sha256_lf": "fd6502e9f024aa43687412c56e0c166f26ee2eca628767be6aad0bad4cba479d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -321,7 +321,18 @@
     },
     {
       "path": "tools/publication.py",
-      "sha256_lf": "695794fcc0fa86c203bc343b029f45cc145bb8eef530c3177922f2cdcc1e6dc6",
+      "sha256_lf": "68f38423e7ba1b16bef33af62f76886c222a228c40243432c071047cf5f83374",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/test_tools.py",
+      "sha256_lf": "b9e4de1bf77122b1c2c3705b3122211c99b660db73532203296d68ef5d092cd8",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

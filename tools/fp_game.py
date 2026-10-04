@@ -116,6 +116,8 @@ def check_file(project, filename):
 
 
 def main():
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='action', required=True)
     for name in ['doctor', 'build', 'test', 'check', 'inspect', 'context']:
