@@ -2,33 +2,147 @@
   "schema": 1,
   "max_source_bytes": 524288,
   "public_repository_links": [
+    "Anut-py/h-raylib-web-template",
+    "HigherOrderCO/Bend1",
+    "IntersectMBO/typed-protocols",
+    "LeventErkok/sbv",
     "M-simplifier/fp-game-alpha",
-    "HigherOrderCO/Bend1", "IntersectMBO/typed-protocols", "LeventErkok/sbv",
-    "WebAssembly/design", "Z3Prover/z3", "barrucadu/dejafu",
-    "bendlang/bend", "hedgehogqa/haskell-hedgehog", "intersectmbo/io-sim",
-    "pond3r/ggpo", "stevana/quickcheck-state-machine", "tlaplus/tlaplus",
+    "WebAssembly/design",
+    "Z3Prover/z3",
+    "barrucadu/dejafu",
+    "bendlang/bend",
+    "bjorn3/browser_wasi_shim",
+    "chromium/chromium",
+    "emscripten-core/emscripten",
+    "ghc/ghc",
+    "hedgehogqa/haskell-hedgehog",
+    "intersectmbo/io-sim",
+    "llvm/llvm-project",
+    "notofonts/noto-cjk",
+    "pond3r/ggpo",
+    "raysan5/raylib",
+    "stevana/quickcheck-state-machine",
+    "tlaplus/tlaplus",
     "ucsd-progsys/liquidhaskell"
   ],
-  "authored_public_skills": [".agents/skills/new-game/SKILL.md"],
+  "authored_public_skills": [
+    ".agents/skills/new-game/SKILL.md"
+  ],
   "selections": [
-    {"prefix": "LICENSE", "license": "LICENSE", "maturity": "completed"},
-    {"prefix": ".git", "license": "LICENSE", "maturity": "completed"},
-    {"prefix": "README.md", "license": "LICENSE", "maturity": "experimental"},
-    {"prefix": "PUBLICATION-MANIFEST", "license": "LICENSE", "maturity": "completed"},
-    {"prefix": "cabal.project", "license": "LICENSE", "maturity": "experimental"},
-    {"prefix": "docs/", "license": "LICENSE", "maturity": "experimental"},
-    {"prefix": "publication/", "license": "LICENSE", "maturity": "completed"},
-    {"prefix": "tools/", "license": "LICENSE", "maturity": "experimental"},
-    {"prefix": "templates/", "license": "LICENSE", "maturity": "experimental"},
-    {"prefix": "editors/", "license": "LICENSE", "maturity": "experimental"},
-    {"prefix": ".agents/skills/new-game/SKILL.md", "license": "LICENSE", "maturity": "experimental"},
-    {"prefix": "libraries/game-transition/", "license": "libraries/game-transition/LICENSE", "maturity": "experimental"},
-    {"prefix": "libraries/game-arena/", "license": "libraries/game-arena/LICENSE", "maturity": "experimental"},
-    {"prefix": "references/lantern/", "license": "references/lantern/LICENSE", "maturity": "experimental"},
-    {"prefix": "references/garden/", "license": "references/garden/LICENSE", "maturity": "experimental"},
-    {"prefix": "references/tapline/", "license": "references/tapline/LICENSE", "maturity": "experimental"},
-    {"prefix": "references/river/", "license": "references/river/LICENSE", "maturity": "experimental"},
-    {"prefix": "references/station/", "license": "references/station/LICENSE", "maturity": "experimental"},
-    {"prefix": "research/quantity/", "license": "LICENSE", "maturity": "experimental"}
+    {
+      "prefix": "LICENSE",
+      "license": "LICENSE",
+      "maturity": "completed"
+    },
+    {
+      "prefix": ".git",
+      "license": "LICENSE",
+      "maturity": "completed"
+    },
+    {
+      "prefix": "README.md",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "PUBLICATION-MANIFEST",
+      "license": "LICENSE",
+      "maturity": "completed"
+    },
+    {
+      "prefix": "cabal.project",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "docs/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "publication/",
+      "license": "LICENSE",
+      "maturity": "completed"
+    },
+    {
+      "prefix": "tools/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "templates/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": ".agents/skills/new-game/SKILL.md",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "libraries/game-transition/",
+      "license": "libraries/game-transition/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "libraries/game-arena/",
+      "license": "libraries/game-arena/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/lantern/",
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/garden/",
+      "license": "references/garden/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/tapline/",
+      "license": "references/tapline/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/river/",
+      "license": "references/river/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/station/",
+      "license": "references/station/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "research/quantity/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/afterlight/",
+      "license": "references/afterlight/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/afterlight/web/patches/h-raylib-web.patch",
+      "license": "references/afterlight/licenses/h-raylib-LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/afterlight/licenses/h-raylib-LICENSE",
+      "license": "references/afterlight/licenses/h-raylib-LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/afterlight/web/patches/LICENSE-h-raylib.txt",
+      "license": "references/afterlight/licenses/h-raylib-LICENSE",
+      "maturity": "experimental"
+    }
   ]
 }

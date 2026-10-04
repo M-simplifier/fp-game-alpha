@@ -7,7 +7,7 @@
 | Tapline | Selected experimental pure-core reference | Six-round trace and Step/Arena regression; exact deadline, ordered duplicate taps, reset barrier and focus pause; no graphical host claim |
 | Station Dispatch | Selected experimental pure domain reference | Six orders, stale-turn rejection, Step/Arena and full 864-state finite enumeration; JSON save, asynchronous UI IDs and browser host still pending |
 | River Home | Selected experimental pure-core reference | Authored multi-day journey, original simulation/clock/save, Step/Arena and finite invariant/save regressions; original QuickCheck suite and graphical host not reproduced |
-| Complete Afterlight | Staged for source/license review | Full Session/Arena, native renderer/audio and Web host; original parity evidence is historical until rerun here |
+| Complete Afterlight | Full source selected; optional verification in progress | Full Session/Arena, native renderer/audio and Web host preserved; pinned core/parity check route. Native GPU and browser acceptance remain separate |
 | Lantern finite puzzle | Selected experimental source and executable law test | Checked board, original valid-board transition, Step/Arena agreement and a four-state fully observed reachability graph; no general-board or SMT claim |
 | Red Dune 0.6 | Locally acquired; selection pending | Official Library transfer, size/SHA and metadata verified; source/license review and local validation still required |
 | Red Dune 0.7 | Excluded | Work in progress; do not mix into the stable 0.6 publication |
@@ -23,7 +23,7 @@ The first milestone is an independent terminal game workspace, actual key
 and stamina development, relocation, and ordinary Cabal acceptance. Lantern
 is the first additional reference; Tapline, Garden, River Home and the Station
 Dispatch domain follow as pure-core examples.
-The next milestones add Station and River, then optional graphical/Web
-profiles. Toolchains,
+The next milestones complete Station save/UI, graphical/Web hosts, Red Dune,
+and the remaining research reproduction routes. Toolchains,
 large binaries and repeated raw logs belong in reproducible downloads or
 appropriate release artifacts, not in the source repository.

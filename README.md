@@ -49,3 +49,8 @@ asynchronous UI acceptance remain pending.
 The [quantity source lab](research/quantity/README.md) has a GHC-only route
 for real type rejections and runtime-oracle checks; its recorded
 LiquidHaskell result is historical and remains separately scoped.
+
+The [complete Afterlight source](references/afterlight/README.md) is an optional
+package with the original renderer/audio and browser hosts, a pinned dependency
+check route, and a frozen gameplay oracle. Host execution and binary
+redistribution are separate acceptance stages.

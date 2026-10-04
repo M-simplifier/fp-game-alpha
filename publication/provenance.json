@@ -288,5 +288,797 @@
     "origin": "gallery/functional-arcade/licenses/original-games/station-dispatch-LICENSE",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "6b5d4dacd3546494f8e040f50d108ef1a54661346bbc6260a7d385c879d69bce"
+  },
+  "references/afterlight/cabal.project": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/cabal.project",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "b699b52ddf6f8b861e0587cf593b292f2e784e967b7d428f54d01fd29e6ca5f0",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/README.md": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/README.md",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "81afba85af6cd77bedb4c185fbc86684fa6b2d63d9af5c6968f5a6e6e737987f",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/LICENSE": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/LICENSE",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/afterlight-arena.cabal": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/afterlight-arena.cabal",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "eff2412ac50aa18472ab2bb832258f38371d8263a9dbae262d6724e3604863ef",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README",
+    "source_variant": "6a43f36 cloud source with direct browser h-raylib dependency fix, before this public source-layout adaptation"
+  },
+  "references/afterlight/test/Parity.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/Parity.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "b23dcb833353366ac5feff64d2a8c0ce463d6e1ff1a0c267055c200b32306d02",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/docs/rendering.md": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/docs/rendering.md",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "eda4f33950bd885e7f6c476adaadc39002c32ff837b5bbf660d8e3ab5d8d89b9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/docs/BASELINE-MANIFEST.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/docs/BASELINE-MANIFEST.json",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "e214f5c8a32d03e01c6ae63bb8fb34229e3b934c12a77039c2d2802121d46560",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/tools/GardenMain.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/tools/GardenMain.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "aab8802f61156d2dbc7c6a85e425420cf72dc76e4d1839b104ead85113119d31",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/tools/GardenAudio.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/tools/GardenAudio.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "0b6ac564acda21493b02526d5b65aa6491b292ecceec56bcf03f8f14c164189f",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/tools/GardenCheck.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/tools/GardenCheck.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "2ea81bbb582e0f907db0a1586ed99f0b3a0d841412262baaf164a1aabeb6a068",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/tools/Observe-Garden.ps1": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/tools/Observe-Garden.ps1",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "65a2f2a6db1dc42c3c9bb1a597321aab073ca2446ee970c7bf7f454a7ed7ed13",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/tools/GardenRenderCheck.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/tools/GardenRenderCheck.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "200cb941c59cb8d01c3027403f02582b4d7cd287bdc875488a54fe3664d7b8cc",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/flake.lock": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/flake.lock",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "5e6a8883e034d8bbb46c53099aa3a457272acc14c3d68df27b6270aa5b69f4d9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/build.sh": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/build.sh",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "959de0ec8ef2c424b79ead88798d0c98c6cf9a4035f4cdfefe2bc072136a0622",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/serve.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/serve.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "f3f781efcc2e69d211823c3e39c3bc51415bc97aa8ca085e947efed0a2f49b7c",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/BrowserMain.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/BrowserMain.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "443e71dff726e2de16031ac7a2a8b395245199a720e9bdb2468d224ed8387114",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/README.md": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/README.md",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "e511717f9e533d06f3f796ed3273827ff0c7da0cb95d2b2cb7bfd79efe56b9aa",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/wasm-link": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/wasm-link",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "803d1a8082ae2166b57e3c387835173d1ebb509f4206e6d6596e1c40796d0b88",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/screen.vs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/screen.vs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "cea051722a5cb24eefd159551bea29f92e5e4410103be039448723f21accec23",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/prepare-assets.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/prepare-assets.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "87ef88848976657ca96640f0a51773d2e80f601a6e7e6c217cc3dc823ca4d9d3",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/cabal.project.template": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/cabal.project.template",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "1dd59e1b77ac671d92defc48f4562f65151bf8e346493cc476af63831955f89a",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/EXPERIENCE.md": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/EXPERIENCE.md",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "2dce2fd297944dd1ada831eee02b39a3f10e3220e6e0a5a7b50010710d602faa",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/bridge.c": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/bridge.c",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "f6c83668d8cbb89bca82dbb1bd4a69cf3e727313a3cfbb73e6710a8cf485e4f3",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/flake.nix": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/flake.nix",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "79e24ce69766ae4f7175e2ac32de55d0b1dbdf0330d060ed0d27902827a65d9e",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/scripts/audit-source.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/scripts/audit-source.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "4cf3cb68853cdcbf5fbcef6fec77b27fd1b27703319f02aae1e2f57c5e9bfb9c",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/scripts/prepare-native.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/scripts/prepare-native.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "913dcd9ed679a42e839f0eba58e6e41a0bf6466ce1c93048fae78c23cef17d11",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/scripts/contact-sheet.ps1": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/scripts/contact-sheet.ps1",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "8fdcbf571a3fce5df3cdd419a3f128486b46daa539a302129ef79b096cced285",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/scripts/qa-native.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/scripts/qa-native.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "bf6d4906dbecfa615b422f58d802903d5b2d210e4315f1a3b2e7a743f33dddc9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/scripts/record-qa.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/scripts/record-qa.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "c7db60f7eb1b294d3a8a8cbb337be6af4cbc934e0c1462d08bd48bc1e379aaec",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/scripts/import-baseline.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/scripts/import-baseline.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "6b8ea9ef61f14d2f70bdc1934d14bd875651d40a7d62855e074ac85c146bbef7",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Islands.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Islands.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "acda2102df6211711a2384d3886b6e5a98361f1fcaada3d53b475f1d17c9f5bc",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Checkpoint.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Checkpoint.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "a066434e023237c117802bbd83a3bd674f549fd42ead98e42accca9e6897ed0b",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Raycast.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Raycast.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "772ac9a1e453e94dbfd7645746d4067160a718fa29cfd396fa8058f4fcdd652d",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/View.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/View.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "327a10c48ae03f393fb4bf43cf696828de1153a352d7536955e924e4611c6885",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Soundscape.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Soundscape.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "a24137517ace272d6552960efef491e5dd7cb10c65c3cbd7b936dcd8204c8701",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Signal.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Signal.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "8ab5c2ee8a6562749910a74fefe23fcf1d0e204c24e6930cf4e8aac099993509",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/World.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/World.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "dc3b172ba3bccc7506910ec2f2c54f162360b7d636b56ce630dc3c102fd45dfe",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Photo.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Photo.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "d6c2d33b37db15263be134739eea8fab8d234c7622bec504c01863c826248b81",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Mesh.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Mesh.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "4c5820dcd43f46147d93c9ffe82f05c9d356b85771a3411edcbcc3fb92e9e4f7",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Rules.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Rules.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "640f48fe0dbddaf5054f8d964d9ef2ecd74d098b45aae23bca3c640105144d81",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Tour.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Tour.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "af50e02398a60ab8d63f9850056ca7349105987a8146805018e1e5f406881189",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Change.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Change.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "a60becf154a3e79f219595d592c5f8f2fe2583c6e0ff1eaac0e9ee563c7e68b1",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Clock.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Clock.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "1b27e3d9719ad50ffafb9b1972a3c4ad45995ced8cd8664789ff06679a19ead7",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Host/Control.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Host/Control.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "bf23d353359e4fc5ab079c03e2d84d20c1c2f77ac493b8cc71b9f3461629a889",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Render/Chunk.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Render/Chunk.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "9ea03db2dd4af59baa684775bbdce16b7bc4c86feab7fd5efc1c59bb0fa69124",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Render/Invalidation.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Render/Invalidation.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "dbf3e7e24c837fbd4dfd1f1bd2784aef88b93f15fc5a25d4dc4f772c16b95bba",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Render/Settings.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Render/Settings.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "2648df7c7e41ab56256afd9467a7ab22867ab3f69a0f62412f0bf8bb3b476ed2",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/test/oracle/Original/Garden/Checkpoint/Legacy.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/test/oracle/Original/Garden/Checkpoint/Legacy.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "a7ec46c2a51efe8f996b052934595133089bc6b6d5382e3966e5cfde6ffce426",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/assets/shaders/voxel.vs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/assets/shaders/voxel.vs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "1539664629d3fc1656d3c9f87ab193cfa20ecdad759347ea9a85fc25cf3d216f",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/assets/shaders/post.fs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/assets/shaders/post.fs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "ff0d57bba95a6bef85d9a7213f102177bad5643156eee46aecf97ca988db6249",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/assets/shaders/sky.fs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/assets/shaders/sky.fs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "8a32b3fea2374cd4a74d329b94aec968f63a6b922b17a7214477198bce5eb689",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/assets/shaders/bloom.fs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/assets/shaders/bloom.fs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "7a4432e904427b12502a4965663f2ff9268bde451194645814d5fba14aef586b",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/assets/shaders/effects.fs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/assets/shaders/effects.fs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "9970b0125313c3d8bc173e0b18a6d1e19d4d5b8b454fb8f6a5d97048a1c40ff7",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/assets/shaders/voxel.fs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/assets/shaders/voxel.fs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "017910c9b6c96141117e7d1444f3281b839de710c6984ab56c39238ec9bf1cc2",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/docs/baseline/cabal.project": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/docs/baseline/cabal.project",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "124cd2f0cb590811d7668bef1e444eb106d6212ac24c1c2a2fe4ea35112ddf43",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/docs/baseline/garden-of-afterlight.cabal": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/docs/baseline/garden-of-afterlight.cabal",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "25ba22b202735335e647f5860fe2547f020b953fde7d99170ba2f7235f05e697",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/docs/qa/SOURCE-AUDIT.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/docs/qa/SOURCE-AUDIT.json",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "e54e5d898ed01fd2cb30dcee79e8a094b614bf0fea66fa7f973431d3158e8e6a",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/tools/fixtures/garden-v3.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/tools/fixtures/garden-v3.txt",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "786a9b0fd198e2474ac9c60575871919101066aed31a0ba129c30af1dfe20c34",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/package.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/package.json",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "7f6c626372cf301ba05009386e757ac45a1fbc26f7bcd04b8ceedcd6a2f11533",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/refresh-memory.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/refresh-memory.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "0665bda0989243ce92a9900852d8cd68365bfd196dfd68a2b0b8ea955dfc568e",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/README.md": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/README.md",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "ab52d837d4f64d37cf7a213de98c1849e936a32f248d6e75ce0aa5f7cc0724fb",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/memory-guard.c": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/memory-guard.c",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "c23212ffb887157f6829c30c7a0e0bee71802af61b673c000cb9f2f2c6fedd44",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/package-lock.json": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/package-lock.json",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "97e963e7a9fe5312e31e811485768b7fd0a368bb7877f2a9b6d5361877e06532",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/patches/README.md": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/patches/README.md",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "0e21b005844e95ca087b38627dada981979581dc9634fed4bed2f33ba30ba106",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/patches/LICENSE-h-raylib.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/patches/LICENSE-h-raylib.txt",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/patches/h-raylib-web.patch": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/patches/h-raylib-web.patch",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "245082c0d9d2cfbbc2acd45603d23722f00380b66c9516caeab4951c17e2bc73",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/checks/abi.c": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/checks/abi.c",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "f09132020b5a53c538bb63b5c7ba5bb0da9f799080994cca743e10393dabbfa1",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/checks/assets.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/checks/assets.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "bcc7caf4e9a6cb52320509376c809f4c40e919e9ac29f813413259fa359af6e9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/checks/build.py": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/checks/build.py",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "fb18dba449c68ab1f59dadfd4a47fcf98f775b2a8db2228ab42a2eeddec4a025",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/test/loading.test.mjs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/test/loading.test.mjs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "30788ee23761e7d779c05ae21634f1fda477dc4938c13191ec2f810d11d19a2f",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/test/resize.test.mjs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/test/resize.test.mjs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "627ac9f10fbea14b28480228ac95a86df473b39b6184999036dffcb8950aa8e9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/test/input.test.mjs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/test/input.test.mjs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "c38264bdf4bac4859967276669e56136721c6cf72166fed0f69c9a7b0c665548",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/test/bridge.test.mjs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/test/bridge.test.mjs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "b8fb6727847c59a463106aa859b2025b3bfd8bce2cadba8bf446f6ee050e013e",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/test/files.test.mjs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/test/files.test.mjs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "cd1a828fb43de3d1a7b2efc7132c0704e827c40e5d789fab0c6729e262bdc372",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/test/photos.test.mjs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/test/photos.test.mjs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "29eb1bc6c2eca968871c87d049359978df8827ac69317ab84abab4775a511718",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/public/index.html": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/public/index.html",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "8c56febe25bf6765b6fccb8884dd28e066e30755ae4ac05801edaac7dc30799f",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/host.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/host.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "492e078dd668598dedb03111cda9987aaf701f862ecc25242cf80cb9daab5c93",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/input.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/input.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "41c4c38b9e83fa0a491af4b1ff1b0e1f87b4bc1309f65463be46a2383de5fdb0",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/viewport.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/viewport.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "341b3123e0580d12bb5a94a51d1ee89833ee933414b0c0264f22eebc76429dbc",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/render-check.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/render-check.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "804ee904fcaebb00b1b5dfed1e0ef833c9d07528420b07a65d2b79e263485afd",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/files.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/files.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "7666f59decd2c161d404f10b67f5754cc6a0d62fab7ce6e014b7f2a01d91e4b8",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/photos.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/photos.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "4a25447cc8073da4ee882fa3f288f74eece8e9ccd706e38e765e06537e653a57",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/bridge.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/bridge.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "6cbd8199d003ecfc059e2f506fbee3d3c7b39933fbea434eb91a4f93c62443f8",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/web/host/src/loading.js": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/web/host/src/loading.js",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "27c3681d6f2e351839eb9d87c080f6fc4f65b715e6c016d86668e88860254616",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Session.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Session.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "4027e6d64aa9ff7226cb0b06d6124421c07f1ac9e5ed0557824595791394322d",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Islands.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Islands.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "3bdc657a51c3afa8d43fb5c04a070ce8e235d0da8501bd54547098007828a468",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Checkpoint.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Checkpoint.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "1d6f69adcfa0c1cb291445bb287d6ccdbb50608c4f752f8da9104a0d4bc2e3dd",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Raycast.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Raycast.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "8c02185c7f6f6e0e43c4e4e650b205c75745a9ae68dde08c2bbd6fad466c4f0b",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/View.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/View.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "4ea449351cca144aac1b97b9ca94f1852ac968e462991717695b57bca6fcf8e7",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Soundscape.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Soundscape.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "328d4aa8a5b34506db67cd96772a147c2a819eebec4196411977caab7482b6bc",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Signal.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Signal.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "64232f375a6bd1be7d0e0732e2eb24b0326e5347a4c63b7c51b96c335500302d",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/World.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/World.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "dc9ead101cfa30a2e26f69aec76de149ee8c11963c10c008790e7894ea7a90d9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Photo.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Photo.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "6acb3d11befc2bf0d411d0ecd2167528698ad5e835f37816cd7f045d1fec30ee",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Types.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Types.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "c973e13d1463fefc39c82ac5eb164681dd37fbaaf28b7395ff3318274eda4eb6",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Mesh.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Mesh.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "0c45ffd7b80dee5804903db2a196a3be718373d8a278b1cc396a69ccd89f8fff",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Rules.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Rules.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "1c7456e51b1997a1f40701245e8bea4015a7418f359c93ace2f5fc0df21ac0d9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Tour.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Tour.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "6861cdf2cf0b8c796bbbf488ceb5312ad83876c25af0878751f5ca72f2953119",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Change.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Change.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "1676e5cf58ee43f35279181152dc5d7e319dab02fb36d0c2158aefd96dc906fb",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Clock.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Clock.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "7631bb20a6c2501200e6d18bf1d9a59f540f7a09a455c216a6fc99270e2ffd22",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Arena.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Arena.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "5a8a25acdded4035a10c8977e0a08599a811e0f67b5163a81f7d4c6578c8015a",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Host/Control.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Host/Control.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "fc91bf1182aefe8522dfafe0747fc34d02d1aecfc5f968fa2e4975687d0cd56b",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Render/Chunk.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Render/Chunk.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "a3a8ad33ac367dd500d805479c5fc87b6b46626d8f3fece3b0293cf200892714",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Render/Invalidation.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Render/Invalidation.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "e85072f2710a01db6985c0d4e117895a86e052ffe20542c3a7fdf8b443719a4c",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Render/Settings.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Render/Settings.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "876ed1bd94fc183459d4103ffbd7503c2a9d873b0769df1c10272de0bdb192d6",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/src/Garden/Checkpoint/Legacy.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/src/Garden/Checkpoint/Legacy.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "b9d929d178c325abb220c6cc30678cb48d70bbdaf403410b73b5acdc0d8c373a",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/runtime/Garden/Audio.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/runtime/Garden/Audio.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "6b4d56f1ce0a7f98d52392ef0fdac7d4b7f8bfdde9deddb3e6ca27f079314fc9",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/runtime/Garden/Runtime.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/runtime/Garden/Runtime.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "282804d33ccffeae82dbc2acb6bda5a09361e4c6485365e1e6503c738453414b",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/runtime/Garden/Input.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/runtime/Garden/Input.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "70569b1b57284ddf391ed75a4710cd6833998fbbddf0a8c437b48712162aeeae",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/runtime/Garden/Render.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/runtime/Garden/Render.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/runtime/Garden/Render/Resources.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/runtime/Garden/Render/Resources.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "1a338075976df9b41debe50d698471abe89ce81fd6154af8fd1ead6e525cf8b5",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/runtime/Garden/Render/GPU.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/runtime/Garden/Render/GPU.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "8a80b98e2c4986d42c79cca8dd4550330f2e6cdcad2a9611e44ccaaaa97a6d2c",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/runtime/Garden/Render/Radiance.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/runtime/Garden/Render/Radiance.hs",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
+    "public_adaptation": "optional public layout and explicit standalone verification; see reference README"
+  },
+  "references/afterlight/docs/baseline/README.original.txt": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/afterlight/docs/ORIGINAL-README.md",
+    "snapshot": "6a43f360d41b8fb85b8e7f96504e88c6d31c128f",
+    "source_sha256_lf": "00707c148f86d603e0e7218a598c9ecdeb4cedb8795e37b48f7f8d88773325e9",
+    "public_adaptation": "unchanged historical README bytes stored as plain-text evidence; old relative links are not current navigation"
   }
 }

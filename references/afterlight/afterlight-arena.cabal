@@ -1,0 +1,127 @@
+cabal-version: 3.8
+name: afterlight-arena
+version: 0.1.0.0
+build-type: Simple
+license: MIT
+license-file: LICENSE
+author: M-simplifier
+maintainer: M-simplifier
+synopsis: Complete Afterlight hosts over L game-transition and game-arena
+description: The pinned original game, renderer, audio and photo hosts with
+             a pure frame session, complete observation and parity regressions.
+category: Game
+extra-source-files:
+    README.md, THIRD-PARTY.md, licenses/*, docs/*.md, docs/*.json, docs/qa/*.json, docs/qa/*.txt,
+    docs/baseline/cabal.project, docs/baseline/*.cabal, docs/baseline/*.txt,
+    tools/fixtures/garden-v3.txt, tools/*.ps1, assets/shaders/*.vs, assets/shaders/*.fs,
+    scripts/*.py, scripts/*.ps1, web/*.md, web/*.sh, web/*.py, web/*.c,
+    web/*.vs, web/*.nix, web/flake.lock, web/wasm-link, web/cabal.project.template,
+    web/checks/*.c, web/checks/*.py, web/patches/*.md, web/patches/*.patch,
+    web/patches/*.txt, web/host/*.md, web/host/*.json,
+    web/host/*.c, web/host/*.js, web/host/src/*.js, web/host/test/*.mjs,
+    web/host/public/index.html
+
+flag native
+    description: Build the full native raylib runtime
+    default: False
+    manual: True
+flag web
+    description: Build the original complete browser reactor with the pinned cross toolchain
+    default: False
+    manual: True
+
+common checked
+    default-language: GHC2021
+    ghc-options: -Wall -Wcompat -Wincomplete-uni-patterns -Wincomplete-record-updates
+
+library
+    import: checked
+    hs-source-dirs: src
+    ghc-options: -O2
+    exposed-modules:
+        Garden.Types, Garden.World, Garden.Change, Garden.Checkpoint.Legacy,
+        Garden.Checkpoint, Garden.Clock, Garden.Islands, Garden.Rules, Garden.Raycast,
+        Garden.View, Garden.Mesh, Garden.Signal, Garden.Tour, Garden.Photo,
+        Garden.Soundscape, Garden.Render.Invalidation, Garden.Render.Chunk,
+        Garden.Render.Settings, Garden.Host.Control, Garden.Arena, Garden.Session
+    build-depends: base >=4.18 && <4.23, bytestring >=0.11 && <0.13,
+        containers >=0.6 && <0.9, Yampa >=0.15 && <0.16,
+        game-transition >=0.1 && <0.2, game-arena >=0.1 && <0.2
+
+library runtime
+    import: checked
+    if !flag(native) && !flag(web)
+        buildable: False
+    hs-source-dirs: runtime
+    ghc-options: -O2
+    exposed-modules: Garden.Runtime, Garden.Input, Garden.Render, Garden.Audio,
+        Garden.Render.Resources, Garden.Render.GPU, Garden.Render.Radiance
+    build-depends: base, afterlight-arena, game-transition, game-arena,
+        bytestring, containers, directory >=1.3 && <1.4, filepath >=1.4 && <1.6,
+        time >=1.12 && <1.16, Yampa, h-raylib >=5.5 && <5.7
+
+executable afterlight-native
+    import: checked
+    if !flag(native)
+        buildable: False
+    hs-source-dirs: tools
+    main-is: GardenMain.hs
+    ghc-options: -O2 -threaded -rtsopts -with-rtsopts=-N2
+    if os(windows)
+        ghc-options: -optl-mwindows
+    build-depends: base, afterlight-arena:runtime, directory, filepath
+
+executable afterlight-render-check
+    import: checked
+    if !flag(native)
+        buildable: False
+    hs-source-dirs: tools
+    main-is: GardenRenderCheck.hs
+    ghc-options: -O2 -threaded -rtsopts -with-rtsopts=-N2
+    build-depends: base, afterlight-arena, afterlight-arena:runtime,
+        containers, directory >=1.3 && <1.4, h-raylib >=5.5 && <5.7
+
+executable afterlight-audio
+    import: checked
+    if !flag(native)
+        buildable: False
+    hs-source-dirs: tools
+    main-is: GardenAudio.hs
+    ghc-options: -O2
+    build-depends: base, afterlight-arena:runtime
+
+executable afterlight-browser
+    import: checked
+    if !flag(web)
+        buildable: False
+    hs-source-dirs: web
+    main-is: BrowserMain.hs
+    c-sources: web/bridge.c
+    ghc-options: -O2 -no-hs-main -optl-mexec-model=reactor
+        "-optl-Wl,--export=hs_init,--export=startup,--export=mainLoop,--export=shouldClose,--export=teardown,--export=loadingStage,--export=loadingDone,--export=loadingTotal,--export=isReady,--export=preview,--export=setActive,--export=setQuality,--export=setRenderOption,--export=free,--export=__heap_base,--export=__global_base,--export=__data_end,--export=__stack_pointer,--import-memory,--global-base=134217728,--initial-memory=167772160,--max-memory=1073741824"
+    build-depends: base, afterlight-arena:runtime, h-raylib >=5.5 && <5.7
+
+test-suite original-checks
+    import: checked
+    type: exitcode-stdio-1.0
+    hs-source-dirs: tools
+    main-is: GardenCheck.hs
+    ghc-options: -O2
+    build-depends: base, afterlight-arena, bytestring, containers, Yampa, QuickCheck ==2.15.0.1
+
+test-suite parity
+    import: checked
+    type: exitcode-stdio-1.0
+    hs-source-dirs: test, test/oracle
+    main-is: Parity.hs
+    ghc-options: -O2
+    other-modules:
+        Original.Garden.World, Original.Garden.Change, Original.Garden.Checkpoint.Legacy,
+        Original.Garden.Checkpoint, Original.Garden.Clock, Original.Garden.Islands,
+        Original.Garden.Rules, Original.Garden.Raycast, Original.Garden.View,
+        Original.Garden.Mesh, Original.Garden.Tour, Original.Garden.Photo,
+        Original.Garden.Soundscape, Original.Garden.Render.Invalidation,
+        Original.Garden.Render.Chunk, Original.Garden.Render.Settings,
+        Original.Garden.Host.Control, Original.Garden.Signal
+    build-depends: base, afterlight-arena, game-transition, game-arena,
+        containers, bytestring, Yampa, QuickCheck ==2.15.0.1
