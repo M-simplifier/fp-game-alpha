@@ -1,5 +1,10 @@
 # Technical guidance for continuing this game
 
+To understand this game's actual code, start with the local
+[learn-code guide](learn-code.md) or ask your AI for `$learn-code`.
+It traces a chosen action through the real types, rules and checks, assuming
+no prior Haskell experience. The copied guide does not depend on the starter checkout.
+
 Use the local [Haskell technique guide](practice/haskell/technique-choices.md)
 and [verification guide](practice/haskell/verification-review.md) for types,
 errors, effects and meaningful checks. The following public references cover
