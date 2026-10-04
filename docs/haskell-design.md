@@ -252,6 +252,7 @@ Package checks and editor checks are different stages. Available package scripts
 ```sh
 npm run check
 npm test
+npm run test:lua
 npm run test:neovim
 npm run test:vscode
 npm run test:packages
@@ -259,6 +260,10 @@ npm run test:packages
 
 Run these inside `editors/haskell-design`. VS Code tests use a temporary profile;
 set `VSCODE_EXECUTABLE` when the default macOS application path is not appropriate.
+The actual-Lua fault-injection unit test (`test:lua`) needs Lua, texlua, or LuaJIT
+(or `LUA_EXECUTABLE`); it mocks Vim/luv and RPC boundaries and does not qualify
+real-editor behavior. The Linux editor CI job runs this regression with Lua 5.4
+from the Ubuntu package repository, installing it explicitly if missing.
 Neovim tests need an installed `nvim`. The package tests need packaged artifacts.
 A missing editor is a blocker, not a successful skipped interactive check.
 
@@ -271,13 +276,24 @@ that dependent analysis sees changes to local libraries. External-library naviga
 requires HLS-provided source locations. On Windows, leave cross-module HLS rename
 disabled until the installed version has demonstrated complete edits.
 
-Current integration evidence: Linux native build, TypeScript check, and all 58
+Original port integration evidence: Linux native build, TypeScript check, and all 58
 `npm test` cases passed. Linux VSIX and Neovim archives packaged successfully.
 The extracted-package CLI checks passed for both archives, including relocated
 execution, PATH-free syntax reading, `Game.Transition.replay` selection and trusted
 inference. The aggregate `test:packages` command then failed with `ENOENT nvim`
 at the real-editor consumer: this is a partial packaged-CLI pass, not a full
 package/editor test pass. See the [porting notes](../editors/haskell-design/PORTING.md).
+Later Linux CI evidence separately records all 61 editor tests passing with none
+skipped; see the [cache validation record](research-ci-cache.md). Those later
+results do not rewrite the original 58-test port record.
+
+The manual Neovim dependency-watcher fix was checked with `test:lua` under texlua
+on Linux: allocation/start failures, runtime errors, stale replies, cached badge
+and folder invalidation, retry recovery, and automatic-mode isolation passed.
+The same regression fails on the pre-fix Lua with a surviving stale proof. These
+are mocked-boundary executions of the actual plugin Lua, not Neovim UI or OS
+watcher tests. No additional platform or real-editor pass is claimed.
+
 Original Windows validation is historical evidence for
 its recorded source/environment, not a current public-alpha platform pass. Current
 real-editor UI and macOS checks have not run; Neovim was absent on the integration
