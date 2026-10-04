@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Signal Courier</title>
+<style>body{margin:0;background:#0c1424;color:#eee;font:16px system-ui;text-align:center}main{max-width:1000px;margin:auto}svg{display:block;width:100%;height:auto}button{padding:18px;margin:5px;background:#263a50;color:#fff;border:1px solid #77929e;border-radius:10px;font-size:18px;touch-action:none}#pad{display:flex;justify-content:space-between}p{margin:12px}</style>
+<main><h1>Signal Courier</h1><p id="status">Loading night city…</p><div id="scene"></div><div id="pad"><div><button data-key="left" aria-label="Move left">←</button><button data-key="right" aria-label="Move right">→</button></div><button data-key="jump">Jump</button></div><button id="retry">Retry beacon</button><button id="restart">Restart route</button><p>Arrow keys / A D move · Space / W / ↑ jumps · R retries · Shift+R restarts<br>Deliver your lantern to each golden beacon. Canals reset you to the last delivery. Purple rooftop stamps are optional.<br>Focus loss pauses and clears input. No save data or network gameplay.</p></main>
+<script type="module">
+import {loadGame} from './engine.mjs'; import {controls} from './controls.mjs';
+const status=document.querySelector('#status'), scene=document.querySelector('#scene');
+try {
+ const response=await fetch('./game.wasm'); if(!response.ok) throw new Error(`HTTP ${response.status}`);
+ const make=await loadGame(await response.arrayBuffer()), game=make(), input=controls(code=>game.input(code));
+ let focused=document.hasFocus(), previous=null;
+ const render=()=>{scene.innerHTML=game.svg();status.textContent=focused?'Deliver three lantern parcels across the night city':'Paused. Return to this window to continue'};
+ const keys={ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',Space:'jump',ArrowUp:'jump',KeyW:'jump'};
+ addEventListener('keydown',event=>{if(keys[event.code]){event.preventDefault();if(!event.repeat)input.press(keys[event.code],event.code)}else if(event.code==='KeyR'&&!event.repeat){input.clear();game.input(event.shiftKey?7:6);render()}});
+ addEventListener('keyup',event=>{if(keys[event.code])input.release(event.code)});
+ for(const button of document.querySelectorAll('[data-key]')) {
+  button.addEventListener('pointerdown',event=>{event.preventDefault();button.setPointerCapture(event.pointerId);input.press(button.dataset.key,`pointer:${event.pointerId}`)});
+  for(const type of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(type,event=>input.release(`pointer:${event.pointerId}`));
+ }
+ const resetClock=()=>{input.clear();previous=null;render()};
+ addEventListener('blur',()=>{focused=false;resetClock()});addEventListener('focus',()=>{focused=true;resetClock()});
+ document.addEventListener('visibilitychange',()=>{focused=!document.hidden&&document.hasFocus();resetClock()});
+ document.querySelector('#retry').onclick=()=>{input.clear();game.input(6);render()};document.querySelector('#restart').onclick=()=>{input.clear();game.restart();render()};
+ function frame(now){if(focused&&!document.hidden){if(previous!==null)input.frame(now-previous);render()}previous=now;requestAnimationFrame(frame)}
+ addEventListener('pagehide',event=>{if(!event.persisted)game.close()});render();requestAnimationFrame(frame);
+} catch(error){status.textContent=`Could not start: ${error.message}. Reload to retry.`}
+</script></html>

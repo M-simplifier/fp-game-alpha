@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "native_ghc": "9.6.7",
+  "wasm_ghc": "9.14.1.20260330",
+  "node": "24.19.0",
+  "direct_witness": {
+    "active_ticks": 422,
+    "deliveries": 3,
+    "falls": 0
+  },
+  "scenic_witness": {
+    "active_ticks": 605,
+    "deliveries": 3,
+    "stamps": [
+      0,
+      1,
+      2
+    ],
+    "falls": 0
+  },
+  "bounded_invariant_depth": 6,
+  "input_choices": 8,
+  "opaque_api": "compiler rejected unchecked Session construction",
+  "actual_wasm_runtime": "passed Node input/render/lifetime contracts",
+  "browser_ui": "not run; existing localhost restriction respected",
+  "touch_device": "not run",
+  "fun_or_general_solvability": "not proved",
+  "deadline_precedence": "native and Wasm win on tick 10800; terminal input leaves state unchanged",
+  "input_source_ownership": "aliases, keyboard/touch overlap, two pointers and clear pass"
+}

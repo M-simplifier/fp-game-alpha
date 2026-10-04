@@ -52,7 +52,7 @@ def snapshot():
         })
     value = {'schema': 1, 'digest_format': 'SHA256 of UTF-8 source with LF newlines',
              'self_hash': 'manifest excluded to avoid recursive hash', 'files': records}
-    (ROOT / MANIFEST).write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    (ROOT / MANIFEST).write_text(json.dumps(value, ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
     print(f'Wrote review candidate: {MANIFEST} ({len(records)} files)')
 
 

@@ -1,0 +1,20 @@
+cabal-version: 3.0
+name: signal-courier
+version: 0.1.0.0
+synopsis: A lantern delivery platformer with interpreter-checked routes
+license: MIT
+license-file: LICENSE
+build-type: Simple
+library
+  default-language: GHC2021
+  ghc-options: -Wall -Werror
+  hs-source-dirs: src
+  exposed-modules: Signal.Game, Signal.View
+  build-depends: base >=4.18 && <5, game-transition, game-arena
+test-suite laws
+  type: exitcode-stdio-1.0
+  default-language: GHC2021
+  ghc-options: -Wall -Werror
+  hs-source-dirs: test
+  main-is: Main.hs
+  build-depends: base, directory, signal-courier, game-transition, game-arena

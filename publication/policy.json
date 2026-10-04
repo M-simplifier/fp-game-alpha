@@ -67,7 +67,9 @@
     "references/paper-circuit/.agents/skills/game-dev/SKILL.md",
     ".agents/skills/haskell-editor-setup/SKILL.md",
     ".agents/skills/haskell-editor-setup/LICENSE",
-    ".agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs"
+    ".agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs",
+    "references/signal-courier/.agents/skills/game-dev/SKILL.md",
+    "references/signal-courier/.agents/skills/learn-code/SKILL.md"
   ],
   "selections": [
     {
@@ -408,6 +410,16 @@
     {
       "prefix": "research/live-tuning/",
       "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/signal-courier/",
+      "license": "references/signal-courier/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/signal-courier/web/vendor-shim/",
+      "license": "references/signal-courier/web/vendor-shim/LICENSE-MIT",
       "maturity": "experimental"
     }
   ]
