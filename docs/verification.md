@@ -131,4 +131,18 @@ Step/Arena equivalence, five ticks per frame with retained debt, pause/resume
 debt clearing, extreme pixel rejection, a dropped-tick mutation and a
 counterexample to splitting a frame at a control edge. The game updates and
 clock remain pure; no graphical host or device-performance result is claimed.
-The Garden three-OS CI result is pending.
+The [Garden CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37179671700)
+passed on Windows, Linux and macOS. A fresh public branch clone on Windows
+also passed the source gate, docs links, full Cabal suite and independent
+generated-game development acceptance.
+
+## River Home reference
+
+On local Windows GHC 9.6.7/Cabal 3.12.1.0, the selected original domain and
+clock and the new adapter compile with `-Wall -Wcompat -Werror`. The finite
+test follows the authored day-one/day-two/day-three/dinner journey, checks
+weather and sheltered crop/wood differences, snapshot round-trip/rejection
+and next-command equivalence, direct Step/Arena results, boundary rejection,
+finite command-prefix invariants, tick saturation, clock debt and a deleted
+rule mutation. The original QuickCheck suite and a graphical host are not
+part of this run. Public three-OS CI and fresh-clone checks are pending.

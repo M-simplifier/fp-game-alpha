@@ -27,6 +27,7 @@
     {"prefix": "references/lantern/", "license": "references/lantern/LICENSE", "maturity": "experimental"},
     {"prefix": "references/garden/", "license": "references/garden/LICENSE", "maturity": "experimental"},
     {"prefix": "references/tapline/", "license": "references/tapline/LICENSE", "maturity": "experimental"},
+    {"prefix": "references/river/", "license": "references/river/LICENSE", "maturity": "experimental"},
     {"prefix": "research/quantity/", "license": "LICENSE", "maturity": "experimental"}
   ]
 }

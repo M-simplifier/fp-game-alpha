@@ -257,5 +257,24 @@
     "origin": "gallery/functional-arcade/licenses/original-games/rules-garden-LICENSE",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297"
+  },
+  "references/river/src/Life/Domain.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Life/Domain.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
+    "transformation": "Added domain-rule and save-boundary Haddock; executable rule cases unchanged."
+  },
+  "references/river/src/Life/Clock.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Life/Clock.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "e29903084dcac4745a1a053443369474572addb16700d6d0ac656c7e157447d0"
+  },
+  "references/river/LICENSE": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/licenses/original-games/river-home-mobile-LICENSE",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297"
   }
 }
