@@ -26,6 +26,11 @@ or malformed submission is a protocol rejection; a stale token or unaffordable
 service is an admitted choice with an in-world refusal. Admission does not
 duplicate the game's cost rules.
 
+For the headless player transport, read `parseCommand`, `dispatchVisibleTurn`,
+then `respond` in [HeadlessMain](app/HeadlessMain.hs). The
+[readability pilot](../../research/readability/station-refactor.md) follows a
+complete player action and records the refactor's before/after checks.
+
 Run `python tools/fp_game.py test` from the foundation root and
 `python tools/test_station_api.py` for outside-client compilation. The finite
 test enumerates every reachable state/history under the six fixed orders and

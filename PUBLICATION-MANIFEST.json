@@ -2355,7 +2355,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "c6c81db9397381891cc12ebcade92059fd520dbc9d261b34bdc25d695b9e4b52",
+      "sha256_lf": "38d2d59c6971651c909073d2c90db74a22149c0f59ebc9c9cb1ac172cc18e2c8",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5131,7 +5131,7 @@
     },
     {
       "path": "references/station/README.md",
-      "sha256_lf": "7061572e661f060d0233f0fc7f3e930d6efe0e88e0548e505828baa2face77dd",
+      "sha256_lf": "2fb1b3eb78dc88decdfb586f7c86aaccf8fad3e56cd640dc6ff90f37317b837f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5142,7 +5142,7 @@
     },
     {
       "path": "references/station/app/HeadlessMain.hs",
-      "sha256_lf": "befe2b57ef60e9ed84412b594c29276c2146a134f26e2231c19f11c51e8ace39",
+      "sha256_lf": "ee0b93ddbaba05bad549afd59ba9ad25feb55b27c004a4c11161d189edfe760a",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5775,6 +5775,28 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "research/readability/compare_station.py",
+      "sha256_lf": "2589dd17c7a81189d99240ea0276319676edbf0e3d34c4ed7836cfe4ae3eee28",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/readability/station-refactor.md",
+      "sha256_lf": "b5644afba4741052f25ac58589962250711fa81cada0becc103d5db916d43c3a",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "templates/terminal-adventure/GAME-SPEC.md.tmpl",
       "sha256_lf": "cb5cc4c9872cdfc26d5cb793c6b3019e6d2d147066deebdfb7fd8a60b442a380",
       "origin": {
@@ -6106,7 +6128,7 @@
     },
     {
       "path": "tools/test_play.py",
-      "sha256_lf": "5d110d382759d4fa6dd9ab8eaafe5a9755551318c50c2d0063d04335cf8cbe4b",
+      "sha256_lf": "b808f9e635ca25f7215b5a796689552e79257a7979ca8f48e85e7938ab94c64b",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
