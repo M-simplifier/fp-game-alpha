@@ -25,3 +25,10 @@ test-suite station-laws
   main-is: Laws.hs
   build-depends: base, station-dispatch-reference,
                  game-transition, game-arena
+
+-- Line-oriented player process. No network, renderer or LLM subscription.
+executable station-headless
+  import: checked
+  hs-source-dirs: app
+  main-is: HeadlessMain.hs
+  build-depends: base, text, station-dispatch-reference, game-arena

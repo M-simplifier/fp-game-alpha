@@ -54,3 +54,10 @@ The [complete Afterlight source](references/afterlight/README.md) is an optional
 package with the original renderer/audio and browser hosts, a pinned dependency
 check route, and a frozen gameplay oracle. Host execution and binary
 redistribution are separate acceptance stages.
+
+## Play through an AI-facing interface
+
+[Headless gameplay](docs/headless-play.md) lets an AI make actual Station choices
+through the Haskell Arena, inspect consequences, and produce a replayable player
+journal. Use `$play-game` or `python tools/play.py --help`. The pilot evaluates
+abstract decisions; it is not a human-fun guarantee or a renderer benchmark.

@@ -1,0 +1,387 @@
+{
+  "schema": 1,
+  "game": "station",
+  "exposure": "source-informed",
+  "source_fingerprint": "9545008a319f90aea4e6ca34f5fb5b34d798cb8503722b756d037629aea6e676",
+  "events": [
+    {
+      "request_id": "l-1",
+      "turn": 1,
+      "choice": "express",
+      "reason": "温かいパンを早く届ける選択を優先。限られた速達札を使う価値を物語から評価する。",
+      "observation": {
+        "protocol": 1,
+        "game": "station",
+        "result": "accepted",
+        "feedback": "",
+        "status": "running",
+        "turn": 2,
+        "completed": 1,
+        "total": 6,
+        "resources": {
+          "energy": 6,
+          "tickets": 2,
+          "delivered": 4
+        },
+        "order": {
+          "name": "おばあちゃんへの花束",
+          "story": "帰省できなかった孫から、小さな花束。カードには「また会おうね」。"
+        },
+        "options": [
+          {
+            "action": "express",
+            "label": "速達便",
+            "available": true,
+            "result": {
+              "energy": 3,
+              "tickets": 1,
+              "delivered": 10
+            },
+            "reason": null
+          },
+          {
+            "action": "local",
+            "label": "各駅便",
+            "available": true,
+            "result": {
+              "energy": 5,
+              "tickets": 2,
+              "delivered": 6
+            },
+            "reason": null
+          },
+          {
+            "action": "defer",
+            "label": "次の便へ",
+            "available": true,
+            "result": {
+              "energy": 7,
+              "tickets": 2,
+              "delivered": 4
+            },
+            "reason": null
+          }
+        ],
+        "ending": null
+      }
+    },
+    {
+      "request_id": "l-2",
+      "turn": 2,
+      "choice": "local",
+      "reason": "花束は各駅便でも届けられるので、ここは体力と札を残す。",
+      "observation": {
+        "protocol": 1,
+        "game": "station",
+        "result": "accepted",
+        "feedback": "",
+        "status": "running",
+        "turn": 3,
+        "completed": 2,
+        "total": 6,
+        "resources": {
+          "energy": 5,
+          "tickets": 2,
+          "delivered": 6
+        },
+        "order": {
+          "name": "忘れものの楽譜",
+          "story": "となり町の音楽会へ、練習の書き込みがいっぱいの楽譜を届けます。"
+        },
+        "options": [
+          {
+            "action": "express",
+            "label": "速達便",
+            "available": true,
+            "result": {
+              "energy": 3,
+              "tickets": 1,
+              "delivered": 11
+            },
+            "reason": null
+          },
+          {
+            "action": "local",
+            "label": "各駅便",
+            "available": true,
+            "result": {
+              "energy": 4,
+              "tickets": 2,
+              "delivered": 7
+            },
+            "reason": null
+          },
+          {
+            "action": "defer",
+            "label": "次の便へ",
+            "available": true,
+            "result": {
+              "energy": 6,
+              "tickets": 2,
+              "delivered": 6
+            },
+            "reason": null
+          }
+        ],
+        "ending": null
+      }
+    },
+    {
+      "request_id": "l-3",
+      "turn": 3,
+      "choice": "express",
+      "reason": "音楽会に使う楽譜なので速達にする。残り体力が3になる制約を受け入れる。",
+      "observation": {
+        "protocol": 1,
+        "game": "station",
+        "result": "accepted",
+        "feedback": "",
+        "status": "running",
+        "turn": 4,
+        "completed": 3,
+        "total": 6,
+        "resources": {
+          "energy": 3,
+          "tickets": 1,
+          "delivered": 11
+        },
+        "order": {
+          "name": "星見の望遠鏡",
+          "story": "今夜の星を楽しみにしている集会所へ。大きくて、少し重たい箱です。"
+        },
+        "options": [
+          {
+            "action": "express",
+            "label": "速達便",
+            "available": false,
+            "result": null,
+            "reason": "体力が足りません（必要 4 ／ 残り 3）。"
+          },
+          {
+            "action": "local",
+            "label": "各駅便",
+            "available": true,
+            "result": {
+              "energy": 2,
+              "tickets": 1,
+              "delivered": 13
+            },
+            "reason": null
+          },
+          {
+            "action": "defer",
+            "label": "次の便へ",
+            "available": true,
+            "result": {
+              "energy": 4,
+              "tickets": 1,
+              "delivered": 11
+            },
+            "reason": null
+          }
+        ],
+        "ending": null
+      }
+    },
+    {
+      "request_id": "l-4",
+      "turn": 4,
+      "choice": "defer",
+      "reason": "速達に必要な体力が足りない。今回は次の便へ回して体力を回復する選択を試す。",
+      "observation": {
+        "protocol": 1,
+        "game": "station",
+        "result": "accepted",
+        "feedback": "",
+        "status": "running",
+        "turn": 5,
+        "completed": 4,
+        "total": 6,
+        "resources": {
+          "energy": 4,
+          "tickets": 1,
+          "delivered": 11
+        },
+        "order": {
+          "name": "手編みの赤いマフラー",
+          "story": "山あいで働く友だちへ、一目ずつ編んだ贈りもの。夕方の風が冷えてきました。"
+        },
+        "options": [
+          {
+            "action": "express",
+            "label": "速達便",
+            "available": true,
+            "result": {
+              "energy": 2,
+              "tickets": 0,
+              "delivered": 17
+            },
+            "reason": null
+          },
+          {
+            "action": "local",
+            "label": "各駅便",
+            "available": true,
+            "result": {
+              "energy": 3,
+              "tickets": 1,
+              "delivered": 12
+            },
+            "reason": null
+          },
+          {
+            "action": "defer",
+            "label": "次の便へ",
+            "available": true,
+            "result": {
+              "energy": 5,
+              "tickets": 1,
+              "delivered": 11
+            },
+            "reason": null
+          }
+        ],
+        "ending": null
+      }
+    },
+    {
+      "request_id": "l-5",
+      "turn": 5,
+      "choice": "express",
+      "reason": "夕方の冷え込みと贈り物の文脈を優先し、最後の速達札を使う。",
+      "observation": {
+        "protocol": 1,
+        "game": "station",
+        "result": "accepted",
+        "feedback": "",
+        "status": "running",
+        "turn": 6,
+        "completed": 5,
+        "total": 6,
+        "resources": {
+          "energy": 2,
+          "tickets": 0,
+          "delivered": 17
+        },
+        "order": {
+          "name": "旅立ちの写真帳",
+          "story": "明日遠くへ引っ越す人へ。商店街のみんなの写真とひとことが詰まっています。"
+        },
+        "options": [
+          {
+            "action": "express",
+            "label": "速達便",
+            "available": false,
+            "result": null,
+            "reason": "体力が足りません（必要 3 ／ 残り 2）。"
+          },
+          {
+            "action": "local",
+            "label": "各駅便",
+            "available": true,
+            "result": {
+              "energy": 1,
+              "tickets": 0,
+              "delivered": 19
+            },
+            "reason": null
+          },
+          {
+            "action": "defer",
+            "label": "次の便へ",
+            "available": true,
+            "result": {
+              "energy": 3,
+              "tickets": 0,
+              "delivered": 17
+            },
+            "reason": null
+          }
+        ],
+        "ending": null
+      }
+    },
+    {
+      "request_id": "l-6",
+      "turn": 6,
+      "choice": "local",
+      "reason": "札を使い切ったので各駅便で確実に届ける。全件を速達にできないトレードオフがここに残った。",
+      "observation": {
+        "protocol": 1,
+        "game": "station",
+        "result": "accepted",
+        "feedback": "",
+        "status": "terminal",
+        "turn": null,
+        "completed": 6,
+        "total": 6,
+        "resources": {
+          "energy": 1,
+          "tickets": 0,
+          "delivered": 19
+        },
+        "order": null,
+        "options": [],
+        "ending": {
+          "title": "やさしい一日",
+          "story": "あなたが選んだ便で、いくつもの暮らしにぬくもりが届きました。今日は、やさしい一日でした。"
+        }
+      }
+    }
+  ],
+  "initial": {
+    "protocol": 1,
+    "game": "station",
+    "result": "started",
+    "feedback": "",
+    "status": "running",
+    "turn": 1,
+    "completed": 0,
+    "total": 6,
+    "resources": {
+      "energy": 8,
+      "tickets": 3,
+      "delivered": 0
+    },
+    "order": {
+      "name": "焼きたてパンのかご",
+      "story": "丘のパン屋さんから、夕食を待つ家族へ。まだ少し温かいかごです。"
+    },
+    "options": [
+      {
+        "action": "express",
+        "label": "速達便",
+        "available": true,
+        "result": {
+          "energy": 6,
+          "tickets": 2,
+          "delivered": 4
+        },
+        "reason": null
+      },
+      {
+        "action": "local",
+        "label": "各駅便",
+        "available": true,
+        "result": {
+          "energy": 7,
+          "tickets": 3,
+          "delivered": 1
+        },
+        "reason": null
+      },
+      {
+        "action": "defer",
+        "label": "次の便へ",
+        "available": true,
+        "result": {
+          "energy": 8,
+          "tickets": 3,
+          "delivered": 0
+        },
+        "reason": null
+      }
+    ],
+    "ending": null
+  }
+}
