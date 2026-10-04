@@ -94,7 +94,7 @@
     },
     {
       "path": "cabal.project",
-      "sha256_lf": "f09533bd1e3a69c2131109f1dafc3a17aa40f32f65660b1e70ab8fa3567fb9f6",
+      "sha256_lf": "b55ba369f63c9c911540932012d47d572ee5e3b3c2e45ebf8895acc35a1a404e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -207,7 +207,7 @@
     },
     {
       "path": "docs/roadmap.md",
-      "sha256_lf": "41132c2311ac35014de93530bf864b4e647cd68720b2abec8f4e24cad9a8d15a",
+      "sha256_lf": "b07b5a3db0da4693b6da0024b07ddceb38826bd7c8cbcf7e0b43998a78343dcf",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -251,7 +251,7 @@
     },
     {
       "path": "docs/verification.md",
-      "sha256_lf": "9b5aa3e914eedcfa798f31980b224b68660575bf74bcfb3f5a93bac7369b08a3",
+      "sha256_lf": "0a4771986527aa1cc5b88ed59c0cdd777599efb88d604fc07e14d6c7b20e745e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -445,7 +445,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "145f971373456e9fc616361581735c934adbc9e1a448b772fd7ab0321f069463",
+      "sha256_lf": "13e87c19cd5f199ae25b87a97abc7f774fe7e62d0db398e5ccb34e1af7486f01",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -456,12 +456,81 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "ec81f18f14777fef952ebf3166f3c327e150deefdde86dc347e642c7a690715a",
+      "sha256_lf": "53e2e7023f35047a36d1514f4d53d0f743fd26bfc5668f5dc7322a4893479b94",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
       "license": "LICENSE",
       "maturity": "completed",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/LICENSE",
+      "sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/NOTICE",
+      "sha256_lf": "a8155ed417d6a3c9076ef2b8ebbf46841cb8d9758932de91ebb55f3c4ae6f9db",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/README.md",
+      "sha256_lf": "eb8c8aab7bf71e2fbdfec55af63ab007a3607c9f065ac9d2779b5ed87992db13",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/lantern-puzzle.cabal",
+      "sha256_lf": "ba3aa7ab27a5a67356c13dd630c4630548b77ba56135e3684e2231451d79e19a",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/src/Lantern.hs",
+      "sha256_lf": "35a6eea35962fe5f8cf6f458ecc7d564f356dcb040e49c033f127615f0c51514",
+      "origin": {
+        "kind": "refactored-author-supplied-technical-source",
+        "origin": "fixtures/lantern/src/Lantern.hs",
+        "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+        "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/lantern/test/Laws.hs",
+      "sha256_lf": "67bb9a0e7e3f91de76f759872f5bde331df66bc0a8eafb80d7998bc5c09ff5c3",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"
     },
@@ -676,7 +745,7 @@
     },
     {
       "path": "tools/fp_game.py",
-      "sha256_lf": "cd9748f2cebccbe03415d2dcf424aba11e1d83a76fc571687da620e9d6735149",
+      "sha256_lf": "f1d1adfe3e5f04282d5b1fe7f04a8d779a1b17e53c5d6690674319ec48873c5d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

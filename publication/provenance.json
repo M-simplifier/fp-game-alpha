@@ -44,5 +44,11 @@
     "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
     "origin": "docs/reference/readability.md",
     "source_sha256_lf": "2ece4af9a50732ed2bef90520645804795c2d94061e85f6bf3e17b1f18df848b"
+  },
+  "references/lantern/src/Lantern.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "fixtures/lantern/src/Lantern.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689"
   }
 }

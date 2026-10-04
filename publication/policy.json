@@ -16,6 +16,7 @@
     {"prefix": "editors/", "license": "LICENSE", "maturity": "experimental"},
     {"prefix": ".agents/skills/new-game/SKILL.md", "license": "LICENSE", "maturity": "experimental"},
     {"prefix": "libraries/game-transition/", "license": "libraries/game-transition/LICENSE", "maturity": "experimental"},
-    {"prefix": "libraries/game-arena/", "license": "libraries/game-arena/LICENSE", "maturity": "experimental"}
+    {"prefix": "libraries/game-arena/", "license": "libraries/game-arena/LICENSE", "maturity": "experimental"},
+    {"prefix": "references/lantern/", "license": "references/lantern/LICENSE", "maturity": "experimental"}
   ]
 }
