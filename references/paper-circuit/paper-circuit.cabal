@@ -1,0 +1,19 @@
+cabal-version: 3.0
+name: paper-circuit
+version: 0.1.0.0
+build-type: Simple
+license: MIT
+license-file: LICENSE
+library
+  hs-source-dirs: src
+  exposed-modules: Paper.Game, Paper.View
+  default-language: GHC2021
+  ghc-options: -Wall -Werror
+  build-depends: base >=4.18 && <5, containers, game-transition, game-arena
+test-suite paper-laws
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Laws.hs
+  default-language: GHC2021
+  ghc-options: -Wall -Werror
+  build-depends: base, containers, paper-circuit, game-transition, game-arena

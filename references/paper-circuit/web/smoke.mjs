@@ -1,0 +1,24 @@
+import {readFile, writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {loadGame} from './engine.mjs';
+const create = await loadGame(await readFile(new URL('./game.wasm',import.meta.url)));
+const a=create(), b=create();
+assert.equal(a.moves(),18); assert.equal(a.phase(),'playing');
+const initial=a.svg();
+assert.equal((initial.match(/data-cell=/g)||[]).length,16);
+assert.ok(initial.includes('Paper Circuit'));
+await writeFile(new URL('../.build/initial.svg',import.meta.url),initial);
+for(const bad of [-1,16,2**32,NaN,1.5]) assert.equal(a.rotate(bad),false);
+assert.equal(a.moves(),18);
+for(const cell of [0,2,2,11,11]) assert.equal(a.rotate(cell),true);
+assert.equal(a.phase(),'won'); assert.equal(a.moves(),13);
+assert.ok(a.svg().includes('Both gardens are watered'));
+assert.equal(a.rotate(4),false); assert.equal(b.moves(),18);
+await writeFile(new URL('../.build/won.svg',import.meta.url),a.svg());
+a.restart(); assert.equal(a.svg(),initial);
+assert.equal(a.undo(),false); a.rotate(0); assert.equal(a.undo(),true); assert.equal(a.moves(),18); a.rotate(0); assert.equal(a.undo(),false); a.restart();
+for(let i=0;i<18;i++) a.rotate(4);
+assert.equal(a.phase(),'out-of-moves'); assert.equal(a.moves(),0);
+a.close(); a.close(); assert.throws(()=>a.svg(),/closed/); b.close();
+for(let i=0;i<200;i++){const c=create(); c.rotate(0); assert.ok(c.svg().includes('17 turns')); c.close();}
+console.log('PASS: actual Haskell Wasm gameplay, invalid inputs, independent sessions, win/loss/reset, SVG and lifecycle (not a browser UI test)');

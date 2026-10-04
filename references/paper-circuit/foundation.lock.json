@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "upstream": "https://github.com/M-simplifier/fp-game-alpha",
+  "upstream_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+  "mode": "independent vendored core; no game source reused",
+  "sha256": {
+    "vendor/game-arena/game-arena.cabal": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
+    "vendor/game-arena/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "vendor/game-transition/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "vendor/game-transition/game-transition.cabal": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1",
+    "vendor/game-arena/test/Laws.hs": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+    "vendor/game-arena/src/Game/Arena.hs": "8433e468e45f9602da1d83a676ead73bc0da8c17f0f2ef6c0affb8cdaedebc18",
+    "vendor/game-arena/src/Game/Arena/Finite.hs": "f4fb8aa96d2b3f0bf626550bec1cf36ecce1caefaa3a47aa6f82caf6743f7c78",
+    "vendor/game-transition/test/Laws.hs": "1f28e487e74b663fcbdd5be07dcf63d61a3b099fd83a693315f47fedb29d85fa",
+    "vendor/game-transition/src/Game/Transition.hs": "f4ca9908eedd9c7bc6c33105f7136af7e03d326635983cac2106c542067d9202"
+  }
+}

@@ -71,7 +71,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "0109c73cadb9cb3b07944cdbc98e005e45e0345848441dbdf6aec429237a0d8d",
+      "sha256_lf": "8582543286ebc3da07ec1fecc2911b1a3f086c277ffbdc888e8f9e56e9bd32bd",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -127,7 +127,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "3a57806e9074fbd806f50f0cba5f0c6e8e504c13fa2216cca8089844661b1da9",
+      "sha256_lf": "1629ceadc17c2b759687aff399af8348a596dd943bc4319f3f22043e7f96b840",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -138,7 +138,7 @@
     },
     {
       "path": "cabal.project",
-      "sha256_lf": "28ec4f6fadf7c5737013dba794d9b60565386c65c3bf898afa8622d52f89320b",
+      "sha256_lf": "2bd9da3af92a6f44efdd314ee68f0bdbd117682a51fe63f108ced344af8e53da",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -240,7 +240,7 @@
     },
     {
       "path": "docs/failure-prevention.md",
-      "sha256_lf": "748aafee277a2fbcda71ec8ad4de844c131cfe128f9f2392b44166bc233b09d6",
+      "sha256_lf": "d949bb34f576e719ac55987799caab6d0c89c0880512f9797a36909036473122",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -765,7 +765,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "6fd861e1dfb2d0a94d67d2bc2c26b2bfb11fb57df68dda73d9a71b4312027675",
+      "sha256_lf": "df8ad19b15076a136acd34c46ffdbc70328a461d0bfaee637cb35f79543a62e5",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -776,7 +776,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "481eb05084e82c05d26da5ffcb2a90d5b199518897aaaa1780814372b8aec376",
+      "sha256_lf": "d058bff0ffb11d8822fe7671d52bb4384c3b00182b9dbf2f23f98a311e5be6bf",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2778,6 +2778,519 @@
         "kind": "authored-for-public-alpha"
       },
       "license": "references/lantern/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/.agents/skills/game-dev/SKILL.md",
+      "sha256_lf": "c6d3dc9876b92fdd1dfd4aa2b4f8781be95994f8054e5f8663ef80d14bfbf84f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/.gitignore",
+      "sha256_lf": "74e693e0a19fcb3cba8ee50b5ed50289acad98fc79a23edfbe9b1c0465c253ef",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/CHECKS.json",
+      "sha256_lf": "6d558e281a39bf459d2fb6022a02b0366c4948388bf7c712d81328682be50993",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/GAME-SPEC.md",
+      "sha256_lf": "2db0f024db437db082c67ae63f84df469808da504a07ac144a9ef2059c050947",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/LICENSE",
+      "sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/README.md",
+      "sha256_lf": "044af40a48402f4fa848694bd935d17965b72ee1a30ab8e0f7c2e5355b751197",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/app/Browser.hs",
+      "sha256_lf": "a31b2f1708c9ccad9f86d113c5ee6013f1290c2b812fc5aee9b0d04dee3a26a6",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/build-web.sh",
+      "sha256_lf": "d46f881525b572b5e7c0d23112ce4666581c237500ec61d3e6a32b50b6f246a6",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/cabal.project",
+      "sha256_lf": "84ec2094dad51ec2bb18fb0eacbafa3b381cf372fb1e02df263b005652f90e15",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/docs/development.md",
+      "sha256_lf": "89063c9832e9860877ba22fd7523cdce7fb8c6c158f0ed5dce4622b6d3924c3b",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/foundation.lock.json",
+      "sha256_lf": "ca17f8d8c087bf382f51772597e2955ce245f6b8602ed3b42e419d57bfb00c38",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/paper-circuit.cabal",
+      "sha256_lf": "07db46eb8c3036309b206979b3e8fd6c2132b97f5592ab41dda7bb9c0894e407",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/src/Paper/Game.hs",
+      "sha256_lf": "2954c13c3ebec8ae1dfd7d499c0a5e0ebab47ac5ffddec7544792ca7a15d4289",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/src/Paper/View.hs",
+      "sha256_lf": "bb0cc466c51dd036e111f92b19c391792e65179eabb2a74bd513499bece976fd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/test/Laws.hs",
+      "sha256_lf": "cc944ceec0bf282886d061095765900d5616aba9548e4139df6829562b897eb5",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-arena/LICENSE",
+      "sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-arena/LICENSE"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-arena/game-arena.cabal",
+      "sha256_lf": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-arena/game-arena.cabal"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-arena/src/Game/Arena.hs",
+      "sha256_lf": "8433e468e45f9602da1d83a676ead73bc0da8c17f0f2ef6c0affb8cdaedebc18",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-arena/src/Game/Arena.hs"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-arena/src/Game/Arena/Finite.hs",
+      "sha256_lf": "f4fb8aa96d2b3f0bf626550bec1cf36ecce1caefaa3a47aa6f82caf6743f7c78",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-arena/src/Game/Arena/Finite.hs"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-arena/test/Laws.hs",
+      "sha256_lf": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-arena/test/Laws.hs"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-transition/LICENSE",
+      "sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-transition/LICENSE"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-transition/game-transition.cabal",
+      "sha256_lf": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-transition/game-transition.cabal"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-transition/src/Game/Transition.hs",
+      "sha256_lf": "f4ca9908eedd9c7bc6c33105f7136af7e03d326635983cac2106c542067d9202",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-transition/src/Game/Transition.hs"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/vendor/game-transition/test/Laws.hs",
+      "sha256_lf": "1f28e487e74b663fcbdd5be07dcf63d61a3b099fd83a693315f47fedb29d85fa",
+      "origin": {
+        "kind": "vendored-public-core",
+        "source_commit": "591fae5a2559031f91f9c99f4a76d35fbaeca64d",
+        "source_path": "libraries/game-transition/test/Laws.hs"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/controls.mjs",
+      "sha256_lf": "bef50f52d77eb0f03291409cd999e2d3dfeba36c9292c9fa1e77daa86d2b4bab",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/controls.test.mjs",
+      "sha256_lf": "8ce981157ecfe7a3c838ecd34f4f18c4147dde45676fb105ad40733a6f269149",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/engine.mjs",
+      "sha256_lf": "1c283e751b8517504364cca4e038b5f3f04e839a88fcfa78a62f051df0ccb9c8",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/index.html",
+      "sha256_lf": "657dcfe0cae7c0dbb5e99cc2202c00f2a2486b93a48c3cff423cfa1b25859fd9",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/smoke.mjs",
+      "sha256_lf": "5db8dfa9c5ed816d921194af21c700da92a823e1aa9c6b697ff72b82c4fb8830",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "references/paper-circuit/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/LICENSE-APACHE",
+      "sha256_lf": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "sha256_lf": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/debug.js",
+      "sha256_lf": "a91848ee180529e2a60c05dfb9584cad19cd4e1c6f391fdb76a938bcae4c0328",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "a91848ee180529e2a60c05dfb9584cad19cd4e1c6f391fdb76a938bcae4c0328",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/fd.js",
+      "sha256_lf": "9e82e1fc1bfd3e3573f64349dc42b4b624ed61d24e5c553f2bb4d041444f166c",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "9e82e1fc1bfd3e3573f64349dc42b4b624ed61d24e5c553f2bb4d041444f166c",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/fs_mem.js",
+      "sha256_lf": "85dbc9e0ee784d9ff8b55452644e00bf7058e32355aab974f8b71d7d85772324",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "85dbc9e0ee784d9ff8b55452644e00bf7058e32355aab974f8b71d7d85772324",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/fs_opfs.js",
+      "sha256_lf": "4b96aaeb5ac5986cf802cbf22b975c656682d22a38248160c96fc2ded5644869",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "4b96aaeb5ac5986cf802cbf22b975c656682d22a38248160c96fc2ded5644869",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/index.js",
+      "sha256_lf": "7e2fd52ee3f728bb0b1d6e449724e0f13e3d586bb25bde6e02a66366175b5605",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "7e2fd52ee3f728bb0b1d6e449724e0f13e3d586bb25bde6e02a66366175b5605",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/strace.js",
+      "sha256_lf": "ece435d3784d928d02bff4d015b7cb686f8c06de8536ff9f8ebc38a8f403a3be",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "ece435d3784d928d02bff4d015b7cb686f8c06de8536ff9f8ebc38a8f403a3be",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/wasi.js",
+      "sha256_lf": "168eb977a826f75ab0c39f9322f78cc58dbd5b233019ad1d6a7e940af8a7c4aa",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "168eb977a826f75ab0c39f9322f78cc58dbd5b233019ad1d6a7e940af8a7c4aa",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/dist/wasi_defs.js",
+      "sha256_lf": "0db0f42ba330749a7b05095ea1fd0ff63fd2b30e84cead30fe4c28359d15f194",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "0db0f42ba330749a7b05095ea1fd0ff63fd2b30e84cead30fe4c28359d15f194",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "references/paper-circuit/web/vendor-shim/package.json",
+      "sha256_lf": "4025e157abfadd44037158899001a4ea0407651c2ee9c8a9f51d5c9d0ecf613c",
+      "origin": {
+        "kind": "public-third-party",
+        "package": "@bjorn3/browser_wasi_shim",
+        "version": "0.4.2",
+        "source": "https://github.com/bjorn3/browser_wasi_shim",
+        "sha256": "4025e157abfadd44037158899001a4ea0407651c2ee9c8a9f51d5c9d0ecf613c",
+        "license_choice": "MIT (upstream also offers Apache-2.0)"
+      },
+      "license": "references/paper-circuit/web/vendor-shim/LICENSE-MIT",
       "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"

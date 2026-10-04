@@ -85,3 +85,11 @@ abstract decisions; it is not a human-fun guarantee or a renderer benchmark.
 
 The [technical knowledge index](docs/practice/README.md) is the canonical guide;
 these entries route to the relevant knowledge without making every task read it all.
+
+## A game authored from its own brief
+
+[Paper Circuit](references/paper-circuit/README.md) is a new 2D browser puzzle
+whose Haskell core and SVG presentation were written from scratch. Only the
+small shared core is reused. Native and real-Wasm/Node checks pass; actual
+browser UI acceptance remains unverified. This example is not a required
+template for new games.

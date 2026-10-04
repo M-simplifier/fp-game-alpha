@@ -1,0 +1,29 @@
+cabal-version: 3.0
+name: game-transition
+version: 0.1.0.0
+synopsis: Pure game boundaries, chronological replay and refactor comparison
+description: An explicit transition dictionary and associated-type witness,
+             with chronological composition, trace and first divergence.
+license: MIT
+license-file: LICENSE
+author: Project contributors
+maintainer: M-simplifier
+category: Game
+build-type: Simple
+
+common checked
+  default-language: GHC2021
+  ghc-options: -Wall -Wcompat -Werror
+
+library
+  import: checked
+  hs-source-dirs: src
+  exposed-modules: Game.Transition
+  build-depends: base >=4.18 && <5
+
+test-suite transition-laws
+  import: checked
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Laws.hs
+  build-depends: base, game-transition

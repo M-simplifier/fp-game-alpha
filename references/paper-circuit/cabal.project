@@ -1,0 +1,3 @@
+packages: . vendor/game-transition vendor/game-arena
+active-repositories: :none
+tests: True
