@@ -108,7 +108,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "b2fd9caaebe553454c8d1c34c5a16095925ecaad6eb7aa0e727a0e8f3b02bb77",
+      "sha256_lf": "6099dc2ac016dc8d4f9b8cc165b1be946248a6d6c959f8077f36a348c67507ed",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -164,7 +164,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "172782a275d62215b9f68810e787dfee575fab141096488e62935ba2646b877c",
+      "sha256_lf": "fea9ffb69320a08e3d21e81f452c11d99d9fc25e8eaa0becb3fddf5e0e06a8de",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2355,7 +2355,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "c6c81db9397381891cc12ebcade92059fd520dbc9d261b34bdc25d695b9e4b52",
+      "sha256_lf": "ac0f215ea30077242e340f4d1421231e5189e045954afa1b438c31eb6aa6131f",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5494,6 +5494,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "research/public-page/README.ja.md",
+      "sha256_lf": "0e53dd11ba7304df1c7383321cbe3a37a72027784dc1e4ccfcd8c2024353841f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "research/quantity/README.md",
       "sha256_lf": "511615a69d09467b9f14c907e6e9e0ce1f7647d07699bc11393b7af0f8a65ef8",
       "origin": {
@@ -5742,6 +5753,83 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "site/.nojekyll",
+      "sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/README.md",
+      "sha256_lf": "8361861f82283cc09f9f6968c80ea8b615ba688df0e6f8dab6882454af2b9e5c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/evidence/station-trace.json",
+      "sha256_lf": "c18e65fe51606f68a817d70683e33ae949ad855e312adade3383a4858aa8190f",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/icon.svg",
+      "sha256_lf": "ff189eafeb0c66a7405922d2a8b53b85a50ef9502b6a2486ccd9a5e6dc1047c2",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/index.html",
+      "sha256_lf": "1ebb7217e995162f0c74408fd7675f0c145ddabf63fac973d7cec73d73bd30a4",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/site.js",
+      "sha256_lf": "389a9277af53cd101488694e6a4c8cbae88ee7ef16b1e37055a58d87c9f39a54",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "site/style.css",
+      "sha256_lf": "02b5be1dda5abc970dd3cdb92e7ceed24ad98f93aa0223aa54053775a3cc35cd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "templates/terminal-adventure/GAME-SPEC.md.tmpl",
       "sha256_lf": "cb5cc4c9872cdfc26d5cb793c6b3019e6d2d147066deebdfb7fd8a60b442a380",
       "origin": {
@@ -5953,6 +6041,17 @@
     {
       "path": "tools/acceptance/features.py",
       "sha256_lf": "14da4e30d7d0615585fbc575761d89e6b58babb36d72431e93ab473b0448ae49",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "tools/check_site.py",
+      "sha256_lf": "60a86bd9ec2db6abcbcd7b888d6cc185ccc51a0099f321cd3d9acb6c252889ca",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
