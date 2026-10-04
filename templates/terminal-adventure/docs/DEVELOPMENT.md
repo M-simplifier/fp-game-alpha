@@ -20,6 +20,10 @@ They do not by themselves enforce a range. The internal representation is a
 game implementation detail; public construction checks bounds and invariants.
 Study the versioned [kernel contract](architecture.md) and
 [readability guide](haskell.md) only when a change needs them.
+Before adding unfamiliar timing, input, rendering, persistence or performance
+behavior, select the relevant [technical guide](TECHNICAL-GUIDES.md). These
+pinned public references remain reachable without the starter checkout; read
+only what the current change needs and preserve this game's own requirements.
 For a bug found during review or play, follow the
 [prevention ledger](failure-prevention.md): preserve a case regression, then
 check whether a public construction path, invariant, template or systematic

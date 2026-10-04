@@ -33,7 +33,8 @@
     ".agents/skills/play-game/SKILL.md",
     ".agents/skills/haskell-excellence/SKILL.md",
     ".agents/skills/fp-gamedev/SKILL.md",
-    ".agents/skills/game-platform/SKILL.md"
+    ".agents/skills/game-platform/SKILL.md",
+    "references/paper-circuit/.agents/skills/game-dev/SKILL.md"
   ],
   "selections": [
     {

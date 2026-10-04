@@ -56,3 +56,9 @@ This is a small workflow exercise, not proof of arbitrary-game or platform DX.
 Do not redistribute a compiled Wasm binary without its actual compiler/runtime
 and dependency licensing materials. Source publication and binary redistribution
 are separate. The working Wasm artifact is intentionally a local build output.
+
+## Continue with an AI
+
+Invoke `$game-dev` after opening this game directory. Its
+[local continuation guide](docs/development.md) maps the spec, code, build/test
+steps and fixed-version technical knowledge without requiring the parent clone.
