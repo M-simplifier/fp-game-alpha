@@ -1,5 +1,5 @@
-{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE PatternSynonyms #-}
 
 module Garden.Runtime
   ( GardenApp,
@@ -31,15 +31,15 @@ import Game.Arena qualified as Arena
 import Garden.Arena (Afterlight (..), Gardener (..))
 import Garden.Audio
 import Garden.Checkpoint
-import Garden.Input
 import Garden.Host.Control
+import Garden.Input
 import Garden.Photo
 import Garden.Render
 import Garden.Render.Resources
 import Garden.Render.Settings
 import Garden.Rules
-import Garden.Signal
 import Garden.Session
+import Garden.Signal
 import Garden.Tour qualified as Tour
 import Garden.Types
 import Garden.View
@@ -118,6 +118,8 @@ startupGarden = bracketOnError beginGarden shutdownGarden $ \app -> do
 -- | Acquire only the window and audio host. World construction and uploads are
 -- deferred to callbacks. This does not require a browser activation gesture;
 -- the browser resumes its suspended AudioContext on the later play click.
+-- CPP splits this declaration; retain both host branches verbatim.
+{- ORMOLU_DISABLE -}
 beginGarden :: IO GardenApp
 beginGarden = do
   createDirectoryIfMissing True ".runtime/garden/screenshots"
@@ -165,6 +167,8 @@ beginGarden = do
 
 -- | Real completed work, not a synthetic percentage. Stage changes delimit
 -- world creation, common resources, chunk uploads, and the preview frame.
+{- ORMOLU_ENABLE -}
+
 startupProgress :: GardenApp -> IO (StartupStage, Int, Int)
 startupProgress (GardenApp stateRef) = do
   state <- readIORef stateRef
@@ -185,6 +189,8 @@ gardenReady (GardenApp stateRef) = do
     Finished _ -> True
     _ -> False
 
+-- CPP splits this declaration; retain both host branches verbatim.
+{- ORMOLU_DISABLE -}
 advancePreparation :: Preparation -> IO AppState
 advancePreparation (LoadWorld startup@(Startup _ _ options _)) = do
   began <- getTime
@@ -233,6 +239,8 @@ advancePreparation (Warmup (Startup _ audio options began) resources world view)
   reportStartup "preview" warmupBegan
   reportStartup "total" began
   pure (Running session (FrameState (beginSimulation world) initialHost 0 start))
+
+{- ORMOLU_ENABLE -}
 
 reportStartup :: String -> Double -> IO ()
 reportStartup label began = do
@@ -349,6 +357,8 @@ releaseSession (Session resources audio _ timingRef _ _ _ _ control pointer) =
         `finally` releaseResources resources
         `finally` closeWindow (Just window)
 
+-- CPP splits this declaration; retain both host branches verbatim.
+{- ORMOLU_DISABLE -}
 stepFrame :: Session -> FrameState -> IO (Maybe FrameState)
 stepFrame (Session resources audio (LightSignal handle glow) timingRef limit shotFrame shotName tour control pointer) (FrameState simulation host frame previousTime) = do
   let w = simulationWorld simulation
@@ -478,6 +488,8 @@ stepFrame (Session resources audio (LightSignal handle glow) timingRef limit sho
         else pure (continue continuedHost)
   where
     milestone world = Tour.tourStage world <> "-" <> show (bonded world) <> "-" <> show (sheltered world)
+
+{- ORMOLU_ENABLE -}
 
 capturePhoto :: Maybe Photo -> IO String
 capturePhoto portrait = do

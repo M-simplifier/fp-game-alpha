@@ -1,17 +1,38 @@
 -- | Finite, immutable authoritative state. Coordinates and worlds cannot be
 -- constructed with an invalid extent through this module's public API.
 module Garden.World
-  ( Cell (..), Material (..), materialCell, materials
-  , Coord, coord, xy, coords, offset, width, height
-  , Seed, seedFromText, seedCode, sample
-  , World, emptyWorld, initialWorld, worldSeed, worldTick, cellAt
-  , occupied, writeCells, advanceTime, fingerprint
-  ) where
+  ( Cell (..),
+    Material (..),
+    materialCell,
+    materials,
+    Coord,
+    coord,
+    xy,
+    coords,
+    offset,
+    width,
+    height,
+    Seed,
+    seedFromText,
+    seedCode,
+    sample,
+    World,
+    emptyWorld,
+    initialWorld,
+    worldSeed,
+    worldTick,
+    cellAt,
+    occupied,
+    writeCells,
+    advanceTime,
+    fingerprint,
+  )
+where
 
 import Data.Bits (shiftR, xor)
 import Data.Char (ord)
+import Data.IntMap.Strict qualified as IM
 import Data.List (foldl')
-import qualified Data.IntMap.Strict as IM
 import Data.Word (Word32)
 import Numeric (showHex)
 
@@ -65,9 +86,11 @@ seedCode (Seed n) = let s = showHex n "" in replicate (8 - length s) '0' ++ s
 sample :: Seed -> Coord -> Integer -> Word32
 sample (Seed s) p t =
   let (x, y) = xy p
-      h = s `xor` (fromIntegral (x + 1) * 374761393)
-            `xor` (fromIntegral (y + 1) * 668265263)
-            `xor` (fromInteger (t + 1) * 1274126177)
+      h =
+        s
+          `xor` (fromIntegral (x + 1) * 374761393)
+          `xor` (fromIntegral (y + 1) * 668265263)
+          `xor` (fromInteger (t + 1) * 1274126177)
       h' = (h `xor` (h `shiftR` 13)) * 1274126177
    in h' `xor` (h' `shiftR` 16)
 
@@ -107,15 +130,16 @@ initialWorld s = writeCells [(p, terrain p) | p <- coords] (emptyWorld s)
       | basin 7 30 21 || basin 46 68 30 = Stone
       | x >= 8 && x <= 29 && y >= 18 && y <= 20 = Water
       | x >= 47 && x <= 67 && y >= 27 && y <= 29 = Water
-      | (x,y) `elem` [(13,17),(25,17),(51,26),(63,26)] = SeedCell
-      | (x,y) `elem` [(19,13),(57,22),(36,31)] = Light
+      | (x, y) `elem` [(13, 17), (25, 17), (51, 26), (63, 26)] = SeedCell
+      | (x, y) `elem` [(19, 13), (57, 22), (36, 31)] = Light
       | x >= 31 && x <= 43 && y == 28 = Stone
       | otherwise = Empty
       where
-        (x,y) = xy p
+        (x, y) = xy p
         ground = 38 + (x `div` 11 + fromIntegral (sample s p 0 `mod` 2)) `mod` 3
-        basin lo hi floorY = (y == floorY && x >= lo && x <= hi)
-          || (y >= floorY - 4 && y < floorY && (x == lo || x == hi))
+        basin lo hi floorY =
+          (y == floorY && x >= lo && x <= hi)
+            || (y >= floorY - 4 && y < floorY && (x == lo || x == hi))
 
 -- | Diagnostic checksum, not a collision-free identity or save format.
 fingerprint :: World -> String

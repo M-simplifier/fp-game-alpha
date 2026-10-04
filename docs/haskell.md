@@ -1,4 +1,4 @@
-# Readable Haskell and reference-game review
+# Readable Haskell for references and new games
 
 The reference games teach by being worth reading. Keep advanced types where they express a real distinction, and give that distinction a name the reader can connect to the game.
 
@@ -53,6 +53,37 @@ Score each dimension 0 (obscured or missing), 1 (usable with explanation), or 2 
 For an alpha reference-game designation, use 11/14 as a review trigger, not an automated quality proof; no dimension may be 0. Any false guarantee, hidden rules duplication, unchecked advertised route, private data, or incompatible asset license blocks release regardless of score.
 
 A reviewer records two useful strengths, the three highest-impact improvements at most, and the exact files and transitions supporting the result. Preserve behavior with tests when changing readability.
+
+## Generate, review, and improve the guidance
+
+Apply this rubric to newly AI-authored game code as well as reference refactors.
+Before handing over a playable increment, follow one real input through the public
+rule entry, state decision, result and test. Name what a reader must understand at
+each step. Format first so layout does not obscure structural review; then check
+vocabulary, state ownership, branching and abstractions separately.
+
+Concrete lessons from Paper Circuit's readability revision:
+
+- Positional state fields and a Boolean carrying a domain alternative made the
+  Undo rule hard to read. Named current/previous positions and Available/Spent
+  expose the decision. Use this when names distinguish real roles; do not wrap
+  every primitive or replace an already clear local pair mechanically.
+- An Undo snapshot contains the board and move budget, while one-use availability
+  lives outside it. Choose snapshot contents from the game's actual undo rules;
+  copying the entire world could restore a permission this game should spend.
+- The public dispatcher names restart, undo and rotation. Each helper keeps its
+  guard, lookup, state update and reported outcome in an inspectable order.
+  Preserve useful type classes and composition; avoid one-use helper mazes.
+- Record which observations and boundary cases stayed equivalent, and which
+  diagnostic representations changed. Formatting or a reviewer score alone is
+  not behavioral evidence or proof that beginners understand the result.
+
+A refactor report should identify the original reading difficulty, the change,
+why it helps, the behavior checks and any tradeoff. Promote only reusable findings
+into this guide, with their conditions. Try the updated guidance on a different
+brief or new feature before claiming better generated-code quality. Keep
+human intent → AI reasoning → repeatable tools in that order: these criteria help
+an AI choose an architecture, not force every game into the example's structure.
 
 ## Deeper implementation practice
 

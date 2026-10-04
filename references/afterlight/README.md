@@ -92,3 +92,12 @@ as `docs/baseline/README.original.txt`: its historical relative links are eviden
 not navigation for this public layout. Use this README for current entrypoints. Historical GPU and Web
 comparisons are not rerun by that audit. No claim of bug-free play, performance
 on all devices, or compatibility with arbitrary future changes is made.
+
+## Consistent source formatting
+
+Live Haskell sources use pinned Ormolu 0.9.0.0. `docs/FORMAT-MANIFEST.json` records
+exact before/after hashes; the original `BASELINE-MANIFEST.json` and frozen oracle
+remain intact. Six definitions with mid-expression CPP retain their original text
+inside explicit formatter-control comments, while surrounding code is formatted.
+Both native and Wasm preprocessed forms of those three modules match public pre-format commit `2487f7b`
+after safe normalization. This does not establish native GPU or browser execution.

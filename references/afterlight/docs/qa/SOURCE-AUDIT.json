@@ -22,16 +22,8 @@
     "src/Garden/Host/Control.hs",
     "runtime/Garden/Input.hs",
     "src/Garden/Islands.hs",
-    "src/Garden/Mesh.hs",
     "src/Garden/Photo.hs",
     "src/Garden/Raycast.hs",
-    "runtime/Garden/Render.hs",
-    "src/Garden/Render/Chunk.hs",
-    "runtime/Garden/Render/GPU.hs",
-    "src/Garden/Render/Invalidation.hs",
-    "runtime/Garden/Render/Radiance.hs",
-    "runtime/Garden/Render/Resources.hs",
-    "src/Garden/Render/Settings.hs",
     "src/Garden/Rules.hs",
     "src/Garden/Signal.hs",
     "src/Garden/Soundscape.hs",
@@ -40,12 +32,8 @@
     "src/Garden/View.hs",
     "src/Garden/World.hs",
     "tools/GardenAudio.hs",
-    "tools/GardenCheck.hs",
-    "tools/GardenMain.hs",
-    "tools/GardenRenderCheck.hs",
     "tools/Observe-Garden.ps1",
     "tools/fixtures/garden-v3.txt",
-    "web/BrowserMain.hs",
     "web/EXPERIENCE.md",
     "web/README.md",
     "web/bridge.c",
@@ -83,10 +71,82 @@
   ],
   "intentional_changes": [
     {
+      "path": "src/Garden/Mesh.hs",
+      "origin_sha256": "0c45ffd7b80dee5804903db2a196a3be718373d8a278b1cc396a69ccd89f8fff",
+      "current_sha256": "0b15ff620c9d85f325e3e5f0a271a26d1078aeb4f3a0daabce37687d7f4e4009",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "runtime/Garden/Render.hs",
+      "origin_sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
+      "current_sha256": "86247cfa2e5a0a3f71b703ad976d9874962330fcb2c3155c6fe000112850833c",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "src/Garden/Render/Chunk.hs",
+      "origin_sha256": "a3a8ad33ac367dd500d805479c5fc87b6b46626d8f3fece3b0293cf200892714",
+      "current_sha256": "cf9ed65a4ead7097f8d0b0db3ffaef87adb407519e956ee0688437ff1a998253",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "runtime/Garden/Render/GPU.hs",
+      "origin_sha256": "8a80b98e2c4986d42c79cca8dd4550330f2e6cdcad2a9611e44ccaaaa97a6d2c",
+      "current_sha256": "a8dc36d4e079cdf89ac5b1b07d75f4ada22784e649bf75e93b79e02ebf00eecc",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "src/Garden/Render/Invalidation.hs",
+      "origin_sha256": "e85072f2710a01db6985c0d4e117895a86e052ffe20542c3a7fdf8b443719a4c",
+      "current_sha256": "b4bbc791f500390057f33f6f8adac85fb3406d78d912dee7dc50a3c4151f052e",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "runtime/Garden/Render/Radiance.hs",
+      "origin_sha256": "b73acb213d1ecfb5b030b961d67424536769ead48bab2e687d1042c41e519d0c",
+      "current_sha256": "0338ad14ed56a1491c2acfbee85a52c50c46eb8ec7598e89d69a65edf15939a1",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "runtime/Garden/Render/Resources.hs",
+      "origin_sha256": "1a338075976df9b41debe50d698471abe89ce81fd6154af8fd1ead6e525cf8b5",
+      "current_sha256": "90477ba81d0240f111c17db50348321ef2c70e96133b9a0a6e13ffe36d7f2192",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "src/Garden/Render/Settings.hs",
+      "origin_sha256": "876ed1bd94fc183459d4103ffbd7503c2a9d873b0769df1c10272de0bdb192d6",
+      "current_sha256": "12afe4c01f80eee7572b8ccb5c3a638a3bee1d2358270a1811018bab5fc1a816",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
       "path": "runtime/Garden/Runtime.hs",
       "origin_sha256": "c3538af71b2028526171d51e850d42a545132ca8291019b35f9d92e670127784",
-      "current_sha256": "282804d33ccffeae82dbc2acb6bda5a09361e4c6485365e1e6503c738453414b",
-      "reason": "World/Clock/Pilot fold -> pure Garden.Session; Arena.play and complete observe; original effects retained"
+      "current_sha256": "fefe76a5e9a36c99c3643dfa07bca0798de3e5b8eaa025f2815875f9bad78b33",
+      "reason": "World/Clock/Pilot fold -> pure Garden.Session; Arena.play and complete observe; original effects retained; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "tools/GardenCheck.hs",
+      "origin_sha256": "2ea81bbb582e0f907db0a1586ed99f0b3a0d841412262baaf164a1aabeb6a068",
+      "current_sha256": "396862a6e9962b99e139513ae8a104432c333d3730033a4a38c3f9123e34fdf1",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "tools/GardenMain.hs",
+      "origin_sha256": "aab8802f61156d2dbc7c6a85e425420cf72dc76e4d1839b104ead85113119d31",
+      "current_sha256": "77ebeab56a4c1d756903246c5aa6b4ace3ed7f7981a71658bfd2a06c91fe0c8d",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "tools/GardenRenderCheck.hs",
+      "origin_sha256": "200cb941c59cb8d01c3027403f02582b4d7cd287bdc875488a54fe3664d7b8cc",
+      "current_sha256": "f6eedcf3f69edc6b474ccb969198fc6bda7a519eb242a0646bc5c1560a0f0b5f",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "web/BrowserMain.hs",
+      "origin_sha256": "443e71dff726e2de16031ac7a2a8b395245199a720e9bdb2468d224ed8387114",
+      "current_sha256": "53e32d0ec03d9f00f014fef42a372edfe24596992f4edcc47ff33fd1b58413ad",
+      "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
     },
     {
       "path": "web/build.sh",

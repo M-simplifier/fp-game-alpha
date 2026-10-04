@@ -13,13 +13,29 @@ CHANGED = {
 }
 
 manifest = json.loads((ROOT / "docs/BASELINE-MANIFEST.json").read_text(encoding="utf-8"))
+format_file = ROOT / "docs/FORMAT-MANIFEST.json"
+format_rows = json.loads(format_file.read_text(encoding="utf-8"))["files"] if format_file.exists() else []
+formats = {record["path"]: record for record in format_rows}
+if len(formats) != len(format_rows):
+    raise SystemExit("Duplicate formatting record")
+original_hashes = {record["path"]: record["sha256"] for record in manifest["files"]}
+for name, record in formats.items():
+    path = ROOT / name
+    if not path.resolve().is_relative_to(ROOT) or "oracle" in path.parts or path.suffix != ".hs":
+        raise SystemExit("Unsafe formatting record: " + name)
+    if name in original_hashes and name not in CHANGED and record["pre_format_sha256"] != original_hashes[name]:
+        raise SystemExit("Formatting preimage differs from original: " + name)
+    if record["baseline_sha256"] != original_hashes.get(name):
+        raise SystemExit("Formatting baseline mismatch: " + name)
+    if hashlib.sha256(path.read_bytes()).hexdigest() != record["formatted_sha256"]:
+        raise SystemExit("Formatted source changed since reviewed formatting: " + name)
 unchanged, rewritten = [], []
 for record in manifest["files"]:
     path = ROOT / record["path"]
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    if record["path"] in CHANGED:
+    if record["path"] in CHANGED or record["path"] in formats:
         rewritten.append({"path": record["path"], "origin_sha256": record["sha256"], "current_sha256": digest,
-                          "reason": CHANGED[record["path"]]})
+                          "reason": CHANGED.get(record["path"], "") + ("; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked" if record["path"] in formats else "")})
     else:
         if digest != record["sha256"]:
             raise SystemExit(f"Unexpected original source change: {record['path']}")

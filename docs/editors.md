@@ -65,3 +65,10 @@ temporary game and isolated profile. Missing editors fail explicitly.
 initialization, type hover and compiler diagnostics. Logs stay in `.build/`;
 the compact result states exactly what ran. No macOS editor pass follows from
 Windows editor tests or macOS kernel CI.
+
+## Consistent Haskell formatting
+
+Use the [pinned project-local formatter](formatting.md) for explicit setup,
+non-writing checks, owned-source formatting and external HLS integration.
+Run `python tools/formatter.py plan`, then `install` when permitted;
+`check` never downloads and `write` never targets vendored source.

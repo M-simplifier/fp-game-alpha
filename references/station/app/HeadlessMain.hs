@@ -1,15 +1,16 @@
 {-# LANGUAGE OverloadedStrings #-}
+
 -- | Player transport only. All decisions run through the original Arena.
 module Main (main) where
 
 import Data.Char (ord)
 import Data.List (intercalate)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Game.Arena (observe, play, singleton)
 import Numeric (showHex)
-import Station.Adapter (Clerk (..), Dispatch (..), StationArena (..), StationView (..), Outcome (..))
-import qualified Station.Domain as D
-import System.IO (BufferMode (LineBuffering), hIsEOF, hSetBuffering, hSetEncoding, utf8, stdin, stdout)
+import Station.Adapter (Clerk (..), Dispatch (..), Outcome (..), StationArena (..), StationView (..))
+import Station.Domain qualified as D
+import System.IO (BufferMode (LineBuffering), hIsEOF, hSetBuffering, hSetEncoding, stdin, stdout, utf8)
 import Text.Read (readMaybe)
 
 -- JSON output is deliberately projected, never derived from Show GameState.
@@ -18,8 +19,9 @@ quoted s = '"' : concatMap escape s ++ "\""
   where
     escape '"' = "\\\""
     escape '\\' = "\\\\"
-    escape c | ord c < 32 = let h = showHex (ord c) "" in "\\u" ++ replicate (4 - length h) '0' ++ h
-             | otherwise = [c]
+    escape c
+      | ord c < 32 = let h = showHex (ord c) "" in "\\u" ++ replicate (4 - length h) '0' ++ h
+      | otherwise = [c]
 
 text :: T.Text -> String
 text = quoted . T.unpack
@@ -39,26 +41,32 @@ choiceId D.Local = "local"
 choiceId D.Defer = "defer"
 
 option :: D.ChoiceOption -> String
-option o = object
-  [ ("action", quoted (choiceId (D.optionChoice o)))
-  , ("label", text (D.choiceLabel (D.optionChoice o)))
-  , ("available", either (const "false") (const "true") (D.optionResult o))
-  , ("result", either (const "null") resources (D.optionResult o))
-  , ("reason", either (text . D.domainErrorText) (const "null") (D.optionResult o))
-  ]
+option o =
+  object
+    [ ("action", quoted (choiceId (D.optionChoice o))),
+      ("label", text (D.choiceLabel (D.optionChoice o))),
+      ("available", either (const "false") (const "true") (D.optionResult o)),
+      ("result", either (const "null") resources (D.optionResult o)),
+      ("reason", either (text . D.domainErrorText) (const "null") (D.optionResult o))
+    ]
 
 packet :: String -> String -> String -> D.GameState -> String
-packet result feedback category game = object
-  [ ("protocol", "1"), ("game", quoted "station"), ("result", quoted result)
-  , ("feedback", quoted feedback), ("refusal_kind", quoted category)
-  , ("status", quoted (maybe "running" (const "terminal") (viewEnding v)))
-  , ("turn", maybe "null" (show . D.turnNumber) (viewTurn v))
-  , ("completed", show (viewCompleted v)), ("total", show D.totalTurns)
-  , ("resources", resources (viewResources v))
-  , ("order", maybe "null" currentOrder (D.currentOrder game))
-  , ("options", array (map option (viewOptions v)))
-  , ("ending", maybe "null" ending (viewEnding v))
-  ]
+packet result feedback category game =
+  object
+    [ ("protocol", "1"),
+      ("game", quoted "station"),
+      ("result", quoted result),
+      ("feedback", quoted feedback),
+      ("refusal_kind", quoted category),
+      ("status", quoted (maybe "running" (const "terminal") (viewEnding v))),
+      ("turn", maybe "null" (show . D.turnNumber) (viewTurn v)),
+      ("completed", show (viewCompleted v)),
+      ("total", show D.totalTurns),
+      ("resources", resources (viewResources v)),
+      ("order", maybe "null" currentOrder (D.currentOrder game)),
+      ("options", array (map option (viewOptions v))),
+      ("ending", maybe "null" ending (viewEnding v))
+    ]
   where
     v = observe StationArena LocalClerk game
     currentOrder o = object [("name", text (D.orderName o)), ("story", text (D.orderStory o))]
@@ -99,8 +107,10 @@ main = do
   where
     loop game = do
       eof <- hIsEOF stdin
-      if eof then pure () else do
-        command <- getLine
-        let (next, response) = respond command game
-        putStrLn response
-        loop next
+      if eof
+        then pure ()
+        else do
+          command <- getLine
+          let (next, response) = respond command game
+          putStrLn response
+          loop next

@@ -1,29 +1,52 @@
 -- | Pure presentation policy. No host handles, environment reads or game rules.
 module Garden.Render.Settings
-  ( RenderQuality (..), ShadowQuality (..), CloudQuality (..), OcclusionQuality (..),
-    RenderSettings (..), RenderPlan (..), preset, nextQuality, qualityName,
-    renderPlan, parseSettings, setOption
-  ) where
+  ( RenderQuality (..),
+    ShadowQuality (..),
+    CloudQuality (..),
+    OcclusionQuality (..),
+    RenderSettings (..),
+    RenderPlan (..),
+    preset,
+    nextQuality,
+    qualityName,
+    renderPlan,
+    parseSettings,
+    setOption,
+  )
+where
 
 import Text.Read (readMaybe)
 
 data RenderQuality = FullQuality | BalancedQuality | LightQuality deriving (Eq, Show, Enum, Bounded)
+
 data ShadowQuality = NoShadows | SoftShadows | FineShadows deriving (Eq, Show)
+
 data CloudQuality = ClearSky | SoftClouds | SculptedClouds deriving (Eq, Show)
+
 data OcclusionQuality = NoOcclusion | ContactOcclusion | FineOcclusion deriving (Eq, Show)
+
 data RenderSettings = RenderSettings
-  { renderQuality :: !RenderQuality, resolutionPercent :: !Int,
-    shadows :: !ShadowQuality, clouds :: !CloudQuality,
-    occlusion :: !OcclusionQuality, bloom :: !Bool
-  } deriving (Eq, Show)
+  { renderQuality :: !RenderQuality,
+    resolutionPercent :: !Int,
+    shadows :: !ShadowQuality,
+    clouds :: !CloudQuality,
+    occlusion :: !OcclusionQuality,
+    bloom :: !Bool
+  }
+  deriving (Eq, Show)
 
 -- All allocations and loop budgets are derived here; disabled effects have no
 -- render target. Dimensions use ceiling division, including odd window sizes.
 data RenderPlan = RenderPlan
-  { sceneSize :: !(Int, Int), skySize :: !(Int, Int), shadowSize :: !(Maybe (Int, Int)),
-    effectsSize :: !(Maybe (Int, Int)), bloomSize :: !(Maybe (Int, Int)),
-    cloudSteps :: !Int, occlusionSamples :: !Int
-  } deriving (Eq, Show)
+  { sceneSize :: !(Int, Int),
+    skySize :: !(Int, Int),
+    shadowSize :: !(Maybe (Int, Int)),
+    effectsSize :: !(Maybe (Int, Int)),
+    bloomSize :: !(Maybe (Int, Int)),
+    cloudSteps :: !Int,
+    occlusionSamples :: !Int
+  }
+  deriving (Eq, Show)
 
 preset :: RenderQuality -> RenderSettings
 preset FullQuality = RenderSettings FullQuality 100 FineShadows SculptedClouds FineOcclusion True
@@ -78,4 +101,5 @@ setOption key value settings = case (key, value) of
 
 parseSettings :: [(String, String)] -> Either String RenderSettings
 parseSettings = foldl apply (Right (preset FullQuality))
-  where apply previous (key, value) = previous >>= setOption key value
+  where
+    apply previous (key, value) = previous >>= setOption key value

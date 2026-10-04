@@ -1,16 +1,31 @@
 -- | Game vocabulary, checked restoration and read-only public projections.
 module Game.Model
-  ( World, Position, Direction (..), Command (..), Event (..)
-  , initial, position, coordinates, turnCount, isWon
-  , worldWidth, worldHeight, exitCell, restoreWorld, invariantErrors
-  , InvariantViolation (..)
-  ) where
+  ( World,
+    Position,
+    Direction (..),
+    Command (..),
+    Event (..),
+    initial,
+    position,
+    coordinates,
+    turnCount,
+    isWon,
+    worldWidth,
+    worldHeight,
+    exitCell,
+    restoreWorld,
+    invariantErrors,
+    InvariantViolation (..),
+  )
+where
 
-import Game.Model.Internal
 import Data.List.NonEmpty (NonEmpty (..))
+import Game.Model.Internal
 
 data Direction = North | South | East | West deriving (Eq, Show)
+
 data Command = Move Direction | UseExit deriving (Eq, Show)
+
 data Event = Moved Position | HitWall | ExitUnavailable | Won | AlreadyFinished deriving (Eq, Show)
 
 data InvariantViolation
@@ -46,13 +61,13 @@ restoreWorld :: Int -> Int -> Integer -> Bool -> Either (NonEmpty InvariantViola
 restoreWorld column row turns won =
   let progress = if won then Escaped else Exploring
       world = World (Position (Column column) (Row row)) (Turn turns) progress
-  in case invariantErrors world of
-       [] -> Right world
-       first : rest -> Left (first :| rest)
+   in case invariantErrors world of
+        [] -> Right world
+        first : rest -> Left (first :| rest)
 
 invariantErrors :: World -> [InvariantViolation]
 invariantErrors world =
   let (column, row) = coordinates (position world)
-  in [PositionOutsideBoard (column, row) | column < 0 || column >= worldWidth || row < 0 || row >= worldHeight]
-     ++ [NegativeTurn (turnCount world) | turnCount world < 0]
-     ++ [FinishedAwayFromExit | isWon world && (column, row) /= exitCell]
+   in [PositionOutsideBoard (column, row) | column < 0 || column >= worldWidth || row < 0 || row >= worldHeight]
+        ++ [NegativeTurn (turnCount world) | turnCount world < 0]
+        ++ [FinishedAwayFromExit | isWon world && (column, row) /= exitCell]

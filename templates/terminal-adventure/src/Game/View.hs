@@ -4,9 +4,11 @@ module Game.View (render, renderEvent) where
 import Game.Model
 
 render :: World -> String
-render world = unlines
-  ([concat [tile column row | column <- [0..worldWidth - 1]] | row <- [0..worldHeight - 1]]
-   ++ ["Turn " ++ show (turnCount world), if isWon world then "Escaped!" else "Walk to E, then use exit."])
+render world =
+  unlines
+    ( [concat [tile column row | column <- [0 .. worldWidth - 1]] | row <- [0 .. worldHeight - 1]]
+        ++ ["Turn " ++ show (turnCount world), if isWon world then "Escaped!" else "Walk to E, then use exit."]
+    )
   where
     tile column row
       | coordinates (position world) == (column, row) = "@ "

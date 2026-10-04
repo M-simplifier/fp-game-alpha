@@ -14,3 +14,8 @@ Choose techniques by the concrete mistake prevented or composition expressed.
 Check the actual public API and callers, including decode/update/instances.
 Small mechanical edits do not require reading every guide or adding a harness.
 Distinguish compiler rejection, tests, runtime evidence and proved properties.
+
+For new code as well as refactors, apply the readability review in that guide
+after formatting and behavior checks. Follow one actual transition through names,
+state ownership and decisions; report concrete improvement reasons and tradeoffs.
+Promote conditional lessons from real revisions, not arbitrary universal style rules.

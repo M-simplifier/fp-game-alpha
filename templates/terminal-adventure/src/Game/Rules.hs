@@ -2,7 +2,7 @@
 module Game.Rules (advance, adventureStep, smokeCommands) where
 
 import Game.Model
-import qualified Game.Model.Internal as Internal
+import Game.Model.Internal qualified as Internal
 import Game.Transition (Step (..))
 
 adventureStep :: Step World Command [Event]
@@ -13,12 +13,12 @@ advance command world
   | isWon world = (world, [AlreadyFinished])
   | otherwise =
       let currentTurn = turnCount world
-          next = world { Internal.worldTurn = Internal.Turn (currentTurn + 1) }
-      in case command of
-        Move direction -> resolveMovement direction next
-        UseExit
-          | coordinates (position next) == exitCell -> (next { Internal.worldProgress = Internal.Escaped }, [Won])
-          | otherwise -> (next, [ExitUnavailable])
+          next = world {Internal.worldTurn = Internal.Turn (currentTurn + 1)}
+       in case command of
+            Move direction -> resolveMovement direction next
+            UseExit
+              | coordinates (position next) == exitCell -> (next {Internal.worldProgress = Internal.Escaped}, [Won])
+              | otherwise -> (next, [ExitUnavailable])
 
 resolveMovement :: Direction -> World -> (World, [Event])
 resolveMovement direction world =
@@ -31,10 +31,11 @@ resolveMovement direction world =
       destination = (column + dx, row + dy)
       (nextColumn, nextRow) = destination
       inside = nextColumn >= 0 && nextColumn < worldWidth && nextRow >= 0 && nextRow < worldHeight
-  in if inside
-     then let nextPosition = Internal.Position (Internal.Column nextColumn) (Internal.Row nextRow)
-          in (world { Internal.worldPosition = nextPosition }, [Moved nextPosition])
-     else (world, [HitWall])
+   in if inside
+        then
+          let nextPosition = Internal.Position (Internal.Column nextColumn) (Internal.Row nextRow)
+           in (world {Internal.worldPosition = nextPosition}, [Moved nextPosition])
+        else (world, [HitWall])
 
 -- | A deterministic playthrough used by the runtime smoke check.
 smokeCommands :: [Command]

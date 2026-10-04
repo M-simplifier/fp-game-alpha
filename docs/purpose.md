@@ -20,6 +20,21 @@ starts from its brief. The [terminal starter](terminal-starter.md) provides one
 small, tested example of that workflow; it does not define the intended range
 of games.
 
+## Human → AI → tools
+
+Start with the human's game idea. Equip their coding AI with the knowledge,
+conventions, examples and feedback needed to design, prepare and build that game
+with little supervision. As concrete workflows become stable and repeatable,
+move those parts into deterministic tools.
+
+This order matters: **human intent → adaptable AI work → reliable tools**.
+A missing generator or platform recipe is a task for the AI to investigate and
+implement, not a reason to substitute a supported template for the requested
+game. Respect real permission and technical limits, and report evidence honestly.
+Tools should progressively reduce repeated work without becoming the ceiling of
+what the AI can create. New-game setup must preserve this flexibility, including
+independent project directories, local continuation skills and chosen hosts.
+
 ## How concrete games shape the shared design
 
 A shared abstraction should explain a rule or boundary that different games

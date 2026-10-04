@@ -3,7 +3,7 @@ module Main (main) where
 import Control.Exception (IOException, bracketOnError, catch, evaluate)
 import Control.Monad (foldM, unless)
 import Game.Adapter (Adventure (..), Player (..))
-import qualified Game.Arena as Arena
+import Game.Arena qualified as Arena
 import Game.Model
 import Game.Rules (smokeCommands)
 import Game.Save
@@ -12,8 +12,21 @@ import System.Directory (createDirectoryIfMissing, doesFileExist, removeFile, re
 import System.Environment (getArgs)
 import System.Exit (exitFailure)
 import System.FilePath (takeDirectory, (</>))
-import System.IO (Handle, IOMode (ReadMode), hClose, hFlush, hGetContents, hIsEOF,
-                  hPutStr, hSetEncoding, openTempFile, stdin, stdout, utf8, withFile)
+import System.IO
+  ( Handle,
+    IOMode (ReadMode),
+    hClose,
+    hFlush,
+    hGetContents,
+    hIsEOF,
+    hPutStr,
+    hSetEncoding,
+    openTempFile,
+    stdin,
+    stdout,
+    utf8,
+    withFile,
+  )
 
 main :: IO ()
 main = do

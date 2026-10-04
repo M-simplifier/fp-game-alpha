@@ -1,23 +1,45 @@
 -- | Disposable render data. It contains no IO handles and never feeds rules.
 module Garden.View
-  ( RenderModel (..), Tile (..), project, materialName, materialHint
-  , effectSummary, boardX, boardY, cellSize, windowWidth, windowHeight
-  ) where
+  ( RenderModel (..),
+    Tile (..),
+    project,
+    materialName,
+    materialHint,
+    effectSummary,
+    boardX,
+    boardY,
+    cellSize,
+    windowWidth,
+    windowHeight,
+  )
+where
 
 import Data.List (find)
 import Garden.Session
 import Garden.Simulation
 import Garden.World
 
-data Tile = Tile { tileX :: !Int, tileY :: !Int, tileCell :: !Cell
-                 , tileTop :: !Bool, tileSpeckle :: !Bool } deriving (Eq, Show)
+data Tile = Tile
+  { tileX :: !Int,
+    tileY :: !Int,
+    tileCell :: !Cell,
+    tileTop :: !Bool,
+    tileSpeckle :: !Bool
+  }
+  deriving (Eq, Show)
 
 data RenderModel = RenderModel
-  { tiles :: ![Tile], lightPositions :: ![(Int,Int)]
-  , shownTick :: !Integer, shownSeed :: !String, shownFingerprint :: !String
-  , waterCount :: !Int, plantCount :: !Int, shownPaused :: !Bool
-  , shownMaterial :: !Material
-  } deriving (Eq, Show)
+  { tiles :: ![Tile],
+    lightPositions :: ![(Int, Int)],
+    shownTick :: !Integer,
+    shownSeed :: !String,
+    shownFingerprint :: !String,
+    waterCount :: !Int,
+    plantCount :: !Int,
+    shownPaused :: !Bool,
+    shownMaterial :: !Material
+  }
+  deriving (Eq, Show)
 
 boardX, boardY, cellSize, windowWidth, windowHeight :: Int
 boardX = 28
@@ -27,21 +49,29 @@ windowWidth = 1120
 windowHeight = 750
 
 project :: Session -> RenderModel
-project s = RenderModel
-  { tiles = map tile cells
-  , lightPositions = [xy p | (p,Light) <- cells]
-  , shownTick = worldTick w, shownSeed = seedCode (worldSeed w)
-  , shownFingerprint = fingerprint w
-  , waterCount = length [() | (_,Water) <- cells]
-  , plantCount = length [() | (_,c) <- cells, c `elem` [Plant,Flower]]
-  , shownPaused = isPaused s, shownMaterial = selectedMaterial s
-  }
+project s =
+  RenderModel
+    { tiles = map tile cells,
+      lightPositions = [xy p | (p, Light) <- cells],
+      shownTick = worldTick w,
+      shownSeed = seedCode (worldSeed w),
+      shownFingerprint = fingerprint w,
+      waterCount = length [() | (_, Water) <- cells],
+      plantCount = length [() | (_, c) <- cells, c `elem` [Plant, Flower]],
+      shownPaused = isPaused s,
+      shownMaterial = selectedMaterial s
+    }
   where
     w = sessionWorld s
     cells = occupied w
-    tile (p,c) = let (x,y) = xy p in Tile x y c
-      (maybe True ((/= c) . cellAt w) (offset p (0,-1)))
-      (sample (worldSeed w) p 0 `mod` 5 == 0)
+    tile (p, c) =
+      let (x, y) = xy p
+       in Tile
+            x
+            y
+            c
+            (maybe True ((/= c) . cellAt w) (offset p (0, -1)))
+            (sample (worldSeed w) p 0 `mod` 5 == 0)
 
 materialName :: Material -> String
 materialName m = case m of
