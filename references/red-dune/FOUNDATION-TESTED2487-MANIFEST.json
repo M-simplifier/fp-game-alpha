@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "libraries/game-arena/LICENSE",
+      "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "bytes": 1056
+    },
+    {
+      "path": "libraries/game-arena/game-arena.cabal",
+      "sha256": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
+      "bytes": 800
+    },
+    {
+      "path": "libraries/game-arena/src/Game/Arena/Finite.hs",
+      "sha256": "f4fb8aa96d2b3f0bf626550bec1cf36ecce1caefaa3a47aa6f82caf6743f7c78",
+      "bytes": 4118
+    },
+    {
+      "path": "libraries/game-arena/src/Game/Arena.hs",
+      "sha256": "8433e468e45f9602da1d83a676ead73bc0da8c17f0f2ef6c0affb8cdaedebc18",
+      "bytes": 5503
+    },
+    {
+      "path": "libraries/game-arena/test/Laws.hs",
+      "sha256": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+      "bytes": 5376
+    },
+    {
+      "path": "libraries/game-transition/LICENSE",
+      "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "bytes": 1056
+    },
+    {
+      "path": "libraries/game-transition/game-transition.cabal",
+      "sha256": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1",
+      "bytes": 762
+    },
+    {
+      "path": "libraries/game-transition/src/Game/Transition.hs",
+      "sha256": "f4ca9908eedd9c7bc6c33105f7136af7e03d326635983cac2106c542067d9202",
+      "bytes": 4291
+    },
+    {
+      "path": "libraries/game-transition/test/Laws.hs",
+      "sha256": "1f28e487e74b663fcbdd5be07dcf63d61a3b099fd83a693315f47fedb29d85fa",
+      "bytes": 1998
+    }
+  ]
+}

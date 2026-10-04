@@ -397,6 +397,11 @@
       "prefix": "research/readability/",
       "license": "LICENSE",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/",
+      "license": "references/red-dune/LICENSE",
+      "maturity": "experimental"
     }
   ]
 }

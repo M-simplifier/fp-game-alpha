@@ -37,6 +37,12 @@ jobs:
       - run: python tools/docs_lint.py
       - run: python tools/test_tools.py
       - run: python tools/test_formatter.py
+      - if: runner.os == 'Linux'
+        name: Check optional Red Dune source preservation (no game/platform qualification)
+        run: |
+          python references/red-dune/tools/test_restore.py
+          python references/red-dune/tools/check.py verify
+          python tools/test_red_dune.py
       - run: python tools/formatter.py install
       - run: python tools/formatter.py check
       - if: runner.os == 'Linux'
