@@ -50,5 +50,135 @@
     "origin": "fixtures/lantern/src/Lantern.hs",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689"
+  },
+  "research/quantity/fixture/Colony/Units.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/fixtures/Colony/Units.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "transfer_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75"
+  },
+  "research/quantity/annotated/Colony/Units.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/source/Colony/Units.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "d90d4fce3bf1d6220a4366b4d05316002919b5c6e50b7d4b9e43ef9571c8d46d",
+    "transfer_sha256": "d90d4fce3bf1d6220a4366b4d05316002919b5c6e50b7d4b9e43ef9571c8d46d"
+  },
+  "research/quantity/runtime/Main.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/src/Main.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "28c39bc6fea9e1e4ff0def3351d47076fcd180eb326b30b5704ba2fe8ac16e57",
+    "transfer_sha256": "28c39bc6fea9e1e4ff0def3351d47076fcd180eb326b30b5704ba2fe8ac16e57"
+  },
+  "research/quantity/oracle.py": {
+    "kind": "adapted-author-supplied-proof-oracle",
+    "origin": "quantity/runtime-validation/oracle.py",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "446f1172441bf1fd574151ca9225f0b8b8ec54592b2e4374bcd7c5e2cd16ea2a",
+    "transfer_sha256": "446f1172441bf1fd574151ca9225f0b8b8ec54592b2e4374bcd7c5e2cd16ea2a",
+    "transformation": "Preserved classification, expected results and vector generator; removed obsolete path-bound executable runner and imports."
+  },
+  "research/quantity/model-caveat/ExposedRoleCaveat.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/model-caveat/ExposedRoleCaveat.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "6a96bb344ff821991640d1982189a784edc500341b4f943a01d7d6ffaa879bdc",
+    "transfer_sha256": "6a96bb344ff821991640d1982189a784edc500341b4f943a01d7d6ffaa879bdc"
+  },
+  "research/quantity/static/Positive.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/Positive.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "d68dd55eeb56fdf158b99236c28f742e5f8e330bc7c192acba5c2d5fe8a8d197",
+    "transfer_sha256": "d68dd55eeb56fdf158b99236c28f742e5f8e330bc7c192acba5c2d5fe8a8d197"
+  },
+  "research/quantity/static/RejectConstructorImport.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectConstructorImport.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "63352e532086fc2973cda572b80df127fe8f3fb52b61b8968202fcaa29571f83",
+    "transfer_sha256": "63352e532086fc2973cda572b80df127fe8f3fb52b61b8968202fcaa29571f83"
+  },
+  "research/quantity/static/RejectCrossAdd.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectCrossAdd.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "386167707a2d283a2d596258349b7f9016ae1eb7c24c1ac08ed133c85ee7f1f9",
+    "transfer_sha256": "386167707a2d283a2d596258349b7f9016ae1eb7c24c1ac08ed133c85ee7f1f9"
+  },
+  "research/quantity/static/RejectCrossCoerce.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectCrossCoerce.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "b5cf42554c68c36ff6828f9d6417219ea160ad0edddff28b44e442f245ca1999",
+    "transfer_sha256": "b5cf42554c68c36ff6828f9d6417219ea160ad0edddff28b44e442f245ca1999"
+  },
+  "research/quantity/static/RejectCrossSub.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectCrossSub.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "fdbbc8e6d7dafab7c71925e8789cff52628d90e58e8d6541f190e41baef3b0a4",
+    "transfer_sha256": "fdbbc8e6d7dafab7c71925e8789cff52628d90e58e8d6541f190e41baef3b0a4"
+  },
+  "research/quantity/static/RejectHiddenConstructor.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectHiddenConstructor.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "88fc47f15d45cecc8983ac6940e271f92f211eaaebe8b1b9b075de3f78cd42a4",
+    "transfer_sha256": "88fc47f15d45cecc8983ac6940e271f92f211eaaebe8b1b9b075de3f78cd42a4"
+  },
+  "research/quantity/static/RejectPromotedCoerce.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectPromotedCoerce.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "cfe0f1d1420a855a4ab032e9e6a467772669de6836f0fa541444641531083f26",
+    "transfer_sha256": "cfe0f1d1420a855a4ab032e9e6a467772669de6836f0fa541444641531083f26"
+  },
+  "research/quantity/static/RejectRawCoerce.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectRawCoerce.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "f20af20a870b1424b4209f1d7a826cd1459d0bf0ff7b98d4787a3e4ec8840a1d",
+    "transfer_sha256": "f20af20a870b1424b4209f1d7a826cd1459d0bf0ff7b98d4787a3e4ec8840a1d"
+  },
+  "research/quantity/static/RejectRepresentationalTagCoerce.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/static/RejectRepresentationalTagCoerce.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "0fbe8a6c5439002db3733d290285de8422617d8c77743fc35b1557f7bd371df9",
+    "transfer_sha256": "0fbe8a6c5439002db3733d290285de8422617d8c77743fc35b1557f7bd371df9"
+  },
+  "research/quantity/model-caveat/ExposedQty.hs": {
+    "kind": "selected-author-supplied-proof-source",
+    "origin": "quantity/runtime-validation/model-caveat/ExposedQty.hs",
+    "archive_sha256": "5d78133d94b6872974087efed7e3580f4b46b58138951acf914b81d89c73c407",
+    "original_sha256": "6b154d64eeb37b776917a3cfc013b0381fcfa25eb8b92d324af0152b47027ca6",
+    "transfer_sha256": "6b154d64eeb37b776917a3cfc013b0381fcfa25eb8b92d324af0152b47027ca6"
+  },
+  "docs/guarantees.md": {
+    "kind": "author-supplied-curated-historical-research",
+    "origin": "GUARANTEES.md",
+    "source_sha256": "4f2b79c2e7731b7fd983950636f631b7929ce322321303fe19482ed8f4df4195",
+    "archive_sha256": "00f43a81132b1ba0bae2a7116e780ccc9a158207903ca6e9eccedde6e91d6585"
+  },
+  "docs/research-references.md": {
+    "kind": "author-supplied-curated-historical-research",
+    "origin": "REFERENCES.md",
+    "source_sha256": "ccabfe354063f3e748387d93b25588dd4d7234656b0c6ee24bb7e8a3af88ad75",
+    "archive_sha256": "00f43a81132b1ba0bae2a7116e780ccc9a158207903ca6e9eccedde6e91d6585"
+  },
+  "docs/research-reproduction.md": {
+    "kind": "author-supplied-curated-historical-research",
+    "origin": "REPRODUCTION.md",
+    "source_sha256": "51f95a33c44cb32c4031e891e2c849ede7355f684b9361611e0a32dfe36d2cee",
+    "archive_sha256": "00f43a81132b1ba0bae2a7116e780ccc9a158207903ca6e9eccedde6e91d6585"
+  },
+  "docs/evidence/historical-guarantees.json": {
+    "kind": "author-supplied-curated-historical-research",
+    "origin": "evidence-manifest.json",
+    "source_sha256": "51ee5120b9b95db02ebcdb56c14973814fc97966c040cbd274d86b80a012ffb1",
+    "archive_sha256": "00f43a81132b1ba0bae2a7116e780ccc9a158207903ca6e9eccedde6e91d6585"
   }
 }

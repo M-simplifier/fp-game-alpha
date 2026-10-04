@@ -1,0 +1,88 @@
+{
+  "schema": "quantity-source-only-windows-v1",
+  "recorded_date_utc": "2026-10-04",
+  "platform": "Windows x86_64",
+  "python": "3.14.2",
+  "status": "PASS",
+  "scope": "finite GHC type checks and runtime oracle; no LiquidHaskell proof",
+  "ghc": "9.6.7",
+  "fixture_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+  "annotated_sha256": "d90d4fce3bf1d6220a4366b4d05316002919b5c6e50b7d4b9e43ef9571c8d46d",
+  "vectors": 631024,
+  "categories": {
+    "metadata": 4,
+    "mk_boundaries_dense_huge": 16514,
+    "dense_endpoint_pairs": 524288,
+    "boundary_pairs": 1058,
+    "add_threshold_frontier": 24580,
+    "sub_threshold_frontier": 24580,
+    "seeded_full_range_pairs": 40000
+  },
+  "static_cases": [
+    {
+      "case": "Positive",
+      "expected_compiles": true,
+      "actual_compiles": true,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectConstructorImport",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectCrossAdd",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectCrossCoerce",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectCrossSub",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectHiddenConstructor",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectPromotedCoerce",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectRawCoerce",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "RejectRepresentationalTagCoerce",
+      "expected_compiles": false,
+      "actual_compiles": false,
+      "diagnostic_matched": true
+    },
+    {
+      "case": "ExposedRoleCaveat",
+      "expected_compiles": true,
+      "actual_compiles": true,
+      "diagnostic_matched": true
+    }
+  ],
+  "output_sha256": {
+    "fixture": "d3b4dbdc6c76d184c15af000760ea17b693c606d109b043931d2f9961b2eb65e",
+    "annotated": "d3b4dbdc6c76d184c15af000760ea17b693c606d109b043931d2f9961b2eb65e"
+  },
+  "liquidhaskell_result": "not_run"
+}

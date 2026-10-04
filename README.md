@@ -27,9 +27,15 @@ The CLI keeps config/cache/output in `.build/`; this profile needs only packages
 bundled with GHC. `inspect`, `context` and editor wrappers use actual compiler
 results. See [setup](docs/setup.md), [editors](docs/editors.md),
 [Haskell style](docs/haskell.md), [architecture and laws](docs/architecture.md),
+[guarantees and limits](docs/guarantees.md),
 [acceptance contract](docs/acceptance.md), [milestones](docs/roadmap.md), and
 [publication manifest](PUBLICATION-MANIFEST.md).
 
 This is an alpha. A finite test or historical verification result is scoped
 evidence, not a proof that every game, host or platform works. The repository
 retains the [MIT license](LICENSE) and all selected upstream notices.
+
+The first additional reference is the [Lantern finite puzzle](references/lantern/README.md).
+The [quantity source lab](research/quantity/README.md) has a GHC-only route
+for real type rejections and runtime-oracle checks; its recorded
+LiquidHaskell result is historical and remains separately scoped.

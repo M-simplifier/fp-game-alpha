@@ -1,7 +1,14 @@
 {
   "schema": 1,
   "max_source_bytes": 524288,
-  "public_repository_links": ["M-simplifier/fp-game-alpha"],
+  "public_repository_links": [
+    "M-simplifier/fp-game-alpha",
+    "HigherOrderCO/Bend1", "IntersectMBO/typed-protocols", "LeventErkok/sbv",
+    "WebAssembly/design", "Z3Prover/z3", "barrucadu/dejafu",
+    "bendlang/bend", "hedgehogqa/haskell-hedgehog", "intersectmbo/io-sim",
+    "pond3r/ggpo", "stevana/quickcheck-state-machine", "tlaplus/tlaplus",
+    "ucsd-progsys/liquidhaskell"
+  ],
   "authored_public_skills": [".agents/skills/new-game/SKILL.md"],
   "selections": [
     {"prefix": "LICENSE", "license": "LICENSE", "maturity": "completed"},
@@ -17,6 +24,7 @@
     {"prefix": ".agents/skills/new-game/SKILL.md", "license": "LICENSE", "maturity": "experimental"},
     {"prefix": "libraries/game-transition/", "license": "libraries/game-transition/LICENSE", "maturity": "experimental"},
     {"prefix": "libraries/game-arena/", "license": "libraries/game-arena/LICENSE", "maturity": "experimental"},
-    {"prefix": "references/lantern/", "license": "references/lantern/LICENSE", "maturity": "experimental"}
+    {"prefix": "references/lantern/", "license": "references/lantern/LICENSE", "maturity": "experimental"},
+    {"prefix": "research/quantity/", "license": "LICENSE", "maturity": "experimental"}
   ]
 }

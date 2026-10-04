@@ -1,0 +1,609 @@
+{
+  "schema": "fp-game-alpha-curated-guarantee-evidence-v1",
+  "curated_date_utc": "2026-10-04",
+  "record_kind": "new_summary_of_historical_records",
+  "curation_method": "Read source, recorded reports, scripts, and result manifests; no compiler/solver rerun in this curation",
+  "public_clone_reproduction": "not_run",
+  "input_records": {
+    "quantity": {
+      "record_role": "quantity",
+      "original_sha256": "5be6bb0369617899a0bf2dfbc54ef42b67e46c6bd764834321a3924fb58df6e7"
+    },
+    "quantity_mapping": {
+      "record_role": "quantity_mapping",
+      "original_sha256": "3831088b1152ae499c4cd64cbd12481e1cf5867415f6abe50ff43f70ebbc6210"
+    },
+    "liquidhaskell": {
+      "record_role": "liquidhaskell",
+      "original_sha256": "115dc4a523c76930c5e699e897a1e81b5cd342e552155b39aa485a63c221251c"
+    },
+    "division_source_research": {
+      "record_role": "division_source_research",
+      "original_sha256": "62b692ab064727b3cb3d3334f33dbb78ca8941d0650127d7ed1bc0bf44261340"
+    },
+    "save_lifecycle": {
+      "record_role": "save_lifecycle",
+      "original_sha256": "1cf4bb0658a5feef975a77709a0b92b87ee8acc4de832e9af4be8e4d4ab75e82"
+    },
+    "sbv": {
+      "record_role": "sbv",
+      "original_sha256": "6e9c953988a48677f162eab0c037600cf597a2fafaf4b385af5dd6c67d2c5b7a"
+    },
+    "bend": {
+      "record_role": "bend",
+      "original_sha256": "837fd509285a77a4b01242bf2a3716abf251abc57bbe7996adec8ebf6dbfb634"
+    },
+    "bend_provenance": {
+      "record_role": "bend_provenance",
+      "original_sha256": "fa1d7b6a875904ea34e47aefe3772970728de3471cb6ab29f5a0488bff61aace"
+    },
+    "research_plan": {
+      "record_role": "research_plan",
+      "original_sha256": "e6c4291b14452f3f6bd872914ceb5c0e0eb0b56c898fd78ca9adaba17f0e5dd8"
+    },
+    "research_references": {
+      "record_role": "research_references",
+      "original_sha256": "b8a084c3e34d6ecd6f09143e98c567883341d7488c561269f8bdef0c22fbc6f6"
+    }
+  },
+  "status_vocabulary": [
+    "checked_scoped",
+    "finite_test_passed",
+    "expected_counterexample",
+    "unexpected_acceptance",
+    "tool_error",
+    "blocked",
+    "source_observation_only",
+    "not_run",
+    "planning_only"
+  ],
+  "experiments": [
+    {
+      "id": "quantity-six-binders",
+      "status": "checked_scoped",
+      "source_version": "frozen colony 0.6",
+      "toolchain": {
+        "ghc": "9.6.3",
+        "liquidhaskell": "0.9.6.3.1",
+        "liquidhaskell-boot": "0.9.6.3",
+        "liquid-fixpoint": "0.9.6.3",
+        "z3": "4.15.1",
+        "cabal": "3.16.1.0"
+      },
+      "original_source_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+      "annotated_source_sha256": "d90d4fce3bf1d6220a4366b4d05316002919b5c6e50b7d4b9e43ef9571c8d46d",
+      "historical_archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
+      "binders": [
+        "quantityMax",
+        "mkQty",
+        "qtyValue",
+        "zeroQty",
+        "addQty",
+        "subQty"
+      ],
+      "maximum": 9000000000000,
+      "safe_constraints": 25,
+      "mutants": [
+        {
+          "case": "add-plus-one",
+          "exit": 1,
+          "status": "UNSAFE"
+        },
+        {
+          "case": "sub-plus-one",
+          "exit": 1,
+          "status": "UNSAFE"
+        },
+        {
+          "case": "upper-reversed",
+          "exit": 1,
+          "status": "UNSAFE"
+        },
+        {
+          "case": "upper-off-by-one",
+          "exit": 1,
+          "status": "UNSAFE"
+        },
+        {
+          "case": "always-left",
+          "exit": 1,
+          "status": "UNSAFE"
+        },
+        {
+          "case": "missing-lower",
+          "exit": 1,
+          "status": "UNSAFE"
+        }
+      ],
+      "input_assumptions": [
+        "addQty and subQty inputs each within 0..maximum",
+        "imported GHC numeric conversion/arithmetic specifications"
+      ],
+      "checked_properties": [
+        "maximum exact",
+        "constructor succeeds iff input within bounds and preserves value",
+        "quantity projection exact",
+        "zero exact",
+        "bounded addition succeeds iff sum within maximum and preserves sum",
+        "bounded subtraction succeeds iff subtrahend <= minuend and preserves difference"
+      ],
+      "runtime": {
+        "status": "finite_test_passed",
+        "rows": 631024,
+        "mismatches": 0,
+        "annotated_original_output_identical": true,
+        "duplicate_inputs_across_classes": true
+      },
+      "static_negative_cases": 8,
+      "independent_model_results": {
+        "unsat": 8,
+        "sat_unsafe_cast_control": 1
+      },
+      "solver_replay": {
+        "streams": 14,
+        "matching_responses": 350,
+        "independent_certificate_check": false
+      },
+      "full_module_check": {
+        "status": "tool_error",
+        "reason": "stack overflow after large verification-condition generation"
+      },
+      "trusted": [
+        "GHC 9.6.3",
+        "LH 0.9.6.3.1",
+        "LH boot 0.9.6.3",
+        "liquid-fixpoint 0.9.6.3",
+        "Z3 4.15.1",
+        "imported assumptions",
+        "newtype/coercion and SMT translation",
+        "Integer/Int64 conversion implementation"
+      ],
+      "excluded": [
+        "whole module",
+        "all callers",
+        "whole game",
+        "serialization semantics",
+        "unsafe/FFI boundaries",
+        "dynamic resource/unit association",
+        "universal runtime equivalence",
+        "machine-semantics proof",
+        "division safety"
+      ]
+    },
+    {
+      "id": "liquidhaskell-diagnostic",
+      "status": "checked_scoped",
+      "toolchain": {
+        "ghc": "9.6.3",
+        "liquidhaskell": "0.9.6.3.1",
+        "liquidhaskell-boot": "0.9.6.3",
+        "liquid-fixpoint": "0.9.6.3",
+        "z3": "4.15.1",
+        "cabal": "3.16.1.0"
+      },
+      "arithmetic_example_safe_constraints": 23,
+      "module_results": [
+        {
+          "module": "Contracts",
+          "exit": 0,
+          "liquid_result": "SAFE",
+          "safe_constraint_counts": [
+            23
+          ]
+        },
+        {
+          "module": "BadAddition",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": []
+        },
+        {
+          "module": "BadSubtraction",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": []
+        },
+        {
+          "module": "BadCheckedAddition",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": [
+            23
+          ]
+        },
+        {
+          "module": "VacuousContract",
+          "exit": 0,
+          "liquid_result": "SAFE",
+          "safe_constraint_counts": [
+            1
+          ]
+        },
+        {
+          "module": "BadVacuousCall",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": [
+            1
+          ]
+        },
+        {
+          "module": "BadTotality",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": []
+        },
+        {
+          "module": "BadTermination",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": []
+        },
+        {
+          "module": "CancelLoss",
+          "exit": 0,
+          "liquid_result": "SAFE",
+          "safe_constraint_counts": [
+            5
+          ]
+        },
+        {
+          "module": "DivAssumptionProbe",
+          "exit": 0,
+          "liquid_result": "SAFE",
+          "safe_constraint_counts": [
+            2
+          ]
+        },
+        {
+          "module": "DivNonzeroProbe",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": []
+        },
+        {
+          "module": "NoDivFalseProbe",
+          "exit": 1,
+          "liquid_result": "UNSAFE",
+          "safe_constraint_counts": []
+        }
+      ],
+      "division": {
+        "status": "unexpected_acceptance",
+        "input": 0,
+        "expression": "x div 2",
+        "claimed_result": 99,
+        "actual_runtime_result": 0,
+        "checker_result": "SAFE",
+        "safe_constraints": 2,
+        "input_precondition_satisfiable": true,
+        "confirmed_runtime_scope": "LiquidHaskell 0.9.6.3.1 / GHC 9.6.3 / Z3 4.15.1"
+      },
+      "division_dependent_cancellation_guarantee": "withheld",
+      "runtime_bridge": {
+        "checked_pairs": 25,
+        "checked_comparisons": 50,
+        "cancel_loss_triples": 5016,
+        "status": "PASS",
+        "universal_equivalence_proof": false
+      },
+      "solver_replay": {
+        "streams": 14,
+        "matching_responses": 69,
+        "independent_certificate_check": false
+      },
+      "full_fresh_dependency_rebuild_during_archive_readback": false,
+      "excluded": [
+        "production Qty wrapper/conversions in this Integer-only lab",
+        "all callers",
+        "whole game",
+        "verifier soundness",
+        "newer-version runtime result"
+      ]
+    },
+    {
+      "id": "division-newer-source",
+      "status": "source_observation_only",
+      "observed_at_utc": "2026-10-04T01:33:21.471619+00:00",
+      "observations": [
+        {
+          "version": "0.9.14.1.1",
+          "commit": null,
+          "url": "https://hackage-content.haskell.org/package/liquidhaskell-0.9.14.1.1",
+          "sha256": "2cff8cc6c12631b2eaee5daa24c06aae8e1c84c581b53919c6a75446cd40ac92",
+          "zero_boundary_contradiction_in_source": true,
+          "executed_with_this_version": false
+        },
+        {
+          "version": "0.9.14.1",
+          "commit": "1c2a820d84f58d67eeb25aef9de26043d8cb55d6",
+          "url": "https://github.com/ucsd-progsys/liquidhaskell/releases/tag/v0.9.14.1",
+          "sha256": "2cff8cc6c12631b2eaee5daa24c06aae8e1c84c581b53919c6a75446cd40ac92",
+          "zero_boundary_contradiction_in_source": true,
+          "executed_with_this_version": false
+        },
+        {
+          "version": "0.9.14.1.2 (develop cabal)",
+          "commit": "952f02cfa4eb94f194e5b72706e55ce4fc1bcbb6",
+          "url": "https://github.com/ucsd-progsys/liquidhaskell/blob/952f02cfa4eb94f194e5b72706e55ce4fc1bcbb6/src/GHC/Real_LHAssumptions.hs",
+          "sha256": "271f37062286a594eb0c2060a5437ae675d4f0e986b96b509d0586d0a08a4b75",
+          "zero_boundary_contradiction_in_source": true,
+          "executed_with_this_version": false
+        }
+      ],
+      "classification": "unexecuted source-level inconsistency candidate",
+      "newer_compiler_installed": false,
+      "newer_lh_executed": false,
+      "related_issue_url": "https://github.com/ucsd-progsys/liquidhaskell/issues/2285#issuecomment-2122794785"
+    },
+    {
+      "id": "sbv-cancellation",
+      "status": "checked_scoped",
+      "source_version": "frozen colony 0.4",
+      "toolchain": {
+        "GHC": "9.6.6",
+        "base": "4.18.2.1",
+        "SBV": "10.12",
+        "Z3": "4.15.1",
+        "Cabal": "3.16.1.0"
+      },
+      "assumptions": [
+        "Q>=0",
+        "R>0",
+        "0<=p<=R"
+      ],
+      "formula": "L=floor(Q*p/R); refund=Q-L",
+      "named_query_results": {
+        "integer_bounds_general": "unsat",
+        "integer_conservation_general": "unsat",
+        "eight_slot_partition_general": "unsat",
+        "integer_monotonicity_general": "unsat",
+        "integer_bounds_bounded": "unsat",
+        "integer_monotonicity_bounded": "unsat",
+        "legacy_eight_lots_counterexample": "sat",
+        "negative_missing_progress_upper_bound": "sat",
+        "word64_overflow_separate_counterexample": "sat"
+      },
+      "quantity_bound_for_general_theorems": null,
+      "partition_slot_bound": 8,
+      "bounded_domain": {
+        "Q": [
+          0,
+          64
+        ],
+        "R": [
+          1,
+          32
+        ],
+        "p": "0..R"
+      },
+      "general_queries": 4,
+      "bounded_queries": 2,
+      "sat_controls": 3,
+      "unknown_count_in_recorded_run": 0,
+      "bridge_inputs": 36400,
+      "transaction_replay": {
+        "status": "finite_test_passed",
+        "transactions": 1412,
+        "assertions": 127011,
+        "progress_boundaries": 11,
+        "parts_ordered_compositions": 128,
+        "metal_partitions_full_cartesian_product": false,
+        "helper_only_zero_required_inputs": 2145
+      },
+      "aggregate_gate_caveat": "historical executable permits bounded fallback; inspect each named general query rather than infer general proof from exit zero",
+      "fresh_archive_rebuild": {
+        "status": "passed",
+        "compiler_reused": true,
+        "build_cache_reused": false
+      },
+      "trusted": [
+        "GHC9.6.6",
+        "SBV10.12 and transitive dependencies",
+        "Z3 4.15.1",
+        "stated model/source mapping"
+      ],
+      "independent_certificate_check": false,
+      "excluded": [
+        "variable-length list induction",
+        "universal equivalence proof of entire Haskell cancellation implementation",
+        "allocation feasibility/capacity/type constraints",
+        "general FEFO correctness",
+        "scheduler/time/save/lifecycle correctness",
+        "Word64 overflow freedom",
+        "Liquid Haskell/TLA+ completion",
+        "B07 overall completion"
+      ]
+    },
+    {
+      "id": "save-lifecycle",
+      "status": "checked_scoped",
+      "source_version": "frozen colony 0.2",
+      "finite_scope": {
+        "epochs": 2,
+        "request_ids_per_epoch": 2,
+        "edits_per_epoch": 1,
+        "active_requests_per_epoch": 1,
+        "request_id_reuse_within_epoch": false,
+        "bound_exhaustive_not_all_instances_proof": true
+      },
+      "toolchain": {
+        "GHC": "9.6.6",
+        "TLC": "2.19",
+        "TLC_release": "v1.7.4"
+      },
+      "safety": {
+        "distinct_states": 79227,
+        "generated_states": 583932,
+        "queued": 0,
+        "depth": 17
+      },
+      "invariants": [
+        "TypeOK",
+        "NoStaleSaved",
+        "NoStaleAcceptance",
+        "NoFalseSuccess",
+        "UniqueResponse",
+        "SavedSnapshotMatches",
+        "ActiveCorresponds"
+      ],
+      "liveness": {
+        "status": "checked_scoped",
+        "properties": [
+          "StorageSettles",
+          "ActiveSettles"
+        ],
+        "assumptions": [
+          "weak fairness for per-request Persist or Fail",
+          "weak fairness for continuously enabled per-request callback"
+        ],
+        "success_or_failure_settlement_only": true,
+        "unfair_control": "expected_counterexample"
+      },
+      "counterexample_bridges": [
+        {
+          "mutation": "Epoch",
+          "tlc_states": 6,
+          "all_13_fields_equal": true,
+          "correct_real_core_or_lab_persist_gate_rejects_at_final_callback": true,
+          "corrected_trace_checked_by_tlc": true,
+          "negative_trace_rejected_by_correct_next": true
+        },
+        {
+          "mutation": "Active",
+          "tlc_states": 5,
+          "all_13_fields_equal": true,
+          "correct_real_core_or_lab_persist_gate_rejects_at_final_callback": true,
+          "corrected_trace_checked_by_tlc": true,
+          "negative_trace_rejected_by_correct_next": true
+        },
+        {
+          "mutation": "Persist",
+          "tlc_states": 3,
+          "all_13_fields_equal": true,
+          "correct_real_core_or_lab_persist_gate_rejects_at_final_callback": true,
+          "corrected_trace_checked_by_tlc": false,
+          "negative_trace_rejected_by_correct_next": true
+        }
+      ],
+      "haskell_to_tlc_corpus": [
+        {
+          "name": "branch-inflight",
+          "states": 11,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        },
+        {
+          "name": "edit-inflight",
+          "states": 8,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        },
+        {
+          "name": "failure-old-epoch",
+          "states": 9,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        },
+        {
+          "name": "failure-retry",
+          "states": 11,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        },
+        {
+          "name": "happy-duplicate",
+          "states": 9,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        },
+        {
+          "name": "load-inflight",
+          "states": 8,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        },
+        {
+          "name": "load-late",
+          "states": 10,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        },
+        {
+          "name": "reordered-responses",
+          "states": 12,
+          "result": "accepted-by-correct-TLC-Init-and-Next"
+        }
+      ],
+      "normal_trace_states": 78,
+      "normal_traces": 8,
+      "mutant_traces_rejected": 3,
+      "same_full_ticket_reuse_probe": "old duplicate matched a new active request; fresh identity is a required caller assumption",
+      "trusted": [
+        "TLC and fingerprints",
+        "TLA+ model/abstraction",
+        "GHC",
+        "parser and observed-field correspondence",
+        "storage-phase abstraction"
+      ],
+      "excluded": [
+        "all-instance/refinement theorem",
+        "production UI",
+        "shared storage writer races",
+        "pending queue/coalescing",
+        "process/power crash",
+        "reconnect",
+        "mobile/browser storage",
+        "deadline bound",
+        "success guarantee"
+      ]
+    },
+    {
+      "id": "bend-haskell",
+      "status": "finite_test_passed",
+      "toolchain": {
+        "Bend": "2.0.35",
+        "GHC": "9.6.6",
+        "Node": "24.19.0"
+      },
+      "upstream_commit": "79df8d9c40722ee9507a1e253f283b51025f9d6c",
+      "upstream_release": "https://github.com/bendlang/bend/releases/tag/v2.0.35",
+      "archive_sha256": "63039d1a119f716767ac5a7d8fe0717cfacf219c6c253c35192148e0dade722f",
+      "backend": "generated sequential JavaScript on Node",
+      "world_traces": 4907,
+      "map_reduce_sizes": 17,
+      "ordinary_checker_laws": 3,
+      "rejected_negative_examples": 5,
+      "kernel_verdict": {
+        "status": "blocked",
+        "reason": "Lean v4.34.0 absent"
+      },
+      "native_execution": {
+        "status": "blocked",
+        "reason": "Clang absent; GCC rejected Clang-specific musttail syntax"
+      },
+      "gpu_execution": "not_run",
+      "performance_benchmark": "not_run",
+      "cross_compiler_universal_proof": false,
+      "array_bounds_behavior": "index 9 into length 8 wraps to index 1 in the recorded example"
+    },
+    {
+      "id": "guarantee-program",
+      "status": "planning_only",
+      "recorded_date": "2026-10-03",
+      "techniques": 24,
+      "superseded_statuses": "SBV/LH/TLC not-yet-run entries superseded only by the separately scoped experiments in this summary",
+      "performance_budgets_are_measured_results": false
+    }
+  ],
+  "platform_evidence": {
+    "Linux_x86_64": "recorded selected toolchains",
+    "sequential_JavaScript_Node": "recorded Bend comparison",
+    "browser_UI": "not_run_by_these_labs",
+    "macOS": "not_run_by_these_labs",
+    "Windows": "not_run_by_these_labs",
+    "native_mobile": "not_run_by_these_labs",
+    "GPU": "not_run"
+  },
+  "publication_rules": [
+    "Do not export raw private paths or original absolute-path manifests",
+    "Preserve historical source digests separately from adapted public-file digests",
+    "No public clean-clone reproduction claim before rerun",
+    "No whole-game or newest-LH-runtime claim",
+    "Retain third-party notices; reconcile first-party metadata to target MIT only after authorship check"
+  ],
+  "source_locations": "intentionally omitted from public package; content digests retained"
+}

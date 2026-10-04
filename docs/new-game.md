@@ -20,6 +20,8 @@ editing optional. Do not ask about scores, engines, networking or deployment
 before the requested loop needs them. If the user requests an unverified
 graphics/Web/mobile route, disclose the gap and choose it for explicit route
 development only with their instruction. Never silently substitute terminal.
+Use the [guarantee scope](guarantees.md) when a game's requested invariant
+needs stronger evidence than finite gameplay tests.
 Unspecified licensing remains **unlicensed for user additions**; original
 foundation/template MIT notices remain separate.
 
