@@ -70,22 +70,39 @@ parseChoice "local" = Just D.Local
 parseChoice "defer" = Just D.Defer
 parseChoice _ = Nothing
 
-respond :: String -> D.GameState -> (D.GameState, String)
-respond command game = case words command of
-  ["observe"] -> (game, packet "observed" "" "none" game)
+-- | Decoded transport input. The requested number is not an authoritative
+-- TurnId; dispatch still resolves and checks the currently visible token.
+data Command = Observe | Act Integer D.Choice
+
+parseCommand :: String -> Either String Command
+parseCommand command = case words command of
+  ["observe"] -> Right Observe
   ["act", revision, action] -> case (readMaybe revision :: Maybe Integer, parseChoice action) of
-    (Just requested, Just choice) -> case D.currentTurn game of
-      Nothing -> refused "The episode has ended."
-      Just turn
-        | requested /= toInteger (D.turnNumber turn) -> refused "Stale turn; observe again."
-        | otherwise -> case play StationArena () (singleton LocalClerk (Dispatch turn choice)) game of
-            Left _ -> refused "Participant admission failed."
-            Right (next, outcomes) -> case outcomes of
-              [Refused problem] -> (game, packet "refused" (T.unpack (D.domainErrorText problem)) "domain" game)
-              [Accepted _] -> (next, packet "accepted" "" "none" next)
-              _ -> refused "Unexpected domain feedback."
-    _ -> refused "Expected act <visible-turn> express|local|defer."
-  _ -> refused "Expected observe or act <visible-turn> express|local|defer."
+    (Just requested, Just choice) -> Right (Act requested choice)
+    _ -> Left "Expected act <visible-turn> express|local|defer."
+  _ -> Left "Expected observe or act <visible-turn> express|local|defer."
+
+-- | Turn-number validation belongs to the transport. The Arena and domain
+-- still own participant admission, resource costs and token freshness.
+dispatchVisibleTurn :: Integer -> D.Choice -> D.GameState
+                    -> Either String (D.GameState, [Outcome])
+dispatchVisibleTurn requested choice game = case D.currentTurn game of
+  Nothing -> Left "The episode has ended."
+  Just turn
+    | requested /= toInteger (D.turnNumber turn) -> Left "Stale turn; observe again."
+    | otherwise -> case play StationArena () (singleton LocalClerk (Dispatch turn choice)) game of
+        Left _ -> Left "Participant admission failed."
+        Right result -> Right result
+
+respond :: String -> D.GameState -> (D.GameState, String)
+respond command game = case parseCommand command of
+  Left message -> refused message
+  Right Observe -> (game, packet "observed" "" "none" game)
+  Right (Act requested choice) -> case dispatchVisibleTurn requested choice game of
+    Left message -> refused message
+    Right (_, [Refused problem]) -> (game, packet "refused" (T.unpack (D.domainErrorText problem)) "domain" game)
+    Right (next, [Accepted _]) -> (next, packet "accepted" "" "none" next)
+    Right _ -> refused "Unexpected domain feedback."
   where
     refused message = (game, packet "refused" message "protocol" game)
 
