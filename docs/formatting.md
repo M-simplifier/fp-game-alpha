@@ -19,7 +19,8 @@ python tools/formatter.py path
 - `plan` lists the exact version, official URL, size, SHA-256, local executable
   destination and selected sources. It neither downloads nor changes files
 - `install` explicitly downloads the pinned archive into `.build/tools/ormolu/`.
-  It verifies the archive hash, permits only its single regular executable,
+  It verifies the archive hash, permits only pinned regular archive members
+  (the executable and, on macOS arm64, its four sibling libraries),
   checks the executable's version, and reuses an already verified local cache
 - `check` verifies the cache and reports formatting differences without changing
   source. Missing or damaged tools fail with guidance; it never downloads

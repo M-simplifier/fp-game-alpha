@@ -40,29 +40,53 @@ def item(data):
 class ArchiveTests(unittest.TestCase):
     def test_regular_binary(self):
         data = zipped()
-        self.assertEqual(formatter.archive_binary(data, item(data), 'ormolu'), b'formatter')
+        self.assertEqual(formatter.archive_payloads(data, item(data), 'ormolu'), {'ormolu': b'formatter'})
+
+    def test_pinned_sibling_library(self):
+        data = zipped(extra='libtest.1.dylib')
+        pinned = {**item(data), 'members': ['ormolu', 'libtest.1.dylib']}
+        self.assertEqual(formatter.archive_payloads(data, pinned, 'ormolu'),
+                         {'ormolu': b'formatter', 'libtest.1.dylib': b'other'})
+        for members in [['ormolu'], ['ormolu', '../libtest.1.dylib'],
+                        ['ormolu', 'libtest.1.dylib', 'libtest.1.dylib']]:
+            with self.subTest(members=members), self.assertRaises(ValueError):
+                formatter.archive_payloads(data, {**item(data), 'members': members}, 'ormolu')
+
+    def test_library_symlink_and_duplicate_rejected(self):
+        for duplicate in [False, True]:
+            output = io.BytesIO()
+            with zipfile.ZipFile(output, 'w') as archive:
+                archive.writestr('ormolu', b'executable')
+                entry = zipfile.ZipInfo('libtest.1.dylib')
+                entry.external_attr = (stat.S_IFLNK | 0o777) << 16
+                archive.writestr(entry, b'target')
+                if duplicate:
+                    archive.writestr('ormolu', b'duplicate')
+            data = output.getvalue()
+            with self.assertRaises(ValueError):
+                formatter.archive_payloads(data, {**item(data), 'members': ['ormolu', 'libtest.1.dylib']}, 'ormolu')
 
     def test_checksum_mismatch(self):
         data = zipped()
         with self.assertRaisesRegex(ValueError, 'checksum'):
-            formatter.archive_binary(data, {**item(data), 'sha256': '0' * 64}, 'ormolu')
+            formatter.archive_payloads(data, {**item(data), 'sha256': '0' * 64}, 'ormolu')
 
     def test_malformed_archive(self):
         data = b'not zip'
         with self.assertRaisesRegex(ValueError, 'Malformed'):
-            formatter.archive_binary(data, item(data), 'ormolu')
+            formatter.archive_payloads(data, item(data), 'ormolu')
 
     def test_paths_extra_files_and_symlinks(self):
         for data in [zipped('../ormolu'), zipped('/ormolu'), zipped('bin/ormolu'),
                      zipped('C:\\ormolu'), zipped(extra='README'),
                      zipped(mode=stat.S_IFLNK | 0o777), zipped(mode=stat.S_IFIFO | 0o600)]:
             with self.subTest(archive=repr(data[:20])), self.assertRaises(ValueError):
-                formatter.archive_binary(data, item(data), 'ormolu')
+                formatter.archive_payloads(data, item(data), 'ormolu')
 
     def test_unpacked_size_limit(self):
         data = zipped(data=b'large')
         with patch.object(formatter, 'MAX_BINARY', 4), self.assertRaisesRegex(ValueError, 'size'):
-            formatter.archive_binary(data, item(data), 'ormolu')
+            formatter.archive_payloads(data, item(data), 'ormolu')
 
 
 class WorkspaceTests(unittest.TestCase):
@@ -172,11 +196,13 @@ class WorkspaceTests(unittest.TestCase):
         with patch('subprocess.run', return_value=result), self.assertRaisesRegex(ValueError, 'version'):
             formatter.check_version(Path('ormolu'), '0.9.0.0', self.root)
 
-    def fake_install(self):
-        data = zipped()
+    def fake_install(self, libraries=False):
+        data = zipped(extra='libtest.1.dylib' if libraries else None)
         lock_path = self.root / 'tools/formatter.lock.json'
         lock = json.loads(lock_path.read_text())
         lock['profiles']['Linux-x86_64'].update(item(data))
+        if libraries:
+            lock['profiles']['Linux-x86_64']['members'] = ['ormolu', 'libtest.1.dylib']
         lock_path.write_text(json.dumps(lock))
         with patch.object(formatter, 'profile_key', return_value='Linux-x86_64'), patch.object(formatter, 'check_version'), patch('urllib.request.urlopen', return_value=io.BytesIO(data)):
             result = formatter.install(self.root)
@@ -187,6 +213,18 @@ class WorkspaceTests(unittest.TestCase):
         with patch.object(formatter, 'profile_key', return_value='Linux-x86_64'), patch.object(formatter, 'check_version'), patch('urllib.request.urlopen', side_effect=AssertionError('network')):
             self.assertEqual(formatter.install(self.root)['status'], 'reused')
             self.assertEqual(formatter.verified(self.root), executable)
+
+    def test_cached_sibling_libraries_verified_before_execution(self):
+        executable = self.fake_install(libraries=True)
+        library = executable.parent / 'libtest.1.dylib'
+        self.assertEqual(library.read_bytes(), b'other')
+        library.write_bytes(b'tampered')
+        with patch.object(formatter, 'profile_key', return_value='Linux-x86_64'), patch('subprocess.run', side_effect=AssertionError('must not execute')):
+            with self.assertRaisesRegex(ValueError, 'differs'):
+                formatter.verified(self.root)
+            library.unlink()
+            with self.assertRaisesRegex(ValueError, 'Incomplete formatter cache'):
+                formatter.verified(self.root)
 
     def test_incomplete_cache_has_recovery_guidance(self):
         executable = self.fake_install()

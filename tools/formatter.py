@@ -62,23 +62,30 @@ def metadata(project):
     return version, key, item
 
 
-def archive_binary(data, item, executable):
+def archive_payloads(data, item, executable):
     if len(data) != item['bytes'] or digest(data) != item['sha256']:
         raise ValueError('Formatter archive size/checksum mismatch; nothing installed.')
+    members = item.get('members', [executable])
+    if (not isinstance(members, list) or executable not in members
+            or any(not isinstance(name, str) or not re.fullmatch(r'ormolu(?:\.exe)?|lib[a-zA-Z0-9_.-]+\.dylib', name) for name in members)
+            or len(members) != len(set(members))):
+        raise ValueError('Invalid pinned formatter archive member list.')
     try:
         with zipfile.ZipFile(io.BytesIO(data)) as archive:
-            # Official assets contain one executable. Never extract paths, links,
-            # extra files, or an unbounded/deceptive compressed payload.
+            # macOS arm64 also needs the four pinned sibling dylibs. Never
+            # extract arbitrary paths, links, extra files or duplicate members.
             entries = archive.infolist()
-            if len(entries) != 1 or entries[0].filename != executable:
-                raise ValueError('Expected exactly the formatter executable in its archive.')
-            entry = entries[0]
-            mode = entry.external_attr >> 16
-            if entry.is_dir() or stat.S_ISLNK(mode) or (stat.S_IFMT(mode) not in (0, stat.S_IFREG)):
-                raise ValueError('Formatter archive contains a non-regular executable.')
-            if entry.file_size <= 0 or entry.file_size > MAX_BINARY or entry.flag_bits & 1:
-                raise ValueError('Formatter archive has an invalid executable size or encryption.')
-            return archive.read(entry)
+            if len(entries) != len(members) or {entry.filename for entry in entries} != set(members):
+                raise ValueError('Expected exactly the pinned formatter archive members.')
+            total_size = 0
+            for entry in entries:
+                mode = entry.external_attr >> 16
+                if entry.is_dir() or stat.S_ISLNK(mode) or stat.S_IFMT(mode) not in (0, stat.S_IFREG):
+                    raise ValueError('Formatter archive contains a non-regular member.')
+                total_size += entry.file_size
+                if entry.file_size <= 0 or total_size > MAX_BINARY or entry.flag_bits & 1:
+                    raise ValueError('Formatter archive has an invalid expanded size or encryption.')
+            return {entry.filename: archive.read(entry) for entry in entries}
     except (zipfile.BadZipFile, RuntimeError) as error:
         raise ValueError('Malformed formatter archive: ' + str(error)) from error
 
@@ -108,9 +115,14 @@ def verified(project):
         raise ValueError('Pinned formatter is missing. Run: python tools/formatter.py install')
     if archive.stat().st_size != item['bytes'] or not 0 < executable.stat().st_size <= MAX_BINARY:
         raise ValueError('Cached formatter size differs from the lock or exceeds its limit.')
-    binary = archive_binary(archive.read_bytes(), item, name)
-    if digest(executable.read_bytes()) != digest(binary):
-        raise ValueError('Cached formatter executable differs from the verified archive; remove this project-local cache and install again.')
+    payloads = archive_payloads(archive.read_bytes(), item, name)
+    for member, expected in payloads.items():
+        path = local_path(project, (folder / member).relative_to(project).as_posix())
+        if not path.is_file():
+            raise ValueError('Incomplete formatter cache at ' + str(folder)
+                             + '. Inspect it, remove only this project-local folder, then run: python tools/formatter.py install')
+        if path.stat().st_size != len(expected) or digest(path.read_bytes()) != digest(expected):
+            raise ValueError('Cached formatter payload differs from the verified archive; remove this project-local cache and install again.')
     check_version(executable, version, project)
     return executable
 
@@ -124,15 +136,17 @@ def install(project):
     request = urllib.request.Request(item['url'], headers={'User-Agent': 'fp-game-formatter'})
     with urllib.request.urlopen(request, timeout=60) as response:
         data = response.read(item['bytes'] + 1)
-    binary = archive_binary(data, item, name)
+    payloads = archive_payloads(data, item, name)
     folder.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='install-', dir=folder.parent) as temporary:
         stage = Path(temporary) / 'ready'
         stage.mkdir()
         (stage / 'archive.zip').write_bytes(data)
+        for member, payload in payloads.items():
+            output = stage / member
+            output.write_bytes(payload)
+            output.chmod(0o755)
         executable = stage / name
-        executable.write_bytes(binary)
-        executable.chmod(0o755)
         check_version(executable, version, project)
         # Another installation must not be overwritten.
         stage.rename(folder)
