@@ -27,6 +27,7 @@ The CLI keeps config/cache/output in `.build/`; this profile needs only packages
 bundled with GHC. `inspect`, `context` and editor wrappers use actual compiler
 results. See [setup](docs/setup.md), [editors](docs/editors.md),
 [Haskell style](docs/haskell.md), [architecture and laws](docs/architecture.md),
+[review findings and prevention](docs/failure-prevention.md),
 [guarantees and limits](docs/guarantees.md),
 [acceptance contract](docs/acceptance.md), [milestones](docs/roadmap.md), and
 [publication manifest](PUBLICATION-MANIFEST.md).

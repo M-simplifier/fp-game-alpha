@@ -83,7 +83,7 @@
     },
     {
       "path": "README.md",
-      "sha256_lf": "edcb5d1bdfef53e4f0d8d4acccb708c2e18f39670c96622e159c9bd8875140de",
+      "sha256_lf": "e1c737984abf018352b370738e708ba28a2119b42ff973a95b308aa778893545",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -195,6 +195,17 @@
       "review": "explicit technical selection; license notice reviewed"
     },
     {
+      "path": "docs/failure-prevention.md",
+      "sha256_lf": "89be5bb777996f0974a3f4362446a037d912bd2ad0a0b460b2e40fa506065382",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
       "path": "docs/guarantees.md",
       "sha256_lf": "bd33a975184d249b5a4172587e90c973e0252885d31db3af9405203033f51951",
       "origin": {
@@ -210,7 +221,7 @@
     },
     {
       "path": "docs/haskell.md",
-      "sha256_lf": "2ece4af9a50732ed2bef90520645804795c2d94061e85f6bf3e17b1f18df848b",
+      "sha256_lf": "eb2211594a06016909b84746d620d769d0180a5d284d3b27562dc977afa11c56",
       "origin": {
         "kind": "author-supplied-public-doc-candidate",
         "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
@@ -224,7 +235,7 @@
     },
     {
       "path": "docs/new-game.md",
-      "sha256_lf": "84c8d53f5e5a5f845c5bfb6d764c6bea6166d4aa87a1eeb6fe3b684ae204ad45",
+      "sha256_lf": "4549c5b80b6701da85a0dc9aefb520bc56d1744ca62195ff61bb915a6eec0c8d",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -1211,7 +1222,7 @@
     },
     {
       "path": "templates/terminal-adventure/docs/DEVELOPMENT.md",
-      "sha256_lf": "bc765de817ff03279aa87d9adac0f4456a5b2045ffcce794ce638e7a21d0d530",
+      "sha256_lf": "af20398b4e74180af1de89e1706ba49183032afab2b89fbb966f853d97929444",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -1365,7 +1376,7 @@
     },
     {
       "path": "tools/scaffold.py",
-      "sha256_lf": "aa8efb11b9ecd74d9593cc17a5f32d407c50759ea7699ea9ea2cbc30cd27faf6",
+      "sha256_lf": "b21575669b7f1077b8c4a7cc2a2f7eccb8de192d7e2e3b8d167d69ad32e28594",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -1409,7 +1420,7 @@
     },
     {
       "path": "tools/test_workspace.py",
-      "sha256_lf": "af953b053fda8ffdf62f61c1115c31736c8503ed5c18afe1c61b565c5874aa24",
+      "sha256_lf": "10927f36a3c326ccd20f3c7f61e139de832d11e0e83a9b35edbac5856ed6cb60",
       "origin": {
         "kind": "authored-for-public-alpha"
       },

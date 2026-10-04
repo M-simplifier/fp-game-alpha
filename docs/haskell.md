@@ -7,10 +7,13 @@ The reference games teach by being worth reading. Keep advanced types where they
 - Use a `type` alias to name a recurring meaning or simplify a distracting signature. It is the same underlying type and adds no type safety or validation.
 - Use a `newtype` when accidental interchange is a real risk. A `newtype Health = Health Int` separates a type; it does not establish a nonnegative bound.
 - Use a private constructor and checked construction when an invariant must hold. Review all construction paths and exported operations, including parsers, derived instances, lenses, and coercion/role exposure where relevant.
+- A hidden record constructor is insufficient if an exported selector still permits record update. Compile an outside-client rejection fixture for an API that promises read-only access; export ordinary projection functions when update fields must stay private.
+- Validate bounds before overflow-sensitive arithmetic. For a checked width `size <= limit`, test `position <= limit - size` rather than trusting `position + size <= limit` on bounded `Int`. Test extreme machine values at external input boundaries.
 - Use sum types for meaningful alternatives and GADTs, associated types, indexed states, or refinements when they prevent a concrete mistake or clarify a protocol. Explain the obligation they enforce and their limits.
 - Keep units and authority visible: elapsed time versus a timestamp, requested movement versus resolved movement, player action versus external completion.
 
 Each safety claim names its mechanism: representation, abstraction boundary, runtime validation, property test, proof tool, or environmental assumption. A semantic name alone is not evidence.
+Apply the [finding and prevention ledger](failure-prevention.md) when a review or playtest discovers a bug; distinguish one-case regression from a reusable boundary check.
 
 ## Reduce what must be held in mind
 
