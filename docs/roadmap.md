@@ -9,7 +9,7 @@
 | River Home | Selected experimental pure-core reference | Authored multi-day journey, original simulation/clock/save, Step/Arena and finite invariant/save regressions; original QuickCheck suite and graphical host not reproduced |
 | Complete Afterlight | Full source selected; optional verification in progress | Full Session/Arena, native renderer/audio and Web host preserved; pinned core/parity check route. Native GPU and browser acceptance remain separate |
 | Lantern finite puzzle | Selected experimental source and executable law test | Checked board, original valid-board transition, Step/Arena agreement and a four-state fully observed reachability graph; no general-board or SMT claim |
-| Red Dune 0.6 | Locally acquired; selection pending | Official Library transfer, size/SHA and metadata verified; source/license review and local validation still required |
+| [Red Dune 0.6](red-dune.md) | Selected optional MIT source reference | Linux/GHC 9.6 only; 178 original inputs preserved, restored fixtures and isolated check helper. Full game checks on 2487 core; build/core laws on formatted 84a074 core; browser, full campaign and performance acceptance remain unclaimed |
 | Red Dune 0.7 | Excluded | Work in progress; do not mix into the stable 0.6 publication |
 | SMT/TLC/SBV and platform research | Deferred experimental material | Select small reproducible experiments after first-user acceptance; no universal guarantee inferred |
 | LiquidHaskell / Qty | Selected source-only quantity lab; stronger proof blocked on pinned checker setup | Frozen original/annotation sources, GHC negative examples and full finite oracle route; historical selected-binder SAFE25 and mutants remain separate, pinned LH environment not yet reproduced |

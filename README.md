@@ -71,6 +71,12 @@ package with the original renderer/audio and browser hosts, a pinned dependency
 check route, and a frozen gameplay oracle. Host execution and binary
 redistribution are separate acceptance stages.
 
+The [Red Dune colony simulation source](references/red-dune/README.md) is an
+optional, in-progress Linux/GHC 9.6 reference with exact-restored compatibility
+fixtures. Start with its [source reading and check route](docs/red-dune.md);
+full game checks on the earlier core and bounded formatted-core checks are
+reported separately. It is not a campaign release or a new-game template.
+
 ## Play through an AI-facing interface
 
 [Headless gameplay](docs/headless-play.md) lets an AI make actual Station choices

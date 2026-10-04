@@ -16,5 +16,11 @@
     "editors/haskell-design/native/app",
     "editors/haskell-design/native/src",
     "editors/haskell-design/compiler"
+  ],
+  "preserved_source_roots": [
+    {
+      "path": "references/red-dune",
+      "reason": "Exact historical payload, deliberately outside source_roots; see docs/red-dune.md. Not Ormolu-normalized or readability-qualified."
+    }
   ]
 }

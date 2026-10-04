@@ -1,0 +1,1 @@
+ColonyOutput {outputEvents = [], outputReceipts = [CommandReceipt {receiptCommand = CommandId 1 1 (Epoch "development-authority-1" 1) 1, receiptBoundary = BoundarySeq 0, receiptOutcome = CommandFailed ReturnCapacityFull, receiptTx = TxId 1 1 (BoundarySeq 0) P1 0, receiptBody = CancelProduction (EntityId 7)}], outputDiagnostics = []}

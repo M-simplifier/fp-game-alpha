@@ -1,0 +1,400 @@
+{
+  "scope": "local exact compatibility inputs, public review pending",
+  "files": [
+    {
+      "path": "evidence/cancellation-compat/frozen-0.2/after.cbor",
+      "sha256": "6b8a7d846db50fcc2781cd8f583cbe0121205affa9a5538ca791d0bc0a29ed9c",
+      "bytes": 8805
+    },
+    {
+      "path": "evidence/cancellation-compat/frozen-0.2/before.cbor",
+      "sha256": "f471fa996052ebc67af25cff8f27e2f6439cebe4e672a4a2c4a76990343fb76e",
+      "bytes": 8588
+    },
+    {
+      "path": "evidence/cancellation-compat/frozen-0.2/input.cbor",
+      "sha256": "d2b9b1b9ca9c49e3f6ab17d7abd31bea2b451d8d5caf3b67830a0977f2edfcfe",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/cancellation-compat/frozen-0.2/output.txt",
+      "sha256": "1853cc14ab3e55448fba0391cbe6661dfec24a9031bb56340ff67e0736e7b196",
+      "bytes": 402
+    },
+    {
+      "path": "evidence/migration-fixtures/cancelled-v1.cbor",
+      "sha256": "3bde65c3812c34b50d692803f9bdd1215b7446e31be04e4d83e14f62c98d5a19",
+      "bytes": 8253
+    },
+    {
+      "path": "evidence/migration-fixtures/cancelled-v2.cbor",
+      "sha256": "de1608b6d3a2a7b8039fa178aae74fcea5275246522c4cfb4e0a81ca045c4fb9",
+      "bytes": 8491
+    },
+    {
+      "path": "evidence/migration-fixtures/cancelled-v3.cbor",
+      "sha256": "894df6695b3d2343c0a47ff2850cd4168c3f28f881e04febd4f11d0fb193689b",
+      "bytes": 8983
+    },
+    {
+      "path": "evidence/migration-fixtures/completed-v1.cbor",
+      "sha256": "9563d7b9e10fb38aae2a865573d8e7a24f2918ec2ca7799a12005f079f5052e8",
+      "bytes": 19249
+    },
+    {
+      "path": "evidence/migration-fixtures/completed-v2.cbor",
+      "sha256": "d7f29483f0d8f21cf61dec9b321b6333a7ece27fbb38c85d5ca92dc6645a15a6",
+      "bytes": 19439
+    },
+    {
+      "path": "evidence/migration-fixtures/completed-v3.cbor",
+      "sha256": "8dee28138d2daec335beae366b3f86523056870db302db8bcc7a40bbf1972fcc",
+      "bytes": 19933
+    },
+    {
+      "path": "evidence/migration-fixtures/cook-balance-v2-running-v3.cbor",
+      "sha256": "66b0de11af073e52c8d96219897349d3f44218cfbfa336c7079cb9bfeef4dec6",
+      "bytes": 8610
+    },
+    {
+      "path": "evidence/migration-fixtures/failed-expiry-v1.cbor",
+      "sha256": "65c48a82fa75c820bc5eb6089dce7c65274660cbc3506c175cf2ec64b183f1b3",
+      "bytes": 7997
+    },
+    {
+      "path": "evidence/migration-fixtures/failed-expiry-v2.cbor",
+      "sha256": "e28be409c1c74befceb80900052055ed143ee5ce988d5a45423c3bdc47dbb491",
+      "bytes": 8220
+    },
+    {
+      "path": "evidence/migration-fixtures/failed-expiry-v3.cbor",
+      "sha256": "3e03d9e66eefa5317ce7ed3b774385f34efa5559a9e86713ed37707ba8b6b459",
+      "bytes": 8712
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-cancelled-v1.cbor",
+      "sha256": "6afe65498c8540afc2bf131fe1911167a8bf24c2c55619b5250ebf0c69acf018",
+      "bytes": 7403
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-cancelled-v2.cbor",
+      "sha256": "e371ef6f4330a3ef28eca5a4785bdf8691377df0e3dd5c78bf519e9ebc3ff83c",
+      "bytes": 7624
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-cancelled-v3.cbor",
+      "sha256": "4b95037025f039739d032dce9e7316d1d51432bd9b6e664880e55ba3a60c9886",
+      "bytes": 8116
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-completed-v1.cbor",
+      "sha256": "3443d0a4fe434286023a975526b56d04d12ef41dc3834c89c4a9228056a8a8d3",
+      "bytes": 12855
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-completed-v2.cbor",
+      "sha256": "b4cea888ad9055f4782cfb217e6fb67987760bed259e7b8ade5bd2089e5e2b1a",
+      "bytes": 12993
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-completed-v3.cbor",
+      "sha256": "5c70cca9fa74253fd586e83a94c8c4ac5a319dc18764d3bf49c12fbbf3facccc",
+      "bytes": 13487
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-planned-v1.cbor",
+      "sha256": "db4533f1fefaadb1dfdc3231fb7e1e31182236f3fdbd19b0548f35a855de4ac7",
+      "bytes": 7097
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-planned-v2.cbor",
+      "sha256": "e6ce8d7074ceb5db88cbd8968bb6f05a3291a9a13b6518a46a29c64e2bee2525",
+      "bytes": 7235
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-planned-v3.cbor",
+      "sha256": "aae34d22c2fb94c64523ac410ec40aa66013516a612cb1725198932c685f323b",
+      "bytes": 7692
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-running-v1.cbor",
+      "sha256": "8bd921115e6224f3b1d54eb582bd74c03afb7018222609e23c1f0031c5bec47e",
+      "bytes": 7316
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-running-v2.cbor",
+      "sha256": "4f984760b424d28bf66ab9fec4b6852a7f2119e5c2509157a44c8490de361f21",
+      "bytes": 7504
+    },
+    {
+      "path": "evidence/migration-fixtures/maintenance-running-v3.cbor",
+      "sha256": "34da5aba2f80a86d43ba971f12d48d97b8f20c1bc90ad58bf4ee3dd3edad6ee2",
+      "bytes": 7996
+    },
+    {
+      "path": "evidence/migration-fixtures/natural-running-v1.cbor",
+      "sha256": "40dd00e0d3d3036bf0eb238dd7513c6cdb826548bb842ef596755c3bdf262cbe",
+      "bytes": 7480
+    },
+    {
+      "path": "evidence/migration-fixtures/natural-running-v2.cbor",
+      "sha256": "5dc199176510c8a4d85bb296c5b127440a8bc41068ade4cddf41a47a16edb054",
+      "bytes": 7568
+    },
+    {
+      "path": "evidence/migration-fixtures/natural-running-v3.cbor",
+      "sha256": "c75eeb2687856aa63bd02456987b6a6fc9b34347a99764804ac38f134c40ef41",
+      "bytes": 8038
+    },
+    {
+      "path": "evidence/migration-fixtures/planned-v1.cbor",
+      "sha256": "9d6b20bd59088b034994d6b8cb5cd2c65824773029abb482cfbfe795cebd73ec",
+      "bytes": 7278
+    },
+    {
+      "path": "evidence/migration-fixtures/planned-v2.cbor",
+      "sha256": "f634c8074c85aeb9f25ff5c3835f66bba082a6b08fee175fe111b1fee71303ef",
+      "bytes": 7516
+    },
+    {
+      "path": "evidence/migration-fixtures/planned-v3.cbor",
+      "sha256": "d724386b4a0b9cf797234903dfe0db57141222de3a1ebb8224ede3b9653c1756",
+      "bytes": 8007
+    },
+    {
+      "path": "evidence/migration-fixtures/running-wip-v1.cbor",
+      "sha256": "74bc8d3ad88380ec1d8162c31ab71034f216d27b05e3e0bd347e693db3e6d75d",
+      "bytes": 7873
+    },
+    {
+      "path": "evidence/migration-fixtures/running-wip-v2.cbor",
+      "sha256": "debf970fb03e1cf853336a7069902b871bcf84b40b77c8834236e4f2befee408",
+      "bytes": 8111
+    },
+    {
+      "path": "evidence/migration-fixtures/running-wip-v3.cbor",
+      "sha256": "ae3a6c19598998921a06844c772d27bada203db033b2bec3f8319df558dda4b6",
+      "bytes": 8559
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-carrying-food-v1.cbor",
+      "sha256": "aa1585979bf78b06b7005dca10185637bce1b5347b914edd4ae320ce85711b2b",
+      "bytes": 6788
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-carrying-food-v2.cbor",
+      "sha256": "1d872c08277f28b2e15e425a8786929aed710112b412525ceb43d0fbdd0092a4",
+      "bytes": 6844
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-carrying-food-v3.cbor",
+      "sha256": "65b9c66de79864f1089d1054ab5d5f257e3cdcf37a7f6dab77f54f8f960d7ebf",
+      "bytes": 7288
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-delivered-v1.cbor",
+      "sha256": "2d5a29897ca35316cd2f6870b3feb0180e33dee45bbfe79fb24666cf702f469a",
+      "bytes": 6632
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-delivered-v2.cbor",
+      "sha256": "c1e8b61ee6a8e716efb1578942973980cf0dccc807e3524b484f6d6012eff625",
+      "bytes": 6688
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-delivered-v3.cbor",
+      "sha256": "39c652a16ada58789a3b89cdef8e2f0298cd9b94b1a34c93a63ed8a3004daed9",
+      "bytes": 7182
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-reserved-v1.cbor",
+      "sha256": "20518133069ea78b2848f6067775bf8481bca3dc2623bcf4dbefdfb5cb9cbc1e",
+      "bytes": 6729
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-reserved-v2.cbor",
+      "sha256": "8a0f0fe74667e3a4e66ef03fe99c3a7bfc3ebde9bcf776d06955ffb162345408",
+      "bytes": 6785
+    },
+    {
+      "path": "evidence/migration-fixtures/transport-reserved-v3.cbor",
+      "sha256": "1b9df921d60b2a3653ada92b0b3bb4ba3b83e2b8f7f13218bcba851d9afe457a",
+      "bytes": 7220
+    },
+    {
+      "path": "evidence/migration-fixtures/waiting-inputs-v1.cbor",
+      "sha256": "5215879c5253bc738ff6c77bfbeb75fe6575046e36e7c2a7cb20c14c7cc2a8d1",
+      "bytes": 6897
+    },
+    {
+      "path": "evidence/migration-fixtures/waiting-inputs-v2.cbor",
+      "sha256": "519c55e0b6acfb22ce7fb47c98818158055d30306916e93096c6eb26be54aa8d",
+      "bytes": 6985
+    },
+    {
+      "path": "evidence/migration-fixtures/waiting-inputs-v3.cbor",
+      "sha256": "66a4f74fcf8c0cbbdef2ed9a9ce4bf1beb85e5138eedd3d9d96136b24c941e66",
+      "bytes": 7476
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots1.after.cbor",
+      "sha256": "cdc48673f6476271dc32eaf27e40844960d47e6baf04ead41eccc7422c8a875a",
+      "bytes": 7619
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots1.before.cbor",
+      "sha256": "72bdf457d87c2a0b48f32973afb7fd1f943a7bfeae2df0e98011164d26b7c380",
+      "bytes": 7467
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots1.input.cbor",
+      "sha256": "039eedb637eb402c58dc7319e85a21c7df0e9ad4d4b3435ec016552dc977de74",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots1.output.txt",
+      "sha256": "958efab47e3bfa0c38e172770721a918457ffe8ec927b0e6b3267e1e8bdad1d1",
+      "bytes": 335
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots8.after.cbor",
+      "sha256": "06247ec2f96dfb249f8987d58e793c1fea089e5aa620e0252391fbab4e729752",
+      "bytes": 9837
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots8.before.cbor",
+      "sha256": "d88651763e887e0ac15b1c6d96671d24f3653ae73c1a98e65948cd4e4e1faab7",
+      "bytes": 8689
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots8.input.cbor",
+      "sha256": "18d75a8faa113b5aacf2d17dbaa4f51d7ca877606a1a32bee76b003d6f2d2834",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile0-lots8.output.txt",
+      "sha256": "ea7d711601888ab0d707041b7892e592b731b9537ddab5407ad17184551b69d7",
+      "bytes": 402
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots1.after.cbor",
+      "sha256": "c89fcc95a3af199902e55a1594c35dccfab0c17c07dcdecf0bee2a972e2f8d3a",
+      "bytes": 7619
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots1.before.cbor",
+      "sha256": "8633f51a0d1aeafcf541bd71c14b78d8226faf402b9097d17c3d96c1acbbe674",
+      "bytes": 7467
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots1.input.cbor",
+      "sha256": "1adf2c15a93dfe27c8617d9ce242d3466ae7ea3ef570ed70362b366269a4ec4d",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots1.output.txt",
+      "sha256": "c0219920e09e0d782ab406d102f7ecb8c65df69073cb03f996736f4a0a9dec91",
+      "bytes": 335
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots8.after.cbor",
+      "sha256": "273afe4f68788edcd897a683b8860956a7128e99d0bb4a5780bfd176fb34d9be",
+      "bytes": 9837
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots8.before.cbor",
+      "sha256": "ee50cf8382f26402172d5f9b2be0d92666f60705881ea34988d6f02865e27ff4",
+      "bytes": 8689
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots8.input.cbor",
+      "sha256": "e239c8f15bcdb6b4c715bf61787cd915b3998a2853aa41e553443ae41c0a9578",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile1-lots8.output.txt",
+      "sha256": "eb587e0ddefee4cbe251bb554f4c4af0f9f2ef559eb92b253e375db74ced54d0",
+      "bytes": 402
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots1.after.cbor",
+      "sha256": "c57216b7363bccb5fc4404d628292cb3d9b90018578137aa61cf78324820d853",
+      "bytes": 7619
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots1.before.cbor",
+      "sha256": "b24292f16d4824fb36f01d899e0dbfe760caf60668f94a633dc20da38ee2ac75",
+      "bytes": 7467
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots1.input.cbor",
+      "sha256": "9ff4f53d8980eb4b9dd017f41cbcff1ff8d05d9069f37addf125b912665222be",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots1.output.txt",
+      "sha256": "958efab47e3bfa0c38e172770721a918457ffe8ec927b0e6b3267e1e8bdad1d1",
+      "bytes": 335
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots8.after.cbor",
+      "sha256": "5b670dc553ffba454cd89ce6c6db63ed32396ddcbf2e57fcebcc30c750da700c",
+      "bytes": 9079
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots8.before.cbor",
+      "sha256": "1a53ed46e3fed09d9cdb4a3a73edf5c5b6b6af9a9ff968d480db559eba48cffd",
+      "bytes": 8689
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots8.input.cbor",
+      "sha256": "78a04c51adb6335a5eae476e041473ed9be9a0580a7294dd7225cf70df87c8d7",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile2-lots8.output.txt",
+      "sha256": "ea7d711601888ab0d707041b7892e592b731b9537ddab5407ad17184551b69d7",
+      "bytes": 402
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots1.after.cbor",
+      "sha256": "71c7b6826ad067c64930493d80377ff5fc8ef4704cc45b7aeda6f4b45ec28978",
+      "bytes": 7619
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots1.before.cbor",
+      "sha256": "70060d291315709002a6106d75493a0556acc8c66f68626e8f328b13739f0255",
+      "bytes": 7467
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots1.input.cbor",
+      "sha256": "c96846ff0712bfceca99516306329b0ecb1335f9f2cee44b0995957292733196",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots1.output.txt",
+      "sha256": "c0219920e09e0d782ab406d102f7ecb8c65df69073cb03f996736f4a0a9dec91",
+      "bytes": 335
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots8.after.cbor",
+      "sha256": "c7d3569b3ca47f246b3d02bde5824d502d709f8802ac35f2bf773fb8439bd1a0",
+      "bytes": 9079
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots8.before.cbor",
+      "sha256": "f9e09ef04078c7101422c75517236677cf2be4b9f5e11db43733e2fe4cd66945",
+      "bytes": 8689
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots8.input.cbor",
+      "sha256": "6b4d77cda334b60b41ee54165845ee973c9c5f4990d221794531de8a15fed116",
+      "bytes": 164
+    },
+    {
+      "path": "evidence/return-placement/frozen-0.3/profile3-lots8.output.txt",
+      "sha256": "eb587e0ddefee4cbe251bb554f4c4af0f9f2ef559eb92b253e375db74ced54d0",
+      "bytes": 402
+    }
+  ]
+}

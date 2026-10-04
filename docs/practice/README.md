@@ -35,6 +35,9 @@ and confirmation scripts are not inherited as universal instructions.
 - A concrete illustration, not a template requirement:
   [Afterlight source map](games/afterlight.md)
 
+- Optional colony simulation, ordered boundaries and restored save fixtures:
+  [Red Dune source route](../red-dune.md)
+
 ## What this restoration does and does not establish
 
 It restores documentation and discoverable skill routes. It does not by itself
