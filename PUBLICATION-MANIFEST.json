@@ -27,7 +27,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "3ebc139d1e6ecdb512a680f4fd7feaad6f072c6c00afb56697d86509f26c0bce",
+      "sha256_lf": "3a7d23dacb338058154bbc76c611acd61538cae7830d54a8acbedb5ebf6a00ef",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -318,7 +318,7 @@
     },
     {
       "path": "docs/verification.md",
-      "sha256_lf": "7362e31e3ad4883ef64b119ba2e8466e534771c3bc1a34e5a817395cb5e5318c",
+      "sha256_lf": "5e720c1076a1ea4bcfd6efd479afd683544b931f428c89f30ef6e38d15879339",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
