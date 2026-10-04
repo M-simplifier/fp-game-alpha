@@ -277,7 +277,7 @@
     },
     {
       "path": "docs/failure-prevention.md",
-      "sha256_lf": "d949bb34f576e719ac55987799caab6d0c89c0880512f9797a36909036473122",
+      "sha256_lf": "3a1aa113f3aa3acea0c035cbccfd8ff8525e3b383e8cbe1c008d18784efad444",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5741,7 +5741,7 @@
     },
     {
       "path": "tools/scaffold.py",
-      "sha256_lf": "061dbfdd5ce02501106890d9c49746cf19d2354697da6d49ecaf489b3212c0cc",
+      "sha256_lf": "67d27bc3716abe47b35d19ac7678355fa3aacc994bca7fd91d29e3f845e66b7e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5807,7 +5807,7 @@
     },
     {
       "path": "tools/test_tools.py",
-      "sha256_lf": "fb0cb7a5b1b796d242b1ffa4fdc544a855a8e6b6b7de739b2f86c88a655bec77",
+      "sha256_lf": "56c810edc8055bb420300e32a6950c77872621c5c5d81f52b972d35558575da1",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
