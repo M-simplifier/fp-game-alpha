@@ -105,14 +105,22 @@
       "host": "macos",
       "target": "native",
       "rendering": "terminal",
-      "status": "planned",
+      "status": "experimental",
       "implementation_paths": [
         "templates/terminal-adventure",
         "tools/scaffold.py"
       ],
-      "commands": [],
-      "evidence": [],
-      "scope": "Same generated-game continuation check; not yet run"
+      "commands": [
+        [
+          "python",
+          "tools/test_workspace.py"
+        ]
+      ],
+      "evidence": [
+        "docs/verification.md",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37175110782"
+      ],
+      "scope": "macOS CI independent generation, key edit, isolated move/build, stamina edit; ordinary Cabal; alpha. No physical-device or interactive editor UX claim."
     },
     {
       "id": "windows-vscode",
