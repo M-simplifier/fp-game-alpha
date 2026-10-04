@@ -5,6 +5,11 @@ on:
   pull_request:
 permissions:
   contents: read
+# PRs supersede only the same PR in this workflow. Unique main groups also
+# avoid the one-pending-run cancellation rule; publication keeps its own guard.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   public-page:
     runs-on: ubuntu-latest
@@ -93,10 +98,29 @@ jobs:
         working-directory: editors/haskell-design
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+      - id: haskell
+        uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
           ghc-version: '9.6.7'
           cabal-version: '3.12.1.0'
+      - name: Identify editor dependency cache environment
+        id: cache-environment
+        shell: bash
+        run: |
+          echo "image=${ImageOS}-${ImageVersion}" >> "$GITHUB_OUTPUT"
+          echo "node=$(node --version)" >> "$GITHUB_OUTPUT"
+          echo "npm=$(npm --version)" >> "$GITHUB_OUTPUT"
+          echo "npm-cache=$(npm config get cache)/_cacache" >> "$GITHUB_OUTPUT"
+      # Restore only. PR code must never populate a cache consumed by main.
+      # No project objects, vendor trees, node_modules, or final editor binary.
+      - name: Restore editor dependency cache
+        id: editor-dependencies
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ${{ steps.haskell.outputs.cabal-store }}
+            ${{ steps.cache-environment.outputs.npm-cache }}
+          key: editor-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-environment.outputs.image }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-node${{ steps.cache-environment.outputs.node }}-npm${{ steps.cache-environment.outputs.npm }}-${{ hashFiles('editors/haskell-design/native/*.cabal', 'editors/haskell-design/native/cabal.project*', 'editors/haskell-design/package*.json', 'editors/haskell-design/scripts/*.mjs', '.github/workflows/ci.yml') }}
       - name: Restore locked editor dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Check TypeScript
@@ -105,6 +129,14 @@ jobs:
         run: npm run build
       - name: Test syntax, trusted inference, and cache lifecycle
         run: node --test --test-concurrency=1 dist/tests/core.test.cjs dist/tests/audit.test.cjs dist/tests/reader.test.cjs dist/tests/native.test.cjs
+      - name: Save validated editor dependencies on main only
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.editor-dependencies.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ${{ steps.haskell.outputs.cabal-store }}
+            ${{ steps.cache-environment.outputs.npm-cache }}
+          key: ${{ steps.editor-dependencies.outputs.cache-primary-key }}
 
   deploy-page:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

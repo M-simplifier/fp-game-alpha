@@ -119,7 +119,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "8e7005887779c4df9bc223b6a9efb48e46b596b08ca3e8285a115a7c2eba7aaa",
+      "sha256_lf": "c7fbf63a0ac76e70ff8f5350363278680f19540b07baf12cd87812879e47ea11",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
