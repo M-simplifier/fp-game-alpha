@@ -110,8 +110,8 @@ one-shot CI/local observations from guarantees and records the reviewed test-onl
 terrain equality optimization without changing the frozen oracle.
 
 [Editor CI dependency-cache experiment](research-ci-cache.md) records the exact
-cold PR miss and main cache population, trust boundaries and key inputs. Warm
-reuse and any overall workflow speedup remain unmeasured.
+cold PR miss, main cache population and one exact warm restore, with trust
+boundaries and key inputs. Overall workflow speedup remains unmeasured.
 
 ## Validated change → play research
 
@@ -124,3 +124,10 @@ independent tiny CLI. New sessions adopt staged rules; restart retains old rules
 
 The manuals support reload/bytecode behavior, not the local timing numbers or
 state-preserving hot reload.
+
+## New platformer from a brief
+
+[Signal Courier](signal-courier.md) exercises the new-game workflow with a
+fresh fixed-tick integer platformer, interpreter-checked winning routes and
+a thin Wasm/SVG host. Its [report](../references/signal-courier/docs/experiment.md)
+distinguishes structural constraints, bounded tests and unverified browser play.

@@ -65,6 +65,13 @@ jobs:
       - run: node references/paper-circuit/web/controls.test.mjs
       - if: runner.os == 'Linux'
         run: bash references/paper-circuit/test/check-opaque-api.sh
+      - if: runner.os == 'Linux'
+        name: Check Signal Courier native routes and input boundaries
+        timeout-minutes: 2
+        run: |
+          bash references/signal-courier/test-native.sh
+          bash references/signal-courier/test/check-opaque-api.sh
+          node references/signal-courier/web/controls.test.mjs
       - run: python research/quantity/check.py check
       - if: runner.os == 'Linux'
         name: Check bounded live-tuning semantics (no performance gate)

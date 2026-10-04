@@ -215,6 +215,42 @@
       "commands": [],
       "evidence": [],
       "scope": "Device build, run, publication and performance not verified"
+    },
+    {
+      "id": "signal-courier-native-wasm",
+      "host": "linux",
+      "target": "browser-svg",
+      "status": "experimental",
+      "implementation_paths": [
+        "references/signal-courier"
+      ],
+      "commands": [
+        [
+          "bash",
+          "references/signal-courier/test-native.sh"
+        ],
+        [
+          "bash",
+          "references/signal-courier/test/check-opaque-api.sh"
+        ],
+        [
+          "node",
+          "references/signal-courier/web/controls.test.mjs"
+        ],
+        [
+          "bash",
+          "references/signal-courier/build-web.sh"
+        ],
+        [
+          "node",
+          "references/signal-courier/web/smoke.mjs"
+        ]
+      ],
+      "evidence": [
+        "references/signal-courier/CHECKS.json",
+        "references/signal-courier/docs/experiment.md"
+      ],
+      "scope": "Native and actual Wasm Node runtime checked; browser UI and touch devices not verified. GHC-Wasm required only for the optional local browser build, not bounded native CI."
     }
   ]
 }

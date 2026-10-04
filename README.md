@@ -104,6 +104,12 @@ small shared core is reused. Native and real-Wasm/Node checks pass; actual
 browser UI acceptance remains unverified. This example is not a required
 template for new games.
 
+[Signal Courier](docs/signal-courier.md) adds an independent fixed-tick 2D
+platformer: three lantern deliveries, checkpoints and optional rooftops. Native
+and actual Wasm traces verify direct and all-stamp wins; browser/device
+play remains unverified. Read the [DX report](references/signal-courier/docs/experiment.md)
+for reused code, knowledge, tests and prevention lessons.
+
 ### Read types and design
 
 [Learn from your game's code](docs/learn-code.md) with a chosen action, its real

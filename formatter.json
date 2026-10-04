@@ -16,7 +16,10 @@
     "editors/haskell-design/native/app",
     "editors/haskell-design/native/src",
     "editors/haskell-design/compiler",
-    "research/live-tuning"
+    "research/live-tuning",
+    "references/signal-courier/src",
+    "references/signal-courier/app",
+    "references/signal-courier/test"
   ],
   "preserved_source_roots": [
     {

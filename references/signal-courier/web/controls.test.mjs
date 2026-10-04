@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {controls} from './controls.mjs';
+const sent=[], c=controls(code=>sent.push(code));c.press('right');c.press('jump');c.frame(1);assert.deepEqual(sent,[]);c.frame(40);assert.deepEqual(sent,[5,2]);
+c.clear();c.frame(17);assert.equal(sent.at(-1),0);c.press('left');c.press('right');c.frame(17);assert.equal(sent.at(-1),0);
+const before=sent.length;c.frame(10000);assert.ok(sent.length-before<=6);
+c.clear();c.press('right','ArrowRight');c.press('right','KeyD');c.release('ArrowRight');c.frame(17);assert.equal(sent.at(-1),2);
+c.press('right','pointer:1');c.release('KeyD');c.frame(17);assert.equal(sent.at(-1),2);
+c.press('right','pointer:2');c.release('pointer:1');c.frame(17);assert.equal(sent.at(-1),2);
+c.clear();c.frame(17);assert.equal(sent.at(-1),0);
+console.log('PASS host input: edge retention, cap, opposing actions, alias/key-touch/multi-pointer ownership and clear');
