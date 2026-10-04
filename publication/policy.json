@@ -365,6 +365,11 @@
       "prefix": "editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
       "license": "editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "research/haskell-tooling/",
+      "license": "LICENSE",
+      "maturity": "experimental"
     }
   ]
 }

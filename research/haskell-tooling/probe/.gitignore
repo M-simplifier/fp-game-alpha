@@ -1,0 +1,8 @@
+dist-newstyle/
+measured-build/
+measured-final-build/
+bin/
+tests/work/
+tests/fresh-game/
+evidence/
+measured-sigterm-build/
