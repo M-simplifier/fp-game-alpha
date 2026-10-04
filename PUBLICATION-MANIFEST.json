@@ -277,7 +277,7 @@
     },
     {
       "path": "docs/failure-prevention.md",
-      "sha256_lf": "15b6ce2ac088dc2973e861b6becf31a6f0c3fa2382b0a5178ec4ae111078d795",
+      "sha256_lf": "18a4ae72512d2041f2c3454de1ee4f37645f19c8b707438e6fe2691a700a25d9",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -1786,7 +1786,7 @@
     },
     {
       "path": "editors/haskell-design/src/audit.ts",
-      "sha256_lf": "03f73d55afcd0ab065aab84692ba147b95dfa7f20a79c853be9cf912aaf4dcb9",
+      "sha256_lf": "6aac999baa785d9beb7b85c60c02afd905ee2d3d29eb87b51e1d3f8e6f44d062",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/audit.ts",
@@ -1982,7 +1982,7 @@
     },
     {
       "path": "editors/haskell-design/tests/audit.test.ts",
-      "sha256_lf": "ad3218a66899eb543f74c1abda693e92cb88353a5f65884f37e0e68294e95aab",
+      "sha256_lf": "132e6ff1bfbdc293206d97167822b0fd908d3abc0f0bf7fc0d19562f0bb239b3",
       "origin": {
         "kind": "adapted-public-MIT-source",
         "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/audit.test.ts",

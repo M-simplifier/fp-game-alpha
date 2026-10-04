@@ -189,3 +189,9 @@ deferred-scan regressions cover the trailing timer, late invalidation during cac
 persistence, coalescing and disposal without relying on wall-clock sleeps. The
 original excluded-file integration assertion remains intact. The old scheduler
 fails the deterministic trailing-timer check (three scans instead of two).
+
+Review of the first repair exposed a second completion-window race: clearing
+worker ownership in a later Promise.finally reaction could strand an intervening
+microtask's invalidation. Cleanup now runs inside the worker's try/finally. A
+queued-microtask regression failed before this repair (one scan instead of two)
+and requires that completion never drops a subsequent invalidation.

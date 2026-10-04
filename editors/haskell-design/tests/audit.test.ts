@@ -201,3 +201,19 @@ test('late invalidations drain before refresh resolves and stop on disposal', as
     } finally { audit.dispose(); }
   }
 });
+
+test('invalidation at worker completion cannot be stranded between promise reactions', async t => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const audit = new ProjectAudit({} as Projector, 'unused', { root: repo, trusted: false });
+  const internal = audit as unknown as { scan: () => Promise<void> };
+  let scans = 0;
+  internal.scan = async () => { scans++; };
+  try {
+    const current = audit.refresh();
+    queueMicrotask(() => audit.invalidate());
+    await current;
+    t.mock.timers.tick(120);
+    await Promise.resolve();
+    assert.equal(scans, 2, 'completion must release ownership before a later invalidation');
+  } finally { audit.dispose(); }
+});

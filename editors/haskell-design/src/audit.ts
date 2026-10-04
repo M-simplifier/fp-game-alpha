@@ -129,8 +129,14 @@ export class ProjectAudit extends EventEmitter {
     if (this.stopped) return Promise.resolve();
     if (this.running) { this.requested = true; return this.running; }
     this.running = (async () => {
-      do { this.requested = false; await this.scan(); } while (this.requested && !this.stopped);
-    })().finally(() => { this.running = undefined; });
+      try {
+        do { this.requested = false; await this.scan(); } while (this.requested && !this.stopped);
+      } finally {
+        // Release ownership in this reaction, not a later Promise.finally: an
+        // intervening invalidation must see an idle owner and queue its work.
+        this.running = undefined;
+      }
+    })();
     return this.running;
   }
   private async scan(): Promise<void> {
