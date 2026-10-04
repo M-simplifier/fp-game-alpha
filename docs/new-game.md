@@ -98,6 +98,12 @@ architecture, selected technical guides and next requirement. It should continue
 not repeat setup or force a reference layout. User edits are authoritative;
 never regenerate over them.
 
+Keep an optional `$learn-code` entry available in that independent workspace,
+using [the code-learning guide](learn-code.md). Copy the small skill/guide bundle
+with its notices and revision, or preserve an existing equivalent. It should
+explain this game's actual current code to a Haskell beginner when asked;
+learning is not a prerequisite for asking the AI to build or change the game.
+
 ## 5. Build the harness around the game
 
 Pair the behavior with useful checks: invariant-preserving constructors,

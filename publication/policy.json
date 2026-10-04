@@ -56,6 +56,7 @@
     "ucsd-progsys/liquidhaskell"
   ],
   "authored_public_skills": [
+    ".agents/skills/learn-code/SKILL.md",
     ".agents/skills/new-game/SKILL.md",
     ".agents/skills/play-game/SKILL.md",
     ".agents/skills/haskell-excellence/SKILL.md",
@@ -67,6 +68,11 @@
     ".agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs"
   ],
   "selections": [
+    {
+      "prefix": ".agents/skills/learn-code/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
     {
       "prefix": "LICENSE",
       "license": "LICENSE",

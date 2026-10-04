@@ -82,6 +82,7 @@ abstract decisions; it is not a human-fun guarantee or a renderer benchmark.
 - `$haskell-excellence`: types, errors, effects, resources, evaluation and verification
 - `$game-platform`: host preparation, build, assets and distribution
 - `$play-game`: actual player decisions through the current headless adapter
+- `$learn-code`: understand your actual game's Haskell types and behavior, with no prior Haskell knowledge required
 
 The [technical knowledge index](docs/practice/README.md) is the canonical guide;
 these entries route to the relevant knowledge without making every task read it all.
@@ -95,6 +96,10 @@ browser UI acceptance remains unverified. This example is not a required
 template for new games.
 
 ### Read types and design
+
+[Learn from your game's code](docs/learn-code.md) with a chosen action, its real
+types and a small prediction or optional change. The skill works with independent
+games as well as the references; it does not require an editor installation.
 
 [Haskell Design](docs/haskell-design.md) restores the original native map/outline/show
 reader, optional trusted inference, and VSCode/Neovim adapter sources. Start with

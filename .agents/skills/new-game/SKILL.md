@@ -22,6 +22,10 @@ entry. Stop at a genuine blocker, not merely at a route marked unverified.
 Use [headless play](../../../docs/headless-play.md) for abstract decision feedback
 and real-host checks for presentation and input. Never claim checks not run.
 
+Make [learn-code](../../../docs/learn-code.md) reachable in the independent game
+so the user can later understand its actual types and rules. Preserve the small
+skill/guide bundle, notices and source revision without overwriting existing work.
+
 For every new Haskell workspace, own the [pinned formatter setup](../../../docs/formatting.md):
 copy the reusable helper/lock, choose owned source roots, inspect the plan and
 explicitly install within permissions. Run check/write/check and game tests.
