@@ -116,6 +116,7 @@ test-suite parity
     main-is: Parity.hs
     ghc-options: -O2
     other-modules:
+        TerrainEquality,
         Original.Garden.World, Original.Garden.Change, Original.Garden.Checkpoint.Legacy,
         Original.Garden.Checkpoint, Original.Garden.Clock, Original.Garden.Islands,
         Original.Garden.Rules, Original.Garden.Raycast, Original.Garden.View,

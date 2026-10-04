@@ -19,6 +19,27 @@ formats = {record["path"]: record for record in format_rows}
 if len(formats) != len(format_rows):
     raise SystemExit("Duplicate formatting record")
 original_hashes = {record["path"]: record["sha256"] for record in manifest["files"]}
+# This single reviewed successor is deliberately not a general exemption mechanism.
+# Preserve the historical format hashes and the independent baseline/oracle checks.
+successor = json.loads((ROOT / "docs/TEST-OPTIMIZATION-MANIFEST.json").read_text(encoding="utf-8"))
+if successor.get("schema") != 1 or successor.get("kind") != "reviewed-test-optimization":
+    raise SystemExit("Invalid test optimization provenance")
+rows = successor["files"]
+optimizations = {record["path"]: record for record in rows}
+allowed = {"test/Parity.hs", "test/TerrainEquality.hs", "afterlight-arena.cabal"}
+if len(optimizations) != len(rows) or set(optimizations) != allowed:
+    raise SystemExit("Unexpected test optimization scope")
+for name, record in optimizations.items():
+    previous = formats["test/Parity.hs"]["formatted_sha256"] if name == "test/Parity.hs" else None
+    if record["previous_formatted_sha256"] != previous:
+        raise SystemExit("Test optimization predecessor mismatch: " + name)
+    if name != "test/Parity.hs" and (name in formats or name in original_hashes):
+        raise SystemExit("Test optimization cannot exempt baseline or formatted source: " + name)
+    path = ROOT / name
+    if path.is_symlink() or not path.resolve().is_relative_to(ROOT):
+        raise SystemExit("Unsafe test optimization path: " + name)
+    if hashlib.sha256(path.read_bytes()).hexdigest() != record["current_sha256"]:
+        raise SystemExit("Test optimization source changed: " + name)
 for name, record in formats.items():
     path = ROOT / name
     if not path.resolve().is_relative_to(ROOT) or "oracle" in path.parts or path.suffix != ".hs":
@@ -27,7 +48,8 @@ for name, record in formats.items():
         raise SystemExit("Formatting preimage differs from original: " + name)
     if record["baseline_sha256"] != original_hashes.get(name):
         raise SystemExit("Formatting baseline mismatch: " + name)
-    if hashlib.sha256(path.read_bytes()).hexdigest() != record["formatted_sha256"]:
+    expected = optimizations[name]["current_sha256"] if name in optimizations else record["formatted_sha256"]
+    if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
         raise SystemExit("Formatted source changed since reviewed formatting: " + name)
 unchanged, rewritten = [], []
 for record in manifest["files"]:
@@ -59,6 +81,7 @@ if (repository / ".git").exists():
 matched = []
 result = {"schema": 1, "baseline": manifest["baseline"], "original_files": len(manifest["files"]),
           "unchanged_original_files": unchanged, "intentional_changes": rewritten,
+          "reviewed_test_optimization": successor,
           "oracle_modules_verified": len(manifest["oracle"]), "recovered_gallery_core_matched": matched,
           "gallery_comparison_status": "not_run: original private gallery is not a public dependency",
           "original_git_modes_verified": mode_count,

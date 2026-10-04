@@ -113,3 +113,11 @@ All six native/Wasm module projections remain identical to public pre-format
 commit `2487f7b` after safe normalization; the follow-on formatting also preserves
 the reviewed post-formatter baseline. This does not establish native GPU or
 browser execution.
+
+The long parity route's reviewed, test-only terrain equality optimization is
+recorded in [the bounded measurements](../../docs/research-iteration-latency.md).
+`docs/TEST-OPTIMIZATION-MANIFEST.json` explicitly links the semantic test successor
+to its previous formatted hash; historical formatting and oracle records remain
+unchanged. The source audit checks that exact successor, and
+`python references/afterlight/scripts/test-audit-source.py` verifies its narrow
+scope and rejection of tampered test, runtime and oracle source.
