@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "checks": [
+    "actual-extension-host",
+    "module-and-type",
+    "saved-source-compiler-error",
+    "editor-diagnostics"
+  ],
+  "vscode": "1.127.0",
+  "host": "Windows x86_64",
+  "scope": "real editor process invoking saved-source CLI; no macOS or live HLS claim",
+  "input_sha256_lf": {
+    "editors/vscode/extension.js": "648f94a7cdec086b69a8533e130e95eb6ad7c66b80eb8c2ffa11cf5ff6ce2a85",
+    "editors/vscode/LICENSE": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+    "editors/vscode/package.json": "28cb63c352aade6fdcc043a77fa25b9faf976d22b76435c2b2bf1839754d4e0a",
+    "editors/vscode/test/index.js": "8adacb6857e9badd934c13c59716722edca8a60a72145cbcdd3710f67c5793b8"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "checks": [
+    "actual-headless-neovim",
+    "module-and-type",
+    "saved-source-compiler-error",
+    "quickfix-diagnostics"
+  ],
+  "neovim": {
+    "api_compatible": 0,
+    "minor": 12,
+    "patch": 4,
+    "build": "v0.12.4",
+    "major": 0,
+    "api_level": 14,
+    "api_prerelease": false
+  },
+  "host": "Windows x86_64",
+  "scope": "real editor process invoking saved-source CLI; no macOS or live HLS claim",
+  "input_sha256_lf": {
+    "editors/neovim/fp-game.lua": "5ff3b3637f24d0c573eb18db3b110221289cf4f9bf11ea3e444bedd32e7a337e",
+    "editors/neovim/test.lua": "62d1d431ca0d3f06c368c928a0c80a178fd5b63c5c6ec0b4329f53668029fd94"
+  }
+}

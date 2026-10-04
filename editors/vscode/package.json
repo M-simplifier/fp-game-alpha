@@ -1,0 +1,21 @@
+{
+  "name": "fp-game-alpha-tools",
+  "displayName": "FP Game Alpha Tools",
+  "description": "Compiler-backed saved-source checks and type context for FP game projects.",
+  "version": "0.1.0",
+  "publisher": "m-simplifier",
+  "license": "MIT",
+  "engines": {"vscode": "^1.85.0"},
+  "main": "./extension.js",
+  "categories": ["Other"],
+  "capabilities": {"untrustedWorkspaces": {"supported": false}},
+  "contributes": {
+    "commands": [
+      {"command": "fpGame.doctor", "title": "FP Game: Doctor"},
+      {"command": "fpGame.check", "title": "FP Game: Check Saved Haskell File"},
+      {"command": "fpGame.inspect", "title": "FP Game: Inspect Saved Module"},
+      {"command": "fpGame.context", "title": "FP Game: Type Context at Cursor"}
+    ],
+    "configuration": {"title": "FP Game", "properties": {"fpGame.python": {"type": "string", "default": "python", "description": "Python 3.12+ executable used for the project-local CLI."}}}
+  }
+}

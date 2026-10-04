@@ -5,3 +5,7 @@ packages:
 -- The first-user kernel needs only packages shipped with GHC.
 active-repositories: :none
 tests: True
+
+if os(windows)
+  package *
+    ar-options: --rsp-quoting=posix

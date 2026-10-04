@@ -32,8 +32,8 @@ LLM or either editor can call. The feature relationship is grounded in the
 [official HLS feature list](https://haskell-language-server.readthedocs.io/en/latest/features.html).
 An HLS executable on PATH does not prove a live session is connected.
 
-VSCode is the first extension host, using commands to call the CLI. Neovim will
-use the same argument/result contract, not a shell command string. The
+VSCode and Neovim wrappers use the same argument/result contract. See the
+[editor setup](editors.md). The
 [VSCode command API](https://code.visualstudio.com/api/extension-guides/command)
 also allows an extension to query a provider such as HLS; the initial CLI path
 does not substitute an empty result for a compiler query. See the explicit

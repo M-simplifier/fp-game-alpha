@@ -14,6 +14,14 @@ ROOT = Path(__file__).resolve().parents[1]
 BASELINE = {'ghc': '9.6.7', 'cabal': '3.12.1.0'}
 
 
+def baseline_downloads():
+    metadata = ROOT / 'tools/toolchains.json'
+    if not metadata.is_file():
+        return {}
+    architecture = {'amd64': 'x86_64', 'aarch64': 'arm64'}.get(platform.machine().lower(), platform.machine().lower())
+    return json.loads(metadata.read_text(encoding='utf-8'))['profiles'].get(platform.system() + '-' + architecture, {})
+
+
 def execute(command, project, timeout=180, input_text=None):
     try:
         result = subprocess.run(command, cwd=project, input=input_text, text=True,
@@ -36,6 +44,8 @@ def doctor(project):
     return {'status': 'missing-tools' if missing else 'ready-to-try', 'exit_code': 1 if missing else 0,
             'os': platform.system(), 'architecture': platform.machine(), 'python': platform.python_version(),
             'tools': tools, 'optional_hls': shutil.which('haskell-language-server-wrapper'),
+            'editors': {'vscode': shutil.which('code'), 'neovim': shutil.which('nvim')},
+            'baseline_downloads': baseline_downloads(),
             'missing': missing, 'setup': 'https://www.haskell.org/ghcup/install/',
             'scope': 'Detects tools; build/test establishes this project. Tool installation remains explicit.'}
 
@@ -60,7 +70,10 @@ def source_dirs(project):
         names = json.loads(config.read_text(encoding='utf-8'))['source_dirs']
     else:
         names = ['libraries/game-transition/src', 'libraries/game-arena/src', 'src']
-    return [project / name for name in names if (project / name).is_dir()]
+    paths = [(project / name).resolve() for name in names]
+    if any(not path.is_relative_to(project) for path in paths):
+        raise ValueError('Declared source directories must remain inside this project.')
+    return [path for path in paths if path.is_dir()]
 
 
 def compiler_args(project, output):
@@ -89,18 +102,29 @@ def query(project, filename, symbol=None):
         check = execute([ghc, '-fno-code', '-fforce-recomp', *flags, str(path)], project)
         if check['exit_code'] != 0:
             return {'status': 'compiler-error', **check}
-        source = path.read_text(encoding='utf-8-sig')
-        found = re.search(r'\bmodule\s+([A-Z][\w\']*(?:\.[A-Z][\w\']*)*)', source)
-        module = found.group(1) if found else 'Main'
-        script = f':info {symbol}\n:type {symbol}\n' if symbol else f':browse {module}\n'
+        # GHCi chooses the loaded file's context. Comments are never parsed as
+        # module declarations; both the module and imports come from GHCi.
+        script = ':show modules\n:show imports\n'
+        script += f':info {symbol}\n:type {symbol}\n' if symbol else ':browse\n'
         result = execute([ghci, '-v0', '-ignore-dot-ghci', *flags, str(path)], project,
                          input_text=script + ':quit\n')
         errors = re.search(r'error:|not in scope|unknown command', result['stdout'] + result['stderr'], re.IGNORECASE)
-        if errors or not result['stdout'].strip():
+        if errors:
             result['exit_code'] = result['exit_code'] or 1
-        imports = re.findall(r'^import\s+.*$', source, re.MULTILINE)
+        loaded = []
+        for line in result['stdout'].splitlines():
+            found = re.match(r'^([A-Z][\w\']*(?:\.[A-Z][\w\']*)*)\s+\((.+),\s*interpreted\s*\)$', line.strip())
+            if found:
+                loaded.append({'module': found.group(1), 'source': found.group(2).strip()})
+        module = next((item['module'] for item in loaded
+                       if (project / item['source']).resolve() == path), None)
+        if module is None:
+            result['exit_code'] = result['exit_code'] or 1
+            result['stderr'] += '\nCould not establish the loaded source module from GHCi.\n'
+        imports = re.findall(r'^import\s+.*$', result['stdout'], re.MULTILINE)
+        context = re.findall(r'^(?:import\s+|:module\s+).*$', result['stdout'], re.MULTILINE)
         return {'status': 'ok' if result['exit_code'] == 0 else 'query-error',
-                'module': module, 'symbol': symbol, 'imports': imports,
+                'module': module, 'loaded_modules': loaded, 'symbol': symbol, 'imports': imports, 'module_context': context,
                 'scope': 'GHC/GHCi on saved source and declared local source directories; no HLS session', **result}
 
 
@@ -120,7 +144,7 @@ def main():
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='action', required=True)
-    for name in ['doctor', 'build', 'test', 'check', 'inspect', 'context']:
+    for name in ['doctor', 'plan', 'scaffold', 'build', 'test', 'check', 'inspect', 'context', 'run']:
         command = commands.add_parser(name)
         command.add_argument('--project', type=Path, default=ROOT)
         command.add_argument('--json', action='store_true')
@@ -128,6 +152,18 @@ def main():
             command.add_argument('file', nargs='?' if name == 'check' else None)
         if name in {'inspect', 'context'}:
             command.add_argument('--symbol', required=name == 'context')
+        if name in {'plan', 'scaffold'}:
+            command.add_argument('name')
+            command.add_argument('destination', type=Path)
+            command.add_argument('--title')
+            command.add_argument('--target', choices=['native', 'web', 'server', 'mobile'], default='native')
+            command.add_argument('--rendering', choices=['terminal', '2d', '3d', 'miso'], default='terminal')
+            command.add_argument('--license', choices=['unlicensed', 'MIT'], default='unlicensed')
+            command.add_argument('--author')
+        if name == 'scaffold':
+            command.add_argument('--dry-run', action='store_true')
+        if name == 'run':
+            command.add_argument('--smoke', action='store_true')
     args = parser.parse_args()
     project = args.project.resolve()
     try:
@@ -135,6 +171,19 @@ def main():
             raise ValueError('Project directory does not exist.')
         if args.action == 'doctor':
             result = doctor(project)
+        elif args.action in {'plan', 'scaffold'}:
+            import scaffold
+            result = scaffold.plan(args) if args.action == 'plan' else scaffold.scaffold(args)
+        elif args.action == 'run':
+            config = json.loads((project / 'fp-game.json').read_text(encoding='utf-8'))
+            command = cabal_command(project, 'run', [config['default_executable']])
+            if args.smoke:
+                result = execute([*command, '--', '--smoke'], project)
+            elif args.json:
+                raise ValueError('Interactive run uses the terminal; use --smoke for captured JSON.')
+            else:
+                completed = subprocess.run(command, cwd=project)
+                result = {'exit_code': completed.returncode, 'stdout': '', 'stderr': ''}
         elif args.action in {'build', 'test'}:
             command = cabal_command(project, args.action, ['all'])
             if args.action == 'test':
@@ -146,7 +195,7 @@ def main():
             result = query(project, args.file, args.symbol)
     except (OSError, ValueError, KeyError) as error:
         result = {'status': 'error', 'exit_code': 1, 'stdout': '', 'stderr': str(error)}
-    if args.json or args.action == 'doctor':
+    if args.json or args.action in {'doctor', 'plan', 'scaffold'}:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:
         print(result.get('stdout', ''), end='')

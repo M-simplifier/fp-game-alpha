@@ -87,12 +87,14 @@ def gate(report_path):
         problems.append({'rule': 'manifest-file-set', 'missing': sorted(actual - set(expected)),
                          'stale': sorted(set(expected) - actual)})
     inspection = []
-    forbidden = {'.git', '.codex', '.agents', '.aws', 'node_modules', 'AGENTS.md', '.env'}
+    forbidden = {'.git', '.codex', '.aws', 'node_modules', 'AGENTS.md', '.env'}
     for name in sorted(actual):
         path = ROOT / name
         issues = []
         if any(part in forbidden for part in Path(name).parts) or path.is_symlink():
             issues.append({'rule': 'internal-or-linked-file'})
+        if '.agents' in Path(name).parts and name not in policy.get('authored_public_skills', []):
+            issues.append({'rule': 'unreviewed-agent-content'})
         if not path.is_file():
             issues.append({'rule': 'not-regular-file'})
         elif path.stat().st_size > policy['max_source_bytes']:
