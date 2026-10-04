@@ -68,6 +68,16 @@
   ],
   "selections": [
     {
+      "prefix": "site/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "research/public-page/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
       "prefix": "LICENSE",
       "license": "LICENSE",
       "maturity": "completed"

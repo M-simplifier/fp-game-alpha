@@ -1,0 +1,180 @@
+{
+  "source_commit": "4dd8ee346a79331d0f8f49c72795bfe0eb75031b",
+  "source": "references/station/app/HeadlessMain.hs",
+  "source_fingerprint": "3be1b18cb3b6ad7b4f7ace33d0756945e0213245c1876f2708f9e81dab109a31",
+  "commands": [
+    "act 1 local",
+    "act 1 local"
+  ],
+  "scope": "Recorded stdout packets from the compiled Haskell player; a presentation of this trace, not a live browser game.",
+  "packets": [
+    {
+      "protocol": 1,
+      "game": "station",
+      "result": "started",
+      "feedback": "",
+      "refusal_kind": "none",
+      "status": "running",
+      "turn": 1,
+      "completed": 0,
+      "total": 6,
+      "resources": {
+        "energy": 8,
+        "tickets": 3,
+        "delivered": 0
+      },
+      "order": {
+        "name": "焼きたてパンのかご",
+        "story": "丘のパン屋さんから、夕食を待つ家族へ。まだ少し温かいかごです。"
+      },
+      "options": [
+        {
+          "action": "express",
+          "label": "速達便",
+          "available": true,
+          "result": {
+            "energy": 6,
+            "tickets": 2,
+            "delivered": 4
+          },
+          "reason": null
+        },
+        {
+          "action": "local",
+          "label": "各駅便",
+          "available": true,
+          "result": {
+            "energy": 7,
+            "tickets": 3,
+            "delivered": 1
+          },
+          "reason": null
+        },
+        {
+          "action": "defer",
+          "label": "次の便へ",
+          "available": true,
+          "result": {
+            "energy": 8,
+            "tickets": 3,
+            "delivered": 0
+          },
+          "reason": null
+        }
+      ],
+      "ending": null
+    },
+    {
+      "protocol": 1,
+      "game": "station",
+      "result": "accepted",
+      "feedback": "",
+      "refusal_kind": "none",
+      "status": "running",
+      "turn": 2,
+      "completed": 1,
+      "total": 6,
+      "resources": {
+        "energy": 7,
+        "tickets": 3,
+        "delivered": 1
+      },
+      "order": {
+        "name": "おばあちゃんへの花束",
+        "story": "帰省できなかった孫から、小さな花束。カードには「また会おうね」。"
+      },
+      "options": [
+        {
+          "action": "express",
+          "label": "速達便",
+          "available": true,
+          "result": {
+            "energy": 4,
+            "tickets": 2,
+            "delivered": 7
+          },
+          "reason": null
+        },
+        {
+          "action": "local",
+          "label": "各駅便",
+          "available": true,
+          "result": {
+            "energy": 6,
+            "tickets": 3,
+            "delivered": 3
+          },
+          "reason": null
+        },
+        {
+          "action": "defer",
+          "label": "次の便へ",
+          "available": true,
+          "result": {
+            "energy": 8,
+            "tickets": 3,
+            "delivered": 1
+          },
+          "reason": null
+        }
+      ],
+      "ending": null
+    },
+    {
+      "protocol": 1,
+      "game": "station",
+      "result": "refused",
+      "feedback": "Stale turn; observe again.",
+      "refusal_kind": "protocol",
+      "status": "running",
+      "turn": 2,
+      "completed": 1,
+      "total": 6,
+      "resources": {
+        "energy": 7,
+        "tickets": 3,
+        "delivered": 1
+      },
+      "order": {
+        "name": "おばあちゃんへの花束",
+        "story": "帰省できなかった孫から、小さな花束。カードには「また会おうね」。"
+      },
+      "options": [
+        {
+          "action": "express",
+          "label": "速達便",
+          "available": true,
+          "result": {
+            "energy": 4,
+            "tickets": 2,
+            "delivered": 7
+          },
+          "reason": null
+        },
+        {
+          "action": "local",
+          "label": "各駅便",
+          "available": true,
+          "result": {
+            "energy": 6,
+            "tickets": 3,
+            "delivered": 3
+          },
+          "reason": null
+        },
+        {
+          "action": "defer",
+          "label": "次の便へ",
+          "available": true,
+          "result": {
+            "energy": 8,
+            "tickets": 3,
+            "delivered": 1
+          },
+          "reason": null
+        }
+      ],
+      "ending": null
+    }
+  ]
+}
