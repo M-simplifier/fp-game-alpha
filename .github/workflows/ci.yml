@@ -28,3 +28,4 @@ jobs:
       - run: python tools/fp_game.py doctor
       - run: python tools/fp_game.py build
       - run: python tools/fp_game.py test
+      - run: python tools/test_workspace.py

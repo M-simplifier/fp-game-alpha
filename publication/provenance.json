@@ -38,5 +38,11 @@
   "LICENSE": {
     "kind": "existing-public-repository",
     "commit": "187f0a8fa2baa5ae9029edf9992c766a7c27033a"
+  },
+  "docs/haskell.md": {
+    "kind": "author-supplied-public-doc-candidate",
+    "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
+    "origin": "docs/reference/readability.md",
+    "source_sha256_lf": "2ece4af9a50732ed2bef90520645804795c2d94061e85f6bf3e17b1f18df848b"
   }
 }

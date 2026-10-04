@@ -1,0 +1,35 @@
+# {{TITLE}}
+
+Your standalone game project. All game files are ordinary editable source.
+No framework checkout, editor extension, hosted account or LLM is required to
+build/play. The shared kernels are vendored and pinned in `foundation.lock.json`.
+
+```sh
+python tools/fp_game.py doctor
+python tools/fp_game.py build
+python tools/fp_game.py test
+python tools/fp_game.py run --smoke
+python tools/fp_game.py run
+```
+
+Standard Cabal also works with this project's isolated config, including a
+fresh global cache:
+
+```sh
+cabal --config-file=build.config build all --offline --builddir=.build/dist
+cabal --config-file=build.config test all --offline --builddir=.build/dist --test-show-details=direct
+cabal --config-file=build.config run {{SLUG}} --offline --builddir=.build/dist -- --smoke
+```
+
+Use north/south/east/west to move, `exit` at E, `look`, `save`, `load`, `new`,
+and `quit`. Save files live in `data/`; title/save path are in `config/game.conf`.
+
+Read [the development guide](docs/DEVELOPMENT.md) and `GAME-SPEC.md`, or start an
+agent in this directory and invoke `$game-dev`. The local skill and versioned
+canonical docs travel with the project. Preserve your game code when upgrading
+the foundation; compare API/pin/save changes explicitly.
+
+The supplied foundation/template code retains its original MIT notices in
+`licenses/`. Your game additions use the license you choose; currently
+**{{GAME_LICENSE}}**. No commercial quality, save migration, performance,
+graphics, browser or mobile guarantee follows from the initial smoke test.

@@ -2,6 +2,7 @@
   "schema": 1,
   "max_source_bytes": 524288,
   "public_repository_links": ["M-simplifier/fp-game-alpha"],
+  "authored_public_skills": [".agents/skills/new-game/SKILL.md"],
   "selections": [
     {"prefix": "LICENSE", "license": "LICENSE", "maturity": "completed"},
     {"prefix": ".git", "license": "LICENSE", "maturity": "completed"},
@@ -11,6 +12,9 @@
     {"prefix": "docs/", "license": "LICENSE", "maturity": "experimental"},
     {"prefix": "publication/", "license": "LICENSE", "maturity": "completed"},
     {"prefix": "tools/", "license": "LICENSE", "maturity": "experimental"},
+    {"prefix": "templates/", "license": "LICENSE", "maturity": "experimental"},
+    {"prefix": "editors/", "license": "LICENSE", "maturity": "experimental"},
+    {"prefix": ".agents/skills/new-game/SKILL.md", "license": "LICENSE", "maturity": "experimental"},
     {"prefix": "libraries/game-transition/", "license": "libraries/game-transition/LICENSE", "maturity": "experimental"},
     {"prefix": "libraries/game-arena/", "license": "libraries/game-arena/LICENSE", "maturity": "experimental"}
   ]

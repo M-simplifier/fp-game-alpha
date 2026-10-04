@@ -1,0 +1,8 @@
+packages: . vendor/game-transition vendor/game-arena
+active-repositories: :none
+tests: True
+
+-- GHC's Windows LLVM archiver reads Cabal response files as POSIX quoting.
+if os(windows)
+  package *
+    ar-options: --rsp-quoting=posix

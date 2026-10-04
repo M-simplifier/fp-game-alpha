@@ -1,0 +1,226 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "scope": "Generated independent terminal game: actual key edit, relocation, actual stamina edit; standard Cabal; saved-source CLI. No editor session, graphical route or manual fun evaluation.",
+  "environment": {
+    "os": "Windows",
+    "architecture": "AMD64",
+    "python": "3.14.2"
+  },
+  "input_sha256_lf": {
+    "libraries/game-arena/game-arena.cabal": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
+    "libraries/game-arena/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "libraries/game-arena/src/Game/Arena/Finite.hs": "f4fb8aa96d2b3f0bf626550bec1cf36ecce1caefaa3a47aa6f82caf6743f7c78",
+    "libraries/game-arena/src/Game/Arena.hs": "8433e468e45f9602da1d83a676ead73bc0da8c17f0f2ef6c0affb8cdaedebc18",
+    "libraries/game-arena/test/Laws.hs": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894",
+    "libraries/game-transition/game-transition.cabal": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1",
+    "libraries/game-transition/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "libraries/game-transition/src/Game/Transition.hs": "f4ca9908eedd9c7bc6c33105f7136af7e03d326635983cac2106c542067d9202",
+    "libraries/game-transition/test/Laws.hs": "1f28e487e74b663fcbdd5be07dcf63d61a3b099fd83a693315f47fedb29d85fa",
+    "templates/terminal-adventure/app/Main.hs": "9a47cea1a9453d47c3bcd24067961dcd1690a272a3e1ae0121e8f34e1b6fe7a7",
+    "templates/terminal-adventure/assets/README.md": "badea09ef39d1a08ad3d195af7fb3912bf079323e9511c2e44dcd1621c365aee",
+    "templates/terminal-adventure/build.config": "e67199572860632f9db2684714c34d6e4e4de80a10d0ac28c71536b167094367",
+    "templates/terminal-adventure/cabal.project": "4e964242f5d416283c1a3975e9c677c1d8201a836b11337ae30907ce4fff5b2d",
+    "templates/terminal-adventure/config/game.conf.tmpl": "6df6831507d6567b4e82fa06b42c611f4b1648b2a28822f266c9c828e5c13284",
+    "templates/terminal-adventure/docs/DEVELOPMENT.md": "bc765de817ff03279aa87d9adac0f4456a5b2045ffcce794ce638e7a21d0d530",
+    "templates/terminal-adventure/GAME-SPEC.md.tmpl": "cb5cc4c9872cdfc26d5cb793c6b3019e6d2d147066deebdfb7fd8a60b442a380",
+    "templates/terminal-adventure/game.cabal.tmpl": "e51a65ec960946d65ae56c47bca1613377d6fa7062630da9b865b83535dda0cc",
+    "templates/terminal-adventure/README.md.tmpl": "1e33c008c781daa81b909b00120980b2ae59ee8dd9c0ef4d4e386653a29d54f4",
+    "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl": "f9698b07a8f3d7e3bb9c37b9f70707a94b742beab623b732061e260e68e004ef",
+    "templates/terminal-adventure/src/Game/Adapter.hs": "e13592b4cf9498541d1550f4020e05655f0760962944a823f282ddbc49b936c1",
+    "templates/terminal-adventure/src/Game/Model/Internal.hs": "928f331cdf38d19f8bac6078538b6e799c5df93eb57e4dee9274f247dc2b2fea",
+    "templates/terminal-adventure/src/Game/Model.hs": "70edf51d4654590c8cdabcd4c13f87a019107e91a3b20605d6ff29baddf461fe",
+    "templates/terminal-adventure/src/Game/Rules.hs": "74138bbfade54ea9db5043d279da98095fdfbbe0516b2774a358f9e82da09011",
+    "templates/terminal-adventure/src/Game/Save.hs": "4d77644ff6a9f0bd679b41c72227c818eb1df2d617401aae23ab337a47d301bb",
+    "templates/terminal-adventure/src/Game/View.hs": "6cae98f1bcb2aad0d028647720ae317965b4badd4e99a82ca6826a622ea66ec0",
+    "templates/terminal-adventure/test/Spec.hs": "a5b2d960728916c74e818ec455ff66f41f412de717e03c4da27a0e846e29e5d4",
+    "tools/acceptance/features.py": "23bc04ea883758dc7123b49b4a163b847a493fe29c4f6cabc3a003c57b348e3d",
+    "tools/fp_game.py": "fed6c69b698969894feee9c37ebeb2b0a3920f00316f1c4788df8b79baa5d4e1",
+    "tools/scaffold.py": "9377794f4ee843fe7c6fde59cffa78186c78fa8e1c9f6e29e7a33505e6c080a5",
+    "tools/test_workspace.py": "af953b053fda8ffdf62f61c1115c31736c8503ed5c18afe1c61b565c5874aa24"
+  },
+  "checks": [
+    {
+      "check": "independent-space-path",
+      "status": "pass"
+    },
+    {
+      "check": "doctor",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "c19158542269fbcecec0fa5c4e865491e474daf10ef8fc0da8837816a2d82c24"
+    },
+    {
+      "check": "plan",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "2177aed4639126a0334d39b9d84a13582f3b916c65f2373411edf249270011b7"
+    },
+    {
+      "check": "dry-run",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "2177aed4639126a0334d39b9d84a13582f3b916c65f2373411edf249270011b7"
+    },
+    {
+      "check": "dry-run-created-nothing",
+      "status": "pass"
+    },
+    {
+      "check": "scaffold",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "2fce477634819f02a4a262ff474d65ae2498a76e40839fa52fa2bf89991b28fd"
+    },
+    {
+      "check": "existing-directory-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stdout_sha256": "b02439d0eeadb1347cc4c5ed6baf11f24953574d3f93e6389bfbfd84e5a93cbc"
+    },
+    {
+      "check": "existing-directory-preserved",
+      "status": "pass"
+    },
+    {
+      "check": "separate-game-license",
+      "status": "pass"
+    },
+    {
+      "check": "continuation-skill-local",
+      "status": "pass"
+    },
+    {
+      "check": "kernel-versions-pinned",
+      "status": "pass"
+    },
+    {
+      "check": "vendored-kernel-identity",
+      "status": "pass"
+    },
+    {
+      "check": "baseline-build",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "b17a5f4b083e6b04684422037879bbd941640e825e176549f60585ae7354faf3"
+    },
+    {
+      "check": "baseline-tests",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "21546e3d7f3087e6a473f4c4a5f247e08f3ea6498e3a8046f8a754eefa6cb785"
+    },
+    {
+      "check": "baseline-smoke",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "d5ad45fc452177c9719f5fae2897f5108d183f5edccafb8a0c0490d5cd08cf2a"
+    },
+    {
+      "check": "baseline-runtime",
+      "status": "pass"
+    },
+    {
+      "check": "development-not-regeneration",
+      "status": "pass"
+    },
+    {
+      "check": "key-tests",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "8cbaaf6c79d28ef7376fdc3747e2378ea9518d5a89d6465df7ee2bd1d10a1d17"
+    },
+    {
+      "check": "key-locked-runtime",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "bd4e2c89b37ba5ab38cdf19d0f6d97962820fc4412905baedd4d2e726503dd8f"
+    },
+    {
+      "check": "locked-runtime-visible",
+      "status": "pass"
+    },
+    {
+      "check": "key-unlocked-runtime",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "3a79fb8ed6bc2ccec2cd6e2361da4e75461cf8f04497ded476c2a56e3b1a6b44"
+    },
+    {
+      "check": "collect-unlock-save-load",
+      "status": "pass"
+    },
+    {
+      "check": "copy-target-new-and-independent",
+      "status": "pass"
+    },
+    {
+      "check": "copied-without-build-cache",
+      "status": "pass"
+    },
+    {
+      "check": "isolated-build",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "00910edbc2f84ef9f403b64c4d2fc5a22cb0bd6577f1e1ef95ba3ebd24a87509"
+    },
+    {
+      "check": "isolated-tests",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "879309ed281ae5893fb3f60ac0862ad2025c1154690110650245058f3fb2044f"
+    },
+    {
+      "check": "isolated-smoke",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "d5ad45fc452177c9719f5fae2897f5108d183f5edccafb8a0c0490d5cd08cf2a"
+    },
+    {
+      "check": "isolated-runtime",
+      "status": "pass"
+    },
+    {
+      "check": "local-cli-run",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "32cb82e95bc1fe9b0fb57376f55f89ee612813aade00c757acd59ee7c5bef25a"
+    },
+    {
+      "check": "local-continuation-cli",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "bacbec2973a46ff15416dc6cd0ff54df946345915df5b96a080d1612cec66126"
+    },
+    {
+      "check": "second-feature-without-regeneration",
+      "status": "pass"
+    },
+    {
+      "check": "stamina-tests",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "13f824aaf5edb29add9b7e787b802d960027ef692b6bddb0e0f74f2e942abd2e"
+    },
+    {
+      "check": "stamina-runtime",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "65f24aa7a47d5729101c7ce816113eece1a508d0f7c79050b012435529423cf6"
+    },
+    {
+      "check": "second-mechanic-visible",
+      "status": "pass"
+    },
+    {
+      "check": "save-migration-contract",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "16689bb13665a7822b02c0c9cceb5910d243c3701b117b6a8a374cc3e9648ffc"
+    },
+    {
+      "check": "prior-save-not-silently-migrated",
+      "status": "pass"
+    }
+  ]
+}

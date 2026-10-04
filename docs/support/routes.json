@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "id": "windows-core-cli",
+      "host": "windows",
+      "target": "headless",
+      "status": "supported",
+      "implementation_paths": [
+        "libraries",
+        "tools/fp_game.py"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/fp_game.py",
+          "build"
+        ],
+        [
+          "python",
+          "tools/fp_game.py",
+          "test"
+        ]
+      ],
+      "evidence": [
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
+      ],
+      "scope": "GHC 9.6.7/Cabal 3.12.1.0 core and compiler CLI"
+    },
+    {
+      "id": "macos-core-cli",
+      "host": "macos",
+      "target": "headless",
+      "status": "supported",
+      "implementation_paths": [
+        "libraries",
+        "tools/fp_game.py"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/fp_game.py",
+          "build"
+        ],
+        [
+          "python",
+          "tools/fp_game.py",
+          "test"
+        ]
+      ],
+      "evidence": [
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
+      ],
+      "scope": "CI only; no real-hardware gameplay/editor claim"
+    },
+    {
+      "id": "linux-core-cli",
+      "host": "linux",
+      "target": "headless",
+      "status": "supported",
+      "implementation_paths": [
+        "libraries",
+        "tools/fp_game.py"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/fp_game.py",
+          "build"
+        ],
+        [
+          "python",
+          "tools/fp_game.py",
+          "test"
+        ]
+      ],
+      "evidence": [
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
+      ],
+      "scope": "GHC 9.6.7/Cabal 3.12.1.0 core and compiler CLI"
+    },
+    {
+      "id": "windows-terminal-workspace",
+      "host": "windows",
+      "target": "native",
+      "rendering": "terminal",
+      "status": "experimental",
+      "implementation_paths": [
+        "templates/terminal-adventure",
+        "tools/scaffold.py"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_workspace.py"
+        ]
+      ],
+      "evidence": [
+        "docs/evidence/windows-development.json"
+      ],
+      "scope": "Windows local independent generation, key edit, isolated move/build, stamina edit; ordinary Cabal; alpha"
+    },
+    {
+      "id": "macos-terminal-workspace",
+      "host": "macos",
+      "target": "native",
+      "rendering": "terminal",
+      "status": "planned",
+      "implementation_paths": [
+        "templates/terminal-adventure",
+        "tools/scaffold.py"
+      ],
+      "commands": [],
+      "evidence": [],
+      "scope": "Same generated-game continuation check; not yet run"
+    },
+    {
+      "id": "windows-vscode",
+      "host": "windows",
+      "target": "editor",
+      "status": "experimental",
+      "implementation_paths": [
+        "editors/vscode",
+        "tools/test_editors.py"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_editors.py",
+          "vscode"
+        ]
+      ],
+      "evidence": [
+        "docs/evidence/vscode-windows.json"
+      ],
+      "scope": "Actual Windows editor process and saved-source CLI; live HLS separate"
+    },
+    {
+      "id": "windows-neovim",
+      "host": "windows",
+      "target": "editor",
+      "status": "experimental",
+      "implementation_paths": [
+        "editors/neovim",
+        "tools/test_editors.py"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_editors.py",
+          "neovim"
+        ]
+      ],
+      "evidence": [
+        "docs/evidence/neovim-windows.json"
+      ],
+      "scope": "Actual Windows editor process and saved-source CLI; live HLS separate"
+    },
+    {
+      "id": "macos-vscode",
+      "host": "macos",
+      "target": "editor",
+      "status": "planned",
+      "implementation_paths": [],
+      "commands": [],
+      "evidence": [],
+      "scope": "No macOS editor runtime verification"
+    },
+    {
+      "id": "macos-neovim",
+      "host": "macos",
+      "target": "editor",
+      "status": "planned",
+      "implementation_paths": [],
+      "commands": [],
+      "evidence": [],
+      "scope": "No macOS editor runtime verification"
+    },
+    {
+      "id": "native-graphics",
+      "host": "unspecified",
+      "target": "native",
+      "status": "planned",
+      "implementation_paths": [],
+      "commands": [],
+      "evidence": [],
+      "scope": "Named renderer, SDK/tool hashes, build and actual play required"
+    },
+    {
+      "id": "web-miso",
+      "host": "unspecified",
+      "target": "web",
+      "status": "planned",
+      "implementation_paths": [],
+      "commands": [],
+      "evidence": [],
+      "scope": "Cross-build, browser play, deployment and device performance are separate"
+    },
+    {
+      "id": "server",
+      "host": "unspecified",
+      "target": "server",
+      "status": "planned",
+      "implementation_paths": [],
+      "commands": [],
+      "evidence": [],
+      "scope": "Server route not scaffolded"
+    },
+    {
+      "id": "mobile",
+      "host": "unspecified",
+      "target": "mobile",
+      "status": "planned",
+      "implementation_paths": [],
+      "commands": [],
+      "evidence": [],
+      "scope": "Device build, run, publication and performance not verified"
+    }
+  ]
+}

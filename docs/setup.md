@@ -5,6 +5,15 @@ the project baseline, not a claim about the latest or recommended upstream
 release. Git is needed to clone and run publication checks. The kernel needs
 no third-party packages, artwork or native rendering SDK.
 
+Doctor/plan show the available official archive versions, SHA-256, download
+URLs and sizes from [the metadata lock](../tools/toolchains.json). The Windows
+baseline archives total 339,105,165 bytes (about 323 MiB); extraction needs
+additional disk space. Their official checksum tables and HEAD sizes were
+read on 2026-10-04; the archives were not downloaded by that metadata check.
+macOS archive sizes are explicitly unknown in this lock. Linux bindist selection
+and native prerequisites remain with GHCup; no platform/ABI choice is guessed.
+Checksums describe downloaded archives, not the observed installed executables.
+
 Use the [official GHCup installation guide](https://www.haskell.org/ghcup/install/)
 for Windows, macOS or Linux and its system prerequisites. GHCup distinguishes
 recommended from latest versions and verifies its own downloaded toolchain

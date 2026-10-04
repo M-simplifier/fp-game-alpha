@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "verified_metadata_date": "2026-10-04",
+  "scope": "Official checksum metadata, not an installed-executable attestation or automatic installer. Use GHCup for host prerequisites/selection. Unknown size is explicit.",
+  "profiles": {
+    "Windows-x86_64": {
+      "ghc": {
+        "version": "9.6.7",
+        "url": "https://downloads.haskell.org/~ghc/9.6.7/ghc-9.6.7-x86_64-unknown-mingw32.tar.xz",
+        "sha256": "cf0e736ce4c875de0296426ee575eca177acf6b9b5c1dd4881b9fc79681e1d5f",
+        "download_bytes": 324720392,
+        "checksum_source": "https://downloads.haskell.org/~ghc/9.6.7/SHA256SUMS"
+      },
+      "cabal": {
+        "version": "3.12.1.0",
+        "url": "https://downloads.haskell.org/~cabal/cabal-install-3.12.1.0/cabal-install-3.12.1.0-x86_64-windows.zip",
+        "sha256": "96854db86ba3ac90dd1a94ec2960311b3885da6d91ed7641f06d84c8e2eebdec",
+        "download_bytes": 14384773,
+        "checksum_source": "https://downloads.haskell.org/~cabal/cabal-install-3.12.1.0/SHA256SUMS"
+      }
+    },
+    "Darwin-arm64": {
+      "ghc": {
+        "version": "9.6.7",
+        "url": "https://downloads.haskell.org/~ghc/9.6.7/ghc-9.6.7-aarch64-apple-darwin.tar.xz",
+        "sha256": "40ad004d8fa19f31798ce2739757b3c757b9735ddbe81cebfcc1356e6a3e31ab",
+        "download_bytes": null,
+        "checksum_source": "https://downloads.haskell.org/~ghc/9.6.7/SHA256SUMS"
+      },
+      "cabal": {
+        "version": "3.12.1.0",
+        "url": "https://downloads.haskell.org/~cabal/cabal-install-3.12.1.0/cabal-install-3.12.1.0-aarch64-darwin.tar.xz",
+        "sha256": "9c165ca9a2e593b12dbb0eca92c0b04f8d1c259871742d7e9afc352364fe7a3f",
+        "download_bytes": null,
+        "checksum_source": "https://downloads.haskell.org/~cabal/cabal-install-3.12.1.0/SHA256SUMS"
+      }
+    },
+    "Darwin-x86_64": {
+      "ghc": {
+        "version": "9.6.7",
+        "url": "https://downloads.haskell.org/~ghc/9.6.7/ghc-9.6.7-x86_64-apple-darwin.tar.xz",
+        "sha256": "f14fcb0b9be4ae7f6d71f4069cccecb9dce2c8c39a8596afde7e5de171ca03e5",
+        "download_bytes": null,
+        "checksum_source": "https://downloads.haskell.org/~ghc/9.6.7/SHA256SUMS"
+      },
+      "cabal": {
+        "version": "3.12.1.0",
+        "url": "https://downloads.haskell.org/~cabal/cabal-install-3.12.1.0/cabal-install-3.12.1.0-x86_64-darwin.tar.xz",
+        "sha256": "e89392429f59bbcfaf07e1164e55bc63bba8e5c788afe43c94e00b515c1578af",
+        "download_bytes": null,
+        "checksum_source": "https://downloads.haskell.org/~cabal/cabal-install-3.12.1.0/SHA256SUMS"
+      }
+    }
+  }
+}
