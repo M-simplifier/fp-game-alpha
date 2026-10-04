@@ -61,6 +61,10 @@ jobs:
       - if: runner.os == 'Linux'
         run: bash references/paper-circuit/test/check-opaque-api.sh
       - run: python research/quantity/check.py check
+      - if: runner.os == 'Linux'
+        name: Check bounded live-tuning semantics (no performance gate)
+        timeout-minutes: 2
+        run: python research/live-tuning/check.py
       - run: python tools/test_workspace.py
 
   afterlight-pure-core:

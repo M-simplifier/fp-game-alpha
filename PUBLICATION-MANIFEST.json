@@ -119,7 +119,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256_lf": "1105f053de518e0a2c63edb0cfccd40a55916d11944a5d46d7b77b43439be649",
+      "sha256_lf": "8e7005887779c4df9bc223b6a9efb48e46b596b08ca3e8285a115a7c2eba7aaa",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -288,7 +288,7 @@
     },
     {
       "path": "docs/failure-prevention.md",
-      "sha256_lf": "18a4ae72512d2041f2c3454de1ee4f37645f19c8b707438e6fe2691a700a25d9",
+      "sha256_lf": "a15975f5e08c03580e4571b1ac9aff5fd28a83093f3441a8ea5850b4f4b8db39",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -335,7 +335,7 @@
     },
     {
       "path": "docs/haskell.md",
-      "sha256_lf": "f5b88c8932f1b622ffc45fbbf209555bb2e904ad68d318dc92b7f3e0397f6ddf",
+      "sha256_lf": "99db6d3c9b70daf39b9c569059f98b2961275af027207e7b8168898a9f4867d3",
       "origin": {
         "kind": "author-supplied-public-doc-candidate",
         "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
@@ -591,7 +591,7 @@
     },
     {
       "path": "docs/research-iteration-latency.md",
-      "sha256_lf": "518840aab234ed75a87552107f7d6ac2f707e3af771200539c5ff5200962d62f",
+      "sha256_lf": "d34c13d105574c09b7e4c4f09a175b830e745afdc848eba5bf2545e5bfdd554e",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -602,7 +602,7 @@
     },
     {
       "path": "docs/research-references.md",
-      "sha256_lf": "2a8ea9b64075014e2a79a1b6f3c3ca05d0eb68a2ec52430540a6baf6ac013fd7",
+      "sha256_lf": "05c9b8808d70995fcaf0a985911d97c14c333ee0ddc36848eef50e42db5a1c4e",
       "origin": {
         "kind": "author-supplied-curated-historical-research",
         "origin": "REFERENCES.md",
@@ -2282,7 +2282,7 @@
     },
     {
       "path": "formatter.json",
-      "sha256_lf": "7ae25949a912589910a2bf2f3e68569d7637ce03f4fcd56aa276ae004682962c",
+      "sha256_lf": "a67f6e43307c2d2930865378b9133408cc33d4bceeb5696f52244616cc5f1170",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2410,7 +2410,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "320ad7da889bdb9f03ba3c5dfed6b94a14a1e1c02bf53c2bdd9f37537e059fa4",
+      "sha256_lf": "7d391505fb106c7d2647178758cd5ba63675e1abf0f0c55fbbce8bc9c4e4f3cd",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -9050,6 +9050,116 @@
     {
       "path": "research/headless/station-source-informed.json",
       "sha256_lf": "0b49f89be080f32b6b94f0c352d5e6b6c856ea1b5aaf6cf320a3afe030d3bb2c",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/.gitignore",
+      "sha256_lf": "48c110fc29f5a904254a4403efdca0c95418e2fd84067272ea8d7e59951d8e8e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/Game.hs",
+      "sha256_lf": "d4154b89dacb53337adb38e5156808abae679b33aeb8e4da374fc557436b4ff5",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/Main.hs",
+      "sha256_lf": "c7dfeca9ccaf60475949f36d9600d603e4c347f071c479e515a4491dcfd83927",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/Probe.hs",
+      "sha256_lf": "4829da3a302550d566faa39035a10156baf2af599bfeae13af4b08523e2e3d35",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/README.md",
+      "sha256_lf": "e4e89bd51d8065eade6d383b33efab9fc6e1a8234feeecf4a08f597974aea1ea",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/Tests.hs",
+      "sha256_lf": "be288dacc74396b4d4644a9d70e5f59c9a26b55c08739c98f7fc0b1ecbe2722b",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/bench.py",
+      "sha256_lf": "2853b8e998196cd1c167647f5ab3ed7f6913ca40fb9d94668321715fa9a5bbfd",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/check.py",
+      "sha256_lf": "8b0ed2b4818fc37f966bf42a81b8df21129bb0a96248a0b0d16f2071d2be033e",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/measurements.json",
+      "sha256_lf": "544e11757dfedb2fe99ec9c0a813fe75d5d205d7d14685ef7e3f24da08646074",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/live-tuning/rules.txt",
+      "sha256_lf": "1d6e9ec2ee71e8b35843ee5f9948eef96994c3a4b86c30395d8838aa47dc8eef",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
