@@ -536,7 +536,7 @@
     },
     {
       "path": "docs/research-references.md",
-      "sha256_lf": "ccabfe354063f3e748387d93b25588dd4d7234656b0c6ee24bb7e8a3af88ad75",
+      "sha256_lf": "96c82cde3053ea7badbb42f2affade69565a682fca16f8785d2a9fb5f1e62606",
       "origin": {
         "kind": "author-supplied-curated-historical-research",
         "origin": "REFERENCES.md",
@@ -2333,7 +2333,7 @@
     },
     {
       "path": "publication/policy.json",
-      "sha256_lf": "d4b69f9dafbedf4f457d25c57e621dae9b7311485c3a333dbcbed89766b535f0",
+      "sha256_lf": "5a3031ce2d1c10ea13e8792be152fa696fb0c867a422c8b827fdc26c322aeb62",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -2344,7 +2344,7 @@
     },
     {
       "path": "publication/provenance.json",
-      "sha256_lf": "e5392eaa110528e5fc123e2d766d0cb7321c4d6d6e65ef541d4becb15381aae9",
+      "sha256_lf": "e865905bfd8a08253e062305a2bc0a18afbb83a918d0fb15fc176f4e2e502738",
       "origin": {
         "kind": "authored-for-public-alpha"
       },
@@ -5201,6 +5201,151 @@
         "kind": "authored-for-public-alpha"
       },
       "license": "references/tapline/LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/README.md",
+      "sha256_lf": "e432a8ea177adb2c8246a6dd288927e07cdd1132cafc015a143464044b2fa9fb",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/.gitignore",
+      "sha256_lf": "21b827e66ef40330bae6cee5d99b8ad1385825a361f9fba590f790b92b7d9700",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/LICENSE",
+      "sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/LICENSE.upstream",
+      "sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+      "origin": {
+        "kind": "copied-public-MIT-notice",
+        "origin": "https://github.com/M-simplifier/fp-game-alpha/blob/39a7e51952ffe7495f5086d5687a7a1b58ab4dd7/LICENSE",
+        "source_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/README.md",
+      "sha256_lf": "61ba25f29221a5d18c8513ed552476d92bb3d7b31ee08ad64cc11e15a3852dd6",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/SOURCE-FILES.txt",
+      "sha256_lf": "3e7919f8f7693618d334a0e3ce82bc928cadc2f691ce2ec67fcd850b076a9e25",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/SUMMARY.json",
+      "sha256_lf": "df1b784eec29020e6845decea8a1e01dced5e5910cab16931d6c7bb690f8b05d",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/app/Main.hs",
+      "sha256_lf": "52d5bd33e3f9c406653348cb10e1f25e34de56624d63144d1e42cf354c69d87b",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/build-offline.sh",
+      "sha256_lf": "c86faa66252f33883b15b56125c71b5691bd5e168685929f8bed5c85819d5159",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/cabal.project",
+      "sha256_lf": "6b6a2fcd761fa4c3c7bce861af26cf6062e5d830cbd6fe71ce3d1a3a2c4fc675",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/cabal.project.freeze",
+      "sha256_lf": "ec7438180e9c9ab5db6b1906a3b17f23c1f6f553bde906798cd20c240a2b9755",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/fp-game-probe.cabal",
+      "sha256_lf": "3bbecbf8d36fea0bd05356369298b5fe0010c372e54ca3142df1397e767d98e5",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
+      "maturity": "experimental",
+      "export": "selected",
+      "review": "explicit technical selection; license notice reviewed"
+    },
+    {
+      "path": "research/haskell-tooling/probe/tests/contract.py",
+      "sha256_lf": "925ac9a911201f2b4f8d3a1a092246767abf15306bd46bb44494d85f96b9cd66",
+      "origin": {
+        "kind": "authored-for-public-alpha"
+      },
+      "license": "LICENSE",
       "maturity": "experimental",
       "export": "selected",
       "review": "explicit technical selection; license notice reviewed"

@@ -1,0 +1,12 @@
+README.md
+SUMMARY.json
+SOURCE-FILES.txt
+LICENSE.upstream
+fp-game-probe.cabal
+cabal.project
+cabal.project.freeze
+build-offline.sh
+app/Main.hs
+tests/contract.py
+.gitignore
+LICENSE

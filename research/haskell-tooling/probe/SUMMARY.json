@@ -1,0 +1,39 @@
+{
+  "status": "Linux-only opt-in feasibility prototype; not production replacement",
+  "date": "2026-10-04",
+  "platform": "Linux x86_64",
+  "ghc": "9.6.7",
+  "cabal": "3.16.1.0",
+  "commands": [
+    "build",
+    "check",
+    "check FILE.hs"
+  ],
+  "recorded_contract_invocations": 64,
+  "contract_result": "passed",
+  "fresh_tool_build_warm_dependencies_seconds": 6.906790565000847,
+  "peak_child_rss_kib": 318200,
+  "cold_cache_acquisition_measured": false,
+  "network_fetches": false,
+  "binary_bytes": 21211112,
+  "non_bundled_cached_units": 41,
+  "cached_dependency_apparent_bytes": 118632423,
+  "warm_missing_tool_median_seconds": 0.01246541649743449,
+  "warm_missing_tool_min_seconds": 0.01223656399815809,
+  "fresh_base_only_game_build_seconds": 1.9926006160094403,
+  "warm_base_only_game_build_seconds": 0.04310092001105659,
+  "distribution": "source-only allowlist; no binaries, caches, fixtures, raw private logs or configuration",
+  "limits": [
+    "Windows and macOS untested; POSIX unix process-group implementation",
+    "Compiler support only measured on GHC 9.6.7",
+    "Cold dependency acquisition and clean-machine binary distribution unmeasured",
+    "No scaffold/play/editor migration",
+    "Binary dependency license audit not completed"
+  ],
+  "additional_cli_checks": [
+    "unsupported command usage",
+    "SIGINT descendant and temporary-directory cleanup",
+    "SIGTERM descendant and temporary-directory cleanup; exit 143"
+  ],
+  "cancellation_scope": "Linux timeout/SIGINT/SIGTERM only; no cleanup on SIGKILL/crash/power loss"
+}

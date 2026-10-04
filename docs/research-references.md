@@ -97,3 +97,10 @@ These links were recorded in research inspected on 3–4 October 2026. They are 
 3. Specifying Systems and the trace-validation paper for asynchronous lifecycle behavior
 4. Platform/storage documentation for boundaries a pure transition cannot enforce
 5. Advanced methods only when a concrete failure mode motivates their additional modeling and maintenance cost
+
+## Developer tooling consolidation
+
+[Haskell tooling assessment and bounded executable probe](../research/haskell-tooling/README.md)
+compares the existing Python orchestration with an opt-in Haskell build/check slice.
+It records bootstrap costs, platform boundaries and compatibility checks separately
+from the maintained game core and current development entrypoints.

@@ -1865,5 +1865,10 @@
     "kind": "public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/.agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs",
     "source_sha256_lf": "066630359c422b43312a8c7dd71127b84633a5a318a31f486930d5b20b36e1bf"
+  },
+  "research/haskell-tooling/probe/LICENSE.upstream": {
+    "kind": "copied-public-MIT-notice",
+    "origin": "https://github.com/M-simplifier/fp-game-alpha/blob/39a7e51952ffe7495f5086d5687a7a1b58ab4dd7/LICENSE",
+    "source_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d"
   }
 }
