@@ -117,4 +117,18 @@ taps, reset as an indivisible batch barrier, focus-loss pause, pure render
 projection, and a deduplication mutation that diverges at frame two.
 `python tools/fp_game.py test` passed with the existing kernels and Lantern.
 This verifies the selected pure core and small trace suite; graphical host and
-device performance remain outside this reference. Three-OS CI is pending.
+device performance remain outside this reference. The
+[Tapline CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37178602184)
+passed on Windows, Linux and macOS; a public branch fresh clone also passed
+the source, docs and Cabal test checks locally.
+
+## Garden reference
+
+The selected Garden core compiles under `-Wall -Wcompat -Werror` on local
+Windows GHC 9.6.7. Its law test checks a deterministic seeded world and reset,
+opaque coordinate bounds, event Step/Arena equivalence, frame-clock
+Step/Arena equivalence, five ticks per frame with retained debt, pause/resume
+debt clearing, extreme pixel rejection, a dropped-tick mutation and a
+counterexample to splitting a frame at a control edge. The game updates and
+clock remain pure; no graphical host or device-performance result is claimed.
+The Garden three-OS CI result is pending.

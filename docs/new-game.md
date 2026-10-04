@@ -22,6 +22,8 @@ graphics/Web/mobile route, disclose the gap and choose it for explicit route
 development only with their instruction. Never silently substitute terminal.
 Use the [guarantee scope](guarantees.md) when a game's requested invariant
 needs stronger evidence than finite gameplay tests.
+Use the [review finding and prevention ledger](failure-prevention.md) to turn
+newly found bugs into scoped boundary checks and an explicit acceptance record.
 Unspecified licensing remains **unlicensed for user additions**; original
 foundation/template MIT notices remain separate.
 

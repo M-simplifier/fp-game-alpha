@@ -3,7 +3,7 @@
 | Material | Initial disposition | Scope and next acceptance |
 | --- | --- | --- |
 | Transition / Arena / Finite | Selected MIT kernel; executable alpha | Preserve API, test laws and document assumptions |
-| Garden | Selected for next reference milestone | Pure rules, clock/input/view; preserve pause/reset and scheduler boundaries |
+| Garden | Selected experimental pure-core reference | Deterministic world, event and clock adapters, pause/reset/debt and bounded input checks; no graphical host claim |
 | Tapline | Selected experimental pure-core reference | Six-round trace and Step/Arena regression; exact deadline, ordered duplicate taps, reset barrier and focus pause; no graphical host claim |
 | Station | Selected for next reference milestone | Turns, stale rejection, saves and asynchronous UI IDs |
 | River Home | Selected for next reference milestone | Original pure simulation and invariant/save regressions |
@@ -21,8 +21,8 @@ unfinished. None of these historical claims constitutes public-clone acceptance.
 
 The first milestone is an independent terminal game workspace, actual key
 and stamina development, relocation, and ordinary Cabal acceptance. Lantern
-is the first additional reference; Tapline follows as a pure-core example.
-The next milestones add Garden, Station and River, then optional graphical/Web
+is the first additional reference; Tapline and Garden follow as pure-core examples.
+The next milestones add Station and River, then optional graphical/Web
 profiles. Toolchains,
 large binaries and repeated raw logs belong in reproducible downloads or
 appropriate release artifacts, not in the source repository.

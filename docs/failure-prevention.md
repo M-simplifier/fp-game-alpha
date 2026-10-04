@@ -1,0 +1,107 @@
+# Review findings and prevention ledger
+
+A regression for one reported input proves that input stays fixed. A prevention
+claim also needs a mechanism that catches the *class* of mistake at a boundary.
+When review or playtesting finds a bug, record the route that exposed it, why
+the previous guarantee missed it, the repair, the reusable check, its measured
+evidence and what the check still cannot establish. Keep proposed checks marked
+as proposals until they actually run. Consult [verification](verification.md)
+for measured platform results and proof scope.
+
+## Saved-source CLI: comment mistaken for a module declaration
+
+- **Detection:** A real `inspect`/`context` fixture began with a comment
+  containing `module Prelude`; the earlier text regex selected the comment as
+  the module. A block comment containing `module Bogus` gave the same risk.
+- **Missed guarantee:** The early fixture started with an ordinary module line.
+  A regex over raw source did not implement Haskell comment or lexical rules.
+- **Repair:** Compile the saved file and ask GHCi for its loaded modules,
+  imports and type/binding information. Fail if the requested source module
+  cannot be established or a requested symbol is missing.
+- **Class prevention, implemented:** `tools/test_tools.py` runs the actual
+  compiler query on line/block-comment decoys and checks that `Tiny`, its real
+  type and its structure are returned. Compiler errors must remain nonzero.
+  The CLI uses GHC/GHCi as the syntax authority, rather than another source
+  regex for the declaration.
+- **Limit:** Saved-source queries are not an HLS session or unsaved editor
+  state. Parsing GHCi's display still has a version-specific contract; this
+  fixture does not test every Haskell extension or compiler version.
+
+## Saved-source CLI: valid empty export list treated as failure
+
+- **Detection:** `module Empty () where` compiled but a heuristic expected a
+  nonempty `:browse` result and returned failure.
+- **Missed guarantee:** The earlier check equated no browse output with a
+  broken module, although an empty export list is valid.
+- **Repair:** Establish success from compiler load, module identity and GHCi
+  command status, not from the number of exported bindings.
+- **Class prevention, implemented:** `tools/test_tools.py` compiles and queries
+  the actual empty module and requires success and module identity. It also
+  requires a missing binding and a real type error to fail, so success cannot
+  be obtained by simply ignoring GHCi errors.
+- **Limit:** This covers the saved-source `inspect` contract, not all package
+  visibility cases or an editor's in-memory buffer.
+
+## Lantern: public selector enabled a record update
+
+- **Detection:** An outside GHC client compiled `world { positions = ... }`
+  although `World`'s constructor was hidden. A malformed value then reached
+  `legal`, where `!!` raised an exception.
+- **Missed guarantee:** Constructor hiding was reviewed, but an exported
+  record selector remained an update field. A positive API test alone could
+  not show that invalid construction was impossible.
+- **Repair:** Keep update fields private and export ordinary projection
+  functions. `legal` checks the original world before indexing; invalid moves
+  preserve state and produce no transition output.
+- **Class prevention, implemented:** `tools/test_lantern_api.py` compiles a
+  positive outside client, then requires GHC to reject a record-update client
+  *for the record-selector reason*. Lantern law tests exercise malformed
+  positions and invalid admission. The generated starter also has an external
+  record-update rejection in `tools/test_workspace.py`.
+- **Limit:** A compile-negative test covers this public module and field, not
+  every internal constructor, parser, lens, role/coercion or future export.
+  Internal code and any new construction route still need review.
+
+## Lantern: world accepted against a different board
+
+- **Detection:** Review paired a valid world created from board A with board B;
+  the old `wellFormed` checked shape but not ownership.
+- **Missed guarantee:** `World` and `Board` were individually well formed, but
+  the relation between them was absent from the invariant. Shape checks and
+  constructor privacy alone cannot establish provenance.
+- **Repair:** `World` retains its checked board, and `wellFormed b world`
+  requires that board to equal `b` before `legal` or admission can proceed.
+- **Class prevention, implemented for Lantern:** The law test presents a world
+  to a distinct board and requires rejection. The public boundary documents
+  board ownership as part of state validity.
+- **Limit:** Runtime board equality is a Lantern-specific relation. A reusable
+  board-indexed type or checked session capability could make mismatch harder
+  to express, but no such general API is implemented or claimed here.
+
+## Lantern: coordinate addition wrapped `Int`
+
+- **Detection:** Review supplied extreme `Int` coordinates. `p + size`
+  overflowed before a bounds check, making an out-of-board placement appear
+  valid.
+- **Missed guarantee:** The arithmetic was written as a familiar geometric
+  condition; tests used ordinary board-sized values and did not probe machine
+  bounds. An `Int` alias or `newtype` alone would not establish a range.
+- **Repair:** Validate the cart size first, then compare `p >= 0` and
+  `p <= 6 - size`; subtraction is bounded by the validated size. The same
+  pattern checks Garden pixel bounds before coordinate subtraction.
+- **Class prevention, implemented in these boundaries:** Lantern tests reject
+  `minBound` and `maxBound` coordinates; Garden tests reject extreme pixels.
+  [Haskell guidance](haskell.md) now asks reviewers to locate overflow-sensitive
+  arithmetic at every external construction boundary.
+- **Limit:** These cases do not prove all arithmetic in all reference games
+  overflow-safe. A general property suite or checked numeric representation
+  remains future work and must name its units and range explicitly.
+
+## Procedure for the next finding
+
+Add a row or section with a minimal reproduction and an acceptance command.
+Identify whether the new test merely freezes a case or changes the construction
+path, type/API boundary, template, or systematic check. Route the lesson into
+the canonical guide and generated development path when a first user can
+benefit. Re-run the relevant actual compiler/runtime test, source publication
+gate and clean-clone route; keep untested proposals labelled as such.

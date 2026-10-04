@@ -49,6 +49,27 @@ def require(label, condition):
     RECORDS.append({'check': label, 'status': 'pass'})
 
 
+def check_public_model_api(game):
+    """Compile both sides of the generated read-only Model contract."""
+    ghc = shutil.which('ghc')
+    require('api-compiler-present', ghc is not None)
+    output = game / '.build' / 'api-check'
+    output.mkdir(parents=True, exist_ok=True)
+    good = output / 'ReadModel.hs'
+    bad = output / 'RejectModelUpdate.hs'
+    good.write_text('module ReadModel where\nimport Game.Model\nreadPosition :: (Int, Int)\nreadPosition = coordinates (position initial)\n', encoding='utf-8')
+    bad.write_text('module RejectModelUpdate where\nimport Game.Model\nforged :: World\nforged = initial { position = position initial }\n', encoding='utf-8')
+    flags = [ghc, '-fno-code', '-fforce-recomp', '-XGHC2021',
+             '-fdiagnostics-color=never', '-i' + str(game / 'src'),
+             '-outputdir', str(output)]
+    run('public-model-read', [*flags, str(good)], game)
+    rejection = fp_game.execute([*flags, str(bad)], game, timeout=90)
+    (output / 'RejectModelUpdate.json').write_text(json.dumps(rejection, indent=2), encoding='utf-8')
+    require('public-model-update-rejected-for-selector',
+            rejection['exit_code'] != 0 and 'position' in rejection['stderr']
+            and 'is not a record selector' in rejection['stderr'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report', type=Path, default=ROOT / '.build/development-report.json')
@@ -72,6 +93,7 @@ def main():
     lock = json.loads((game / 'foundation.lock.json').read_text())
     require('kernel-versions-pinned', lock['packages'] == {'game-transition': '0.1.0.0', 'game-arena': '0.1.0.0'})
     require('vendored-kernel-identity', all(hashlib.sha256((game / name).read_bytes()).hexdigest() == value for name, value in lock['sha256_lf'].items()))
+    check_public_model_api(game)
     cabal(game, 'build', label='baseline-build')
     cabal(game, 'test', label='baseline-tests')
     require('baseline-runtime', 'gameplay/save smoke: PASS' in cabal(game, 'run', '--', '--smoke', label='baseline-smoke'))

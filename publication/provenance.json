@@ -213,5 +213,49 @@
     "origin": "gallery/functional-arcade/licenses/original-games/ordered-input-LICENSE",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "f8d843d369ea056d5188e4edc646b3be4f68f0a79b04d6f40bca2a2fc67d157c"
+  },
+  "references/garden/src/Garden/World.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Garden/World.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "271c1fe8d4193d722a1c644866f32546fe0b7b2620665583ccad71e282df9475"
+  },
+  "references/garden/src/Garden/Simulation.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Garden/Simulation.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "94d770a50c163481fa41869ae9b14c730b268799a896a5937e6ae478735c3df5"
+  },
+  "references/garden/src/Garden/Session.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Garden/Session.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "c7b572a1a7fb0a825f2f325fc1624c3dc85773ea876fb4048b28eeb439d34702"
+  },
+  "references/garden/src/Garden/Clock.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Garden/Clock.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "1835bf0bec771496e198c7e7f5e4702d1d61defc403982dbbb39dde6e31dca1e",
+    "transformation": "Documented clock debt; scheduler rules unchanged."
+  },
+  "references/garden/src/Garden/View.hs": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Garden/View.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "4c79e263b68eb5c37c159a22df44a9f538215f837e03978894b1723062e25890"
+  },
+  "references/garden/src/Garden/Input.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Garden/Input.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "12c1dc8b404c1de85933bfff7a747a93760e1f55704288229c4fa2a3ffebb664",
+    "transformation": "Reject out-of-board pixels before coordinate subtraction, avoiding Int wrap; ordinary board mapping retained."
+  },
+  "references/garden/LICENSE": {
+    "kind": "selected-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/licenses/original-games/rules-garden-LICENSE",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "16d76fb51c2d3d934c0b59af19e9bbca7dd76ced5f2b625499af36d813e69297"
   }
 }

@@ -2,6 +2,7 @@ packages:
   libraries/game-transition
   libraries/game-arena
   references/lantern
+  references/garden
   references/tapline
 
 -- The first-user kernel needs only packages shipped with GHC.
