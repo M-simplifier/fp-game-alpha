@@ -173,3 +173,25 @@ route. A regression fixture adds binary outputs with NUL/CRLF, dependency/vendor
 folders and local settings, then asserts the entire generated file map is unchanged.
 Future distribution additions need an explicit source or binary selection contract;
 Git ignore status and a clean checkout are not sufficient export boundaries.
+
+## An active audit owns its rescan requests
+
+An earlier Linux CI attempt reported one unexpected audit event during an
+excluded-file test. Investigation found a deterministic scheduling defect:
+invalidating an active scan could leave a debounce timer alive after that worker
+had already processed the new generation, producing another cache-only scan.
+The old log does not prove that interleaving caused its event, so that attribution
+remains a hypothesis; the scheduler defect itself was reproduced.
+
+Invalidations during work now request a successor from the same worker. Idle
+invalidations debounce; explicit refresh cancels pending debounce. Fake-timer and
+deferred-scan regressions cover the trailing timer, late invalidation during cache
+persistence, coalescing and disposal without relying on wall-clock sleeps. The
+original excluded-file integration assertion remains intact. The old scheduler
+fails the deterministic trailing-timer check (three scans instead of two).
+
+Review of the first repair exposed a second completion-window race: clearing
+worker ownership in a later Promise.finally reaction could strand an intervening
+microtask's invalidation. Cleanup now runs inside the worker's try/finally. A
+queued-microtask regression failed before this repair (one scan instead of two)
+and requires that completion never drops a subsequent invalidation.

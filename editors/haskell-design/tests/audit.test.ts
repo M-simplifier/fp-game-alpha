@@ -134,3 +134,86 @@ test('Cabal defaults are per component and do not recursively include unrelated 
   for (const file of ['Main.hs', 'src/A.hs', 'App/Helper.hs', 'docs/Example.hs', 'Unowned.hs']) await fs.writeFile(path.join(root, file), '');
   assert.deepEqual((await auditScope(root)).files.map(f => path.relative(root, f).split(path.sep).join('/')), ['App/Helper.hs', 'Main.hs', 'src/A.hs']);
 });
+
+test('active audit consumes invalidation without a trailing debounce scan', async t => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const audit = new ProjectAudit({} as Projector, 'unused', { root: repo, trusted: false });
+  const internal = audit as unknown as { scan: () => Promise<void>; generation: number; requested: boolean };
+  let scans = 0;
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  internal.scan = async () => {
+    const generation = internal.generation;
+    scans++;
+    if (scans === 1) await gate;
+    // Model the production scan's stale-generation retry, without filesystem
+    // watchers or compiler timing making the scheduling interleaving accidental.
+    if (generation !== internal.generation) internal.requested = true;
+  };
+  try {
+    const current = audit.refresh();
+    audit.invalidate();
+    release();
+    await current;
+    assert.equal(scans, 2, 'the new generation must be scanned');
+    t.mock.timers.tick(120);
+    await Promise.resolve();
+    assert.equal(scans, 2, 'a consumed invalidation must not leave another scan queued');
+    audit.invalidate();
+    audit.invalidate();
+    t.mock.timers.tick(119);
+    assert.equal(scans, 2);
+    t.mock.timers.tick(1);
+    await Promise.resolve();
+    await Promise.resolve();
+    assert.equal(scans, 3, 'idle invalidations still coalesce into one scan');
+    audit.invalidate();
+    audit.dispose();
+    t.mock.timers.tick(120);
+    assert.equal(scans, 3, 'dispose cancels queued work');
+  } finally { audit.dispose(); }
+});
+
+test('late invalidations drain before refresh resolves and stop on disposal', async t => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  for (const disposeDuringScan of [false, true]) {
+    const audit = new ProjectAudit({} as Projector, 'unused', { root: repo, trusted: false });
+    const internal = audit as unknown as { scan: () => Promise<void>; generation: number };
+    const generations: number[] = [];
+    let release!: () => void;
+    const gate = new Promise<void>(resolve => { release = resolve; });
+    internal.scan = async () => {
+      generations.push(internal.generation);
+      // No stale-generation retry here: emulate the final cache write after
+      // the scan's last generation check. invalidate must retain the request.
+      if (generations.length === 1) await gate;
+    };
+    try {
+      const current = audit.refresh();
+      audit.invalidate();
+      audit.invalidate();
+      if (disposeDuringScan) audit.dispose();
+      release();
+      await current;
+      assert.deepEqual(generations, disposeDuringScan ? [0] : [0, 2]);
+      t.mock.timers.tick(120);
+      assert.deepEqual(generations, disposeDuringScan ? [0] : [0, 2]);
+    } finally { audit.dispose(); }
+  }
+});
+
+test('invalidation at worker completion cannot be stranded between promise reactions', async t => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const audit = new ProjectAudit({} as Projector, 'unused', { root: repo, trusted: false });
+  const internal = audit as unknown as { scan: () => Promise<void> };
+  let scans = 0;
+  internal.scan = async () => { scans++; };
+  try {
+    const current = audit.refresh();
+    queueMicrotask(() => audit.invalidate());
+    await current;
+    t.mock.timers.tick(120);
+    await Promise.resolve();
+    assert.equal(scans, 2, 'completion must release ownership before a later invalidation');
+  } finally { audit.dispose(); }
+});

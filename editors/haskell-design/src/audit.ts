@@ -118,16 +118,25 @@ export class ProjectAudit extends EventEmitter {
       }
     }
     this.emitSnapshot(designs, true, undefined, true);
-    clearTimeout(this.timer);
-    this.timer = setTimeout(() => { void this.refresh(); }, 120);
+    clearTimeout(this.timer); this.timer = undefined;
+    // The active worker owns retries. A debounce left behind here could fire
+    // after that worker has already scanned the new generation.
+    if (this.running) this.requested = true;
+    else this.timer = setTimeout(() => { this.timer = undefined; void this.refresh(); }, 120);
   }
   refresh(): Promise<void> {
+    clearTimeout(this.timer); this.timer = undefined;
     if (this.stopped) return Promise.resolve();
     if (this.running) { this.requested = true; return this.running; }
-    clearTimeout(this.timer);
     this.running = (async () => {
-      do { this.requested = false; await this.scan(); } while (this.requested && !this.stopped);
-    })().finally(() => { this.running = undefined; });
+      try {
+        do { this.requested = false; await this.scan(); } while (this.requested && !this.stopped);
+      } finally {
+        // Release ownership in this reaction, not a later Promise.finally: an
+        // intervening invalidation must see an idle owner and queue its work.
+        this.running = undefined;
+      }
+    })();
     return this.running;
   }
   private async scan(): Promise<void> {
