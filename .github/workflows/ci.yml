@@ -132,6 +132,17 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Check TypeScript
         run: npm run check
+      - name: Test actual Lua manual watcher failure handling
+        shell: bash
+        env:
+          LUA_EXECUTABLE: lua5.4
+        run: |
+          if ! command -v lua5.4 >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends lua5.4
+          fi
+          lua5.4 -v
+          npm run test:lua
       - name: Build native reader and adapters
         run: npm run build
       - name: Test syntax, trusted inference, and cache lifecycle

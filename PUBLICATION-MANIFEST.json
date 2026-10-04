@@ -119,7 +119,7 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "606bf0785ea41c6bdf1c07365d3216783594be3db8db83ed3dfb40a59067cbf2",
+   "sha256_lf": "c77207d355aee5231a971fa2e5664973842dda1b8ff997514f23da7fcf3bfca3",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -324,7 +324,7 @@
   },
   {
    "path": "docs/haskell-design.md",
-   "sha256_lf": "b61b08fabcabd5684b9ccf1bf7bb129d64a1ce5cc91648b2c22bc95439383f1e",
+   "sha256_lf": "5b702dc68ef39cf068908aa0a875dba6eb5a90274b22bfdbb49ce93f12b12123",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -897,7 +897,7 @@
   },
   {
    "path": "editors/haskell-design/README.md",
-   "sha256_lf": "5bd68a7b1a788e0b6fc629ce7ac316fef0d09ebd40417b24df837f3eeb128c92",
+   "sha256_lf": "797f1ce4e4bf1f7f5b8b1864c04b16ba1bfd3efcf92d4a9a8b258cf8d0b31cdd",
    "origin": {
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/README.md",
@@ -1065,7 +1065,7 @@
   },
   {
    "path": "editors/haskell-design/lua/haskell-design/init.lua",
-   "sha256_lf": "a590fa91fe640cfbc7a2831b7345102a17ab17bb7138e5e82aea01596417da85",
+   "sha256_lf": "8282db1dd31ab5ccdd12bdaa51b7152965528545afe989931377c7ff5a3d16a3",
    "origin": {
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/lua/haskell-design/init.lua",
@@ -1706,7 +1706,7 @@
   },
   {
    "path": "editors/haskell-design/package.json",
-   "sha256_lf": "ae2f963b5fec0673f24eae27a6f314571ece44e0477459345a2bb0b9e0f4cff4",
+   "sha256_lf": "3507a6b6d0de36b3ff2fc98cd0c7b101909304e5cc1da58ef8b0b07281bc7ac8",
    "origin": {
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/package.json",
@@ -1824,6 +1824,17 @@
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/preview.mjs",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
     "source_sha256_lf": "cf4bbbef3348ebd8b6adb09b7f8d22c69b1d91e5ccab01217205200e3b20a1f9"
+   },
+   "license": "editors/haskell-design/LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "editors/haskell-design/scripts/test-lua.mjs",
+   "sha256_lf": "6d69f24c7a1fef1c7fed4a60fc5d8686c12b945e770ac4dd4fc02bb90d538101",
+   "origin": {
+    "kind": "authored-for-public-alpha"
    },
    "license": "editors/haskell-design/LICENSE",
    "maturity": "experimental",
@@ -2104,6 +2115,17 @@
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/extension.test.ts",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
     "source_sha256_lf": "ee8fd2c786280a3111b0153509a906a299e3f32b01d09d818e4461295beacc27"
+   },
+   "license": "editors/haskell-design/LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "editors/haskell-design/tests/manual-watch-failure.lua",
+   "sha256_lf": "7cdf1153ceaf5f62076ae0a956db2461147d241aa49950fee5e599db1c6c721e",
+   "origin": {
+    "kind": "authored-for-public-alpha"
    },
    "license": "editors/haskell-design/LICENSE",
    "maturity": "experimental",

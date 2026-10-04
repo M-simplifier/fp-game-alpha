@@ -161,6 +161,7 @@
     "build": "node scripts/build.mjs",
     "check": "tsc --noEmit",
     "test": "npm run build && node --test dist/tests/core.test.cjs dist/tests/audit.test.cjs dist/tests/reader.test.cjs dist/tests/native.test.cjs",
+    "test:lua": "node scripts/test-lua.mjs",
     "test:neovim": "node scripts/test-neovim.mjs",
     "test:vscode": "node scripts/test-vscode.mjs",
     "test:packages": "node scripts/test-packages.mjs",

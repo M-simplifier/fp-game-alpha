@@ -110,16 +110,29 @@ end
 local function watch_dependencies(proof)
   for _, file in ipairs(proof and proof.dependencies or {}) do
     if not watchers[file] then
-      local watcher = vim.uv.new_fs_event()
-      if watcher then
-        local ok = watcher:start(file, {}, vim.schedule_wrap(function()
-          invalidate()
-          M.refresh()
-        end))
-        if ok == 0 then watchers[file] = watcher else watcher:close() end
+      local allocated, watcher = pcall(vim.uv.new_fs_event)
+      if not allocated or not watcher then return false, file end
+      local started, result = pcall(watcher.start, watcher, file, {}, vim.schedule_wrap(function(err)
+        -- A failed stream no longer protects any cached proof. Remove it so a
+        -- later explicit verification can retry instead of reusing a dead handle.
+        if err then
+          if watchers[file] ~= watcher then return end
+          watchers[file] = nil
+          watcher:stop(); watcher:close()
+          notify('依存ファイルを監視できないため確認結果を破棄しました: ' .. file, vim.log.levels.WARN)
+        end
+        invalidate()
+        M.refresh()
+      end))
+      if started and result == 0 then
+        watchers[file] = watcher
+      else
+        watcher:close()
+        return false, file
       end
     end
   end
+  return true
 end
 local function analyse(buf, verify, callback)
   if not is_haskell(buf) then notify('.hsファイルを開いてください。'); return end
@@ -137,8 +150,19 @@ local function analyse(buf, verify, callback)
     analyses[buf] = nil
     if not valid(buf) or current_epoch ~= epoch or tick ~= vim.api.nvim_buf_get_changedtick(buf) then return end
     models[buf] = model
+    if model.verification and options.auto_verify == false then
+      local watched, file = watch_dependencies(model.verification)
+      if not watched then
+        local message = '依存ファイルを監視できないため確認結果を破棄しました: ' .. file
+        model.issues = model.issues or {}
+        table.insert(model.issues, message)
+        -- Do this before mark/render or callbacks can expose Verified/Pure.
+        -- Bumping the epoch also rejects any older in-flight tree/model result.
+        invalidate()
+        notify(message, vim.log.levels.WARN)
+      end
+    end
     mark(buf, model)
-    if model.verification and options.auto_verify == false then watch_dependencies(model.verification) end
     for viewbuf, view in pairs(views) do if view.source == buf and valid(viewbuf) then render(viewbuf, model) end end
     if refresh_trees then refresh_trees() end
     if callback then callback(model) end

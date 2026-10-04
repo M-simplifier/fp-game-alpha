@@ -4,8 +4,8 @@
 
 Haskellファイルを開くと、まずデータ定義・型・関数の入出力を表示するVS Code拡張とNeovimプラグインです。同じローカル解析器を使うので、両エディタで同じ設計ビューとIO判定が得られます。
 
-Afterlightを初めて開く場合は、[エディタ環境のセットアップ](https://github.com/M-simplifier/garden-of-afterlight/blob/main/editors/README.md)から始めてください。
-別のゲームで使う場合は、[新しいプロジェクトへの接続](https://github.com/M-simplifier/garden-of-afterlight/blob/main/editors/README.md#別のゲームで使う)を参照してください。
+Afterlightを初めて開く場合は、[エディタ環境のセットアップ](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md)から始めてください。
+別のゲームで使う場合は、[新しいプロジェクトへの接続](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md)を参照してください。
 ビュワー本体は共通で、セットアップスキルがそのゲームのCabal構成とエディタを接続します。
 
 LLMからも同じ解析器を使えます。`map` でファイル構造、`outline` で型とデータ定義、
@@ -126,7 +126,7 @@ Cabalの `hs-source-dirs` にある通常の `.hs`（テスト・ベンチマー
 
 GHCは `-fno-code` で型情報を取得します。コンパイラの実行許可、追加入力の追跡、キャッシュの整合性は引き続き必要です。CPP・独自プリプロセッサ・コンパイラプラグインと、それらに依存するソースは、この版では再利用できる型情報を取得しません。Template Haskell・QuasiQuotes・ANNの評価、アプリケーションの実行は行いません。設計ビューは利用でき、解析できない理由を表示します。
 
-編集後は確認結果を捨て、再確認するまで `Pure` に戻しません。変更は監視し、保存後に必要な範囲を自動で再確認します。カーソル移動・アイドル・ファイラーの描画ごとに全ソースを解析する処理は行いません。OSの監視ハンドルが不足した場合はファイルのメタデータ比較へ切り替えます。
+編集後は確認結果を捨て、再確認するまで `Pure` に戻しません。変更は監視し、保存後に必要な範囲を自動で再確認します。カーソル移動・アイドル・ファイラーの描画ごとに全ソースを解析する処理は行いません。自動確認を有効にしたNodeの監視では、OSの監視ハンドルが不足した場合はファイルのメタデータ比較へ切り替えます。Neovimの手動確認（`auto_verify = false`）にはこの代替監視はありません。依存ファイルの監視を開始できない、または監視中にエラーが発生した場合は、確認結果と `Pure` 表示を破棄します。監視が回復した後、手動で再確認してください。
 
 GHCはPATH上の `ghc` を使用します。ワークスペース直下と `src` / `app` / `test` / `tests` を探索し、追加オプションを指定できます。
 
