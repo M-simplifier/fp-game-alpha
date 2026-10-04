@@ -386,6 +386,11 @@
       "prefix": "formatter.json",
       "license": "LICENSE",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "research/readability/",
+      "license": "LICENSE",
+      "maturity": "experimental"
     }
   ]
 }

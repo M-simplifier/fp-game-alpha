@@ -39,6 +39,10 @@ jobs:
       - run: python tools/test_formatter.py
       - run: python tools/formatter.py install
       - run: python tools/formatter.py check
+      - if: runner.os == 'Linux'
+        run: python references/afterlight/scripts/check-cpp-format.py
+      - if: runner.os == 'Linux'
+        run: python references/afterlight/scripts/test-cpp-format.py
       - run: python tools/test_formatter.py --integration
       - run: python tools/fp_game.py doctor
       - run: python tools/fp_game.py build

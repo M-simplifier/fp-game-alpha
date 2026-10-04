@@ -156,7 +156,7 @@ drawBursts view = forM_ (sceneBursts view) $ \burst -> do
         size = max 0.01 (0.12 * (1 - age / 1.15))
     drawCubeV (toRay p) (Vector3 size size size) hue
 
--- CPP splits this declaration; retain both host branches verbatim.
+-- CPP branches are formatted by scripts/check-cpp-format.py.
 {- ORMOLU_DISABLE -}
 renderInterface :: Resources -> SceneView -> Bool -> Float -> IO ()
 renderInterface resources view debug fps = withUIScale $ \width height zoom -> do
@@ -245,7 +245,7 @@ renderInterface resources view debug fps = withUIScale $ \width height zoom -> d
 
 {- ORMOLU_ENABLE -}
 
--- CPP splits this declaration; retain both host branches verbatim.
+-- CPP branches are formatted by scripts/check-cpp-format.py.
 {- ORMOLU_DISABLE -}
 renderMenu :: Resources -> Maybe Bool -> Bool -> IO ()
 renderMenu resources saved invertY = withUIScale $ \w h _ -> do

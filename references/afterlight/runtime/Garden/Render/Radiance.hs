@@ -22,7 +22,7 @@ data Targets = Targets !RenderPlan !RenderTexture !RenderTexture !(Maybe (Render
 
 data Radiance = Radiance !WindowResources !Shader !Shader !Shader !Shader !Bool !(IORef (Maybe Targets))
 
--- CPP splits this declaration; retain both host branches verbatim.
+-- CPP branches are formatted by scripts/check-cpp-format.py.
 {- ORMOLU_DISABLE -}
 acquireRadiance :: WindowResources -> IO Radiance
 acquireRadiance window = mask_ $ do

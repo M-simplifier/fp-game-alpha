@@ -76,6 +76,28 @@ class PlayerContract(unittest.TestCase):
         self.assertEqual(packets[5]['result'], 'refused')
         self.assertEqual(packets[6]['turn'], 4)
 
+    def test_protocol_validation_precedes_turn_resolution(self):
+        malformed_shape = 'Expected observe or act <visible-turn> express|local|defer.'
+        malformed_action = 'Expected act <visible-turn> express|local|defer.'
+        invalid = [('', malformed_shape), ('observe extra', malformed_shape),
+                   ('act 1', malformed_shape), ('act 1 local extra', malformed_shape),
+                   ('act nope local', malformed_action), ('act 1 unknown', malformed_action)]
+        for terminal in [False, True]:
+            prefix = [f'act {turn} defer' for turn in range(1, 7)] if terminal else []
+            valid_shape_error = 'The episode has ended.' if terminal else 'Stale turn; observe again.'
+            cases = [*invalid, ('act 0 local', valid_shape_error)]
+            commands = '\n'.join([*prefix, *[command for command, _ in cases]]) + '\n'
+            result = subprocess.run([str(self.binary)], input=commands, text=True,
+                                    encoding='utf-8', capture_output=True, check=True)
+            packets = [json.loads(line) for line in result.stdout.splitlines()]
+            before = packets[len(prefix)]
+            self.assertEqual(len(packets), len(prefix) + len(cases) + 1)
+            for (command, feedback), packet in zip(cases, packets[len(prefix) + 1:]):
+                with self.subTest(terminal=terminal, command=command):
+                    expected = {**before, 'result': 'refused', 'feedback': feedback,
+                                'refusal_kind': 'protocol'}
+                    self.assertEqual(packet, expected)
+
     def test_replay_drift_and_source_change_rejected(self):
         self.cli('start')
         journal = json.loads(self.path.read_text(encoding='utf-8'))

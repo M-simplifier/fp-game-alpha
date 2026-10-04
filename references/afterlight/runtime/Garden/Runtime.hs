@@ -118,7 +118,7 @@ startupGarden = bracketOnError beginGarden shutdownGarden $ \app -> do
 -- | Acquire only the window and audio host. World construction and uploads are
 -- deferred to callbacks. This does not require a browser activation gesture;
 -- the browser resumes its suspended AudioContext on the later play click.
--- CPP splits this declaration; retain both host branches verbatim.
+-- CPP branches are formatted by scripts/check-cpp-format.py.
 {- ORMOLU_DISABLE -}
 beginGarden :: IO GardenApp
 beginGarden = do
@@ -160,15 +160,16 @@ beginGarden = do
     drawing $ clearBackground (Color 14 36 43 255) >> drawText "NOEMA / GARDEN OF AFTERLIGHT" 55 60 28 (Color 232 230 204 255) >> drawText "Growing the voxel garden..." 57 113 20 (Color 171 210 192 255)
     bracketOnError
       (loadAudioAssets window `onException` closeAudioDevice (Just window))
-      (shutdownAudio window) $ \audio -> do
+      (shutdownAudio window)
+      $ \audio -> do
         began <- getTime
         state <- newIORef (Loading (LoadWorld (Startup window audio options began)))
         pure (GardenApp state)
 
--- | Real completed work, not a synthetic percentage. Stage changes delimit
--- world creation, common resources, chunk uploads, and the preview frame.
 {- ORMOLU_ENABLE -}
 
+-- | Real completed work, not a synthetic percentage. Stage changes delimit
+-- world creation, common resources, chunk uploads, and the preview frame.
 startupProgress :: GardenApp -> IO (StartupStage, Int, Int)
 startupProgress (GardenApp stateRef) = do
   state <- readIORef stateRef
@@ -189,7 +190,7 @@ gardenReady (GardenApp stateRef) = do
     Finished _ -> True
     _ -> False
 
--- CPP splits this declaration; retain both host branches verbatim.
+-- CPP branches are formatted by scripts/check-cpp-format.py.
 {- ORMOLU_DISABLE -}
 advancePreparation :: Preparation -> IO AppState
 advancePreparation (LoadWorld startup@(Startup _ _ options _)) = do
@@ -357,7 +358,7 @@ releaseSession (Session resources audio _ timingRef _ _ _ _ control pointer) =
         `finally` releaseResources resources
         `finally` closeWindow (Just window)
 
--- CPP splits this declaration; retain both host branches verbatim.
+-- CPP branches are formatted by scripts/check-cpp-format.py.
 {- ORMOLU_DISABLE -}
 stepFrame :: Session -> FrameState -> IO (Maybe FrameState)
 stepFrame (Session resources audio (LightSignal handle glow) timingRef limit shotFrame shotName tour control pointer) (FrameState simulation host frame previousTime) = do
@@ -431,8 +432,9 @@ stepFrame (Session resources audio (LightSignal handle glow) timingRef limit sho
       observed <- if control == ObserveOnly || frozen || esc then pure idleInput else pollInput (hostInvert updatedHost) (playerSlot (worldPlayer w)) pressed
       let driver = if tour == Just "islands" then IslandDriver else if isJust tour then StoryDriver else HumanDriver
           boundary = FrameBoundary (now - previousTime) (if frozen || esc then Frozen else Advancing) driver
-      (nextSimulation, FrameEffects batches) <- either (ioError . userError . ("Afterlight frame rejected: " <>) . show) pure $
-        Arena.play AfterlightSession boundary (frameChoices observed (restart && not wasPhoto)) simulation
+      (nextSimulation, FrameEffects batches) <-
+        either (ioError . userError . ("Afterlight frame rejected: " <>) . show) pure $
+          Arena.play AfterlightSession boundary (frameChoices observed (restart && not wasPhoto)) simulation
       -- Consume every tick, including ticks with no cues, in chronological order.
       mapM_ (\out -> void (react handle (1 / 60, Just out))) batches
       let nextWorld = simulationWorld nextSimulation
