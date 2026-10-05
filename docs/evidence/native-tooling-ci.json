@@ -1,52 +1,98 @@
 {
   "schema": 1,
   "observed_date_utc": "2026-10-05",
-  "head_commit": "e782f3dd0e6e6f519aea6b624598026e85f87de4",
-  "scope": "Diagnostic-only revision. Pinned boot-tool preflight fails before the native dependency matrix; no full native rerun is claimed.",
+  "head_commit": "f050504747be6e6603dcbeacbddb091c90db8b8b",
+  "scope": "Diagnostic-only entry-point contrast. Original Japanese build failures remain required; full native matrix skipped.",
   "windows_path_preflight": {
     "conclusion": "failure",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37292664685/job/111706505171#step:5:1",
-    "versions": {
-      "ghc": "9.6.7",
-      "cabal": "3.12.1.0",
-      "ghc_pkg": "9.6.7",
-      "boot_process": "1.6.19.0",
-      "cabal_build_ghc": "9.8.2"
-    },
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37294105358/job/111711160760#step:5:1",
     "comparisons": {
-      "direct_cabal": "Japanese-path package DB initialization failed",
-      "retained_python": "same failure on fresh project",
-      "boot_haskell_launcher": "same failure; launcher printed correct Japanese argument codepoints",
-      "direct_ghc_pkg": "all native/forward separator and inherited/UTF-8 diagnostic cases failed"
+      "PATH_package_tool": "Japanese init failed; ASCII-only and spaced-ASCII controls passed",
+      "real_versioned_package_tool": "Japanese init passed under inherited and UTF-8 diagnostics; both ASCII controls passed",
+      "filesystem": "package.cache verified for every successful case; absent for failed Japanese PATH cases",
+      "shim_metadata": "PATH shim points to the unversioned compiler-bin ghc-pkg.exe; the tested successful binary is compiler-bin ghc-pkg-9.6.7.exe",
+      "versions": "Both package tools report9.6.7; actual compiler installation obtained through ghcup whereis and verified"
     },
-    "filesystem": "No expected package.cache or game executable created. UTF-8 config text/bytes and exact command arguments are recorded in the job log.",
-    "qualification": "Failure reproduces outside the new CLI. Internal corruption point remains unproven; diagnostic question marks alone do not establish damaged argv.",
-    "next_contrast": "ASCII and spaced-ASCII controls outside Japanese ancestors; PATH launcher versus verified same-version compiler-bin executable."
+    "qualification": "This is a launcher/entry-point contrast, not evidence that GHC9.6.7 generally cannot handle Japanese paths. Unversioned inner wrapper remains a distinct boundary.",
+    "next_contrast": "Direct unversioned compiler-bin package manager and full Japanese library/executable builds with explicit same-version real compiler selection."
   },
   "native_jobs": [
     {
       "host": "Linux",
       "conclusion": "skipped",
-      "reason": "Windows path preflight failed before dependency builds"
+      "reason": "Original Windows path requirements failed preflight"
     },
     {
       "host": "Windows",
       "conclusion": "skipped",
-      "reason": "Windows path preflight failed before dependency builds"
+      "reason": "Original Windows path requirements failed preflight"
     },
     {
       "host": "macOS",
       "conclusion": "skipped",
-      "reason": "Windows path preflight failed before dependency builds"
+      "reason": "Original Windows path requirements failed preflight"
     }
   ],
   "retained_alpha_workflow": {
     "conclusion": "success for all six validation jobs",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37292664687",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37294105343",
     "deployment": "intentionally skipped on the pull request"
   },
   "last_full_runtime_revision": "a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b",
   "previous_revisions": [
+    {
+      "schema": 1,
+      "observed_date_utc": "2026-10-05",
+      "head_commit": "e782f3dd0e6e6f519aea6b624598026e85f87de4",
+      "scope": "Diagnostic-only revision. Pinned boot-tool preflight fails before the native dependency matrix; no full native rerun is claimed.",
+      "windows_path_preflight": {
+        "conclusion": "failure",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37292664685/job/111706505171#step:5:1",
+        "versions": {
+          "ghc": "9.6.7",
+          "cabal": "3.12.1.0",
+          "ghc_pkg": "9.6.7",
+          "boot_process": "1.6.19.0",
+          "cabal_build_ghc": "9.8.2"
+        },
+        "comparisons": {
+          "direct_cabal": "Japanese-path package DB initialization failed",
+          "retained_python": "same failure on fresh project",
+          "boot_haskell_launcher": "same failure; launcher printed correct Japanese argument codepoints",
+          "direct_ghc_pkg": "all native/forward separator and inherited/UTF-8 diagnostic cases failed"
+        },
+        "filesystem": "No expected package.cache or game executable created. UTF-8 config text/bytes and exact command arguments are recorded in the job log.",
+        "qualification": "Failure reproduces outside the new CLI. Internal corruption point remains unproven; diagnostic question marks alone do not establish damaged argv.",
+        "next_contrast": "ASCII and spaced-ASCII controls outside Japanese ancestors; PATH launcher versus verified same-version compiler-bin executable."
+      },
+      "native_jobs": [
+        {
+          "host": "Linux",
+          "conclusion": "skipped",
+          "reason": "Windows path preflight failed before dependency builds"
+        },
+        {
+          "host": "Windows",
+          "conclusion": "skipped",
+          "reason": "Windows path preflight failed before dependency builds"
+        },
+        {
+          "host": "macOS",
+          "conclusion": "skipped",
+          "reason": "Windows path preflight failed before dependency builds"
+        }
+      ],
+      "retained_alpha_workflow": {
+        "conclusion": "success for all six validation jobs",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37292664687",
+        "deployment": "intentionally skipped on the pull request"
+      },
+      "last_full_runtime_revision": "a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b",
+      "exclusions": [
+        "Later revision verification",
+        "Windows end-to-end gameplay/relocation acceptance"
+      ]
+    },
     {
       "schema": 1,
       "observed_date_utc": "2026-10-05",

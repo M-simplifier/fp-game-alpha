@@ -300,7 +300,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-ci.json",
-   "sha256_lf": "bc4c615b04bb4d0f58ee3a4cd8a0ae9471c9319041b546159e2b3b0696b0ee24",
+   "sha256_lf": "dccfb12d7963fb9479a2a1acde702007472130d486528880e575a59c23d89259",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19428,7 +19428,7 @@
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",
-   "sha256_lf": "8c793f01797609829cdce2cd6d68faf3f48c3fd0c5f26e3e94d932f27a8a71bd",
+   "sha256_lf": "fe2ab058e398ce866c088976485e66792af7d68e09e8b95c2454f98910320386",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Boot-library-only Windows Unicode path preflight, preserving independent Python/Cabal/GHC comparison and failed original outcomes."

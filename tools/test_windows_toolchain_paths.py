@@ -80,7 +80,7 @@ def main():
 
     # Contrast the installed PATH shim with GHCup's declared compiler location.
     # These observations cannot turn any original required failure into a pass.
-    real_ghc_pkg = None
+    real_ghc_pkg = real_ghc = alias_ghc_pkg = None
     if os.name == 'nt':
         shim = Path(ghc_pkg).with_suffix('.shim')
         shim_bytes = shim.read_bytes() if shim.is_file() else None
@@ -97,6 +97,15 @@ def main():
                        package_managers={str(path): path.is_file() for path in candidates})
                 if compiler.is_file():
                     version = run('real-compiler-version', [compiler, '--numeric-version'], ROOT, required=False)
+                    versioned_compiler = compiler.parent / 'ghc-9.6.7.exe'
+                    if versioned_compiler.is_file():
+                        selected = run('versioned-compiler-version', [versioned_compiler, '--numeric-version'], ROOT, required=False)
+                        if selected['exit_code'] == 0 and selected.get('stdout', '').strip() == '9.6.7':
+                            real_ghc = versioned_compiler
+                    if candidates[-1].is_file():
+                        alias = run('unversioned-ghc-pkg-version', [candidates[-1], '--version'], ROOT, required=False)
+                        if alias['exit_code'] == 0 and alias.get('stdout', '').strip().endswith(' 9.6.7'):
+                            alias_ghc_pkg = candidates[-1]
                     candidate = next((path for path in candidates if path.is_file()), None)
                     if candidate and version.get('stdout', '').strip() == '9.6.7':
                         version = run('real-ghc-pkg-version', [candidate, '--version'], ROOT, required=False)
@@ -109,7 +118,7 @@ def main():
     # Keep only the helper build outside the required Japanese game destination.
     with tempfile.TemporaryDirectory(prefix='fp-path-launcher-') as helper_name:
         helper = Path(helper_name).resolve()
-        for origin, executable in (('PATH', ghc_pkg), ('real', real_ghc_pkg)):
+        for origin, executable in (('PATH', ghc_pkg), ('real', real_ghc_pkg), ('unversioned', alias_ghc_pkg)):
             if executable is None:
                 continue
             for shape in ('ascii-only', 'ascii with spaces'):
@@ -128,7 +137,11 @@ def main():
                        [ghc, '-threaded', '-Wall', '-Werror', '-package', 'process',
                         '-package', 'bytestring', '-outputdir', helper, '-o', launcher, source], helper)
         run('boot-process-version', [ghc_pkg, 'field', 'process', 'version'], helper)
-        for route in ('direct-cabal', 'retained-python', 'haskell-process'):
+        original_routes = ('direct-cabal', 'retained-python', 'haskell-process')
+        contrasts = ('direct-cabal-real-compiler', 'direct-cabal-real-tools',
+                     'project-selected-real-tools') if real_ghc and real_ghc_pkg else ()
+        for route in (*original_routes, *contrasts):
+            required = route in original_routes
             with tempfile.TemporaryDirectory(prefix='FP native acceptance 日本語 ') as temporary:
                 project = Path(temporary).resolve() / 'first independent game 日本語'
                 project.mkdir()
@@ -165,16 +178,25 @@ def main():
                         report(label=route, required=True, exit_code=1, error='Launcher compilation failed')
                         continue
                     command = [launcher, project, *command]
-                result = run(route, command, project)
+                elif route == 'direct-cabal-real-compiler':
+                    command += [f'--with-compiler={real_ghc}']
+                elif route == 'direct-cabal-real-tools':
+                    command += [f'--with-compiler={real_ghc}', f'--with-hc-pkg={real_ghc_pkg}']
+                elif route == 'project-selected-real-tools':
+                    local = ('with-compiler: ' + real_ghc.as_posix() + '\n'
+                             'with-hc-pkg: ' + real_ghc_pkg.as_posix() + '\n')
+                    (project / 'cabal.project.local').write_text(local, encoding='utf-8', newline='\n')
+                    report(route=route, project_local_utf8=local)
+                result = run(route, command, project, required=required)
                 binaries = list((state / 'dist').rglob('path-probe.exe' if os.name == 'nt' else 'path-probe'))
                 binaries = [path for path in binaries if path.is_file()]
                 package_db_exists = (state / 'dist/packagedb/ghc-9.6.7/package.cache').is_file()
-                report(label=route + '-files', required=True,
+                report(label=route + '-files', required=required,
                        exit_code=0 if binaries and package_db_exists and config.read_bytes() == contents.encode('utf-8') else 1,
                        executable_paths=list(map(str, binaries)),
                        package_db_exists=package_db_exists)
                 if binaries:
-                    run(route + '-executable', [binaries[0]], project)
+                    run(route + '-executable', [binaries[0]], project, required=required)
                 # Output encoding is a diagnostic comparison, never a passing fallback.
                 if result['exit_code']:
                     run(route + '-utf8-diagnostic', command, project, required=False,
@@ -190,13 +212,15 @@ def main():
                             report(label='package-db-files', required=True,
                                    exit_code=0 if (database / 'package.cache').is_file() else 1,
                                    path=str(database), exists=database.is_dir())
-                    if real_ghc_pkg:
+                    for origin, executable in (('real', real_ghc_pkg), ('unversioned', alias_ghc_pkg)):
+                        if executable is None:
+                            continue
                         for encoding in ('inherited', 'UTF-8'):
-                            database = project / f'real compiler package db 日本語 {encoding}'
-                            run('real-ghc-pkg-init-' + encoding, [real_ghc_pkg, 'init', database],
+                            database = project / f'{origin} compiler package db 日本語 {encoding}'
+                            run(origin + '-ghc-pkg-init-' + encoding, [executable, 'init', database],
                                 project, required=False,
                                 env=None if encoding == 'inherited' else {**os.environ, 'GHC_CHARENC': encoding})
-                            report(label='real-package-db-files', path=str(database),
+                            report(label=origin + '-package-db-files', path=str(database),
                                    exists=database.is_dir(), cache_exists=(database / 'package.cache').is_file())
     failures = [item['label'] for item in records if item.get('required') and item['exit_code'] != 0]
     report(status='fail' if failures else 'pass', failed_checks=failures)
