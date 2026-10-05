@@ -1,0 +1,187 @@
+name: native-tooling
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/**'
+      - 'templates/**'
+      - 'libraries/**'
+      - 'formatter.json'
+      - 'docs/**'
+      - '.agents/**'
+      - 'editors/vscode/**'
+      - 'editors/neovim/**'
+      - '.github/workflows/native-tooling.yml'
+  pull_request:
+    paths:
+      - 'tools/**'
+      - 'templates/**'
+      - 'libraries/**'
+      - 'formatter.json'
+      - 'docs/**'
+      - '.agents/**'
+      - 'editors/vscode/**'
+      - 'editors/neovim/**'
+      - '.github/workflows/native-tooling.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+jobs:
+  windows-path-preflight:
+    # Diagnose the exact compiler/path boundary before rebuilding CLI dependencies.
+    # This uses only GHC boot libraries and the retained independent Python route.
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+        with:
+          ghc-version: '9.6.7'
+          cabal-version: '3.12.1.0'
+          cabal-update: false
+      - name: Compare Windows Unicode paths with pinned boot tools
+        timeout-minutes: 5
+        run: python tools/test_windows_toolchain_paths.py
+  native-cli:
+    needs: windows-path-preflight
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    # The measured index acquisition plus resumed cold dependency build already
+    # took about fourteen minutes on Linux. Allow slower first Windows/macOS
+    # setup; cached runs still finish normally and subprocess tests stay bounded.
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - id: haskell
+        uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+        with:
+          ghc-version: '9.6.7'
+          cabal-version: '3.12.1.0'
+          cabal-update: false
+      - name: Identify native dependency cache
+        id: cache-environment
+        shell: bash
+        run: |
+          echo "image=${ImageOS}-${ImageVersion}" >> "$GITHUB_OUTPUT"
+          python - <<'PY'
+          import json, os, subprocess
+          paths = json.loads(subprocess.check_output(['cabal', 'path', '--verbose=0', '--ignore-project', '--output-format=json'], text=True))
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              print('packages=' + paths['remote-repo-cache'], file=output)
+          PY
+      # Only immutable package/index artifacts and compiled dependencies are cached.
+      # Never restore project objects, final executables, game output or local config.
+      # PRs restore only; a validated main push is the only cache producer.
+      - name: Restore pinned native dependencies
+        id: native-dependencies
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ${{ steps.haskell.outputs.cabal-store }}
+            ${{ steps.cache-environment.outputs.packages }}
+          key: native-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-environment.outputs.image }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-${{ hashFiles('tools/haskell/*.cabal', 'tools/haskell/cabal.project*', '.github/workflows/native-tooling.yml') }}
+      - name: Select explicit Windows compiler profile
+        if: runner.os == 'Windows'
+        shell: pwsh
+        timeout-minutes: 5
+        run: |
+          $selection = Join-Path $env:RUNNER_TEMP 'fp-game-compiler.txt'
+          python tools/test_windows_toolchain_paths.py --select-compiler-output $selection
+          if ($LASTEXITCODE -ne 0) { throw 'Declared Windows compiler profile failed' }
+          $compiler = [IO.File]::ReadAllText($selection).Trim()
+          Write-Host "Explicit project compiler: $compiler"
+          "FP_GAME_COMPILER=$compiler" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          $profile = 'with-compiler: ' + $compiler.Replace('\', '/') + "`n"
+          $file = [IO.File]::Open((Join-Path $PWD 'tools/haskell/cabal.project.local'), [IO.FileMode]::CreateNew)
+          try {
+            $bytes = [Text.UTF8Encoding]::new($false).GetBytes($profile)
+            $file.Write($bytes, 0, $bytes.Length)
+          } finally { $file.Dispose() }
+      - name: Bootstrap native CLI on Linux and macOS
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          if [ '${{ steps.native-dependencies.outputs.cache-hit }}' = true ]; then
+            sh tools/bootstrap-fp-game.sh
+          else
+            sh tools/bootstrap-fp-game.sh --download
+          fi
+      - name: Check Windows bootstrap discovery before dependency acquisition
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          @'
+          from pathlib import Path
+          import os, sys, tempfile
+          sys.path.insert(0, 'tools')
+          from test_native_cli import bootstrap_refusals
+          with tempfile.TemporaryDirectory(prefix='native bootstrap checks ') as temporary:
+              bootstrap_refusals(Path(temporary).resolve(), Path(os.environ['FP_GAME_COMPILER']))
+          '@ | python -
+      - name: Bootstrap native CLI on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if ('${{ steps.native-dependencies.outputs.cache-hit }}' -eq 'true') {
+            ./tools/bootstrap-fp-game.ps1 -CompilerPath $env:FP_GAME_COMPILER
+          } else {
+            ./tools/bootstrap-fp-game.ps1 -Download -CompilerPath $env:FP_GAME_COMPILER
+          }
+      - name: Install pinned formatter and check native package sources
+        shell: bash
+        run: |
+          python tools/formatter.py install
+          python - <<'PYTHON'
+          from pathlib import Path
+          import subprocess, sys
+          sys.path.insert(0, 'tools')
+          import formatter
+          root = Path.cwd()
+          executable = formatter.verified(root)
+          sources = [path for path in formatter.source_files(root) if path.is_relative_to(root / 'tools/haskell')]
+          assert sources, 'No native package sources selected for formatting'
+          for path in sources:
+              subprocess.run([str(executable), '--mode', 'check', '--check-idempotence', '--ghc-opt=-XGHC2021', str(path)], check=True)
+              if '{-# LANGUAGE CPP #-}' in path.read_text(encoding='utf-8'):
+                  # Exercise the formatter with each supported platform define.
+                  # This is formatting coverage, not an OS runtime substitute.
+                  for define in ['linux_HOST_OS', 'darwin_HOST_OS', 'mingw32_HOST_OS']:
+                      subprocess.run([str(executable), '--mode', 'check', '--check-idempotence',
+                                      '--ghc-opt=-XGHC2021', '--ghc-opt=-D' + define, str(path)], check=True)
+          PYTHON
+      - name: Test typed native package
+        # Dependencies were built above; contain a stalled unit process without
+        # spending the entire cold-setup job ceiling. No tests are skipped.
+        timeout-minutes: 5
+        working-directory: tools/haskell
+        run: |
+          ghc-pkg field process version
+          cabal test all --offline --builddir=../../.build/native-tool --test-show-details=direct
+      - name: Execute independent native game development and refusal contracts
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then
+            python tools/test_native_cli.py --binary .build/tools/fp-game.exe --windows-compiler "$FP_GAME_COMPILER"
+          else
+            python tools/test_native_cli.py --binary .build/tools/fp-game
+          fi
+      - name: Save validated native dependencies on main only
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.native-dependencies.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ${{ steps.haskell.outputs.cabal-store }}
+            ${{ steps.cache-environment.outputs.packages }}
+          key: ${{ steps.native-dependencies.outputs.cache-primary-key }}

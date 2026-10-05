@@ -1,5 +1,15 @@
 # Setup and the first build
 
+For the opt-in Haskell executable and pre-GHC bootstrap checks, see
+[native tooling](native-tooling.md). The commands below remain the established
+Python compatibility route; neither path silently installs a compiler. For
+Windows projects with Japanese paths, use the
+[explicit native compiler selection](native-tooling.md#windows-explicitly-select-the-installed-compiler)
+recipe before bootstrap/build, and keep its separate tool and game selections
+clear. That opt-in route preserves installed versions and PATH. The experimental
+CLI/terminal-workspace profile passed actual Linux, Windows and macOS CI at
+`be1208af`; the native guide records the exact jobs and remaining scope limits.
+
 The tested baseline is Python 3.12+, GHC 9.6.7 and Cabal 3.12.1.0. This pins
 the project baseline, not a claim about the latest or recommended upstream
 release. Git is needed to clone and run publication checks. The kernel needs
@@ -40,8 +50,8 @@ python tools/fp_game.py test
 python tools/fp_game.py context libraries/game-transition/src/Game/Transition.hs --symbol replay
 ```
 
-Doctor reports observed versions, missing tools, optional HLS and the baseline
-comparison. Its `ready-to-try` result means the tools were detected; only an
+The Python doctor shown above reports observed versions, missing tools, optional
+HLS and the baseline comparison. Its `ready-to-try` result means the tools were detected; only an
 actual build/test establishes this checkout. JSON output is available with
 `--json` on each subcommand. Failures return nonzero.
 
@@ -51,6 +61,23 @@ An empty global Cabal cache therefore works without fetching Hackage security
 metadata. Your global Cabal configuration is not modified. A raw `cabal build
 --offline` with a brand-new global config can still try that bootstrap; use
 the CLI path for first-user acceptance.
+
+For the native route, `doctor` and saved-source `check` resolve the game's
+compiler through `cabal path`, honoring project selection and custom wrappers.
+Compiler-selection errors stop the command instead of falling back to PATH.
+With prerequisites present, native doctor can write guarded `.build`
+temporary configuration/cache state, cleans that query state afterward, and
+performs no game build. The shipped local profile needs no network access. Custom
+Cabal remote imports retain their own side effects, so inspect and trust project
+configuration. The query has a fixed 20-second timeout. With no Cabal on PATH,
+doctor creates no state; an explicit compiler does not require ambient `ghc`.
+
+A compiler-only `cabal.project.local` is an ignored machine-local file, not part
+of generated source. Never overwrite an existing profile; inspect and preserve
+its settings. Use a raw forward-slash absolute path when deliberately adding
+`with-compiler`, and recreate that local choice after relocation. The Windows
+bootstrap's `-CompilerPath` affects the separate tool package only, so it does
+not replace this game profile. See the linked recipe for exclusive UTF-8 creation.
 
 Read [the type and arena guide](architecture.md) after the first tests. Native
 graphics, browser, server and mobile toolchains require separate acceptance

@@ -1,5 +1,11 @@
 # Compiler and editor contract
 
+The [native Haskell CLI](native-tooling.md) now provides an opt-in typed
+create-plan/create/doctor/build/test/check/run path. Its installed binary, source
+foundation and selected game are separate roots. The contract below continues
+to describe the retained Python inspection/editor path; adapters are not silently
+switched before their own parity checks.
+
 `tools/fp_game.py` is a Python-standard-library CLI, independent of an editor.
 It starts tools with argument arrays and captures their exit codes and output;
 there is no shell expansion. UTF-8 input/output, paths with spaces, Windows

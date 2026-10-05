@@ -70,15 +70,33 @@ then connect the new core. Report actual access/installation blockers promptly;
 do not claim a platform works just because a different host's core test passed.
 Respect permissions for tool installation, downloads and deployment.
 
-The current `fp_game.py scaffold` command is an **optional terminal-adventure
-example**, not a universal generator or a requirement to use this workflow.
+The native `fp-game create` command and retained `fp_game.py scaffold` command
+are an **optional terminal-adventure example**, not a universal generator or a requirement to use this workflow.
 Its limited flags must not limit the AI's ability to author a different Cabal
-project and host. See [that example's commands](terminal-starter.md) when the
+project and host. Use the [native setup route](native-tooling.md) when choosing the
+Haskell tooling: diagnose before GHC, explicitly bootstrap once, then continue
+with the copied native source/executable. Preserve the chosen destination and
+keep tool dependencies separate from game dependencies. See [that example's commands](terminal-starter.md) when the
 requested game really fits them. Compiler inspection/editor tools can also be
 used independently; see [tooling](tooling.md), [editors](editors.md), and
 [Haskell Design / haskell-editor-setup](haskell-design.md) for structured
 map/outline/show reading and the original design-view adapters. Keep its guide
 or a pinned public link reachable in the new game when using it.
+
+When an explicit compiler choice is needed, follow the
+[Windows compiler-profile recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler).
+Probe the actual installed executable; do not silently change versions, rewrite
+PATH or bypass an alias. `-CompilerPath` selects the separate tooling bootstrap,
+while the game uses its own Cabal project selection. Inspect and preserve any
+existing local profile or compiler wrapper. Add a compiler-only
+`cabal.project.local` exclusively when absent, using a raw forward-slash
+absolute path; keep it ignored and out of copied/generated source. Recreate it
+deliberately for a relocated workspace. Native doctor/check follow Cabal's
+selection and fail rather than guessing another compiler. The experimental native
+CLI/terminal-workspace profile passed actual three-OS CI at `be1208af`, including
+Windows Japanese paths and independent continuation; the native guide links the
+exact jobs. Continue the requested game's real build, tests and host-specific
+play checks instead of treating that bounded profile as every game's acceptance.
 
 ## 4. Implement a real playable slice, then continue
 

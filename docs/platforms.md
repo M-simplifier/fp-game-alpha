@@ -38,3 +38,24 @@ checks and a repeatable bounded smoke route exist. Real-browser rendering,
 pointer/keyboard, interruption and responsive-device acceptance remain unverified.
 The host is loopback-only; another machine's browser cannot reach it. No tunnel
 or public deployment is part of this route. Windows/macOS host support is unclaimed.
+
+## Native developer tooling migration
+
+The [Haskell CLI](native-tooling.md#verified-ci-and-local-measurements) is an
+**experimental developer CLI and optional terminal-workspace route** on Linux,
+Windows and macOS. At `be1208af`, all three actual CI jobs completed bootstrap,
+typed package tests and independent game-development/relocation checks. The
+[route registry](support/routes.json) and native guide link each exact job.
+
+Windows uses GHC 9.6.7's same-installation versioned compiler through the
+[explicit selection recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler).
+It selects bootstrap and game compilers separately, without changing global PATH
+or installing a different version. Existing project settings and wrappers remain
+authoritative; machine-local profiles are deliberately recreated after relocation.
+The unversioned launcher failure and earlier incomplete attempts remain historical
+evidence, not the current route status.
+
+This establishes the bounded CLI and scripted terminal-game profile, not a
+physical editor, graphical host or every game brief. Existing Python/core evidence
+retains its original scope. Optional terminal creation does not limit other hosts;
+implement and verify the requested game on its actual target.

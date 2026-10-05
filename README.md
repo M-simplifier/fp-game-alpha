@@ -17,6 +17,15 @@ See [the development workflow](docs/new-game.md). It separates the intended
 experience from the platform checks already completed; the foundation is still
 alpha and does not establish that every target or generated game is correct.
 
+## Native Haskell tooling migration
+
+An opt-in `fp-game` executable now owns typed planning, optional terminal creation,
+doctor, build, test, check and run. Bootstrap it once, then run the binary directly;
+generated games carry the source and can continue after relocation without Python
+for those migrated commands. See [native setup and its evidence boundaries](docs/native-tooling.md).
+The established Python/editor path below remains available during cross-platform
+qualification. This migration does not restrict `$new-game` to the terminal starter.
+
 ## Optional terminal starter
 
 This command path is one maintained example, not a restriction on `$new-game`.

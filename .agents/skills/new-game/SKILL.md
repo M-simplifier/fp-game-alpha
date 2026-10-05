@@ -14,6 +14,17 @@ Reuse known decisions and ask only for missing game-changing requirements.
 Design this game's domain types, rules, observations and host from its brief.
 References teach techniques; they are not mandatory generation templates.
 The terminal scaffold is optional and must not substitute for another target.
+Use the [native tooling route](../../../docs/native-tooling.md) for migrated
+commands: check prerequisites, explicitly bootstrap once, then use the local
+binary. On Windows, follow its opt-in explicit compiler recipe when needed:
+probe the actual installed executable, preserve existing Cabal settings/wrappers,
+and distinguish bootstrap `-CompilerPath` from the game's own compiler profile.
+Never overwrite `cabal.project.local`, rewrite PATH or silently switch versions.
+Keep that ignored machine-local profile out of generated source and recreate it
+deliberately after relocation. Native doctor/check honor Cabal selection and
+fail without a PATH fallback; a bounded compiler probe is not full acceptance.
+Keep the chosen game folder independent and retain copied continuation source.
+Legacy inspection/formatter tools have separate dependencies.
 Own environment preparation, implementation and verification within permissions.
 
 Deliver a real playable slice on the requested host, then revise it from play.

@@ -1789,6 +1789,16 @@
       "prefix": "research/quantity/lh-checker/recovered/metadata/trusted-source/",
       "license": "research/quantity/lh-checker/recovered/metadata/trusted-source/LIQUIDHASKELL-LICENSE",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "tools/haskell/",
+      "license": "tools/haskell/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": ".github/workflows/native-tooling.yml",
+      "license": "LICENSE",
+      "maturity": "experimental"
     }
   ]
 }

@@ -1,0 +1,1981 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "scope": "Real native CLI and optional terminal workspace development; no physical editor, graphical host or human play acceptance.",
+  "environment": {
+    "os": "Linux",
+    "architecture": "x86_64",
+    "ghc": "9.6.7",
+    "cabal": "3.12.1.0",
+    "compiler_profile": "explicit project-local compiler; Cabal authoritative selection"
+  },
+  "binary_sha256": "b6d2ba3e0abd378473d4f35eab9aefff3b9b6da620dfabcf4621404c2a94e1b0",
+  "input_source_scope": "Native package, bootstrap, harness, optional starter/core fixtures, legacy contract oracle, native/prevention guides, workflow and formatter selection; excludes local outputs and evidence reports.",
+  "input_sha256_lf": {
+    ".github/workflows/native-tooling.yml": "43bf61721d5e148a86c5ac05ab7cc0ccbdf21bfd4529282a31128610eeaea496",
+    "docs/failure-prevention.md": "0b67811f9fe7556013d1d5f30501451e864607e5e9dc436eded6d97ec1786986",
+    "docs/native-tooling.md": "1fc25568455a20b593f0d6145836c1453d40dc7b6898571e0ecf69a8992aa344",
+    "formatter.json": "da691d87ad89f0ce9fce220137177b3a22c4fd89486168b839730697cf044649",
+    "libraries/game-arena/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "libraries/game-arena/game-arena.cabal": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
+    "libraries/game-arena/src/Game/Arena/Finite.hs": "ce396e78e36a2dc829157b52e86f368d6733a44de0ee7d929fddcdd64a684f95",
+    "libraries/game-arena/src/Game/Arena.hs": "08d15eaa8a13966734abf8b6c110625f35dde716263bdad2c19b04d9fdd8d77e",
+    "libraries/game-arena/test/Laws.hs": "05005934d41e516d91d40eada89f2016e6b9dd99ac4fdbc994997671f386cda8",
+    "libraries/game-transition/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "libraries/game-transition/game-transition.cabal": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1",
+    "libraries/game-transition/src/Game/Transition.hs": "811b03719b7ec72b49bb17118ee7b3e9123152c4895b9926ded5a3b25b78854d",
+    "libraries/game-transition/test/Laws.hs": "390f00b442cf68cdb5fa14c32b101fefaff2d042f41bef94681f1e655e91d9b5",
+    "templates/terminal-adventure/GAME-SPEC.md.tmpl": "cb5cc4c9872cdfc26d5cb793c6b3019e6d2d147066deebdfb7fd8a60b442a380",
+    "templates/terminal-adventure/README.md.tmpl": "d791847ee2f31d3f86ee044d13be30f2574d357bd1609f345bf4ec3f12c64b54",
+    "templates/terminal-adventure/app/Main.hs": "db204458d258043b618295aa078c87d320ecd1add4d4f976870107153aaf17c2",
+    "templates/terminal-adventure/assets/README.md": "badea09ef39d1a08ad3d195af7fb3912bf079323e9511c2e44dcd1621c365aee",
+    "templates/terminal-adventure/build.config": "e67199572860632f9db2684714c34d6e4e4de80a10d0ac28c71536b167094367",
+    "templates/terminal-adventure/cabal.project": "4e964242f5d416283c1a3975e9c677c1d8201a836b11337ae30907ce4fff5b2d",
+    "templates/terminal-adventure/config/game.conf.tmpl": "6df6831507d6567b4e82fa06b42c611f4b1648b2a28822f266c9c828e5c13284",
+    "templates/terminal-adventure/docs/DEVELOPMENT.md": "bf3a3c7a68c5e543f2dec51857bed4ae848af915cd95cb394f31a18e27e5f275",
+    "templates/terminal-adventure/docs/TECHNICAL-GUIDES.md": "427832d8496228036fadf4898fe686869c38eab84026f9cabce97aa9f7bb17dd",
+    "templates/terminal-adventure/formatter.json": "dbd667f184684f67b7e2b8c0b71555b6607aec082e6cc7116a0d34ef9e6956a2",
+    "templates/terminal-adventure/game.cabal.tmpl": "e51a65ec960946d65ae56c47bca1613377d6fa7062630da9b865b83535dda0cc",
+    "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl": "61a076705d4dbc99ed94e432bcc41a6447a1828d6c4d6ed15b6b19861ee2ca3e",
+    "templates/terminal-adventure/src/Game/Adapter.hs": "52f4c7bcabb68de8bed4ea8973c8310738736faa7d2e4486c6a9cddc3cee0a50",
+    "templates/terminal-adventure/src/Game/Model/Internal.hs": "867567138e9ec0006b1102007aaeb53edfee1253eeb657dacd60488706769cbf",
+    "templates/terminal-adventure/src/Game/Model.hs": "6e92fe1a3e2d0067e4b75f7c69cecf15db230008c94d36b18b17d4411491badc",
+    "templates/terminal-adventure/src/Game/Rules.hs": "53f8a00c7f1b1f985125b2ecdb38627ec3e12c3b5059344780dcd68d9d565c14",
+    "templates/terminal-adventure/src/Game/Save.hs": "5ff176e7196a5465046a5c8e1e2f8af193d84cd0fa1e9b5fe1d3563fe7fa700f",
+    "templates/terminal-adventure/src/Game/View.hs": "95048aaebcb3fde0a4b8674025630c16c05d84ad31b7e45e5fd21fa483cd55e0",
+    "templates/terminal-adventure/test/Spec.hs": "43640cec9798345d6e7d946458eec736b6d78b9db4dff55a184e80d424dafc6e",
+    "tools/acceptance/features.py": "14da4e30d7d0615585fbc575761d89e6b58babb36d72431e93ab473b0448ae49",
+    "tools/bootstrap-fp-game.ps1": "41dd8a34950d082bcbfbe7e5446bd946417f0ec59e9d520148784b36e72f6b1e",
+    "tools/bootstrap-fp-game.sh": "4ec0ab3189571b8d1bbb6b1476786f17f22e42629c87fb9e45976a0326dfd83e",
+    "tools/formatter.lock.json": "da7f851116f3624d01b00d0018978c8b01bd86a59ba044046ec46b7f6e91a967",
+    "tools/formatter.py": "be915f97d2283cde52fbaf8b9d63fa434d29d0ac329acafdbf1f7e4993afe135",
+    "tools/fp_game.py": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b",
+    "tools/haskell/LICENSE": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+    "tools/haskell/README.md": "7866cc76445ecd766c161542ad0a57592392a6c542aa407101172392fa3e1396",
+    "tools/haskell/app/Main.hs": "e1080b183cfdf5af497c721889853052456e37e0506e56c7cac510ef765bf341",
+    "tools/haskell/cabal.project": "25f08a9d44f8aeaca807c6d5725f4a1f8f5cb1b90266b11c3f4b9dd763771fc3",
+    "tools/haskell/cabal.project.freeze": "f151b4cb20713dc0aba3ad25eab29d7bba8eabbed484e0c47ee3dfaf59cc9b54",
+    "tools/haskell/fp-game-tooling.cabal": "bd093c09bf8dd870c0bf3c706f8165e8f1d9e41678f4876c0bf217d3f75e541d",
+    "tools/haskell/src/FpGame/CLI.hs": "a9d175a2a44e2194f4f7c21afd164b9e0f2addb2720144104918b518b4f67850",
+    "tools/haskell/src/FpGame/Cabal.hs": "b3063fbbf725f5d880906035e45d53bcc9e95fc52b48a89aba89edbd2df6a581",
+    "tools/haskell/src/FpGame/Command.hs": "7c96460b50fbd0d2a365eb36447b697be47cffe639b9e8ec0c185f5b5871fbdd",
+    "tools/haskell/src/FpGame/Config.hs": "3df7e6a5fd8341ca5371a8e9bc6b64fd1b2656ae5d33b80af686eb140cf76b0f",
+    "tools/haskell/src/FpGame/Create.hs": "b79608659637d2378486551c38f76afdabf143f1acca3cee36d424df91780d3d",
+    "tools/haskell/src/FpGame/Error.hs": "05b3cc493e4f0f14700743149c16962032be869d40a855eae799764338a99eff",
+    "tools/haskell/src/FpGame/Path.hs": "47b391e61d9b575cdb32aeb446bc6f6d7b72b4fb81f43098fc8c4b93d667e1c2",
+    "tools/haskell/src/FpGame/Process.hs": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
+    "tools/haskell/src/FpGame/Result.hs": "4c8f6e5c056f7136605b2e0e91a5eba0318a61ef448914a16a926eb99c236959",
+    "tools/haskell/test/CreateSpec.hs": "2647d89e749bcd26613bc99b04a81bdea027ba12f19b2341bd57130a7ebdb74e",
+    "tools/haskell/test/Main.hs": "3098b444e7db4dd22bf61963727d46d3cf2c00707e7acd95e9e1ccc06879fe02",
+    "tools/haskell/test/ProcessSpec.hs": "0d06d85db44c78e4042fa97cbd23e1d5e40a47e6688ca6924a8a77c368705c89",
+    "tools/scaffold.py": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9",
+    "tools/test_native_cli.py": "b9f25bcf8c7c2bea9dd13a604036b392ce6d95a69d886e23f5bf74b02da97089",
+    "tools/test_native_terminal.py": "27d9ed288fe2319451878a251b9528df004c9d31719f23c17d1723af86a2a451",
+    "tools/test_windows_toolchain_paths.py": "ef606a9b5018e23250611aed2e2b78ad052721231c37bfa0ba37ceed9d3749be",
+    "tools/toolchains.json": "32e39c823f87e4672a3fb2ca419e24c838a2f455b00ec60af2b48ae546f6083c"
+  },
+  "checks": [
+    {
+      "check": "real-native-executable-present",
+      "status": "pass"
+    },
+    {
+      "check": "trial-outside-foundation",
+      "status": "pass"
+    },
+    {
+      "check": "bootstrap-tool-check",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.183,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "bootstrap-before-ghc-exists",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.003,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "bootstrap-missing-tool-diagnostic",
+      "status": "pass"
+    },
+    {
+      "check": "bootstrap-check-creates-no-output",
+      "status": "pass"
+    },
+    {
+      "check": "powershell-duplicate-path-regression",
+      "status": "not-applicable",
+      "reason": "Windows application/PATH-separator contract"
+    },
+    {
+      "check": "bootstrap-refuses-directory-leaf",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.071,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "bootstrap-directory-preserved",
+      "status": "pass"
+    },
+    {
+      "check": "bootstrap-refuses-linked-leaf",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.063,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "bootstrap-outside-target-untouched",
+      "status": "pass"
+    },
+    {
+      "check": "foundation-snapshot-has-no-git",
+      "status": "pass"
+    },
+    {
+      "check": "native-doctor",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.356,
+      "stdout_sha256": "947d9359b02ab521352f45a72ca3605d649cc4981125f80d0281eb9c2859fda1"
+    },
+    {
+      "check": "native-doctor-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-doctor-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-doctor-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-does-not-initialize-global-cabal-home",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-identifies-haskell",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-not-a-build-claim",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-reports-selected-compiler",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-cleans-scoped-query-state",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.436,
+      "stdout_sha256": "e0d34866d708ffde7879af2afca6baaf1cadbefc75e39a480bd6f246c4a05f10"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-honors-selected-compiler-without-ambient-ghc",
+      "status": "pass"
+    },
+    {
+      "check": "no-ambient-doctor-cleans-query-state",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.574,
+      "stdout_sha256": "947d9359b02ab521352f45a72ca3605d649cc4981125f80d0281eb9c2859fda1"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-removes-only-its-own-query-state",
+      "status": "pass"
+    },
+    {
+      "check": "missing-tools",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.015,
+      "stdout_sha256": "48dfe9a1ad9d13962a3468581830f97627c58b9b24eda02bfe12a1b2ecd591fc"
+    },
+    {
+      "check": "missing-tools-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "missing-tools-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "missing-tools-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "missing-tools-explicit",
+      "status": "pass"
+    },
+    {
+      "check": "missing-tools-doctor-creates-no-state",
+      "status": "pass"
+    },
+    {
+      "check": "unknown-command",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "seconds": 0.029,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "executable-option-injection-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.015,
+      "stdout_sha256": "e78243809b3428418029dc4d9ba5715512fdbf70b099301b7e32986e96102d50"
+    },
+    {
+      "check": "executable-option-injection-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "executable-option-injection-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "executable-option-injection-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "executable-option-injection-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "invalid-executable-rejected-before-build-state",
+      "status": "pass"
+    },
+    {
+      "check": "interactive-deadline-refused-before-config",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.014,
+      "stdout_sha256": "ecc6730d045188daef3ba4af2dff557a596b0e350125f658992c42c12277f3fa"
+    },
+    {
+      "check": "interactive-deadline-refused-before-config-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "interactive-deadline-refused-before-config-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "interactive-deadline-refused-before-config-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "interactive-deadline-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "interactive-deadline-specific-diagnostic",
+      "status": "pass"
+    },
+    {
+      "check": "interactive-deadline-creates-no-build-state",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-plan",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.055,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
+    },
+    {
+      "check": "native-create-plan-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-plan-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-plan-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "plan-creates-nothing",
+      "status": "pass"
+    },
+    {
+      "check": "plan-status",
+      "status": "pass"
+    },
+    {
+      "check": "installed-plan-needs-no-toolchain-or-python",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.055,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
+    },
+    {
+      "check": "installed-plan-needs-no-toolchain-or-python-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "installed-plan-needs-no-toolchain-or-python-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "installed-plan-needs-no-toolchain-or-python-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "installed-plan-no-tools-equivalent",
+      "status": "pass"
+    },
+    {
+      "check": "plan-file-hashes",
+      "status": "pass"
+    },
+    {
+      "check": "relative-root-create-plan",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.055,
+      "stdout_sha256": "894f04fbfb115488b257441cd92f30cbd0d1fba490a265800166b009c5650ca3"
+    },
+    {
+      "check": "relative-root-create-plan-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "relative-root-create-plan-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "relative-root-create-plan-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "relative-roots-resolve-from-caller",
+      "status": "pass"
+    },
+    {
+      "check": "relative-plan-creates-nothing",
+      "status": "pass"
+    },
+    {
+      "check": "caller-relative-destination-plan",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.135,
+      "stdout_sha256": "67333d025aa7e5225fcd9ed9a3b54a768590b2a10a2c57153d508c55e4cc7420"
+    },
+    {
+      "check": "caller-relative-destination-plan-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "caller-relative-destination-plan-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "caller-relative-destination-plan-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "destination-independent-of-project-root",
+      "status": "pass"
+    },
+    {
+      "check": "relative-root-create",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.304,
+      "stdout_sha256": "c72dfc2f99de111ba79502f12cf0872012349fa6fef6e1a3b5aeb6e9a1ebc1ad"
+    },
+    {
+      "check": "relative-root-create-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "relative-root-create-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "relative-root-create-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "relative-create-chosen-root-only",
+      "status": "pass"
+    },
+    {
+      "check": "relative-create-planned-bytes",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-contract-plan",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.181,
+      "stdout_sha256": "0d31576d08b0f7a63d0d53dc6ff40743fde5c1764af96dc59be596b4180032cc"
+    },
+    {
+      "check": "legacy-contract-plan-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-contract-plan-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-contract-plan-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-plan-shape-compatible",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-plan-metadata-compatible",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-game-source-bytes-compatible",
+      "status": "pass"
+    },
+    {
+      "check": "native-plan-ignores-local-outputs",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.343,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
+    },
+    {
+      "check": "native-plan-ignores-local-outputs-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-plan-ignores-local-outputs-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-plan-ignores-local-outputs-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "explicit-distribution-unaffected-by-binaries",
+      "status": "pass"
+    },
+    {
+      "check": "linked-template-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.051,
+      "stdout_sha256": "eb8d1f606ade71048f6ded039959b8445ded74c006b77fed499e577558d4d7ec"
+    },
+    {
+      "check": "linked-template-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "linked-template-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "linked-template-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "linked-template-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "native-plan-alias",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.1,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
+    },
+    {
+      "check": "native-plan-alias-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-plan-alias-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-plan-alias-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "plan-alias-equivalent",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-dry-run",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.195,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
+    },
+    {
+      "check": "native-create-dry-run-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-dry-run-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-dry-run-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "dry-run-equivalent-and-no-directory",
+      "status": "pass"
+    },
+    {
+      "check": "linked-foundation-root-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.015,
+      "stdout_sha256": "f3e89b491d82176bada6c9808f5dcebeddaf03afa13d1361067d8f81271d8147"
+    },
+    {
+      "check": "linked-foundation-root-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "linked-foundation-root-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "linked-foundation-root-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "linked-foundation-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-foundation-created-nothing",
+      "status": "pass"
+    },
+    {
+      "check": "invalid-name",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.018,
+      "stdout_sha256": "8577fa88ff8f9c3c73fc0bf62715e774025e02e752b597e2b70c37a853ccee06"
+    },
+    {
+      "check": "invalid-name-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "invalid-name-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "invalid-name-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "invalid-name-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "invalid-name-created-nothing",
+      "status": "pass"
+    },
+    {
+      "check": "unsupported-platform",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.017,
+      "stdout_sha256": "51b4a5edbac13a60ec850ceb86240487699cda54a8b4d61e1d2e3ef5d90e6678"
+    },
+    {
+      "check": "unsupported-platform-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "unsupported-platform-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "unsupported-platform-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "unsupported-platform-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "unsupported-platform-created-nothing",
+      "status": "pass"
+    },
+    {
+      "check": "license-needs-author",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.014,
+      "stdout_sha256": "11c8dafe70e4eeb1dbc6e6403aa9429672db5a8d8a87a1667d17da29ce8ba81e"
+    },
+    {
+      "check": "license-needs-author-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "license-needs-author-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "license-needs-author-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "license-needs-author-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "license-needs-author-created-nothing",
+      "status": "pass"
+    },
+    {
+      "check": "existing-destination-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.024,
+      "stdout_sha256": "700c8582428cb7e6613a802bb34d1ccf09dc7e73ae8b4b94401c0e071ec013dd"
+    },
+    {
+      "check": "existing-destination-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "existing-destination-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "existing-destination-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "existing-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "existing-directory-preserved",
+      "status": "pass"
+    },
+    {
+      "check": "native-create",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.168,
+      "stdout_sha256": "a65e296b04e259b1b6ecdb19d669c0e775f030e8aed2f23a2a48532817999f17"
+    },
+    {
+      "check": "native-create-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-create-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "created-status",
+      "status": "pass"
+    },
+    {
+      "check": "planned-files-match-created-bytes",
+      "status": "pass"
+    },
+    {
+      "check": "repeat-create-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.015,
+      "stdout_sha256": "700c8582428cb7e6613a802bb34d1ccf09dc7e73ae8b4b94401c0e071ec013dd"
+    },
+    {
+      "check": "repeat-create-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "repeat-create-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "repeat-create-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "repeat-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "repeat-preserves-manifest",
+      "status": "pass"
+    },
+    {
+      "check": "local-continuation-skill",
+      "status": "pass"
+    },
+    {
+      "check": "local-native-sources",
+      "status": "pass"
+    },
+    {
+      "check": "generated-game-never-embeds-local-foundation-path",
+      "status": "pass"
+    },
+    {
+      "check": "kernel-pins",
+      "status": "pass"
+    },
+    {
+      "check": "vendored-file-hashes",
+      "status": "pass"
+    },
+    {
+      "check": "generated-no-machine-compiler-profile",
+      "status": "pass"
+    },
+    {
+      "check": "compiler-profile-preserves-existing-config",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.054,
+      "stdout_sha256": "20c30b429bde22a268300c686f89a0e2017a1d826662beab8f1026a7cd7ad2b2"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-doctor-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-no-fallback-doctor",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-query-cleans-temporary-state-doctor",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-check",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.053,
+      "stdout_sha256": "da5a6c36ead13f325c7b27907d961f5a5c8eba90b922f931fe64e454b43195df"
+    },
+    {
+      "check": "unavailable-selected-compiler-check-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-check-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-check-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-check-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-no-fallback-check",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-query-cleans-temporary-state-check",
+      "status": "pass"
+    },
+    {
+      "check": "native-build",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 35.144,
+      "stdout_sha256": "9fc7a8e61b9a8c54f51a9026a6f8ce0858372afb55488309138c29e27c924adf"
+    },
+    {
+      "check": "native-build-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-build-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-build-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "build-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "build-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "build-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "build-isolates-game-cabal-state",
+      "status": "pass"
+    },
+    {
+      "check": "native-test",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 3.349,
+      "stdout_sha256": "21a77db36a797eaedac8fc120533d15d4313976e440bc79c5a28bc00966a5fe0"
+    },
+    {
+      "check": "native-test-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-test-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-test-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "test-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "test-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "test-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "test-isolates-game-cabal-state",
+      "status": "pass"
+    },
+    {
+      "check": "native-check",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.818,
+      "stdout_sha256": "ac1e0efa2528ca77bf56588e76fbc091ef3514f92c131001b26dd96b615b25be"
+    },
+    {
+      "check": "native-check-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-check-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-check-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "check-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "check-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "check-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "check-isolates-game-cabal-state",
+      "status": "pass"
+    },
+    {
+      "check": "native-smoke",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.364,
+      "stdout_sha256": "0727a6de7e49f27f203a1f8833e5ea06a57d1f9aa6aaa22f7cd2992d4c788a69"
+    },
+    {
+      "check": "native-smoke-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-smoke-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-smoke-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "smoke-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "smoke-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "smoke-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "real-game-smoke-output",
+      "status": "pass"
+    },
+    {
+      "check": "native-smoke-explicit-deadline",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.209,
+      "stdout_sha256": "0727a6de7e49f27f203a1f8833e5ea06a57d1f9aa6aaa22f7cd2992d4c788a69"
+    },
+    {
+      "check": "native-smoke-explicit-deadline-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-smoke-explicit-deadline-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-smoke-explicit-deadline-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "bounded-smoke-runs-real-game",
+      "status": "pass"
+    },
+    {
+      "check": "native-crlf-unicode-check",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.645,
+      "stdout_sha256": "709ba5410a21185b23ad4c8f67e76ee17ad3ba2aa1b3b29757e8a3c446cb42c8"
+    },
+    {
+      "check": "native-crlf-unicode-check-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-crlf-unicode-check-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-crlf-unicode-check-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "saved-check-uses-selected-compiler",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-contract-check",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.347,
+      "stdout_sha256": "5d55aa1598925fd16a4011d4ddd7221852d5cd4bfe7dabbd668505c4f18edc14"
+    },
+    {
+      "check": "legacy-contract-check-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-contract-check-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-contract-check-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-execution-schema-compatible",
+      "status": "pass"
+    },
+    {
+      "check": "legacy-compiler-flags-compatible",
+      "status": "pass"
+    },
+    {
+      "check": "native-real-compiler-error",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.991,
+      "stdout_sha256": "a332a5b7e3005c2f28f85805d714d0c1cc4847e1c75304c7d5cdd46770441f90"
+    },
+    {
+      "check": "native-real-compiler-error-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-real-compiler-error-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-real-compiler-error-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "compiler-error-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "compiler-error-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "compiler-error-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "actual-compiler-diagnostic",
+      "status": "pass"
+    },
+    {
+      "check": "source-escape-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.016,
+      "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
+    },
+    {
+      "check": "source-escape-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "source-escape-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "source-escape-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "path-escape-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-source-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.019,
+      "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
+    },
+    {
+      "check": "linked-source-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "linked-source-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "linked-source-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "linked-source-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "wrong-source-shape",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.013,
+      "stdout_sha256": "94d0fb2d933491e0798c0ea247fa53869720cab02604a50dd3f0f9d55ef212f1"
+    },
+    {
+      "check": "wrong-source-shape-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "wrong-source-shape-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "wrong-source-shape-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "wrong-source-shape-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "escape-source-dir",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.059,
+      "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
+    },
+    {
+      "check": "escape-source-dir-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "escape-source-dir-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "escape-source-dir-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "escape-source-dir-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-build-state-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.013,
+      "stdout_sha256": "45ea3dfe441f87c84f2eb344df81111e846a7305d72c90e4659dae9e96b61441"
+    },
+    {
+      "check": "linked-build-state-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "linked-build-state-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "linked-build-state-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "linked-build-state-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-log-directory-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.014,
+      "stdout_sha256": "05fa576d5adf3126833b6c21aa95b8fa6df45421c6b8519c2584a67d2f587845"
+    },
+    {
+      "check": "linked-log-directory-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "linked-log-directory-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "linked-log-directory-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "linked-logs-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-logs-specific-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-log-directory-outside-untouched",
+      "status": "pass"
+    },
+    {
+      "check": "linked-logs-refused-before-config-write",
+      "status": "pass"
+    },
+    {
+      "check": "hardlinked-config-atomic-replacement",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.618,
+      "stdout_sha256": "3ff0868f9073b68a9f1771adbb6087904c155f75d60b9a8c102fc67c15e70734"
+    },
+    {
+      "check": "hardlinked-config-atomic-replacement-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "hardlinked-config-atomic-replacement-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "hardlinked-config-atomic-replacement-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "hardlinked-outside-content-preserved",
+      "status": "pass"
+    },
+    {
+      "check": "cabal-config-no-longer-shares-hardlink",
+      "status": "pass"
+    },
+    {
+      "check": "feature-edit-without-regeneration",
+      "status": "pass"
+    },
+    {
+      "check": "native-key-tests",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 11.067,
+      "stdout_sha256": "c75ed7b5eafe2399295abb064e91feeef9b9d108ed09b51ec9f83821b99b83fd"
+    },
+    {
+      "check": "native-key-tests-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "native-key-tests-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "native-key-tests-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "native-key-play",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 3.785,
+      "stdout_sha256": "3042b50074e8d60136df8fbfc341b9f611294c89a34f58cc1aa01afbd8744a34"
+    },
+    {
+      "check": "actual-key-gameplay",
+      "status": "pass"
+    },
+    {
+      "check": "native-operations-preserve-selected-profile",
+      "status": "pass"
+    },
+    {
+      "check": "original-game-and-foundation-removed",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-no-python-scripts",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-no-game-build-cache",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-profile-not-copied",
+      "status": "pass"
+    },
+    {
+      "check": "standalone-native-bootstrap",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 22.512,
+      "stdout_sha256": "3b02aa0be12c4ba59fe5631dbd1ce9222637c57540a5a88b4baa78dae97cb01a"
+    },
+    {
+      "check": "standalone-native-bootstrap-executable-created",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-build",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 21.96,
+      "stdout_sha256": "dbb289b6ab853146239240dffb464e9fd496ffcd820bb1ad896e8f09e1774cd8"
+    },
+    {
+      "check": "relocated-native-build-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-build-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-build-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-build-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-build-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-build-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-test",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 3.114,
+      "stdout_sha256": "a2242183b6e79c4181df6160e0813aaca76f904bcbd0a63e59c0ce044334d2e3"
+    },
+    {
+      "check": "relocated-native-test-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-test-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-test-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-test-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-test-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-test-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-check",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.83,
+      "stdout_sha256": "83cbc75e6b4d36421245d5eb323f19a99503f85b260cbf84ed827a96c9ca7dd3"
+    },
+    {
+      "check": "relocated-native-check-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-check-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-check-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-smoke",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.282,
+      "stdout_sha256": "79aec0d2f7071b280ce93d20b1777c2dc6a6316fc51a179443054ca841f17d34"
+    },
+    {
+      "check": "relocated-native-smoke-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-smoke-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-native-smoke-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-real-smoke",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-interactive-shell-present",
+      "status": "pass"
+    },
+    {
+      "check": "job-input-exec-preserves-shell-job-pid",
+      "status": "pass"
+    },
+    {
+      "check": "job-input-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-input-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-input-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-input-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-c-exec-preserves-shell-job-pid",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-c-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-c-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-c-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-c-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-z-input-exec-preserves-shell-job-pid",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-z-input-shell-regained-terminal",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-z-input-shell-tracks-cli",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-z-input-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-z-input-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-z-input-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-control-z-input-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-sigstop-resume-cancel-exec-preserves-shell-job-pid",
+      "status": "pass"
+    },
+    {
+      "check": "job-sigstop-resume-cancel-shell-regained-terminal",
+      "status": "pass"
+    },
+    {
+      "check": "job-sigstop-resume-cancel-shell-tracks-cli",
+      "status": "pass"
+    },
+    {
+      "check": "job-sigstop-resume-cancel-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-sigstop-resume-cancel-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-sigstop-resume-cancel-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-sigstop-resume-cancel-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-stopped-cancel-exec-preserves-shell-job-pid",
+      "status": "pass"
+    },
+    {
+      "check": "job-stopped-cancel-shell-regained-terminal",
+      "status": "pass"
+    },
+    {
+      "check": "job-stopped-cancel-shell-tracks-cli",
+      "status": "pass"
+    },
+    {
+      "check": "job-stopped-cancel-no-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-stopped-cancel-did-not-steal-terminal",
+      "status": "pass"
+    },
+    {
+      "check": "job-stopped-cancel-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-exec-preserves-shell-job-pid",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-shell-regained-terminal",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-shell-tracks-cli",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-keeps-shell-foreground",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-shell-acknowledges-stopped-job",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-read-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-exec-preserves-shell-job-pid",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-shell-regained-terminal",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-shell-tracks-cli",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-keeps-shell-foreground",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-shell-acknowledges-stopped-job",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-tty-stop-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-start-shell-regained-terminal",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-start-shell-tracks-cli",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-start-shell-acknowledges-stopped-job",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-start-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-start-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-start-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-background-start-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "job-genuine-exit19-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "job-genuine-exit19-terminal-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-genuine-exit19-terminal-settings-restored",
+      "status": "pass"
+    },
+    {
+      "check": "job-genuine-exit19-no-stopped-job-left",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-stamina-tests",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 6.775,
+      "stdout_sha256": "3b1a7180059ae3601b3bafd6376e0b039cff0220fecffd2ec815c9fc418f68a5"
+    },
+    {
+      "check": "relocated-stamina-tests-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-stamina-tests-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-stamina-tests-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "relocated-stamina-play",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 2.823,
+      "stdout_sha256": "cfa678aebd33337d34b910c9c3935a39bf113446e4d71a8c5aef7a9e16584ccb"
+    },
+    {
+      "check": "actual-second-mechanic",
+      "status": "pass"
+    },
+    {
+      "check": "continuation-never-regenerates",
+      "status": "pass"
+    },
+    {
+      "check": "normal-cli-never-replaces-itself",
+      "status": "pass"
+    },
+    {
+      "check": "caller-cwd-default",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.729,
+      "stdout_sha256": "74dcc7e1c8faf198080e3863f18fa1a2446e9df28f078addcd383170ce59641b"
+    },
+    {
+      "check": "caller-cwd-default-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "caller-cwd-default-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "caller-cwd-default-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "caller-cwd-default-execution-schema",
+      "status": "pass"
+    },
+    {
+      "check": "caller-cwd-default-argument-array",
+      "status": "pass"
+    },
+    {
+      "check": "caller-cwd-default-output-is-text",
+      "status": "pass"
+    },
+    {
+      "check": "real-ghc-timeout",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 2.458,
+      "stdout_sha256": "b2ee613014ae8f9c5297d8cb5d8f9677e99f2b52121ba7d5295dc4eede196e89"
+    },
+    {
+      "check": "real-ghc-timeout-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "real-ghc-timeout-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "real-ghc-timeout-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "timeout-reports-failure",
+      "status": "pass"
+    },
+    {
+      "check": "timeout-interrupted-running-ghc",
+      "status": "pass"
+    },
+    {
+      "check": "timeout-leaves-no-running-compiler-effect",
+      "status": "pass"
+    },
+    {
+      "check": "sigterm-compiler-started",
+      "status": "pass"
+    },
+    {
+      "check": "sigterm-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "sigterm-no-late-compiler-effect",
+      "status": "pass"
+    },
+    {
+      "check": "sigint-compiler-started",
+      "status": "pass"
+    },
+    {
+      "check": "sigint-exit-code",
+      "status": "pass"
+    },
+    {
+      "check": "sigint-no-late-compiler-effect",
+      "status": "pass"
+    },
+    {
+      "check": "source-inputs-stable-through-test",
+      "status": "pass"
+    }
+  ],
+  "observed_date_utc": "2026-10-05",
+  "metrics_binding": "Fresh cached-dependency application benchmark production inputs match the actual integration input hashes; benchmark and bootstrap builds are separate binaries.",
+  "measurements": {
+    "schema": 1,
+    "platform": "Linux-x86_64",
+    "ghc": "9.6.7",
+    "cabal": "3.12.1.0",
+    "executable_bytes": 21753048,
+    "version_startup_trials": 30,
+    "version_startup_median_ms": 14.558,
+    "version_startup_min_ms": 12.108,
+    "version_startup_max_ms": 18.765,
+    "secure_index_acquisition_seconds": 96.669,
+    "dependency_bootstrap_completed_attempt_seconds": 734.737,
+    "bootstrap_scope": "Initially empty dedicated cache. First dependency download attempt was cancelled by executor; this completed-attempt time includes resumed download/compilation and initial application compile failure, so it is not an uninterrupted cold-success measurement.",
+    "fresh_application_build_cached_dependencies_seconds": 25.863,
+    "fresh_application_build_exit_code": 0,
+    "benchmark_executable_sha256": "ec2fc2664067d103514175c33f479293926c8cfbb275d5ca160c05eda2cc3ec9",
+    "compiled_dependency_store_bytes": 119220746,
+    "benchmark_source_sha256": {
+      "tools/haskell/app/Main.hs": "e1080b183cfdf5af497c721889853052456e37e0506e56c7cac510ef765bf341",
+      "tools/haskell/cabal.project": "25f08a9d44f8aeaca807c6d5725f4a1f8f5cb1b90266b11c3f4b9dd763771fc3",
+      "tools/haskell/cabal.project.freeze": "f151b4cb20713dc0aba3ad25eab29d7bba8eabbed484e0c47ee3dfaf59cc9b54",
+      "tools/haskell/fp-game-tooling.cabal": "bd093c09bf8dd870c0bf3c706f8165e8f1d9e41678f4876c0bf217d3f75e541d",
+      "tools/haskell/src/FpGame/CLI.hs": "a9d175a2a44e2194f4f7c21afd164b9e0f2addb2720144104918b518b4f67850",
+      "tools/haskell/src/FpGame/Cabal.hs": "b3063fbbf725f5d880906035e45d53bcc9e95fc52b48a89aba89edbd2df6a581",
+      "tools/haskell/src/FpGame/Command.hs": "7c96460b50fbd0d2a365eb36447b697be47cffe639b9e8ec0c185f5b5871fbdd",
+      "tools/haskell/src/FpGame/Config.hs": "3df7e6a5fd8341ca5371a8e9bc6b64fd1b2656ae5d33b80af686eb140cf76b0f",
+      "tools/haskell/src/FpGame/Create.hs": "b79608659637d2378486551c38f76afdabf143f1acca3cee36d424df91780d3d",
+      "tools/haskell/src/FpGame/Error.hs": "05b3cc493e4f0f14700743149c16962032be869d40a855eae799764338a99eff",
+      "tools/haskell/src/FpGame/Path.hs": "47b391e61d9b575cdb32aeb446bc6f6d7b72b4fb81f43098fc8c4b93d667e1c2",
+      "tools/haskell/src/FpGame/Process.hs": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
+      "tools/haskell/src/FpGame/Result.hs": "4c8f6e5c056f7136605b2e0e91a5eba0318a61ef448914a16a926eb99c236959"
+    },
+    "compiled_external_dependency_units": 42,
+    "index_cache_bytes": 1194703972
+  },
+  "interactive_contract": "POSIX interactive run execs Cabal; normal shell job control owns the process. Interactive tool-level timeout is refused; use captured run --smoke.",
+  "additional_validation": {
+    "native_package_unit_suite": {
+      "status": "pass",
+      "scope": "CLI/Cabal parser/Create/Process tests, including81 real cancellation gates and bounded timeout"
+    },
+    "compiler_boundary_review": {
+      "status": "pass on Linux",
+      "checks": 10,
+      "scope": "Actual selected-only compiler, relative/Unicode custom wrapper identity, no fallback, scoped query cleanup and existing state preservation"
+    },
+    "native_generated_documentation": {
+      "status": "pass",
+      "files": 86,
+      "workflow_yaml": "pass"
+    },
+    "native_formatter": {
+      "status": "pass",
+      "version": "0.9.0.0",
+      "files": 13,
+      "scope": "Pinned formatter on Linux plus explicit Linux/Darwin/Windows CPP defines; formatting is not runtime verification"
+    },
+    "legacy_tool_tests": {
+      "status": "pass",
+      "tests": 8
+    },
+    "formatter_unit_tests": {
+      "status": "pass",
+      "tests": 26,
+      "skipped": 3
+    },
+    "workflow": {
+      "status": "Full three-OS native matrix restored for the next candidate; verify actual jobs execute and pass.",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "cold_setup_ceiling_minutes": 45,
+      "unit_step_timeout_minutes": 5
+    },
+    "published_ci_history": "docs/evidence/native-tooling-ci.json",
+    "windows_explicit_profile_runtime": "Atcaf0d946 the Windows profile, units, adapter, game edits and Python-free relocated native build/test/check/smoke and stamina play passed. Final timeout fixture lacked its started marker; exact returned diagnostic was not printed, so deadline versus early compiler error is unresolved.",
+    "macos_current_runtime": "Native macOS CI atcaf0d946 completed successfully. Current diagnostic-only changes do not rerun or qualify that platform.",
+    "legacy_adapter_forced_cp1252": {
+      "status": "pass on Linux",
+      "scope": "Real unchanged legacy check_file invokes installed GHC on a Japanese-path source; child Python stdout starts with forced cp1252, adapter changes it to UTF-8, decoded JSON preserves the exact source path.",
+      "negative_control": "Removing only stdout.reconfigure reproduces UnicodeEncodeError.",
+      "windows": "Passed actual Windows CI atcaf0d946."
+    },
+    "diagnostic_th_probe_linux": {
+      "status": "pass",
+      "started_seconds": 0.823,
+      "late_seconds": 5.812,
+      "exit_seconds": 5.975,
+      "exit_code": 0,
+      "scope": "Real GHC Template Haskell source in boot preflight, not Windows runtime evidence."
+    },
+    "gated_th_fixture_linux": {
+      "status": "pass focused fixture",
+      "records": 37,
+      "positive_started_seconds": 1.021,
+      "positive_completed_seconds": 1.371,
+      "positive_release_to_completion_seconds": 0.35,
+      "timeout_seconds": 15,
+      "timeout_completed_seconds": 15.436,
+      "timeout_started_marker": true,
+      "timeout_release_existed_at_return": false,
+      "post_return_release_observation_seconds": 4,
+      "signal_cases": "SIGTERM and SIGINT passed with acknowledged entry and no post-return released effect",
+      "cleanup_followup": "Actual already-exited subprocess confirms unconditional gate release; final read-only review passed.",
+      "qualification": "Focused Linux evidence, not full next-candidate or Windows acceptance."
+    },
+    "diagnostic_th_probe_windows": {
+      "status": "pass at13ebaaaf",
+      "started_seconds": 4.656,
+      "late_seconds": 9.656,
+      "completion_seconds": 9.859,
+      "exit_code": 0,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978121/job/111752909460",
+      "qualification": "Boot-launcher real-GHC probe; native matrix intentionally skipped."
+    }
+  },
+  "prior_findings": {
+    "quoted_compiler_profile": "The first current-candidate Linux attempt failed at doctor: Cabal3.12.1.0 treats quotes as literal filename characters in with-compiler. A real spaced/Japanese forwarding wrapper confirmed raw whole-field syntax; the corrected suite passed.",
+    "windows_alias_route": "Pinned Windows unversioned C launchers lost Japanese arguments; explicit same-installation versioned compiler selection passed the bounded complete library/executable probe. Alias observations remain visible in preflight diagnostics.",
+    "timing_oracles": "Earlier delay-only cancellation evidence remains inconclusive; current checks require real started-child signals and positive controls.",
+    "foreground_proxy": "Controlled reproduction confirmed a late self-stop race; POSIX interactive execution now delegates ordinary job control to Cabal and the shell.",
+    "legacy_adapter_stdout": "An isolated Python -c adapter called check_file without main\u2019s UTF-8 stdout initialization. Its JSON print failed under Windows cp1252 despite native Japanese-path compiler checks passing. The adapter now initializes stdout explicitly; a forced-encoding real-checker test and pre-fix negative control cover this boundary."
+  },
+  "exclusions": [
+    "Physical editor sessions",
+    "Graphical/browser host acceptance",
+    "Human fun evaluation",
+    "Clean-machine or prebuilt binary distribution",
+    "Uninterrupted successful cold tool installation",
+    "Universal provider-owned interactive signal cleanup",
+    "Remote-import network sandboxing"
+  ],
+  "post_run_source_deltas": [
+    {
+      "file": "tools/test_native_cli.py",
+      "tested_sha256_lf": "b9f25bcf8c7c2bea9dd13a604036b392ce6d95a69d886e23f5bf74b02da97089",
+      "published_sha256_lf": "5437c85dd852eefbfe8b9392eb2caaafe8b85e2ba4aa019da0eb8bada733d154",
+      "scope": "Test-only changes since392 receipt include Windows-relative bootstrap, UTF-8 comparison adapter, full timeout diagnostics, and gated real-TH positive/timeout/signal cases. The15s negative deadline follows measured Windows startup4.656s; a closed gate prevents natural success.",
+      "verification": "Focused real native CLI/GHC fixture passed37 Linux records: positive start1.021s, completion1.371s, release-to-completion0.350s; exact15s timeout returned15.436s with started marker and release absent; no effect in four-second post-release window; gated SIGTERM/SIGINT cases passed. A subsequent cleanup-only change unconditionally opens the gate for an already-exited parent; an actual completed-subprocess regression passed, and final source review closed. No full integration rerun is claimed.",
+      "qualification": "Historical392 input hashes are retained; no rebinding to later bytes. Production runtime/generator and benchmark inputs are unchanged.",
+      "intermediate_published_sha256_lf": "337c72d0bc2d33e0913f11746a9cbfb70d6d6c4f4e3edef863e4f16e45e0c4d2",
+      "previous_published_sha256_lf": "282b94a5aeb0594c97f4b1fc4f5202c14b6955039a8feaf1867325ab50bbe24b"
+    },
+    {
+      "file": "docs/failure-prevention.md",
+      "tested_sha256_lf": "0b67811f9fe7556013d1d5f30501451e864607e5e9dc436eded6d97ec1786986",
+      "published_sha256_lf": "bb342853e10bc37b0397c4059d8107d7685933becc2239528017b0bbdef2fcda",
+      "scope": "Documentation-only lessons for adapter UTF-8 transport and measured-startup/release-gate timeout design.",
+      "verification": "Documentation and whitespace gates pass.",
+      "previous_published_sha256_lf": "88f3e07ece28e2d59e6f8a8a4f05232eb671e320881f9d6b75fc0eb05b5175af",
+      "qualification": "Historical392 input hashes are retained; no rebinding to later bytes. Production runtime/generator and benchmark inputs are unchanged."
+    },
+    {
+      "file": "tools/test_windows_toolchain_paths.py",
+      "tested_sha256_lf": "ef606a9b5018e23250611aed2e2b78ad052721231c37bfa0ba37ceed9d3749be",
+      "published_sha256_lf": "4b0a7585e1070558675f8558773872f4219aed6f21a82ef6b71399c5416cface",
+      "scope": "Diagnostic-only bounded real Template Haskell probe added to required Windows compiler-profile preflight, capturing exact command/output and marker timings.",
+      "verification": "Complete Linux boot preflight passed. Real TH started at0.823s, wrote its late marker at5.812s and exited0 at5.975s. Windows cause remains unobserved pending this probe.",
+      "qualification": "Original392-check input hashes are preserved, not rebound. Production runtime and generator sources are unchanged."
+    }
+  ]
+}

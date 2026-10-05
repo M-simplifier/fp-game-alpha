@@ -391,6 +391,88 @@
         "research/quantity/lh-checker/evidence/linux-20261005.json"
       ],
       "scope": "Exact GHC9.6.3/LH0.9.6.3.1/Z3 4.15.1 selected-binder SAFE25, six UNSAFE mutants,7streams/175same-solver responses and9integer/bitvector models. Requires prepared LH_RUN_DIR; GHC9.6.7 runtime oracle is separate. No full-module, verifier or whole-game soundness claim."
+    },
+    {
+      "id": "linux-native-haskell-tooling",
+      "host": "linux",
+      "target": "developer-cli",
+      "status": "experimental",
+      "implementation_paths": [
+        "tools/haskell",
+        "tools/bootstrap-fp-game.sh",
+        "tools/bootstrap-fp-game.ps1",
+        "tools/test_native_cli.py",
+        ".github/workflows/native-tooling.yml"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_native_cli.py",
+          "--binary",
+          ".build/tools/fp-game"
+        ]
+      ],
+      "evidence": [
+        "docs/evidence/native-tooling-ci.json",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295460",
+        "docs/evidence/native-tooling-linux.json"
+      ],
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks."
+    },
+    {
+      "id": "windows-native-haskell-tooling",
+      "host": "windows",
+      "target": "developer-cli",
+      "status": "experimental",
+      "implementation_paths": [
+        "tools/haskell",
+        "tools/bootstrap-fp-game.sh",
+        "tools/bootstrap-fp-game.ps1",
+        "tools/test_native_cli.py",
+        ".github/workflows/native-tooling.yml",
+        "tools/test_windows_toolchain_paths.py"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_native_cli.py",
+          "--binary",
+          ".build/tools/fp-game.exe",
+          "--windows-compiler",
+          "<verified-compiler-path>"
+        ]
+      ],
+      "evidence": [
+        "docs/evidence/native-tooling-ci.json",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675"
+      ],
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (358 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Requires the explicit same-installation versioned Windows compiler profile; replace <verified-compiler-path> with the installed path accepted by the native guide/preflight. No global PATH changes or automatic wrapper bypass."
+    },
+    {
+      "id": "macos-native-haskell-tooling",
+      "host": "macos",
+      "target": "developer-cli",
+      "status": "experimental",
+      "implementation_paths": [
+        "tools/haskell",
+        "tools/bootstrap-fp-game.sh",
+        "tools/bootstrap-fp-game.ps1",
+        "tools/test_native_cli.py",
+        ".github/workflows/native-tooling.yml"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_native_cli.py",
+          "--binary",
+          ".build/tools/fp-game"
+        ]
+      ],
+      "evidence": [
+        "docs/evidence/native-tooling-ci.json",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295554"
+      ],
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks."
     }
   ]
 }
