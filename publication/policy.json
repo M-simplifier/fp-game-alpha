@@ -421,6 +421,11 @@
       "prefix": "references/signal-courier/web/vendor-shim/",
       "license": "references/signal-courier/web/vendor-shim/LICENSE-MIT",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune-live/",
+      "license": "references/red-dune-live/LICENSE",
+      "maturity": "experimental"
     }
   ]
 }

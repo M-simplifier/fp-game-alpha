@@ -1,0 +1,61 @@
+name: red-dune-live-smoke
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'references/red-dune-live/**'
+      - 'libraries/game-transition/**'
+      - 'libraries/game-arena/**'
+      - 'cabal.project.red-dune-live'
+      - '.github/workflows/red-dune-live.yml'
+  pull_request:
+    paths:
+      - 'references/red-dune-live/**'
+      - 'libraries/game-transition/**'
+      - 'libraries/game-arena/**'
+      - 'cabal.project.red-dune-live'
+      - '.github/workflows/red-dune-live.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+jobs:
+  bounded-native-host:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - id: haskell
+        uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d # v2
+        with:
+          ghc-version: '9.6.7'
+          cabal-version: '3.12.1.0'
+          cabal-update: false
+      - name: Identify dependency cache environment
+        id: cache-environment
+        shell: bash
+        run: |
+          echo "image=${ImageOS}-${ImageVersion}" >> "$GITHUB_OUTPUT"
+          node --version
+          node -e 'if (Number(process.versions.node.split(".")[0]) < 20) throw Error("Node 20+ is required")'
+      # Never restore project objects, downloaded source trees or save fixtures.
+      # PRs restore only; only successful main pushes can populate this cache.
+      - name: Restore dependency store
+        id: dependencies
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ steps.haskell.outputs.cabal-store }}
+          key: red-dune-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-environment.outputs.image }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-${{ hashFiles('cabal.project.red-dune-live', 'references/red-dune-live/*.cabal', 'libraries/game-arena/*.cabal', 'libraries/game-transition/*.cabal', '.github/workflows/red-dune-live.yml') }}
+      - name: Resolve official Hackage dependencies
+        run: cabal update
+      - name: Check bounded domain, saves, lifecycle, native HTTP and client protocol
+        # No 66-hour/42-hour campaign, tick benchmark or real-browser claim here.
+        run: bash references/red-dune-live/tools/check.sh smoke
+      - name: Save validated dependencies on main only
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.dependencies.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ steps.haskell.outputs.cabal-store }}
+          key: ${{ steps.dependencies.outputs.cache-primary-key }}

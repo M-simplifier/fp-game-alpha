@@ -16,6 +16,51 @@ class ExportScan(unittest.TestCase):
     def setUp(self):
         self.policy = json.loads((publication.ROOT / 'publication/policy.json').read_text())
 
+    def test_only_exact_root_manifest_has_larger_bounded_size_limit(self):
+        self.assertEqual(publication.source_size_limit(publication.MANIFEST, self.policy),
+                         1024 * 1024)
+        for name in ['source.hs', 'nested/PUBLICATION-MANIFEST.json',
+                     'PUBLICATION-MANIFEST.json.backup', 'publication/provenance.json']:
+            with self.subTest(name=name):
+                self.assertEqual(publication.source_size_limit(name, self.policy),
+                                 self.policy['max_source_bytes'])
+        self.assertEqual(self.policy['max_source_bytes'], 524288)
+
+    def test_gate_enforces_manifest_and_ordinary_file_limits(self):
+        with tempfile.TemporaryDirectory(prefix='publication-size-') as temporary:
+            root = Path(temporary)
+            (root / 'publication').mkdir()
+            policy = dict(self.policy, selections=[
+                {'prefix': '', 'license': 'LICENSE', 'maturity': 'experimental'}])
+            (root / 'publication/policy.json').write_text(json.dumps(policy))
+            (root / 'LICENSE').write_text('Test license notice')
+            names = ['LICENSE', publication.MANIFEST, 'ordinary.txt']
+
+            def inspect(ordinary_size, manifest_size):
+                (root / 'ordinary.txt').write_text('a' * ordinary_size)
+                records = [
+                    {'path': name, 'sha256_lf': None if name == publication.MANIFEST
+                     else publication.digest(root / name), 'origin': {'kind': 'test'},
+                     'license': 'LICENSE', 'maturity': 'experimental', 'export': 'selected'}
+                    for name in names]
+                manifest = json.dumps({'files': records})
+                self.assertLess(len(manifest), manifest_size)
+                (root / publication.MANIFEST).write_text(manifest.ljust(manifest_size))
+                report_path = root / 'report.json'
+                with patch.object(publication, 'ROOT', root), \
+                     patch.object(publication, 'selected_files', return_value=names), \
+                     patch('builtins.print'):
+                    result = publication.gate(report_path)
+                report = json.loads(report_path.read_text())
+                large = [row['path'] for row in report['files']
+                         if {'rule': 'large-source-file'} in row['checks']]
+                return result, large
+
+            self.assertEqual(inspect(524288, 600000), (0, []))
+            self.assertEqual(inspect(524289, 600000), (1, ['ordinary.txt']))
+            self.assertEqual(inspect(524288, 1048577),
+                             (1, [publication.MANIFEST]))
+
     def test_known_token_is_rejected_without_echoing_value(self):
         token = 'ghp_' + 'a' * 36
         result = publication.scan_text(token, self.policy)

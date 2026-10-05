@@ -259,6 +259,35 @@
         "references/signal-courier/docs/experiment.md"
       ],
       "scope": "Native and actual Wasm Node runtime checked; browser UI and touch devices not verified. GHC-Wasm required only for the optional local browser build, not bounded native CI."
+    },
+    {
+      "id": "red-dune-live-linux-command-room",
+      "host": "linux",
+      "target": "local-browser",
+      "rendering": "html-css-svg",
+      "status": "experimental",
+      "implementation_paths": [
+        "references/red-dune-live",
+        "cabal.project.red-dune-live"
+      ],
+      "commands": [
+        [
+          "bash",
+          "references/red-dune-live/tools/check.sh",
+          "smoke"
+        ],
+        [
+          "bash",
+          "references/red-dune-live/tools/check.sh",
+          "play"
+        ]
+      ],
+      "evidence": [
+        "references/red-dune-live/docs/HOST-VERIFICATION.md",
+        "references/red-dune-live/docs/ACCEPTANCE.md",
+        "docs/red-dune-live.md"
+      ],
+      "scope": "GHC 9.6 native loopback host; bounded core/construction/save/lifecycle/HTTP and Node protocol checks. Full campaign is a separate explicit long gate. Real-browser rendering, keyboard/pointer, reload/layout and human play acceptance remain unverified; no Wasm or deployed service claim."
     }
   ]
 }

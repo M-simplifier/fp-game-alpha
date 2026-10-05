@@ -1,0 +1,11 @@
+packages:
+  libraries/game-transition
+  libraries/game-arena
+  references/red-dune-live
+
+-- The host also needs the pinned official Hackage network-3.1.4.0 package.
+-- Use normal Cabal package resolution or a local source in an untracked .local.
+tests: True
+
+-- Match the host dependency tool version used by the native acceptance route.
+constraints: hsc2hs ==0.68.10
