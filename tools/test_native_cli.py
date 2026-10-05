@@ -284,6 +284,27 @@ def same_path(left, right):
     return os.path.normcase(os.path.abspath(left)) == os.path.normcase(os.path.abspath(right))
 
 
+def legacy_adapter_source():
+    """Run the unchanged checker with explicit compiler selection and UTF-8 JSON."""
+    return ("import json,sys; from pathlib import Path; from unittest.mock import patch; "
+            "sys.stdout.reconfigure(encoding='utf-8', errors='replace'); "
+            "sys.path.insert(0,sys.argv[1]); import fp_game; "
+            "original=fp_game.shutil.which; "
+            "selected=lambda name,*a,**k: sys.argv[3] if name=='ghc' else original(name,*a,**k); "
+            "context=patch.object(fp_game.shutil,'which',selected); context.start(); "
+            "result=fp_game.check_file(Path(sys.argv[2]),'src/Unicode.hs'); "
+            "print(json.dumps(result,ensure_ascii=False)); sys.exit(result['exit_code'])")
+
+
+def legacy_adapter_encoding_check(project, compiler, cwd):
+    result = run('legacy-adapter-forced-cp1252',
+                 [sys.executable, '-c', legacy_adapter_source(), ROOT / 'tools', project, compiler],
+                 cwd, env=dict(os.environ, PYTHONIOENCODING='cp1252'))
+    executed('legacy-adapter-forced-cp1252', result)
+    require('legacy-adapter-preserves-unicode-path',
+            same_path(result['command'][-1], project / 'src/Unicode.hs'))
+
+
 def acceptance(binary, trial, compiler=None):
     bootstrap_refusals(trial, compiler)
     unrelated = trial / 'unrelated caller 日本語'
@@ -506,16 +527,11 @@ def acceptance(binary, trial, compiler=None):
     good.write_bytes('-- 日本語\r\nmodule Unicode where\r\nvalue :: Integer\r\nvalue = 7\r\n'.encode())
     native = cli(binary, 'native-crlf-unicode-check', 'check', game, 'src/Unicode.hs')
     require('saved-check-uses-selected-compiler', same_path(native['command'][0], selected_compiler))
+    legacy_adapter_encoding_check(game, selected_compiler, unrelated)
     if os.name == 'nt':
         # Keep the real unchanged Python checker, changing only its explicit
         # compiler lookup for this diagnostic comparison. PATH stays untouched.
-        adapter = ("import json,sys; from pathlib import Path; from unittest.mock import patch; "
-                   "sys.path.insert(0,sys.argv[1]); import fp_game; "
-                   "original=fp_game.shutil.which; "
-                   "selected=lambda name,*a,**k: sys.argv[3] if name=='ghc' else original(name,*a,**k); "
-                   "context=patch.object(fp_game.shutil,'which',selected); context.start(); "
-                   "result=fp_game.check_file(Path(sys.argv[2]),'src/Unicode.hs'); "
-                   "print(json.dumps(result,ensure_ascii=False)); sys.exit(result['exit_code'])")
+        adapter = legacy_adapter_source()
         legacy = run('legacy-check-explicit-compiler-selection-adapter',
                      [sys.executable, '-c', adapter, ROOT / 'tools', game, selected_compiler], unrelated)
     else:

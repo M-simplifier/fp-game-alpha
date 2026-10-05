@@ -265,7 +265,11 @@ for the distinction between executed checks and unverified platform routes.
 - **Text transport compatibility:** Decoding UTF-8 alone did not preserve Python's
   universal-newline contract on Windows. Captured streams replace malformed UTF-8
   and normalize CRLF/lone CR to LF; real-child exact stdout/stderr fixtures check
-  those rules. Interactive inherited streams and arbitrary binary data are separate
+  those rules. Interactive inherited streams and arbitrary binary data are separate.
+  A Python comparison adapter bypassed the legacy CLI's UTF-8 stdout setup and
+  failed dumping valid Japanese-path JSON under Windows cp1252. Match that
+  entrypoint's stream setup; a real-checker regression forces cp1252 and verifies
+  the decoded path, with the former adapter reproducing `UnicodeEncodeError`
 - **Tool discovery cardinality:** Windows CI placed the same application directory
   on PATH with both slash spellings. PowerShell returned multiple Application
   matches; treating their `.Source` values as one command produced a joined,

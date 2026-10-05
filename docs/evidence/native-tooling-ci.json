@@ -1,44 +1,84 @@
 {
   "schema": 1,
   "observed_date_utc": "2026-10-05",
-  "head_commit": "714f859b50ef634fad27772afc922dfae6487618",
-  "scope": "Diagnostic-only compiler entry-point contrast. Original alias routes failed; native matrix was skipped. Explicit compiler-profile runtime integration is awaiting a new three-OS run.",
+  "head_commit": "01038a3e7390702917a77ef76a78fd69fae448d4",
+  "scope": "Explicit compiler profile passed Windows native package and first Japanese game operations; integration stopped at independent Python comparison output encoding. Linux/macOS completed the full392-check native suite. No complete Windows acceptance is claimed.",
   "windows_path_preflight": {
-    "conclusion": "failure under the original alias-route requirements",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1",
-    "comparisons": {
-      "unversioned_package_tool": "Japanese package database failed; the same installation versioned executable passed",
-      "compiler_only_selection": "Explicit same-installation ghc-9.6.7.exe alone passed the complete Japanese-path library/executable build",
-      "compiler_and_package_tool_selection": "Both direct flags and project-local profile with versioned compiler/package tool passed",
-      "filesystem_and_execution": "Every successful build had package.cache and a working executable; Japanese paths were not removed"
-    },
-    "qualification": "This isolates the unversioned Windows launcher route, not a general Windows/GHC Unicode limitation. No full native Windows acceptance follows from these boot-only probes.",
-    "next_acceptance": "Require the explicit compiler-only project profile before running the complete native CLI/bootstrap/relocation suite on all three operating systems."
+    "conclusion": "success",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111734693131",
+    "qualification": "Required compiler-only declared profile passed; unselected launcher-route failures remain labelled diagnostic observations."
   },
   "native_jobs": [
     {
       "host": "Linux",
-      "conclusion": "skipped",
-      "reason": "Original alias-route Windows preflight requirements failed"
-    },
-    {
-      "host": "Windows",
-      "conclusion": "skipped",
-      "reason": "Original alias-route Windows preflight requirements failed"
+      "conclusion": "success",
+      "records": 392,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160616"
     },
     {
       "host": "macOS",
-      "conclusion": "skipped",
-      "reason": "Original alias-route Windows preflight requirements failed"
+      "conclusion": "success",
+      "records": 392,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160600"
+    },
+    {
+      "host": "Windows",
+      "conclusion": "failure",
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160730#step:13:1",
+      "passed": "Explicit profile preflight, bootstrap checks/bootstrap, formatter, complete native units, Japanese-path game build/test/check/smoke, bounded smoke and CRLF Unicode source check.",
+      "failure": "The isolated legacy compiler-selection Python -c adapter printed JSON using cp1252 stdout and raised UnicodeEncodeError on Japanese paths.",
+      "not_reached": "Later game edits, source-only relocation and remaining integration checks.",
+      "repair_scope": "Test adapter only: explicitly initialize UTF-8 stdout as the ordinary legacy entrypoint does. Forced-cp1252 real-checker regression passes locally, and removing that initialization reproduces the failure; actual follow-up Windows CI pending."
     }
   ],
   "retained_alpha_workflow": {
     "conclusion": "success for all six validation jobs",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633787",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391565",
     "deployment": "intentionally skipped on the pull request"
   },
-  "last_full_runtime_revision": "a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b",
+  "last_full_linux_macos_revision": "01038a3e7390702917a77ef76a78fd69fae448d4",
   "previous_revisions": [
+    {
+      "schema": 1,
+      "observed_date_utc": "2026-10-05",
+      "head_commit": "714f859b50ef634fad27772afc922dfae6487618",
+      "scope": "Diagnostic-only compiler entry-point contrast. Original alias routes failed; native matrix was skipped. Explicit compiler-profile runtime integration is awaiting a new three-OS run.",
+      "windows_path_preflight": {
+        "conclusion": "failure under the original alias-route requirements",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1",
+        "comparisons": {
+          "unversioned_package_tool": "Japanese package database failed; the same installation versioned executable passed",
+          "compiler_only_selection": "Explicit same-installation ghc-9.6.7.exe alone passed the complete Japanese-path library/executable build",
+          "compiler_and_package_tool_selection": "Both direct flags and project-local profile with versioned compiler/package tool passed",
+          "filesystem_and_execution": "Every successful build had package.cache and a working executable; Japanese paths were not removed"
+        },
+        "qualification": "This isolates the unversioned Windows launcher route, not a general Windows/GHC Unicode limitation. No full native Windows acceptance follows from these boot-only probes.",
+        "next_acceptance": "Require the explicit compiler-only project profile before running the complete native CLI/bootstrap/relocation suite on all three operating systems."
+      },
+      "native_jobs": [
+        {
+          "host": "Linux",
+          "conclusion": "skipped",
+          "reason": "Original alias-route Windows preflight requirements failed"
+        },
+        {
+          "host": "Windows",
+          "conclusion": "skipped",
+          "reason": "Original alias-route Windows preflight requirements failed"
+        },
+        {
+          "host": "macOS",
+          "conclusion": "skipped",
+          "reason": "Original alias-route Windows preflight requirements failed"
+        }
+      ],
+      "retained_alpha_workflow": {
+        "conclusion": "success for all six validation jobs",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633787",
+        "deployment": "intentionally skipped on the pull request"
+      },
+      "last_full_runtime_revision": "a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b"
+    },
     {
       "schema": 1,
       "observed_date_utc": "2026-10-05",
