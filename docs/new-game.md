@@ -70,10 +70,13 @@ then connect the new core. Report actual access/installation blockers promptly;
 do not claim a platform works just because a different host's core test passed.
 Respect permissions for tool installation, downloads and deployment.
 
-The current `fp_game.py scaffold` command is an **optional terminal-adventure
-example**, not a universal generator or a requirement to use this workflow.
+The native `fp-game create` command and retained `fp_game.py scaffold` command
+are an **optional terminal-adventure example**, not a universal generator or a requirement to use this workflow.
 Its limited flags must not limit the AI's ability to author a different Cabal
-project and host. See [that example's commands](terminal-starter.md) when the
+project and host. Use the [native setup route](native-tooling.md) when choosing the
+Haskell tooling: diagnose before GHC, explicitly bootstrap once, then continue
+with the copied native source/executable. Preserve the chosen destination and
+keep tool dependencies separate from game dependencies. See [that example's commands](terminal-starter.md) when the
 requested game really fits them. Compiler inspection/editor tools can also be
 used independently; see [tooling](tooling.md), [editors](editors.md), and
 [Haskell Design / haskell-editor-setup](haskell-design.md) for structured

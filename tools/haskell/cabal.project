@@ -1,0 +1,9 @@
+packages: .
+-- Deliberately separate from the offline, GHC-bundled game dependency graph.
+index-state: 2026-10-04T00:00:00Z
+
+-- Match the supported game profile: archive response files preserve Windows
+-- paths containing spaces and Japanese text when GHC invokes GNU ar.
+if os(windows)
+  package *
+    ar-options: --rsp-quoting=posix

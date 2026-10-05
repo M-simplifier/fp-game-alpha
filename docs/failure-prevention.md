@@ -7,6 +7,8 @@ the previous guarantee missed it, the repair, the reusable check, its measured
 evidence and what the check still cannot establish. Keep proposed checks marked
 as proposals until they actually run. Consult [verification](verification.md)
 for measured platform results and proof scope.
+The [native-tooling lessons](#native-tooling-ownership-and-transport-boundaries)
+cover process, filesystem and first-use contracts exposed during migration.
 
 ## Saved-source CLI: comment mistaken for a module declaration
 
@@ -209,3 +211,56 @@ and requires that completion never drops a subsequent invalidation.
   and unchanged complete runtime after failures
 - **Limit:** Finite regressions exercise this decoder; they do not prove every
   parser safe or make arbitrary filesystem paths time-bounded
+
+## Native tooling ownership and transport boundaries
+
+These migration findings changed boundary mechanisms, not just example outputs.
+The actual package tests are `tools/haskell/test/Main.hs`, `CreateSpec.hs` and
+`ProcessSpec.hs`; independent end-to-end checks are `tools/test_native_cli.py`
+and `tools/test_native_terminal.py`. The source-bound Linux record is
+`docs/evidence/native-tooling-linux.json`. See [verification](verification.md)
+for the distinction between executed checks and unverified platform routes.
+
+- **Captured-process lifetime:** Cancelling reader threads before stopping the
+  child could block cleanup on an OS pipe read. Acquire ownership while masked,
+  terminate the managed tree once before cancelling readers, then close/reap.
+  The earlier delay-only cancellation attempt remains **inconclusive**: absence
+  of a later effect cannot prove cancellation if the child never started. Current
+  tests wait for a real started-child signal, exercise a positive completion
+  control, and check both prompt return and absence of later descendant effects
+- **Terminal ownership:** A separate foreground proxy first hung on terminal
+  reads, then introduced a confirmed `bg`/`fg` late-stop race. Remove that extra
+  ownership: POSIX interactive `run` execs Cabal, letting the shell manage its
+  normal job directly. Interactive tool deadlines were not a legacy feature;
+  require captured `run --smoke` for `--timeout` instead of inventing a private
+  job-control protocol. Real private-shell tests cover natural suspend/resume,
+  background/foreground operation, restored settings and genuine exit 19
+- **Shell test synchronization:** A separate initial-background oracle race also
+  reproduced with direct Cabal. A prompt byte or sleep did not establish command
+  completion or a stopped job. Use unique completion markers, actual kernel-stop
+  observation and Bash `jobs -s` acknowledgement before `fg`, with failure
+  transcripts. This correction does not erase the independently reproduced
+  foreground-proxy runtime race above
+- **Linked output and hardlinks:** `mv` could treat a linked executable leaf as
+  an outside directory; truncating a linked Cabal config could damage another
+  file. Bootstrap checks the output leaf before replacement, and config updates
+  use a fresh temporary file plus rename. Real refusal/preservation checks cover
+  directory/symlink leaves and an outside hardlink sentinel
+- **Root paths versus generated paths:** Absolute-only tests missed the advertised
+  `../foundation` / `../My Game` route. Resolve chosen top-level roots from caller
+  cwd while checking linked ancestors; keep generated internal paths strict.
+  Both positive relative-root cases and symlink/`..` negatives are exercised
+- **Text transport compatibility:** Decoding UTF-8 alone did not preserve Python's
+  universal-newline contract on Windows. Captured streams replace malformed UTF-8
+  and normalize CRLF/lone CR to LF; real-child exact stdout/stderr fixtures check
+  those rules. Interactive inherited streams and arbitrary binary data are separate
+- **First-use machine output:** Cabal's first JSON path query also printed config
+  initialization prose, although warm-cache output was clean. CI uses the quiet
+  path query, verified against a fresh empty Cabal configuration. Machine-readable
+  flags need a first-use check, not only an already-initialized environment
+
+The Linux process and game checks are executed evidence. Windows/macOS workflow
+execution, physical editors, SIGKILL/crash cleanup and adversarial filesystem
+mutation remain outside that evidence. Keep skipped or inconclusive checks
+visible; a timeout, missing dependency or unrelated failure is not a valid
+negative control for the intended boundary.

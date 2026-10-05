@@ -14,6 +14,10 @@ Reuse known decisions and ask only for missing game-changing requirements.
 Design this game's domain types, rules, observations and host from its brief.
 References teach techniques; they are not mandatory generation templates.
 The terminal scaffold is optional and must not substitute for another target.
+Use the [native tooling route](../../../docs/native-tooling.md) for migrated
+commands: check prerequisites, explicitly bootstrap once, then use the local
+binary. Keep the chosen game folder independent and retain copied continuation
+source. Legacy inspection/formatter tools have separate dependencies.
 Own environment preparation, implementation and verification within permissions.
 
 Deliver a real playable slice on the requested host, then revise it from play.

@@ -2,6 +2,10 @@
 
 **Linux-only feasibility prototype: a useful bounded success, not a replacement release.** This standalone executable proves that the current Python build/check orchestration can run in Haskell without adding dependencies to a game. Keep the usable alpha and its Python/editor entrypoints unchanged. The next worthwhile step is review and a deliberately scoped portable build/check package, not a whole-tool rewrite.
 
+For the maintained successor, use the [native tooling guide](../../../docs/native-tooling.md).
+This frozen feasibility evidence is not substituted for that package's current
+Linux/Windows/macOS acceptance results.
+
 ## Scope and layout
 
 - `app/Main.hs`: typed `Command` (`Build` / `Check`), project-root wrapper, typed source-config decoder and `Result` (`Executed` / `Failed`); effectful interpreter and aeson JSON encoder

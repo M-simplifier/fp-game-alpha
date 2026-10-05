@@ -7298,5 +7298,34 @@
     "origin": "https://hackage-content.haskell.org/package/witherable-0.5/witherable-0.5.tar.gz#witherable-0.5/LICENSE",
     "source_archive_sha256": "48434cc1e465b13cbc0133a90c3ec0d827c93b77ce95807fe0a38b65f4918cd1",
     "source_sha256": "acdbcfe3ef2b455b38bcec8fa9184a9fefb950cf9d6c6b10e092d72581345b16"
+  },
+  "tools/haskell/LICENSE": {
+    "kind": "copied-public-MIT-notice",
+    "origin": "LICENSE",
+    "source_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d"
+  },
+  "tools/bootstrap-fp-game.sh": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
+  },
+  "tools/bootstrap-fp-game.ps1": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
+  },
+  "tools/test_native_cli.py": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
+  },
+  "tools/test_native_terminal.py": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
+  },
+  ".github/workflows/native-tooling.yml": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
+  },
+  "docs/native-tooling.md": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
   }
 }

@@ -391,6 +391,81 @@
         "research/quantity/lh-checker/evidence/linux-20261005.json"
       ],
       "scope": "Exact GHC9.6.3/LH0.9.6.3.1/Z3 4.15.1 selected-binder SAFE25, six UNSAFE mutants,7streams/175same-solver responses and9integer/bitvector models. Requires prepared LH_RUN_DIR; GHC9.6.7 runtime oracle is separate. No full-module, verifier or whole-game soundness claim."
+    },
+    {
+      "id": "linux-native-haskell-tooling",
+      "host": "linux",
+      "target": "developer-cli",
+      "status": "experimental",
+      "implementation_paths": [
+        "tools/haskell",
+        "tools/bootstrap-fp-game.sh",
+        "tools/bootstrap-fp-game.ps1",
+        "tools/test_native_cli.py",
+        ".github/workflows/native-tooling.yml"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_native_cli.py",
+          "--binary",
+          ".build/tools/fp-game"
+        ]
+      ],
+      "evidence": [
+        "docs/evidence/native-tooling-linux.json"
+      ],
+      "scope": "Actual Linux GHC9.6.7/Cabal3.12.1.0 native CLI, relative/Unicode/space roots, real terminal key/stamina edits and Python-free migrated-core continuation after relocation. Captured compiler timeout/signal cleanup; POSIX interactive exec hands normal job control to Cabal/the shell. Source-bound evidence with warm pinned tooling dependencies. No clean-machine binary, physical editor or graphical-host claim."
+    },
+    {
+      "id": "windows-native-haskell-tooling",
+      "host": "windows",
+      "target": "developer-cli",
+      "status": "planned",
+      "implementation_paths": [
+        "tools/haskell",
+        "tools/bootstrap-fp-game.sh",
+        "tools/bootstrap-fp-game.ps1",
+        "tools/test_native_cli.py",
+        ".github/workflows/native-tooling.yml"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_native_cli.py",
+          "--binary",
+          ".build/tools/fp-game.exe"
+        ]
+      ],
+      "evidence": [
+        "docs/native-tooling.md"
+      ],
+      "scope": "Executable native bootstrap/package/integration CI route; requires a completed run for this exact revision before support is claimed. Optional terminal generation, ordinary game development and relocation only; no physical editor or graphical host claim."
+    },
+    {
+      "id": "macos-native-haskell-tooling",
+      "host": "macos",
+      "target": "developer-cli",
+      "status": "planned",
+      "implementation_paths": [
+        "tools/haskell",
+        "tools/bootstrap-fp-game.sh",
+        "tools/bootstrap-fp-game.ps1",
+        "tools/test_native_cli.py",
+        ".github/workflows/native-tooling.yml"
+      ],
+      "commands": [
+        [
+          "python",
+          "tools/test_native_cli.py",
+          "--binary",
+          ".build/tools/fp-game"
+        ]
+      ],
+      "evidence": [
+        "docs/native-tooling.md"
+      ],
+      "scope": "Executable native bootstrap/package/integration CI route; requires a completed run for this exact revision before support is claimed. Optional terminal generation, ordinary game development and relocation only; no physical editor or graphical host claim."
     }
   ]
 }

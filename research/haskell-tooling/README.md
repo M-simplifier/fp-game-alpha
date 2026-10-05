@@ -1,6 +1,11 @@
 # Haskell tooling consolidation: an incremental design
 
-Status: source-grounded proposal plus a bounded Linux feasibility trial, 2026-10-04. This is not an implemented replacement or a claim of Python-free distribution.
+Historical record: source-grounded proposal plus a bounded Linux feasibility trial, 2026-10-04. This is not an implemented replacement or a claim of Python-free distribution.
+
+The maintained successor is now the separate [native tooling package](../../docs/native-tooling.md).
+Its current implementation, bootstrap and acceptance boundaries are documented
+there. The observations below describe this earlier research snapshot; its
+64 probe cases do not establish the successor's tests or cross-platform support.
 
 ## Decision
 

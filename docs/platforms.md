@@ -38,3 +38,12 @@ checks and a repeatable bounded smoke route exist. Real-browser rendering,
 pointer/keyboard, interruption and responsive-device acceptance remain unverified.
 The host is loopback-only; another machine's browser cannot reach it. No tunnel
 or public deployment is part of this route. Windows/macOS host support is unclaimed.
+
+## Native developer tooling migration
+
+The [Haskell CLI](native-tooling.md) has a source bootstrap and an executable
+Linux/Windows/macOS integration matrix. New workflow definitions are not evidence
+of passed remote runs. Keep the existing route records scoped to their verified
+Python/core workflows until native results for the exact revision are available.
+Its optional terminal creation command does not establish another host or limit
+the AI from implementing one.

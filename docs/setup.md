@@ -1,5 +1,9 @@
 # Setup and the first build
 
+For the opt-in Haskell executable and pre-GHC bootstrap checks, see
+[native tooling](native-tooling.md). The commands below remain the established
+Python compatibility route; neither path silently installs a compiler.
+
 The tested baseline is Python 3.12+, GHC 9.6.7 and Cabal 3.12.1.0. This pins
 the project baseline, not a claim about the latest or recommended upstream
 release. Git is needed to clone and run publication checks. The kernel needs

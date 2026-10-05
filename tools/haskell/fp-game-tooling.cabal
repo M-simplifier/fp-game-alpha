@@ -1,0 +1,55 @@
+cabal-version: 3.0
+name: fp-game-tooling
+version: 0.1.0.0
+synopsis: Typed independent game development commands
+license: MIT
+license-file: LICENSE
+build-type: Simple
+
+common defaults
+  default-language: GHC2021
+  ghc-options: -Wall -Werror
+  build-depends:
+    base >=4.18 && <5,
+    aeson ==2.2.5.0,
+    bytestring,
+    containers,
+    cryptohash-sha256 ==0.11.102.1,
+    directory,
+    filepath,
+    process >=1.6.19 && <1.7,
+    temporary ==1.3,
+    text
+  if os(windows)
+    build-depends: Win32 >=2.13 && <2.15
+  else
+    build-depends: unix >=2.8 && <2.9
+
+library
+  import: defaults
+  hs-source-dirs: src
+  exposed-modules:
+    FpGame.CLI
+    FpGame.Command
+    FpGame.Config
+    FpGame.Create
+    FpGame.Error
+    FpGame.Path
+    FpGame.Process
+    FpGame.Result
+
+executable fp-game
+  import: defaults
+  hs-source-dirs: app
+  main-is: Main.hs
+  ghc-options: -threaded -rtsopts
+  build-depends: fp-game-tooling
+
+test-suite tooling-unit
+  import: defaults
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  other-modules: CreateSpec, ProcessSpec
+  main-is: Main.hs
+  ghc-options: -threaded
+  build-depends: fp-game-tooling
