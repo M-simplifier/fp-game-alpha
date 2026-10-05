@@ -366,7 +366,7 @@
   },
   {
    "path": "docs/failure-prevention.md",
-   "sha256_lf": "b4bdac886fabdc852b75ac761efadce6e62064cd28eec83dde328d5b5a5dcc15",
+   "sha256_lf": "426990bdf29c06f318264ff28eb948fbdf02546d1d85a6a414a3b62de48c2b0c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2405,7 +2405,7 @@
   },
   {
    "path": "editors/vscode/extension.js",
-   "sha256_lf": "c67e1e99f50ca2913a98eaa1c9ae8b0fac5c71d8f829a557898436801734058c",
+   "sha256_lf": "53c2d5b7faffa10742a2689a3b8ca3de2ce9cb888bbe83c402cd56e877318516",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2427,7 +2427,7 @@
   },
   {
    "path": "editors/vscode/test/adapter-contract.js",
-   "sha256_lf": "044c38d515e539ad1fb525b38f658c2b3d96c8080e336c903e51f03d98db9721",
+   "sha256_lf": "7fcb774b679959aa84ce743611a5403c8f02b5398aee5448573669e48f6f2a39",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2438,7 +2438,7 @@
   },
   {
    "path": "editors/vscode/test/index.js",
-   "sha256_lf": "e22b12b9ff63bf9a6ec07e27320e48f31bb9c6feb0b34c3e2bbb466443eb360c",
+   "sha256_lf": "a8b83be9275dca4e090c89db7721cff1088c53b44cded4090310c63ccc43ec29",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2449,7 +2449,7 @@
   },
   {
    "path": "editors/vscode/test/native-contract.js",
-   "sha256_lf": "e592f792035ec2be26636d8676d0f21a870438921597606dc14633ac0e24c03e",
+   "sha256_lf": "4e27f34bb20d93403a9ca007f75af0c10e046718d5ef94fc1b460ca1abd8845d",
    "origin": {
     "kind": "authored-for-public-alpha"
    },

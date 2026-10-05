@@ -56,7 +56,8 @@ async function run() {
     await document.save();
     const failed = await query('check');
     assert.notEqual(failed.exit_code, 0);
-    assert(vscode.languages.getDiagnostics(document.uri).some(item => item.severity === vscode.DiagnosticSeverity.Error));
+    assert(vscode.languages.getDiagnostics(document.uri).some(item => item.severity === vscode.DiagnosticSeverity.Error
+      && /Integer/.test(item.message) && /Bool/.test(item.message)));
     const repair = new vscode.WorkspaceEdit();
     repair.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), validSource.replace('module EditorProbe where\n', 'module EditorProbe where\nimport Data.List (sort)\n'));
     await vscode.workspace.applyEdit(repair);
@@ -66,7 +67,13 @@ async function run() {
     const diagnostics = vscode.languages.getDiagnostics(document.uri);
     assert(diagnostics.some(item => item.severity === vscode.DiagnosticSeverity.Warning));
     assert(!diagnostics.some(item => item.severity === vscode.DiagnosticSeverity.Error));
-    fs.writeFileSync(path.join(root, 'vscode-test-result.json'), JSON.stringify({ status: 'pass', checks: ['actual-extension-host', 'native-doctor-and-check', 'inspector-command-selection', 'module-and-type', 'saved-source-compiler-error', 'editor-diagnostics', 'successful-native-warning-clears-errors'], vscode: vscode.version }));
+    const clean = new vscode.WorkspaceEdit();
+    clean.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), validSource);
+    await vscode.workspace.applyEdit(clean);
+    await document.save();
+    assert.equal((await query('check')).exit_code, 0);
+    assert.equal(vscode.languages.getDiagnostics(document.uri).length, 0, 'clean check clears selected document diagnostics');
+    fs.writeFileSync(path.join(root, 'vscode-test-result.json'), JSON.stringify({ status: 'pass', checks: ['actual-extension-host', 'native-doctor-and-check', 'inspector-command-selection', 'module-and-type', 'saved-source-compiler-error', 'editor-diagnostics', 'successful-native-warning-clears-errors', 'clean-check-clears-diagnostics'], vscode: vscode.version }));
   } finally {
     childProcess.spawn = originalSpawn;
   }

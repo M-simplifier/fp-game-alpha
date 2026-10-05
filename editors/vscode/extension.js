@@ -33,20 +33,35 @@ function requireTrustedProject(root, file) {
   if (!allowed) throw new Error('Select a project and saved file inside a trusted workspace folder.');
 }
 
-function compilerDiagnostics(text, root) {
+function fileIdentity(file) {
+  try {
+    // stat follows symlinks and Windows short/long/case aliases. BigInt avoids
+    // rounding 64-bit file IDs; zero is not a usable identity on some filesystems.
+    const stat = fs.statSync(file, { bigint: true });
+    return stat.isFile() && stat.ino !== 0n ? `${stat.dev}:${stat.ino}` : undefined;
+  } catch (_) { return undefined; }
+}
+
+function compilerDiagnostics(text, root, selectedUri) {
   const result = new Map();
+  const selectedIdentity = selectedUri && fileIdentity(selectedUri.fsPath);
   const pattern = /^(.+\.hs):(\d+):(\d+)(?:-\d+)?:\s*(error|warning):/gm;
   for (const match of text.matchAll(pattern)) {
     const file = path.isAbsolute(match[1]) || !root ? match[1] : path.resolve(root, match[1]);
+    // Commands validate the selected file's trusted workspace before execution.
+    // Keep its actual editor URI when GHC prints another name for the same file,
+    // without redirecting imported files, missing paths, or basename lookalikes.
+    const selected = selectedIdentity !== undefined && selectedIdentity === fileIdentity(file);
+    const key = selected ? selectedUri.fsPath : file;
     const position = new vscode.Position(Number(match[2]) - 1, Number(match[3]) - 1);
     const diagnostic = new vscode.Diagnostic(new vscode.Range(position, position.translate(0, 1)),
       text.slice(match.index, text.indexOf('\n\n', match.index) === -1 ? text.length : text.indexOf('\n\n', match.index)).trim(),
       match[4] === 'error' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning);
     diagnostic.source = 'fp-game / GHC saved source';
-    if (!result.has(file)) result.set(file, []);
-    result.get(file).push(diagnostic);
+    if (!result.has(key)) result.set(key, { uri: selected ? selectedUri : vscode.Uri.file(file), entries: [] });
+    result.get(key).entries.push(diagnostic);
   }
-  return [...result].map(([file, entries]) => [vscode.Uri.file(file), entries]);
+  return [...result.values()].map(({ uri, entries }) => [uri, entries]);
 }
 
 function activate(context) {
@@ -57,7 +72,8 @@ function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('fpGame.' + action, async (explicitSymbol) => {
       if (!vscode.workspace.isTrusted) throw new Error('CLI execution requires a trusted workspace.');
       const editor = vscode.window.activeTextEditor;
-      const file = editor?.document.uri.fsPath;
+      const selectedUri = editor?.document.uri;
+      const file = selectedUri?.fsPath;
       const root = file ? projectRoot(file) : vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
       if (!root) throw new Error('Open a game or foundation project first.');
       if (action !== 'doctor' && (!file || !file.endsWith('.hs') || editor.document.isDirty)) throw new Error('Save and select a Haskell file first.');
@@ -96,7 +112,7 @@ function activate(context) {
           } catch (error) { reject(new Error('Invalid CLI result: ' + error.message + '\n' + stderr)); }
         });
       });
-      if (action === 'check') { diagnostics.clear(); diagnostics.set(compilerDiagnostics(result.stderr || '', root)); }
+      if (action === 'check') { diagnostics.clear(); diagnostics.set(compilerDiagnostics(result.stderr || '', root, selectedUri)); }
       output.clear(); output.appendLine(JSON.stringify(result, null, 2)); output.show(true);
       return result;
     }));

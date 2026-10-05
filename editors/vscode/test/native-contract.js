@@ -70,7 +70,7 @@ async function main() {
     const document = { uri: { fsPath: source }, isDirty: false,
       getWordRangeAtPosition: () => ({}), getText: () => 'twice' };
     const vscode = {
-      Position, Range, Diagnostic, DiagnosticSeverity: { Error: 0, Warning: 1 }, Uri: { file: file => file },
+      Position, Range, Diagnostic, DiagnosticSeverity: { Error: 0, Warning: 1 }, Uri: { file: file => ({ fsPath: file }) },
       workspace: { isTrusted: true, workspaceFolders: [{ uri: { fsPath: root } }],
         getConfiguration: () => ({ get: () => { pythonReads++; return python; } }) },
       window: { activeTextEditor: { document, selection: { active: {} } },
@@ -88,18 +88,31 @@ async function main() {
       require: name => ({ vscode, 'node:fs': fs, 'node:path': path, 'node:child_process': tracedProcess })[name],
     }, { filename: 'extension.js' });
     module.exports.activate({ subscriptions: [] });
+    let selectedRoot = root;
+    let reportedPathAliasObserved = false;
     async function query(action, symbol) {
       const result = await commands.get('fpGame.' + action)(symbol);
       const native = action === 'doctor' || action === 'check';
       const call = calls.at(-1);
-      assert.equal(call.executable, native ? localBinary : python);
-      assert.deepEqual(call.args, [...(native ? [] : [inspector]), action, '--project', root, '--json',
-        ...(action === 'doctor' ? [] : [source]), ...(action === 'context' ? ['--symbol', symbol] : [])]);
-      assert.equal(call.options.cwd, root);
+      assert.equal(call.executable, native ? path.join(selectedRoot, '.build', 'tools', leaf) : python);
+      assert.deepEqual(call.args, [...(native ? [] : [path.join(selectedRoot, 'tools', 'inspect_haskell.py')]), action, '--project', selectedRoot, '--json',
+        ...(action === 'doctor' ? [] : [document.uri.fsPath]), ...(action === 'context' ? ['--symbol', symbol] : [])]);
+      assert.equal(call.options.cwd, selectedRoot);
       assert.equal(call.options.shell, false);
       if (compiler && native) {
         const selected = action === 'doctor' ? result.compiler_selection.path : result.command[0];
         assert.equal(normalized(selected), normalized(compiler), 'native editor command must honor the explicit compiler');
+      }
+      if (action === 'check') {
+        const selected = fs.statSync(document.uri.fsPath, { bigint: true });
+        for (const match of (result.stderr || '').matchAll(/^(.+\.hs):\d+:\d+(?:-\d+)?:\s*(?:error|warning):/gm)) {
+          const reported = path.resolve(selectedRoot, match[1]);
+          if (reported === document.uri.fsPath) continue;
+          try {
+            const actual = fs.statSync(reported, { bigint: true });
+            if (actual.isFile() && actual.ino !== 0n && actual.dev === selected.dev && actual.ino === selected.ino) reportedPathAliasObserved = true;
+          } catch (_) { /* A missing/imported diagnostic must not count as a source alias. */ }
+        }
       }
       return result;
     }
@@ -119,15 +132,46 @@ async function main() {
     fs.writeFileSync(source, 'module EditorProbe where\nbad :: Integer\nbad = True\n');
     const failed = await query('check');
     assert.notEqual(failed.exit_code, 0);
-    assert(entries.some(([file, diagnostics]) => file === source && diagnostics.some(value => value.severity === 0)), JSON.stringify(entries));
+    assert(entries.some(([uri, diagnostics]) => uri === document.uri && diagnostics.some(value =>
+      value.severity === 0 && /Integer/.test(value.message) && /Bool/.test(value.message))), JSON.stringify(entries));
     fs.writeFileSync(source, goodSource.replace('module EditorProbe where\n', 'module EditorProbe where\nimport Data.List (sort)\n'));
     const warning = await query('check');
     assert.equal(warning.exit_code, 0);
-    assert(entries.some(([file, diagnostics]) => file === source && diagnostics.some(value => value.severity === 1)), JSON.stringify(entries));
+    assert(entries.some(([uri, diagnostics]) => uri === document.uri && diagnostics.some(value => value.severity === 1)), JSON.stringify(entries));
     assert(!entries.some(([, diagnostics]) => diagnostics.some(value => value.severity === 0)), 'successful warning check clears old errors');
     fs.writeFileSync(source, goodSource);
     assert.equal((await query('check')).exit_code, 0);
     assert.equal(entries.length, 0, 'clean native check clears all stale diagnostics');
+
+    if (process.platform !== 'win32') {
+      // Exercise a real explicitly trusted symlink workspace and real GHC,
+      // independent of platform-mocked Windows file IDs in adapter-contract.js.
+      selectedRoot = path.join(trial, 'opened workspace link');
+      fs.symlinkSync(root, selectedRoot, 'dir');
+      document.uri = { fsPath: path.join(selectedRoot, 'src', 'EditorProbe.hs') };
+      vscode.workspace.workspaceFolders = [{ uri: { fsPath: selectedRoot } }];
+      fs.writeFileSync(source, 'module EditorProbe where\nbad :: Integer\nbad = True\n');
+      assert.notEqual((await query('check')).exit_code, 0);
+      assert(entries.some(([uri, diagnostics]) => uri === document.uri && diagnostics.some(value => value.severity === 0)), JSON.stringify(entries));
+      const siblingSource = path.join(trial, 'unrelated', 'EditorProbe.hs');
+      fs.mkdirSync(path.dirname(siblingSource));
+      fs.writeFileSync(siblingSource, goodSource);
+      const routed = module.exports.compilerDiagnostics(
+        `${source}:3:7: error: physical source\n\n${siblingSource}:3:7: warning: unrelated file\n\n`, selectedRoot, document.uri);
+      assert.equal(routed.length, 2);
+      assert.equal(routed[0][0], document.uri, 'physical path must route to the exact opened symlink URI');
+      assert.equal(routed[1][0].fsPath, siblingSource, 'a real same-basename sibling must remain separate');
+      fs.writeFileSync(source, goodSource.replace('module EditorProbe where\n', 'module EditorProbe where\nimport Data.List (sort)\n'));
+      assert.equal((await query('check')).exit_code, 0);
+      assert(entries.some(([uri, diagnostics]) => uri === document.uri && diagnostics.some(value => value.severity === 1)), JSON.stringify(entries));
+      assert(!entries.some(([, diagnostics]) => diagnostics.some(value => value.severity === 0)), 'symlink warning check clears old errors');
+      fs.writeFileSync(source, goodSource);
+      assert.equal((await query('check')).exit_code, 0);
+      assert.equal(entries.length, 0, 'clean symlink check clears stale diagnostics');
+      selectedRoot = root;
+      document.uri = { fsPath: source };
+      vscode.workspace.workspaceFolders = [{ uri: { fsPath: root } }];
+    }
 
     async function refuses(action, pattern) {
       const count = calls.length;
@@ -149,8 +193,10 @@ async function main() {
     await refuses('context', /inspect_haskell\.py is missing/);
     console.log(JSON.stringify({ status: 'pass', host: 'mocked-vscode-ui', processes: 'real-native-cli-and-ghc-ghci',
       checks: ['native-created-independent-game', 'native-doctor', 'saved-source-check', 'inspector-module-and-type',
-        'error-and-successful-warning-diagnostics', 'clean-check-clears-diagnostics', 'saved-source-refusal', 'missing-entrypoint-no-fallback'],
-      platform: process.platform, inspector_compiler_selection: 'separate PATH GHC/GHCi; native compiler profile is not applied' }));
+        'selected-uri-error-and-successful-warning-diagnostics', 'clean-check-clears-diagnostics', 'saved-source-refusal', 'missing-entrypoint-no-fallback',
+        ...(process.platform === 'win32' ? [] : ['real-trusted-symlink-workspace-diagnostics', 'distinct-file-diagnostics'])],
+      platform: process.platform, reported_path_alias_observed: reportedPathAliasObserved,
+      inspector_compiler_selection: 'separate PATH GHC/GHCi; native compiler profile is not applied' }));
   } catch (error) {
     console.error('Native editor fixture retained at ' + trial);
     throw error;
