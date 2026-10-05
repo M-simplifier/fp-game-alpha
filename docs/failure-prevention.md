@@ -227,7 +227,11 @@ for the distinction between executed checks and unverified platform routes.
   The earlier delay-only cancellation attempt remains **inconclusive**: absence
   of a later effect cannot prove cancellation if the child never started. Current
   tests wait for a real started-child signal, exercise a positive completion
-  control, and check both prompt return and absence of later descendant effects
+  control, and check both prompt return and absence of later descendant effects.
+  A Windows TH probe then measured healthy entry at4.656s, beyond the former2s
+  fixture budget. A live positive release-gate control now establishes entry and
+  effect; the15s negative deadline cannot finish naturally while its gate is shut.
+  Release only after return and report the bounded four-second effect observation
 - **Windows job completion:** A Windows unit stage stalled without a captured
   blocked-thread stack. Source inspection of pinned `process-1.6.19` found a
   job-completion FFI wait that can delay cancellation of its calling thread.

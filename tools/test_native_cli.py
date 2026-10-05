@@ -221,55 +221,157 @@ def symlink_or_record(link, target, directory=False):
         return False
 
 
-def slow_source(project, name, started, late):
+def slow_source(project, name, started, late, release):
     source = project / 'src' / name
-    # Actual GHC Template Haskell work exercises cancellation of a real compiler,
-    # including its interpreter process when the compiler uses one.
+    # Actual GHC/Template Haskell work cannot finish naturally while its gate
+    # remains closed. The positive control proves the same gate reaches an effect.
+    for marker in [started, late, release]:
+        require('fresh-compiler-marker-' + marker, not (project / marker).exists())
     source.write_text('{-# LANGUAGE TemplateHaskell #-}\nmodule Slow where\n'
         'import Control.Concurrent (threadDelay)\n'
+        'import Control.Monad (unless)\n'
+        'import System.Directory (doesFileExist)\n'
         'import Language.Haskell.TH (runIO)\n'
         'value :: ()\nvalue = $(do\n'
-        f'  runIO (writeFile "{started}" "started" >> threadDelay 5000000 >> writeFile "{late}" "late")\n'
+        '  runIO $ do\n'
+        f'    writeFile "{started}" "started"\n'
+        '    let awaitRelease = do\n'
+        f'          released <- doesFileExist "{release}"\n'
+        '          unless released (threadDelay 20000 >> awaitRelease)\n'
+        '    awaitRelease\n'
+        f'    writeFile "{late}" "late"\n'
         '  [| () |])\n', encoding='utf-8')
     return source
 
 
+def compiler_timing(label, **values):
+    record = {'check': label, **values}
+    RECORDS.append(record)
+    print(json.dumps(record, ensure_ascii=True), flush=True)
+    return record
+
+
+def release_fixture(process, release):
+    # Failure cleanup is never acceptance: open the gate so a real compiler
+    # cannot remain indefinitely blocked, then allow its own bounded CLI to exit.
+    # A failed CLI may already have exited while leaving a descendant gated.
+    # Opening the gate is necessary even then; this finally path grants no pass.
+    release.touch(exist_ok=True)
+    if process.poll() is None:
+        try:
+            process.communicate(timeout=55)
+        except subprocess.TimeoutExpired:
+            if os.name == 'nt':
+                subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'],
+                               capture_output=True, timeout=15)
+            else:
+                process.terminate()
+            process.communicate(timeout=15)
+
+
+def positive_compiler_gate(binary, project):
+    started, late, release = 'control-started', 'control-effect', 'control-release'
+    slow_source(project, 'Slow.hs', started, late, release)
+    command = [str(binary), 'check', 'src/Slow.hs', '--project', str(project),
+               '--timeout', '30', '--json']
+    print('real-ghc-gate-positive-control', flush=True)
+    began = time.monotonic()
+    process = subprocess.Popen(command, cwd=project, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               text=True, encoding='utf-8', errors='replace')
+    try:
+        deadline = began + 30
+        while not (project / started).exists() and process.poll() is None and time.monotonic() < deadline:
+            time.sleep(0.02)
+        ready = (project / started).exists()
+        ready_seconds = round(time.monotonic() - began, 3) if ready else None
+        closed = not (project / late).exists()
+        # This live-child control is intentionally released; it must produce the
+        # effect and finish successfully, unlike the timed-out/signal cases below.
+        (project / release).write_text('positive control release', encoding='utf-8')
+        released_at = time.monotonic()
+        stdout, stderr = process.communicate(timeout=40)
+        timings = compiler_timing('real-ghc-positive-control-timing',
+            started_seconds=ready_seconds, completion_seconds=round(time.monotonic() - began, 3),
+            release_to_completion_seconds=round(time.monotonic() - released_at, 3))
+        diagnostic = json.dumps({'command': command, 'exit_code': process.returncode,
+            'stdout': stdout, 'stderr': stderr, 'timings': timings, 'observed_tools': ENVIRONMENT}, ensure_ascii=True)
+        require('positive-control-compiler-started', ready, diagnostic)
+        require('positive-control-gate-prevented-effect', closed, diagnostic)
+        require('positive-control-compiler-completed', process.returncode == 0, diagnostic)
+        result = json.loads(stdout)
+        require('positive-control-json-success', result.get('exit_code') == 0 and not stderr, diagnostic)
+        require('positive-control-release-produced-effect', (project / late).is_file(), diagnostic)
+    finally:
+        release_fixture(process, project / release)
+
+
+def no_released_effect(project, late):
+    # A bounded observation, not a claim about arbitrarily suspended processes.
+    # The positive live-child control proves this same release path can produce it.
+    deadline = time.monotonic() + 4
+    while not (project / late).exists() and time.monotonic() < deadline:
+        time.sleep(0.02)
+    return not (project / late).exists()
+
+
 def cancellation(binary, project):
-    started, late = 'timeout-started', 'timeout-late'
-    source = slow_source(project, 'Slow.hs', started, late)
-    result = cli(binary, 'real-ghc-timeout', 'check', project,
-                 str(source.relative_to(project)), '--timeout', '2', expected=1)
-    # Preserve the real failure evidence in CI output, not only a runner-local
-    # log file. Do not infer slow startup or compiler failure from a missing marker.
-    diagnostic = json.dumps({'result': result, 'observed_tools': ENVIRONMENT}, ensure_ascii=True)
-    require('timeout-reports-exact-deadline', result['stderr'] ==
-            'Command timed out; process tree terminated.', diagnostic)
-    require('timeout-interrupted-running-ghc', (project / started).is_file(), diagnostic)
-    time.sleep(4)
-    require('timeout-leaves-no-running-compiler-effect', not (project / late).exists(), diagnostic)
+    positive_compiler_gate(binary, project)
+    started, late, release = 'timeout-started', 'timeout-late', 'timeout-release'
+    source = slow_source(project, 'Slow.hs', started, late, release)
+    began = time.monotonic()
+    # Windows GHC9.6.7 was observed entering healthy TH at4.656s. This deadline
+    # provides startup headroom; the closed gate, not a fixed sleep, prevents exit.
+    try:
+        result = cli(binary, 'real-ghc-timeout', 'check', project,
+                     str(source.relative_to(project)), '--timeout', '15', expected=1)
+        timings = compiler_timing('real-ghc-timeout-timing', deadline_seconds=15,
+            completion_seconds=round(time.monotonic() - began, 3),
+            started_marker=(project / started).is_file(), release_exists_at_return=(project / release).exists())
+        diagnostic = json.dumps({'result': result, 'timings': timings, 'observed_tools': ENVIRONMENT}, ensure_ascii=True)
+        require('timeout-reports-exact-deadline', result['stderr'] ==
+                'Command timed out; process tree terminated.', diagnostic)
+        require('timeout-interrupted-running-ghc', (project / started).is_file(), diagnostic)
+        require('timeout-gate-prevented-natural-completion', not (project / late).exists(), diagnostic)
+    finally:
+        # The synchronous CLI has returned (or failed); release cannot precede it.
+        # On assertion failure this is cleanup, never a passing observation.
+        (project / release).write_text('post-timeout release', encoding='utf-8')
+    require('timeout-leaves-no-running-compiler-effect', no_released_effect(project, late), diagnostic)
     if os.name == 'nt':
         RECORDS.append({'check': 'posix-signal-cancellation', 'status': 'not-applicable'})
+        source.unlink()
         return
     for name, sig, accepted in [('sigterm', signal.SIGTERM, {143, -signal.SIGTERM}),
                                 ('sigint', signal.SIGINT, {130, -signal.SIGINT})]:
-        started, late = name + '-started', name + '-late'
-        slow_source(project, 'Slow.hs', started, late)
+        started, late, release = name + '-started', name + '-late', name + '-release'
+        slow_source(project, 'Slow.hs', started, late, release)
         command = [str(binary), 'check', 'src/Slow.hs', '--project', str(project), '--json']
-        process = subprocess.Popen(command, cwd=project, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        began = time.monotonic()
+        process = subprocess.Popen(command, cwd=project, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                   text=True, encoding='utf-8', errors='replace')
         try:
-            deadline = time.monotonic() + 15
+            deadline = began + 15
             while not (project / started).exists() and process.poll() is None and time.monotonic() < deadline:
-                time.sleep(0.05)
-            require(name + '-compiler-started', (project / started).is_file())
+                time.sleep(0.02)
+            if not (project / started).exists():
+                (project / release).write_text('failed startup cleanup', encoding='utf-8')
+                stdout, stderr = process.communicate(timeout=40)
+                require(name + '-compiler-started', False, json.dumps({'command': command,
+                    'exit_code': process.returncode, 'stdout': stdout, 'stderr': stderr}, ensure_ascii=True))
+            require(name + '-compiler-started', True)
+            ready_seconds = round(time.monotonic() - began, 3)
             process.send_signal(sig)
-            process.communicate(timeout=10)
-            require(name + '-exit-code', process.returncode in accepted, str(process.returncode))
-            time.sleep(5)
-            require(name + '-no-late-compiler-effect', not (project / late).exists())
+            stdout, stderr = process.communicate(timeout=10)
+            timings = compiler_timing(name + '-compiler-timing', started_seconds=ready_seconds,
+                completion_seconds=round(time.monotonic() - began, 3))
+            diagnostic = json.dumps({'command': command, 'exit_code': process.returncode,
+                'stdout': stdout, 'stderr': stderr, 'timings': timings}, ensure_ascii=True)
+            require(name + '-exit-code', process.returncode in accepted, diagnostic)
+            require(name + '-gate-prevented-natural-completion', not (project / late).exists(), diagnostic)
+            (project / release).write_text('post-signal release', encoding='utf-8')
+            require(name + '-no-late-compiler-effect', no_released_effect(project, late), diagnostic)
         finally:
-            if process.poll() is None:
-                process.kill()
-                process.communicate()
+            release_fixture(process, project / release)
     source.unlink()
 
 

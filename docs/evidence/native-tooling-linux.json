@@ -1882,7 +1882,7 @@
       "skipped": 3
     },
     "workflow": {
-      "status": "Native matrix temporarily disabled for next diagnostic-only revision; required Windows preflight plus alpha remain. Not acceptance; restore matrix before final candidate.",
+      "status": "Full three-OS native matrix restored for the next candidate; verify actual jobs execute and pass.",
       "platforms": [
         "Linux",
         "Windows",
@@ -1907,6 +1907,30 @@
       "exit_seconds": 5.975,
       "exit_code": 0,
       "scope": "Real GHC Template Haskell source in boot preflight, not Windows runtime evidence."
+    },
+    "gated_th_fixture_linux": {
+      "status": "pass focused fixture",
+      "records": 37,
+      "positive_started_seconds": 1.021,
+      "positive_completed_seconds": 1.371,
+      "positive_release_to_completion_seconds": 0.35,
+      "timeout_seconds": 15,
+      "timeout_completed_seconds": 15.436,
+      "timeout_started_marker": true,
+      "timeout_release_existed_at_return": false,
+      "post_return_release_observation_seconds": 4,
+      "signal_cases": "SIGTERM and SIGINT passed with acknowledged entry and no post-return released effect",
+      "cleanup_followup": "Actual already-exited subprocess confirms unconditional gate release; final read-only review passed.",
+      "qualification": "Focused Linux evidence, not full next-candidate or Windows acceptance."
+    },
+    "diagnostic_th_probe_windows": {
+      "status": "pass at13ebaaaf",
+      "started_seconds": 4.656,
+      "late_seconds": 9.656,
+      "completion_seconds": 9.859,
+      "exit_code": 0,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978121/job/111752909460",
+      "qualification": "Boot-launcher real-GHC probe; native matrix intentionally skipped."
     }
   },
   "prior_findings": {
@@ -1929,19 +1953,21 @@
     {
       "file": "tools/test_native_cli.py",
       "tested_sha256_lf": "b9f25bcf8c7c2bea9dd13a604036b392ce6d95a69d886e23f5bf74b02da97089",
-      "published_sha256_lf": "282b94a5aeb0594c97f4b1fc4f5202c14b6955039a8feaf1867325ab50bbe24b",
-      "scope": "Test-only changes since the392 receipt: Windows-relative bootstrap case, UTF-8 legacy comparison adapter/regression, and exact timeout-result classification with complete failure diagnostics. Original2s timeout and started-marker requirement remain unchanged.",
-      "verification": "Earlier relative/encoding repairs passed actual Windows atcaf0d946. New diagnostic assertion syntax/whitespace pass and the recorded real Linux timeout result matches the classifier. No full local rerun for these diagnostic bytes.",
-      "qualification": "Original392-check input hashes are preserved, not rebound. Production runtime and generator sources are unchanged.",
+      "published_sha256_lf": "5437c85dd852eefbfe8b9392eb2caaafe8b85e2ba4aa019da0eb8bada733d154",
+      "scope": "Test-only changes since392 receipt include Windows-relative bootstrap, UTF-8 comparison adapter, full timeout diagnostics, and gated real-TH positive/timeout/signal cases. The15s negative deadline follows measured Windows startup4.656s; a closed gate prevents natural success.",
+      "verification": "Focused real native CLI/GHC fixture passed37 Linux records: positive start1.021s, completion1.371s, release-to-completion0.350s; exact15s timeout returned15.436s with started marker and release absent; no effect in four-second post-release window; gated SIGTERM/SIGINT cases passed. A subsequent cleanup-only change unconditionally opens the gate for an already-exited parent; an actual completed-subprocess regression passed, and final source review closed. No full integration rerun is claimed.",
+      "qualification": "Historical392 input hashes are retained; no rebinding to later bytes. Production runtime/generator and benchmark inputs are unchanged.",
       "intermediate_published_sha256_lf": "337c72d0bc2d33e0913f11746a9cbfb70d6d6c4f4e3edef863e4f16e45e0c4d2",
-      "previous_published_sha256_lf": "dd4f8da4ce5045357a5e41cecb3aa4800bdea9fece681bc7d8ff8f5fd70d25be"
+      "previous_published_sha256_lf": "282b94a5aeb0594c97f4b1fc4f5202c14b6955039a8feaf1867325ab50bbe24b"
     },
     {
       "file": "docs/failure-prevention.md",
       "tested_sha256_lf": "0b67811f9fe7556013d1d5f30501451e864607e5e9dc436eded6d97ec1786986",
-      "published_sha256_lf": "88f3e07ece28e2d59e6f8a8a4f05232eb671e320881f9d6b75fc0eb05b5175af",
-      "scope": "Documentation-only prevention lesson for adapter stdout initialization and forced-cp1252 negative control.",
-      "verification": "Documentation lint and whitespace checks pass; no runtime-source change."
+      "published_sha256_lf": "bb342853e10bc37b0397c4059d8107d7685933becc2239528017b0bbdef2fcda",
+      "scope": "Documentation-only lessons for adapter UTF-8 transport and measured-startup/release-gate timeout design.",
+      "verification": "Documentation and whitespace gates pass.",
+      "previous_published_sha256_lf": "88f3e07ece28e2d59e6f8a8a4f05232eb671e320881f9d6b75fc0eb05b5175af",
+      "qualification": "Historical392 input hashes are retained; no rebinding to later bytes. Production runtime/generator and benchmark inputs are unchanged."
     },
     {
       "file": "tools/test_windows_toolchain_paths.py",
@@ -1949,14 +1975,6 @@
       "published_sha256_lf": "4b0a7585e1070558675f8558773872f4219aed6f21a82ef6b71399c5416cface",
       "scope": "Diagnostic-only bounded real Template Haskell probe added to required Windows compiler-profile preflight, capturing exact command/output and marker timings.",
       "verification": "Complete Linux boot preflight passed. Real TH started at0.823s, wrote its late marker at5.812s and exited0 at5.975s. Windows cause remains unobserved pending this probe.",
-      "qualification": "Original392-check input hashes are preserved, not rebound. Production runtime and generator sources are unchanged."
-    },
-    {
-      "file": ".github/workflows/native-tooling.yml",
-      "tested_sha256_lf": "43bf61721d5e148a86c5ac05ab7cc0ccbdf21bfd4529282a31128610eeaea496",
-      "published_sha256_lf": "aa15090d2260a8cbd73ca0a48133dbac625fe58687998b736a04aabd51887a63",
-      "scope": "Temporary explicit native-cli if:false for the diagnostic-only revision, leaving required Windows preflight and alpha checks.",
-      "verification": "YAML/whitespace checked. This is not native acceptance. Restore full matrix before final candidate and verify all three native jobs actually execute.",
       "qualification": "Original392-check input hashes are preserved, not rebound. Production runtime and generator sources are unchanged."
     }
   ]
