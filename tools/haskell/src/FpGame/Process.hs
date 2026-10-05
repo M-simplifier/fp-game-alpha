@@ -34,6 +34,8 @@ import Control.Concurrent (myThreadId)
 import System.Directory (makeAbsolute, withCurrentDirectory)
 import System.Posix.Process (executeFile)
 import System.Posix.Signals (Handler(Catch), installHandler, signalProcessGroup, sigKILL, sigTERM)
+#else
+import Control.Concurrent (readMVar)
 #endif
 
 data Capture = Captured | Interactive deriving (Eq, Show)
@@ -79,31 +81,31 @@ capturedProcess root request = mask $ \restore ->
     -- Obtain the group identifier before waitForProcess closes the process handle.
     processId <- getPid process
     stopped <- newIORef False
-    let stop = do
+    let terminate = do
           firstStop <- atomicModifyIORef' stopped (\previous -> (True, not previous))
-          when firstStop $ do
-            stopTree process processId
-            void (waitForProcess process)
-        waitCaptured = case (output, errors) of
-          (Just outputHandle, Just errorHandle) ->
-            withReader stop outputHandle $ \readOutput ->
-              withReader stop errorHandle $ \readErrors -> do
-                code <- waitForProcess process
-                out <- readOutput
-                err <- readErrors
-                pure (code, out, err)
-          _ -> failTool ToolIO "Could not create process capture pipes."
-        waitInteractive = do
-          code <- waitForProcess process
-          pure (code, Bytes.empty, Bytes.empty)
-        wait = if processCapture request == Captured then waitCaptured else waitInteractive
-        waitWithDeadline = case processTimeoutSeconds request of
-          Nothing -> Just <$> wait
-          Just seconds -> timeout (seconds * 1000000) wait
-    completed <- restore waitWithDeadline `onException` stop
-    case completed of
-      Nothing -> stop >> pure (Executed command 1 "" "Command timed out; process tree terminated.")
-      Just (code, out, err) -> pure (Executed command (exitNumber code) (decode out) (decode err))
+          when firstStop (stopTree process processId)
+    withProcessWait process terminate $ \waitForExit -> do
+      let stop = terminate >> void waitForExit
+          waitCaptured = case (output, errors) of
+            (Just outputHandle, Just errorHandle) ->
+              withReader stop outputHandle $ \readOutput ->
+                withReader stop errorHandle $ \readErrors -> do
+                  code <- waitForExit
+                  out <- readOutput
+                  err <- readErrors
+                  pure (code, out, err)
+            _ -> failTool ToolIO "Could not create process capture pipes."
+          waitInteractive = do
+            code <- waitForExit
+            pure (code, Bytes.empty, Bytes.empty)
+          wait = if processCapture request == Captured then waitCaptured else waitInteractive
+          waitWithDeadline = case processTimeoutSeconds request of
+            Nothing -> Just <$> wait
+            Just seconds -> timeout (seconds * 1000000) wait
+      completed <- restore waitWithDeadline `onException` stop
+      case completed of
+        Nothing -> stop >> pure (Executed command 1 "" "Command timed out; process tree terminated.")
+        Just (code, out, err) -> pure (Executed command (exitNumber code) (decode out) (decode err))
   where
     command = processExecutable request : processArguments request
     capturing = processCapture request == Captured
@@ -130,6 +132,25 @@ stopTree process _ = ignoreIO (terminateProcess process)
 #else
 stopTree process processId =
   maybe (ignoreIO (terminateProcess process)) (ignoreIO . signalProcessGroup sigKILL) processId
+#endif
+
+-- Windows process-1.6.19 waits for the entire Job Object inside one foreign
+-- call. Its interruptible annotation cannot make Win32 object waits cancellable
+-- by CancelSynchronousIo. Keep the request owner on an interruptible MVar and
+-- terminate the job before joining its sole waiter. Polling getProcessExitCode
+-- would observe only the root process and lose descendant lifetime semantics.
+withProcessWait :: ProcessHandle -> IO () -> (IO ExitCode -> IO a) -> IO a
+#ifdef mingw32_HOST_OS
+withProcessWait process terminate action = mask $ \restore -> do
+  completed <- newEmptyMVar
+  let await = readMVar completed >>= either throwIO pure
+      wait = (try (waitForProcess process) :: IO (Either SomeException ExitCode)) >>= putMVar completed
+  bracket
+    (forkIO wait)
+    (\_ -> void (readMVar completed))
+    (\_ -> restore (action await) `onException` terminate)
+#else
+withProcessWait process _ action = action (waitForProcess process)
 #endif
 
 -- Terminate before cancelling pipe readers: a reader may be in a blocking OS

@@ -126,8 +126,13 @@ jobs:
                                       '--ghc-opt=-XGHC2021', '--ghc-opt=-D' + define, str(path)], check=True)
           PYTHON
       - name: Test typed native package
+        # Dependencies were built above; contain a stalled unit process without
+        # spending the entire cold-setup job ceiling. No tests are skipped.
+        timeout-minutes: 5
         working-directory: tools/haskell
-        run: cabal test all --offline --builddir=../../.build/native-tool --test-show-details=direct
+        run: |
+          ghc-pkg field process version
+          cabal test all --offline --builddir=../../.build/native-tool --test-show-details=direct
       - name: Execute independent native game development and refusal contracts
         run: python tools/test_native_cli.py --binary .build/tools/fp-game${{ runner.os == 'Windows' && '.exe' || '' }}
       - name: Save validated native dependencies on main only

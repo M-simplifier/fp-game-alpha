@@ -141,7 +141,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "d6886e0d4e43becdfa2460727e7113d4f4a85ed0aa1ee8d6cb07966b551b0a95",
+   "sha256_lf": "9d53e878ab72f5e9df5f863c9232bc37a08b79421cbb2eaa33e82bf8a3508aa8",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -300,7 +300,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-ci.json",
-   "sha256_lf": "873b507beae4e40d0554deab42d2c5f9a0877cc69c17953172b2ec11d8c901f2",
+   "sha256_lf": "b514f9a6d7dc56702755619d167b7219a66d617b27ff525a3f47ab659b42b73d",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -311,7 +311,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-linux.json",
-   "sha256_lf": "f142f9f8351b23a162d3afd7fb377353c27a37e2e6b8a4d74627f1ef05da210c",
+   "sha256_lf": "c09cd044a2fe506f1d760ce136a9d2ee0170ed2cbcb340bdb6eb820175a8eb3f",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -366,7 +366,7 @@
   },
   {
    "path": "docs/failure-prevention.md",
-   "sha256_lf": "b062b7abe2f0740e38acd34a890a7ace499558bced1e1a7670673a5465dbd97e",
+   "sha256_lf": "6e7e18fc89b0a8853979da286b52f2f0242f4c39306648cc3a76d1e4709bb7fb",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "805f738c36b8d399d57998a8c1c329ff48985c2115e962bca6a46eb1c449a6e2",
+   "sha256_lf": "496b045749fa1876183d07692688eaecd48bda23b9b994866025af5803182f8f",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -483,7 +483,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "cda090770b4edc157095107400adbf00cb3a3e73849d84cd10aa4b9cd03d73ca",
+   "sha256_lf": "b11ab569a2187dc81a0242dedd7c805c7eeaff80c61316491f80bb5d89162915",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -775,7 +775,7 @@
   },
   {
    "path": "docs/support/routes.json",
-   "sha256_lf": "71a1dfc9b8b1def581e744a19c0fe5347e5b975af1ca676e4227cb8853665c9c",
+   "sha256_lf": "dc50786d27285d7fb2f3a3036e2aecbad8e81cac4cea4111fdb884ec11e190c0",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19228,7 +19228,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Process.hs",
-   "sha256_lf": "e3b2beefd1f0d27c05f1932f07f25d8a2bf8623d0157632111cb108dd2e0d769",
+   "sha256_lf": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19272,7 +19272,7 @@
   },
   {
    "path": "tools/haskell/test/ProcessSpec.hs",
-   "sha256_lf": "ed050df5d31b0085e8e1e5a0fed6abab66fc4320629acabb0265b0140500df6d",
+   "sha256_lf": "0d06d85db44c78e4042fa97cbd23e1d5e40a47e6688ca6924a8a77c368705c89",
    "origin": {
     "kind": "authored-for-public-alpha"
    },

@@ -228,6 +228,13 @@ for the distinction between executed checks and unverified platform routes.
   of a later effect cannot prove cancellation if the child never started. Current
   tests wait for a real started-child signal, exercise a positive completion
   control, and check both prompt return and absence of later descendant effects
+- **Windows job completion:** A Windows unit stage stalled without a captured
+  blocked-thread stack. Source inspection of pinned `process-1.6.19` found a
+  job-completion FFI wait that can delay cancellation of its calling thread.
+  Keep the deadline owner on an interruptible result wait, scope the native
+  waiter separately, and terminate the Job Object before joining that worker.
+  This is a source-supported risk and repair boundary, not an observed-stack
+  diagnosis; a successful Windows rerun is still required
 - **Terminal ownership:** A separate foreground proxy first hung on terminal
   reads, then introduced a confirmed `bg`/`fg` late-stop race. Remove that extra
   ownership: POSIX interactive `run` execs Cabal, letting the shell manage its

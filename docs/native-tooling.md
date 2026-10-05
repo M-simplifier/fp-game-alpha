@@ -211,22 +211,24 @@ real CLI/relocation/game-development and POSIX terminal/compiler cancellation
 suite, including shell-backed Ctrl-Z/fg, initial background launch, stopped-job
 cancellation and foreground/settings restoration. The source-bound summary is recorded at
 `docs/evidence/native-tooling-linux.json` in the foundation distribution.
-Published revision `991612f4dc74b809692e7940e432c67f0315ecc4` passed native CI
-on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053397)
-and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053663),
-with 350 integration records each. [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053670#step:11:1)
-passed the duplicate-PATH regression, native bootstrap and formatting, then a
-creation test exposed normalization hiding a linked parent. Raw-path validation
-now precedes normalization; its Windows rerun is pending. These results qualify
-the recorded revision only. The foundation's `docs/evidence/native-tooling-ci.json`
-retains current and earlier exact run/head records.
+Published revision `8f967a0a72453dcd728b5129c23dd3d4d7066b2a` passed native CI
+on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939783)
+and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939921),
+with 350 records each. [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679940001#step:11:1)
+entered the unit stage at 08:42:20 UTC; it had not completed and integration had
+not started at the 08:53 observation. No blocked-thread stack or successful
+cancellation action was captured. A source-supported job-wait/cancellation risk
+is addressed by a Windows-scoped waiter; actual Windows verification is pending.
+The unit step now prints the installed process-library version and has a five-minute
+ceiling after dependency setup. The foundation's `docs/evidence/native-tooling-ci.json`
+records these observations and earlier exact run/head results.
 
 The fresh secure package-index acquisition took 96.669 seconds on this machine.
 A resumed dependency/source build took 734.737 seconds, after an earlier process
 was interrupted and before application compile errors were corrected. This is
 **not** an uninterrupted successful cold-install time. With dependencies cached,
-a fresh application build took 19.213 seconds. The unstripped executable was
-21,706,160 bytes; 30 version-startup trials had a median of 13.405 milliseconds.
+a fresh application build took 21.960 seconds. The unstripped executable was
+21,706,160 bytes; 30 version-startup trials had a median of 14.835 milliseconds.
 The package-index/source cache occupied 1,194,703,972 apparent bytes (about
 1.11 GiB) and the 42-unit external dependency store 119,220,746 apparent bytes
 (about 114 MiB). These are local disk observations, not network download sizes or

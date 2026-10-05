@@ -8,12 +8,12 @@
     "ghc": "9.6.7",
     "cabal": "3.12.1.0"
   },
-  "binary_sha256": "6ed4bd024465a3f532378f6590d46e5b27dd7bd3233ed435487b5c4a7389942e",
+  "binary_sha256": "0d0d28055a01afeb511b7c63cfea599dfef094ad517be4b1977b7f8da19415a1",
   "input_source_scope": "Native package, bootstrap, harness, optional starter/core fixtures, legacy contract oracle, native/prevention guides, workflow and formatter selection; excludes local outputs and evidence reports.",
   "input_sha256_lf": {
-    ".github/workflows/native-tooling.yml": "d6886e0d4e43becdfa2460727e7113d4f4a85ed0aa1ee8d6cb07966b551b0a95",
-    "docs/failure-prevention.md": "b062b7abe2f0740e38acd34a890a7ace499558bced1e1a7670673a5465dbd97e",
-    "docs/native-tooling.md": "805f738c36b8d399d57998a8c1c329ff48985c2115e962bca6a46eb1c449a6e2",
+    ".github/workflows/native-tooling.yml": "9d53e878ab72f5e9df5f863c9232bc37a08b79421cbb2eaa33e82bf8a3508aa8",
+    "docs/failure-prevention.md": "6e7e18fc89b0a8853979da286b52f2f0242f4c39306648cc3a76d1e4709bb7fb",
+    "docs/native-tooling.md": "496b045749fa1876183d07692688eaecd48bda23b9b994866025af5803182f8f",
     "formatter.json": "da691d87ad89f0ce9fce220137177b3a22c4fd89486168b839730697cf044649",
     "libraries/game-arena/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
     "libraries/game-arena/game-arena.cabal": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
@@ -61,11 +61,11 @@
     "tools/haskell/src/FpGame/Create.hs": "3697d91e85ec2291a7f37d292cdac4f4b62c521efd450ef63c550d08a533b06c",
     "tools/haskell/src/FpGame/Error.hs": "05b3cc493e4f0f14700743149c16962032be869d40a855eae799764338a99eff",
     "tools/haskell/src/FpGame/Path.hs": "6b8bed58cbb9687fb31b3b25d5ede8ba2f6c445fbb608618456a91caff331898",
-    "tools/haskell/src/FpGame/Process.hs": "e3b2beefd1f0d27c05f1932f07f25d8a2bf8623d0157632111cb108dd2e0d769",
+    "tools/haskell/src/FpGame/Process.hs": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
     "tools/haskell/src/FpGame/Result.hs": "4c8f6e5c056f7136605b2e0e91a5eba0318a61ef448914a16a926eb99c236959",
     "tools/haskell/test/CreateSpec.hs": "2647d89e749bcd26613bc99b04a81bdea027ba12f19b2341bd57130a7ebdb74e",
     "tools/haskell/test/Main.hs": "a39c2957ff01c0f276dcbc0e5fe055205388dd85da803efda20ae0a5bd8161cd",
-    "tools/haskell/test/ProcessSpec.hs": "ed050df5d31b0085e8e1e5a0fed6abab66fc4320629acabb0265b0140500df6d",
+    "tools/haskell/test/ProcessSpec.hs": "0d06d85db44c78e4042fa97cbd23e1d5e40a47e6688ca6924a8a77c368705c89",
     "tools/scaffold.py": "ba722bc97523e7f7d2912a5d4c6302c5f3e8a037a4752fb39fdf33161ff55253",
     "tools/test_native_cli.py": "50623dbaa2fd927627674ba00194a38196120ddee20e4316a9545e601e330f29",
     "tools/test_native_terminal.py": "27d9ed288fe2319451878a251b9528df004c9d31719f23c17d1723af86a2a451",
@@ -84,14 +84,14 @@
       "check": "bootstrap-tool-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.067,
+      "seconds": 0.092,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "check": "bootstrap-before-ghc-exists",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.005,
+      "seconds": 0.004,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -111,7 +111,7 @@
       "check": "bootstrap-refuses-directory-leaf",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.064,
+      "seconds": 0.063,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -122,7 +122,7 @@
       "check": "bootstrap-refuses-linked-leaf",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.072,
+      "seconds": 0.065,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -137,7 +137,7 @@
       "check": "native-doctor",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.096,
+      "seconds": 0.118,
       "stdout_sha256": "b7ce7618c6014181923aa33793e3c287b00c7ff6bd288d6ef455bd3679e0bd85"
     },
     {
@@ -164,7 +164,7 @@
       "check": "missing-tools",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.013,
+      "seconds": 0.014,
       "stdout_sha256": "783bd98248226f479ce5bf2c3804138c3955b7ad502071241c27582d3f778f7f"
     },
     {
@@ -187,14 +187,14 @@
       "check": "unknown-command",
       "exit_code": 2,
       "expected_exit_code": 2,
-      "seconds": 0.014,
+      "seconds": 0.022,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "check": "executable-option-injection-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.013,
+      "seconds": 0.014,
       "stdout_sha256": "e78243809b3428418029dc4d9ba5715512fdbf70b099301b7e32986e96102d50"
     },
     {
@@ -252,8 +252,8 @@
       "check": "native-create-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.044,
-      "stdout_sha256": "4a25921af5a90b80e0d5f08f2dea2187ca587c95f25530e71a055af109c1ec9f"
+      "seconds": 0.054,
+      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
     },
     {
       "check": "native-create-plan-stdout-is-one-json-value",
@@ -280,7 +280,7 @@
       "exit_code": 0,
       "expected_exit_code": 0,
       "seconds": 0.034,
-      "stdout_sha256": "4a25921af5a90b80e0d5f08f2dea2187ca587c95f25530e71a055af109c1ec9f"
+      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
     },
     {
       "check": "installed-plan-needs-no-toolchain-or-python-stdout-is-one-json-value",
@@ -306,8 +306,8 @@
       "check": "relative-root-create-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.053,
-      "stdout_sha256": "ad07249696920fa6aa48f95bb467f96887129e84a830d6680c30ed6896ecdce1"
+      "seconds": 0.066,
+      "stdout_sha256": "c769dfadd2b7681c6f584f7068561ca57fb3c4cdf6ed45e7eab1de2ee6838f7c"
     },
     {
       "check": "relative-root-create-plan-stdout-is-one-json-value",
@@ -333,8 +333,8 @@
       "check": "caller-relative-destination-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.066,
-      "stdout_sha256": "49b42bef95af46789f95f6c4789f1718460fb5158186876459bb815f136b6cc0"
+      "seconds": 0.048,
+      "stdout_sha256": "51db3fd92721cd1fbd22aee4592bf476400e6bf4c8c26211cadd3c43c989950b"
     },
     {
       "check": "caller-relative-destination-plan-stdout-is-one-json-value",
@@ -356,8 +356,8 @@
       "check": "relative-root-create",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.088,
-      "stdout_sha256": "996ffdb1f99ca318a5cfe2cd4be0d2c46d4132f42a0d678b376d8bf3becdbc37"
+      "seconds": 0.129,
+      "stdout_sha256": "6cc29bf14d383306c60801bd84c690ff8a04ced9b3c8c19c4797237355b68073"
     },
     {
       "check": "relative-root-create-stdout-is-one-json-value",
@@ -383,8 +383,8 @@
       "check": "legacy-contract-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.133,
-      "stdout_sha256": "5e1f452d0f8f64fc428ae9e288bbaec46f964f647bc2382cc99eb5c5f4a8f2f0"
+      "seconds": 0.148,
+      "stdout_sha256": "e9b601e1ef686f9a5b14ff67d8bd95324140612789ceb750752ad324c50de105"
     },
     {
       "check": "legacy-contract-plan-stdout-is-one-json-value",
@@ -414,8 +414,8 @@
       "check": "native-plan-ignores-local-outputs",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.045,
-      "stdout_sha256": "4a25921af5a90b80e0d5f08f2dea2187ca587c95f25530e71a055af109c1ec9f"
+      "seconds": 0.046,
+      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
     },
     {
       "check": "native-plan-ignores-local-outputs-stdout-is-one-json-value",
@@ -438,7 +438,7 @@
       "exit_code": 1,
       "expected_exit_code": 1,
       "seconds": 0.024,
-      "stdout_sha256": "5e3df0c1a1721d458d629d0fca046b41c34b19957c61e9060ab4e4481dabbe31"
+      "stdout_sha256": "f5320bccc28f9143415e229521fed16bebb7afb745b899fdc8dc3a096d46a73a"
     },
     {
       "check": "linked-template-refused-stdout-is-one-json-value",
@@ -460,8 +460,8 @@
       "check": "native-plan-alias",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.046,
-      "stdout_sha256": "4a25921af5a90b80e0d5f08f2dea2187ca587c95f25530e71a055af109c1ec9f"
+      "seconds": 0.051,
+      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
     },
     {
       "check": "native-plan-alias-stdout-is-one-json-value",
@@ -483,8 +483,8 @@
       "check": "native-create-dry-run",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.044,
-      "stdout_sha256": "4a25921af5a90b80e0d5f08f2dea2187ca587c95f25530e71a055af109c1ec9f"
+      "seconds": 0.054,
+      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
     },
     {
       "check": "native-create-dry-run-stdout-is-one-json-value",
@@ -507,7 +507,7 @@
       "exit_code": 1,
       "expected_exit_code": 1,
       "seconds": 0.013,
-      "stdout_sha256": "0965ff791a0fbb3fa959ae85c21f57e4945dbd4766af7a2e16d9f0d43a24bc6a"
+      "stdout_sha256": "29ba24c3f4bfb0758c56b6c698ac21834e32076ea4451ba6d82a5e6c7650be58"
     },
     {
       "check": "linked-foundation-root-refused-stdout-is-one-json-value",
@@ -533,7 +533,7 @@
       "check": "invalid-name",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.018,
+      "seconds": 0.014,
       "stdout_sha256": "8577fa88ff8f9c3c73fc0bf62715e774025e02e752b597e2b70c37a853ccee06"
     },
     {
@@ -587,7 +587,7 @@
       "check": "license-needs-author",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.015,
+      "seconds": 0.014,
       "stdout_sha256": "11c8dafe70e4eeb1dbc6e6403aa9429672db5a8d8a87a1667d17da29ce8ba81e"
     },
     {
@@ -641,8 +641,8 @@
       "check": "native-create",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.097,
-      "stdout_sha256": "56b5caea56607288264280c8891544474919f3b4c6229fdb84a09e1e06cad367"
+      "seconds": 0.155,
+      "stdout_sha256": "47f6c17e10e75ed858f98d77efc08fb053effecc2bf5bbefe612d2b7c352a59b"
     },
     {
       "check": "native-create-stdout-is-one-json-value",
@@ -668,7 +668,7 @@
       "check": "repeat-create-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.015,
+      "seconds": 0.027,
       "stdout_sha256": "700c8582428cb7e6613a802bb34d1ccf09dc7e73ae8b4b94401c0e071ec013dd"
     },
     {
@@ -715,8 +715,8 @@
       "check": "native-build",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 26.304,
-      "stdout_sha256": "2a2124bace4d6109670c6bfa793fc896144132d7af80ad1ee2b6b6d21e03a410"
+      "seconds": 30.585,
+      "stdout_sha256": "9e5edff66a46a4162490df1c5de357b51c82d3a46c57b8695a8bdd7877d38cbd"
     },
     {
       "check": "native-build-stdout-is-one-json-value",
@@ -750,8 +750,8 @@
       "check": "native-test",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 3.215,
-      "stdout_sha256": "6d352bd51bf14303f4c230643dddb34b7ba5e6f0319cf8c596274bbf5e83fc8f"
+      "seconds": 6.206,
+      "stdout_sha256": "860e2628730fc91edb251fddfacccb9e3a24aaeac33754dc67dacbd49a04df3f"
     },
     {
       "check": "native-test-stdout-is-one-json-value",
@@ -785,8 +785,8 @@
       "check": "native-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 1.859,
-      "stdout_sha256": "aaf25121472df69ffe513f7009017473e95052e3f0e3f08feb94c8a769652b46"
+      "seconds": 2.862,
+      "stdout_sha256": "1177d0b5a67540e734c3e03b19453fee42634fcd507a0378363f922938a10844"
     },
     {
       "check": "native-check-stdout-is-one-json-value",
@@ -820,8 +820,8 @@
       "check": "native-smoke",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.217,
-      "stdout_sha256": "caef33af4ded7c2bce4f9049e7ce9d13bfc0b977e6438003362f57c373440d43"
+      "seconds": 0.311,
+      "stdout_sha256": "a028c78305212143abd7ba28a47a5d219dfa7f2e5d0d33a4861446bbd7e614e6"
     },
     {
       "check": "native-smoke-stdout-is-one-json-value",
@@ -855,8 +855,8 @@
       "check": "native-smoke-explicit-deadline",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.279,
-      "stdout_sha256": "caef33af4ded7c2bce4f9049e7ce9d13bfc0b977e6438003362f57c373440d43"
+      "seconds": 0.426,
+      "stdout_sha256": "a028c78305212143abd7ba28a47a5d219dfa7f2e5d0d33a4861446bbd7e614e6"
     },
     {
       "check": "native-smoke-explicit-deadline-stdout-is-one-json-value",
@@ -878,8 +878,8 @@
       "check": "native-crlf-unicode-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.397,
-      "stdout_sha256": "8f018116f74927983fb59ee83d278dc4e68b1ff95061d33bc5847e67124f858f"
+      "seconds": 0.809,
+      "stdout_sha256": "fdfed78cd916dfaa359d77f393500a33cbab4f999bc8b0c19fef47963e0b5c35"
     },
     {
       "check": "native-crlf-unicode-check-stdout-is-one-json-value",
@@ -897,8 +897,8 @@
       "check": "legacy-contract-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.279,
-      "stdout_sha256": "30795992eb4a8c2df368d61a713c66271e391fe18b7b74d4306d58b4d0b43bee"
+      "seconds": 0.586,
+      "stdout_sha256": "db9d9711252f5945098a2aa6e2159d8a1c114d88060845696273f91c3601876e"
     },
     {
       "check": "legacy-contract-check-stdout-is-one-json-value",
@@ -924,8 +924,8 @@
       "check": "native-real-compiler-error",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.274,
-      "stdout_sha256": "9bcdcbca8369047c599857717f8b6a584b2eb95531d5a08ae3086daeb411adf9"
+      "seconds": 0.394,
+      "stdout_sha256": "d934bc5ecbd2991d2d4b013117f753a644e779ab00c7f1a4cad7ef96e92885e3"
     },
     {
       "check": "native-real-compiler-error-stdout-is-one-json-value",
@@ -959,7 +959,7 @@
       "check": "source-escape-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.019,
+      "seconds": 0.02,
       "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
     },
     {
@@ -1005,7 +1005,7 @@
       "check": "wrong-source-shape",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.014,
+      "seconds": 0.02,
       "stdout_sha256": "94d0fb2d933491e0798c0ea247fa53869720cab02604a50dd3f0f9d55ef212f1"
     },
     {
@@ -1028,7 +1028,7 @@
       "check": "escape-source-dir",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.016,
+      "seconds": 0.017,
       "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
     },
     {
@@ -1051,8 +1051,8 @@
       "check": "linked-build-state-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.015,
-      "stdout_sha256": "2354e450e3edd6671010e0b9e5a22a6ee1d019fb9bbf5290681d637f8e452150"
+      "seconds": 0.014,
+      "stdout_sha256": "63c8ac5f7bf6f1768bbb3161a84c66d97ebc8bebe7204e2d35acc57d79077503"
     },
     {
       "check": "linked-build-state-refused-stdout-is-one-json-value",
@@ -1074,8 +1074,8 @@
       "check": "hardlinked-config-atomic-replacement",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.226,
-      "stdout_sha256": "aad86aee8d68f101c713d2e58c9b665089711741c2cbdef09d69ee0bf8140858"
+      "seconds": 0.253,
+      "stdout_sha256": "eccc782e9fdc99639f75dc072aaba18caeb5f8bcb2397c428eb80ff1252db834"
     },
     {
       "check": "hardlinked-config-atomic-replacement-stdout-is-one-json-value",
@@ -1105,8 +1105,8 @@
       "check": "native-key-tests",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 6.996,
-      "stdout_sha256": "d8e96cb002bfd3b2b219423d6b88a717c2d10db8d68493ae86ef9981192c9ede"
+      "seconds": 6.347,
+      "stdout_sha256": "0bd466b63f1cd0f7c3fcbaa507c0658f1bb03ca962a52c3271b9159692f4c026"
     },
     {
       "check": "native-key-tests-stdout-is-one-json-value",
@@ -1124,8 +1124,8 @@
       "check": "native-key-play",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 2.937,
-      "stdout_sha256": "850abad4ec1d4722526100500f75c9e18d7321f8f97bd6d18796ccd0bcd4dee9"
+      "seconds": 3.515,
+      "stdout_sha256": "3fe452f660943efb80c0ecdd4ec43992602705c328e5a4e3f52f87a912c40162"
     },
     {
       "check": "actual-key-gameplay",
@@ -1147,8 +1147,8 @@
       "check": "standalone-native-bootstrap",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 26.807,
-      "stdout_sha256": "84d7d6c426e320ca03cddb4a1a9b4b42af50c57f27af9171866a955b0bbbf0cd"
+      "seconds": 27.798,
+      "stdout_sha256": "b1456fb3ebd203896b228ae1e57f1b3d9ca1a67ebfbf072b6952288dbcf7b485"
     },
     {
       "check": "standalone-native-bootstrap-executable-created",
@@ -1158,8 +1158,8 @@
       "check": "relocated-native-build",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 20.677,
-      "stdout_sha256": "82e3f7bd8d31e56d9e7bcd7c32248c378564e12180452b8318a3f45ee68ccbd1"
+      "seconds": 25.977,
+      "stdout_sha256": "32795065a121fd2e86bf9639ec824756405b2cfc00aeba18db6c945fcb1bca6f"
     },
     {
       "check": "relocated-native-build-stdout-is-one-json-value",
@@ -1189,8 +1189,8 @@
       "check": "relocated-native-test",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 2.536,
-      "stdout_sha256": "d6953742a9bd3d25bd1c83ec1a0b87f4a5f1a988134eba05d6deac1824d418d2"
+      "seconds": 4.896,
+      "stdout_sha256": "5fbba4f5a5a9d7eda075c731ab95ef72038d70c5572a908e95c7716b7ee3948f"
     },
     {
       "check": "relocated-native-test-stdout-is-one-json-value",
@@ -1220,8 +1220,8 @@
       "check": "relocated-native-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.445,
-      "stdout_sha256": "4a0d12b6fc4cf246a3256abee0e526d1fa78b7987bd58f4196e3ed4d059ba579"
+      "seconds": 0.751,
+      "stdout_sha256": "30c43164673b658d6abca508f6d5ccb6998914a98ecfbdbe5b29e0447808ad2a"
     },
     {
       "check": "relocated-native-check-stdout-is-one-json-value",
@@ -1239,8 +1239,8 @@
       "check": "relocated-native-smoke",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.224,
-      "stdout_sha256": "41ac840b73d99fa03ded25fdceb705c685112a30d1b0dba143b38dd534d63ec4"
+      "seconds": 0.451,
+      "stdout_sha256": "564ab8f107769a901c104126c62f77bb425fd5d2f8248f99d1e216755bdc4189"
     },
     {
       "check": "relocated-native-smoke-stdout-is-one-json-value",
@@ -1502,8 +1502,8 @@
       "check": "relocated-stamina-tests",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 7.15,
-      "stdout_sha256": "7258ce313b16b573627a322456e69d699fd04ac4cc5381173b81bd695b51965b"
+      "seconds": 7.016,
+      "stdout_sha256": "c4d96009ca88a587a0c75d03b1b70e8b0dc8dc44c1ada1b708b1b699bd793e69"
     },
     {
       "check": "relocated-stamina-tests-stdout-is-one-json-value",
@@ -1521,8 +1521,8 @@
       "check": "relocated-stamina-play",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 3.089,
-      "stdout_sha256": "bae0d5ce6209685aff07c6b6009d4462fda86b86172416c2d553c4a35fa70a75"
+      "seconds": 2.813,
+      "stdout_sha256": "d3dbfeea7fd6ee49344b4eb18fe616ade1e0232671d0f2626ca08584ebbb2d7b"
     },
     {
       "check": "actual-second-mechanic",
@@ -1540,8 +1540,8 @@
       "check": "caller-cwd-default",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.442,
-      "stdout_sha256": "4ce5da00cd82045f671c0770657a708152a5983a8a9c4599f94ba2ae78653517"
+      "seconds": 0.585,
+      "stdout_sha256": "ae47a85dcc92e42bc999c7ae0ab3520607fdb61881f2a16303f96ba4238051b8"
     },
     {
       "check": "caller-cwd-default-stdout-is-one-json-value",
@@ -1571,8 +1571,8 @@
       "check": "real-ghc-timeout",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 2.184,
-      "stdout_sha256": "06495ceb137c54e3848a66120ede369c2485096c7946ee48fa69ef50f0947d9b"
+      "seconds": 2.138,
+      "stdout_sha256": "5d83a41feb97adc4e993131d76d596488e28ba860ed986e8084ab00250e0f230"
     },
     {
       "check": "real-ghc-timeout-stdout-is-one-json-value",
@@ -1664,8 +1664,8 @@
       ],
       "cold_setup_ceiling_minutes": 45
     },
-    "windows_runtime": "Native bootstrap/formatter passed at 991612f; raw-parent link validation failed in CreateSpec. Fix awaits real Windows rerun.",
-    "macos_runtime": "Native CI passed at 991612f,350 records; later raw-path change requires new CI.",
+    "windows_runtime": "Native bootstrap/formatter passed at8f967a0. Unit stage started08:42:20UTC and remained unfinished at08:53; new wait repair is not yet verified on Windows.",
+    "macos_runtime": "Native CI passed at8f967a0,350 records; later Windows-specific wait repair requires new CI.",
     "windows_bootstrap_regression": {
       "status": "pass at 991612f4dc74b809692e7940e432c67f0315ecc4",
       "scope": "Actual duplicate-PATH checks, native bootstrap and formatter passed. This does not qualify the entire Windows job, which later failed CreateSpec.",
@@ -1679,17 +1679,27 @@
       "record": "docs/evidence/native-tooling-ci.json"
     },
     "latest_published_native_ci": {
-      "head_commit": "991612f4dc74b809692e7940e432c67f0315ecc4",
+      "head_commit": "8f967a0a72453dcd728b5129c23dd3d4d7066b2a",
       "Linux": "success,350 records",
       "macOS": "success,350 records",
-      "Windows": "bootstrap/formatter pass, CreateSpec path-normalization failure; fix rerun pending",
+      "Windows": "unit stage unfinished at08:53UTC; integration not reached; no blocked stack or successful cancellation captured",
       "record": "docs/evidence/native-tooling-ci.json"
+    },
+    "windows_conditional_waiter_check": {
+      "status": "compiled and exercised with POSIX backend only",
+      "scope": "Not Windows Job Object runtime evidence; actual Windows CI pending"
+    },
+    "unit_step_containment": {
+      "timeout_minutes": 5,
+      "diagnostic": "ghc-pkg field process version",
+      "scope": "After dependency/bootstrap setup; tests are not skipped. Overall cold-setup job ceiling remains45minutes."
     }
   },
   "prior_findings": {
     "foreground_proxy": "Controlled reproduction confirmed a late self-stop race. Removing private interactive foreground ownership addresses it; prior proxy passes are not final-architecture evidence.",
     "timing_oracles": "Earlier delay-only cancellation evidence remains inconclusive. Shell tests require exact command completion and kernel/Bash stopped acknowledgement; the separate background-start oracle race reproduced with direct Cabal.",
-    "normalization_order": "Windows makeAbsolute could hide a linked parent before validation. Raw linked ancestors are now rejected before normalization; fixtures verify links and relative source/destination alias/.. refusals."
+    "normalization_order": "Windows makeAbsolute could hide a linked parent before validation. Raw linked ancestors are now rejected before normalization; fixtures verify links and relative source/destination alias/.. refusals.",
+    "windows_job_completion": "Unit-stage stall observed without a blocked-thread stack. Pinned process1.6.19 source supports a cancellation-delivery risk in native job waiting; the Windows-only repair moves that wait to a scoped worker and terminates before joining. Actual Windows verification remains pending."
   },
   "exclusions": [
     "Physical editor sessions",
@@ -1707,15 +1717,15 @@
     "cabal": "3.12.1.0",
     "executable_bytes": 21706160,
     "version_startup_trials": 30,
-    "version_startup_median_ms": 13.405,
-    "version_startup_min_ms": 12.07,
-    "version_startup_max_ms": 17.918,
+    "version_startup_median_ms": 14.835,
+    "version_startup_min_ms": 12.25,
+    "version_startup_max_ms": 39.701,
     "secure_index_acquisition_seconds": 96.669,
     "dependency_bootstrap_completed_attempt_seconds": 734.737,
     "bootstrap_scope": "Initially empty dedicated cache. First dependency download attempt was cancelled by executor; this completed-attempt time includes resumed download/compilation and initial application compile failure, so it is not an uninterrupted cold-success measurement.",
-    "fresh_application_build_cached_dependencies_seconds": 19.213,
+    "fresh_application_build_cached_dependencies_seconds": 21.96,
     "fresh_application_build_exit_code": 0,
-    "benchmark_executable_sha256": "405503fe546e235c6c079113646f25376f1f14ed774745834599a81104102adb",
+    "benchmark_executable_sha256": "8ddbbddf765675c80101feff2cee4fc365efb3b3f50a57622666f257bd57e4a7",
     "compiled_dependency_store_bytes": 119220746,
     "benchmark_source_sha256": {
       "tools/haskell/app/Main.hs": "e1080b183cfdf5af497c721889853052456e37e0506e56c7cac510ef765bf341",
@@ -1728,7 +1738,7 @@
       "tools/haskell/src/FpGame/Create.hs": "3697d91e85ec2291a7f37d292cdac4f4b62c521efd450ef63c550d08a533b06c",
       "tools/haskell/src/FpGame/Error.hs": "05b3cc493e4f0f14700743149c16962032be869d40a855eae799764338a99eff",
       "tools/haskell/src/FpGame/Path.hs": "6b8bed58cbb9687fb31b3b25d5ede8ba2f6c445fbb608618456a91caff331898",
-      "tools/haskell/src/FpGame/Process.hs": "e3b2beefd1f0d27c05f1932f07f25d8a2bf8623d0157632111cb108dd2e0d769",
+      "tools/haskell/src/FpGame/Process.hs": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
       "tools/haskell/src/FpGame/Result.hs": "4c8f6e5c056f7136605b2e0e91a5eba0318a61ef448914a16a926eb99c236959"
     },
     "compiled_external_dependency_units": 42,

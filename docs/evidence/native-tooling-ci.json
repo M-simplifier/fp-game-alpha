@@ -1,73 +1,125 @@
 {
   "schema": 1,
   "observed_date_utc": "2026-10-05",
-  "head_commit": "991612f4dc74b809692e7940e432c67f0315ecc4",
-  "scope": "Latest completed published revision. The raw-path validation fix awaits its own follow-up Windows run.",
+  "head_commit": "8f967a0a72453dcd728b5129c23dd3d4d7066b2a",
+  "scope": "Published revision observed with successful Linux/macOS jobs and an unfinished Windows unit stage. A source-supported wait/cancellation repair requires a later Windows run.",
   "native_jobs": [
     {
       "host": "Linux",
       "conclusion": "success",
       "integration_records": 350,
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053397"
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939783"
     },
     {
       "host": "macOS",
       "conclusion": "success",
       "integration_records": 350,
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053663"
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939921"
     },
     {
       "host": "Windows",
-      "conclusion": "failure",
+      "status": "in_progress_at_observation",
+      "conclusion": null,
+      "observed_at_utc": "2026-10-05T08:53:00Z",
       "stage": "Test typed native package",
-      "passed_before_failure": [
+      "stage_started_utc": "2026-10-05T08:42:20Z",
+      "integration_reached": false,
+      "passed_before_stall": [
         "Actual PowerShell duplicate-PATH bootstrap checks",
         "Native CLI bootstrap",
         "Pinned formatter"
       ],
-      "reason": "CreateSpec exposed destination link/.. traversal hidden by Windows makeAbsolute normalization before raw ancestor validation.",
-      "follow_up": "Reject linked ancestors on the raw root before makeAbsolute; tests prove the fixture is a link and reject relative source/destination alias/.. forms. Windows rerun pending.",
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053670#step:11:1"
+      "observation": "The unit stage had not completed and integration had not started at the recorded observation. No live blocked-thread stack was captured.",
+      "source_supported_risk": "Pinned process1.6.19 Windows job-completion FFI can delay asynchronous cancellation of its calling thread; this is not proof of the exact blocked CI stack.",
+      "follow_up": "Windows-scoped waiter worker keeps the deadline owner interruptible; terminate the job before joining the waiter. Actual Windows verification pending.",
+      "cancellation_action_confirmed": false,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679940001#step:11:1"
     }
   ],
   "retained_alpha_workflow": {
-    "conclusion": "success for all applicable jobs",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388296",
+    "conclusion": "success for all six validation jobs",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460898",
     "deployment": "intentionally skipped on the pull request"
   },
   "previous_revisions": [
     {
       "schema": 1,
       "observed_date_utc": "2026-10-05",
-      "head_commit": "dd98e45e7376d7703640ccd6c4c2c98d5966ad7c",
-      "scope": "First published draft PR revision. Follow-up Windows bootstrap fix and its new regression are not qualified by these earlier runs.",
+      "head_commit": "991612f4dc74b809692e7940e432c67f0315ecc4",
+      "scope": "Latest completed published revision. The raw-path validation fix awaits its own follow-up Windows run.",
       "native_jobs": [
         {
           "host": "Linux",
           "conclusion": "success",
-          "integration_records": 349,
-          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659024827"
+          "integration_records": 350,
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053397"
         },
         {
           "host": "macOS",
           "conclusion": "success",
-          "integration_records": 349,
-          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025184"
+          "integration_records": 350,
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053663"
         },
         {
           "host": "Windows",
           "conclusion": "failure",
-          "stage": "Bootstrap native CLI on Windows",
-          "reason": "PowerShell tool discovery returned multiple Application matches; invoking their joined Source values failed before the native tool build.",
-          "follow_up": "Select the first Application explicitly; actual PowerShell duplicate-PATH check added before dependency acquisition. Windows verification pending.",
-          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025017#step:8:1"
+          "stage": "Test typed native package",
+          "passed_before_failure": [
+            "Actual PowerShell duplicate-PATH bootstrap checks",
+            "Native CLI bootstrap",
+            "Pinned formatter"
+          ],
+          "reason": "CreateSpec exposed destination link/.. traversal hidden by Windows makeAbsolute normalization before raw ancestor validation.",
+          "follow_up": "Reject linked ancestors on the raw root before makeAbsolute; tests prove the fixture is a link and reject relative source/destination alias/.. forms. Windows rerun pending.",
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053670#step:11:1"
         }
       ],
       "retained_alpha_workflow": {
         "conclusion": "success for all applicable jobs",
-        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924103",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388296",
         "deployment": "intentionally skipped on the pull request"
       },
+      "previous_revisions": [
+        {
+          "schema": 1,
+          "observed_date_utc": "2026-10-05",
+          "head_commit": "dd98e45e7376d7703640ccd6c4c2c98d5966ad7c",
+          "scope": "First published draft PR revision. Follow-up Windows bootstrap fix and its new regression are not qualified by these earlier runs.",
+          "native_jobs": [
+            {
+              "host": "Linux",
+              "conclusion": "success",
+              "integration_records": 349,
+              "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659024827"
+            },
+            {
+              "host": "macOS",
+              "conclusion": "success",
+              "integration_records": 349,
+              "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025184"
+            },
+            {
+              "host": "Windows",
+              "conclusion": "failure",
+              "stage": "Bootstrap native CLI on Windows",
+              "reason": "PowerShell tool discovery returned multiple Application matches; invoking their joined Source values failed before the native tool build.",
+              "follow_up": "Select the first Application explicitly; actual PowerShell duplicate-PATH check added before dependency acquisition. Windows verification pending.",
+              "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025017#step:8:1"
+            }
+          ],
+          "retained_alpha_workflow": {
+            "conclusion": "success for all applicable jobs",
+            "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924103",
+            "deployment": "intentionally skipped on the pull request"
+          },
+          "exclusions": [
+            "Physical editor sessions",
+            "Human gameplay assessment",
+            "Graphical/browser host acceptance",
+            "Follow-up revision verification"
+          ]
+        }
+      ],
       "exclusions": [
         "Physical editor sessions",
         "Human gameplay assessment",

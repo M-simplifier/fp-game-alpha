@@ -12,7 +12,7 @@ import System.Directory (canonicalizePath, doesFileExist, removePathForcibly)
 import System.Environment (getExecutablePath)
 import System.Exit (ExitCode (ExitFailure), die, exitWith)
 import System.FilePath ((</>))
-import System.IO (hPutStr, hPutStrLn, hSetEncoding, hSetNewlineMode, noNewlineTranslation, stderr, stdout, utf8)
+import System.IO (BufferMode (LineBuffering), hPutStr, hPutStrLn, hSetBuffering, hSetEncoding, hSetNewlineMode, noNewlineTranslation, stderr, stdout, utf8)
 import System.IO.Temp (createTempDirectory, getCanonicalTemporaryDirectory)
 import System.Process (getCurrentPid)
 import System.Timeout (timeout)
@@ -48,6 +48,7 @@ processChildMode _ = Nothing
 
 runProcessTests :: IO ()
 runProcessTests = do
+  hSetBuffering stdout LineBuffering
   temporary <- getCanonicalTemporaryDirectory >>= \base -> createTempDirectory base "fp-game-process-tests"
   directory <- canonicalizePath temporary
   runCases directory `onException` hPutStrLn stderr ("Process failure fixtures retained at " <> directory)
@@ -57,6 +58,7 @@ runCases :: FilePath -> IO ()
 runCases directory = do
   root <- selectProject (Just directory)
   executable <- getExecutablePath
+  putStrLn "Process phase: captured arguments and streams"
   let literal = "spaces 日本語 'quotes' \"double\" ; $HOME & --flag"
   echoed <- execute root (ProcessRequest executable ["--process-echo", literal] (Just 20) Captured)
   expect "argument arrays, child stdout/stderr and nonzero exit are preserved" $ case echoed of
@@ -66,6 +68,7 @@ runCases directory = do
         && errors == Text.pack "child diagnostic\n"
     _ -> False
 
+  putStrLn "Process phase: captured universal newlines"
   newlines <- execute root (ProcessRequest executable ["--process-newlines"] (Just 20) Captured)
   expect "captured stdout and stderr use universal newlines without losing Unicode" $ case newlines of
     Executed _ 0 output errors ->
@@ -73,6 +76,7 @@ runCases directory = do
         && errors == Text.pack "stderr 日本語\nmiddle\nlast\n"
     _ -> False
 
+  putStrLn "Process phase: positive release gate"
   -- Positive control: the real child waits at the gate and writes when released.
   let positiveStarted = directory </> "positive-started"
       positiveRelease = directory </> "positive-release"
@@ -99,6 +103,7 @@ runCases directory = do
   -- child-start handshake. forkFinally masks fixture setup too. Every child's
   -- effect is gated until after cancellation completes, not a wall-clock delay.
   lateFiles <- forM [1 .. 81 :: Int] $ \number -> do
+    putStrLn ("Process phase: cancel case " <> show number <> "/81")
     let started = directory </> ("started-" <> show number)
         late = directory </> ("late-" <> show number)
         release = directory </> ("release-" <> show number)
@@ -113,6 +118,7 @@ runCases directory = do
         ready <- timeout 5000000 (awaitFile started)
         unless (ready == Just ()) (killThread thread)
         expect "cancellation fixture reached the child-start barrier" (ready == Just ())
+        putStrLn "Process phase: started-child barrier reached; requesting cancellation"
       else threadDelay ((number `mod` 10) * 50)
     requested <- getMonotonicTimeNSec
     killThread thread
@@ -133,6 +139,7 @@ runCases directory = do
     writeFile (directory </> ("case-" <> show number <> ".txt")) detail
     pure (late, detail)
 
+  putStrLn "Process phase: closed-gate child timeout (1 second)"
   let timeoutStarted = directory </> "timeout-started"
       timeoutLate = directory </> "timeout-late"
       timeoutRelease = directory </> "timeout-release"
@@ -143,6 +150,7 @@ runCases directory = do
     _ -> False
   started <- doesFileExist timeoutStarted
   expect "timeout fixture started a real child" started
+  putStrLn "Process phase: joined cancellation and timeout; checking post-return releases"
   threadDelay 1000000
   forM_ ((timeoutLate, "timeout") : lateFiles) $ \(path, detail) -> do
     leaked <- doesFileExist path

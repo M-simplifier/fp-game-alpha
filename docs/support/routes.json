@@ -414,10 +414,10 @@
       ],
       "evidence": [
         "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053397",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939783",
         "docs/evidence/native-tooling-linux.json"
       ],
-      "scope": "Native CLI and independent terminal continuation passed CI at 991612f4dc74b809692e7940e432c67f0315ecc4 (350 records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks; not physical editor or graphical-host acceptance. Later path-validation changes require their own CI."
+      "scope": "Native CLI and independent terminal continuation passed CI at 8f967a0a72453dcd728b5129c23dd3d4d7066b2a (350 records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks. Later Windows-specific wait repair requires new CI; no physical editor or graphical-host claim."
     },
     {
       "id": "windows-native-haskell-tooling",
@@ -441,9 +441,9 @@
       ],
       "evidence": [
         "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053670#step:11:1"
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679940001#step:11:1"
       ],
-      "scope": "At 991612f4dc74b809692e7940e432c67f0315ecc4, real duplicate-PATH checks, native bootstrap and formatter passed. CreateSpec then exposed linked-parent traversal hidden by normalization. Raw-root validation fix and stronger alias/.. tests await Windows rerun; no complete Windows game acceptance claim."
+      "scope": "At 8f967a0a72453dcd728b5129c23dd3d4d7066b2a, bootstrap and formatting passed, but units had not completed at 08:53 UTC after starting 08:42:20; integration was not reached. No blocked stack was captured. Source-supported scoped-waiter repair and bounded unit diagnostics await actual Windows verification."
     },
     {
       "id": "macos-native-haskell-tooling",
@@ -467,9 +467,9 @@
       ],
       "evidence": [
         "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053663"
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939921"
       ],
-      "scope": "Native CLI and independent terminal continuation passed CI at 991612f4dc74b809692e7940e432c67f0315ecc4 (350 records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks; not physical editor or graphical-host acceptance. Later path-validation changes require their own CI."
+      "scope": "Native CLI and independent terminal continuation passed CI at 8f967a0a72453dcd728b5129c23dd3d4d7066b2a (350 records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks. Later Windows-specific wait repair requires new CI; no physical editor or graphical-host claim."
     }
   ]
 }
