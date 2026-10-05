@@ -141,7 +141,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "98939eb1b4ab7d800deff7775fce91cc8b83c0d325209e00cb145331ce4d0114",
+   "sha256_lf": "d6886e0d4e43becdfa2460727e7113d4f4a85ed0aa1ee8d6cb07966b551b0a95",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -299,8 +299,19 @@
    "review": "explicit technical selection; license notice reviewed"
   },
   {
+   "path": "docs/evidence/native-tooling-ci.json",
+   "sha256_lf": "e4a03e1ea1727564bd6537e75138d502890b12601f4dd499fa6c92bd17cc521e",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
    "path": "docs/evidence/native-tooling-linux.json",
-   "sha256_lf": "57c8f72f39822b7e1fa584548b80ebfcb97866c6d01e74adb3d93fe8fe6b079b",
+   "sha256_lf": "651a8e1d8bc80f29318570c53ba13622e4c128db7a3dd643dc46c1b46992729c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -355,7 +366,7 @@
   },
   {
    "path": "docs/failure-prevention.md",
-   "sha256_lf": "c01a34242ab42627c776bb57df48e097067991c9acacb116fcfaef46ec0b746d",
+   "sha256_lf": "052dc6c410d11b77ce290c0736c447245ff1368cc9fbbc254e565494c2d9fc9b",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -449,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "f32ac2ab99d734e27ea780f201513ac41c1db65697d891941563fdaff17655d2",
+   "sha256_lf": "72c0268a674f9a7eeee17586ee453f85517d5e8bc2074d54fedd01fa01b82be7",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -472,7 +483,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "c98bb97a48372a3c0cd22bad47f660df9c3288c8f4869e73e6fa2212e7597440",
+   "sha256_lf": "622f8d94431e9b70faafac896a7e4502f0cf9c254ccc1af68443796600258194",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -764,7 +775,7 @@
   },
   {
    "path": "docs/support/routes.json",
-   "sha256_lf": "5ffcd1376e9ae0f2af633e12d9c30f0bd22f7b9b1a325070b54e3a30f992e583",
+   "sha256_lf": "59cd96fd5d4058fd2a0c0eb2aebed70f955278f69e7b0b38249054f09db17b34",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19004,7 +19015,7 @@
   },
   {
    "path": "tools/bootstrap-fp-game.ps1",
-   "sha256_lf": "80035c963dc9010382cc15d3425690ba04b3852c38786630742ba643f75ad952",
+   "sha256_lf": "6d62f743fbd0b4283e9da0e5fa1f91115c966e9e79e23d4b5bedb853a21925c3",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -19338,7 +19349,7 @@
   },
   {
    "path": "tools/test_native_cli.py",
-   "sha256_lf": "c6626883440350f6c24cd1404e4c45efc3c6ac7bd50bf5549f8e31045e404b7a",
+   "sha256_lf": "50623dbaa2fd927627674ba00194a38196120ddee20e4316a9545e601e330f29",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."

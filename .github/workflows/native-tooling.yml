@@ -82,6 +82,18 @@ jobs:
           else
             sh tools/bootstrap-fp-game.sh --download
           fi
+      - name: Check Windows bootstrap discovery before dependency acquisition
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          @'
+          from pathlib import Path
+          import sys, tempfile
+          sys.path.insert(0, 'tools')
+          from test_native_cli import bootstrap_refusals
+          with tempfile.TemporaryDirectory(prefix='native bootstrap checks ') as temporary:
+              bootstrap_refusals(Path(temporary).resolve())
+          '@ | python -
       - name: Bootstrap native CLI on Windows
         if: runner.os == 'Windows'
         shell: pwsh

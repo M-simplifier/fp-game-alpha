@@ -413,9 +413,11 @@
         ]
       ],
       "evidence": [
+        "docs/evidence/native-tooling-ci.json",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659024827",
         "docs/evidence/native-tooling-linux.json"
       ],
-      "scope": "Actual Linux GHC9.6.7/Cabal3.12.1.0 native CLI, relative/Unicode/space roots, real terminal key/stamina edits and Python-free migrated-core continuation after relocation. Captured compiler timeout/signal cleanup; POSIX interactive exec hands normal job control to Cabal/the shell. Source-bound evidence with warm pinned tooling dependencies. No clean-machine binary, physical editor or graphical-host claim."
+      "scope": "Native CLI and independent terminal continuation passed first-head CI at dd98e45e7376d7703640ccd6c4c2c98d5966ad7c (349 integration records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks; not physical editor or graphical-host acceptance. Follow-up Windows resolver changes require their own CI."
     },
     {
       "id": "windows-native-haskell-tooling",
@@ -438,15 +440,16 @@
         ]
       ],
       "evidence": [
-        "docs/native-tooling.md"
+        "docs/evidence/native-tooling-ci.json",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025017#step:8:1"
       ],
-      "scope": "Executable native bootstrap/package/integration CI route; requires a completed run for this exact revision before support is claimed. Optional terminal generation, ordinary game development and relocation only; no physical editor or graphical host claim."
+      "scope": "First-head native CI stopped at PowerShell bootstrap application discovery. Scalar resolver fix and actual duplicate-PATH regression are implemented; follow-up Windows CI is pending. No completed Windows native executable/game acceptance claim."
     },
     {
       "id": "macos-native-haskell-tooling",
       "host": "macos",
       "target": "developer-cli",
-      "status": "planned",
+      "status": "experimental",
       "implementation_paths": [
         "tools/haskell",
         "tools/bootstrap-fp-game.sh",
@@ -463,9 +466,10 @@
         ]
       ],
       "evidence": [
-        "docs/native-tooling.md"
+        "docs/evidence/native-tooling-ci.json",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025184"
       ],
-      "scope": "Executable native bootstrap/package/integration CI route; requires a completed run for this exact revision before support is claimed. Optional terminal generation, ordinary game development and relocation only; no physical editor or graphical host claim."
+      "scope": "Native CLI and independent terminal continuation passed first-head CI at dd98e45e7376d7703640ccd6c4c2c98d5966ad7c (349 integration records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks; not physical editor or graphical-host acceptance. Follow-up Windows resolver changes require their own CI."
     }
   ]
 }

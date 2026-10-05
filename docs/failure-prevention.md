@@ -254,6 +254,14 @@ for the distinction between executed checks and unverified platform routes.
   universal-newline contract on Windows. Captured streams replace malformed UTF-8
   and normalize CRLF/lone CR to LF; real-child exact stdout/stderr fixtures check
   those rules. Interactive inherited streams and arbitrary binary data are separate
+- **Tool discovery cardinality:** Windows CI placed the same application directory
+  on PATH with both slash spellings. PowerShell returned multiple Application
+  matches; treating their `.Source` values as one command produced a joined,
+  invalid executable path. Select one match explicitly. The regression proves
+  multiple matches exist, invokes the actual PowerShell bootstrap with `-Check`,
+  requires both real version probes to succeed, and checks that no build output
+  is created. It runs before Windows dependency acquisition; non-Windows hosts
+  report this Windows-specific case as not applicable
 - **First-use machine output:** Cabal's first JSON path query also printed config
   initialization prose, although warm-cache output was clean. CI uses the quiet
   path query, verified against a fresh empty Cabal configuration. Machine-readable

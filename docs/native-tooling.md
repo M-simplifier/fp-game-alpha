@@ -211,8 +211,14 @@ real CLI/relocation/game-development and POSIX terminal/compiler cancellation
 suite, including shell-backed Ctrl-Z/fg, initial background launch, stopped-job
 cancellation and foreground/settings restoration. The source-bound summary is recorded at
 `docs/evidence/native-tooling-linux.json` in the foundation distribution.
-Windows/macOS workflow execution remains unverified here; those routes stay
-planned until an actual result for the candidate revision exists.
+The first published revision `dd98e45e7376d7703640ccd6c4c2c98d5966ad7c`
+passed native CI on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659024827)
+and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025184),
+with 349 integration records each. [Windows bootstrap](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025017#step:8:1)
+failed when PowerShell returned duplicate application paths. The resolver fix and
+actual PowerShell regression await follow-up Windows CI. These first-head results
+do not claim the follow-up revision passed; the foundation's
+`docs/evidence/native-tooling-ci.json` records their exact scope.
 
 The fresh secure package-index acquisition took 96.669 seconds on this machine.
 A resumed dependency/source build took 734.737 seconds, after an earlier process

@@ -6,7 +6,9 @@ $ErrorActionPreference = 'Stop'
 if ($Download -and $Check) { Write-Error 'Choose either -Download or -Check.'; exit 2 }
 $missing = $false
 foreach ($tool in @('ghc', 'cabal')) {
-    $command = Get-Command $tool -CommandType Application -ErrorAction SilentlyContinue
+    # PATH may contain multiple spellings of the same application directory.
+    # Get-Command can return several matches; invoke one checked application.
+    $command = Get-Command $tool -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($null -eq $command) {
         [Console]::Error.WriteLine("$tool is missing from PATH.")
         $missing = $true

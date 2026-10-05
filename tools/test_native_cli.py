@@ -109,6 +109,37 @@ def bootstrap(project, label):
     return binary
 
 
+def powershell_duplicate_path_check(project, trial):
+    """Exercise the real PowerShell script, not a source-text substitute."""
+    if os.name != 'nt':
+        RECORDS.append({'check': 'powershell-duplicate-path-regression', 'status': 'not-applicable',
+                        'reason': 'Windows application/PATH-separator contract'})
+        return
+    shell = shutil.which('pwsh') or shutil.which('powershell')
+    require('windows-bootstrap-has-powershell', shell is not None)
+    aliases = []
+    for tool in ['ghc', 'cabal']:
+        executable = shutil.which(tool)
+        require('duplicate-path-' + tool + '-present', executable is not None)
+        folder = Path(executable).parent
+        # The actual Windows CI failure included both separator spellings.
+        aliases.extend([folder.as_posix(), str(folder).replace('/', '\\')])
+    environment = dict(os.environ, PATH=os.pathsep.join([*aliases, os.environ.get('PATH', '')]))
+    probe = run('powershell-duplicate-application-probe', [shell, '-NoProfile', '-NonInteractive',
+        '-Command', "@{ghc=@(Get-Command ghc -CommandType Application -ErrorAction Stop).Count; "
+        "cabal=@(Get-Command cabal -CommandType Application -ErrorAction Stop).Count} | ConvertTo-Json -Compress"],
+        trial, env=environment, json_result=False)
+    matches = json.loads(probe.stdout)
+    require('powershell-fixture-really-has-multiple-applications',
+            matches['ghc'] >= 2 and matches['cabal'] >= 2, json.dumps(matches))
+    checked = run('powershell-check-with-duplicate-paths', [shell, '-NoProfile', '-NonInteractive',
+                  '-File', project / 'tools/bootstrap-fp-game.ps1', '-Check'], trial,
+                  env=environment, json_result=False)
+    require('powershell-duplicate-path-reports-both-tools',
+            'ghc:' in checked.stderr and 'cabal:' in checked.stderr)
+    require('powershell-duplicate-path-check-does-not-build', not (project / '.build').exists())
+
+
 def bootstrap_refusals(trial):
     project = trial / 'bootstrap refusal 日本語'
     (project / 'tools/haskell').mkdir(parents=True)
@@ -127,6 +158,7 @@ def bootstrap_refusals(trial):
     require('bootstrap-missing-tool-diagnostic', 'ghc' in missing.stderr.lower()
             and 'cabal' in missing.stderr.lower() and 'ghcup/install' in missing.stderr)
     require('bootstrap-check-creates-no-output', not (project / '.build').exists())
+    powershell_duplicate_path_check(project, trial)
     leaf = project / '.build/tools' / ('fp-game.exe' if os.name == 'nt' else 'fp-game')
     leaf.mkdir(parents=True)
     sentinel = leaf / 'sentinel'
