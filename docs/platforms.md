@@ -41,20 +41,21 @@ or public deployment is part of this route. Windows/macOS host support is unclai
 
 ## Native developer tooling migration
 
-The [Haskell CLI](native-tooling.md) has a source bootstrap and an executable
-Linux/Windows/macOS integration matrix. Linux and macOS pass the documented
-native checks at the recorded revision. Windows passed bootstrap and unit tests,
-but that revision's first Japanese-path game build failed in `ghc-pkg`. A later
-[bounded compiler-path probe](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1)
-identified Japanese argument corruption in the unversioned C launcher aliases:
-actual Japanese-path library and executable builds passed using only
-`ghc-9.6.7.exe` from the same GHC 9.6.7 installation. The
-[explicit selection recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler)
-selects bootstrap and game compilers separately, without changing global PATH
-or installing a different version. Existing project settings and wrappers stay
-authoritative; machine-local profiles are deliberately recreated after relocation.
+The [Haskell CLI](native-tooling.md#verified-ci-and-local-measurements) is an
+**experimental developer CLI and optional terminal-workspace route** on Linux,
+Windows and macOS. At `be1208af`, all three actual CI jobs completed bootstrap,
+typed package tests and independent game-development/relocation checks. The
+[route registry](support/routes.json) and native guide link each exact job.
 
-Full native three-OS end-to-end acceptance of this change remains pending.
-The guide links exact jobs and revisions; the bounded compiler probe is not a
-Windows end-to-end pass. Existing Python/core evidence retains its original
-scope. Optional terminal creation does not limit other game hosts.
+Windows uses GHC 9.6.7's same-installation versioned compiler through the
+[explicit selection recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler).
+It selects bootstrap and game compilers separately, without changing global PATH
+or installing a different version. Existing project settings and wrappers remain
+authoritative; machine-local profiles are deliberately recreated after relocation.
+The unversioned launcher failure and earlier incomplete attempts remain historical
+evidence, not the current route status.
+
+This establishes the bounded CLI and scripted terminal-game profile, not a
+physical editor, graphical host or every game brief. Existing Python/core evidence
+retains its original scope. Optional terminal creation does not limit other hosts;
+implement and verify the requested game on its actual target.

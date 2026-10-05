@@ -300,7 +300,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-ci.json",
-   "sha256_lf": "0a92ccd9c550c5a188cfd9b9e474727399b5c0e10319c0905432a598a8a747a2",
+   "sha256_lf": "b2caa8b5dbed2d7cd5f3f614ec99d081828d6340d19335c43e050675f8859d53",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "1fc25568455a20b593f0d6145836c1453d40dc7b6898571e0ecf69a8992aa344",
+   "sha256_lf": "08525a3b9fe4a9023b7823952c52ad2b8d2f8095bd5bdf3b42f18d260a39d161",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -472,7 +472,7 @@
   },
   {
    "path": "docs/new-game.md",
-   "sha256_lf": "0d849f8868bf1cdc33ded8599240b6a3a6cd1c7cd6eef4aa3d619a2aed0b7ffa",
+   "sha256_lf": "56f10de6f0cfcacc567db1c49456ade373d6798ff6c9dfc0861d2ca4fbc451a6",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -483,7 +483,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "bac0e12427629c3177e162399edf1f010b8051430fee43bf0e951538d5e69aae",
+   "sha256_lf": "83693f72b5fa53729215ab22a8970c88550b45347c5ef3bff3e10f78d6ee853c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -753,7 +753,7 @@
   },
   {
    "path": "docs/setup.md",
-   "sha256_lf": "457356f9857d7b47e98d689adb8e57bb42c6cb84f4c5a340ec726f058adffd21",
+   "sha256_lf": "550da3f8899857a472a6d54a8171b8d5bbec045a17fde334e825af962ae68090",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -775,7 +775,7 @@
   },
   {
    "path": "docs/support/routes.json",
-   "sha256_lf": "972ab41a1a6cdbfa68b01527627fe50d50dcba00b5438beffb5415061264848e",
+   "sha256_lf": "a72e846ea71afe3af3d48500c41c618cd8744dd3aeb0525d2485da9ee249f170",
    "origin": {
     "kind": "authored-for-public-alpha"
    },

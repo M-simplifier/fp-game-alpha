@@ -1,41 +1,97 @@
 {
   "schema": 1,
   "observed_date_utc": "2026-10-05",
-  "head_commit": "13ebaaaf02fc81ef9f3dbb13879e227b335e42c6",
-  "scope": "Diagnostic-only revision. Required Windows boot/Template Haskell preflight and alpha passed; the native matrix was intentionally skipped and this revision is not native acceptance.",
+  "head_commit": "be1208af3a475b094964dd04b7fcdb4335deef51",
+  "scope": "All three restored native jobs actually executed bootstrap, units and integration successfully. Experimental pinned developer CLI/optional terminal-game profile, with explicit Windows compiler selection; no physical-editor, graphical-host or arbitrary-game claim.",
   "windows_path_preflight": {
     "conclusion": "success",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978121/job/111752909460",
-    "real_template_haskell": {
-      "process_exit_code": 0,
-      "started_seconds": 4.656,
-      "late_seconds": 9.656,
-      "completion_seconds": 9.859,
-      "compiler_error": false,
-      "scope": "Unchanged original real-GHC TH fixture through the boot process launcher in Japanese/space paths, without the native2s deadline."
-    },
-    "finding": "Healthy TH initialization can exceed the former2s fixture deadline. The original failed native run\u2019s captured result remains unavailable; this probe establishes the timing assumption was invalid, not a process-tree cleanup defect."
+    "workflow_url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405",
+    "scope": "Required declared compiler profile and real Template Haskell probe executed before native jobs.",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111759823930"
   },
   "native_jobs": [
     {
-      "host": "Linux/Windows/macOS matrix",
-      "conclusion": "intentionally skipped",
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978121/job/111754481165",
-      "qualification": "Diagnostic-only skip, not a passing native job."
+      "host": "Linux",
+      "conclusion": "success",
+      "units": "passed",
+      "integration": "passed",
+      "records": 424,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295460"
+    },
+    {
+      "host": "macOS",
+      "conclusion": "success",
+      "units": "passed",
+      "integration": "passed",
+      "records": 424,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295554"
+    },
+    {
+      "host": "Windows",
+      "conclusion": "success",
+      "units": "passed",
+      "integration": "passed",
+      "records": 358,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675"
     }
   ],
+  "windows_compiler_profile": "Explicit same-installation ghc-9.6.7.exe selected for tooling bootstrap and project-local Cabal game profile; no global PATH change. GHC 9.6.7/Cabal 3.12.1.0 baseline.",
+  "windows_gated_template_haskell": {
+    "positive_started_seconds": 3.515,
+    "positive_completion_seconds": 3.75,
+    "timeout_deadline_seconds": 15,
+    "timeout_completion_seconds": 15.312,
+    "timeout_started_marker": true,
+    "post_return_release_effect": false,
+    "observation_window_seconds": 4,
+    "qualification": "Actual Windows CI fixture with positive live-child release control and exact native timeout result; bounded observation, not universal crash/SIGKILL cleanup."
+  },
   "retained_alpha_workflow": {
     "conclusion": "success for all six validation jobs",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978090",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094306",
     "deployment": "intentionally skipped on the pull request"
   },
-  "next_revision_scope": {
-    "diagnostic_only": false,
-    "native_matrix": "Restored: the temporary if:false and diagnostic-skip comments are removed.",
-    "fixture": "Real TH positive release-gate control; measured-startup headroom in15s timeout; started marker and exact timeout required; gate released only after CLI return and observed for four seconds. POSIX signal cases also use the gate.",
-    "acceptance_obligation": "Verify actual Linux, Windows and macOS native jobs all execute and pass for the next published candidate; configuration or diagnostic-only green does not suffice."
-  },
+  "local_receipt": "docs/evidence/native-tooling-linux.json remains byte-for-byte historical; it is not rebound to this metadata revision.",
+  "metadata_followup": "Guide and route-registry refresh only. Normal exact-head CI must run on that subsequent published revision; no runtime/bootstrap/harness change.",
   "previous_revisions": [
+    {
+      "schema": 1,
+      "observed_date_utc": "2026-10-05",
+      "head_commit": "13ebaaaf02fc81ef9f3dbb13879e227b335e42c6",
+      "scope": "Diagnostic-only revision. Required Windows boot/Template Haskell preflight and alpha passed; the native matrix was intentionally skipped and this revision is not native acceptance.",
+      "windows_path_preflight": {
+        "conclusion": "success",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978121/job/111752909460",
+        "real_template_haskell": {
+          "process_exit_code": 0,
+          "started_seconds": 4.656,
+          "late_seconds": 9.656,
+          "completion_seconds": 9.859,
+          "compiler_error": false,
+          "scope": "Unchanged original real-GHC TH fixture through the boot process launcher in Japanese/space paths, without the native2s deadline."
+        },
+        "finding": "Healthy TH initialization can exceed the former2s fixture deadline. The original failed native run\u2019s captured result remains unavailable; this probe establishes the timing assumption was invalid, not a process-tree cleanup defect."
+      },
+      "native_jobs": [
+        {
+          "host": "Linux/Windows/macOS matrix",
+          "conclusion": "intentionally skipped",
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978121/job/111754481165",
+          "qualification": "Diagnostic-only skip, not a passing native job."
+        }
+      ],
+      "retained_alpha_workflow": {
+        "conclusion": "success for all six validation jobs",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37306978090",
+        "deployment": "intentionally skipped on the pull request"
+      },
+      "next_revision_scope": {
+        "diagnostic_only": false,
+        "native_matrix": "Restored: the temporary if:false and diagnostic-skip comments are removed.",
+        "fixture": "Real TH positive release-gate control; measured-startup headroom in15s timeout; started marker and exact timeout required; gate released only after CLI return and observed for four seconds. POSIX signal cases also use the gate.",
+        "acceptance_obligation": "Verify actual Linux, Windows and macOS native jobs all execute and pass for the next published candidate; configuration or diagnostic-only green does not suffice."
+      }
+    },
     {
       "schema": 1,
       "observed_date_utc": "2026-10-05",

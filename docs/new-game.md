@@ -92,10 +92,11 @@ existing local profile or compiler wrapper. Add a compiler-only
 `cabal.project.local` exclusively when absent, using a raw forward-slash
 absolute path; keep it ignored and out of copied/generated source. Recreate it
 deliberately for a relocated workspace. Native doctor/check follow Cabal's
-selection and fail rather than guessing another compiler. The bounded Windows
-Japanese-path compiler probe passed; full native three-OS end-to-end acceptance
-of this route remains pending. Continue the requested game's real build, tests
-and play checks instead of treating the probe or profile alone as completion.
+selection and fail rather than guessing another compiler. The experimental native
+CLI/terminal-workspace profile passed actual three-OS CI at `be1208af`, including
+Windows Japanese paths and independent continuation; the native guide links the
+exact jobs. Continue the requested game's real build, tests and host-specific
+play checks instead of treating that bounded profile as every game's acceptance.
 
 ## 4. Implement a real playable slice, then continue
 

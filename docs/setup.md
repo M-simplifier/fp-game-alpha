@@ -6,8 +6,9 @@ Python compatibility route; neither path silently installs a compiler. For
 Windows projects with Japanese paths, use the
 [explicit native compiler selection](native-tooling.md#windows-explicitly-select-the-installed-compiler)
 recipe before bootstrap/build, and keep its separate tool and game selections
-clear. That opt-in route preserves installed versions and PATH; full native
-three-OS end-to-end acceptance of the change is still pending.
+clear. That opt-in route preserves installed versions and PATH. The experimental
+CLI/terminal-workspace profile passed actual Linux, Windows and macOS CI at
+`be1208af`; the native guide records the exact jobs and remaining scope limits.
 
 The tested baseline is Python 3.12+, GHC 9.6.7 and Cabal 3.12.1.0. This pins
 the project baseline, not a claim about the latest or recommended upstream

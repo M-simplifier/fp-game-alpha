@@ -414,36 +414,39 @@
       ],
       "evidence": [
         "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722641",
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295460",
         "docs/evidence/native-tooling-linux.json"
       ],
-      "scope": "Native CLI and independent terminal continuation passed CI at a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b (350 records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks. No physical editor or graphical-host claim."
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks."
     },
     {
       "id": "windows-native-haskell-tooling",
       "host": "windows",
       "target": "developer-cli",
-      "status": "planned",
+      "status": "experimental",
       "implementation_paths": [
         "tools/haskell",
         "tools/bootstrap-fp-game.sh",
         "tools/bootstrap-fp-game.ps1",
         "tools/test_native_cli.py",
-        ".github/workflows/native-tooling.yml"
+        ".github/workflows/native-tooling.yml",
+        "tools/test_windows_toolchain_paths.py"
       ],
       "commands": [
         [
           "python",
           "tools/test_native_cli.py",
           "--binary",
-          ".build/tools/fp-game.exe"
+          ".build/tools/fp-game.exe",
+          "--windows-compiler",
+          "<verified-compiler-path>"
         ]
       ],
       "evidence": [
         "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722567#step:12:1"
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675"
       ],
-      "scope": "At a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b, bootstrap, formatting and the complete unit suite passed, including cancellation/timeout and scaffold boundaries. Integration failed at the first Japanese-path game build in ghc-pkg. Direct-toolchain comparison is pending; no Windows end-to-end claim."
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (358 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Requires the explicit same-installation versioned Windows compiler profile; replace <verified-compiler-path> with the installed path accepted by the native guide/preflight. No global PATH changes or automatic wrapper bypass."
     },
     {
       "id": "macos-native-haskell-tooling",
@@ -467,9 +470,9 @@
       ],
       "evidence": [
         "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722116"
+        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295554"
       ],
-      "scope": "Native CLI and independent terminal continuation passed CI at a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b (350 records). Actual generated-source build, relative/Unicode/space paths, gameplay changes and natural shell checks. No physical editor or graphical-host claim."
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks."
     }
   ]
 }

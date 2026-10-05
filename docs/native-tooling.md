@@ -68,9 +68,10 @@ automatic compiler replacement. In the pinned GHC 9.6.7 installation, the
 unversioned C launcher aliases corrupted Japanese arguments. The same
 installation's `ghc-9.6.7.exe` passed the bounded actual library and executable
 Japanese-path builds in the [Windows compiler-path probe](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1).
-That finding does not establish the full native three-OS end-to-end matrix for
-this change; that acceptance remains pending. It does not show that every
-Windows installation, wrapper or compiler version has the same behavior.
+The declared profile subsequently passed the complete native CLI/game-development
+suite on [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675) at `be1208af`, alongside Linux and macOS. It remains an
+experimental, pinned-toolchain route. This does not establish that every Windows
+installation, wrapper or compiler version has the same behavior.
 
 Choose an executable that actually exists on this machine and probe it. The
 following path is an example, not a discovered installation location:
@@ -284,6 +285,12 @@ compiler timeout/cancellation checks. It runs outside the checkout and rebuilds
 the generated tooling after deleting the original game and source snapshot.
 The tests are evidence for this bounded CLI and optional starter only.
 
+On Windows, the acceptance driver requires
+`--windows-compiler <verified-compiler-path>` in addition to `--binary`.
+Replace that placeholder with the actual installed executable selected by the
+[Windows recipe](#windows-explicitly-select-the-installed-compiler); it is not a
+literal filename or automatic compiler discovery.
+
 `.github/workflows/native-tooling.yml` executes bootstrap, typed package tests
 and the same integration suite on Linux, Windows and macOS. Its presence is not
 proof that those jobs passed; inspect results for the exact revision. Dependency
@@ -302,32 +309,32 @@ The [prevention ledger](failure-prevention.md#native-tooling-ownership-and-trans
 records the discovered ownership, filesystem, relative-root, text transport and
 first-use failures, their structural fixes and the tests that prevent recurrence.
 
-## Local measured evidence
+## Verified CI and local measurements
 
-The recorded Linux x86_64 snapshot uses GHC 9.6.7 and Cabal 3.12.1.0 and passes the
-real CLI/relocation/game-development and POSIX terminal/compiler cancellation
-suite, including shell-backed Ctrl-Z/fg, initial background launch, stopped-job
-cancellation and foreground/settings restoration. The source-bound summary is recorded at
-`docs/evidence/native-tooling-linux.json` in the foundation distribution and binds
-its exact input-file hashes. Windows-specific execution still needs the matching
-published revision's runner; a Linux pass does not establish that route.
-Published revision `a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b` passed native CI
-on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722641)
-and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722116),
-with 350 records each. [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722567#step:12:1)
-passed the complete native unit suite, including the repaired cancellation and
-one-second timeout cases. Integration then failed at the first game build:
-`ghc-pkg` rejected its Japanese-path package database. Diagnostic transliteration
-means question marks alone do not establish damaged arguments. Bounded direct
-Cabal, `ghc-pkg` and retained Python comparisons keep the original Unicode paths
-and failure. A small Windows preflight runs these pinned-tool comparisons before
-the native CLI dependency matrix. The later
-[explicit-compiler probe](#windows-explicitly-select-the-installed-compiler)
-isolates the unversioned launcher boundary and passes the bounded real Japanese
-library/executable builds with the same installation's versioned compiler.
-Full native acceptance of that explicit selection remains pending; no Windows
-end-to-end claim is made. Exact current and earlier results are recorded in the
-foundation's `docs/evidence/native-tooling-ci.json`.
+Published revision `be1208af3a475b094964dd04b7fcdb4335deef51` completed native
+bootstrap, typed package tests and the independent integration suite on
+[Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295460) (424 records),
+[macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295554) (424 records) and
+[Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675) (358 records).
+These are **experimental developer CLI and optional terminal-game workspace**
+routes using GHC 9.6.7 / Cabal 3.12.1.0. Windows uses the explicit same-installation
+versioned compiler profile above. Actual checks covered Japanese/space paths,
+compiler selection, refusals, gameplay edits, source-only relocation and native
+tooling rebuild, scripted terminal play, and gated compiler timeout cleanup.
+POSIX terminal job-control checks apply to Linux/macOS, not Windows. The
+[retained alpha workflow](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094306)
+also passed its six validation jobs; pull-request deployment was skipped.
+
+This does not establish physical-editor, graphical-host or arbitrary-game
+acceptance. Each requested game still needs its own host/toolchain and play
+checks. Exact current and earlier results, including failed and diagnostic-only
+revisions, remain in the foundation's `docs/evidence/native-tooling-ci.json`.
+
+The dated Linux x86_64 local receipt at `docs/evidence/native-tooling-linux.json`
+is preserved with its original 392-check input hashes and explicitly recorded
+later focused checks/deltas. It is historical evidence, not a newly rebound
+local run for this documentation revision. Its measurements below are local
+observations; the successful three-OS CI above is separately identified by head.
 
 The fresh secure package-index acquisition took 96.669 seconds on this machine.
 A resumed dependency/source build took 734.737 seconds, after an earlier process
