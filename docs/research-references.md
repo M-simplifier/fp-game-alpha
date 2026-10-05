@@ -101,9 +101,9 @@ These links were recorded in research inspected on 3–4 October 2026. They are 
 ## Developer tooling consolidation
 
 [Haskell tooling assessment and bounded executable probe](../research/haskell-tooling/README.md)
-compares the existing Python orchestration with an opt-in Haskell build/check slice.
-It records bootstrap costs, platform boundaries and compatibility checks separately
-from the maintained game core and current development entrypoints.
+historically compared Python orchestration with an opt-in Haskell build/check slice.
+That frozen research records bootstrap costs, platform boundaries and compatibility
+checks; [native tooling](native-tooling.md) is the current operational entrypoint.
 
 [Measured iteration and parity latency](research-iteration-latency.md) separates
 one-shot CI/local observations from guarantees and records the reviewed test-only

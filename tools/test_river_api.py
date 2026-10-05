@@ -27,7 +27,7 @@ def compile_fixture(ghc, name):
 def main():
     ghc = shutil.which('ghc')
     if ghc is None:
-        raise RuntimeError('GHC is required; run tools/fp_game.py doctor')
+        raise RuntimeError('GHC must be on PATH for this separate helper; see docs/setup.md.')
     good_code, _ = compile_fixture(ghc, 'ReadRiver')
     if good_code != 0:
         raise RuntimeError('Public River projections/dependencies did not compile')

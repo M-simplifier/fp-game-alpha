@@ -27,9 +27,13 @@ The test graph is finite, fully observed and controlled by one participant.
 `forceReach` answers reachability for that graph. It does not prove fairness,
 strategy under hidden information or a bound for every possible board.
 
-Run `python tools/fp_game.py test` from the foundation root. Origin: selected
+Run `.build/tools/fp-game test` from the foundation root. Origin: selected
 MIT technical source from the author's fixture at snapshot
 `5335bb14f9ca644fbdc62a00be892f33ad590ba6`. The private generated
 illustration and duplicate vendor modules are excluded. This publication
 adds checked construction and clearer names; the transition for valid boards
 is the selected original rule, exercised by the regression.
+
+For this command, [bootstrap the native CLI](../../docs/native-tooling.md) once
+from the foundation root. On Windows use `./.build/tools/fp-game.exe test`;
+its explicit game compiler profile is separate from the tool bootstrap compiler.

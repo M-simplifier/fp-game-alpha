@@ -7331,5 +7331,17 @@
   "tools/test_windows_toolchain_paths.py": {
     "kind": "authored-for-public-alpha",
     "scope": "Boot-library-only Windows Unicode path preflight, preserving independent Python/Cabal/GHC comparison and failed original outcomes."
+  },
+  "tools/acceptance/fixtures/python_cli/fp_game.py": {
+    "kind": "frozen-test-oracle",
+    "origin": "tools/fp_game.py",
+    "commit": "23239482865ef3a81db3b15b653882182f8eca74",
+    "source_sha256_lf": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b"
+  },
+  "tools/acceptance/fixtures/python_cli/scaffold.py": {
+    "kind": "frozen-test-oracle",
+    "origin": "tools/scaffold.py",
+    "commit": "23239482865ef3a81db3b15b653882182f8eca74",
+    "source_sha256_lf": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9"
   }
 }

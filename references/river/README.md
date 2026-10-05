@@ -45,7 +45,7 @@ Save round-trip and continuation checks cover selected scenarios. There is no
 automatic migration, crash-durable storage, or guarantee for arbitrary future
 game changes.
 
-Run `python tools/fp_game.py test` and `python tools/test_river_api.py` at the
+Run `.build/tools/fp-game test` and `python tools/test_river_api.py` at the
 foundation root. The latter compiles an outside reader, then requires GHC to
 reject an attempted `Game` record update for the record-selector reason.
 `Cell` remains publicly constructible, so callers may submit an out-of-range
@@ -69,3 +69,7 @@ the [readability report](../../research/readability/river-refactor.md) records
 the behavior comparison and its limits. It adds the named-view adapter,
 executable focused checks and a reading path. It includes no private Git
 history, binary, artwork, font, or graphical host.
+
+For this command, [bootstrap the native CLI](../../docs/native-tooling.md) once
+from the foundation root. On Windows use `./.build/tools/fp-game.exe test`;
+its explicit game compiler profile is separate from the tool bootstrap compiler.

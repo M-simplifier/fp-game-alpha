@@ -1,5 +1,12 @@
 # Verification record
 
+The dated results below preserve the commands and implementations that actually
+ran. Historical Python CLI/workspace/editor checks do not certify the current
+entrypoints. Use [native tooling](native-tooling.md) for today's operational
+commands and its exact native CI revisions, and [tooling](tooling.md) for the
+separate inspect/context helper. Evidence for an earlier revision is not a new
+verification run of this checkout.
+
 ## Independent game development on Windows
 
 `python tools/test_workspace.py` passed locally on Windows x86_64 with

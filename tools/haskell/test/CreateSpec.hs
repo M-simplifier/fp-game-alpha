@@ -112,6 +112,9 @@ runCreateTests = withSystemTempDirectory "fp-game-create-tests-" $ \temporaryAli
     manifest <- decodeFile (planned </> "scaffold-manifest.json")
     expect "foundation lock includes native source" (nestedField "sha256_lf" "tools/haskell/src/FpGame/Create.hs" lock /= Nothing)
     expect "manifest includes native source" (nestedField "files" "tools/haskell/src/FpGame/Create.hs" manifest /= Nothing)
+    forM_ ["tools/fp_game.py", "tools/scaffold.py", "tools/acceptance/legacy_oracle.py"] $ \name ->
+      expect ("retired product helper is not distributed: " <> name) (nestedField "files" (Key.fromString name) manifest == Nothing)
+    expect "specialist inspection remains available" (nestedField "files" "tools/inspect_haskell.py" manifest /= Nothing)
     expect "manifest excludes its own recursive hash" (nestedField "files" "scaffold-manifest.json" manifest == Nothing)
     readme <- BS.readFile (planned </> "README.md")
     expect "native bootstrap travels with continuation instructions" ("bootstrap-fp-game" `BS.isInfixOf` readme && ".build/tools/fp-game build" `BS.isInfixOf` readme)

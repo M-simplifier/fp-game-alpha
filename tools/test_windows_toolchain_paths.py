@@ -222,9 +222,9 @@ def main():
         run('boot-process-version', [ghc_pkg, 'field', 'process', 'version'], helper)
         if compiled['exit_code'] == 0:
             template_haskell_probe(launcher, real_ghc or ghc, report)
-        original_routes = ('direct-cabal', 'retained-python', 'haskell-process')
+        original_routes = ('direct-cabal', 'frozen-python-oracle', 'haskell-process')
         selected_routes = ('direct-cabal-real-compiler', 'project-selected-real-compiler',
-                           'retained-python-selected-compiler', 'haskell-process-selected-compiler')
+                           'frozen-python-oracle-selected-compiler', 'haskell-process-selected-compiler')
         contrasts = ('direct-cabal-real-compiler', 'direct-cabal-real-tools',
                      'project-selected-real-tools', *selected_routes[1:]) if real_ghc and real_ghc_pkg else ()
         for route in (*original_routes, *contrasts):
@@ -263,8 +263,8 @@ def main():
                     local = 'with-compiler: ' + real_ghc.as_posix() + '\n'
                     (project / 'cabal.project.local').write_text(local, encoding='utf-8', newline='\n')
                     report(route=route, project_local_utf8=local)
-                if route in ('retained-python', 'retained-python-selected-compiler'):
-                    command = [sys.executable, ROOT / 'tools/fp_game.py', 'build', '--project', project, '--json']
+                if route in ('frozen-python-oracle', 'frozen-python-oracle-selected-compiler'):
+                    command = [sys.executable, ROOT / 'tools/acceptance/legacy_oracle.py', 'build', '--project', project, '--json']
                 elif route in ('haskell-process', 'haskell-process-selected-compiler'):
                     if compiled['exit_code']:
                         report(label=route, required=required, exit_code=1, error='Launcher compilation failed')

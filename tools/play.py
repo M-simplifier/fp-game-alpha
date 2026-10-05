@@ -33,7 +33,7 @@ def executable(fingerprint):
         return binary
     ghc = shutil.which('ghc')
     if not ghc:
-        raise ValueError('GHC is required. Run python tools/fp_game.py doctor.')
+        raise ValueError('GHC must be on PATH for this separate helper; see docs/setup.md.')
     output.mkdir(parents=True, exist_ok=True)
     command = [ghc, '-O1', '-XGHC2021', '-Wall', '-Werror', '-outputdir', str(output),
                '-i' + str(ROOT / 'references/station/src'),

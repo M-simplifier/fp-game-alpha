@@ -2,10 +2,13 @@
 
 Historical record: source-grounded proposal plus a bounded Linux feasibility trial, 2026-10-04. This is not an implemented replacement or a claim of Python-free distribution.
 
-The maintained successor is now the separate [native tooling package](../../docs/native-tooling.md).
-Its current implementation, bootstrap and acceptance boundaries are documented
-there. The observations below describe this earlier research snapshot; its
-64 probe cases do not establish the successor's tests or cross-platform support.
+The maintained successor is the separate [native tooling package](../../docs/native-tooling.md),
+now the authoritative operational entrypoint for create-plan/create/doctor/build/
+test/check/run. Its current bootstrap and acceptance boundaries are documented
+there; `tools/inspect_haskell.py` separately provides inspect/context. The Python
+CLI/scaffolder and opt-in migration plan discussed below belong to this earlier
+research snapshot. Its 64 probe cases do not establish the successor's tests or
+cross-platform support.
 
 ## Decision
 

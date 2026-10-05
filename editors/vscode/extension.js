@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const fs = require('node:fs');
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const childProcess = require('node:child_process');
 
 function projectRoot(file) {
   let directory = path.dirname(file);
@@ -13,11 +13,31 @@ function projectRoot(file) {
   }
 }
 
-function compilerDiagnostics(text) {
+function contains(directory, candidate) {
+  const relative = path.relative(directory, candidate);
+  return relative !== '..' && !relative.startsWith('..' + path.sep) && !path.isAbsolute(relative);
+}
+
+function requireTrustedProject(root, file) {
+  const allowed = vscode.workspace.workspaceFolders?.some(folder => {
+    const workspace = folder.uri.fsPath;
+    if (!contains(workspace, root) || (file && (!contains(workspace, file) || !contains(root, file)))) return false;
+    try {
+      const realWorkspace = fs.realpathSync(workspace);
+      const realRoot = fs.realpathSync(root);
+      const realFile = file && fs.realpathSync(file);
+      return contains(realWorkspace, realRoot)
+        && (!realFile || (contains(realWorkspace, realFile) && contains(realRoot, realFile)));
+    } catch (_) { return false; }
+  });
+  if (!allowed) throw new Error('Select a project and saved file inside a trusted workspace folder.');
+}
+
+function compilerDiagnostics(text, root) {
   const result = new Map();
   const pattern = /^(.+\.hs):(\d+):(\d+)(?:-\d+)?:\s*(error|warning):/gm;
   for (const match of text.matchAll(pattern)) {
-    const file = match[1];
+    const file = path.isAbsolute(match[1]) || !root ? match[1] : path.resolve(root, match[1]);
     const position = new vscode.Position(Number(match[2]) - 1, Number(match[3]) - 1);
     const diagnostic = new vscode.Diagnostic(new vscode.Range(position, position.translate(0, 1)),
       text.slice(match.index, text.indexOf('\n\n', match.index) === -1 ? text.length : text.indexOf('\n\n', match.index)).trim(),
@@ -39,9 +59,18 @@ function activate(context) {
       const editor = vscode.window.activeTextEditor;
       const file = editor?.document.uri.fsPath;
       const root = file ? projectRoot(file) : vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-      if (!root || !fs.existsSync(path.join(root, 'tools', 'fp_game.py'))) throw new Error('The project-local tools/fp_game.py is missing.');
+      if (!root) throw new Error('Open a game or foundation project first.');
       if (action !== 'doctor' && (!file || !file.endsWith('.hs') || editor.document.isDirty)) throw new Error('Save and select a Haskell file first.');
-      const args = [path.join(root, 'tools', 'fp_game.py'), action, '--project', root, '--json'];
+      requireTrustedProject(root, file);
+      const native = action === 'doctor' || action === 'check';
+      const entrypoint = native
+        ? path.join(root, '.build', 'tools', process.platform === 'win32' ? 'fp-game.exe' : 'fp-game')
+        : path.join(root, 'tools', 'inspect_haskell.py');
+      if (!fs.existsSync(entrypoint)) throw new Error(native
+        ? 'The project-local native fp-game is missing. Run tools/bootstrap-fp-game.sh (Windows: tools/bootstrap-fp-game.ps1) first.'
+        : 'The project-local tools/inspect_haskell.py is missing.');
+      const args = [action, '--project', root, '--json'];
+      if (!native) args.unshift(entrypoint);
       if (action !== 'doctor') args.push(file);
       if (action === 'context') {
         const word = editor.document.getWordRangeAtPosition(editor.selection.active, /[\w']+/);
@@ -49,9 +78,9 @@ function activate(context) {
         if (!symbol) throw new Error('Place the cursor on a binding, or pass a symbol.');
         args.push('--symbol', symbol);
       }
-      const python = vscode.workspace.getConfiguration('fpGame').get('python', 'python');
+      const executable = native ? entrypoint : vscode.workspace.getConfiguration('fpGame').get('python', 'python');
       const result = await new Promise((resolve, reject) => {
-        const child = spawn(python, args, { cwd: root, shell: false, windowsHide: true });
+        const child = childProcess.spawn(executable, args, { cwd: root, shell: false, windowsHide: true });
         let stdout = '', stderr = '';
         child.stdout.setEncoding('utf8'); child.stderr.setEncoding('utf8');
         const timeout = setTimeout(() => { child.kill(); reject(new Error('Compiler query timed out.')); }, 190000);
@@ -62,12 +91,12 @@ function activate(context) {
           clearTimeout(timeout);
           try {
             const value = JSON.parse(stdout);
-            if (value.exit_code !== code) throw new Error('CLI/process outcome mismatch.');
+            if (!value || !Number.isInteger(value.exit_code) || value.exit_code !== code) throw new Error('CLI/process outcome mismatch.');
             resolve(value);
           } catch (error) { reject(new Error('Invalid CLI result: ' + error.message + '\n' + stderr)); }
         });
       });
-      if (action === 'check') { diagnostics.clear(); diagnostics.set(compilerDiagnostics(result.stderr || '')); }
+      if (action === 'check') { diagnostics.clear(); diagnostics.set(compilerDiagnostics(result.stderr || '', root)); }
       output.clear(); output.appendLine(JSON.stringify(result, null, 2)); output.show(true);
       return result;
     }));

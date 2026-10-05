@@ -2,125 +2,103 @@
   "schema_version": 1,
   "routes": [
     {
-      "id": "windows-core-cli",
+      "id": "windows-kernel-cabal",
       "host": "windows",
       "target": "headless",
       "status": "supported",
       "implementation_paths": [
         "libraries",
-        "tools/fp_game.py"
+        "cabal.project",
+        "templates/terminal-adventure/build.config"
       ],
       "commands": [
         [
-          "python",
-          "tools/fp_game.py",
-          "build"
+          "cabal",
+          "--config-file=templates/terminal-adventure/build.config",
+          "build",
+          "all",
+          "--offline",
+          "--builddir=.build/dist"
         ],
         [
-          "python",
-          "tools/fp_game.py",
-          "test"
+          "cabal",
+          "--config-file=templates/terminal-adventure/build.config",
+          "test",
+          "all",
+          "--offline",
+          "--builddir=.build/dist"
         ]
       ],
       "evidence": [
         "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
       ],
-      "scope": "GHC 9.6.7/Cabal 3.12.1.0 core and compiler CLI"
+      "scope": "GHC 9.6.7/Cabal 3.12.1.0 offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
     {
-      "id": "macos-core-cli",
+      "id": "macos-kernel-cabal",
       "host": "macos",
       "target": "headless",
       "status": "supported",
       "implementation_paths": [
         "libraries",
-        "tools/fp_game.py"
+        "cabal.project",
+        "templates/terminal-adventure/build.config"
       ],
       "commands": [
         [
-          "python",
-          "tools/fp_game.py",
-          "build"
+          "cabal",
+          "--config-file=templates/terminal-adventure/build.config",
+          "build",
+          "all",
+          "--offline",
+          "--builddir=.build/dist"
         ],
         [
-          "python",
-          "tools/fp_game.py",
-          "test"
+          "cabal",
+          "--config-file=templates/terminal-adventure/build.config",
+          "test",
+          "all",
+          "--offline",
+          "--builddir=.build/dist"
         ]
       ],
       "evidence": [
         "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
       ],
-      "scope": "CI only; no real-hardware gameplay/editor claim"
+      "scope": "GHC 9.6.7/Cabal 3.12.1.0 offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
     {
-      "id": "linux-core-cli",
+      "id": "linux-kernel-cabal",
       "host": "linux",
       "target": "headless",
       "status": "supported",
       "implementation_paths": [
         "libraries",
-        "tools/fp_game.py"
+        "cabal.project",
+        "templates/terminal-adventure/build.config"
       ],
       "commands": [
         [
-          "python",
-          "tools/fp_game.py",
-          "build"
+          "cabal",
+          "--config-file=templates/terminal-adventure/build.config",
+          "build",
+          "all",
+          "--offline",
+          "--builddir=.build/dist"
         ],
         [
-          "python",
-          "tools/fp_game.py",
-          "test"
+          "cabal",
+          "--config-file=templates/terminal-adventure/build.config",
+          "test",
+          "all",
+          "--offline",
+          "--builddir=.build/dist"
         ]
       ],
       "evidence": [
         "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
       ],
-      "scope": "GHC 9.6.7/Cabal 3.12.1.0 core and compiler CLI"
-    },
-    {
-      "id": "windows-terminal-workspace",
-      "host": "windows",
-      "target": "native",
-      "rendering": "terminal",
-      "status": "experimental",
-      "implementation_paths": [
-        "templates/terminal-adventure",
-        "tools/scaffold.py"
-      ],
-      "commands": [
-        [
-          "python",
-          "tools/test_workspace.py"
-        ]
-      ],
-      "evidence": [
-        "docs/evidence/windows-development.json"
-      ],
-      "scope": "Windows local independent generation, key edit, isolated move/build, stamina edit; ordinary Cabal; alpha"
-    },
-    {
-      "id": "macos-terminal-workspace",
-      "host": "macos",
-      "target": "native",
-      "rendering": "terminal",
-      "status": "experimental",
-      "implementation_paths": [
-        "templates/terminal-adventure",
-        "tools/scaffold.py"
-      ],
-      "commands": [
-        [
-          "python",
-          "tools/test_workspace.py"
-        ]
-      ],
-      "evidence": [
-        "docs/verification.md",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37175110782"
-      ],
-      "scope": "macOS CI independent generation, key edit, isolated move/build, stamina edit; ordinary Cabal; alpha. No physical-device or interactive editor UX claim."
+      "scope": "GHC 9.6.7/Cabal 3.12.1.0 offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
     {
       "id": "windows-vscode",
@@ -141,7 +119,7 @@
       "evidence": [
         "docs/evidence/vscode-windows.json"
       ],
-      "scope": "Actual Windows editor process and saved-source CLI; live HLS separate"
+      "scope": "Saved-source editor adapter: native doctor/check, Python specialist inspect/context. Historical Windows evidence covers the earlier Python-only adapter; changed native routing requires current actual editor-process qualification. Live HLS remains separate."
     },
     {
       "id": "windows-neovim",
@@ -162,7 +140,7 @@
       "evidence": [
         "docs/evidence/neovim-windows.json"
       ],
-      "scope": "Actual Windows editor process and saved-source CLI; live HLS separate"
+      "scope": "Saved-source editor adapter: native doctor/check, Python specialist inspect/context. Historical Windows evidence covers the earlier Python-only adapter; changed native routing requires current actual editor-process qualification. Live HLS remains separate."
     },
     {
       "id": "macos-vscode",
@@ -417,7 +395,7 @@
         "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295460",
         "docs/evidence/native-tooling-linux.json"
       ],
-      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks."
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks. This is the standard operational path; default-route cleanup and changed generated/editor callers require their own current checks, not inheritance of the historical result."
     },
     {
       "id": "windows-native-haskell-tooling",
@@ -446,7 +424,7 @@
         "docs/evidence/native-tooling-ci.json",
         "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675"
       ],
-      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (358 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Requires the explicit same-installation versioned Windows compiler profile; replace <verified-compiler-path> with the installed path accepted by the native guide/preflight. No global PATH changes or automatic wrapper bypass."
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (358 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Requires the explicit same-installation versioned Windows compiler profile; replace <verified-compiler-path> with the installed path accepted by the native guide/preflight. No global PATH changes or automatic wrapper bypass. This is the standard operational path; default-route cleanup and changed generated/editor callers require their own current checks, not inheritance of the historical result."
     },
     {
       "id": "macos-native-haskell-tooling",
@@ -472,7 +450,7 @@
         "docs/evidence/native-tooling-ci.json",
         "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295554"
       ],
-      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks."
+      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks. This is the standard operational path; default-route cleanup and changed generated/editor callers require their own current checks, not inheritance of the historical result."
     }
   ]
 }

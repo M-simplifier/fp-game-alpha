@@ -17,30 +17,37 @@ See [the development workflow](docs/new-game.md). It separates the intended
 experience from the platform checks already completed; the foundation is still
 alpha and does not establish that every target or generated game is correct.
 
-## Native Haskell tooling migration
+## Haskell development tooling
 
-An opt-in `fp-game` executable now owns typed planning, optional terminal creation,
-doctor, build, test, check and run. Bootstrap it once, then run the binary directly;
-generated games carry the source and can continue after relocation without Python
-for those migrated commands. See [native setup and its evidence boundaries](docs/native-tooling.md).
-The established Python/editor path below remains available during cross-platform
-qualification. This migration does not restrict `$new-game` to the terminal starter.
+The native `fp-game` executable is the authoritative path for `create-plan`,
+`create`, `doctor`, `build`, `test`, `check` and `run`. Bootstrap it once, then
+run the local binary directly. Generated games carry its source and can continue
+after relocation without Python for these commands. See
+[native setup and its evidence boundaries](docs/native-tooling.md).
+Python is only needed for separate tools such as compiler inspection, formatting
+and headless player journals. This tooling does not restrict `$new-game` to the
+terminal starter or establish acceptance for every game and host.
 
 ## Optional terminal starter
 
 This command path is one maintained example, not a restriction on `$new-game`.
 
-With Python 3.12+, GHC 9.6.7 and Cabal 3.12.1.0 on PATH:
+With GHC 9.6.7 and Cabal 3.12.1.0 installed, follow
+[the bootstrap guide](docs/native-tooling.md) once. From the clone on Linux/macOS:
 
 ```sh
-python tools/fp_game.py doctor
-python tools/fp_game.py plan my-game "../My Game"
-python tools/fp_game.py scaffold my-game "../My Game"
-cd "../My Game"
-python tools/fp_game.py build
-python tools/fp_game.py test
-python tools/fp_game.py run
+.build/tools/fp-game doctor
+.build/tools/fp-game create-plan my-game "../My Game"
+.build/tools/fp-game create my-game "../My Game"
+.build/tools/fp-game build --project "../My Game"
+.build/tools/fp-game test --project "../My Game"
+.build/tools/fp-game run --project "../My Game"
 ```
+
+On Windows use `./.build/tools/fp-game.exe` and the guide's explicit compiler
+profile, selecting the tool and game compilers separately. To continue from the
+game directory without the clone, bootstrap its copied tool source once and use
+its own local executable.
 
 This optional starter is a native terminal adventure, with real rules,
 view, validated saves and a Machine/Arena adapter. Add your actual mechanic
@@ -49,8 +56,10 @@ hashes are pinned locally. Standard Cabal works, and your game's license is
 your decision. See [start and continue a game](docs/new-game.md).
 
 The CLI keeps config/cache/output in `.build/`; this profile needs only packages
-bundled with GHC. `inspect`, `context` and editor wrappers use actual compiler
-results. See [setup](docs/setup.md), [editors](docs/editors.md),
+bundled with GHC. The separate `tools/inspect_haskell.py` owns `inspect` and
+`context`, using Python plus GHC/GHCi on PATH. The editor wrappers use native
+doctor/check and that inspection tool; saved-source results are compiler-backed.
+See [setup](docs/setup.md), [editors](docs/editors.md),
 [Haskell style](docs/haskell.md), [architecture and laws](docs/architecture.md),
 [review findings and prevention](docs/failure-prevention.md),
 [guarantees and limits](docs/guarantees.md),

@@ -5,6 +5,24 @@ The starter checkout is no longer a dependency. Begin in this directory, read
 `GAME-SPEC.md`, and invoke the local `$game-dev` skill or edit ordinary Haskell.
 Neither an editor extension nor an LLM is required.
 
+## Native development commands
+
+The complete Haskell CLI source and pinned tool dependencies travel in
+`tools/haskell/`; no foundation checkout is needed. Follow the
+[README](../README.md) and [native tooling](native-tooling.md) to bootstrap
+explicitly once, then run `.build/tools/fp-game doctor`, `build`, `test`,
+`check` and `run` from this game directory. Windows uses
+`./.build/tools/fp-game.exe` and the guide's explicit compiler profile. The
+bootstrap compiler and the game's Cabal-selected compiler are separate choices.
+Preserve existing settings and wrappers; never overwrite a local profile or
+silently change versions. After relocation, bootstrap the copied tool source and
+deliberately recreate machine-local compiler settings. Core commands do not
+require Python or rebuild the tool on every invocation.
+
+Optional `tools/inspect_haskell.py` inspect/context needs Python plus GHC/GHCi
+on PATH, independently of native doctor/check's Cabal-selected compiler.
+Formatter and editor/reader setup also retain their own prerequisites.
+
 ## Reading path
 
 1. `Game.Model`: vocabulary, projections, validation of persisted data
@@ -72,7 +90,8 @@ separately. No command silently regenerates or upgrades your game.
 ## Shipping
 
 Choose your game license independently of the retained foundation/template
-MIT notices. CI uses the same standard Cabal commands as local development.
+MIT notices. CI bootstraps the native tooling and uses the same operational
+commands as local development; ordinary Cabal remains an independent build route.
 Before shipping, establish your selected renderer/runtime, gameplay scope,
 save recovery, asset rights, platform/device performance and distribution
 requirements. The alpha provides a path for this work; it does not certify it.
