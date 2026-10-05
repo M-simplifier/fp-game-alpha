@@ -36,7 +36,9 @@ and confirmation scripts are not inherited as universal instructions.
   [Afterlight source map](games/afterlight.md)
 
 - Optional colony simulation, ordered boundaries and restored save fixtures:
-  [Red Dune source route](../red-dune.md)
+  [archived Red Dune source route](../red-dune.md)
+- Active long-session colony campaign, physical policies and a local command room:
+  [Red Dune live source and check route](../red-dune-live.md)
 
 ## What this restoration does and does not establish
 

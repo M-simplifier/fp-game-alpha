@@ -71,7 +71,15 @@ package with the original renderer/audio and browser hosts, a pinned dependency
 check route, and a frozen gameplay oracle. Host execution and binary
 redistribution are separate acceptance stages.
 
-The [Red Dune colony simulation source](references/red-dune/README.md) is an
+[Red Dune: A Settlement That Lasts](references/red-dune-live/README.md) is the
+active colony campaign: physical production and delivery, three-shift staffing,
+construction, recovery and durable checkpoints, with a local Haskell HTTP host
+and browser command room. See [the live source/check route](docs/red-dune-live.md)
+for Linux build/play instructions and separate short, long-campaign and browser
+gates. Native host/protocol evidence does not establish real-browser acceptance;
+keyboard, pointer, layout and a human playthrough remain unverified.
+
+The [archived Red Dune colony simulation source](references/red-dune/README.md) is an
 optional, in-progress Linux/GHC 9.6 reference with exact-restored compatibility
 fixtures. Start with its [source reading and check route](docs/red-dune.md);
 full game checks on the earlier core and bounded formatted-core checks are

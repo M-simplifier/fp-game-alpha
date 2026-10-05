@@ -14,6 +14,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = 'PUBLICATION-MANIFEST.json'
+MAX_MANIFEST_BYTES = 1024 * 1024
 
 
 def selected_files():
@@ -21,6 +22,11 @@ def selected_files():
                '--cached', '--others', '--exclude-standard']
     result = subprocess.run(command, cwd=ROOT, capture_output=True, check=True)
     return sorted(set(name for name in result.stdout.decode('utf-8').split('\0') if name))
+
+
+def source_size_limit(name, policy):
+    """Only the exact generated root inventory gets a bounded larger limit."""
+    return MAX_MANIFEST_BYTES if name == MANIFEST else policy['max_source_bytes']
 
 
 def canonical(path):
@@ -97,7 +103,7 @@ def gate(report_path):
             issues.append({'rule': 'unreviewed-agent-content'})
         if not path.is_file():
             issues.append({'rule': 'not-regular-file'})
-        elif path.stat().st_size > policy['max_source_bytes']:
+        elif path.stat().st_size > source_size_limit(name, policy):
             issues.append({'rule': 'large-source-file'})
         else:
             try:

@@ -19,7 +19,10 @@
     "research/live-tuning",
     "references/signal-courier/src",
     "references/signal-courier/app",
-    "references/signal-courier/test"
+    "references/signal-courier/test",
+    "references/red-dune-live/src",
+    "references/red-dune-live/app",
+    "references/red-dune-live/test"
   ],
   "preserved_source_roots": [
     {

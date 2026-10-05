@@ -65,8 +65,10 @@ empty source selection fail instead of reporting a meaningless pass.
 
 The optional terminal scaffold already copies the helper, lock, owned-source
 config, this guide and CI steps into the new directory. Its local `$game-dev`
-skill continues there without the starter checkout. The foundation config covers 94 live Haskell sources across the template, core
-libraries, current reference games and native reader. Frozen oracle/vendor/fixture
+skill continues there without the starter checkout. The foundation config selects the template, core libraries, current reference
+games and native reader. The live Red Dune fork's `src/`, `app/` and `test/`
+directories are included in full. Only the separately preserved `references/red-dune`
+archive remains excluded; a live continuation does not inherit that exception. Frozen oracle/vendor/fixture
 inputs remain excluded. Six CPP-containing Afterlight declarations are explicitly
 kept verbatim with formatter control comments; the surrounding modules are formatted.
 Their native and Wasm preprocessed forms were compared with public pre-format commit `2487f7b`.

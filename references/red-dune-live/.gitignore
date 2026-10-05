@@ -1,0 +1,15 @@
+.red-dune-saves/
+.build/
+dist-newstyle/
+.runtime/
+downloads/
+node_modules/
+*.save
+*.rdg
+*.prof
+*.hp
+*.eventlog
+.host.lock
+.branch-counter
+.branch-*
+.capture-*

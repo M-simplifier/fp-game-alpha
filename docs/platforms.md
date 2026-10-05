@@ -27,3 +27,14 @@ pre-built template does not prohibit new implementation.
 Toolchain installation follows the [setup guide](setup.md). Missing tools and
 unverified routes are visible; commands do not silently install a global
 toolchain or claim an empty operation succeeded.
+
+## Red Dune local browser command room
+
+[Red Dune live](red-dune-live.md) has a Linux GHC 9.6 native HTTP host and a thin
+HTML/CSS/SVG/JavaScript view. It is **not** a Wasm build or a deployed web service.
+The native process owns the clock, all game transitions and durable files; the
+browser displays projections and sends commands. Native HTTP/protocol/lifecycle
+checks and a repeatable bounded smoke route exist. Real-browser rendering,
+pointer/keyboard, interruption and responsive-device acceptance remain unverified.
+The host is loopback-only; another machine's browser cannot reach it. No tunnel
+or public deployment is part of this route. Windows/macOS host support is unclaimed.

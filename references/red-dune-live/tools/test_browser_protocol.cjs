@@ -1,0 +1,28 @@
+'use strict';
+const assert = require('node:assert/strict');
+const {ResponseGate, RequestJournal, StaleResponse} = require('../ui/protocol.js');
+const packet = (runtime, serial, epoch='1') => ({view:{world:'9007199254740997',branch:'1',boundary:'20'},runtime:{},shell:{schema:'red-dune-shell-0.5',runtimeId:runtime,responseSerial:serial,session:{world:'9007199254740997',branch:'1',epochCounter:epoch},catalog:{},load:{}}});
+const gate=new ResponseGate();gate.accept(packet('one','9007199254740993'),null,true);
+assert.throws(()=>gate.accept(packet('one','9007199254740992'),'one',true),StaleResponse);
+assert.throws(()=>gate.accept(packet('two','1'),'one',false),StaleResponse);
+gate.accept(packet('two','1'),'one',true);
+assert.throws(()=>gate.accept(packet('one','9007199254740994'),'one',true),StaleResponse);
+assert.throws(()=>gate.accept(packet('two','01'),'two',true));
+const broken=packet('two','2');broken.view.world=9007199254740997;assert.throws(()=>gate.accept(broken,'two',true));
+const journal=new RequestJournal('550e8400-e29b-41d4-a716-446655440000');
+const action={op:'command',sequence:'9007199254740993'};
+const record=journal.prepare(action,packet('two','2').shell,'/api/command');journal.uncertain(record);
+assert.throws(()=>journal.prepare({op:'resume'},packet('two','3').shell,'/api/command'));
+assert.equal(journal.prepare(action,packet('two','4').shell,'/api/command').encoded,record.encoded);
+assert.equal(JSON.parse(record.encoded).sequence,'9007199254740993');
+journal.resolved(record);assert.equal(journal.pending,null);
+const fresh=journal.prepare({op:'resume'},packet('two','5').shell,'/api/command');assert.notEqual(fresh.body.requestId,record.body.requestId);assert.throws(()=>journal.prepare({op:'pause'},packet('two','6').shell,'/api/command'));
+journal.uncertain(fresh);journal.switched();assert.equal(journal.pending,null);
+console.log('PASS: decimal identities, stale/retired replies, uncertain exact retry, mutation exclusion, session reset');
+
+const generations=new RequestJournal('550e8400-e29b-41d4-a716-446655440000');
+const oldAction={op:'restart'};const oldRecord=generations.prepare(oldAction,packet('one','1').shell,'/api/command');
+generations.switched();const newRecord=generations.prepare({op:'resume'},packet('two','1','2').shell,'/api/command');
+generations.uncertain(oldRecord);generations.resolved(oldRecord);assert.equal(generations.inFlight,newRecord);assert.equal(generations.pending,null);
+generations.resolved(newRecord);assert.throws(()=>generations.prepare(oldAction,packet('two','2','2').shell,'/api/command'));
+console.log('PASS: late pre-switch rejection cannot replace current-session in-flight action');

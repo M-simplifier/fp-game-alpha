@@ -1,0 +1,78 @@
+{
+  "schema": "red-dune-live-performance-1",
+  "recorded_utc_date": "2026-10-04",
+  "machine": "Linux cloud execution workspace, Intel Xeon Platinum8573C; other task processes also active",
+  "compiler": "GHC9.6.7 -O2, native N1",
+  "method": "Fully evaluate each advanceGame1 and measure process CPU time. Each sample advances1200 ticks from the same actual saved checkpoint. Early=cut6h; late=cut36h. Includes automatic-policy command work. These are CPU timings, not end-to-end UI or network latency.",
+  "results": {
+    "early_before": {
+      "forced_ticks": 1200,
+      "cpu_ms": {
+        "mean": 7.7559100716666505,
+        "p50": 7.07086,
+        "p95": 11.778446,
+        "p99": 14.698641,
+        "max": 33.303511
+      },
+      "ticks_above_50ms": 0,
+      "rts_allocated_bytes_including_load": 17481626864
+    },
+    "late_before": {
+      "forced_ticks": 1200,
+      "cpu_ms": {
+        "mean": 11.100287155000002,
+        "p50": 10.019907,
+        "p95": 17.07524,
+        "p99": 27.194006,
+        "max": 150.02527
+      },
+      "ticks_above_50ms": 2,
+      "rts_allocated_bytes_including_load": 21982075744
+    },
+    "early_after": {
+      "forced_ticks": 1200,
+      "cpu_ms": {
+        "mean": 5.7167603408333285,
+        "p50": 5.278595,
+        "p95": 8.126158,
+        "p99": 12.532248,
+        "max": 34.442296
+      },
+      "ticks_above_50ms": 0,
+      "rts_allocated_bytes_including_load": 12240002824
+    },
+    "late_after": {
+      "forced_ticks": 1200,
+      "cpu_ms": {
+        "mean": 9.16050273583334,
+        "p50": 9.214536,
+        "p95": 12.926821,
+        "p99": 17.227085,
+        "max": 25.034139
+      },
+      "ticks_above_50ms": 0,
+      "rts_allocated_bytes_including_load": 16050063984
+    }
+  },
+  "late_allocation_reduction_percent": 26.985676098487378,
+  "profile": {
+    "sample": "Actual hour24 saved checkpoint,1200 ticks, -O2 -prof -fprof-auto",
+    "instrumentation_caveat": "Profiling changes runtime cost; its timings are not compared with the uninstrumented benchmark",
+    "inherited_allocation_percent_validateSpatial": 50.8,
+    "individual_allocation_percent": {
+      "tileIndex": 25.4,
+      "rectTiles": 11.5,
+      "reservedTiles": 10.9
+    },
+    "cause": "validateSpatial calls validatePlacement for each placement; each placement rebuilds other placements geometry/occupancy. Tile Map/Set comparisons repeatedly allocate Integer row-major products/sums."
+  },
+  "optimization": "For coordinates all within0..511, compare (y,x) without allocating row-major indices; preserve exact old (tileIndex,x,y) fallback for every invalid coordinate. No validation, schema, history or simulation rule removed.",
+  "same_1200_tick_suffix_before_after_bytes_equal": true,
+  "same_suffix_sha256": "4ea6863133e43f1d40e37418dcbf3c2aeb3e7d62e730d4bb1b20a4a792615259",
+  "limits": [
+    "Two finite samples, not a worst-case real-time proof",
+    "Before optimization,2/1200 late-sample ticks exceeded50ms; after optimization none did in these samples",
+    "Full spatial validation still rebuilds occupancy quadratically; that broader refactor remains separate",
+    "Cumulative allocation remains substantial even though measured retained state stays small; no speculative history compaction was added"
+  ]
+}

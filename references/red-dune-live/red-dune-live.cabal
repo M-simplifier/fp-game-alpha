@@ -1,0 +1,132 @@
+cabal-version: 3.0
+name: red-dune-live
+version: 0.1.0.0
+build-type: Simple
+synopsis: Playable long-session Red Dune colony survival campaign
+license: MIT
+license-file: LICENSE
+extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md, ui/*.html, ui/*.css, ui/*.js, tools/*.cjs, tools/*.sh, evidence/*.json, evidence/*.txt
+
+common shared
+  default-language: GHC2021
+  ghc-options: -O2 -Wall -Werror
+  build-depends: base >=4.18 && <4.19, containers, array, bytestring, text, parsec, binary, deepseq, mtl, directory, unix, filepath, game-arena >=0.1 && <0.2, game-transition >=0.1 && <0.2
+
+library
+  import: shared
+  hs-source-dirs: src
+  exposed-modules:
+    Colony.Arena
+    Colony.CheckpointLibrary
+    Colony.Codec.CBOR
+    Colony.Codec.SHA256
+    Colony.Codec.Value
+    Colony.Codec
+    Colony.CombinedFixture
+    Colony.Construction
+    Colony.Content
+    Colony.ContentCodec
+    Colony.Fixture
+    Colony.Inventory
+    Colony.JSON
+    Colony.Jobs
+    Colony.KnownCatalog
+    Colony.LegacyV3
+    Colony.M1Commands
+    Colony.M1Infrastructure
+    Colony.M1Logistics
+    Colony.M1Rules
+    Colony.M1Scheduler
+    Colony.M1State
+    Colony.M1View
+    Colony.Maintenance
+    Colony.Migrate
+    Colony.Needs
+    Colony.Pickup
+    Colony.Power
+    Colony.Presentation
+    Colony.RNG
+    Colony.Ruleset
+    Colony.S01Fixture
+    Colony.Save
+    Colony.Scheduler
+    Colony.SchedulerCore
+    Colony.Session
+    Colony.SessionTrace
+    Colony.Space
+    Colony.SupplyChainFixture
+    Colony.Topology
+    Colony.Transport
+    Colony.Types
+    Colony.UIFixture
+    Colony.UIShell
+    Colony.Units
+    Colony.Workforce
+    Colony.World
+    RedDune.Campaign
+    RedDune.ContentPack
+    RedDune.Game
+    RedDune.GameSave
+    RedDune.Policies
+    RedDune.Protocol
+
+executable red-dune-live
+  import: shared
+  main-is: HostMain.hs
+  hs-source-dirs: app
+  other-modules: RedDune.Host
+  ghc-options: -rtsopts -threaded
+  build-depends: red-dune-live, network ==3.1.4.0
+
+test-suite live-campaign
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: LiveCampaignTests.hs
+  hs-source-dirs: test
+  ghc-options: -rtsopts -threaded
+  build-depends: red-dune-live
+
+test-suite live-construction
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: LiveConstructionTests.hs
+  hs-source-dirs: test
+  ghc-options: -main-is LiveConstructionTests
+  build-depends: red-dune-live
+
+test-suite live-boundary
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: LiveBoundaryTests.hs
+  hs-source-dirs: test
+  build-depends: red-dune-live
+
+executable red-dune-tick-bench
+  import: shared
+  main-is: LiveTickBench.hs
+  hs-source-dirs: test
+  ghc-options: -rtsopts -threaded
+  build-depends: red-dune-live
+
+test-suite live-host-lifecycle
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: HostLifecycleTests.hs
+  hs-source-dirs: test, app
+  other-modules: RedDune.Host
+  ghc-options: -threaded
+  build-depends: red-dune-live, network ==3.1.4.0
+
+test-suite live-tile-order
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: LiveTileOrderTests.hs
+  hs-source-dirs: test
+  build-depends: red-dune-live
+
+test-suite live-legacy
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: LiveLegacyTests.hs
+  hs-source-dirs: test
+  build-depends: red-dune-live
