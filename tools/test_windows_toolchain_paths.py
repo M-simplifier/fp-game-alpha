@@ -78,9 +78,49 @@ def main():
         report(status='fail', error='Pinned tool version check failed')
         return 1
 
+    # Contrast the installed PATH shim with GHCup's declared compiler location.
+    # These observations cannot turn any original required failure into a pass.
+    real_ghc_pkg = None
+    if os.name == 'nt':
+        shim = Path(ghc_pkg).with_suffix('.shim')
+        shim_bytes = shim.read_bytes() if shim.is_file() else None
+        report(label='selected-ghc-pkg-shim', path=str(shim), exists=shim.is_file(),
+               contents=shim_bytes.decode('utf-8-sig', errors='replace') if shim_bytes else None,
+               bytes_hex=shim_bytes.hex() if shim_bytes else None)
+        ghcup = shutil.which('ghcup')
+        if ghcup:
+            location = run('ghcup-whereis', [ghcup, 'whereis', 'ghc', '9.6.7'], ROOT, required=False)
+            if location['exit_code'] == 0:
+                compiler = Path(location['stdout'].strip())
+                candidates = [compiler.parent / name for name in ('ghc-pkg-9.6.7.exe', 'ghc-pkg.exe')]
+                report(label='real-compiler-files', compiler=str(compiler), exists=compiler.is_file(),
+                       package_managers={str(path): path.is_file() for path in candidates})
+                if compiler.is_file():
+                    version = run('real-compiler-version', [compiler, '--numeric-version'], ROOT, required=False)
+                    candidate = next((path for path in candidates if path.is_file()), None)
+                    if candidate and version.get('stdout', '').strip() == '9.6.7':
+                        version = run('real-ghc-pkg-version', [candidate, '--version'], ROOT, required=False)
+                        if version['exit_code'] == 0 and version.get('stdout', '').strip().endswith(' 9.6.7'):
+                            real_ghc_pkg = candidate
+                            run('real-ghc-pkg-rts', [candidate, '+RTS', '--info'], ROOT, required=False)
+        else:
+            report(label='ghcup-whereis', error='GHCup is not on PATH')
+
     # Keep only the helper build outside the required Japanese game destination.
     with tempfile.TemporaryDirectory(prefix='fp-path-launcher-') as helper_name:
         helper = Path(helper_name).resolve()
+        for origin, executable in (('PATH', ghc_pkg), ('real', real_ghc_pkg)):
+            if executable is None:
+                continue
+            for shape in ('ascii-only', 'ascii with spaces'):
+                database = helper / (origin + '-' + shape)
+                if not str(database).isascii() or (shape == 'ascii-only' and ' ' in str(database)):
+                    report(label='control-unavailable', path=str(database),
+                           reason='Temporary ancestor does not meet the ASCII control shape')
+                    continue
+                run(origin + '-control-' + shape, [executable, 'init', database], helper, required=False)
+                report(label='control-package-db-files', path=str(database),
+                       exists=database.is_dir(), cache_exists=(database / 'package.cache').is_file())
         source = helper / 'Main.hs'
         source.write_text(LAUNCHER, encoding='utf-8')
         launcher = helper / ('launcher.exe' if os.name == 'nt' else 'launcher')
@@ -150,6 +190,14 @@ def main():
                             report(label='package-db-files', required=True,
                                    exit_code=0 if (database / 'package.cache').is_file() else 1,
                                    path=str(database), exists=database.is_dir())
+                    if real_ghc_pkg:
+                        for encoding in ('inherited', 'UTF-8'):
+                            database = project / f'real compiler package db 日本語 {encoding}'
+                            run('real-ghc-pkg-init-' + encoding, [real_ghc_pkg, 'init', database],
+                                project, required=False,
+                                env=None if encoding == 'inherited' else {**os.environ, 'GHC_CHARENC': encoding})
+                            report(label='real-package-db-files', path=str(database),
+                                   exists=database.is_dir(), cache_exists=(database / 'package.cache').is_file())
     failures = [item['label'] for item in records if item.get('required') and item['exit_code'] != 0]
     report(status='fail' if failures else 'pass', failed_checks=failures)
     return int(bool(failures))
