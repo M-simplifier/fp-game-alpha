@@ -63,3 +63,15 @@ mockだけで終えず、変更したファイル・handle・FFI等の実際の�
 - 実際の利用経路で、変更した動作、互換性、終了を確認できたか。
 
 レビューでは入力・到達経路・壊れる性質を示し、高度な技法への置換や書式の好みを不具合扱いしない。
+
+## 実行できる形式検証の研究
+
+対象の失敗が明確なら、[研究の再現入口](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/research-reproduction.md)から
+実際の固定ソース・負例・実行記録へ進む。quantity の選択関数契約、
+SBV の整数 cancellation model、TLC の有限 save protocol は別の境界を調べる。
+必要な prover だけを opt-in で入れ、通常の新規ゲーム作成を重くしない。
+
+判定は「原ソースの一致」「toolchain の一致」「証明や反例の観測」
+「実装との有限照合」を分ける。UNKNOWN・timeout・依存エラーは成功ではない。
+LiquidHaskell の既知の division 誤受理は再現できても soundness gate は失敗のまま。
+モデルが証明したことを、そのままゲーム全体の保証に広げない。

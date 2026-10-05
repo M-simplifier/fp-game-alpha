@@ -1,0 +1,1693 @@
+{
+  "artifact_sha256": {
+    "work/fixtures/branch-inflight.events": "453470cd2b527c22e0a636e7d824d43ded15d3f263762bc0c0f17345760db69e",
+    "work/fixtures/edit-inflight.events": "6fdb7ce224fa432577fec2f284e96c424a9bb3896dc0b4bfdbff468b12fbc707",
+    "work/fixtures/failure-old-epoch.events": "3b13d7154707de4459216703400c61115b86924639078714f7d91427a6ef6d74",
+    "work/fixtures/failure-retry.events": "006a703ebe5171e6d31c8529ff266613187317a30b6613b992eed8370e92a0f5",
+    "work/fixtures/generated-mutant-active.events": "eb76d97a93ff919fc06f1955387e765801e080ead5bd7202a77c53413a8b4902",
+    "work/fixtures/generated-mutant-active.json": "1d67bfbef72b035524bbfc5d0b0aea6890a74796a427739c836beff431792c94",
+    "work/fixtures/generated-mutant-epoch.events": "001f7d233dfcec3ed53bc4128e47ef1979f8de59ce166a14dc2d48ecf99cbec0",
+    "work/fixtures/generated-mutant-epoch.json": "7bbb4332b937b14c0216c7f0ee46acb6cba0f592f6b95aaf242aa725428274de",
+    "work/fixtures/generated-mutant-persist.events": "fa58b80affe81281f3c6b0bfd2c5947c8534ad0517f5101c77bbc8c902c64361",
+    "work/fixtures/generated-mutant-persist.json": "fefe99e6a445550753380193939bbfc5bf4d1c9c0252e53f09c88dacc9dee115",
+    "work/fixtures/happy-duplicate.events": "e0d6e513ee29f8e29697af61300e0ab2c1f9f7bf82eba4487c1c692b91b6dd73",
+    "work/fixtures/load-inflight.events": "5b9e023606c39d3b31de9de1cf103864c91cc67e9365bea7cca2aa6588fbbefe",
+    "work/fixtures/load-late.events": "eafa4d2eaac11e2486f8a6bdf5feb522f443bd6407593ac5f7c0705c5a0e14d1",
+    "work/fixtures/mutant-active.events": "eb76d97a93ff919fc06f1955387e765801e080ead5bd7202a77c53413a8b4902",
+    "work/fixtures/mutant-active.json": "340fd64e04ab77d1989d9601fc36052d9df5bf363172c08c28b1816cae999647",
+    "work/fixtures/mutant-epoch.events": "001f7d233dfcec3ed53bc4128e47ef1979f8de59ce166a14dc2d48ecf99cbec0",
+    "work/fixtures/mutant-epoch.json": "bd3a4299629c0c2f87476b9fd5fff318b07e49866da1d8bb8adcc685a3419f1a",
+    "work/fixtures/mutant-persist.events": "fa58b80affe81281f3c6b0bfd2c5947c8534ad0517f5101c77bbc8c902c64361",
+    "work/fixtures/mutant-persist.json": "7cd513e7a06f788ba1d0107e68bfb77b5011847457bacf4a7e395457a98633cc",
+    "work/fixtures/reordered-responses.events": "c9b2469166e447f5f3914058254dd1195b2421a48a9bb1ce332871c7aa02d8f9",
+    "work/model/Correct.cfg": "6f8ca145a971f75f79a6e9421068a768d6a12bcdccea979afceb99804d41c9bf",
+    "work/model/Fair.cfg": "cd72e1496d18647b3fc81a9629781dcf8cd556f92e99d68c6c0d0b03209cfe4f",
+    "work/model/MutantActive.cfg": "d0b64aac226bcbca11b043ae6e454f7fdda5f0dccebc9c04276dd5f745876fad",
+    "work/model/MutantEpoch.cfg": "ca234dbcc9f2ff13e622b66334e344057660ee8296147ddece10eb7274d152b8",
+    "work/model/MutantPersist.cfg": "ab2340851e319a403dd17cb6760761845130770dbfbacffeea48cebd8b14df6f",
+    "work/model/SaveLifecycle.tla": "41eb23628bfde3ed8f44dc3f3da67ac5f3fa18e0484f224629857a374628d205",
+    "work/model/Tracebranchinflight.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Tracebranchinflight.tla": "f15246bea56bb60665be38a58281a2d5fbbc6034d7472789c2bcbb09ea9dbec4",
+    "work/model/TracecorrectedActive.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/TracecorrectedActive.tla": "ec1617f7564da09f2b20e837b46a1e3728b442e176ad4e062bf53c4f310779a0",
+    "work/model/TracecorrectedEpoch.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/TracecorrectedEpoch.tla": "60942f7ec3517e291550a7e84efa7f94bf883686929a8f0300918d7bbf1e442b",
+    "work/model/Traceeditinflight.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Traceeditinflight.tla": "0d5f8c97c7c5e9dc4756220a5401319ce1e453a66c42bdb5d65260b3d1dca62f",
+    "work/model/Tracefailureoldepoch.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Tracefailureoldepoch.tla": "522aca7f780313816da1c206dea411e02097ff202780c5419cdab34fe310ddfb",
+    "work/model/Tracefailureretry.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Tracefailureretry.tla": "91b889bd24c0e7dbb69e2ffe60be24b783ba8c3b5b79f5768f8f52ed48a747bd",
+    "work/model/Tracehappyduplicate.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Tracehappyduplicate.tla": "70819413208eba6ed5d8fa5717f7eef22e3da7bf9298993c5f42701f1f66d005",
+    "work/model/Traceloadinflight.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Traceloadinflight.tla": "1347926e32f6fcb93f979e386c60b59d203a2ca4316086b1e9c1f35e9593eee6",
+    "work/model/Traceloadlate.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Traceloadlate.tla": "4dc98ab5beb07d152de3b1d2dac26852893a22a890339e90137a0669524d8dda",
+    "work/model/TracemutantActive.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/TracemutantActive.tla": "9f877268065a6f60824c5b89ee417410876055eddbe4003a5f14c58a3377a1fc",
+    "work/model/TracemutantEpoch.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/TracemutantEpoch.tla": "a496f9fbdee3b673b60adf2113b19064bc193d5f18593c8db692120f4237fc6f",
+    "work/model/TracemutantPersist.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/TracemutantPersist.tla": "ba896e7baaf6e0e1b4d31266e048a5e02bfb4cc5ea37af41359cb3d406fe323c",
+    "work/model/Tracereorderedresponses.cfg": "cf076115b821fd48a9a1bb60f2c30ecdcf58948830f367ca4c60c1c3416c5367",
+    "work/model/Tracereorderedresponses.tla": "36ce49bd2f2b6dbd7de7ead34d7181167e6517c6a1ece39a249e711bf0b91842",
+    "work/model/Unfair.cfg": "b2967996a8a9facc8f07b83763931e28b6ee8965bbb55f53a24628c5b05153b5",
+    "work/src/Main.hs": "5b939ae142c50134aec7afe6a55f985c27c0e25e727ef9c0186d7ce39c45d324",
+    "work/src/TicketFreshness.hs": "138e2339726aabd63f5c609bfddbe43d088e9ad4c5ef167e35f49fa19332392f",
+    "work/vendor/colony0.2/data/content-v1.json": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6",
+    "work/vendor/colony0.2/src/Colony/Arena.hs": "20e230059c2279eab5cce88435292888baa8c0212107aed479ae000cb07528a3",
+    "work/vendor/colony0.2/src/Colony/Codec.hs": "8f0bb6bb531c13a105fecb2575453c90de1c292441c99cf9e9914b13e6fb21f9",
+    "work/vendor/colony0.2/src/Colony/Codec/CBOR.hs": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
+    "work/vendor/colony0.2/src/Colony/Codec/SHA256.hs": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
+    "work/vendor/colony0.2/src/Colony/Codec/Value.hs": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
+    "work/vendor/colony0.2/src/Colony/Content.hs": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
+    "work/vendor/colony0.2/src/Colony/ContentCodec.hs": "bf6614a606eb5e94d2b9d05efd1896881513534c9f90420973d0d551d7080d9b",
+    "work/vendor/colony0.2/src/Colony/Fixture.hs": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
+    "work/vendor/colony0.2/src/Colony/Inventory.hs": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
+    "work/vendor/colony0.2/src/Colony/JSON.hs": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
+    "work/vendor/colony0.2/src/Colony/Jobs.hs": "bc0e1689c092926289e9dae776adb4ee772e1558e1c5b4af7cc6f24c89b1700a",
+    "work/vendor/colony0.2/src/Colony/Maintenance.hs": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
+    "work/vendor/colony0.2/src/Colony/Migrate.hs": "8f1ed6923103792115e512207f76336b0ddc880184265414d75a61d8fde7ebd0",
+    "work/vendor/colony0.2/src/Colony/Needs.hs": "0e1c0f9cc157132a3c8c96090fdcb07716b376e88c680031e28d937d4da93b6a",
+    "work/vendor/colony0.2/src/Colony/Power.hs": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
+    "work/vendor/colony0.2/src/Colony/RNG.hs": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
+    "work/vendor/colony0.2/src/Colony/Save.hs": "b1c9b0bf410ea6ce1cbfbaf728966fefde5e8e61f553cad3f44b945280df1e68",
+    "work/vendor/colony0.2/src/Colony/Scheduler.hs": "faf2012b6abcd937cce517ec4c13466b4954728275b880324de6c3c3e2d865d4",
+    "work/vendor/colony0.2/src/Colony/SupplyChainFixture.hs": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
+    "work/vendor/colony0.2/src/Colony/Topology.hs": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
+    "work/vendor/colony0.2/src/Colony/Transport.hs": "f73b4ee9ad7346ef77fa0597cb79f36b6308467575a86d6861d12ec74b73833f",
+    "work/vendor/colony0.2/src/Colony/Types.hs": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
+    "work/vendor/colony0.2/src/Colony/Units.hs": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "work/vendor/colony0.2/src/Colony/World.hs": "3ca1f53c506a3c819ae9a13220048d7bf7007e651d798c9fffb40f8414a1318a"
+  },
+  "completed_utc": "2026-10-05T00:52:34.639096+00:00",
+  "corpus": [
+    {
+      "name": "branch-inflight",
+      "states": 11
+    },
+    {
+      "name": "edit-inflight",
+      "states": 8
+    },
+    {
+      "name": "failure-old-epoch",
+      "states": 9
+    },
+    {
+      "name": "failure-retry",
+      "states": 11
+    },
+    {
+      "name": "happy-duplicate",
+      "states": 9
+    },
+    {
+      "name": "load-inflight",
+      "states": 8
+    },
+    {
+      "name": "load-late",
+      "states": 10
+    },
+    {
+      "name": "reordered-responses",
+      "states": 12
+    }
+  ],
+  "counterexample_bridges": [
+    {
+      "all_fields_equal": true,
+      "corrected_trace_checked_by_tlc": true,
+      "fields_per_state": 13,
+      "invalid_mutant_trace_rejected": true,
+      "matches_frozen_counterexample": true,
+      "mutation": "Epoch",
+      "states": 6
+    },
+    {
+      "all_fields_equal": true,
+      "corrected_trace_checked_by_tlc": true,
+      "fields_per_state": 13,
+      "invalid_mutant_trace_rejected": true,
+      "matches_frozen_counterexample": true,
+      "mutation": "Active",
+      "states": 5
+    },
+    {
+      "all_fields_equal": true,
+      "corrected_trace_checked_by_tlc": false,
+      "fields_per_state": 13,
+      "invalid_mutant_trace_rejected": true,
+      "matches_frozen_counterexample": true,
+      "mutation": "Persist",
+      "states": 3
+    }
+  ],
+  "finite_scope": {
+    "active_requests_per_epoch": 1,
+    "edits_per_epoch": 1,
+    "epochs": 2,
+    "fresh_ticket_required": true,
+    "request_ids_per_epoch": 2
+  },
+  "historical_run": false,
+  "input_sha256": {
+    "fixtures/branch-inflight.events": "453470cd2b527c22e0a636e7d824d43ded15d3f263762bc0c0f17345760db69e",
+    "fixtures/edit-inflight.events": "6fdb7ce224fa432577fec2f284e96c424a9bb3896dc0b4bfdbff468b12fbc707",
+    "fixtures/failure-old-epoch.events": "3b13d7154707de4459216703400c61115b86924639078714f7d91427a6ef6d74",
+    "fixtures/failure-retry.events": "006a703ebe5171e6d31c8529ff266613187317a30b6613b992eed8370e92a0f5",
+    "fixtures/happy-duplicate.events": "e0d6e513ee29f8e29697af61300e0ab2c1f9f7bf82eba4487c1c692b91b6dd73",
+    "fixtures/load-inflight.events": "5b9e023606c39d3b31de9de1cf103864c91cc67e9365bea7cca2aa6588fbbefe",
+    "fixtures/load-late.events": "eafa4d2eaac11e2486f8a6bdf5feb522f443bd6407593ac5f7c0705c5a0e14d1",
+    "fixtures/mutant-active.events": "eb76d97a93ff919fc06f1955387e765801e080ead5bd7202a77c53413a8b4902",
+    "fixtures/mutant-active.json": "340fd64e04ab77d1989d9601fc36052d9df5bf363172c08c28b1816cae999647",
+    "fixtures/mutant-epoch.events": "001f7d233dfcec3ed53bc4128e47ef1979f8de59ce166a14dc2d48ecf99cbec0",
+    "fixtures/mutant-epoch.json": "bd3a4299629c0c2f87476b9fd5fff318b07e49866da1d8bb8adcc685a3419f1a",
+    "fixtures/mutant-persist.events": "fa58b80affe81281f3c6b0bfd2c5947c8534ad0517f5101c77bbc8c902c64361",
+    "fixtures/mutant-persist.json": "7cd513e7a06f788ba1d0107e68bfb77b5011847457bacf4a7e395457a98633cc",
+    "fixtures/reordered-responses.events": "c9b2469166e447f5f3914058254dd1195b2421a48a9bb1ce332871c7aa02d8f9",
+    "model/Correct.cfg": "6f8ca145a971f75f79a6e9421068a768d6a12bcdccea979afceb99804d41c9bf",
+    "model/Fair.cfg": "cd72e1496d18647b3fc81a9629781dcf8cd556f92e99d68c6c0d0b03209cfe4f",
+    "model/MutantActive.cfg": "d0b64aac226bcbca11b043ae6e454f7fdda5f0dccebc9c04276dd5f745876fad",
+    "model/MutantEpoch.cfg": "ca234dbcc9f2ff13e622b66334e344057660ee8296147ddece10eb7274d152b8",
+    "model/MutantPersist.cfg": "ab2340851e319a403dd17cb6760761845130770dbfbacffeea48cebd8b14df6f",
+    "model/SaveLifecycle.tla": "41eb23628bfde3ed8f44dc3f3da67ac5f3fa18e0484f224629857a374628d205",
+    "model/Unfair.cfg": "b2967996a8a9facc8f07b83763931e28b6ee8965bbb55f53a24628c5b05153b5",
+    "provenance.json": "8f028f0b1fbd3540933c9af4083f8752c435073c561236db1aafc64b6d46b23e",
+    "scripts/bridge.py": "8e6cfde402655f8ec5d945e18069d3bf95af5f96fceefa555b6ece0d20857451",
+    "scripts/fetch-tlc.sh": "5a60eacc8bfb7274e8e0ab841b0d031a90fc88a64f90d1ca9e436fb391d90e5c",
+    "scripts/reproduce.sh": "bf02d5c33ec5cf4a07fb59ba770b3812081ce7c1719bf7e5b7f51be398f2aa63",
+    "scripts/run_experiment.py": "42f91f7da7c589cd7e4a48580e8b879b5ea3e6b0f19757a10a7a1cdda1fc7765",
+    "scripts/test_runner.py": "d9c4d3ea5c930f61fd9e9c09401870bc9f1a79d242a48bfd987f889c5f20941d",
+    "scripts/verify_evidence.py": "6b046081d6b1b7b6b121dffda684cff4bba8d0227bdab4e64545ef3d71f98d99",
+    "src/Main.hs": "5b939ae142c50134aec7afe6a55f985c27c0e25e727ef9c0186d7ce39c45d324",
+    "src/TicketFreshness.hs": "138e2339726aabd63f5c609bfddbe43d088e9ad4c5ef167e35f49fa19332392f",
+    "vendor/colony0.2/data/content-v1.json": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6",
+    "vendor/colony0.2/src/Colony/Arena.hs": "20e230059c2279eab5cce88435292888baa8c0212107aed479ae000cb07528a3",
+    "vendor/colony0.2/src/Colony/Codec.hs": "8f0bb6bb531c13a105fecb2575453c90de1c292441c99cf9e9914b13e6fb21f9",
+    "vendor/colony0.2/src/Colony/Codec/CBOR.hs": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
+    "vendor/colony0.2/src/Colony/Codec/SHA256.hs": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
+    "vendor/colony0.2/src/Colony/Codec/Value.hs": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
+    "vendor/colony0.2/src/Colony/Content.hs": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
+    "vendor/colony0.2/src/Colony/ContentCodec.hs": "bf6614a606eb5e94d2b9d05efd1896881513534c9f90420973d0d551d7080d9b",
+    "vendor/colony0.2/src/Colony/Fixture.hs": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
+    "vendor/colony0.2/src/Colony/Inventory.hs": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
+    "vendor/colony0.2/src/Colony/JSON.hs": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
+    "vendor/colony0.2/src/Colony/Jobs.hs": "bc0e1689c092926289e9dae776adb4ee772e1558e1c5b4af7cc6f24c89b1700a",
+    "vendor/colony0.2/src/Colony/Maintenance.hs": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
+    "vendor/colony0.2/src/Colony/Migrate.hs": "8f1ed6923103792115e512207f76336b0ddc880184265414d75a61d8fde7ebd0",
+    "vendor/colony0.2/src/Colony/Needs.hs": "0e1c0f9cc157132a3c8c96090fdcb07716b376e88c680031e28d937d4da93b6a",
+    "vendor/colony0.2/src/Colony/Power.hs": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
+    "vendor/colony0.2/src/Colony/RNG.hs": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
+    "vendor/colony0.2/src/Colony/Save.hs": "b1c9b0bf410ea6ce1cbfbaf728966fefde5e8e61f553cad3f44b945280df1e68",
+    "vendor/colony0.2/src/Colony/Scheduler.hs": "faf2012b6abcd937cce517ec4c13466b4954728275b880324de6c3c3e2d865d4",
+    "vendor/colony0.2/src/Colony/SupplyChainFixture.hs": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
+    "vendor/colony0.2/src/Colony/Topology.hs": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
+    "vendor/colony0.2/src/Colony/Transport.hs": "f73b4ee9ad7346ef77fa0597cb79f36b6308467575a86d6861d12ec74b73833f",
+    "vendor/colony0.2/src/Colony/Types.hs": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
+    "vendor/colony0.2/src/Colony/Units.hs": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "vendor/colony0.2/src/Colony/World.hs": "3ca1f53c506a3c819ae9a13220048d7bf7007e651d798c9fffb40f8414a1318a"
+  },
+  "limits": [
+    "Finite model exploration and finite traces, not universal refinement",
+    "Frozen Colony 0.2, one serialized laboratory caller",
+    "Persist mutant rejected by caller gate, not core storage-phase check",
+    "Fairness permits terminal failure; no successful-save or latency guarantee",
+    "Fresh complete ticket identity required; identical-ticket reuse is unsafe",
+    "No shared writer, process/power crash, reconnect, UI or browser guarantees"
+  ],
+  "parser_boolean_integer_rejected": true,
+  "parser_missing_field_rejected": true,
+  "runs": [
+    {
+      "command": [
+        "$PYTHON",
+        "--version"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:49:15.023471+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/python-version.log",
+      "log_sha256": "4c3569f5da09975434dd9fd9a91fadbc4367a91d8f3c3fab59e9241ab9ee4bd8",
+      "markers": {},
+      "name": "python-version",
+      "start_utc": "2026-10-05T00:49:15.018958+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.004514
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-version"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:49:15.140424+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/java-version.log",
+      "log_sha256": "92ddaf1fdc60b2e810b534cccd8dc011a850013dae06411460bc800db8baf801",
+      "markers": {},
+      "name": "java-version",
+      "start_utc": "2026-10-05T00:49:15.023960+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.116492
+    },
+    {
+      "command": [
+        "$GHC",
+        "--numeric-version"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:49:15.258478+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/ghc-version.log",
+      "log_sha256": "ed6a91e7123f92cdf4329b85a1f21402ffb00af207173d307982dffec44fa2b3",
+      "markers": {},
+      "name": "ghc-version",
+      "start_utc": "2026-10-05T00:49:15.142059+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.11643
+    },
+    {
+      "command": [
+        "$GHC_PKG",
+        "--global",
+        "--no-user-package-db",
+        "list",
+        "--simple-output"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:49:15.325078+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/ghc-packages.log",
+      "log_sha256": "c83808ef6c50947ce9a1b5dbbce0c0e2dd15337b976bf21260c6f261cdd53b03",
+      "markers": {},
+      "name": "ghc-packages",
+      "start_utc": "2026-10-05T00:49:15.258889+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.066209
+    },
+    {
+      "command": [
+        "$GHC",
+        "-fforce-recomp",
+        "-no-user-package-db",
+        "-hide-all-packages",
+        "-package",
+        "base-4.18.3.0",
+        "-package",
+        "array-0.5.8.0",
+        "-package",
+        "binary-0.8.9.1",
+        "-package",
+        "bytestring-0.11.5.4",
+        "-package",
+        "containers-0.6.7",
+        "-package",
+        "deepseq-1.4.8.1",
+        "-package",
+        "directory-1.3.8.5",
+        "-package",
+        "filepath-1.4.301.0",
+        "-package",
+        "mtl-2.3.1",
+        "-package",
+        "parsec-3.1.16.1",
+        "-package",
+        "text-2.0.2",
+        "-package",
+        "unix-2.8.6.0",
+        "-i$RUN_DIR/work/vendor/colony0.2/src",
+        "-O1",
+        "-Wall",
+        "-Werror",
+        "-outputdir",
+        "$RUN_DIR/build",
+        "src/Main.hs",
+        "-o",
+        "$RUN_DIR/build/lifecycle"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:50:05.831927+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/build.log",
+      "log_sha256": "2972a77e6efcebf605dafaa9767acddee3354fb48531028cd87d2f761a1588d0",
+      "markers": {},
+      "name": "build",
+      "start_utc": "2026-10-05T00:49:15.337656+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 50.494347
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-safety",
+        "-config",
+        "Correct.cfg",
+        "SaveLifecycle"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:50:10.093708+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/safety.log",
+      "log_sha256": "d2a3651e2b462897431f0725244e733e8e5d75cda49dea36b7e72e05eec5509a",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "safety",
+      "start_utc": "2026-10-05T00:50:05.832334+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 79227,
+        "generated": 583932,
+        "queued": 0
+      },
+      "wall_seconds": 4.261414
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-fair-liveness",
+        "-config",
+        "Fair.cfg",
+        "SaveLifecycle"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:22.367550+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/fair-liveness.log",
+      "log_sha256": "0d55973e461e67d94a3dd469c5cd422b06d2748e6e4c8a13232341af08eefae5",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "fair-liveness",
+      "start_utc": "2026-10-05T00:50:10.094346+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 79227,
+        "generated": 583932,
+        "queued": 0
+      },
+      "wall_seconds": 72.27322
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-unfair-liveness-control",
+        "-config",
+        "Unfair.cfg",
+        "SaveLifecycle"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:26.569654+00:00",
+      "exit_code": 13,
+      "expected_exit_code": 13,
+      "expected_markers": [
+        "Temporal properties were violated."
+      ],
+      "log": "logs/unfair-liveness-control.log",
+      "log_sha256": "ff4be45ee72efef0712051a0b6e2bea8bf4b6f0e9b7a756fc8a1646aacd598c9",
+      "markers": {
+        "Temporal properties were violated.": true
+      },
+      "name": "unfair-liveness-control",
+      "start_utc": "2026-10-05T00:51:22.368050+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 35911,
+        "generated": 154891,
+        "queued": 11117
+      },
+      "wall_seconds": 4.201617
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-mutant-Epoch",
+        "-config",
+        "MutantEpoch.cfg",
+        "SaveLifecycle"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:27.640238+00:00",
+      "exit_code": 12,
+      "expected_exit_code": 12,
+      "expected_markers": [
+        "Invariant NoStaleSaved is violated."
+      ],
+      "log": "logs/mutant-Epoch.log",
+      "log_sha256": "c4735edc2f9a7d94ec799f6c4b290e3e0791ac83aca094f4247f246b9c76f3e5",
+      "markers": {
+        "Invariant NoStaleSaved is violated.": true
+      },
+      "name": "mutant-Epoch",
+      "start_utc": "2026-10-05T00:51:26.570111+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 308,
+        "generated": 434,
+        "queued": 205
+      },
+      "wall_seconds": 1.070137
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "EpochMutant",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/generated-mutant-epoch.events",
+        "$RUN_DIR/storage/replay-mutant-Epoch"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:27.706338+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/replay-mutant-Epoch.log",
+      "log_sha256": "03c7dccc107201d0fdd9fbd08b51f689d30ed3e40dc10243a16de8995d50fe9e",
+      "markers": {},
+      "name": "replay-mutant-Epoch",
+      "start_utc": "2026-10-05T00:51:27.641787+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.064555
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/generated-mutant-epoch.events",
+        "$RUN_DIR/storage/replay-corrected-Epoch"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:27.771732+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/replay-corrected-Epoch.log",
+      "log_sha256": "9795a03ab877b2d0d977543ee46725a3a6b9bcccc28abfe09a28c35361a821ab",
+      "markers": {},
+      "name": "replay-corrected-Epoch",
+      "start_utc": "2026-10-05T00:51:27.707244+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.064494
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-correctedEpoch",
+        "-config",
+        "TracecorrectedEpoch.cfg",
+        "TracecorrectedEpoch"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:28.690577+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-correctedEpoch.log",
+      "log_sha256": "50a86f5eaffa42c84ea64402660e93148ee55dac340a6ff87459cae8512ca69e",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-correctedEpoch",
+      "start_utc": "2026-10-05T00:51:27.773253+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 6,
+        "generated": 7,
+        "queued": 0
+      },
+      "wall_seconds": 0.917353
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-mutantEpoch",
+        "-config",
+        "TracemutantEpoch.cfg",
+        "TracemutantEpoch"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:29.612208+00:00",
+      "exit_code": 11,
+      "expected_exit_code": 11,
+      "expected_markers": [
+        "Error: Deadlock reached."
+      ],
+      "log": "logs/validate-mutantEpoch.log",
+      "log_sha256": "25488a79d237d6f31e32b5b93fbed1077e009a7e89d1b6df0d0af8de9dec5e9b",
+      "markers": {
+        "Error: Deadlock reached.": true
+      },
+      "name": "validate-mutantEpoch",
+      "start_utc": "2026-10-05T00:51:28.691455+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 5,
+        "generated": 5,
+        "queued": 0
+      },
+      "wall_seconds": 0.920769
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-mutant-Active",
+        "-config",
+        "MutantActive.cfg",
+        "SaveLifecycle"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:30.635671+00:00",
+      "exit_code": 12,
+      "expected_exit_code": 12,
+      "expected_markers": [
+        "Invariant UniqueResponse is violated."
+      ],
+      "log": "logs/mutant-Active.log",
+      "log_sha256": "43aab419798d71bd2963742b047c35e5e5a1e1f3b48e54c17b7f966a7d870838",
+      "markers": {
+        "Invariant UniqueResponse is violated.": true
+      },
+      "name": "mutant-Active",
+      "start_utc": "2026-10-05T00:51:29.612607+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 93,
+        "generated": 99,
+        "queued": 67
+      },
+      "wall_seconds": 1.023081
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "ActiveMutant",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/generated-mutant-active.events",
+        "$RUN_DIR/storage/replay-mutant-Active"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:30.701441+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/replay-mutant-Active.log",
+      "log_sha256": "0ca50957832c743d17f25ef872ba15514c7e6a6a98c74baceb72493957d80a1d",
+      "markers": {},
+      "name": "replay-mutant-Active",
+      "start_utc": "2026-10-05T00:51:30.636984+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.064462
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/generated-mutant-active.events",
+        "$RUN_DIR/storage/replay-corrected-Active"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:30.766477+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/replay-corrected-Active.log",
+      "log_sha256": "591a9b0ef3ee75a90dde8553933586eebf48315893741d9b105367885224dfcb",
+      "markers": {},
+      "name": "replay-corrected-Active",
+      "start_utc": "2026-10-05T00:51:30.702074+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.064412
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-correctedActive",
+        "-config",
+        "TracecorrectedActive.cfg",
+        "TracecorrectedActive"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:31.684113+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-correctedActive.log",
+      "log_sha256": "7a814d9ebf5ff9d0e616bb1fe31316df98e5edb02d2c803bd81aefafdd549c7d",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-correctedActive",
+      "start_utc": "2026-10-05T00:51:30.767361+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 5,
+        "generated": 6,
+        "queued": 0
+      },
+      "wall_seconds": 0.916768
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-mutantActive",
+        "-config",
+        "TracemutantActive.cfg",
+        "TracemutantActive"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:32.760669+00:00",
+      "exit_code": 11,
+      "expected_exit_code": 11,
+      "expected_markers": [
+        "Error: Deadlock reached."
+      ],
+      "log": "logs/validate-mutantActive.log",
+      "log_sha256": "2348556a2ac15ca61deaa29d7ca67d31c875cd68144cb72b564ce7c909e04d7b",
+      "markers": {
+        "Error: Deadlock reached.": true
+      },
+      "name": "validate-mutantActive",
+      "start_utc": "2026-10-05T00:51:31.685101+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 4,
+        "generated": 4,
+        "queued": 0
+      },
+      "wall_seconds": 1.075578
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-mutant-Persist",
+        "-config",
+        "MutantPersist.cfg",
+        "SaveLifecycle"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:34.028609+00:00",
+      "exit_code": 12,
+      "expected_exit_code": 12,
+      "expected_markers": [
+        "Invariant NoFalseSuccess is violated."
+      ],
+      "log": "logs/mutant-Persist.log",
+      "log_sha256": "3cc06767087e1c43a36e4c325b4f0915f9a71a3e919ea52dbf9ef052c0b78fb7",
+      "markers": {
+        "Invariant NoFalseSuccess is violated.": true
+      },
+      "name": "mutant-Persist",
+      "start_utc": "2026-10-05T00:51:32.760993+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 9,
+        "generated": 9,
+        "queued": 6
+      },
+      "wall_seconds": 1.267635
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "PersistMutant",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/generated-mutant-persist.events",
+        "$RUN_DIR/storage/replay-mutant-Persist"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:34.062228+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/replay-mutant-Persist.log",
+      "log_sha256": "11321446b24841e662315abccd9dbcc74ff2053bfc0b30b83cc8418b2144af3e",
+      "markers": {},
+      "name": "replay-mutant-Persist",
+      "start_utc": "2026-10-05T00:51:34.029877+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.032355
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/generated-mutant-persist.events",
+        "$RUN_DIR/storage/replay-corrected-Persist"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:34.099217+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/replay-corrected-Persist.log",
+      "log_sha256": "2f3f829d7204f8ee6d86056a86346782b24a53bd2b9b56bbec8f4cea5cb8ea27",
+      "markers": {},
+      "name": "replay-corrected-Persist",
+      "start_utc": "2026-10-05T00:51:34.062763+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.036459
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-mutantPersist",
+        "-config",
+        "TracemutantPersist.cfg",
+        "TracemutantPersist"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:35.128855+00:00",
+      "exit_code": 11,
+      "expected_exit_code": 11,
+      "expected_markers": [
+        "Error: Deadlock reached."
+      ],
+      "log": "logs/validate-mutantPersist.log",
+      "log_sha256": "5a74ce962e78584f151b8500507c18bdd002294bb3baa76503156809596bf9a7",
+      "markers": {
+        "Error: Deadlock reached.": true
+      },
+      "name": "validate-mutantPersist",
+      "start_utc": "2026-10-05T00:51:34.099973+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 2,
+        "generated": 2,
+        "queued": 0
+      },
+      "wall_seconds": 1.028926
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/branch-inflight.events",
+        "$RUN_DIR/storage/corpus-branch-inflight"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:35.195346+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-branch-inflight.log",
+      "log_sha256": "175fafa290f18de1eb674932e4671b7f9ea2d780ac593d0942bc330503c7462f",
+      "markers": {},
+      "name": "corpus-branch-inflight",
+      "start_utc": "2026-10-05T00:51:35.129489+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.065871
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-branch-inflight",
+        "-config",
+        "Tracebranchinflight.cfg",
+        "Tracebranchinflight"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:36.317229+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-branch-inflight.log",
+      "log_sha256": "f63c21417059928190ef85203e92ec27f2342e8cc3de5ab598b3345be070b383",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-branch-inflight",
+      "start_utc": "2026-10-05T00:51:35.196290+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 11,
+        "generated": 12,
+        "queued": 0
+      },
+      "wall_seconds": 1.12095
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/edit-inflight.events",
+        "$RUN_DIR/storage/corpus-edit-inflight"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:36.382950+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-edit-inflight.log",
+      "log_sha256": "d16999939386920a4285b80705fe338d7e96e986d0c207fca2dda58279700778",
+      "markers": {},
+      "name": "corpus-edit-inflight",
+      "start_utc": "2026-10-05T00:51:36.318010+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.064944
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-edit-inflight",
+        "-config",
+        "Traceeditinflight.cfg",
+        "Traceeditinflight"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:37.405177+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-edit-inflight.log",
+      "log_sha256": "7f6a16651e46a0221ffb762e74cd30c980cea7f790825db80c9fe184a2368348",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-edit-inflight",
+      "start_utc": "2026-10-05T00:51:36.383891+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 8,
+        "generated": 9,
+        "queued": 0
+      },
+      "wall_seconds": 1.021293
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/failure-old-epoch.events",
+        "$RUN_DIR/storage/corpus-failure-old-epoch"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:37.471036+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-failure-old-epoch.log",
+      "log_sha256": "88efc8d559e7da9a16f11426fd7da33083965e57f448c55f6e5cc64994d38512",
+      "markers": {},
+      "name": "corpus-failure-old-epoch",
+      "start_utc": "2026-10-05T00:51:37.406051+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.064987
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-failure-old-epoch",
+        "-config",
+        "Tracefailureoldepoch.cfg",
+        "Tracefailureoldepoch"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:38.546366+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-failure-old-epoch.log",
+      "log_sha256": "9af67be2404195c0880c11bdf1483592dd92430d707e4d3726cdfea6b7239f62",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-failure-old-epoch",
+      "start_utc": "2026-10-05T00:51:37.472269+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 9,
+        "generated": 10,
+        "queued": 0
+      },
+      "wall_seconds": 1.074104
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/failure-retry.events",
+        "$RUN_DIR/storage/corpus-failure-retry"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:38.615622+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-failure-retry.log",
+      "log_sha256": "78e91c9d3a816d6d1a51965ce321129aa56457ae4a6a34322faf3d93ea211fb5",
+      "markers": {},
+      "name": "corpus-failure-retry",
+      "start_utc": "2026-10-05T00:51:38.546864+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.068769
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-failure-retry",
+        "-config",
+        "Tracefailureretry.cfg",
+        "Tracefailureretry"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:39.687489+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-failure-retry.log",
+      "log_sha256": "d1bc73f3dbe863994d67a9b7952a9879115e75db03031f6bf638d8a6f3b738c8",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-failure-retry",
+      "start_utc": "2026-10-05T00:51:38.616456+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 11,
+        "generated": 12,
+        "queued": 0
+      },
+      "wall_seconds": 1.071052
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/happy-duplicate.events",
+        "$RUN_DIR/storage/corpus-happy-duplicate"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:39.752849+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-happy-duplicate.log",
+      "log_sha256": "4e2055c396c987802517802b63a187d6eb9cf483fdb4379ccb3ac567eadbb389",
+      "markers": {},
+      "name": "corpus-happy-duplicate",
+      "start_utc": "2026-10-05T00:51:39.688191+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.064672
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-happy-duplicate",
+        "-config",
+        "Tracehappyduplicate.cfg",
+        "Tracehappyduplicate"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:40.721317+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-happy-duplicate.log",
+      "log_sha256": "437efca7d763a885285ac1fd1d57de0a490d9d5fce9121419b71b7d378b5eb56",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-happy-duplicate",
+      "start_utc": "2026-10-05T00:51:39.753839+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 9,
+        "generated": 10,
+        "queued": 0
+      },
+      "wall_seconds": 0.967495
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/load-inflight.events",
+        "$RUN_DIR/storage/corpus-load-inflight"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:40.787159+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-load-inflight.log",
+      "log_sha256": "d4bd277efc7f3719e072f3d90cbab132ae1b36535973accc728ee7f26e74da0d",
+      "markers": {},
+      "name": "corpus-load-inflight",
+      "start_utc": "2026-10-05T00:51:40.721959+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.06522
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-load-inflight",
+        "-config",
+        "Traceloadinflight.cfg",
+        "Traceloadinflight"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:41.808420+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-load-inflight.log",
+      "log_sha256": "0fa59d8fea49062539760679281bb098ae0175b94541f6b2a8be9ca6eb38b10a",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-load-inflight",
+      "start_utc": "2026-10-05T00:51:40.788399+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 8,
+        "generated": 9,
+        "queued": 0
+      },
+      "wall_seconds": 1.020063
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/load-late.events",
+        "$RUN_DIR/storage/corpus-load-late"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:41.874067+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-load-late.log",
+      "log_sha256": "12ba6b8f778dd1986160eaac067b8ec0db4761391dfafe55d80d83eca3f43dcd",
+      "markers": {},
+      "name": "corpus-load-late",
+      "start_utc": "2026-10-05T00:51:41.809014+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.06507
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-load-late",
+        "-config",
+        "Traceloadlate.cfg",
+        "Traceloadlate"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:42.897870+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-load-late.log",
+      "log_sha256": "c7b2fc48169352c952e4f2018accfc0cca89ed050edf98b2ec7ee568b4edae67",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-load-late",
+      "start_utc": "2026-10-05T00:51:41.875525+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 10,
+        "generated": 11,
+        "queued": 0
+      },
+      "wall_seconds": 1.022352
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/lifecycle",
+        "Correct",
+        "$RUN_DIR/work/vendor/colony0.2/data/content-v1.json",
+        "$RUN_DIR/work/fixtures/reordered-responses.events",
+        "$RUN_DIR/storage/corpus-reordered-responses"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:51:42.965261+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/corpus-reordered-responses.log",
+      "log_sha256": "e9533ce4c5d3f84c12219bdd380c692de6fc319cf2e1252a3e4cd033bf1896ce",
+      "markers": {},
+      "name": "corpus-reordered-responses",
+      "start_utc": "2026-10-05T00:51:42.898494+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.066835
+    },
+    {
+      "command": [
+        "$JAVA",
+        "-Xmx512m",
+        "-XX:+UseParallelGC",
+        "-Djava.io.tmpdir=$RUN_DIR/tmp",
+        "-cp",
+        "$RUN_DIR/tools/tla2tools-v1.7.4.jar",
+        "tlc2.TLC",
+        "-workers",
+        "1",
+        "-seed",
+        "1",
+        "-fp",
+        "0",
+        "-metadir",
+        "$RUN_DIR/build/tlc-validate-reordered-responses",
+        "-config",
+        "Tracereorderedresponses.cfg",
+        "Tracereorderedresponses"
+      ],
+      "cwd": "$RUN_DIR/work/model",
+      "end_utc": "2026-10-05T00:51:43.940915+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "Model checking completed. No error has been found."
+      ],
+      "log": "logs/validate-reordered-responses.log",
+      "log_sha256": "7fe6b1d2bb7f01deb639b7f7a92f962251c5df3527f4fce3df7128ffc827b1e0",
+      "markers": {
+        "Model checking completed. No error has been found.": true
+      },
+      "name": "validate-reordered-responses",
+      "start_utc": "2026-10-05T00:51:42.966425+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "tlc": {
+        "distinct": 12,
+        "generated": 13,
+        "queued": 0
+      },
+      "wall_seconds": 0.974526
+    },
+    {
+      "command": [
+        "$GHC",
+        "-no-user-package-db",
+        "-hide-all-packages",
+        "-package",
+        "base-4.18.3.0",
+        "-package",
+        "array-0.5.8.0",
+        "-package",
+        "binary-0.8.9.1",
+        "-package",
+        "bytestring-0.11.5.4",
+        "-package",
+        "containers-0.6.7",
+        "-package",
+        "deepseq-1.4.8.1",
+        "-package",
+        "directory-1.3.8.5",
+        "-package",
+        "filepath-1.4.301.0",
+        "-package",
+        "mtl-2.3.1",
+        "-package",
+        "parsec-3.1.16.1",
+        "-package",
+        "text-2.0.2",
+        "-package",
+        "unix-2.8.6.0",
+        "-i$RUN_DIR/work/vendor/colony0.2/src",
+        "-O1",
+        "-Wall",
+        "-Werror",
+        "-outputdir",
+        "$RUN_DIR/build/freshness",
+        "src/TicketFreshness.hs",
+        "-o",
+        "$RUN_DIR/build/ticket-freshness"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:52:34.379432+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [],
+      "log": "logs/freshness-build.log",
+      "log_sha256": "6d65c70512cc6809267444eee848c25fd2041cb751378e062bddd772680e6f9f",
+      "markers": {},
+      "name": "freshness-build",
+      "start_utc": "2026-10-05T00:51:43.941522+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 50.437934
+    },
+    {
+      "command": [
+        "$RUN_DIR/build/ticket-freshness"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:52:34.396099+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_markers": [
+        "(\"same-full-ticket-reused\",True)"
+      ],
+      "log": "logs/freshness-assumption.log",
+      "log_sha256": "8d486dc4a676e95b9bf4d7aa720eacb0544c3e6113edabc15ec73057e1cddfa3",
+      "markers": {
+        "(\"same-full-ticket-reused\",True)": true
+      },
+      "name": "freshness-assumption",
+      "start_utc": "2026-10-05T00:52:34.379864+00:00",
+      "status": "passed-scoped",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.016246
+    },
+    {
+      "command": [
+        "$PYTHON",
+        "-O",
+        "$EXPERIMENT/scripts/bridge.py",
+        "compare",
+        "$RUN_DIR/work/fixtures/mutant-epoch.json",
+        "$RUN_DIR/logs/replay-mutant-Epoch.log"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:52:34.561575+00:00",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_markers": [
+        "Python optimization mode is unsupported"
+      ],
+      "log": "logs/optimized-parser-negative.log",
+      "log_sha256": "793809a177fbfcf399e812a9568e9969b0ba9b3f1cc35abf600f66568c2794ef",
+      "markers": {
+        "Python optimization mode is unsupported": true
+      },
+      "name": "optimized-parser-negative",
+      "start_utc": "2026-10-05T00:52:34.396641+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.164976
+    },
+    {
+      "command": [
+        "$PYTHON",
+        "$EXPERIMENT/scripts/bridge.py",
+        "compare",
+        "$RUN_DIR/logs/parser-bad-reference.json",
+        "$RUN_DIR/logs/replay-mutant-Epoch.log"
+      ],
+      "cwd": "$RUN_DIR/work",
+      "end_utc": "2026-10-05T00:52:34.627924+00:00",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_markers": [
+        "non-integer scalar epoch"
+      ],
+      "log": "logs/typed-reference-negative.log",
+      "log_sha256": "a7ef6da1ff571ee7061ae3c54926a18d0014fb705f7c5a30fb16ad3e728ff50c",
+      "markers": {
+        "non-integer scalar epoch": true
+      },
+      "name": "typed-reference-negative",
+      "start_utc": "2026-10-05T00:52:34.562938+00:00",
+      "status": "expected-counterexample",
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "wall_seconds": 0.06499
+    }
+  ],
+  "schema": "save-lifecycle-public-run-v1",
+  "source_unchanged": true,
+  "started_utc": "2026-10-05T00:49:15.013435+00:00",
+  "status": "passed-scoped",
+  "tools": {
+    "fingerprint_polynomial": 0,
+    "heap_limit_mib": 512,
+    "jar_bytes": 2274532,
+    "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+    "jar_url": "https://github.com/tlaplus/tlaplus/releases/download/v1.7.4/tla2tools.jar",
+    "seed": 1,
+    "tlc_release": "v1.7.4",
+    "tlc_version": "2.19",
+    "workers": 1
+  },
+  "versions": {
+    "ghc-packages": "Cabal-3.10.3.0 Cabal-syntax-3.10.3.0 array-0.5.8.0 base-4.18.3.0 binary-0.8.9.1 bytestring-0.11.5.4 containers-0.6.7 deepseq-1.4.8.1 directory-1.3.8.5 exceptions-0.10.7 filepath-1.4.301.0 ghc-9.6.7 ghc-bignum-1.3 ghc-boot-9.6.7 ghc-boot-th-9.6.7 ghc-compact-0.1.0.0 ghc-heap-9.6.7 ghc-prim-0.10.0 ghci-9.6.7 haskeline-0.8.2.1 hpc-0.6.2.0 integer-gmp-1.1 libiserv-9.6.7 mtl-2.3.1 parsec-3.1.16.1 pretty-1.1.3.6 process-1.6.19.0 rts-1.0.2 stm-2.5.1.0 system-cxx-std-lib-1.0 template-haskell-2.20.0.0 terminfo-0.4.1.6 text-2.0.2 time-1.12.2 transformers-0.6.1.0 unix-2.8.6.0 xhtml-3000.2.2.1",
+    "ghc-version": "9.6.7",
+    "java-version": "NOTE: Picked up JDK_JAVA_OPTIONS: \nPicked up JAVA_TOOL_OPTIONS: \nPicked up _JAVA_OPTIONS: \nopenjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment (build 21.0.12.1+1-1-deb13u1-Debian)\nOpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-deb13u1-Debian, mixed mode, sharing)",
+    "python-version": "Python 3.12.14"
+  }
+}

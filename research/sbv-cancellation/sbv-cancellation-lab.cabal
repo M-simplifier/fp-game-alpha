@@ -1,0 +1,12 @@
+cabal-version: 3.0
+name: sbv-cancellation-lab
+version: 0.1.0.0
+build-type: Simple
+license: NONE
+executable prove-cancellation
+  main-is: Proof.hs
+  hs-source-dirs: source, frozen-0.4/src
+  default-language: Haskell2010
+  ghc-options: -Wall -threaded -rtsopts
+  build-depends: base >=4.18 && <4.19, sbv ==10.12, directory, containers, bytestring, text, parsec, binary, deepseq, mtl, array
+  other-modules: Colony.Codec.CBOR, Colony.Codec.SHA256, Colony.Codec.Value, Colony.JSON, Colony.Ruleset, Colony.Units, Colony.Types, Colony.Content, Colony.Inventory, Colony.ContentCodec, Colony.Jobs

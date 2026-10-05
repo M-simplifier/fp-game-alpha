@@ -1,0 +1,230 @@
+{
+  "schema": "research-source-provenance-v1",
+  "source_commit": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+  "origin": "author-supplied research archive",
+  "historical_ghc": "9.6.6",
+  "files": {
+    "frozen-0.4/data/content-v1.json": {
+      "sha256": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/data/content-v1.json",
+      "git_blob_sha1": "cbcae48c292e50f30d67860204233bbe68dfd8d8",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/data/needs-golden.json": {
+      "sha256": "84dc9f8ea0243a337f5399afa9d63906893af1421cab42fad32b885278643915",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/data/needs-golden.json",
+      "git_blob_sha1": "b08011bf9186faa8876db649969149755f7b2293",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/data/numeric-golden.json": {
+      "sha256": "a91f5216ec14d51b0877f94a7e0713ad587dca68c8839607d79c75be98a25959",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/data/numeric-golden.json",
+      "git_blob_sha1": "f54e0893bb9df890e8d3627e45e21194c316f25b",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Arena.hs": {
+      "sha256": "20e230059c2279eab5cce88435292888baa8c0212107aed479ae000cb07528a3",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Arena.hs",
+      "git_blob_sha1": "476a5f94bf12a875baa80168b29a0586a014dc27",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Codec/CBOR.hs": {
+      "sha256": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Codec/CBOR.hs",
+      "git_blob_sha1": "f7e8edcc2e17ed400a9f618d035f69ccc2fdfefd",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Codec/SHA256.hs": {
+      "sha256": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Codec/SHA256.hs",
+      "git_blob_sha1": "f35881990f53b3a98c960f434b6cf718ade38c51",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Codec/Value.hs": {
+      "sha256": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Codec/Value.hs",
+      "git_blob_sha1": "78c18ec7a37ef4d6047b0146f933af15cb1e0609",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Codec.hs": {
+      "sha256": "3ab6a9b35b8fe1514f28af6095730d03a0be1922f6a054b0d0027964a384b9ee",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Codec.hs",
+      "git_blob_sha1": "117689ac59df51c157aa5f80863fb3e29922cfd3",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/CombinedFixture.hs": {
+      "sha256": "c3f6047cab7cb44213242efe111f37c168240da3ea1e380a341feebd8bdd2dcc",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/CombinedFixture.hs",
+      "git_blob_sha1": "4ff8e4a8b2d633a404ef5b0ea44cf0e719c2cf62",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Content.hs": {
+      "sha256": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Content.hs",
+      "git_blob_sha1": "8bbc56bc13a0e2a3b83148fde4a66b047c9ebbd5",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/ContentCodec.hs": {
+      "sha256": "09de2203dc921631bc501037744feaff5cb4643b3387d54adb4d13581a611c7f",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/ContentCodec.hs",
+      "git_blob_sha1": "0a0fd6ed0be038d5d0de89f766f5055da1e68dd7",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Fixture.hs": {
+      "sha256": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Fixture.hs",
+      "git_blob_sha1": "e35a871e50e609ea94dcd67a7ad28e8560f15493",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Inventory.hs": {
+      "sha256": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Inventory.hs",
+      "git_blob_sha1": "114fda34bf5e9406440acbc7a330a22af0884060",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/JSON.hs": {
+      "sha256": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/JSON.hs",
+      "git_blob_sha1": "0e20426256555df88f61ce69054a448a764a0663",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Jobs.hs": {
+      "sha256": "7a5372a7c177e2c87563bee95ebd9e850beefb7160501bb7afdd140d63cb8e69",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Jobs.hs",
+      "git_blob_sha1": "3072410c1fbc26ff2a5068f9fb99e3710c2ae525",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Maintenance.hs": {
+      "sha256": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Maintenance.hs",
+      "git_blob_sha1": "b5a2f482db4e4561226b200a9ca2a2e5be1c3889",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Migrate.hs": {
+      "sha256": "f92b5b2d79267d90a22e11da72dc8cbe2f4eb123fc43afb5630674835ee128ac",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Migrate.hs",
+      "git_blob_sha1": "452dd8709885cf47aea01ec1d78812c5036abd10",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Needs.hs": {
+      "sha256": "0e1c0f9cc157132a3c8c96090fdcb07716b376e88c680031e28d937d4da93b6a",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Needs.hs",
+      "git_blob_sha1": "060a5c337f9ad6428be019abb9edd95204dd061c",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Power.hs": {
+      "sha256": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Power.hs",
+      "git_blob_sha1": "8f069858c55584011d02497120a45407adfa1887",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Presentation.hs": {
+      "sha256": "e2bc87b926d23e3b0a22611bf107d1f2c829f2702bdf4bb930c290c684bae946",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Presentation.hs",
+      "git_blob_sha1": "fcd78f3888f416bcb8e8cc177cf7fa8bc3909e97",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/RNG.hs": {
+      "sha256": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/RNG.hs",
+      "git_blob_sha1": "d4242f9306aa32c78b6253f5919ae21250b87632",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Ruleset.hs": {
+      "sha256": "b1f21dae0b80b395714f35afff552755a78ee9e62d0b6102454a1bb648d0dad7",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Ruleset.hs",
+      "git_blob_sha1": "759799d196eb3dcaf3ed02a6e5d381dc5ca81fe8",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Save.hs": {
+      "sha256": "b1c9b0bf410ea6ce1cbfbaf728966fefde5e8e61f553cad3f44b945280df1e68",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Save.hs",
+      "git_blob_sha1": "edcd510ee6acb9a62d6a9bf44ad15e5b3db1263e",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Scheduler.hs": {
+      "sha256": "81c3d06a390843a1cb4676cca45c66add676ed8532e251217e875a67b56a1199",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Scheduler.hs",
+      "git_blob_sha1": "31d0c320aa364c6c8be7cb9bf67c8881bd36ea25",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/SupplyChainFixture.hs": {
+      "sha256": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/SupplyChainFixture.hs",
+      "git_blob_sha1": "f709f4ff20043cb3680a744b89ec9225010185aa",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Topology.hs": {
+      "sha256": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Topology.hs",
+      "git_blob_sha1": "7664a5ab049ffd703cf4fc467a0b913a2156d729",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Transport.hs": {
+      "sha256": "f73b4ee9ad7346ef77fa0597cb79f36b6308467575a86d6861d12ec74b73833f",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Transport.hs",
+      "git_blob_sha1": "713c9c662eb0d64dec8bb434bc1433493fd845a2",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Types.hs": {
+      "sha256": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Types.hs",
+      "git_blob_sha1": "80113fb36e708656a5ddfd777c27f11651f96032",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/UIFixture.hs": {
+      "sha256": "374e33f3436f06141aa26244bc3599a3e52d07829734e5acd20586e4181183cd",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/UIFixture.hs",
+      "git_blob_sha1": "cc76b1de709e3af4bb79a53e08e32c90eba1d8c5",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/UIShell.hs": {
+      "sha256": "d5d3e4556f6462e0a3b9ed0c941277382e3af94f00df536cd92526f45db0c850",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/UIShell.hs",
+      "git_blob_sha1": "c133dd2f21058cc3d4cba25fa5d4c329fc920127",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/Units.hs": {
+      "sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/Units.hs",
+      "git_blob_sha1": "a9b9603d126b05924dc63f3e657005317b665632",
+      "transfer": "byte-identical"
+    },
+    "frozen-0.4/src/Colony/World.hs": {
+      "sha256": "dbb91636facd55ba8c7b24e3041d6c8b59c9d368075926f18715a9b42b9975ca",
+      "source_path": "experiments/sbv-cancellation/frozen-0.4/src/Colony/World.hs",
+      "git_blob_sha1": "7234fe4062180db11cbbd202933d9c0a55152cd8",
+      "transfer": "byte-identical"
+    },
+    "metadata/dependency-lock.json": {
+      "sha256": "ad65282e40f66b31c54ab4a13f72a226ff4564491c57f74e5081fcbd0cd9de51",
+      "source_path": "experiments/sbv-cancellation/metadata/dependency-lock.json",
+      "git_blob_sha1": "f30bb8a8980b0cc158918e2b7574c38aad610131",
+      "transfer": "byte-identical"
+    },
+    "sbv-cancellation-lab.cabal": {
+      "sha256": "f6d2349dcd86d54b8fdbcc96ccbc114f7e405554161f8ce049bd1a292472a39f",
+      "source_path": "experiments/sbv-cancellation/sbv-cancellation-lab.cabal",
+      "git_blob_sha1": "25380b20c819f5b53e69c6f1689297fd52cacd26",
+      "transfer": "byte-identical"
+    },
+    "source/Proof.hs": {
+      "sha256": "ae2cf79a4c94ede4d31fc8620540106674169869f7b390848229ed486476b731",
+      "source_path": "experiments/sbv-cancellation/source/Proof.hs",
+      "git_blob_sha1": "145ea2f290db5709009ca460248e4efdcf9074f1",
+      "transfer": "byte-identical"
+    },
+    "source/Replay.hs": {
+      "sha256": "1c7e67d555e0e5f97ed2d1a943e78bcd943319d2f29e5314a93d3bd712599309",
+      "source_path": "experiments/sbv-cancellation/source/Replay.hs",
+      "git_blob_sha1": "682eeae8780c7d9d7748e4a74153bd960a97db21",
+      "transfer": "byte-identical"
+    }
+  },
+  "adapted": [
+    "cabal.project",
+    "run.py",
+    "README.md"
+  ],
+  "limits": "Sources are historical experiment fixtures, not the current running game. Public wrappers create fresh receipts; historical logs are not copied."
+}

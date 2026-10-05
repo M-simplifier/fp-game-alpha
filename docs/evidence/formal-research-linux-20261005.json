@@ -1,0 +1,111 @@
+{
+  "schema": "formal-research-public-integration-v1",
+  "executed_date_utc": "2026-10-05",
+  "status": "scoped_observations_reproduced",
+  "division_soundness_gate": "failed",
+  "source_policy": "Recovered original technical models, negative controls and frozen implementation fixtures; new isolated wrappers. No invented substitute models, archived result reuse, bundled toolchains or private notes.",
+  "evidence": {
+    "quantity": {
+      "path": "research/quantity/lh-checker/evidence/linux-20261005.json",
+      "sha256": "5238eaa5ae825927f9fee4bb56fbc624fea0942a90072e8ff49337209832e476"
+    },
+    "liquidhaskell": {
+      "path": "research/liquidhaskell/evidence/linux-20261005.json",
+      "sha256": "d302bf656e8043dfd570e06d1bc9d5a8a1593852800457cf6b53a7c07b94ddba"
+    },
+    "sbv": {
+      "path": "research/sbv-cancellation/evidence/public-validation.json",
+      "sha256": "ada596a50f6c64e2f877857e921aa23cde619d1f60758fc091dbecb1a5f8eaf4"
+    },
+    "tlc": {
+      "path": "research/save-lifecycle/evidence/public-validation.json",
+      "sha256": "0623b3fc28fad66bb195049c72d81c94df4eb3d5449291ba21e730f2b82b9af1"
+    }
+  },
+  "results": {
+    "quantity_source_only": {
+      "ghc": "9.6.7",
+      "expected_type_rejections": 8,
+      "positive_compilations": 2,
+      "oracle_rows_per_source": 631024,
+      "source_variants": 2,
+      "liquidhaskell_executed_by_this_command": false
+    },
+    "quantity_liquidhaskell": {
+      "safe_constraints": 25,
+      "unsafe_mutants": 6,
+      "solver_streams": 7,
+      "solver_responses": 175,
+      "sat_responses": 11,
+      "unsat_responses": 164,
+      "independent_models_unsat": 8,
+      "independent_models_sat": 1,
+      "captured_solver_exit_stamps": "absent; replay exits and complete response bytes independently checked"
+    },
+    "liquidhaskell_diagnostic": {
+      "cases": 12,
+      "safe_observations": 4,
+      "unsafe_controls": 8,
+      "runtime_quantity_pairs": 25,
+      "runtime_comparisons": 50,
+      "runtime_cancellation_triples": 5016,
+      "false_division_claim_observed": true,
+      "strict_gate_exit": 1,
+      "soundness_claim": false
+    },
+    "sbv": {
+      "general_unsat_queries": 4,
+      "bounded_unsat_queries": 2,
+      "sat_controls": 3,
+      "sbv_helper_bridge_inputs": 36400,
+      "transactions": 1412,
+      "assertions": 127011,
+      "same_solver_smt_replays": 9,
+      "named_commands": 18
+    },
+    "tlc": {
+      "named_outcomes": 42,
+      "distinct_states": 79227,
+      "generated_states": 583932,
+      "queued_states": 0,
+      "fair_liveness": "passed_under_stated_fairness",
+      "unfair_liveness_exit": 13,
+      "model_mutants": 3,
+      "mutant_invariant_exit": 12,
+      "invalid_trace_exit": 11,
+      "bridge_fields": 13,
+      "normal_traces": 8,
+      "normal_trace_states": 78
+    }
+  },
+  "wrapper_tests": {
+    "quantity": {
+      "unit_tests": 29,
+      "normal_python": true,
+      "optimized_python": true
+    },
+    "liquidhaskell": {
+      "unit_tests": 22,
+      "normal_python": true,
+      "optimized_python": true
+    },
+    "sbv": {
+      "unit_tests": 9,
+      "actual_receipt_mutations_rejected": 13
+    },
+    "tlc": {
+      "unit_tests": 26,
+      "actual_receipt_mutations_rejected": 12
+    }
+  },
+  "independent_readback": "Current runner/source/query hashes and per-target logs re-read; quantity captured vs replay bytes re-compared; SBV/TLC independent receipt verifiers and tamper controls passed. This is integration/evidence consistency validation, not an independent mathematical proof checker.",
+  "default_workflow": "Expensive specialized toolchains remain opt-in and isolated. Existing GHC9.6.7 source-only quantity and8compiler-tool regression tests pass.",
+  "not_claimed": [
+    "Whole-game or all-input implementation refinement",
+    "Verifier/compiler/solver soundness",
+    "Independent proof certificates",
+    "Clean-clone hosted CI or cross-platform prover validation",
+    "A repaired LiquidHaskell division specification",
+    "Current live-game coverage from historical frozen fixtures"
+  ]
+}

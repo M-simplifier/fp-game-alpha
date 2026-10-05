@@ -1,0 +1,572 @@
+{
+  "schema": "sbv-public-reproduction-v1",
+  "mode": "check",
+  "profile": "public",
+  "status": "passed-scoped",
+  "started_utc": "2026-10-05T00:47:15.636427+00:00",
+  "input_sha256": {
+    "cabal.project": "1bca3f757659275a2931e5688e3fc655ce96b89ff2f330b5b62297e777150a6e",
+    "frozen-0.4/data/content-v1.json": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6",
+    "frozen-0.4/data/needs-golden.json": "84dc9f8ea0243a337f5399afa9d63906893af1421cab42fad32b885278643915",
+    "frozen-0.4/data/numeric-golden.json": "a91f5216ec14d51b0877f94a7e0713ad587dca68c8839607d79c75be98a25959",
+    "frozen-0.4/src/Colony/Arena.hs": "20e230059c2279eab5cce88435292888baa8c0212107aed479ae000cb07528a3",
+    "frozen-0.4/src/Colony/Codec.hs": "3ab6a9b35b8fe1514f28af6095730d03a0be1922f6a054b0d0027964a384b9ee",
+    "frozen-0.4/src/Colony/Codec/CBOR.hs": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
+    "frozen-0.4/src/Colony/Codec/SHA256.hs": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
+    "frozen-0.4/src/Colony/Codec/Value.hs": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
+    "frozen-0.4/src/Colony/CombinedFixture.hs": "c3f6047cab7cb44213242efe111f37c168240da3ea1e380a341feebd8bdd2dcc",
+    "frozen-0.4/src/Colony/Content.hs": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
+    "frozen-0.4/src/Colony/ContentCodec.hs": "09de2203dc921631bc501037744feaff5cb4643b3387d54adb4d13581a611c7f",
+    "frozen-0.4/src/Colony/Fixture.hs": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
+    "frozen-0.4/src/Colony/Inventory.hs": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
+    "frozen-0.4/src/Colony/JSON.hs": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
+    "frozen-0.4/src/Colony/Jobs.hs": "7a5372a7c177e2c87563bee95ebd9e850beefb7160501bb7afdd140d63cb8e69",
+    "frozen-0.4/src/Colony/Maintenance.hs": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
+    "frozen-0.4/src/Colony/Migrate.hs": "f92b5b2d79267d90a22e11da72dc8cbe2f4eb123fc43afb5630674835ee128ac",
+    "frozen-0.4/src/Colony/Needs.hs": "0e1c0f9cc157132a3c8c96090fdcb07716b376e88c680031e28d937d4da93b6a",
+    "frozen-0.4/src/Colony/Power.hs": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
+    "frozen-0.4/src/Colony/Presentation.hs": "e2bc87b926d23e3b0a22611bf107d1f2c829f2702bdf4bb930c290c684bae946",
+    "frozen-0.4/src/Colony/RNG.hs": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
+    "frozen-0.4/src/Colony/Ruleset.hs": "b1f21dae0b80b395714f35afff552755a78ee9e62d0b6102454a1bb648d0dad7",
+    "frozen-0.4/src/Colony/Save.hs": "b1c9b0bf410ea6ce1cbfbaf728966fefde5e8e61f553cad3f44b945280df1e68",
+    "frozen-0.4/src/Colony/Scheduler.hs": "81c3d06a390843a1cb4676cca45c66add676ed8532e251217e875a67b56a1199",
+    "frozen-0.4/src/Colony/SupplyChainFixture.hs": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
+    "frozen-0.4/src/Colony/Topology.hs": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
+    "frozen-0.4/src/Colony/Transport.hs": "f73b4ee9ad7346ef77fa0597cb79f36b6308467575a86d6861d12ec74b73833f",
+    "frozen-0.4/src/Colony/Types.hs": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
+    "frozen-0.4/src/Colony/UIFixture.hs": "374e33f3436f06141aa26244bc3599a3e52d07829734e5acd20586e4181183cd",
+    "frozen-0.4/src/Colony/UIShell.hs": "d5d3e4556f6462e0a3b9ed0c941277382e3af94f00df536cd92526f45db0c850",
+    "frozen-0.4/src/Colony/Units.hs": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "frozen-0.4/src/Colony/World.hs": "dbb91636facd55ba8c7b24e3041d6c8b59c9d368075926f18715a9b42b9975ca",
+    "metadata/dependency-lock.json": "ad65282e40f66b31c54ab4a13f72a226ff4564491c57f74e5081fcbd0cd9de51",
+    "metadata/toolchains.json": "cd8b1f39a2a48524ce9f5531f5542bd77d848511b02984ea27734d9c4261b1cb",
+    "provenance.json": "36767462dea5c98aada2fca0ea7392c1ac497d605df7f9bdb8a565da13647eef",
+    "run.py": "4c03f18f451ee61eb2a83e2694ee23ff6ac8553d10db250119260b9c60241c10",
+    "sbv-cancellation-lab.cabal": "f6d2349dcd86d54b8fdbcc96ccbc114f7e405554161f8ce049bd1a292472a39f",
+    "source/Proof.hs": "ae2cf79a4c94ede4d31fc8620540106674169869f7b390848229ed486476b731",
+    "source/Replay.hs": "1c7e67d555e0e5f97ed2d1a943e78bcd943319d2f29e5314a93d3bd712599309"
+  },
+  "commands": [
+    {
+      "name": "ghc-version",
+      "arguments": [
+        "<GHC>",
+        "--numeric-version"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 180,
+      "elapsed_seconds": 0.125,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/ghc-version.log",
+      "log_sha256": "ed6a91e7123f92cdf4329b85a1f21402ffb00af207173d307982dffec44fa2b3",
+      "status": "passed"
+    },
+    {
+      "name": "ghc-packages",
+      "arguments": [
+        "<GHC_PKG>",
+        "list",
+        "--global",
+        "--simple-output"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 180,
+      "elapsed_seconds": 0.065,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/ghc-packages.log",
+      "log_sha256": "c83808ef6c50947ce9a1b5dbbce0c0e2dd15337b976bf21260c6f261cdd53b03",
+      "status": "passed"
+    },
+    {
+      "name": "cabal-version",
+      "arguments": [
+        "<CABAL>",
+        "--numeric-version"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 180,
+      "elapsed_seconds": 0.008,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/cabal-version.log",
+      "log_sha256": "4554770c1cb00d7017b4f6ae07053da892c1fc6bf2a4a31f92a112ed1e3ce112",
+      "status": "passed"
+    },
+    {
+      "name": "z3-version",
+      "arguments": [
+        "<Z3>",
+        "--version"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 180,
+      "elapsed_seconds": 0.004,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/z3-version.log",
+      "log_sha256": "5d7867baa35c1759d893c572a58b4463d7e0f33ae79f3310d09b27e5be714031",
+      "status": "passed"
+    },
+    {
+      "name": "proof-build",
+      "arguments": [
+        "<CABAL>",
+        "--config-file=<RUN_DIR>/cabal-home/config",
+        "v2-build",
+        "--offline",
+        "--with-compiler=<GHC>",
+        "exe:prove-cancellation"
+      ],
+      "cwd": "<RUN_DIR>/work",
+      "timeout_seconds": 1200,
+      "elapsed_seconds": 119.955,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/proof-build.log",
+      "log_sha256": "a351aeb2fba480d7396ffacdb541dc17e2afcfd25a3638442a717e30e753b83b",
+      "status": "passed"
+    },
+    {
+      "name": "proof-binary",
+      "arguments": [
+        "<CABAL>",
+        "--config-file=<RUN_DIR>/cabal-home/config",
+        "list-bin",
+        "exe:prove-cancellation"
+      ],
+      "cwd": "<RUN_DIR>/work",
+      "timeout_seconds": 180,
+      "elapsed_seconds": 0.77,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/proof-binary.log",
+      "log_sha256": "9b0d3978d81c76fadb1f06e1465329beb62192160cdb5e8bcd28232b363c448c",
+      "status": "passed"
+    },
+    {
+      "name": "proof",
+      "arguments": [
+        "<RUN_DIR>/work/dist-newstyle/build/x86_64-linux/ghc-9.6.7/sbv-cancellation-lab-0.1.0.0/x/prove-cancellation/noopt/build/prove-cancellation/prove-cancellation"
+      ],
+      "cwd": "<RUN_DIR>/work",
+      "timeout_seconds": 240,
+      "elapsed_seconds": 18.089,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/proof.log",
+      "log_sha256": "549032650b686fa1e28ece63b1ef015892cd0e0a63d39459a5b31a5dfd26d3dc",
+      "status": "passed"
+    },
+    {
+      "name": "smt-integer_bounds_general",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/integer_bounds_general.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 0.033,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-integer_bounds_general.log",
+      "log_sha256": "c39358350542c50abad30a89531c728e9f10bc59f33104e7259e90a1c1c48cde",
+      "status": "passed"
+    },
+    {
+      "name": "smt-integer_conservation_general",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/integer_conservation_general.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 0.016,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-integer_conservation_general.log",
+      "log_sha256": "50e179d73103999f9ae8cd80630e994efe72d09505db5084f7066b5e4a5cfa09",
+      "status": "passed"
+    },
+    {
+      "name": "smt-eight_slot_partition_general",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/eight_slot_partition_general.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 0.032,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-eight_slot_partition_general.log",
+      "log_sha256": "ff0108c23126a60828f1c2b6b4a6b60f2b607a068f62831b0cb1c00bbee351f7",
+      "status": "passed"
+    },
+    {
+      "name": "smt-integer_monotonicity_general",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/integer_monotonicity_general.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 0.034,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-integer_monotonicity_general.log",
+      "log_sha256": "248750bf6be32261c6d69c560a339eb8f083d21813cd7c99b7f36d404589db63",
+      "status": "passed"
+    },
+    {
+      "name": "smt-integer_bounds_bounded",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/integer_bounds_bounded.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 12.472,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-integer_bounds_bounded.log",
+      "log_sha256": "15b1ec53e5a738effd2b4054e4298016a3eaa3f1070ec09a285a47775a3da198",
+      "status": "passed"
+    },
+    {
+      "name": "smt-integer_monotonicity_bounded",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/integer_monotonicity_bounded.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 10.565,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-integer_monotonicity_bounded.log",
+      "log_sha256": "dbb783e4c8c174ab4fb0a7c02e31197fb45e34540cc61f67bd8d9401664496af",
+      "status": "passed"
+    },
+    {
+      "name": "smt-legacy_eight_lots_counterexample",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/legacy_eight_lots_counterexample.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 0.033,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-legacy_eight_lots_counterexample.log",
+      "log_sha256": "7ad2e4d36a8cf092bffdcb0a4a4bb33a0a3c7d108dd753fa421b6e4272738e69",
+      "status": "passed"
+    },
+    {
+      "name": "smt-negative_missing_progress_upper_bound",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/negative_missing_progress_upper_bound.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 0.032,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-negative_missing_progress_upper_bound.log",
+      "log_sha256": "2f1fc96d1d2f8e677810f990757889855372e702d9364236ecdcfa160899918d",
+      "status": "passed"
+    },
+    {
+      "name": "smt-word64_overflow_separate_counterexample",
+      "arguments": [
+        "<Z3>",
+        "<RUN_DIR>/work/logs/smt/word64_overflow_separate_counterexample.smt2"
+      ],
+      "cwd": "<RUN_DIR>",
+      "timeout_seconds": 45,
+      "elapsed_seconds": 0.016,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/smt-word64_overflow_separate_counterexample.log",
+      "log_sha256": "9c02c22c4296389de0ef869ab890f3cdf65d93cc024cf7d1bde83fc6bbfb796f",
+      "status": "passed"
+    },
+    {
+      "name": "replay-build",
+      "arguments": [
+        "<GHC>",
+        "-no-user-package-db",
+        "--make",
+        "-fforce-recomp",
+        "-O0",
+        "-Wall",
+        "-Werror",
+        "-XGHC2021",
+        "-ifrozen-0.4/src",
+        "-isource",
+        "-outputdir",
+        "build/replay-obj",
+        "source/Replay.hs",
+        "-o",
+        "<RUN_DIR>/work/build/replay"
+      ],
+      "cwd": "<RUN_DIR>/work",
+      "timeout_seconds": 180,
+      "elapsed_seconds": 5.952,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/replay-build.log",
+      "log_sha256": "261be46b9f2013a491174ba970e529011f61155eed124cccbf421f6ec646861c",
+      "status": "passed"
+    },
+    {
+      "name": "replay",
+      "arguments": [
+        "<RUN_DIR>/work/build/replay",
+        "frozen-0.4/data/content-v1.json"
+      ],
+      "cwd": "<RUN_DIR>/work",
+      "timeout_seconds": 180,
+      "elapsed_seconds": 2.175,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "logs/replay.log",
+      "log_sha256": "2b2207059f941b9b5db87ff08e810a76f2fdcb482cb5ae930b0f76c8da26eebf",
+      "status": "passed"
+    }
+  ],
+  "limits": [
+    "Arithmetic theorem concerns SInteger, not machine integer overflow.",
+    "Finite imported-source bridge is not universal refinement of the Haskell program.",
+    "Fixtures set progress directly and provide ample return capacity; no scheduler, FEFO, UI or save guarantee.",
+    "A SAT negative control is an expected counterexample, not a safe-program verdict.",
+    "SMT replay uses the same solver, not an independent proof certificate."
+  ],
+  "versions": {
+    "ghc": "9.6.7",
+    "python": "3.12.14",
+    "cabal": "3.12.1.0",
+    "z3": "4.15.1"
+  },
+  "boot_packages": [
+    "Cabal-3.10.3.0",
+    "Cabal-syntax-3.10.3.0",
+    "array-0.5.8.0",
+    "base-4.18.3.0",
+    "binary-0.8.9.1",
+    "bytestring-0.11.5.4",
+    "containers-0.6.7",
+    "deepseq-1.4.8.1",
+    "directory-1.3.8.5",
+    "exceptions-0.10.7",
+    "filepath-1.4.301.0",
+    "ghc-9.6.7",
+    "ghc-bignum-1.3",
+    "ghc-boot-9.6.7",
+    "ghc-boot-th-9.6.7",
+    "ghc-compact-0.1.0.0",
+    "ghc-heap-9.6.7",
+    "ghc-prim-0.10.0",
+    "ghci-9.6.7",
+    "haskeline-0.8.2.1",
+    "hpc-0.6.2.0",
+    "integer-gmp-1.1",
+    "libiserv-9.6.7",
+    "mtl-2.3.1",
+    "parsec-3.1.16.1",
+    "pretty-1.1.3.6",
+    "process-1.6.19.0",
+    "rts-1.0.2",
+    "stm-2.5.1.0",
+    "system-cxx-std-lib-1.0",
+    "template-haskell-2.20.0.0",
+    "terminfo-0.4.1.6",
+    "text-2.0.2",
+    "time-1.12.2",
+    "transformers-0.6.1.0",
+    "unix-2.8.6.0",
+    "xhtml-3000.2.2.1"
+  ],
+  "tool_executable_sha256": {
+    "GHC": "646c2713f3bdbe0b189e14565cef35845f3e3716350a63a9b1c8f5c9526170a0",
+    "GHC_PKG": "d9fe95c7f0783ddf44f653cd9da7ed3a438fce5fe6ed8472ee7008212f8fed08",
+    "CABAL": "fc13eac4ff06a4a9069517f1acc4135a78971a8eec4a9513000d0dc72352084c",
+    "Z3": "75046ed6c40f39d51af7a8c415f514e1597ab60c11a3e839b03a1682044b6fc3"
+  },
+  "dependencies": [
+    {
+      "name": "sbv",
+      "version": "10.12",
+      "url": "https://hackage-content.haskell.org/package/sbv-10.12/sbv-10.12.tar.gz",
+      "sha256": "68eb6c2d5ef4456b7ef536d44d5cc42bc0d484734c0ad109cd4528c0f4db2aea",
+      "bytes": 1049616
+    },
+    {
+      "name": "QuickCheck",
+      "version": "2.15.0.1",
+      "url": "https://hackage-content.haskell.org/package/QuickCheck-2.15.0.1/QuickCheck-2.15.0.1.tar.gz",
+      "sha256": "a3b2216ddbaf481dbc82414b6120f8b726d969db3f0b51f20a7a45425ef36e7f",
+      "bytes": 81502
+    },
+    {
+      "name": "async",
+      "version": "2.2.5",
+      "url": "https://hackage-content.haskell.org/package/async-2.2.5/async-2.2.5.tar.gz",
+      "sha256": "1818473ebab9212afad2ed76297aefde5fae8b5d4404daf36939aece6a8f16f7",
+      "bytes": 15742
+    },
+    {
+      "name": "libBF",
+      "version": "0.6.8",
+      "url": "https://hackage-content.haskell.org/package/libBF-0.6.8/libBF-0.6.8.tar.gz",
+      "sha256": "d98021132f28e674958a7c41250831c2375ae70c839d943c7b1d745c68d28e0a",
+      "bytes": 77104
+    },
+    {
+      "name": "random",
+      "version": "1.2.1.3",
+      "url": "https://hackage-content.haskell.org/package/random-1.2.1.3/random-1.2.1.3.tar.gz",
+      "sha256": "e9c81926a7d1e40328f645f73592b31efc9c631589669a7f130687b9cc3051dc",
+      "bytes": 47117
+    },
+    {
+      "name": "splitmix",
+      "version": "0.1.3.1",
+      "url": "https://hackage-content.haskell.org/package/splitmix-0.1.3.1/splitmix-0.1.3.1.tar.gz",
+      "sha256": "b6bcd0d79bd4fe40975c8ebe803be2f3bfbf6006069a59745a325a0df3f86270",
+      "bytes": 21955
+    },
+    {
+      "name": "syb",
+      "version": "0.7.2.4",
+      "url": "https://hackage-content.haskell.org/package/syb-0.7.2.4/syb-0.7.2.4.tar.gz",
+      "sha256": "ec7c1e8822d62ab910386361cdcee40a22a26cd344c34741fadd982302291e60",
+      "bytes": 41809
+    },
+    {
+      "name": "uniplate",
+      "version": "1.6.13",
+      "url": "https://hackage-content.haskell.org/package/uniplate-1.6.13/uniplate-1.6.13.tar.gz",
+      "sha256": "e777c94628445556a71f135a42cf72d2cfbaccba5849cc42fbfec8b2182e3ad2",
+      "bytes": 29787
+    },
+    {
+      "name": "unordered-containers",
+      "version": "0.2.20.1",
+      "url": "https://hackage-content.haskell.org/package/unordered-containers-0.2.20.1/unordered-containers-0.2.20.1.tar.gz",
+      "sha256": "708a60513d6da61e09b60b9a486106af703a889b5b43472a27c3b60bf35246ab",
+      "bytes": 60625
+    },
+    {
+      "name": "hashable",
+      "version": "1.4.3.0",
+      "url": "https://hackage-content.haskell.org/package/hashable-1.4.3.0/hashable-1.4.3.0.tar.gz",
+      "sha256": "32efb16c2891786209b7cbe5c39df9b3a9ae51e836f1a54f646bc4602b7ab0f5",
+      "bytes": 25601
+    },
+    {
+      "name": "hsc2hs",
+      "version": "0.68.10",
+      "url": "https://hackage-content.haskell.org/package/hsc2hs-0.68.10/hsc2hs-0.68.10.tar.gz",
+      "sha256": "6f4e34d788fe2ca7091ee0a10307ee8a7c060a1ba890f2bffad16a7d4d5cef76",
+      "bytes": 40517
+    }
+  ],
+  "solver_results": {
+    "integer_bounds_general": "unsat",
+    "integer_conservation_general": "unsat",
+    "eight_slot_partition_general": "unsat",
+    "integer_monotonicity_general": "unsat",
+    "integer_bounds_bounded": "unsat",
+    "integer_monotonicity_bounded": "unsat",
+    "legacy_eight_lots_counterexample": "sat",
+    "negative_missing_progress_upper_bound": "sat",
+    "word64_overflow_separate_counterexample": "sat"
+  },
+  "smt_replays": {
+    "integer_bounds_general": "unsat",
+    "integer_conservation_general": "unsat",
+    "eight_slot_partition_general": "unsat",
+    "integer_monotonicity_general": "unsat",
+    "integer_bounds_bounded": "unsat",
+    "integer_monotonicity_bounded": "unsat",
+    "legacy_eight_lots_counterexample": "sat",
+    "negative_missing_progress_upper_bound": "sat",
+    "word64_overflow_separate_counterexample": "sat"
+  },
+  "sbv_helper_bridge_inputs": 36400,
+  "solver_extracted_witness_replayed": true,
+  "build_plan_sha256": "b8775f7fd0c93e68de43255da97f6ba745203bac41b37a8e05446542c8a73f1b",
+  "package_versions": [
+    "QuickCheck-2.15.0.1",
+    "array-0.5.8.0",
+    "async-2.2.5",
+    "base-4.18.3.0",
+    "binary-0.8.9.1",
+    "bytestring-0.11.5.4",
+    "containers-0.6.7",
+    "deepseq-1.4.8.1",
+    "directory-1.3.8.5",
+    "exceptions-0.10.7",
+    "filepath-1.4.301.0",
+    "ghc-bignum-1.3",
+    "ghc-boot-th-9.6.7",
+    "ghc-prim-0.10.0",
+    "hashable-1.4.3.0",
+    "hsc2hs-0.68.10",
+    "libBF-0.6.8",
+    "mtl-2.3.1",
+    "parsec-3.1.16.1",
+    "pretty-1.1.3.6",
+    "process-1.6.19.0",
+    "random-1.2.1.3",
+    "rts-1.0.2",
+    "sbv-10.12",
+    "sbv-cancellation-lab-0.1.0.0",
+    "splitmix-0.1.3.1",
+    "stm-2.5.1.0",
+    "syb-0.7.2.4",
+    "template-haskell-2.20.0.0",
+    "text-2.0.2",
+    "time-1.12.2",
+    "transformers-0.6.1.0",
+    "uniplate-1.6.13",
+    "unix-2.8.6.0",
+    "unordered-containers-0.2.20.1"
+  ],
+  "proof_artifacts": {
+    "metadata/dependency-lock.json": "ad65282e40f66b31c54ab4a13f72a226ff4564491c57f74e5081fcbd0cd9de51",
+    "metadata/proof-results.json": "0a1c543c96bd15a89c81ae7444f46349d1fb8f6ea1d4ea74e6b11de83c11d5c7",
+    "metadata/toolchains.json": "cd8b1f39a2a48524ce9f5531f5542bd77d848511b02984ea27734d9c4261b1cb",
+    "logs/eight_slot_partition_general.txt": "5099548e68e8816dccb2f73731ac499690e0f7c4349e4dc1d4744f80fbe11ceb",
+    "logs/integer_bounds_bounded.txt": "5099548e68e8816dccb2f73731ac499690e0f7c4349e4dc1d4744f80fbe11ceb",
+    "logs/integer_bounds_general.txt": "5099548e68e8816dccb2f73731ac499690e0f7c4349e4dc1d4744f80fbe11ceb",
+    "logs/integer_conservation_general.txt": "5099548e68e8816dccb2f73731ac499690e0f7c4349e4dc1d4744f80fbe11ceb",
+    "logs/integer_monotonicity_bounded.txt": "5099548e68e8816dccb2f73731ac499690e0f7c4349e4dc1d4744f80fbe11ceb",
+    "logs/integer_monotonicity_general.txt": "5099548e68e8816dccb2f73731ac499690e0f7c4349e4dc1d4744f80fbe11ceb",
+    "logs/legacy_eight_lots_counterexample.txt": "8012ae6dc7197349d26f02e90801733b39265d98d8b682e504fef677526cfc67",
+    "logs/negative_missing_progress_upper_bound.txt": "27a02dfa721def883ca34005f69d0bdc9bc4bd9f2ac6f20d9edef72423a15a49",
+    "logs/sbv-core-bridge.txt": "7af2563928c7df8c148c24b5d84ad01b596e9657f37e0574c093da8e6d24f69f",
+    "logs/smt/eight_slot_partition_general.smt2": "49addaf7f9d673906268b9ecc115db5c50228e7c8d0efde7d8968e8e23b10a14",
+    "logs/smt/integer_bounds_bounded.smt2": "b5e56879c881a245490657e46c550e1c8422b9c428fe9d328784c97538e44f5d",
+    "logs/smt/integer_bounds_general.smt2": "f77c7f47b188435fc7d33bd1e420d20562d979e177338199b4576ffd7f22bfbf",
+    "logs/smt/integer_conservation_general.smt2": "c748528c91d26a0b6d9edd3840776a297a44adc583448105a016aaa3a8e24896",
+    "logs/smt/integer_monotonicity_bounded.smt2": "b2223009881983386c45d74b3edcb96fdf620037ea3ef7e3ae6ac328a7da38b7",
+    "logs/smt/integer_monotonicity_general.smt2": "108c00634048ac8ad9e2f2e0fdb263ff500562768734d626afa9c42519aaf8f4",
+    "logs/smt/legacy_eight_lots_counterexample.smt2": "609033d6d62c557cb3e8b3a5e91f16114efab9ab39693bf99a110619fb64da13",
+    "logs/smt/negative_missing_progress_upper_bound.smt2": "f7f9ca749d8a57513374f871c8e6106d92f230241334884c184ebb0d588bd796",
+    "logs/smt/word64_overflow_separate_counterexample.smt2": "9c1be02c017966988375309dfc0667746b5e1435c925c02e273d4003ba5c9f43",
+    "logs/solver-witness-core-replay.txt": "dd951396ccd27819a749fc13c20da3bb48612148c4bfe82ce2a3db73d39b3709",
+    "logs/word64_overflow_separate_counterexample.txt": "c0a4618f1683e2cdf5c8e3c24d1c6d99e1a4ea6520382e646a484afe72e088ee"
+  },
+  "direct_source_replay": {
+    "transactions": 1412,
+    "assertions": 127011,
+    "positive_required_inputs": 36400,
+    "zero_required_helper_only_inputs": 2145
+  },
+  "claim": "six-SInteger-UNSAT-three-SAT-controls-and-finite-source-bridge"
+}

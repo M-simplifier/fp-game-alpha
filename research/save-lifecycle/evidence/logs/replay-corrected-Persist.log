@@ -1,0 +1,4 @@
+STATE {"event":"Init","request":0,"epoch":0,"branch":0,"revision":0,"active":0,"receipt":0,"saved":false,"phase":["unused","unused","unused","unused"],"captured":[0,0,0,0],"capturedBranch":[0,0,0,0],"acceptedEpoch":[0,0,0,0],"accepted":[0,0,0,0]}
+STATE {"event":"Start","request":1,"epoch":0,"branch":0,"revision":0,"active":1,"receipt":0,"saved":false,"phase":["writing","unused","unused","unused"],"captured":[0,0,0,0],"capturedBranch":[0,0,0,0],"acceptedEpoch":[0,0,0,0],"accepted":[0,0,0,0]}
+NOTE callback of uncompleted storage rejected before real finishSave
+STATE {"event":"Callback","request":1,"epoch":0,"branch":0,"revision":0,"active":1,"receipt":0,"saved":false,"phase":["writing","unused","unused","unused"],"captured":[0,0,0,0],"capturedBranch":[0,0,0,0],"acceptedEpoch":[0,0,0,0],"accepted":[0,0,0,0]}

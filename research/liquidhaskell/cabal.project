@@ -1,0 +1,9 @@
+packages: . vendor/*/*.cabal
+active-repositories: :none
+optimization: False
+write-ghc-environment-files: never
+jobs: 1
+tests: False
+benchmarks: False
+library-profiling: False
+shared: True

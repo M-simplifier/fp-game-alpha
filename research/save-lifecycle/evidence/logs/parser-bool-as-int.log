@@ -1,0 +1,1 @@
+STATE {"event": "Init", "request": 0, "epoch": true, "branch": 0, "revision": 0, "active": 0, "receipt": 0, "saved": false, "phase": ["unused", "unused", "unused", "unused"], "captured": [0, 0, 0, 0], "capturedBranch": [0, 0, 0, 0], "acceptedEpoch": [0, 0, 0, 0], "accepted": [0, 0, 0, 0]}

@@ -1,0 +1,30 @@
+[
+  {
+    "path": "liquidhaskell-0.9.6.3.1/src/Data/Int_LHAssumptions.hs",
+    "sha256": "cefdb1b6e53de492def56214b4357b760d1bff138c617837537b692d47b01048"
+  },
+  {
+    "path": "liquidhaskell-0.9.6.3.1/src/GHC/Int_LHAssumptions.hs",
+    "sha256": "fafe38cd91b4fabf79aec518153f2f0a69007d7bb5c90162bd77395bde7028ff"
+  },
+  {
+    "path": "liquidhaskell-0.9.6.3.1/src/GHC/Num_LHAssumptions.hs",
+    "sha256": "a96698218c80937d3939fee01eaf047fc062eb9d6c9eaa1c766c3f5277851b45"
+  },
+  {
+    "path": "liquidhaskell-0.9.6.3.1/src/GHC/Real_LHAssumptions.hs",
+    "sha256": "c57612cf658a1f9ca69e9022364987c197b81a32a25b9d7347068f7876472a63"
+  },
+  {
+    "path": "liquidhaskell-0.9.6.3.1/src/GHC/Classes_LHAssumptions.hs",
+    "sha256": "d94a7cdcc6f885cdbff09aef5e6c765ffb991dc96ddcd109d6ac2f765b982d8b"
+  },
+  {
+    "path": "liquidhaskell-0.9.6.3.1/src/Data/Either_LHAssumptions.hs",
+    "sha256": "d05dc48914e03fee294eac772710a3c9c69f4824bd042aa3b92a672f0d030d93"
+  },
+  {
+    "path": "liquidhaskell-boot-0.9.6.3/include/CoreToLogic.lg",
+    "sha256": "942265082a757f298901c33837c5a7b32c7562be57c55f005d61f3e5dcf2ea47"
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "revision": 0,
+    "epoch": 0,
+    "request": 0,
+    "active": 0,
+    "event": "Init",
+    "phase": [
+      "unused",
+      "unused",
+      "unused",
+      "unused"
+    ],
+    "acceptedEpoch": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "accepted": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "receipt": 0,
+    "branch": 0,
+    "saved": false,
+    "captured": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "capturedBranch": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "revision": 0,
+    "epoch": 0,
+    "request": 1,
+    "active": 1,
+    "event": "Start",
+    "phase": [
+      "writing",
+      "unused",
+      "unused",
+      "unused"
+    ],
+    "acceptedEpoch": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "accepted": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "receipt": 0,
+    "branch": 0,
+    "saved": false,
+    "captured": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "capturedBranch": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "revision": 0,
+    "epoch": 0,
+    "request": 1,
+    "active": 1,
+    "event": "Persist",
+    "phase": [
+      "persisted",
+      "unused",
+      "unused",
+      "unused"
+    ],
+    "acceptedEpoch": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "accepted": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "receipt": 0,
+    "branch": 0,
+    "saved": false,
+    "captured": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "capturedBranch": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "revision": 0,
+    "epoch": 1,
+    "request": 0,
+    "active": 0,
+    "event": "Load",
+    "phase": [
+      "persisted",
+      "unused",
+      "unused",
+      "unused"
+    ],
+    "acceptedEpoch": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "accepted": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "receipt": 0,
+    "branch": 0,
+    "saved": false,
+    "captured": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "capturedBranch": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "revision": 0,
+    "epoch": 1,
+    "request": 3,
+    "active": 1,
+    "event": "Start",
+    "phase": [
+      "persisted",
+      "unused",
+      "writing",
+      "unused"
+    ],
+    "acceptedEpoch": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "accepted": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "receipt": 0,
+    "branch": 0,
+    "saved": false,
+    "captured": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "capturedBranch": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "revision": 0,
+    "epoch": 1,
+    "request": 1,
+    "active": 0,
+    "event": "Callback",
+    "phase": [
+      "persisted",
+      "unused",
+      "writing",
+      "unused"
+    ],
+    "acceptedEpoch": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "accepted": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "receipt": 1,
+    "branch": 0,
+    "saved": true,
+    "captured": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "capturedBranch": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]
