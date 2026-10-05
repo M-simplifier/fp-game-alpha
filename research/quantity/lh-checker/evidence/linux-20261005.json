@@ -1,0 +1,296 @@
+{
+  "capture_wrapper_sha256": "dc1dc4746426ea9c202746658ba2c33a66c1622229125471854d16e46c7e1180",
+  "cases": [
+    {
+      "case": "good",
+      "exit_code": 0,
+      "expected": "SAFE25",
+      "query_files_present": true,
+      "query_sha256": {
+        "source/Colony/.liquid/Units.hs.fq": "48f7cdffacfa450628555a3455a05b762678151fe1deab06739c00dbbf040dc9",
+        "source/Colony/.liquid/Units.hs.smt2": "56f4cac6cba2618fd7d6cdf023b09cce5f10eb5edc49a4123d342f2c6edda605"
+      },
+      "source_sha256": "d90d4fce3bf1d6220a4366b4d05316002919b5c6e50b7d4b9e43ef9571c8d46d",
+      "status": "SAFE25",
+      "timed_out": false
+    },
+    {
+      "case": "add-plus-one",
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        "mutations/add-plus-one/Colony/.liquid/Units.hs.fq": "7d49a25290e00c1a807ce63bab0561d6fdcc5042d26a743c953fc7e7e2112e77",
+        "mutations/add-plus-one/Colony/.liquid/Units.hs.smt2": "e84fcdb39222160aa8c71012ac022455527e26f5b34edcfb9b03c446d03d9101"
+      },
+      "source_sha256": "99a96461997c1df460154f205c55f05c7b6396d8982bf20a20ee218ef57895fd",
+      "status": "UNSAFE",
+      "timed_out": false
+    },
+    {
+      "case": "sub-plus-one",
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        "mutations/sub-plus-one/Colony/.liquid/Units.hs.fq": "acd55f204a2ec3bdeb92b0dbc0c7a907e1721402ebcae63afee6c672953019bd",
+        "mutations/sub-plus-one/Colony/.liquid/Units.hs.smt2": "b46b83a6ef2859d3203602cde3b5446f18372c74668691e4beb19f3128b2e9b9"
+      },
+      "source_sha256": "7bbe70ccc353b83194b2b221464cde836d6579fa2ba92f4e8e793241955e3e6a",
+      "status": "UNSAFE",
+      "timed_out": false
+    },
+    {
+      "case": "upper-reversed",
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        "mutations/upper-reversed/Colony/.liquid/Units.hs.fq": "d06b6f731f43eab2cc888e7115a76d281b5a461b248e58f9a1e46706fadd64fe",
+        "mutations/upper-reversed/Colony/.liquid/Units.hs.smt2": "17786d04da6ac73f18aea068b3cba7c60c3272ffe4c3af90de9fa1a8d253ff5d"
+      },
+      "source_sha256": "14543ae1f700ebe58d921ec808142eed816fd43211960bd4f62da7ddbfe6e78f",
+      "status": "UNSAFE",
+      "timed_out": false
+    },
+    {
+      "case": "upper-off-by-one",
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        "mutations/upper-off-by-one/Colony/.liquid/Units.hs.fq": "0d96edb8935c8d1f52ffaf6113d23f08ee7e0c30de37f3ead856951c7cf9c62d",
+        "mutations/upper-off-by-one/Colony/.liquid/Units.hs.smt2": "a579be9ddd0194e8e4999aa92f5380f5c904cb6e8b6ecbd8c43b06d8931255b0"
+      },
+      "source_sha256": "8749643c9dcb7cdc807d08f18b623477fdbac4e280054897099e01b03e24147c",
+      "status": "UNSAFE",
+      "timed_out": false
+    },
+    {
+      "case": "always-left",
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        "mutations/always-left/Colony/.liquid/Units.hs.fq": "4c8a94513ed8b8f20551bfb4072db3f3c6f810e3a31579df97e4fe79fa4e2415",
+        "mutations/always-left/Colony/.liquid/Units.hs.smt2": "c9a82c2e899a1371fd1e02a6281c9827f7560070faa5716f324ec963380aedf4"
+      },
+      "source_sha256": "f8d6a475aa232c8c3fe73dec963bee6f786a65af00ca2548e62c2f4802c0775f",
+      "status": "UNSAFE",
+      "timed_out": false
+    },
+    {
+      "case": "missing-lower",
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        "mutations/missing-lower/Colony/.liquid/Units.hs.fq": "696e16dd0a18f6f451715ec6cf0ae0b3a961a126f23a052c60841c398dbd99ed",
+        "mutations/missing-lower/Colony/.liquid/Units.hs.smt2": "373776090a56476bd805fc44a6510246770e80b5d74cf4b86f7b586bf2e8a8de"
+      },
+      "source_sha256": "37ffe2cdce91299d579f057d4e8efe36826ddbcd983788a32734b3872c8da06d",
+      "status": "UNSAFE",
+      "timed_out": false
+    }
+  ],
+  "executed_date_utc": "2026-10-05",
+  "limits": {
+    "clean_clone_pass": false,
+    "cross_platform_checker_validation": false,
+    "historical_whole_tree_audit": "not_available",
+    "independent_proof_certificate_checker": false,
+    "runtime_oracle": "not_run_by_this_checker",
+    "soundness_of_verifier": "not_established; sibling division diagnostic demonstrates failed soundness gate"
+  },
+  "packages": {
+    "liquid-fixpoint": "0.9.6.3",
+    "liquidhaskell": "0.9.6.3.1",
+    "liquidhaskell-boot": "0.9.6.3"
+  },
+  "platform": {
+    "machine": "x86_64",
+    "system": "Linux"
+  },
+  "process_exit": 0,
+  "raw_result_sha256": "4ed1a39492e1964a9aedcf4575cfdb4011636d148c8327fc002b42a2d927a91b",
+  "runner_sha256": "d754ad7cf0a499aad2883636daeea392b2ea0cbc64c80399a2f4204dd2fa340d",
+  "schema": "quantity-lh-public-reproduction-v1",
+  "scope": "Six selected quantity binders; pinned trusted imports and translation. Not full-module/game soundness, universal runtime equivalence, or machine-semantics proof.",
+  "smt_models": [
+    {
+      "case": "01_max_fits_Int64",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "7e5d1201e00d4e31a238e19aab3723ffc4b9e82e56eda1024b08a071c77cd633",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "02_valid_add_no_Int64_overflow",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "45bc09c98703f4133d0cd2c45643441ff82d13e6f15f3d6a7d7864355954ac75",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "03_valid_sub_no_Int64_overflow",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "4b98a8b95115e273244605114ed44fb9907b5d49b7c4ddda4abc7902c6d25234",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "04_add_acceptance_iff",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "a162d4525d62b0aa5b5cfa88617c35372cae9646d04f92e32c307855bc3f1a4c",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "05_sub_acceptance_iff",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "db7a0b4bba92b5a99a7c1b3f577aa6af9222ad269349ba2eef17d1340de06c11",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "06_accepted_Int64_roundtrip",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "f9f9fb74dbec608684904435d451ccc782347fd23beb9a1a30f1c49dcd26bd17",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "07_accepted_bits_sign_is_nonnegative",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "6cf59005fc624dabf7aeb54b6e59d41ee605ecbe82980fbde05cf203b3f69fd6",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "08_bounded_bv_add_cannot_wrap",
+      "exit_code": 0,
+      "expected": "unsat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "a335dd36434e0f3f63ae160c02f9567ea8d96a608dc49d20598b3bd46cbc435c",
+      "status": "expected_UNSAT",
+      "timed_out": false
+    },
+    {
+      "case": "09_cast_before_check_is_unsound_witness",
+      "exit_code": 0,
+      "expected": "sat",
+      "process_timeout_seconds": 30,
+      "source_sha256": "3f28df8feefa67810691a57d29ad08044608692651a63a948219021bded8e6fc",
+      "status": "expected_SAT_counterexample",
+      "timed_out": false
+    }
+  ],
+  "solver_replay": {
+    "cases": [
+      {
+        "captured_exit": null,
+        "case": "good",
+        "queries": 25,
+        "replay_exit": 0,
+        "sat": 0,
+        "status": "EXACT_REPLAY_MATCH",
+        "unsat": 25
+      },
+      {
+        "captured_exit": null,
+        "case": "add-plus-one",
+        "queries": 25,
+        "replay_exit": 0,
+        "sat": 2,
+        "status": "EXACT_REPLAY_MATCH",
+        "unsat": 23
+      },
+      {
+        "captured_exit": null,
+        "case": "sub-plus-one",
+        "queries": 25,
+        "replay_exit": 0,
+        "sat": 2,
+        "status": "EXACT_REPLAY_MATCH",
+        "unsat": 23
+      },
+      {
+        "captured_exit": null,
+        "case": "upper-reversed",
+        "queries": 25,
+        "replay_exit": 0,
+        "sat": 3,
+        "status": "EXACT_REPLAY_MATCH",
+        "unsat": 22
+      },
+      {
+        "captured_exit": null,
+        "case": "upper-off-by-one",
+        "queries": 25,
+        "replay_exit": 0,
+        "sat": 1,
+        "status": "EXACT_REPLAY_MATCH",
+        "unsat": 24
+      },
+      {
+        "captured_exit": null,
+        "case": "always-left",
+        "queries": 25,
+        "replay_exit": 0,
+        "sat": 1,
+        "status": "EXACT_REPLAY_MATCH",
+        "unsat": 24
+      },
+      {
+        "captured_exit": null,
+        "case": "missing-lower",
+        "queries": 25,
+        "replay_exit": 0,
+        "sat": 2,
+        "status": "EXACT_REPLAY_MATCH",
+        "unsat": 23
+      }
+    ],
+    "missing_captured_exit_note": "LH terminates the capture child; no captured exit stamp was present. Fresh initialization-bearing streams, complete check-sat response counts, replay process exit0 and exact stdout equality were independently enforced.",
+    "responses": 175,
+    "sat": 11,
+    "streams": 7,
+    "unsat": 164
+  },
+  "source_identity_after": {
+    "annotated_sha256": "d90d4fce3bf1d6220a4366b4d05316002919b5c6e50b7d4b9e43ef9571c8d46d",
+    "files": 28,
+    "fixture_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "historical_evidence_used_as_current": false,
+    "status": "exact_match"
+  },
+  "source_identity_before": {
+    "annotated_sha256": "d90d4fce3bf1d6220a4366b4d05316002919b5c6e50b7d4b9e43ef9571c8d46d",
+    "files": 28,
+    "fixture_sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+    "historical_evidence_used_as_current": false,
+    "status": "exact_match"
+  },
+  "source_provenance_sha256": "c437d909248a5f3b9ffa430c10b49c781037677a368fe819295b2c0197a854d0",
+  "status": "PASS_SCOPED_LH_REPLAY_AND_MODELS",
+  "versions": {
+    "CABAL": "3.16.1.0",
+    "GHC": "9.6.3",
+    "GHC_PKG": "9.6.3",
+    "Z3": "4.15.1"
+  }
+}

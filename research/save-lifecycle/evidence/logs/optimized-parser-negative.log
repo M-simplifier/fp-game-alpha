@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "$EXPERIMENT/scripts/bridge.py", line 8, in <module>
+    raise RuntimeError("Python optimization mode is unsupported; evidence checks must stay enabled")
+RuntimeError: Python optimization mode is unsupported; evidence checks must stay enabled

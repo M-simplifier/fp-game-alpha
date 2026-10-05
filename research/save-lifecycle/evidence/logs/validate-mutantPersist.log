@@ -1,0 +1,56 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: 
+Picked up JAVA_TOOL_OPTIONS: 
+Picked up _JAVA_OPTIONS: 
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 0 and seed 1 with 1 worker on 9 cores with 455MB heap and 64MB offheap memory [pid: 417] (Linux 6.18.44 amd64, Debian 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file $RUN_DIR/work/model/TracemutantPersist.tla
+Parsing file $RUN_DIR/work/model/SaveLifecycle.tla
+Parsing file $RUN_DIR/tmp/Naturals.tla
+Parsing file $RUN_DIR/tmp/FiniteSets.tla
+Parsing file $RUN_DIR/tmp/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module SaveLifecycle
+Semantic processing of module TracemutantPersist
+Starting... (2026-10-05 00:51:34)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-10-05 00:51:34.
+Error: Deadlock reached.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ revision = 0
+/\ epoch = 0
+/\ position = 1
+/\ request = 0
+/\ active = 0
+/\ event = "Init"
+/\ phase = <<"unused", "unused", "unused", "unused">>
+/\ acceptedEpoch = <<0, 0, 0, 0>>
+/\ accepted = <<0, 0, 0, 0>>
+/\ receipt = 0
+/\ branch = 0
+/\ saved = FALSE
+/\ captured = <<0, 0, 0, 0>>
+/\ capturedBranch = <<0, 0, 0, 0>>
+
+State 2: <TraceNext line 6, col 17 to line 7, col 586 of module TracemutantPersist>
+/\ revision = 0
+/\ epoch = 0
+/\ position = 2
+/\ request = 1
+/\ active = 1
+/\ event = "Start"
+/\ phase = <<"writing", "unused", "unused", "unused">>
+/\ acceptedEpoch = <<0, 0, 0, 0>>
+/\ accepted = <<0, 0, 0, 0>>
+/\ receipt = 0
+/\ branch = 0
+/\ saved = FALSE
+/\ captured = <<0, 0, 0, 0>>
+/\ capturedBranch = <<0, 0, 0, 0>>
+
+2 states generated, 2 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 2.
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 1 and the 95th percentile is 1).
+Finished in 00s at (2026-10-05 00:51:34)

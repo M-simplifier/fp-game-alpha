@@ -1,0 +1,17 @@
+--- fixed-0.6/src/Colony/Units.hs
++++ source/Colony/Units.hs
+@@ -73,3 +73,14 @@
+ parseResource s = case filter ((== s) . resourceKey) allResources of
+   [r] -> Right r
+   _ -> Left ("Unknown resource: " ++ s)
++
++{-@ type BQty k r = {q:Qty k r | 0 <= q && q <= 9000000000000} @-}
++{-@ measure isQtyRight :: Either a b -> Bool
++      isQtyRight (Left x) = false
++      isQtyRight (Right x) = true @-}
++{-@ quantityMax :: {v:Integer | v == 9000000000000} @-}
++{-@ mkQty :: n:Integer -> {v:Either String ({q:BQty k r | q == n}) | isQtyRight v <=> (0 <= n && n <= 9000000000000)} @-}
++{-@ qtyValue :: q:Qty k r -> {v:Integer | v == q} @-}
++{-@ zeroQty :: {q:BQty k r | q == 0} @-}
++{-@ addQty :: a:BQty k r -> b:BQty k r -> {v:Either String ({q:BQty k r | q == a + b}) | isQtyRight v <=> a + b <= 9000000000000} @-}
++{-@ subQty :: a:BQty k r -> b:BQty k r -> {v:Either String ({q:BQty k r | q == a - b}) | isQtyRight v <=> b <= a} @-}

@@ -1,1 +1,4 @@
 * text=auto eol=lf
+# Preserve original Hackage revision/license bytes used by pinned SHA-256 locks.
+research/liquidhaskell/metadata/hackage/*.cabal -text
+research/liquidhaskell/metadata/licenses/** -text

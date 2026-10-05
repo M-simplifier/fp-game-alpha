@@ -1,0 +1,2053 @@
+{
+  "schema": "pinned-package-license-map-v1",
+  "packages": [
+    {
+      "package": "Diff",
+      "version": "0.4.1",
+      "cabal_metadata": "metadata/hackage/Diff-0.4.1.cabal",
+      "cabal_metadata_sha256": "4f5dddf48a9d4c3d753f02474a409c05fadb10d1fc53e145be45a1dfdb7552e9",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/Diff-0.4.1/Diff-0.4.1.tar.gz",
+      "source_archive_sha256": "fd5e4aaac7219bcbb14834fb8580ebe0aae905958d0ad74f5338ea290b372670",
+      "license_files": [
+        {
+          "path": "metadata/licenses/Diff-0.4.1/LICENSE",
+          "archive_member": "Diff-0.4.1/LICENSE",
+          "sha256": "e93a75a5cad5343a3759dfd1358fb387c115def02e06838e362121c4ff7533d0"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "HUnit",
+      "version": "1.6.2.0",
+      "cabal_metadata": "metadata/hackage/HUnit-1.6.2.0.cabal",
+      "cabal_metadata_sha256": "1a79174e8af616117ad39464cac9de205ca923da6582825e97c10786fda933a4",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/HUnit-1.6.2.0/HUnit-1.6.2.0.tar.gz",
+      "source_archive_sha256": "b0b7538871ffc058486fc00740886d2f3172f8fa6869936bfe83a5e10bd744ab",
+      "license_files": [
+        {
+          "path": "metadata/licenses/HUnit-1.6.2.0/LICENSE",
+          "archive_member": "HUnit-1.6.2.0/LICENSE",
+          "sha256": "c749088ed2b4abc3d39247e5be43b8d31c00c9534c0e2a21b6f706179a6efe37"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "OneTuple",
+      "version": "0.4.3",
+      "cabal_metadata": "metadata/hackage/OneTuple-0.4.3.cabal",
+      "cabal_metadata_sha256": "0f5620933850a78b849c0988cbfc2288ab3274b89084bf6681f514143d3f822a",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/OneTuple-0.4.3/OneTuple-0.4.3.tar.gz",
+      "source_archive_sha256": "643d1f48e63480ac6d03a8f0ab5976d66527c9b42b1fca81d1bf373d10099c6b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/OneTuple-0.4.3/LICENSE",
+          "archive_member": "OneTuple-0.4.3/LICENSE",
+          "sha256": "32834a07f32ee71f13b28ee19f4c49532630c99bd115267713b8e3b727db0250"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "QuickCheck",
+      "version": "2.19.0.0",
+      "cabal_metadata": "metadata/hackage/QuickCheck-2.19.0.0.cabal",
+      "cabal_metadata_sha256": "8f8602ba510e19558ca8eb7eabf5830981068504d93dbac4525ecb669f178407",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/QuickCheck-2.19.0.0/QuickCheck-2.19.0.0.tar.gz",
+      "source_archive_sha256": "1eefbb5fcceb444ea146ba06407586a8679b76ff78a971cc2c888f79c28816ad",
+      "license_files": [
+        {
+          "path": "metadata/licenses/QuickCheck-2.19.0.0/LICENSE",
+          "archive_member": "QuickCheck-2.19.0.0/LICENSE",
+          "sha256": "17035f93180f20bc9c9eb2fd5e0c8836c699b6dedae654b3f2a7a76e737bf2b9"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "StateVar",
+      "version": "1.2.2",
+      "cabal_metadata": "metadata/hackage/StateVar-1.2.2.cabal",
+      "cabal_metadata_sha256": "3c022c00485fe165e3080d5da6b3ca9c9b02f62c5deebc584d1b3d1309ce673e",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/StateVar-1.2.2/StateVar-1.2.2.tar.gz",
+      "source_archive_sha256": "5e4b39da395656a59827b0280508aafdc70335798b50e5d6fd52596026251825",
+      "license_files": [
+        {
+          "path": "metadata/licenses/StateVar-1.2.2/LICENSE",
+          "archive_member": "StateVar-1.2.2/LICENSE",
+          "sha256": "0e64a0908ba147b6c38f3e905a6d193bf1b0a4cd9af2a1cd8d58a60509e7cfa2"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "aeson",
+      "version": "2.3.2.0",
+      "cabal_metadata": "metadata/hackage/aeson-2.3.2.0.cabal",
+      "cabal_metadata_sha256": "9adf079015348cf24eacbe1f474c549aa7ccb59a412a61997368bf87cb732c66",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/aeson-2.3.2.0/aeson-2.3.2.0.tar.gz",
+      "source_archive_sha256": "c30d187d60fb81b0f93f72442ee6b1abd2709fc3b5e3befcf4173f6b30983458",
+      "license_files": [
+        {
+          "path": "metadata/licenses/aeson-2.3.2.0/LICENSE",
+          "archive_member": "aeson-2.3.2.0/LICENSE",
+          "sha256": "21908b8a0927ea16437f482877bdd5579f7320e6493c1da3819a95bf5078a464"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "ansi-terminal",
+      "version": "1.1.5",
+      "cabal_metadata": "metadata/hackage/ansi-terminal-1.1.5.cabal",
+      "cabal_metadata_sha256": "408d9232e5304efead718f96138d6d7eb2da608c6121c5c0dc6a71a833b14320",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/ansi-terminal-1.1.5/ansi-terminal-1.1.5.tar.gz",
+      "source_archive_sha256": "9cf083cef2e2ba88a425f132c8a82bfa931eb4b0c38232b2017f8fcea2e23073",
+      "license_files": [
+        {
+          "path": "metadata/licenses/ansi-terminal-1.1.5/LICENSE",
+          "archive_member": "ansi-terminal-1.1.5/LICENSE",
+          "sha256": "004081ebe5ee864a3722ec322866edd72411649d08f92cf8d9807d942d904a56"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "ansi-terminal-types",
+      "version": "1.1.3",
+      "cabal_metadata": "metadata/hackage/ansi-terminal-types-1.1.3.cabal",
+      "cabal_metadata_sha256": "1d6061eceaf35a9ed269b81177dd4c8c60403a499526f7f68fdffa4ec7842e7f",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/ansi-terminal-types-1.1.3/ansi-terminal-types-1.1.3.tar.gz",
+      "source_archive_sha256": "9fc9ce2157f1889bd99a4d22c9f1c64589590be0f797c3efe71c8fa17a11a689",
+      "license_files": [
+        {
+          "path": "metadata/licenses/ansi-terminal-types-1.1.3/LICENSE",
+          "archive_member": "ansi-terminal-types-1.1.3/LICENSE",
+          "sha256": "432f4c2a60915fb4402b5d75580bfcc446f723cc66293b02b5c721ea4552f518"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "ascii-progress",
+      "version": "0.3.3.0",
+      "cabal_metadata": "metadata/hackage/ascii-progress-0.3.3.0.cabal",
+      "cabal_metadata_sha256": "bdcdfabdd2f3e8de0cec4ea058810a77dd8b79506fc0cf90efb93ee9f99ff8e3",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/ascii-progress-0.3.3.0/ascii-progress-0.3.3.0.tar.gz",
+      "source_archive_sha256": "7e3fa6b80c09a83c9ba8a0644ef304ca92d65b76383b8dd023ff9f89ebec913e",
+      "license_files": [
+        {
+          "path": "metadata/licenses/ascii-progress-0.3.3.0/LICENSE",
+          "archive_member": "ascii-progress-0.3.3.0/LICENSE",
+          "sha256": "b7d4ad36f0763730132a1c77e848d077dd48a3034b4571658f4e9cce7b25e0bd"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "assoc",
+      "version": "1.1.1",
+      "cabal_metadata": "metadata/hackage/assoc-1.1.1.cabal",
+      "cabal_metadata_sha256": "766b1040eda5255bfcf10e1a9859c06d0ed6ad0e2ac87ed915bb035574d10ae4",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/assoc-1.1.1/assoc-1.1.1.tar.gz",
+      "source_archive_sha256": "231149b7fef09f5dd95af51228615e3b296dbd0faadeca053e0644a4b13b0ff6",
+      "license_files": [
+        {
+          "path": "metadata/licenses/assoc-1.1.1/LICENSE",
+          "archive_member": "assoc-1.1.1/LICENSE",
+          "sha256": "5f3facf95bb7d0de63aac65ff31e1c071cf37cfa28a56cadf236eac1bd9c9fa3"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "async",
+      "version": "2.2.6",
+      "cabal_metadata": "metadata/hackage/async-2.2.6.cabal",
+      "cabal_metadata_sha256": "45d5587d8a348a7e2b3f04de963fe633db49b49cde10ca1e6f834bef3baecee9",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/async-2.2.6/async-2.2.6.tar.gz",
+      "source_archive_sha256": "148571bc188003101241da6c49131d07324e63a88ed283a84def2e9694599619",
+      "license_files": [
+        {
+          "path": "metadata/licenses/async-2.2.6/LICENSE",
+          "archive_member": "async-2.2.6/LICENSE",
+          "sha256": "27a80f1809158dc95425c19854cf49aa04fa321d430787c768a39de6f55c264e"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "attoparsec",
+      "version": "0.14.4",
+      "cabal_metadata": "metadata/hackage/attoparsec-0.14.4.cabal",
+      "cabal_metadata_sha256": "35129d0ab1741f000f1a7d2fc839544919ee6fbb8f2d6e7f0a629c41f91035f3",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/attoparsec-0.14.4/attoparsec-0.14.4.tar.gz",
+      "source_archive_sha256": "3f337fe58624565de12426f607c23e60c7b09c86b4e3adfc827ca188c9979e6c",
+      "license_files": [
+        {
+          "path": "metadata/licenses/attoparsec-0.14.4/LICENSE",
+          "archive_member": "attoparsec-0.14.4/LICENSE",
+          "sha256": "b0400f7ccef7de35184d413828dabcd15e6970b11972d11c6100f869f6de1831"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "base-compat",
+      "version": "0.15.0",
+      "cabal_metadata": "metadata/hackage/base-compat-0.15.0.cabal",
+      "cabal_metadata_sha256": "a4d322603449e5a42225e9dfcd23647b4b9a050893989a7ffddc0b33351ed775",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/base-compat-0.15.0/base-compat-0.15.0.tar.gz",
+      "source_archive_sha256": "59aa49d7779a20a808924690583653c2bdfb0e54b5162df80df5a81632824531",
+      "license_files": [
+        {
+          "path": "metadata/licenses/base-compat-0.15.0/LICENSE",
+          "archive_member": "base-compat-0.15.0/LICENSE",
+          "sha256": "788b0c0ef27a124ddab8917e477fe900f67240eb62bc332b2e4d9c33a9be86e1"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "base-orphans",
+      "version": "0.9.4",
+      "cabal_metadata": "metadata/hackage/base-orphans-0.9.4.cabal",
+      "cabal_metadata_sha256": "001f2b3094b7a1b00e9fd5dcc519a62b8b147a1754bf550fa42601ff868e2b65",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/base-orphans-0.9.4/base-orphans-0.9.4.tar.gz",
+      "source_archive_sha256": "08cc283a31350f7bd28b2a5d31af693ee337f2593d3e7222999b72dd4954c72b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/base-orphans-0.9.4/LICENSE",
+          "archive_member": "base-orphans-0.9.4/LICENSE",
+          "sha256": "924b65e4acfff34d5b46f3de783d051b591d25932d113d2cf2332bcd2bf9f82a"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "base64-bytestring",
+      "version": "1.2.1.0",
+      "cabal_metadata": "metadata/hackage/base64-bytestring-1.2.1.0.cabal",
+      "cabal_metadata_sha256": "45305ccf8914c66d385b518721472c7b8c858f1986945377f74f85c1e0d49803",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/base64-bytestring-1.2.1.0/base64-bytestring-1.2.1.0.tar.gz",
+      "source_archive_sha256": "fbf8ed30edde271eb605352021431d8f1b055f95a56af31fe2eacf6bdfdc49c9",
+      "license_files": [
+        {
+          "path": "metadata/licenses/base64-bytestring-1.2.1.0/LICENSE",
+          "archive_member": "base64-bytestring-1.2.1.0/LICENSE",
+          "sha256": "16406f8e5ee186592c093f03eaeae85526c14e835a6cb432086520faf4faab27"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "bifunctors",
+      "version": "5.6.3",
+      "cabal_metadata": "metadata/hackage/bifunctors-5.6.3.cabal",
+      "cabal_metadata_sha256": "58f1d66db71ed9dd70648eaca1a0986b29354b3a69b5bfd729ce1a896766466e",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/bifunctors-5.6.3/bifunctors-5.6.3.tar.gz",
+      "source_archive_sha256": "ad7a357f022f4c780c505040d73f1c06a4fd697b4a0bab6123bbd73b55d8115c",
+      "license_files": [
+        {
+          "path": "metadata/licenses/bifunctors-5.6.3/LICENSE",
+          "archive_member": "bifunctors-5.6.3/LICENSE",
+          "sha256": "bcc90708feb8a742f4702201849b51b6fc99d48308ddccdecc5498d144c3a223"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "bitvec",
+      "version": "1.1.6.0",
+      "cabal_metadata": "metadata/hackage/bitvec-1.1.6.0.cabal",
+      "cabal_metadata_sha256": "70ef28bc77f5a19510e4988fcfff329305f31140fe93f09b97351771e59eef03",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/bitvec-1.1.6.0/bitvec-1.1.6.0.tar.gz",
+      "source_archive_sha256": "1a42d33ce341973f4e4f3f0e10d00760056a0aca0e2a57180994bf2ac26c4e2b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/bitvec-1.1.6.0/LICENSE",
+          "archive_member": "bitvec-1.1.6.0/LICENSE",
+          "sha256": "5f7cb32fbcb073e1a536b178aea87d0a52e7ce7d6d6d816054a51421e4183cec"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "boxes",
+      "version": "0.1.5",
+      "cabal_metadata": "metadata/hackage/boxes-0.1.5.cabal",
+      "cabal_metadata_sha256": "fa1b39569777bc4c1ccb1b847808d0a637b5a118c26b8f63f54f348eda03eebe",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/boxes-0.1.5/boxes-0.1.5.tar.gz",
+      "source_archive_sha256": "38e1782e8a458f342a0acbb74af8f55cb120756bc3af7ee7220d955812af56c3",
+      "license_files": [
+        {
+          "path": "metadata/licenses/boxes-0.1.5/LICENSE",
+          "archive_member": "boxes-0.1.5/LICENSE",
+          "sha256": "804e8ce6968d858260b4f4f7fd5b70de272a6ebbee1c85bd3624931d861fa8b8"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "call-stack",
+      "version": "0.4.0",
+      "cabal_metadata": "metadata/hackage/call-stack-0.4.0.cabal",
+      "cabal_metadata_sha256": "ac44d2c00931dc20b01750da8c92ec443eb63a7231e8550188cb2ac2385f7feb",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/call-stack-0.4.0/call-stack-0.4.0.tar.gz",
+      "source_archive_sha256": "430bcf8a3404f7e55319573c0b807b1356946f0c8f289bb3d9afb279c636b87b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/call-stack-0.4.0/LICENSE",
+          "archive_member": "call-stack-0.4.0/LICENSE",
+          "sha256": "7b6b65b4a6927f4a2aaabb570b0b8a3195debaf05c28c412a9fd90273fd0a80f"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "case-insensitive",
+      "version": "1.2.1.0",
+      "cabal_metadata": "metadata/hackage/case-insensitive-1.2.1.0.cabal",
+      "cabal_metadata_sha256": "9dfd3171fc7698cf8d931727d3af3a7b389135b583e46b5adac1f9d2026fff61",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/case-insensitive-1.2.1.0/case-insensitive-1.2.1.0.tar.gz",
+      "source_archive_sha256": "296dc17e0c5f3dfb3d82ced83e4c9c44c338ecde749b278b6eae512f1d04e406",
+      "license_files": [
+        {
+          "path": "metadata/licenses/case-insensitive-1.2.1.0/LICENSE",
+          "archive_member": "case-insensitive-1.2.1.0/LICENSE",
+          "sha256": "0d54a7110b8278011cbd3d7da1e1b7aea5641ad4439f69945ffd84d059a6eb80"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "cereal",
+      "version": "0.5.8.3",
+      "cabal_metadata": "metadata/hackage/cereal-0.5.8.3.cabal",
+      "cabal_metadata_sha256": "87a227c7b510217ea059db3dd59d9665edd8f0d1d3d8de39458e371a1d9402fb",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/cereal-0.5.8.3/cereal-0.5.8.3.tar.gz",
+      "source_archive_sha256": "99905220661b26e5bd91130bd9772554938608a5b1d717240a6eb331121e0f6a",
+      "license_files": [
+        {
+          "path": "metadata/licenses/cereal-0.5.8.3/LICENSE",
+          "archive_member": "cereal-0.5.8.3/LICENSE",
+          "sha256": "e7f7c5e8b93b49eff6c78a18e0c64ecbf07e9d039a424d71387e832a11f543b0"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "character-ps",
+      "version": "0.1",
+      "cabal_metadata": "metadata/hackage/character-ps-0.1.cabal",
+      "cabal_metadata_sha256": "b38ed1c07ae49e7461e44ca1d00c9ca24d1dcb008424ccd919916f92fd48d9fe",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/character-ps-0.1/character-ps-0.1.tar.gz",
+      "source_archive_sha256": "22de71fde38b236d3e9168a832b5e1e75d1fb4f4028667bdf747b3b4c8c1529c",
+      "license_files": [
+        {
+          "path": "metadata/licenses/character-ps-0.1/LICENSE",
+          "archive_member": "character-ps-0.1/LICENSE",
+          "sha256": "acdcccb0242a8497e4d1deaca0692770d55e8cd30298634382f4b6505bb1766b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "clock",
+      "version": "0.8.4",
+      "cabal_metadata": "metadata/hackage/clock-0.8.4.cabal",
+      "cabal_metadata_sha256": "b938655b00cf204ce69abfff946021bed111d2609a9f7a9c22e28a1a202e9115",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/clock-0.8.4/clock-0.8.4.tar.gz",
+      "source_archive_sha256": "6ae9898afe788a5e334cd5fad5d18a3c2e8e59fa09aaf7b957dbb38a4767df2e",
+      "license_files": [
+        {
+          "path": "metadata/licenses/clock-0.8.4/LICENSE",
+          "archive_member": "clock-0.8.4/LICENSE",
+          "sha256": "825aa93c70e68e17dce4ab3aa2c9a4a25885b0890770bb8a2dfeee45436b601b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "cmdargs",
+      "version": "0.10.22",
+      "cabal_metadata": "metadata/hackage/cmdargs-0.10.22.cabal",
+      "cabal_metadata_sha256": "0d1a33c3978fbcdda4f2543e62ac3ed8ad36152e141cdeebeece7e08d6529d63",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/cmdargs-0.10.22/cmdargs-0.10.22.tar.gz",
+      "source_archive_sha256": "b8b12e7f8795cf13037bb062d453b86c788eae62558586f59e9419aabe6e9bef",
+      "license_files": [
+        {
+          "path": "metadata/licenses/cmdargs-0.10.22/LICENSE",
+          "archive_member": "cmdargs-0.10.22/LICENSE",
+          "sha256": "5d2235f62a151ae0cf2323eb53b437f4a703fc2827a69850d2a5481959551782"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "colour",
+      "version": "2.3.7",
+      "cabal_metadata": "metadata/hackage/colour-2.3.7.cabal",
+      "cabal_metadata_sha256": "613dc8d5f6e51babe57398a742ab8d5c2964fa98b773f3bf6e6a72b7e87f1c6e",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/colour-2.3.7/colour-2.3.7.tar.gz",
+      "source_archive_sha256": "1f3b1055675abe4e3362800cc9bf7ab9b92dfdf21a1f6c82b252611270be9680",
+      "license_files": [
+        {
+          "path": "metadata/licenses/colour-2.3.7/LICENSE",
+          "archive_member": "colour-2.3.7/LICENSE",
+          "sha256": "1f1db3ff571e88a62840f88706fb97cea9eca3c7d21852d8859a6ae5718c7622"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "comonad",
+      "version": "5.0.10",
+      "cabal_metadata": "metadata/hackage/comonad-5.0.10.cabal",
+      "cabal_metadata_sha256": "e8606e010e306f41019026e94b0676993c175260d1d8908e4518b2b06a40272b",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/comonad-5.0.10/comonad-5.0.10.tar.gz",
+      "source_archive_sha256": "e9739df2bf5944958062a4ea73bde3bf35c0879cee0944edf7f05bebf993f9c1",
+      "license_files": [
+        {
+          "path": "metadata/licenses/comonad-5.0.10/LICENSE",
+          "archive_member": "comonad-5.0.10/LICENSE",
+          "sha256": "1cd5d1f57ac61339dbad8f0a0b2e7dcf977c17e0b93021fbad3650a52c8d4975"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "concurrent-output",
+      "version": "1.10.21",
+      "cabal_metadata": "metadata/hackage/concurrent-output-1.10.21.cabal",
+      "cabal_metadata_sha256": "6fb5f4ba6a9376b72d23bd70ad61c9d68bb42e50f4cea06eeed1776a4379fbb2",
+      "declared_license": "BSD2",
+      "source_archive": "https://hackage-content.haskell.org/package/concurrent-output-1.10.21/concurrent-output-1.10.21.tar.gz",
+      "source_archive_sha256": "4a20f3af43a1023539fd35e6d94a13c3c55e296eb233149f2371c2aa9ea3b512",
+      "license_files": [
+        {
+          "path": "metadata/licenses/concurrent-output-1.10.21/LICENSE",
+          "archive_member": "concurrent-output-1.10.21/LICENSE",
+          "sha256": "eb0cb323d1a220a66f39f95ccdb89e01495e9ba3a79df947c49ed97119dfa401"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "contravariant",
+      "version": "1.5.6",
+      "cabal_metadata": "metadata/hackage/contravariant-1.5.6.cabal",
+      "cabal_metadata_sha256": "288f1d3e6fb3adcf9f36f28ffa189673f2f1303812296dfb2523478ad31dd9e2",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/contravariant-1.5.6/contravariant-1.5.6.tar.gz",
+      "source_archive_sha256": "65f3260354ee5fd1f2c7ffc54cff99d22b794c254f053734979ad37820e6efe3",
+      "license_files": [
+        {
+          "path": "metadata/licenses/contravariant-1.5.6/LICENSE",
+          "archive_member": "contravariant-1.5.6/LICENSE",
+          "sha256": "ca552b03f51300af9f01341076808d7df603a1dab4dbbf47e2cae276cb15c770"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "cryptohash-sha1",
+      "version": "0.11.101.0",
+      "cabal_metadata": "metadata/hackage/cryptohash-sha1-0.11.101.0.cabal",
+      "cabal_metadata_sha256": "2bdf29dbd896bca86bf198c882fa8df1cb31843b71f2907e059b7c10bce0adb3",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/cryptohash-sha1-0.11.101.0/cryptohash-sha1-0.11.101.0.tar.gz",
+      "source_archive_sha256": "a4042c97ad02eb68e766577ca35c01970c33e96cfd74ccb4dd403e3476a23241",
+      "license_files": [
+        {
+          "path": "metadata/licenses/cryptohash-sha1-0.11.101.0/LICENSE",
+          "archive_member": "cryptohash-sha1-0.11.101.0/LICENSE",
+          "sha256": "85cba5053cc10efdbf66295af758de7c6d2c0e29533638f6bde5a4f31a6eab9b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "data-default",
+      "version": "0.8.0.2",
+      "cabal_metadata": "metadata/hackage/data-default-0.8.0.2.cabal",
+      "cabal_metadata_sha256": "d4a8c9ed574a43315262666c75efe1080e3913a653844d2a9ff36051a6211bee",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/data-default-0.8.0.2/data-default-0.8.0.2.tar.gz",
+      "source_archive_sha256": "fa7d5de70ccef7381a7f17cd64948de1c24b620de13e1cd55c36c26949870799",
+      "license_files": [
+        {
+          "path": "metadata/licenses/data-default-0.8.0.2/LICENSE",
+          "archive_member": "data-default-0.8.0.2/LICENSE",
+          "sha256": "d89357530c2f847846830a410ee599e2ced7cd3502df8721d3e11ea2e3260184"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "data-fix",
+      "version": "0.3.4",
+      "cabal_metadata": "metadata/hackage/data-fix-0.3.4.cabal",
+      "cabal_metadata_sha256": "200360c49cc81cf8b8bbdf49afd4aee03fffd09d3395b080a7e7c65fcf01d313",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/data-fix-0.3.4/data-fix-0.3.4.tar.gz",
+      "source_archive_sha256": "8df052d18c047ab9e9200536a8799b5af3997ebecbbb091a7384b6be8416ab37",
+      "license_files": [
+        {
+          "path": "metadata/licenses/data-fix-0.3.4/LICENSE",
+          "archive_member": "data-fix-0.3.4/LICENSE",
+          "sha256": "a79799c00ff9b9e0edec255f12f2b27f459db1f166a584f6779efcb957ec2ddf"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "distributive",
+      "version": "0.6.3",
+      "cabal_metadata": "metadata/hackage/distributive-0.6.3.cabal",
+      "cabal_metadata_sha256": "9dec7cd4dc49325f551b2f2bf2004cfe2454b211e5882265cc87880d4382b1f8",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/distributive-0.6.3/distributive-0.6.3.tar.gz",
+      "source_archive_sha256": "aeeb028a23db9f9b073e24a6bd766b79b9d58c2b407b06bf33296c27e9264baa",
+      "license_files": [
+        {
+          "path": "metadata/licenses/distributive-0.6.3/LICENSE",
+          "archive_member": "distributive-0.6.3/LICENSE",
+          "sha256": "7d94212fab30a5dd88ff193657043cf9c3df8353380ad4c7de6bc10b45d6fed8"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "dlist",
+      "version": "1.0",
+      "cabal_metadata": "metadata/hackage/dlist-1.0.cabal",
+      "cabal_metadata_sha256": "854727594c5a816ab3d10f15b1bc4fedaf9e3f7d1ef517a2bb9011f29ba261d2",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/dlist-1.0/dlist-1.0.tar.gz",
+      "source_archive_sha256": "173d637328bb173fcc365f30d29ff4a94292a1e0e5558aeb3dfc11de81510115",
+      "license_files": [
+        {
+          "path": "metadata/licenses/dlist-1.0/license.md",
+          "archive_member": "dlist-1.0/license.md",
+          "sha256": "9b659a8f7227402615c243adf2db24b97d1cbaa6b29f79ea4991289b0b37c7be"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "extra",
+      "version": "1.8.1",
+      "cabal_metadata": "metadata/hackage/extra-1.8.1.cabal",
+      "cabal_metadata_sha256": "b9c360f2f3fbff5ca04656b7aa0a91b254ac7de7e4b959bae4688a178ffd79d1",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/extra-1.8.1/extra-1.8.1.tar.gz",
+      "source_archive_sha256": "66a7d6d718646a7bda822d67550dc185c6e25ad1f7fecf06fc132e300098b598",
+      "license_files": [
+        {
+          "path": "metadata/licenses/extra-1.8.1/LICENSE",
+          "archive_member": "extra-1.8.1/LICENSE",
+          "sha256": "9005f2cdb3d5143950d8b36859a12cbab9054dcb873749a8ba1d12415ace4386"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "fgl",
+      "version": "5.8.3.1",
+      "cabal_metadata": "metadata/hackage/fgl-5.8.3.1.cabal",
+      "cabal_metadata_sha256": "ba3591561e4005c87bf3d1295ee87e649c2b4c29d6617398fc9a1878389e0981",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/fgl-5.8.3.1/fgl-5.8.3.1.tar.gz",
+      "source_archive_sha256": "02f71384d3f286f8473a58c55ed3ca040f4d142ca4badf5c024ab077bc40362f",
+      "license_files": [
+        {
+          "path": "metadata/licenses/fgl-5.8.3.1/LICENSE",
+          "archive_member": "fgl-5.8.3.1/LICENSE",
+          "sha256": "a946fea456429af6a1aebe5b4f60f6a7dc184ece334694617efd3c1d7f3fc05a"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "fingertree",
+      "version": "0.1.6.3",
+      "cabal_metadata": "metadata/hackage/fingertree-0.1.6.3.cabal",
+      "cabal_metadata_sha256": "cd256474cab1d0a2e40f9440ad8194f790b06cef7aa70e5bc12bad09fc8acd96",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/fingertree-0.1.6.3/fingertree-0.1.6.3.tar.gz",
+      "source_archive_sha256": "87e0ae5fd8dfe57119b8a6a291f66b2aa9751fe3c6dfeff7f7de87d9fcdba2b8",
+      "license_files": [
+        {
+          "path": "metadata/licenses/fingertree-0.1.6.3/LICENSE",
+          "archive_member": "fingertree-0.1.6.3/LICENSE",
+          "sha256": "0fae50f9438e342b8195de119faa1ba9df78bc851b95b11bdcc520219fe26121"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "free",
+      "version": "5.2",
+      "cabal_metadata": "metadata/hackage/free-5.2.cabal",
+      "cabal_metadata_sha256": "39ca01645f7c2f08ffd64226891c514bdc924a87da48f815f9fe77c2e0ac1164",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/free-5.2/free-5.2.tar.gz",
+      "source_archive_sha256": "72867f7c89173263765736e8d395e94291f1aaea626ecb1d673d72ce90b94f89",
+      "license_files": [
+        {
+          "path": "metadata/licenses/free-5.2/LICENSE",
+          "archive_member": "free-5.2/LICENSE",
+          "sha256": "db35bea497d16c9f0398e1e71db178d51349221fda8bdfc30774e6e1be2f3984"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "ghc-paths",
+      "version": "0.1.0.12",
+      "cabal_metadata": "metadata/hackage/ghc-paths-0.1.0.12.cabal",
+      "cabal_metadata_sha256": "424d50a2a38c6ff5b8454ede5da7fb46ea5370c2d9e1886c480a514223c0b0fa",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/ghc-paths-0.1.0.12/ghc-paths-0.1.0.12.tar.gz",
+      "source_archive_sha256": "6ecbe676d073cb07989c61ce4c5709c4e67cbefdd2d55a4095f9388b6fe2c484",
+      "license_files": [
+        {
+          "path": "metadata/licenses/ghc-paths-0.1.0.12/LICENSE",
+          "archive_member": "ghc-paths-0.1.0.12/LICENSE",
+          "sha256": "59394ae2e559cc53c36d9ecba6929475c6eb2002b01dedc02f51350afcefc4ce"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "githash",
+      "version": "0.1.7.0",
+      "cabal_metadata": "metadata/hackage/githash-0.1.7.0.cabal",
+      "cabal_metadata_sha256": "cb405aed03e1da9a5ea7601e4d7eea3739104a8a6e47ac4970e079d616326836",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/githash-0.1.7.0/githash-0.1.7.0.tar.gz",
+      "source_archive_sha256": "1ad5e7c26bd9c9c4e4c3232206694b153845fe11f227e39d214eef0d95f330d4",
+      "license_files": [
+        {
+          "path": "metadata/licenses/githash-0.1.7.0/LICENSE",
+          "archive_member": "githash-0.1.7.0/LICENSE",
+          "sha256": "ba6e99ae083de7a096209d42ed2b3cdc4200d71adabad68166a64aec46559059"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "gitrev",
+      "version": "1.3.1",
+      "cabal_metadata": "metadata/hackage/gitrev-1.3.1.cabal",
+      "cabal_metadata_sha256": "1d0b2d34bee761865fc22bd022f32890e1b561dfac62a1f31a4fe6220a0d1e58",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/gitrev-1.3.1/gitrev-1.3.1.tar.gz",
+      "source_archive_sha256": "a89964db24f56727b0e7b10c98fe7c116d721d8c46f52d6e77088669aaa38332",
+      "license_files": [
+        {
+          "path": "metadata/licenses/gitrev-1.3.1/LICENSE",
+          "archive_member": "gitrev-1.3.1/LICENSE",
+          "sha256": "791b618e992236b7429be82dce923bbb46c64573683bcb43892b4fdbb1b0323d"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hashable",
+      "version": "1.4.7.0",
+      "cabal_metadata": "metadata/hackage/hashable-1.4.7.0.cabal",
+      "cabal_metadata_sha256": "573f3ab242f75465a0d67ce9d84202650a1606575e6dbd6d31ffcf4767a9a379",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/hashable-1.4.7.0/hashable-1.4.7.0.tar.gz",
+      "source_archive_sha256": "3baee4c9027a08830d148ec524cbc0471de645e1e8426d46780ef2758df0e8da",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hashable-1.4.7.0/LICENSE",
+          "archive_member": "hashable-1.4.7.0/LICENSE",
+          "sha256": "3112022b0b06d7f529bc5bf8cc767973191d3d6502693c9e4ad9c79de9318db0"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "haskell-lexer",
+      "version": "1.2.1",
+      "cabal_metadata": "metadata/hackage/haskell-lexer-1.2.1.cabal",
+      "cabal_metadata_sha256": "393300e223f7b84c334d87780481bcede98392aa8bd82bc882d76b54b7d1c699",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/haskell-lexer-1.2.1/haskell-lexer-1.2.1.tar.gz",
+      "source_archive_sha256": "9d76e1528106b1b32e6e465264e39381ca4b450b72a4b5331e7e5127640a1a41",
+      "license_files": [
+        {
+          "path": "metadata/licenses/haskell-lexer-1.2.1/LICENSE",
+          "archive_member": "haskell-lexer-1.2.1/LICENSE",
+          "sha256": "512a092f3fdbccdd62bfec5152e2c7241cfbc829caae550915a1c78fb78e0a72"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hsc2hs",
+      "version": "0.68.10",
+      "cabal_metadata": "metadata/hackage/hsc2hs-0.68.10.cabal",
+      "cabal_metadata_sha256": "39b25fd929b02b01a3fe59fec7ca8b2da6f0f9e282276b7a84e63a4702c4d725",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/hsc2hs-0.68.10/hsc2hs-0.68.10.tar.gz",
+      "source_archive_sha256": "6f4e34d788fe2ca7091ee0a10307ee8a7c060a1ba890f2bffad16a7d4d5cef76",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hsc2hs-0.68.10/LICENSE",
+          "archive_member": "hsc2hs-0.68.10/LICENSE",
+          "sha256": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hscolour",
+      "version": "1.25",
+      "cabal_metadata": "metadata/hackage/hscolour-1.25.cabal",
+      "cabal_metadata_sha256": "fbffb0b927d95d4e913b72f2e56463c37d66c991111fa3202756c1802f312813",
+      "declared_license": "LGPL",
+      "source_archive": "https://hackage-content.haskell.org/package/hscolour-1.25/hscolour-1.25.tar.gz",
+      "source_archive_sha256": "54ce30da55599e872fd38d927aa518369e2971b284acc67ed0caac6ae14cc77c",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hscolour-1.25/LICENCE-LGPL",
+          "archive_member": "hscolour-1.25/LICENCE-LGPL",
+          "sha256": "51d1ad5cccb2acc2970410d12530d915a2aa0020b397459385205784ddd4142f"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hspec",
+      "version": "2.11.18",
+      "cabal_metadata": "metadata/hackage/hspec-2.11.18.cabal",
+      "cabal_metadata_sha256": "6270f50966fef5e804c20fca61f13fc0ef8f4abe4b861c9300cfb1a7eb866c1a",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/hspec-2.11.18/hspec-2.11.18.tar.gz",
+      "source_archive_sha256": "bc38ac7f009cae15f0a0fbf4a5aaa38fbbcb1fc8db513eaeba0d70b91464e5f1",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hspec-2.11.18/LICENSE",
+          "archive_member": "hspec-2.11.18/LICENSE",
+          "sha256": "fbca1119bae404636e430506e6b6c90acc4f2326862f9e9f80b7b8d2bdce202b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hspec-core",
+      "version": "2.11.18",
+      "cabal_metadata": "metadata/hackage/hspec-core-2.11.18.cabal",
+      "cabal_metadata_sha256": "030d73cb6de239487c21e806e0cc63a2b75494156dde19b6da913966f4b6414c",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/hspec-core-2.11.18/hspec-core-2.11.18.tar.gz",
+      "source_archive_sha256": "0362527fd326e383d1f4a5fb7042c5673b06bca2b8deaae518eac5a841594b02",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hspec-core-2.11.18/LICENSE",
+          "archive_member": "hspec-core-2.11.18/LICENSE",
+          "sha256": "fbca1119bae404636e430506e6b6c90acc4f2326862f9e9f80b7b8d2bdce202b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hspec-discover",
+      "version": "2.11.18",
+      "cabal_metadata": "metadata/hackage/hspec-discover-2.11.18.cabal",
+      "cabal_metadata_sha256": "113b8afe2d806c9e255cc2fb566f4dc2ae0e30607c1acaa11a900696efa157cd",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/hspec-discover-2.11.18/hspec-discover-2.11.18.tar.gz",
+      "source_archive_sha256": "73244d10c22fd1a4585dbe518e08a4c8f06e932e798f9c89432d3cd9f6bd253a",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hspec-discover-2.11.18/LICENSE",
+          "archive_member": "hspec-discover-2.11.18/LICENSE",
+          "sha256": "4c92dd84afc4b68cc23e7c7a3ffa9a2ff1162bf4f81ce0c6d080e37bc82fd72b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hspec-expectations",
+      "version": "0.8.4",
+      "cabal_metadata": "metadata/hackage/hspec-expectations-0.8.4.cabal",
+      "cabal_metadata_sha256": "4237f094a7931202ff57ac6475542b0b314b50a7024550e2b6eb87cfb0d4ff93",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/hspec-expectations-0.8.4/hspec-expectations-0.8.4.tar.gz",
+      "source_archive_sha256": "7b8dde7e230ecfda90c95fd80478b244a45e68602fb3dd4a76f4710619be21ff",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hspec-expectations-0.8.4/LICENSE",
+          "archive_member": "hspec-expectations-0.8.4/LICENSE",
+          "sha256": "bb9be7b6643af644056a88921b3ceaad61de8b9398bf2077b7f4e5ac80082a60"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "hspec-smallcheck",
+      "version": "0.5.3",
+      "cabal_metadata": "metadata/hackage/hspec-smallcheck-0.5.3.cabal",
+      "cabal_metadata_sha256": "bd2555e233c442220275ff9488dd11f377cb0ad9a86a3c5f91688742155fb72a",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/hspec-smallcheck-0.5.3/hspec-smallcheck-0.5.3.tar.gz",
+      "source_archive_sha256": "f5810a4be4878fd3e02efc9895a2534f5783387c98aae0d9787f50da2eac5032",
+      "license_files": [
+        {
+          "path": "metadata/licenses/hspec-smallcheck-0.5.3/LICENSE",
+          "archive_member": "hspec-smallcheck-0.5.3/LICENSE",
+          "sha256": "7b428c5ca449c427106dc62024bd03d1dfb7e8d50d4fb4fc5b052b430f404e44"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "indexed-traversable",
+      "version": "0.1.5",
+      "cabal_metadata": "metadata/hackage/indexed-traversable-0.1.5.cabal",
+      "cabal_metadata_sha256": "f0b1b514dfc085281d0b4b9338fc0bd0c1d25ee77306f2a144ffe012b0afef8c",
+      "declared_license": "BSD2",
+      "source_archive": "https://hackage-content.haskell.org/package/indexed-traversable-0.1.5/indexed-traversable-0.1.5.tar.gz",
+      "source_archive_sha256": "6423597d3528ac66c54beaab9f5408429c0a29b8cb98c45a1645f255aef7fef0",
+      "license_files": [
+        {
+          "path": "metadata/licenses/indexed-traversable-0.1.5/LICENSE",
+          "archive_member": "indexed-traversable-0.1.5/LICENSE",
+          "sha256": "c40d7afbc07af51f50301617e1f9dd122a3517caab8564ad3baa4d2c85491796"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "indexed-traversable-instances",
+      "version": "0.1.2.1",
+      "cabal_metadata": "metadata/hackage/indexed-traversable-instances-0.1.2.1.cabal",
+      "cabal_metadata_sha256": "76460d05cc3933a21962c7744400d2594144c00badc23c8f8a7d5dfbd39bbe6e",
+      "declared_license": "BSD2",
+      "source_archive": "https://hackage-content.haskell.org/package/indexed-traversable-instances-0.1.2.1/indexed-traversable-instances-0.1.2.1.tar.gz",
+      "source_archive_sha256": "e69d41f23a95463c2e03aee03374a4f489c72f7bf235be251499c4cca9411fec",
+      "license_files": [
+        {
+          "path": "metadata/licenses/indexed-traversable-instances-0.1.2.1/LICENSE",
+          "archive_member": "indexed-traversable-instances-0.1.2.1/LICENSE",
+          "sha256": "c40d7afbc07af51f50301617e1f9dd122a3517caab8564ad3baa4d2c85491796"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "integer-conversion",
+      "version": "0.1.1",
+      "cabal_metadata": "metadata/hackage/integer-conversion-0.1.1.cabal",
+      "cabal_metadata_sha256": "123d1b088404f0976500c68d8105978aa2e32908ce5508e32aebd237f0447c9f",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/integer-conversion-0.1.1/integer-conversion-0.1.1.tar.gz",
+      "source_archive_sha256": "c18164a048073310f6353ebc64c9037b52a4b8299963ce05e027bcf60e22155a",
+      "license_files": [
+        {
+          "path": "metadata/licenses/integer-conversion-0.1.1/LICENSE",
+          "archive_member": "integer-conversion-0.1.1/LICENSE",
+          "sha256": "acdcccb0242a8497e4d1deaca0692770d55e8cd30298634382f4b6505bb1766b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "integer-logarithms",
+      "version": "1.0.5",
+      "cabal_metadata": "metadata/hackage/integer-logarithms-1.0.5.cabal",
+      "cabal_metadata_sha256": "870ce80a2e704f179bcda12ee106389a484100fac1534abfd587aaaa51978e6b",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/integer-logarithms-1.0.5/integer-logarithms-1.0.5.tar.gz",
+      "source_archive_sha256": "66dff6f1f778fe1ec689139fe125cd4e6a95643734c651c891eafa2c50669459",
+      "license_files": [
+        {
+          "path": "metadata/licenses/integer-logarithms-1.0.5/LICENSE",
+          "archive_member": "integer-logarithms-1.0.5/LICENSE",
+          "sha256": "ce24460cb902fe28fef98b8d3ce0cc4105d9d8204dccc819a8233452de3b38b7"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "intern",
+      "version": "0.9.6",
+      "cabal_metadata": "metadata/hackage/intern-0.9.6.cabal",
+      "cabal_metadata_sha256": "1a0c01d19739a9e575d001ad4fc55cdfe90f8ef7db426498b1e251ed175ce855",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/intern-0.9.6/intern-0.9.6.tar.gz",
+      "source_archive_sha256": "8ec93e0d74b3700bc61f861d9311c66358faa52cda81bbb403ff7f15bec936ca",
+      "license_files": [
+        {
+          "path": "metadata/licenses/intern-0.9.6/LICENSE",
+          "archive_member": "intern-0.9.6/LICENSE",
+          "sha256": "63ed840bd6e163987c41fad2c6453546de364db4445adaa57efea78ae0ce66c0"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "lens-family",
+      "version": "2.1.3",
+      "cabal_metadata": "metadata/hackage/lens-family-2.1.3.cabal",
+      "cabal_metadata_sha256": "e368ef693ed3d894dcec1735fe2952ab876c49a88231c7d76289d2a9d2bdd66f",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/lens-family-2.1.3/lens-family-2.1.3.tar.gz",
+      "source_archive_sha256": "1801b4c233538cbfe67c2f62827ef965f6f60aaebc270dd9b07f0f7f3deb2513",
+      "license_files": [
+        {
+          "path": "metadata/licenses/lens-family-2.1.3/LICENSE",
+          "archive_member": "lens-family-2.1.3/LICENSE",
+          "sha256": "8716041fcf1a3e2b4a83debecf51777ee25ed96309828862cb5e72a9e818eb09"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "lens-family-core",
+      "version": "2.1.3",
+      "cabal_metadata": "metadata/hackage/lens-family-core-2.1.3.cabal",
+      "cabal_metadata_sha256": "3714c3fa57a556d6fb958234fa4cde8401e098458dc9041416c54d25ec187473",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/lens-family-core-2.1.3/lens-family-core-2.1.3.tar.gz",
+      "source_archive_sha256": "9b1a31b17969154b31186ecc944c0988302ba8bc558022be57816ebebc201b65",
+      "license_files": [
+        {
+          "path": "metadata/licenses/lens-family-core-2.1.3/LICENSE",
+          "archive_member": "lens-family-core-2.1.3/LICENSE",
+          "sha256": "8716041fcf1a3e2b4a83debecf51777ee25ed96309828862cb5e72a9e818eb09"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "lifted-base",
+      "version": "0.2.3.12",
+      "cabal_metadata": "metadata/hackage/lifted-base-0.2.3.12.cabal",
+      "cabal_metadata_sha256": "e94ad0692c9c5d85c373e508f23654f2da8ac8c3e475c2b65ffbc04fb165ad69",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/lifted-base-0.2.3.12/lifted-base-0.2.3.12.tar.gz",
+      "source_archive_sha256": "c134a95f56750aae806e38957bb03c59627cda16034af9e00a02b699474317c5",
+      "license_files": [
+        {
+          "path": "metadata/licenses/lifted-base-0.2.3.12/LICENSE",
+          "archive_member": "lifted-base-0.2.3.12/LICENSE",
+          "sha256": "809674ffd20970dad25480561763808456f31c7a018850d2651e74bd920087b7"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "liquid-fixpoint",
+      "version": "0.9.6.3",
+      "cabal_metadata": "metadata/hackage/liquid-fixpoint-0.9.6.3.cabal",
+      "cabal_metadata_sha256": "c368a22ba31705d8c0e6c02004d7bb56d0e8ae3f43def5988f3712690ab19348",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/liquid-fixpoint-0.9.6.3/liquid-fixpoint-0.9.6.3.tar.gz",
+      "source_archive_sha256": "955cae3d235403cbc8fae564d215da227633bdb1ba33dbfc7eecaecb0b3d396e",
+      "license_files": [
+        {
+          "path": "metadata/licenses/liquid-fixpoint-0.9.6.3/LICENSE",
+          "archive_member": "liquid-fixpoint-0.9.6.3/LICENSE",
+          "sha256": "73463da713ec513255b133640d1dbb1bb79484a020ff95d172e19fc04076e1c5"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "liquidhaskell",
+      "version": "0.9.6.3.1",
+      "cabal_metadata": "metadata/hackage/liquidhaskell-0.9.6.3.1.cabal",
+      "cabal_metadata_sha256": "fb5309de42d2731e9bcfe37056e938f129b3b154f2aba5b864cc2b6871b07afc",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/liquidhaskell-0.9.6.3.1/liquidhaskell-0.9.6.3.1.tar.gz",
+      "source_archive_sha256": "3a730d89e4af94e49ed30bff5befc097c8bab795d5ba2088a672b6a8726f5123",
+      "license_files": [
+        {
+          "path": "metadata/licenses/liquidhaskell-0.9.6.3.1/LICENSE",
+          "archive_member": "liquidhaskell-0.9.6.3.1/LICENSE",
+          "sha256": "73463da713ec513255b133640d1dbb1bb79484a020ff95d172e19fc04076e1c5"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "liquidhaskell-boot",
+      "version": "0.9.6.3",
+      "cabal_metadata": "metadata/hackage/liquidhaskell-boot-0.9.6.3.cabal",
+      "cabal_metadata_sha256": "b700bb736bad616851b504b19e36597ca4e46fdc0f950f9a6130329989453aea",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/liquidhaskell-boot-0.9.6.3/liquidhaskell-boot-0.9.6.3.tar.gz",
+      "source_archive_sha256": "b38cdb88a923dc1e770b207c172cfcf94d6f2d8bb178a2c6fc88db666d415701",
+      "license_files": [],
+      "status": "no_license_file_in_verified_archive",
+      "license_declaration_source": "metadata/hackage/liquidhaskell-boot-0.9.6.3.cabal",
+      "same_project_supplied_notice": "metadata/liquidhaskell-LICENSE"
+    },
+    {
+      "package": "logict",
+      "version": "0.8.2.0",
+      "cabal_metadata": "metadata/hackage/logict-0.8.2.0.cabal",
+      "cabal_metadata_sha256": "24e023b7c75cbf61d1c94c84479949dc4715dbce0824fa7562396679f56a2647",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/logict-0.8.2.0/logict-0.8.2.0.tar.gz",
+      "source_archive_sha256": "189ae6f81c8e68d94ecf8ce6440954e3c7ca3f237973ef6600896ee8fc46abef",
+      "license_files": [
+        {
+          "path": "metadata/licenses/logict-0.8.2.0/LICENSE",
+          "archive_member": "logict-0.8.2.0/LICENSE",
+          "sha256": "feb5883f2aaba36f26eedb6eef26c594e0a2e908c1258cb2a6e51d5f419bfedd"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "megaparsec",
+      "version": "9.8.3",
+      "cabal_metadata": "metadata/hackage/megaparsec-9.8.3.cabal",
+      "cabal_metadata_sha256": "0b854c49b56e0fcaa9d374d337e23a5c188a65bf47dc9c238ff39e36375a50dd",
+      "declared_license": "BSD-2-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/megaparsec-9.8.3/megaparsec-9.8.3.tar.gz",
+      "source_archive_sha256": "9436ab45f7ff186a13320641af023bcfa2b84cc4ccefac5e50a7a8ee366bcf8b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/megaparsec-9.8.3/LICENSE.md",
+          "archive_member": "megaparsec-9.8.3/LICENSE.md",
+          "sha256": "fd7b52da761c23b686f3b2b6870d905aad8543d2b06429fe0c700689b0be7b65"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "monad-control",
+      "version": "1.0.3.1",
+      "cabal_metadata": "metadata/hackage/monad-control-1.0.3.1.cabal",
+      "cabal_metadata_sha256": "2d657279839e1a760c86a69f00f0c36473ef6972d413ec0f83a40249c70e098e",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/monad-control-1.0.3.1/monad-control-1.0.3.1.tar.gz",
+      "source_archive_sha256": "ae0baea04d99375ef788140367179994a7178d400a8ce0d9026846546772713c",
+      "license_files": [
+        {
+          "path": "metadata/licenses/monad-control-1.0.3.1/LICENSE",
+          "archive_member": "monad-control-1.0.3.1/LICENSE",
+          "sha256": "46e3f68b53ff42e79829eb54d9529340141548cb792a5e6d6a4e780d4daf5cff"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "monad-loops",
+      "version": "0.4.3",
+      "cabal_metadata": "metadata/hackage/monad-loops-0.4.3.cabal",
+      "cabal_metadata_sha256": "ada4f1295ece07f9a7398bc5b40c4532f95a733a8604d2a2f57f05f878766df2",
+      "declared_license": "PublicDomain",
+      "source_archive": "https://hackage-content.haskell.org/package/monad-loops-0.4.3/monad-loops-0.4.3.tar.gz",
+      "source_archive_sha256": "7eaaaf6bc43661e9e86e310ff8c56fbea16eb6bf13c31a2e28103138ac164c18",
+      "license_files": [],
+      "status": "no_license_file_in_verified_archive",
+      "license_declaration_source": "metadata/hackage/monad-loops-0.4.3.cabal"
+    },
+    {
+      "package": "mono-traversable",
+      "version": "1.0.21.0",
+      "cabal_metadata": "metadata/hackage/mono-traversable-1.0.21.0.cabal",
+      "cabal_metadata_sha256": "7e6269eadfa45fe8433e01f6dace1397eb3ae423931071634be806eb2ed73b17",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/mono-traversable-1.0.21.0/mono-traversable-1.0.21.0.tar.gz",
+      "source_archive_sha256": "4dd93ea334c0169500402f07aa39c98dbb7bffe55dc63fdf228da2cc22c7c5cd",
+      "license_files": [
+        {
+          "path": "metadata/licenses/mono-traversable-1.0.21.0/LICENSE",
+          "archive_member": "mono-traversable-1.0.21.0/LICENSE",
+          "sha256": "49993c21a514d0ea769e899737fa3b1df2d76b7e23846fcc46db6f5e6d07d14b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "nats",
+      "version": "1.1.2",
+      "cabal_metadata": "metadata/hackage/nats-1.1.2.cabal",
+      "cabal_metadata_sha256": "604a8bc02bb3cb0331ab3b45eeaed54f8a78a1c34eea253688f06837f1f58c61",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/nats-1.1.2/nats-1.1.2.tar.gz",
+      "source_archive_sha256": "b9d2d85d8612f9b06f8c9bfd1acecd848e03ab82cfb53afe1d93f5086b6e80ec",
+      "license_files": [
+        {
+          "path": "metadata/licenses/nats-1.1.2/LICENSE",
+          "archive_member": "nats-1.1.2/LICENSE",
+          "sha256": "e030d602502e5067b5248c3c4a0ae2549519becdc6b7e7614c218d9c7a8807f8"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "network",
+      "version": "3.2.9.0",
+      "cabal_metadata": "metadata/hackage/network-3.2.9.0.cabal",
+      "cabal_metadata_sha256": "48a0c4f91e460f892c629b76c9410336a978e9b58aa87c678aee587b4ca37698",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/network-3.2.9.0/network-3.2.9.0.tar.gz",
+      "source_archive_sha256": "a3e1d8bdd58c67fe4bf21f2feb41b5041b8926f3d5779f80614944b7c3075bb5",
+      "license_files": [
+        {
+          "path": "metadata/licenses/network-3.2.9.0/LICENSE",
+          "archive_member": "network-3.2.9.0/LICENSE",
+          "sha256": "52b7b34c66e567678e498103d010a1bd163ef8b06e7e044016b04286a08db982"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "network-uri",
+      "version": "2.6.4.2",
+      "cabal_metadata": "metadata/hackage/network-uri-2.6.4.2.cabal",
+      "cabal_metadata_sha256": "6fffb57373962b5651a2db8b0af732098b3bf029a7ced76a9855615de2026588",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/network-uri-2.6.4.2/network-uri-2.6.4.2.tar.gz",
+      "source_archive_sha256": "9c188973126e893250b881f20e8811dca06c223c23402b06f7a1f2e995797228",
+      "license_files": [
+        {
+          "path": "metadata/licenses/network-uri-2.6.4.2/LICENSE",
+          "archive_member": "network-uri-2.6.4.2/LICENSE",
+          "sha256": "52b7b34c66e567678e498103d010a1bd163ef8b06e7e044016b04286a08db982"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "optparse-applicative",
+      "version": "0.18.1.0",
+      "cabal_metadata": "metadata/hackage/optparse-applicative-0.18.1.0.cabal",
+      "cabal_metadata_sha256": "f30973861ac7e7ebff05ff8c7c3d1e4d283a1f3850e1cc14106b0693ec1b6d82",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/optparse-applicative-0.18.1.0/optparse-applicative-0.18.1.0.tar.gz",
+      "source_archive_sha256": "63811ab4fd26e829b8868364325a88be3acc79819f5bb5005b2dd3b961ecc491",
+      "license_files": [
+        {
+          "path": "metadata/licenses/optparse-applicative-0.18.1.0/LICENSE",
+          "archive_member": "optparse-applicative-0.18.1.0/LICENSE",
+          "sha256": "1919d7ec1ccf5f83f13c3070a25fd6ac4b5be91e1c99972d0eb3e564a61e8a2f"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "os-string",
+      "version": "2.0.11",
+      "cabal_metadata": "metadata/hackage/os-string-2.0.11.cabal",
+      "cabal_metadata_sha256": "c0663f5f428108680f4aae0f67b7b357c1bb5954281c7fbe941c50c58cd79f18",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/os-string-2.0.11/os-string-2.0.11.tar.gz",
+      "source_archive_sha256": "54807410e65e0e97c71ee37eaa89ade9a656b5e27f435c214f1dd6eaad18d714",
+      "license_files": [
+        {
+          "path": "metadata/licenses/os-string-2.0.11/LICENSE",
+          "archive_member": "os-string-2.0.11/LICENSE",
+          "sha256": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "parallel",
+      "version": "3.3.0.0",
+      "cabal_metadata": "metadata/hackage/parallel-3.3.0.0.cabal",
+      "cabal_metadata_sha256": "7a4b82d3ad83e38f5b3be442ee32c9e17905ba9a813349fa76707fd0377e91aa",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/parallel-3.3.0.0/parallel-3.3.0.0.tar.gz",
+      "source_archive_sha256": "47c21e778d8e8ebf657aa72fd30e189e71ffddb188660e9d09ca9062d7541791",
+      "license_files": [
+        {
+          "path": "metadata/licenses/parallel-3.3.0.0/LICENSE",
+          "archive_member": "parallel-3.3.0.0/LICENSE",
+          "sha256": "190b5f593349cf680f806d32c1644996bc6e7e56183419b926bf6eb93926fd8e"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "parser-combinators",
+      "version": "1.3.1",
+      "cabal_metadata": "metadata/hackage/parser-combinators-1.3.1.cabal",
+      "cabal_metadata_sha256": "b0b3ebcdfa8d2e0d83ff7b6fd55df7870d1182bd99ee84145f02cbf81786f8ea",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/parser-combinators-1.3.1/parser-combinators-1.3.1.tar.gz",
+      "source_archive_sha256": "9c506cc38f9df0fc23a942e739ed1f0799fc6c54515d770de044168ecff740bf",
+      "license_files": [
+        {
+          "path": "metadata/licenses/parser-combinators-1.3.1/LICENSE.md",
+          "archive_member": "parser-combinators-1.3.1/LICENSE.md",
+          "sha256": "641f0d4ca0c32954a2d9f7c031792d07a700e24251fe4b7cbb39e810629e19d0"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "prettyprinter",
+      "version": "1.7.2",
+      "cabal_metadata": "metadata/hackage/prettyprinter-1.7.2.cabal",
+      "cabal_metadata_sha256": "e3a802ea939d465b2e37b9fa09d8e5bb88b5775d6d62dd2ec6ca32b63416656d",
+      "declared_license": "BSD2",
+      "source_archive": "https://hackage-content.haskell.org/package/prettyprinter-1.7.2/prettyprinter-1.7.2.tar.gz",
+      "source_archive_sha256": "f04eb6fd865512ad8672da1e8bfcea1c384509fc2f662c41b7ac39d7898706ee",
+      "license_files": [
+        {
+          "path": "metadata/licenses/prettyprinter-1.7.2/LICENSE.md",
+          "archive_member": "prettyprinter-1.7.2/LICENSE.md",
+          "sha256": "bb5195c6ad2f073268f918f33a7b6beac68203365c5d82122b87d2de0a93c153"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "prettyprinter-ansi-terminal",
+      "version": "1.1.4",
+      "cabal_metadata": "metadata/hackage/prettyprinter-ansi-terminal-1.1.4.cabal",
+      "cabal_metadata_sha256": "5184ba6002a650de3307547347eaba19bdc9b82eb68e943f406818caa215ce4f",
+      "declared_license": "BSD2",
+      "source_archive": "https://hackage-content.haskell.org/package/prettyprinter-ansi-terminal-1.1.4/prettyprinter-ansi-terminal-1.1.4.tar.gz",
+      "source_archive_sha256": "912cd340d5c2583111e2eaeb9aa03b87551ca2e3dd78bbfd346756b9f1e6c9fe",
+      "license_files": [
+        {
+          "path": "metadata/licenses/prettyprinter-ansi-terminal-1.1.4/LICENSE.md",
+          "archive_member": "prettyprinter-ansi-terminal-1.1.4/LICENSE.md",
+          "sha256": "bb5195c6ad2f073268f918f33a7b6beac68203365c5d82122b87d2de0a93c153"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "primitive",
+      "version": "0.9.1.0",
+      "cabal_metadata": "metadata/hackage/primitive-0.9.1.0.cabal",
+      "cabal_metadata_sha256": "756b222c715bc6ef5ba81fa69cdbaa20c5c53beb6f16f174b8bacc93a6d239f0",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/primitive-0.9.1.0/primitive-0.9.1.0.tar.gz",
+      "source_archive_sha256": "44b4de41813c7bc5db8a57f87c3612a069b65086946268ba165097252ebd3d76",
+      "license_files": [
+        {
+          "path": "metadata/licenses/primitive-0.9.1.0/LICENSE",
+          "archive_member": "primitive-0.9.1.0/LICENSE",
+          "sha256": "cd6b51ecce7bc97a7bbd8500797c350a72f2f9c8e3aaf9d7154b9064d16316ea"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "profunctors",
+      "version": "5.6.3",
+      "cabal_metadata": "metadata/hackage/profunctors-5.6.3.cabal",
+      "cabal_metadata_sha256": "bfdb8c8b8cd4390e30219219edaff6ae7f428516f7338f0b7c39cb16b84bad2c",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/profunctors-5.6.3/profunctors-5.6.3.tar.gz",
+      "source_archive_sha256": "b9c6f427368d2e811e4c48b59005218672458fd2f00a02cbefb8be9c751c0ef3",
+      "license_files": [
+        {
+          "path": "metadata/licenses/profunctors-5.6.3/LICENSE",
+          "archive_member": "profunctors-5.6.3/LICENSE",
+          "sha256": "d3c0d29afc5409a95a762dc22a0f343adcf9a9e431baf4e78648dcde69300d14"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "quickcheck-io",
+      "version": "0.2.0",
+      "cabal_metadata": "metadata/hackage/quickcheck-io-0.2.0.cabal",
+      "cabal_metadata_sha256": "7bf0b68fb90873825eb2e5e958c1b76126dcf984debb998e81673e6d837e0b2d",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/quickcheck-io-0.2.0/quickcheck-io-0.2.0.tar.gz",
+      "source_archive_sha256": "fb779119d79fe08ff4d502fb6869a70c9a8d5fd8ae0959f605c3c937efd96422",
+      "license_files": [
+        {
+          "path": "metadata/licenses/quickcheck-io-0.2.0/LICENSE",
+          "archive_member": "quickcheck-io-0.2.0/LICENSE",
+          "sha256": "e04c8bd70cdf1458071e7d82b39746ae0d560c9eb60ea98e9a5c57aab9545324"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "random",
+      "version": "1.3.1",
+      "cabal_metadata": "metadata/hackage/random-1.3.1.cabal",
+      "cabal_metadata_sha256": "0b4f649c3e78713b2ccad1535251ee34b148237fb2229d7058c2b1d9ccc324b8",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/random-1.3.1/random-1.3.1.tar.gz",
+      "source_archive_sha256": "d840ac83f265b0cfa2a678f8ec78627eb50cf9be2f067c52c8a4239c29b71a35",
+      "license_files": [
+        {
+          "path": "metadata/licenses/random-1.3.1/LICENSE",
+          "archive_member": "random-1.3.1/LICENSE",
+          "sha256": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "recursion-schemes",
+      "version": "5.2.3",
+      "cabal_metadata": "metadata/hackage/recursion-schemes-5.2.3.cabal",
+      "cabal_metadata_sha256": "d5ac7f926b2e99a40152582f18d57fdb088bf3402504abdca4c1da3daacefe5e",
+      "declared_license": "BSD2",
+      "source_archive": "https://hackage-content.haskell.org/package/recursion-schemes-5.2.3/recursion-schemes-5.2.3.tar.gz",
+      "source_archive_sha256": "3b4e84bcec8d6ea5583388a9fc8b98255d39623d8420784a1a35fe46f4990e08",
+      "license_files": [
+        {
+          "path": "metadata/licenses/recursion-schemes-5.2.3/LICENSE",
+          "archive_member": "recursion-schemes-5.2.3/LICENSE",
+          "sha256": "c9ed0c32e5332899f31bfad68cdb6e949a712a155318a0eb4872cc8f5bf4c95b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "resourcet",
+      "version": "1.3.0",
+      "cabal_metadata": "metadata/hackage/resourcet-1.3.0.cabal",
+      "cabal_metadata_sha256": "faa760fb28fb5c98fbe4867e375a775495cabc00926da81fa102dc991017d2c5",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/resourcet-1.3.0/resourcet-1.3.0.tar.gz",
+      "source_archive_sha256": "ec601785ee42a201f32adb205b8685c983f18757b1bd33d2e806d571e0f9996b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/resourcet-1.3.0/LICENSE",
+          "archive_member": "resourcet-1.3.0/LICENSE",
+          "sha256": "0b154140d607038387f735e6f519365f2c13d6c1bd4ad5ab43e2b7c0f142e093"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "rest-rewrite",
+      "version": "0.4.5",
+      "cabal_metadata": "metadata/hackage/rest-rewrite-0.4.5.cabal",
+      "cabal_metadata_sha256": "cb19044b4a17ebb2c03514d5e5223f3ef45663e03b45d82747357796f3ebc496",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/rest-rewrite-0.4.5/rest-rewrite-0.4.5.tar.gz",
+      "source_archive_sha256": "c4db03c300fdce217c1094ffd4b738a430b703308ee1cecc002fb3ce1d1faf7b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/rest-rewrite-0.4.5/LICENSE",
+          "archive_member": "rest-rewrite-0.4.5/LICENSE",
+          "sha256": "3438b3f588351f6ebf3e6419f6a0a672c15073c808aec6e0ec468159c008c92c"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "safe",
+      "version": "0.3.21",
+      "cabal_metadata": "metadata/hackage/safe-0.3.21.cabal",
+      "cabal_metadata_sha256": "b928ea1645876788155b38ce85c7e46d157a1bb41d2b05f5770b13d60bc6a3f7",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/safe-0.3.21/safe-0.3.21.tar.gz",
+      "source_archive_sha256": "2c81fea42bbe79ec488774043c1ec54f30efba059df9a4f3681ce83d85007f01",
+      "license_files": [
+        {
+          "path": "metadata/licenses/safe-0.3.21/LICENSE",
+          "archive_member": "safe-0.3.21/LICENSE",
+          "sha256": "c9d9814e4482cbf63117af04a082c1a880bb0e9ca47100f08a93c62b42f5f74b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "scientific",
+      "version": "0.3.9.0",
+      "cabal_metadata": "metadata/hackage/scientific-0.3.9.0.cabal",
+      "cabal_metadata_sha256": "867d3d862acf041cf1540eca4e1d699797e9d8b61ade41a8284c94ad83ff540d",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/scientific-0.3.9.0/scientific-0.3.9.0.tar.gz",
+      "source_archive_sha256": "39e9c7baa13852e245f5fc9c82d82eb564cd15a0dcb3a2850d9a1fc13af1c707",
+      "license_files": [
+        {
+          "path": "metadata/licenses/scientific-0.3.9.0/LICENSE",
+          "archive_member": "scientific-0.3.9.0/LICENSE",
+          "sha256": "4809f8a687a81a714ca99fc2a9a366d3fa5dec4adc284a5e026c909da924ba53"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "semialign",
+      "version": "1.4",
+      "cabal_metadata": "metadata/hackage/semialign-1.4.cabal",
+      "cabal_metadata_sha256": "cf6dbcb77c5d91afa4445723b6702c222b4c2ebd7f871466e7f0bdfa8ed70071",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/semialign-1.4/semialign-1.4.tar.gz",
+      "source_archive_sha256": "0f51389e57af646042dcec2511960617bee2857231ac291228cf4ef6621a9464",
+      "license_files": [
+        {
+          "path": "metadata/licenses/semialign-1.4/LICENSE",
+          "archive_member": "semialign-1.4/LICENSE",
+          "sha256": "ac2ed60fbb868f568b86a26cfe93b608359decaf125f506bd5fdf04975fb35f8"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "semigroupoids",
+      "version": "6.0.2",
+      "cabal_metadata": "metadata/hackage/semigroupoids-6.0.2.cabal",
+      "cabal_metadata_sha256": "52c5a346fdf74380618f67ff784989ef9078498dbbdff09e4d8e2fed20202e2c",
+      "declared_license": "BSD2",
+      "source_archive": "https://hackage-content.haskell.org/package/semigroupoids-6.0.2/semigroupoids-6.0.2.tar.gz",
+      "source_archive_sha256": "e48258e49542245ef6c58d7f419a83d1d1ab91b013d92c3b5c8c7c048daaa12e",
+      "license_files": [
+        {
+          "path": "metadata/licenses/semigroupoids-6.0.2/LICENSE",
+          "archive_member": "semigroupoids-6.0.2/LICENSE",
+          "sha256": "c9ed0c32e5332899f31bfad68cdb6e949a712a155318a0eb4872cc8f5bf4c95b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "smallcheck",
+      "version": "1.2.2",
+      "cabal_metadata": "metadata/hackage/smallcheck-1.2.2.cabal",
+      "cabal_metadata_sha256": "b666975ee4605244528eb4ef218929ff8880365337d387856b28441d1e4fd440",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/smallcheck-1.2.2/smallcheck-1.2.2.tar.gz",
+      "source_archive_sha256": "6dad890dd1ea5be2ab992d2987645fae14e3290a4439ad24bf3984bf72e83f5b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/smallcheck-1.2.2/LICENSE",
+          "archive_member": "smallcheck-1.2.2/LICENSE",
+          "sha256": "ac62a592f3331cf4b37664fd41d149159344fe167ef3ac00c524b9c3530eb276"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "smtlib-backends",
+      "version": "0.4",
+      "cabal_metadata": "metadata/hackage/smtlib-backends-0.4.cabal",
+      "cabal_metadata_sha256": "74d9b294ece95bb52c685389584d3c5b45cc24407c89076c57bd44cb2e015b56",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/smtlib-backends-0.4/smtlib-backends-0.4.tar.gz",
+      "source_archive_sha256": "af83c39e6c8d04e48ea6e9955ebd40c56297861938737ae30f174b1ece8bc29a",
+      "license_files": [
+        {
+          "path": "metadata/licenses/smtlib-backends-0.4/LICENSE",
+          "archive_member": "smtlib-backends-0.4/LICENSE",
+          "sha256": "17fe0a85f4cbe8ceceaa069f1a89f376cdea385b7f4d4ff3c42a797005429ebd"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "smtlib-backends-process",
+      "version": "0.3",
+      "cabal_metadata": "metadata/hackage/smtlib-backends-process-0.3.cabal",
+      "cabal_metadata_sha256": "8f510dd2fde021ee79d1c7724aaea54fd03c77deabb0dfb5694fbb0284d85930",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/smtlib-backends-process-0.3/smtlib-backends-process-0.3.tar.gz",
+      "source_archive_sha256": "cf315878de74e98f3d0488360b65b0f7112732da4832a4c0467c943e5c758749",
+      "license_files": [
+        {
+          "path": "metadata/licenses/smtlib-backends-process-0.3/LICENSE",
+          "archive_member": "smtlib-backends-process-0.3/LICENSE",
+          "sha256": "17fe0a85f4cbe8ceceaa069f1a89f376cdea385b7f4d4ff3c42a797005429ebd"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "split",
+      "version": "0.2.5.1",
+      "cabal_metadata": "metadata/hackage/split-0.2.5.1.cabal",
+      "cabal_metadata_sha256": "b54beca1d45db0fcd0709f947c609321194ad6609b93645a112756e3b67e6b02",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/split-0.2.5.1/split-0.2.5.1.tar.gz",
+      "source_archive_sha256": "18adb60f7f12d08601c382d47c2bacbbd4de4b9233f09683889d15b64b6420d6",
+      "license_files": [
+        {
+          "path": "metadata/licenses/split-0.2.5.1/LICENSE",
+          "archive_member": "split-0.2.5.1/LICENSE",
+          "sha256": "9a7e7299feb31a257fc0cd08c49dfea35ec186c9bb59b0a3ff67c63fc29a8a58"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "splitmix",
+      "version": "0.1.3.2",
+      "cabal_metadata": "metadata/hackage/splitmix-0.1.3.2.cabal",
+      "cabal_metadata_sha256": "a557cff65eed1f70f3a3b468423cd58e7a9a9564c5cc00c76a13de64dec9bcbd",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/splitmix-0.1.3.2/splitmix-0.1.3.2.tar.gz",
+      "source_archive_sha256": "a61d4e8b30f5a16526d7d31171b674ae7924d2207f378060d13363bd8794de8c",
+      "license_files": [
+        {
+          "path": "metadata/licenses/splitmix-0.1.3.2/LICENSE",
+          "archive_member": "splitmix-0.1.3.2/LICENSE",
+          "sha256": "5f3facf95bb7d0de63aac65ff31e1c071cf37cfa28a56cadf236eac1bd9c9fa3"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "store",
+      "version": "0.7.22",
+      "cabal_metadata": "metadata/hackage/store-0.7.22.cabal",
+      "cabal_metadata_sha256": "c99069d4e1070a8a82ffe84817b0045b3577e7f2e67013ce8bb69772feba46db",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/store-0.7.22/store-0.7.22.tar.gz",
+      "source_archive_sha256": "392f51d01b8f8dccafd47c13e8970a1b892557455ddf76410a0612d5cf118f63",
+      "license_files": [
+        {
+          "path": "metadata/licenses/store-0.7.22/LICENSE",
+          "archive_member": "store-0.7.22/LICENSE",
+          "sha256": "fce256ffd8186e2312a4ed35875e86b0ec08658b4da1c26cfb668fb009c59f6d"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "store-core",
+      "version": "0.4.4.7",
+      "cabal_metadata": "metadata/hackage/store-core-0.4.4.7.cabal",
+      "cabal_metadata_sha256": "a2ea427ff0dde30252474dcb0641cb6928cb8a93cd5ee27d4c22adba8e729683",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/store-core-0.4.4.7/store-core-0.4.4.7.tar.gz",
+      "source_archive_sha256": "64a510134d318088b2ad8c211d83e9723b763be995b7329830b3d54abfa1bcd3",
+      "license_files": [
+        {
+          "path": "metadata/licenses/store-core-0.4.4.7/LICENSE",
+          "archive_member": "store-core-0.4.4.7/LICENSE",
+          "sha256": "fce256ffd8186e2312a4ed35875e86b0ec08658b4da1c26cfb668fb009c59f6d"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "strict",
+      "version": "0.5.1",
+      "cabal_metadata": "metadata/hackage/strict-0.5.1.cabal",
+      "cabal_metadata_sha256": "58c373b7c7748cbb4a5a6c8c15073f99a1c10a9a9bb6894ac33f43a5cdb901f2",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/strict-0.5.1/strict-0.5.1.tar.gz",
+      "source_archive_sha256": "77719280c2a86312e748227bfa732eeaae0e7df48d57acc3c2e5b7b07afe2f8b",
+      "license_files": [
+        {
+          "path": "metadata/licenses/strict-0.5.1/LICENSE",
+          "archive_member": "strict-0.5.1/LICENSE",
+          "sha256": "79c71a6ece44448f34b5395c358367e1c94c2c3924cbf690f251551bd392a185"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "syb",
+      "version": "0.7.4",
+      "cabal_metadata": "metadata/hackage/syb-0.7.4.cabal",
+      "cabal_metadata_sha256": "db6f86d818f7732a2cb3a7a8cf630642a90c9faef7a13bd5dad136505774605b",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/syb-0.7.4/syb-0.7.4.tar.gz",
+      "source_archive_sha256": "ddcaca983f67a170c0cfdbd037a268779880e2f9b57f93135eaccb6ae4c5da3f",
+      "license_files": [
+        {
+          "path": "metadata/licenses/syb-0.7.4/LICENSE",
+          "archive_member": "syb-0.7.4/LICENSE",
+          "sha256": "dcf827bde5ace6d63125b5f345491ca953b28c7190960a77381359d172ee6351"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "tagged",
+      "version": "0.8.11",
+      "cabal_metadata": "metadata/hackage/tagged-0.8.11.cabal",
+      "cabal_metadata_sha256": "2ada8d2cc33dcc4ed5e2ebf1fc272793b04a9840d95e44cf556f248c0a3a894c",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/tagged-0.8.11/tagged-0.8.11.tar.gz",
+      "source_archive_sha256": "b288cf67bce7df2b21717fc254c05dea8eb814fec41059d263ba5d822cd8c75e",
+      "license_files": [
+        {
+          "path": "metadata/licenses/tagged-0.8.11/LICENSE",
+          "archive_member": "tagged-0.8.11/LICENSE",
+          "sha256": "3b9fcb04037a8eb1389717d322ed727c60080a9dab2cb6f76882f45f56e6cb12"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "tasty",
+      "version": "1.5.4",
+      "cabal_metadata": "metadata/hackage/tasty-1.5.4.cabal",
+      "cabal_metadata_sha256": "2065ef38e061551c7e3a997c4a4eac1b68dbf0553cc6177f01c8f7982f4cd375",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/tasty-1.5.4/tasty-1.5.4.tar.gz",
+      "source_archive_sha256": "c76120141bd61c4418b3ed5efc5fe3094186d47cfe12d7be552320139f52c6c7",
+      "license_files": [
+        {
+          "path": "metadata/licenses/tasty-1.5.4/LICENSE",
+          "archive_member": "tasty-1.5.4/LICENSE",
+          "sha256": "9bf95b300dd78f7f53d8891793f86da69a308c3221ebaa988c166c19536a8cf0"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "temporary",
+      "version": "1.3",
+      "cabal_metadata": "metadata/hackage/temporary-1.3.cabal",
+      "cabal_metadata_sha256": "3a66c136f700dbf42f3c5000ca93e80b26dead51e54322c83272b236c1ec8ef1",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/temporary-1.3/temporary-1.3.tar.gz",
+      "source_archive_sha256": "8c442993694b5ffca823ce864af95bd2841fb5264ee511c61cf48cc71d879890",
+      "license_files": [
+        {
+          "path": "metadata/licenses/temporary-1.3/LICENSE",
+          "archive_member": "temporary-1.3/LICENSE",
+          "sha256": "a219a531e2ab495cb53f30041f688d52c114bb566c1b245856c9dcb4e72fe7d2"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "terminal-size",
+      "version": "0.3.4",
+      "cabal_metadata": "metadata/hackage/terminal-size-0.3.4.cabal",
+      "cabal_metadata_sha256": "21d7f1320eeb86177e860ec07a3d8e7510977b1b415a96ebb62ee4ad72955770",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/terminal-size-0.3.4/terminal-size-0.3.4.tar.gz",
+      "source_archive_sha256": "b0f070d6926cdaacf3a412c5518e5c23afca1e0ed00808a5328c96e468b67f49",
+      "license_files": [
+        {
+          "path": "metadata/licenses/terminal-size-0.3.4/LICENSE",
+          "archive_member": "terminal-size-0.3.4/LICENSE",
+          "sha256": "77c5f28feed03ed6b42ffd22dadb27b7800d3050f86c8ea9fe505ca9a60925e8"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "text-iso8601",
+      "version": "0.2.0.0",
+      "cabal_metadata": "metadata/hackage/text-iso8601-0.2.0.0.cabal",
+      "cabal_metadata_sha256": "dfebe2e25cd4ee9390682c9209242c3928227040f8b4c7a7713d2fdb8c886e33",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/text-iso8601-0.2.0.0/text-iso8601-0.2.0.0.tar.gz",
+      "source_archive_sha256": "d5271d05477bd946d62b31adf4bb6eb3d963c13581c67e7e57d2e2bdffcbe4ee",
+      "license_files": [
+        {
+          "path": "metadata/licenses/text-iso8601-0.2.0.0/LICENSE",
+          "archive_member": "text-iso8601-0.2.0.0/LICENSE",
+          "sha256": "e885635ca8d75bf5e3988aa4cb77d13793133ab2b4f6c6416a4d8d4fec6a6aa3"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "text-short",
+      "version": "0.1.6.1",
+      "cabal_metadata": "metadata/hackage/text-short-0.1.6.1.cabal",
+      "cabal_metadata_sha256": "330b037a4f74c069e1ecfe0908baf8fb526526ef35f47922bd67ae2b3d886864",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/text-short-0.1.6.1/text-short-0.1.6.1.tar.gz",
+      "source_archive_sha256": "83669f402354274fbcdc75126443af733267b955e451f72c0c6d86ae8da87416",
+      "license_files": [
+        {
+          "path": "metadata/licenses/text-short-0.1.6.1/LICENSE",
+          "archive_member": "text-short-0.1.6.1/LICENSE",
+          "sha256": "11a5b1f0c369358d5b4d0baee31232033b8b0dc3ec034f2dcc9ad393d1dc75a4"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-abstraction",
+      "version": "0.7.2.0",
+      "cabal_metadata": "metadata/hackage/th-abstraction-0.7.2.0.cabal",
+      "cabal_metadata_sha256": "380819d6e14645bf66af99b6ea3d3d4309c523c7d0ee376e0678042622f1c272",
+      "declared_license": "ISC",
+      "source_archive": "https://hackage-content.haskell.org/package/th-abstraction-0.7.2.0/th-abstraction-0.7.2.0.tar.gz",
+      "source_archive_sha256": "946654bcd8ea2dff7d0058061861a8c898be9addf20c92d3cfa53b679e737622",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-abstraction-0.7.2.0/LICENSE",
+          "archive_member": "th-abstraction-0.7.2.0/LICENSE",
+          "sha256": "499e8e5638d8d217fc7b8e0aa4dfcc1852495fe3d1f8ac9e8dd707a8ee213009"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-compat",
+      "version": "0.1.7",
+      "cabal_metadata": "metadata/hackage/th-compat-0.1.7.cabal",
+      "cabal_metadata_sha256": "449be09a4e3f46ea4645700c026624c4b6f066f508187326c284dbdea8884bc9",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/th-compat-0.1.7/th-compat-0.1.7.tar.gz",
+      "source_archive_sha256": "9e26f12230d38ae56dcf94f8c139799dc3b7376f3434d35ce74847a0a24fd5ff",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-compat-0.1.7/LICENSE",
+          "archive_member": "th-compat-0.1.7/LICENSE",
+          "sha256": "24132d6adf696164c3cc6e3fdbec6f095934aaff90bca1d330ef01eff7ade6f4"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-expand-syns",
+      "version": "0.4.12.0",
+      "cabal_metadata": "metadata/hackage/th-expand-syns-0.4.12.0.cabal",
+      "cabal_metadata_sha256": "d71525fb41ae0ad251b36455bde2de78913fba7ba147f50f2b034eeacf57b026",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/th-expand-syns-0.4.12.0/th-expand-syns-0.4.12.0.tar.gz",
+      "source_archive_sha256": "18e19967329c89f376cfc9ec04bd7871854ce0c70f803a1af15532be00c6ef0f",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-expand-syns-0.4.12.0/LICENSE",
+          "archive_member": "th-expand-syns-0.4.12.0/LICENSE",
+          "sha256": "2e1403e918042a5fc1627eac38b3b2a141ef3d5936dd15f0e30336a2a1091d68"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-lift",
+      "version": "0.8.7",
+      "cabal_metadata": "metadata/hackage/th-lift-0.8.7.cabal",
+      "cabal_metadata_sha256": "b91da4aabdf753d716bc9a838dcbd12fa8ca53baa34c9ca16472e5af8c2640f6",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/th-lift-0.8.7/th-lift-0.8.7.tar.gz",
+      "source_archive_sha256": "dd157c626cb0b0fa71adac3690305aeafccf503583fce387628b210fadc69806",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-lift-0.8.7/COPYING",
+          "archive_member": "th-lift-0.8.7/COPYING",
+          "sha256": "0095c4d077899a596d4cbb44f709c31ed7f386e463deed68f7211f39d2e18ca8"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-lift-instances",
+      "version": "0.1.20",
+      "cabal_metadata": "metadata/hackage/th-lift-instances-0.1.20.cabal",
+      "cabal_metadata_sha256": "c7886eb39760825b8861c68e48b2b5efb5eff8d2cb76201fdd0fb04bcbeff78e",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/th-lift-instances-0.1.20/th-lift-instances-0.1.20.tar.gz",
+      "source_archive_sha256": "f533c3f95addcca461a0ccd1aafef75dd801bfa6599c0d1184d54bfffb61d870",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-lift-instances-0.1.20/LICENSE",
+          "archive_member": "th-lift-instances-0.1.20/LICENSE",
+          "sha256": "3d566eeaa2d7d494084b2c3f5c9ec5eb9bb886f35fc08d1a7b75d5e91e902d05"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-orphans",
+      "version": "0.13.17",
+      "cabal_metadata": "metadata/hackage/th-orphans-0.13.17.cabal",
+      "cabal_metadata_sha256": "3d81d2d880a1a414a38ea66e62aacac6c907c9776bca6982e3f814c4ed7ca2ca",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/th-orphans-0.13.17/th-orphans-0.13.17.tar.gz",
+      "source_archive_sha256": "9c67fb484c9f1e7f761ed7de453f73c087c4c46123d9bf41a9038156aa5e9062",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-orphans-0.13.17/LICENSE",
+          "archive_member": "th-orphans-0.13.17/LICENSE",
+          "sha256": "59e4d19ff79d37d5c229bec1df472b12ea3087c32923a1870a104056f5ca6203"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-reify-many",
+      "version": "0.1.10",
+      "cabal_metadata": "metadata/hackage/th-reify-many-0.1.10.cabal",
+      "cabal_metadata_sha256": "1827dcffb0c9f214e9739053fc808683336ea65c3749ff2d6148db189cbbd2a4",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/th-reify-many-0.1.10/th-reify-many-0.1.10.tar.gz",
+      "source_archive_sha256": "9d250e61242f2fb887dedc9d28c0141832ff256e63bebc2bf5abff81037be4a5",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-reify-many-0.1.10/LICENSE",
+          "archive_member": "th-reify-many-0.1.10/LICENSE",
+          "sha256": "e90d799f56a2110b89660020a9a83610504d8475355be7c5ace388d3000c31b4"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "th-utilities",
+      "version": "0.2.5.2",
+      "cabal_metadata": "metadata/hackage/th-utilities-0.2.5.2.cabal",
+      "cabal_metadata_sha256": "321b8fd5f1e1f1eebc0919403d5a9caf6bab429a8f4890d2041eaa38b24faf43",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/th-utilities-0.2.5.2/th-utilities-0.2.5.2.tar.gz",
+      "source_archive_sha256": "96627114f5ff49fd60ba3163fc400f86fd5d25d0356fe30c5d5f16309de58ed8",
+      "license_files": [
+        {
+          "path": "metadata/licenses/th-utilities-0.2.5.2/LICENSE",
+          "archive_member": "th-utilities-0.2.5.2/LICENSE",
+          "sha256": "f78b6cf12b23dc1fd799eb0448d9f78539fe468bccc06a40ab01839029edcf7d"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "these",
+      "version": "1.2.1",
+      "cabal_metadata": "metadata/hackage/these-1.2.1.cabal",
+      "cabal_metadata_sha256": "ba1aec9a502eb2b3f90ef254f420468a3c4e5b9b7e8324e3ddc7035143c92640",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/these-1.2.1/these-1.2.1.tar.gz",
+      "source_archive_sha256": "17d6d933365edabf801a16842c1403bdd37cc5300faa2fcca980decdab22e4de",
+      "license_files": [
+        {
+          "path": "metadata/licenses/these-1.2.1/LICENSE",
+          "archive_member": "these-1.2.1/LICENSE",
+          "sha256": "ac2ed60fbb868f568b86a26cfe93b608359decaf125f506bd5fdf04975fb35f8"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "time-compat",
+      "version": "1.9.9",
+      "cabal_metadata": "metadata/hackage/time-compat-1.9.9.cabal",
+      "cabal_metadata_sha256": "0c291e0c3c87ee08b2517107b62901b102a040dc86203b53bdf07a96ff5632e0",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/time-compat-1.9.9/time-compat-1.9.9.tar.gz",
+      "source_archive_sha256": "90fadded53cf9c15855eebf809e9536af8f85d00e32b82f7c8b506d2fadf7c25",
+      "license_files": [
+        {
+          "path": "metadata/licenses/time-compat-1.9.9/LICENSE",
+          "archive_member": "time-compat-1.9.9/LICENSE",
+          "sha256": "1bfcfa37bada908246a9908f61535a116f53283bdbb3550504c46c28da402e5c"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "transformers-base",
+      "version": "0.4.6.1",
+      "cabal_metadata": "metadata/hackage/transformers-base-0.4.6.1.cabal",
+      "cabal_metadata_sha256": "09c9f8d77fccc3e9037b3585f068ff6156cf9b049932dbc40828f37a849b8e1d",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/transformers-base-0.4.6.1/transformers-base-0.4.6.1.tar.gz",
+      "source_archive_sha256": "b43de3b3b9d658d504e8a0309356602ddc53c8dad3fdbbc3359abcb5439b41d8",
+      "license_files": [
+        {
+          "path": "metadata/licenses/transformers-base-0.4.6.1/LICENSE",
+          "archive_member": "transformers-base-0.4.6.1/LICENSE",
+          "sha256": "f933a281071d2ef8400155a032f705dcf1c17a140cc220efd1b03cd34f516dd1"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "transformers-compat",
+      "version": "0.7.2",
+      "cabal_metadata": "metadata/hackage/transformers-compat-0.7.2.cabal",
+      "cabal_metadata_sha256": "044fb9955f63ee138fcebedfdcbe54afe741f2d5892a2d0bdf3a8052bd342643",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/transformers-compat-0.7.2/transformers-compat-0.7.2.tar.gz",
+      "source_archive_sha256": "b62c7304c9f3cbc9463d0739aa85cb9489f217ea092b9d625d417514fbcc9d6a",
+      "license_files": [
+        {
+          "path": "metadata/licenses/transformers-compat-0.7.2/LICENSE",
+          "archive_member": "transformers-compat-0.7.2/LICENSE",
+          "sha256": "bbb4823c79bfc2d482513e9f7020d63bf490b91639cc5812a8500c5cbe167618"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "typed-process",
+      "version": "0.2.13.0",
+      "cabal_metadata": "metadata/hackage/typed-process-0.2.13.0.cabal",
+      "cabal_metadata_sha256": "257e4f6d4579e4a3f9a72503397c252e20d722fbd6531a8ce66f947f4f7b72fc",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/typed-process-0.2.13.0/typed-process-0.2.13.0.tar.gz",
+      "source_archive_sha256": "9400966013b541df2e54ac8d57c3a670fc28bde2be87767ce98f13bbe2aa43a0",
+      "license_files": [
+        {
+          "path": "metadata/licenses/typed-process-0.2.13.0/LICENSE",
+          "archive_member": "typed-process-0.2.13.0/LICENSE",
+          "sha256": "474de2827f06a0123585d55def9e113d94059376cf367eff01a0021e9fa531a7"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "unliftio-core",
+      "version": "0.2.1.0",
+      "cabal_metadata": "metadata/hackage/unliftio-core-0.2.1.0.cabal",
+      "cabal_metadata_sha256": "f6a2736f858b5390d9384dca43d3ea4d96e9ca17217791791ca4951ba6e8072a",
+      "declared_license": "MIT",
+      "source_archive": "https://hackage-content.haskell.org/package/unliftio-core-0.2.1.0/unliftio-core-0.2.1.0.tar.gz",
+      "source_archive_sha256": "99384cba8d56d9d61b85e38a313a93ebcdb78be6566367f0930ef580597fe3e3",
+      "license_files": [
+        {
+          "path": "metadata/licenses/unliftio-core-0.2.1.0/LICENSE",
+          "archive_member": "unliftio-core-0.2.1.0/LICENSE",
+          "sha256": "c125e5ab10ec8805d3e3b648ac3f522a61a8a55306de0b130d322863fa7a7327"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "unordered-containers",
+      "version": "0.2.21",
+      "cabal_metadata": "metadata/hackage/unordered-containers-0.2.21.cabal",
+      "cabal_metadata_sha256": "c5de1fb3377ed3c5f4cd851a771d1acc5c37d2f6bef0a499295c0e8857da5605",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/unordered-containers-0.2.21/unordered-containers-0.2.21.tar.gz",
+      "source_archive_sha256": "3b2ad1522b546e61960153257d1e5d239eeec5e83da847d5cb4d896a5bb7f9c0",
+      "license_files": [
+        {
+          "path": "metadata/licenses/unordered-containers-0.2.21/LICENSE",
+          "archive_member": "unordered-containers-0.2.21/LICENSE",
+          "sha256": "f48ff1f157f254305a224bbb92978b44d562cd735504008575f53201e6ae410b"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "uuid-types",
+      "version": "1.0.6.1",
+      "cabal_metadata": "metadata/hackage/uuid-types-1.0.6.1.cabal",
+      "cabal_metadata_sha256": "95e5bc79e3503c9bd7e68f0c7639400744c824074a0a2e0e4c7438a21c8c4d4f",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/uuid-types-1.0.6.1/uuid-types-1.0.6.1.tar.gz",
+      "source_archive_sha256": "9f00f278b9711104b6acc1404d9f0d45c1183b4987cf9c07403bebc05c0c3024",
+      "license_files": [
+        {
+          "path": "metadata/licenses/uuid-types-1.0.6.1/LICENSE",
+          "archive_member": "uuid-types-1.0.6.1/LICENSE",
+          "sha256": "9fd9cbfc86dd7e1831281a4ba4edf63a03a1f7adf59fc9fdc243b8600f08164d"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "vector",
+      "version": "0.13.2.0",
+      "cabal_metadata": "metadata/hackage/vector-0.13.2.0.cabal",
+      "cabal_metadata_sha256": "3ec12de580ee31ceac89b314fd00b5057ed40198c0b3d9e9dafa54c1941e6942",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/vector-0.13.2.0/vector-0.13.2.0.tar.gz",
+      "source_archive_sha256": "28f203c786cbf8ac6dc3fea3378ec36f34173d505fb4a1dd60fc8418ad91c423",
+      "license_files": [
+        {
+          "path": "metadata/licenses/vector-0.13.2.0/LICENSE",
+          "archive_member": "vector-0.13.2.0/LICENSE",
+          "sha256": "a2bb7af96394e2cf79f5ceb0b7c85b088219814339fd0edb61d4fafb6dfd1c71"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "vector-algorithms",
+      "version": "0.9.1.0",
+      "cabal_metadata": "metadata/hackage/vector-algorithms-0.9.1.0.cabal",
+      "cabal_metadata_sha256": "b3ecfefe983aeca206a4556e73d829cbe6c6c7661d671a47a8e5294c0add532d",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/vector-algorithms-0.9.1.0/vector-algorithms-0.9.1.0.tar.gz",
+      "source_archive_sha256": "d2b674676802670d8a682b357da6b6b5741b4a33b191f0ffe5f2b2bc40558eb2",
+      "license_files": [
+        {
+          "path": "metadata/licenses/vector-algorithms-0.9.1.0/LICENSE",
+          "archive_member": "vector-algorithms-0.9.1.0/LICENSE",
+          "sha256": "c188f9ee5859b8d2f7d7e3c9ec729953d7297ee5c09e7491cac1f5a44cf7e4df"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "vector-stream",
+      "version": "0.1.0.1",
+      "cabal_metadata": "metadata/hackage/vector-stream-0.1.0.1.cabal",
+      "cabal_metadata_sha256": "483be6df13c72169a917640589666f9fece7bea9fa13fcd41d052dab37ea289e",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/vector-stream-0.1.0.1/vector-stream-0.1.0.1.tar.gz",
+      "source_archive_sha256": "d0f507334bdea5431a2f07f525a97f29e76522c32210f5de6d5a2b4f1d42bf7c",
+      "license_files": [
+        {
+          "path": "metadata/licenses/vector-stream-0.1.0.1/LICENSE",
+          "archive_member": "vector-stream-0.1.0.1/LICENSE",
+          "sha256": "a2bb7af96394e2cf79f5ceb0b7c85b088219814339fd0edb61d4fafb6dfd1c71"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "void",
+      "version": "0.7.4",
+      "cabal_metadata": "metadata/hackage/void-0.7.4.cabal",
+      "cabal_metadata_sha256": "e71a5ba41b8c49fdcfb5136fadef00ae0e898b6fcb4cd5c20ae747ad9268ecb6",
+      "declared_license": "BSD3",
+      "source_archive": "https://hackage-content.haskell.org/package/void-0.7.4/void-0.7.4.tar.gz",
+      "source_archive_sha256": "61ff790961edb34fd653e62f9f37020792f416f329b12e87549169e7f624fdf9",
+      "license_files": [
+        {
+          "path": "metadata/licenses/void-0.7.4/LICENSE",
+          "archive_member": "void-0.7.4/LICENSE",
+          "sha256": "10ac24a5b2cf6030c03353cad293a019d0343a1bd3a60592dc8a6c7834b948b3"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    },
+    {
+      "package": "witherable",
+      "version": "0.5",
+      "cabal_metadata": "metadata/hackage/witherable-0.5.cabal",
+      "cabal_metadata_sha256": "a5600431df5d297f098c322c7fbc2ece804e44ade0bb2022a838de24604d6275",
+      "declared_license": "BSD-3-Clause",
+      "source_archive": "https://hackage-content.haskell.org/package/witherable-0.5/witherable-0.5.tar.gz",
+      "source_archive_sha256": "48434cc1e465b13cbc0133a90c3ec0d827c93b77ce95807fe0a38b65f4918cd1",
+      "license_files": [
+        {
+          "path": "metadata/licenses/witherable-0.5/LICENSE",
+          "archive_member": "witherable-0.5/LICENSE",
+          "sha256": "acdbcfe3ef2b455b38bcec8fa9184a9fefb950cf9d6c6b10e092d72581345b16"
+        }
+      ],
+      "status": "retained_from_verified_archive"
+    }
+  ]
+}

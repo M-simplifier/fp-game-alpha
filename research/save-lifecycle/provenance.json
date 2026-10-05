@@ -1,0 +1,303 @@
+{
+  "schema": "save-lifecycle-public-source-v1",
+  "source_commit": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+  "source_prefix": "experiments/save-lifecycle-tlc",
+  "core_snapshot_commit": "f6b8c3e5da1e8b577eb8f32ec5bbff63bcceb00e",
+  "files": [
+    {
+      "relative_path": "fixtures/branch-inflight.events",
+      "bytes": 96,
+      "sha256": "453470cd2b527c22e0a636e7d824d43ded15d3f263762bc0c0f17345760db69e",
+      "git_blob_sha1": "4b58c7aef99b9610bd5db72d8678fb7c3439cd00"
+    },
+    {
+      "relative_path": "fixtures/edit-inflight.events",
+      "bytes": 65,
+      "sha256": "6fdb7ce224fa432577fec2f284e96c424a9bb3896dc0b4bfdbff468b12fbc707",
+      "git_blob_sha1": "f76a885f0ffb42b37caf94968f0c71c6f65f153c"
+    },
+    {
+      "relative_path": "fixtures/failure-old-epoch.events",
+      "bytes": 69,
+      "sha256": "3b13d7154707de4459216703400c61115b86924639078714f7d91427a6ef6d74",
+      "git_blob_sha1": "fae76c380f0976c78db23142d2620d0c700e9560"
+    },
+    {
+      "relative_path": "fixtures/failure-retry.events",
+      "bytes": 91,
+      "sha256": "006a703ebe5171e6d31c8529ff266613187317a30b6613b992eed8370e92a0f5",
+      "git_blob_sha1": "6a0de6907da27ae2133c055808abc0426a74f49a"
+    },
+    {
+      "relative_path": "fixtures/happy-duplicate.events",
+      "bytes": 76,
+      "sha256": "e0d6e513ee29f8e29697af61300e0ab2c1f9f7bf82eba4487c1c692b91b6dd73",
+      "git_blob_sha1": "748effe7eb1931e163c45d6536fe59520fb0aec4"
+    },
+    {
+      "relative_path": "fixtures/load-inflight.events",
+      "bytes": 65,
+      "sha256": "5b9e023606c39d3b31de9de1cf103864c91cc67e9365bea7cca2aa6588fbbefe",
+      "git_blob_sha1": "19b181d47f18f26d3dda7bb3674279fca430dff5"
+    },
+    {
+      "relative_path": "fixtures/load-late.events",
+      "bytes": 87,
+      "sha256": "eafa4d2eaac11e2486f8a6bdf5feb522f443bd6407593ac5f7c0705c5a0e14d1",
+      "git_blob_sha1": "10dfebb61e8cd53106b63f47b167c82f858b102c"
+    },
+    {
+      "relative_path": "fixtures/mutant-active.events",
+      "bytes": 40,
+      "sha256": "eb76d97a93ff919fc06f1955387e765801e080ead5bd7202a77c53413a8b4902",
+      "git_blob_sha1": "ac51b44ccbcf976e43a93eba2e9c482816f21066"
+    },
+    {
+      "relative_path": "fixtures/mutant-active.json",
+      "bytes": 2473,
+      "sha256": "340fd64e04ab77d1989d9601fc36052d9df5bf363172c08c28b1816cae999647",
+      "git_blob_sha1": "2fdda1eeb6d341c6f55ef645dca939b1dcb32bc4"
+    },
+    {
+      "relative_path": "fixtures/mutant-epoch.events",
+      "bytes": 44,
+      "sha256": "001f7d233dfcec3ed53bc4128e47ef1979f8de59ce166a14dc2d48ecf99cbec0",
+      "git_blob_sha1": "603b22c4581d8bae14bfb8039f56bec536b79651"
+    },
+    {
+      "relative_path": "fixtures/mutant-epoch.json",
+      "bytes": 2966,
+      "sha256": "bd3a4299629c0c2f87476b9fd5fff318b07e49866da1d8bb8adcc685a3419f1a",
+      "git_blob_sha1": "04a69cd3a9538a016a0cb5e866c1e3cdb70f34ec"
+    },
+    {
+      "relative_path": "fixtures/mutant-persist.events",
+      "bytes": 19,
+      "sha256": "fa58b80affe81281f3c6b0bfd2c5947c8534ad0517f5101c77bbc8c902c64361",
+      "git_blob_sha1": "545021c60ce4ab0cf0caa06f4529e1362f6cd7e9"
+    },
+    {
+      "relative_path": "fixtures/mutant-persist.json",
+      "bytes": 1479,
+      "sha256": "7cd513e7a06f788ba1d0107e68bfb77b5011847457bacf4a7e395457a98633cc",
+      "git_blob_sha1": "1481213c60c4e7fa5f681460382efa71decb0a61"
+    },
+    {
+      "relative_path": "fixtures/reordered-responses.events",
+      "bytes": 105,
+      "sha256": "c9b2469166e447f5f3914058254dd1195b2421a48a9bb1ce332871c7aa02d8f9",
+      "git_blob_sha1": "5b2298cf21428fd3708cd14cee5db06f2adfc5aa"
+    },
+    {
+      "relative_path": "model/Correct.cfg",
+      "bytes": 257,
+      "sha256": "6f8ca145a971f75f79a6e9421068a768d6a12bcdccea979afceb99804d41c9bf",
+      "git_blob_sha1": "f2b4b409e61f033f7fe22f0264ca0263d9a604c8"
+    },
+    {
+      "relative_path": "model/Fair.cfg",
+      "bytes": 302,
+      "sha256": "cd72e1496d18647b3fc81a9629781dcf8cd556f92e99d68c6c0d0b03209cfe4f",
+      "git_blob_sha1": "791678b977b493608fd871ebb778976fe057f9be"
+    },
+    {
+      "relative_path": "model/MutantActive.cfg",
+      "bytes": 258,
+      "sha256": "d0b64aac226bcbca11b043ae6e454f7fdda5f0dccebc9c04276dd5f745876fad",
+      "git_blob_sha1": "8c3b025c5735d5a95813bc306404576f28133f45"
+    },
+    {
+      "relative_path": "model/MutantEpoch.cfg",
+      "bytes": 258,
+      "sha256": "ca234dbcc9f2ff13e622b66334e344057660ee8296147ddece10eb7274d152b8",
+      "git_blob_sha1": "61aa68d59ecb2a4d158d41e3fcea012aa2e89999"
+    },
+    {
+      "relative_path": "model/MutantPersist.cfg",
+      "bytes": 258,
+      "sha256": "ab2340851e319a403dd17cb6760761845130770dbfbacffeea48cebd8b14df6f",
+      "git_blob_sha1": "19f8ff632ffb05a99b8778a9cbe259793ac468e5"
+    },
+    {
+      "relative_path": "model/SaveLifecycle.tla",
+      "bytes": 4840,
+      "sha256": "41eb23628bfde3ed8f44dc3f3da67ac5f3fa18e0484f224629857a374628d205",
+      "git_blob_sha1": "0df3218ad766c8d7d64c2862e4f9f1608099756c"
+    },
+    {
+      "relative_path": "model/Unfair.cfg",
+      "bytes": 298,
+      "sha256": "b2967996a8a9facc8f07b83763931e28b6ee8965bbb55f53a24628c5b05153b5",
+      "git_blob_sha1": "a25f44030933366111bdd70790ad079b03437c43"
+    },
+    {
+      "relative_path": "scripts/bridge.py",
+      "bytes": 4887,
+      "sha256": "8e6cfde402655f8ec5d945e18069d3bf95af5f96fceefa555b6ece0d20857451",
+      "git_blob_sha1": "eec16e98a39bcc685aa21011e94632d1c5e4567d"
+    },
+    {
+      "relative_path": "src/Main.hs",
+      "bytes": 8209,
+      "sha256": "5b939ae142c50134aec7afe6a55f985c27c0e25e727ef9c0186d7ce39c45d324",
+      "git_blob_sha1": "0ca43bce6dd76b771b37d6fe850bcf29efa9ad41"
+    },
+    {
+      "relative_path": "src/TicketFreshness.hs",
+      "bytes": 647,
+      "sha256": "138e2339726aabd63f5c609bfddbe43d088e9ad4c5ef167e35f49fa19332392f",
+      "git_blob_sha1": "229f275c300997c483d397d4ff5384b1cc8a914d"
+    },
+    {
+      "relative_path": "vendor/colony0.2/data/content-v1.json",
+      "bytes": 20334,
+      "sha256": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6",
+      "git_blob_sha1": "cbcae48c292e50f30d67860204233bbe68dfd8d8"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Arena.hs",
+      "bytes": 4818,
+      "sha256": "20e230059c2279eab5cce88435292888baa8c0212107aed479ae000cb07528a3",
+      "git_blob_sha1": "476a5f94bf12a875baa80168b29a0586a014dc27"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Codec/CBOR.hs",
+      "bytes": 9544,
+      "sha256": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
+      "git_blob_sha1": "f7e8edcc2e17ed400a9f618d035f69ccc2fdfefd"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Codec/SHA256.hs",
+      "bytes": 5668,
+      "sha256": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
+      "git_blob_sha1": "f35881990f53b3a98c960f434b6cf718ade38c51"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Codec/Value.hs",
+      "bytes": 6466,
+      "sha256": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
+      "git_blob_sha1": "78c18ec7a37ef4d6047b0146f933af15cb1e0609"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Codec.hs",
+      "bytes": 15869,
+      "sha256": "8f0bb6bb531c13a105fecb2575453c90de1c292441c99cf9e9914b13e6fb21f9",
+      "git_blob_sha1": "9c1f229446102a3053c4427518014d068a61dbf6"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Content.hs",
+      "bytes": 17499,
+      "sha256": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
+      "git_blob_sha1": "8bbc56bc13a0e2a3b83148fde4a66b047c9ebbd5"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/ContentCodec.hs",
+      "bytes": 807,
+      "sha256": "bf6614a606eb5e94d2b9d05efd1896881513534c9f90420973d0d551d7080d9b",
+      "git_blob_sha1": "91ebbc895d5c56307b4fae1c10157ab3e423aef3"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Fixture.hs",
+      "bytes": 2817,
+      "sha256": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
+      "git_blob_sha1": "e35a871e50e609ea94dcd67a7ad28e8560f15493"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Inventory.hs",
+      "bytes": 17194,
+      "sha256": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
+      "git_blob_sha1": "114fda34bf5e9406440acbc7a330a22af0884060"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/JSON.hs",
+      "bytes": 4041,
+      "sha256": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
+      "git_blob_sha1": "0e20426256555df88f61ce69054a448a764a0663"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Jobs.hs",
+      "bytes": 9614,
+      "sha256": "bc0e1689c092926289e9dae776adb4ee772e1558e1c5b4af7cc6f24c89b1700a",
+      "git_blob_sha1": "a39fedbc9f0a53a63ff820130fe97a1d734fb636"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Maintenance.hs",
+      "bytes": 19467,
+      "sha256": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
+      "git_blob_sha1": "b5a2f482db4e4561226b200a9ca2a2e5be1c3889"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Migrate.hs",
+      "bytes": 24504,
+      "sha256": "8f1ed6923103792115e512207f76336b0ddc880184265414d75a61d8fde7ebd0",
+      "git_blob_sha1": "eeccec2f119be25d42f0e990a12e4b9e9382ac2f"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Needs.hs",
+      "bytes": 8757,
+      "sha256": "0e1c0f9cc157132a3c8c96090fdcb07716b376e88c680031e28d937d4da93b6a",
+      "git_blob_sha1": "060a5c337f9ad6428be019abb9edd95204dd061c"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Power.hs",
+      "bytes": 7293,
+      "sha256": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
+      "git_blob_sha1": "8f069858c55584011d02497120a45407adfa1887"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/RNG.hs",
+      "bytes": 4920,
+      "sha256": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
+      "git_blob_sha1": "d4242f9306aa32c78b6253f5919ae21250b87632"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Save.hs",
+      "bytes": 23600,
+      "sha256": "b1c9b0bf410ea6ce1cbfbaf728966fefde5e8e61f553cad3f44b945280df1e68",
+      "git_blob_sha1": "edcd510ee6acb9a62d6a9bf44ad15e5b3db1263e"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Scheduler.hs",
+      "bytes": 18136,
+      "sha256": "faf2012b6abcd937cce517ec4c13466b4954728275b880324de6c3c3e2d865d4",
+      "git_blob_sha1": "c41d752c7a77fe5cebcaa8349dfd4587ccbb04b9"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/SupplyChainFixture.hs",
+      "bytes": 7675,
+      "sha256": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
+      "git_blob_sha1": "f709f4ff20043cb3680a744b89ec9225010185aa"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Topology.hs",
+      "bytes": 12839,
+      "sha256": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
+      "git_blob_sha1": "7664a5ab049ffd703cf4fc467a0b913a2156d729"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Transport.hs",
+      "bytes": 52663,
+      "sha256": "f73b4ee9ad7346ef77fa0597cb79f36b6308467575a86d6861d12ec74b73833f",
+      "git_blob_sha1": "713c9c662eb0d64dec8bb434bc1433493fd845a2"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Types.hs",
+      "bytes": 4520,
+      "sha256": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
+      "git_blob_sha1": "80113fb36e708656a5ddfd777c27f11651f96032"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/Units.hs",
+      "bytes": 2363,
+      "sha256": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
+      "git_blob_sha1": "a9b9603d126b05924dc63f3e657005317b665632"
+    },
+    {
+      "relative_path": "vendor/colony0.2/src/Colony/World.hs",
+      "bytes": 11594,
+      "sha256": "3ca1f53c506a3c819ae9a13220048d7bf7007e651d798c9fffb40f8414a1318a",
+      "git_blob_sha1": "69d99fc3e8ee89ba198d396274a0a2dfa85ecca7"
+    }
+  ],
+  "identity": "Selected source bytes are unchanged; runner and documentation are new public adaptations. Historical logs and generated model traces are not copied."
+}

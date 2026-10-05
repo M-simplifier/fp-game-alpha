@@ -63,8 +63,12 @@ The [Station Dispatch pure-core reference](references/station/README.md) covers
 all six orders and three endings with an opaque turn token; JSON save and
 asynchronous UI acceptance remain pending.
 The [quantity source lab](research/quantity/README.md) has a GHC-only route
-for real type rejections and runtime-oracle checks; its recorded
-LiquidHaskell result is historical and remains separately scoped.
+for real type rejections and runtime-oracle checks; LiquidHaskell checking
+is a separate, pinned opt-in route with its own evidence and limits.
+Recovered [formal-method research](docs/research-reproduction.md) adds optional,
+isolated checker routes for the real quantity modules, cancellation arithmetic,
+and asynchronous save lifecycle. Start with the question and its stated limits;
+install only the prover needed for that experiment.
 
 The [complete Afterlight source](references/afterlight/README.md) is an optional
 package with the original renderer/audio and browser hosts, a pinned dependency

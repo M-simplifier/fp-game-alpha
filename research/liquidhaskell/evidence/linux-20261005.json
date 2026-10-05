@@ -1,0 +1,234 @@
+{
+  "build": {
+    "attempt": 2,
+    "earlier_attempt": "Failed native C-probe linking because GNU gold was absent; no logical result claimed",
+    "elapsed_seconds": 786.08,
+    "native_hsc2hs_option": "--lflag=-fuse-ld=bfd",
+    "runner_sha256": "92c979ee3b0241a9c3046bc5f9e07096ff7286601178ecb500139fbfa878465b",
+    "status": "built"
+  },
+  "cases": {
+    "BadAddition": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "91e8c208ae8691a156cb4a7d2885c0c49f5656ad64e4a8f4ceab6efdae1778af",
+        ".smt2": "817665e8a94b52def217103463bd507f75632fe45084c53c59d3503b1c29cf54"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "BadCheckedAddition": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "df474214e6b6e93bb4b5fc5f0744e2410494edc5723bb632714ce92e4942d007",
+        ".smt2": "c63504905887d8005a7d2a90e50929c34505051d4ce56d700eb2aac9db0266f0"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "BadSubtraction": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "f6834d7c9cae2a576829ff435d14af3c484b9c7614fe79886fe936b080946bf7",
+        ".smt2": "3e7fadbf4065ed585a6b2f69e5d338731d795dbab49efa449ed59737ecbfba37"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "BadTermination": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "ed5a50a79032ddf4c7c22ba087a39901282480149570cf2e8691f8e4a6f19311",
+        ".smt2": "3dbde2e511e2221553f73126ec826f0eb4b2aff7c74594662383a1dfe92b9e23"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "BadTotality": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "0d6db8fdbfda6ee5051a4f151d98362e026cc105d12d2a1056fa20c5f9ebb20e",
+        ".smt2": "5879d022d2791781f04f65587b4512ef763cdb50dc2fbcf65bc37e74b1064a6a"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "BadVacuousCall": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "0f9ee375e4400bf976eb88a208811a1bcde8120072328ee5a5b5e88ecf795b1a",
+        ".smt2": "ceeffd5982bd59eb1491cbaa2c7e4c8c358aa05d9b0debe436f7c9bf2873c694"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "CancelLoss": {
+      "exit_code": 0,
+      "expected": "SAFE",
+      "matched": true,
+      "observed": "SAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "2704cd3c5000768f5cf41c16badf120de621551a5ed56a170544751afaf7e512",
+        ".smt2": "7fcd9dd4905577b580d979292e2f806270ed434f1996324db9f29848c29f4178"
+      },
+      "target_safe_constraint_counts": [
+        5
+      ],
+      "timed_out": false
+    },
+    "Contracts": {
+      "exit_code": 0,
+      "expected": "SAFE",
+      "matched": true,
+      "observed": "SAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "423a11d0ffdf58466e1b87ae85c7c6aa60bfe702f449d911b8eed9dab23d954d",
+        ".smt2": "55bd72b3c4e52af93440a25eb1a6e9bffcd25828e3eb599b8dae2ee8e750f976"
+      },
+      "target_safe_constraint_counts": [
+        23
+      ],
+      "timed_out": false
+    },
+    "DivAssumptionProbe": {
+      "exit_code": 0,
+      "expected": "SAFE",
+      "matched": true,
+      "observed": "SAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "1beafe5fc6b8e877a78aaa06f0bfbbb3efa72f9049d6ca3bd09f279cb828c392",
+        ".smt2": "28b2f30e291d383ee23ff5b46f922b91aad2f75ee569fabfa95215dbcc3ee1f9"
+      },
+      "target_safe_constraint_counts": [
+        2
+      ],
+      "timed_out": false
+    },
+    "DivNonzeroProbe": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "0b3e8c388fb39fdd0bfe9fabac08c265af187eef9efb8da07a1cd2016a9e638e",
+        ".smt2": "f281cbdd95f5135d4aab83bbb755c9c36f9241e05a57804b5b19ff8368f3ffd5"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "NoDivFalseProbe": {
+      "exit_code": 1,
+      "expected": "UNSAFE",
+      "matched": true,
+      "observed": "UNSAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "ca0237d9a8ee369ea4f7546a727697f4ad7f5d9830b9c522fb737f6c6be58d4a",
+        ".smt2": "6a93532972c989a81f8543c2f0936d15567de8e3073971b116c419f1e4538b17"
+      },
+      "target_safe_constraint_counts": [],
+      "timed_out": false
+    },
+    "VacuousContract": {
+      "exit_code": 0,
+      "expected": "SAFE",
+      "matched": true,
+      "observed": "SAFE",
+      "query_files_present": true,
+      "query_sha256": {
+        ".fq": "6fdc874b8ed7df46124874ddbed3bc3a3c6cecb5e46deb6a89294b21d24b6b4d",
+        ".smt2": "68a53c19b094fa54ddad1803477a58899c03e0a32d444687b223cc042318d671"
+      },
+      "target_safe_constraint_counts": [
+        1
+      ],
+      "timed_out": false
+    }
+  },
+  "dependency_restoration": {
+    "archive_hashes_verified": true,
+    "download_bytes": 4196481,
+    "official_cabal_revisions_verified": true,
+    "packages": 121
+  },
+  "division_soundness_gate": "failed",
+  "executed_date_utc": "2026-10-05",
+  "final_setup_wrapper_recheck": {
+    "attempt": 3,
+    "cache_reused": true,
+    "elapsed_seconds": 219.179,
+    "home_isolated": true,
+    "prior_diagnostic_result_unchanged": true,
+    "runner_sha256": "638e7a05ce33dbc17f93df703cb7b5456ce3a2ead3832481fafcc52525626b5e",
+    "status": "built"
+  },
+  "finite_runtime_bridge": {
+    "cancellation_triples": 5016,
+    "div_actual": 0,
+    "div_claimed": 99,
+    "div_input": 0,
+    "matched": true,
+    "quantity_comparisons": 50,
+    "quantity_pairs": 25
+  },
+  "limits": {
+    "clean_clone_pass": false,
+    "cross_platform_checker_validation": false,
+    "fresh_run_directory": true,
+    "full_solver_capture_replay": "not_run; partial generated SMT files are not full replay evidence",
+    "historical_whole_game_audit": "not_run",
+    "newer_liquidhaskell_versions": "not_evaluated",
+    "universal_runtime_bridge_proof": false
+  },
+  "observation_reproduced": true,
+  "packages": {
+    "liquid-fixpoint": "0.9.6.3",
+    "liquidhaskell": "0.9.6.3.1",
+    "liquidhaskell-boot": "0.9.6.3"
+  },
+  "platform": {
+    "machine": "x86_64",
+    "system": "Linux"
+  },
+  "raw_result_sha256": "0190a10907625b774cfc3cc1fa5e4488c09a3db0c09b956d4c7d03e8eb48e636",
+  "runner_sha256": "638e7a05ce33dbc17f93df703cb7b5456ce3a2ead3832481fafcc52525626b5e",
+  "schema": "liquidhaskell-public-reproduction-v1",
+  "soundness_claim": false,
+  "source_provenance_sha256": "3f27f93323fdf8f0431950979f2397c128835d6512eccb15ef6c408ab61c8045",
+  "status": "observation_reproduced_with_failed_soundness_gate",
+  "strict_gate_process_exit": 1,
+  "versions": {
+    "CABAL": "3.16.1.0",
+    "GHC": "9.6.3",
+    "GHC_PKG": "9.6.3",
+    "Z3": "4.15.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "save-lifecycle-public-validation-index-v1",
+  "run_receipt": "public-validation.json",
+  "receipt_sha256": "0623b3fc28fad66bb195049c72d81c94df4eb3d5449291ba21e730f2b82b9af1",
+  "historical_run": false,
+  "status": "passed-scoped",
+  "named_runs": 42,
+  "normal_traces": 8,
+  "normal_trace_states": 78,
+  "safety_distinct_states": 79227,
+  "safety_generated_states": 583932,
+  "safety_queued_states": 0,
+  "immutable_inputs": 49,
+  "runner_self_tests": 26,
+  "verification_negative_controls": 12,
+  "toolchain": "GHC 9.6.7, OpenJDK 21.0.12.1, Python 3.12.14, TLC 2.19 (v1.7.4)",
+  "logs_redacted_before_hashing": true,
+  "full_run_dir_required_for_verify": true,
+  "excluded": "Jar, binaries, TLC state, copied/generated models, per-request native storage, and raw historical logs are not bundled."
+}

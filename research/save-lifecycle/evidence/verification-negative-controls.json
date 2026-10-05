@@ -1,0 +1,67 @@
+{
+  "schema": "save-lifecycle-verifier-negative-controls-v1",
+  "source_runner_sha256": "42f91f7da7c589cd7e4a48580e8b879b5ea3e6b0f19757a10a7a1cdda1fc7765",
+  "control_script_sha256": "b12e5b3999c4e09af5d2c8a9a801211a8e2a7acbe42e7c67cb0e04bb18a4d05c",
+  "cases": [
+    {
+      "name": "missing-named-outcome",
+      "status": "rejected-as-expected",
+      "reason": "incomplete or duplicate named runs"
+    },
+    {
+      "name": "wrong-named-invariant",
+      "status": "rejected-as-expected",
+      "reason": "invalid outcome: mutant-Epoch"
+    },
+    {
+      "name": "wrong-version-metadata",
+      "status": "rejected-as-expected",
+      "reason": "version metadata differs from logs"
+    },
+    {
+      "name": "wrong-tool-metadata",
+      "status": "rejected-as-expected",
+      "reason": "incorrect TLC tool metadata"
+    },
+    {
+      "name": "changed-copied-core",
+      "status": "rejected-as-expected",
+      "reason": "changed generated/copied artifact set"
+    },
+    {
+      "name": "missing-generated-artifact",
+      "status": "rejected-as-expected",
+      "reason": "changed generated/copied artifact set"
+    },
+    {
+      "name": "changed-jar",
+      "status": "rejected-as-expected",
+      "reason": "changed TLC jar"
+    },
+    {
+      "name": "log-path-escape",
+      "status": "rejected-as-expected",
+      "reason": "unexpected log path"
+    },
+    {
+      "name": "invalid-typed-thirteen-field-trace",
+      "status": "rejected-as-expected",
+      "reason": "non-integer scalar epoch"
+    },
+    {
+      "name": "unknown-result",
+      "status": "rejected-as-expected",
+      "reason": "invalid outcome: safety"
+    },
+    {
+      "name": "timeout-record",
+      "status": "rejected-as-expected",
+      "reason": "invalid outcome: python-version"
+    },
+    {
+      "name": "unexpected-mutant-acceptance",
+      "status": "rejected-as-expected",
+      "reason": "invalid outcome: mutant-Epoch"
+    }
+  ]
+}

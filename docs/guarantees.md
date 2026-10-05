@@ -2,13 +2,14 @@
 
 This alpha separates a small pure Haskell transition core from games, platform adapters, and research examples. Purity makes state transitions easier to inspect and replay. It does not establish termination, bounded memory, overflow safety, storage durability, cross-platform determinism, or a correct user interface.
 
-The results below are recorded experiments from 3–4 October 2026. They apply
-to the named source versions and toolchains. They are not a claim that the
-public clone has already reproduced every experiment. The
+The historical results below were recorded on 3–4 October 2026 and apply to
+the named source versions and toolchains. Original sources and optional isolated
+public runners are now included. New reruns are identified separately; neither
+source recovery nor a toolchain build counts as a checker pass. The
 [historical evidence summary](evidence/historical-guarantees.json) separates
 curated past results from new runs. The
 [reproduction guide](research-reproduction.md) gives current and planned
-entrypoints; the [reference catalog](research-references.md) supplies primary
+entrypoints and opt-in toolchain boundaries; the [reference catalog](research-references.md) supplies primary
 material.
 
 ## Reading a result
@@ -30,9 +31,20 @@ A rejected mutant is useful evidence that a check detects that particular defect
 locally with GHC 9.6.7 on Windows: eight intended type errors, two positive
 compilations, and 631,024 finite oracle rows on each of the frozen and
 annotation-only modules. It does not rerun the LiquidHaskell checker or its
-six mutants. The source-only result is recorded separately in
+six mutants. Those now have a separate [recovered checker route](../research/quantity/lh-checker/README.md). The source-only result is recorded separately in
 [Windows quantity evidence](evidence/quantity-windows.json); cross-OS CI is
 tracked in the verification record.
+
+**Public checker rerun:** the exact pinned GHC 9.6.3/LH/Z3 stack now reports
+SAFE25 for the good module and UNSAFE for all six original mutants. The
+[new quantity receipt](../research/quantity/lh-checker/evidence/linux-20261005.json)
+records seven fresh initialization-bearing solver streams with 175 exactly
+replayed responses (11 SAT / 164 UNSAT), and eight UNSAT independent models
+plus one SAT cast-before-check witness. These are new-run counts; the historical
+14-stream/350-response record below is not relabelled as this execution.
+The caller terminates interactive capture children, so captured solver exit
+stamps are absent; fresh replay exits 0, complete response counts and exact
+stdout equality are checked separately.
 
 The selected binders are `quantityMax`, `mkQty`, `qtyValue`, `zeroQty`, `addQty`, and `subQty`. Let `M = 9,000,000,000,000`.
 
@@ -57,6 +69,16 @@ The runtime counts include repeated inputs from different test classes. Static u
 
 ## LiquidHaskell arithmetic and a failed division contract
 
+**Public rerun:** all twelve original diagnostics and the finite runtime bridge
+now reproduce on the exact GHC 9.6.3 / LH 0.9.6.3.1 / Z3 4.15.1 stack.
+The [new execution receipt](../research/liquidhaskell/evidence/linux-20261005.json)
+records four SAFE observations, eight target-specific UNSAFE controls,
+25 quantity pairs / 50 comparisons and 5,016 cancellation triples.
+The strict soundness gate returns exit 1: reproduction succeeds while division
+soundness remains failed. The [optional route](../research/liquidhaskell/README.md)
+keeps these outcomes separate and does not assess a newer LH release.
+
+
 The smaller Integer-only `Contracts.hs` example was SAFE with 23 constraints on GHC 9.6.3 / LiquidHaskell 0.9.6.3.1 / Z3 4.15.1. Incorrect addition, unjustified nonnegative subtraction, always-failing checked addition, a call with an impossible precondition, a partial pattern match, and nondecreasing recursion were rejected. An impossible input precondition itself was SAFE, illustrating vacuous truth.
 
 **The division diagnostic failed its intended soundness test.** Under the satisfiable input condition `x == 0`, a deliberately false postcondition claimed that `x div 2 == 99`. The pinned checker accepted it as SAFE; ordinary Haskell execution returned 0. Generated constraints and complete solver traffic showed contradictory imported division premises. Nonzero-dividend and no-division controls were rejected.
@@ -66,6 +88,16 @@ Consequently the SAFE result for the division-dependent cancellation example is 
 Source inspection on 4 October 2026 found a zero-boundary contradiction still present in Hackage 0.9.14.1.1, release v0.9.14.1, and develop commit `952f02cfa4eb94f194e5b72706e55ce4fc1bcbb6`. The relevant newer clause requires `v < x` when `1 < y && x >= 0`; combined with nonnegativity, x=0 and y=2 imply both `v < 0` and `v >= 0`. This is an **unexecuted source-level inconsistency candidate** for those versions, not a runtime reproduction on a current compiler. See the [pinned source](https://github.com/ucsd-progsys/liquidhaskell/blob/952f02cfa4eb94f194e5b72706e55ce4fc1bcbb6/src/GHC/Real_LHAssumptions.hs) and [related issue discussion](https://github.com/ucsd-progsys/liquidhaskell/issues/2285#issuecomment-2122794785).
 
 ## Cancellation arithmetic with SBV
+
+**Public rerun:** the recovered, byte-identical original `Proof.hs`, `Replay.hs`
+and frozen 0.4 source passed on GHC 9.6.7 / Cabal 3.12.1.0 / SBV 10.12 /
+Z3 4.15.1. The isolated [public runner](../research/sbv-cancellation/README.md)
+requires the full six-UNSAT/three-SAT map, finite bridge/replay counts below,
+and nine complete same-Z3 solver-stream replays. The original executable's
+bounded fallback cannot satisfy this public general-result gate. The new
+[validation receipt](../research/sbv-cancellation/evidence/public-validation.json)
+binds actual versions, named outcomes and input/output hashes.
+
 
 **Recorded result:** four general SInteger queries and two separately bounded queries returned UNSAT with SBV 10.12 / GHC 9.6.6 / Z3 4.15.1. Three negative controls returned SAT. No query in the recorded final run returned unknown.
 
@@ -78,6 +110,15 @@ The actual frozen 0.4 helper matched 36,400 concrete symbolic evaluations. A dir
 The transaction tests supply progress directly and ample return capacity. They do not establish scheduler timing, arbitrary capacity/placement feasibility, general FEFO correctness, all rulesets, save correctness, or universal refinement of the Haskell implementation. Solver, compiler, SBV, translation, and the stated model/source mapping remain trusted.
 
 ## Save lifecycle with TLA+ and Haskell traces
+
+**Public rerun:** the recovered original model, 13-field bridge, fixtures and
+frozen 0.2 Haskell source are included with an [isolated runner](../research/save-lifecycle/README.md).
+A new GHC 9.6.7 / Java 21 / pinned TLC 2.19 run reproduced the finite safety
+counts, fair liveness, three model/Haskell mutant correspondences, 78 normal
+corpus states, invalid-trace rejections and parser controls described below.
+The experiment's full [public validation receipt](../research/save-lifecycle/evidence/public-validation.json)
+identifies the exact runner/input hashes and scope.
+
 
 **Recorded result:** TLC 2.19 from release v1.7.4 exhaustively explored a fixed model with two epochs, two fresh request IDs per epoch, at most one edit per epoch, and one active request per epoch. Safety exploration completed with 79,227 distinct states, 583,932 generated states, and no queued states remaining.
 

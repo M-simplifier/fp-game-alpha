@@ -1,0 +1,217 @@
+{
+  "spec_version": "1.0.1",
+  "status": "spec-oracle-vectors-not-kernel-tests",
+  "clarification": "per-colony recipient rotation; no cross-colony pooling",
+  "cases": [
+    {
+      "id": "needs-a-water",
+      "evaluation_tick": 20,
+      "colony": "A",
+      "residents": [
+        {
+          "id": 11,
+          "colony": "A",
+          "state": "Active",
+          "due": 5
+        },
+        {
+          "id": 13,
+          "colony": "A",
+          "state": "Incapacitated",
+          "due": 4
+        },
+        {
+          "id": 17,
+          "colony": "A",
+          "state": "Resting",
+          "due": 5
+        },
+        {
+          "id": 19,
+          "colony": "A",
+          "state": "InTransit",
+          "due": 5
+        },
+        {
+          "id": 23,
+          "colony": "A",
+          "state": "Evacuated",
+          "due": 5
+        },
+        {
+          "id": 21,
+          "colony": "B",
+          "state": "Active",
+          "due": 4
+        },
+        {
+          "id": 22,
+          "colony": "B",
+          "state": "Active",
+          "due": 4
+        }
+      ],
+      "resource": "water",
+      "supply": 8,
+      "expected_ids": [
+        11,
+        13,
+        17
+      ],
+      "expected_start_index": 1,
+      "expected_allocations": {
+        "11": 2,
+        "13": 3,
+        "17": 3
+      }
+    },
+    {
+      "id": "needs-a-ration",
+      "evaluation_tick": 20,
+      "colony": "A",
+      "residents": [
+        {
+          "id": 11,
+          "colony": "A",
+          "state": "Active",
+          "due": 2
+        },
+        {
+          "id": 13,
+          "colony": "A",
+          "state": "Incapacitated",
+          "due": 3
+        },
+        {
+          "id": 17,
+          "colony": "A",
+          "state": "Resting",
+          "due": 2
+        }
+      ],
+      "resource": "ration",
+      "supply": 4,
+      "expected_ids": [
+        11,
+        13,
+        17
+      ],
+      "expected_start_index": 1,
+      "expected_allocations": {
+        "11": 1,
+        "13": 2,
+        "17": 1
+      }
+    },
+    {
+      "id": "needs-b-water",
+      "evaluation_tick": 20,
+      "colony": "B",
+      "residents": [
+        {
+          "id": 11,
+          "colony": "A",
+          "state": "Active",
+          "due": 5
+        },
+        {
+          "id": 13,
+          "colony": "A",
+          "state": "Incapacitated",
+          "due": 4
+        },
+        {
+          "id": 17,
+          "colony": "A",
+          "state": "Resting",
+          "due": 5
+        },
+        {
+          "id": 21,
+          "colony": "B",
+          "state": "Active",
+          "due": 4
+        },
+        {
+          "id": 22,
+          "colony": "B",
+          "state": "Active",
+          "due": 4
+        }
+      ],
+      "resource": "water",
+      "supply": 1,
+      "expected_ids": [
+        21,
+        22
+      ],
+      "expected_start_index": 1,
+      "expected_allocations": {
+        "21": 0,
+        "22": 1
+      }
+    },
+    {
+      "id": "needs-empty",
+      "evaluation_tick": 20,
+      "colony": "C",
+      "residents": [
+        {
+          "id": 19,
+          "colony": "C",
+          "state": "InTransit",
+          "due": 5
+        },
+        {
+          "id": 23,
+          "colony": "C",
+          "state": "Evacuated",
+          "due": 5
+        }
+      ],
+      "resource": "water",
+      "supply": 8,
+      "expected_ids": [],
+      "expected_start_index": null,
+      "expected_allocations": {}
+    },
+    {
+      "id": "needs-next-rotation",
+      "evaluation_tick": 40,
+      "colony": "A",
+      "residents": [
+        {
+          "id": 11,
+          "colony": "A",
+          "state": "Active",
+          "due": 5
+        },
+        {
+          "id": 13,
+          "colony": "A",
+          "state": "Incapacitated",
+          "due": 4
+        },
+        {
+          "id": 17,
+          "colony": "A",
+          "state": "Resting",
+          "due": 5
+        }
+      ],
+      "resource": "water",
+      "supply": 1,
+      "expected_ids": [
+        11,
+        13,
+        17
+      ],
+      "expected_start_index": 2,
+      "expected_allocations": {
+        "11": 0,
+        "13": 0,
+        "17": 1
+      }
+    }
+  ]
+}

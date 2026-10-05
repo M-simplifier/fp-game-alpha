@@ -1,0 +1,54 @@
+name: formal-research-contracts
+
+# These are lightweight source/wrapper checks, not hosted prover executions.
+on:
+  pull_request:
+    paths:
+      - 'research/liquidhaskell/**'
+      - 'research/quantity/lh-checker/**'
+      - 'research/save-lifecycle/**'
+      - 'research/sbv-cancellation/**'
+      - '.github/workflows/formal-research-contracts.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/liquidhaskell/**'
+      - 'research/quantity/lh-checker/**'
+      - 'research/save-lifecycle/**'
+      - 'research/sbv-cancellation/**'
+      - '.github/workflows/formal-research-contracts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  source-and-wrapper-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Verify recovered source identities (no compiler or solver)
+        run: |
+          python research/liquidhaskell/check.py verify-sources
+          python research/quantity/lh-checker/check.py source-check
+          python research/sbv-cancellation/run.py self-test
+      - name: Exercise fail-closed wrapper contracts with simulated tool output
+        run: |
+          python -m unittest discover -s research/liquidhaskell -p 'test_*.py' -v
+          python -O -m unittest discover -s research/liquidhaskell -p 'test_*.py' -v
+          python -m unittest discover -s research/quantity/lh-checker -p 'test_*.py' -v
+          python -O -m unittest discover -s research/quantity/lh-checker -p 'test_*.py' -v
+          python -m unittest discover -s research/sbv-cancellation -p 'test_*.py' -v
+          sh research/save-lifecycle/scripts/reproduce.sh self-test
+      - name: State the hosted-check boundary
+        run: |
+          echo 'Source identities and wrapper/parser refusal behavior checked.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No GHC, LiquidHaskell, Cabal dependencies, Z3, Java or TLC was installed or run by this job.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Full formal experiments remain separately recorded local runs; receipt-mutation tests requiring a complete local run are intentionally not executed here.' >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,34 @@
+test_arbitrary_failure_is_not_counterexample (test_runner.ClassifierTests.test_arbitrary_failure_is_not_counterexample) ... ok
+test_contradictory_success_is_failure (test_runner.ClassifierTests.test_contradictory_success_is_failure) ... ok
+test_counterexample_needs_exact_exit_and_name (test_runner.ClassifierTests.test_counterexample_needs_exact_exit_and_name) ... ok
+test_counts (test_runner.ClassifierTests.test_counts) ... ok
+test_jvm_resource_error_is_failure (test_runner.ClassifierTests.test_jvm_resource_error_is_failure) ... ok
+test_required_named_runs (test_runner.ClassifierTests.test_required_named_runs) ... ok
+test_success_needs_marker (test_runner.ClassifierTests.test_success_needs_marker) ... ok
+test_unexpected_acceptance (test_runner.ClassifierTests.test_unexpected_acceptance) ... ok
+test_unknown_and_timeout_remain_distinct (test_runner.ClassifierTests.test_unknown_and_timeout_remain_distinct) ... ok
+test_bad_domains_rejected (test_runner.ParserTests.test_bad_domains_rejected) ... ok
+test_boolean_is_not_integer (test_runner.ParserTests.test_boolean_is_not_integer) ... ok
+test_boolean_numeric_vectors_rejected (test_runner.ParserTests.test_boolean_numeric_vectors_rejected) ... ok
+test_exactly_thirteen_fields (test_runner.ParserTests.test_exactly_thirteen_fields) ... ok
+test_extra_field_rejected (test_runner.ParserTests.test_extra_field_rejected) ... ok
+test_invalid_typed_reference_rejected (test_runner.ParserTests.test_invalid_typed_reference_rejected) ... ok
+test_missing_field_rejected (test_runner.ParserTests.test_missing_field_rejected) ... ok
+test_no_observations_rejected (test_runner.ParserTests.test_no_observations_rejected) ... ok
+test_optimized_interpreter_rejected (test_runner.ParserTests.test_optimized_interpreter_rejected) ... ok
+test_arbitrary_process_error (test_runner.ProcessTests.test_arbitrary_process_error) ... {"name": "arbitrary", "status": "tool-error", "exit": 12}
+ok
+test_bad_jar_fails_without_network (test_runner.ProcessTests.test_bad_jar_fails_without_network) ... ok
+test_existing_run_is_not_overwritten (test_runner.ProcessTests.test_existing_run_is_not_overwritten) ... ok
+test_failed_final_verification_rewrites_green_receipt (test_runner.ProcessTests.test_failed_final_verification_rewrites_green_receipt) ... ok
+test_machine_paths_redacted (test_runner.ProcessTests.test_machine_paths_redacted) ... {"name": "redact", "status": "passed-scoped", "exit": 0}
+ok
+test_source_tree_cannot_be_run_directory (test_runner.ProcessTests.test_source_tree_cannot_be_run_directory) ... ok
+test_timeout_kills_process_group (test_runner.ProcessTests.test_timeout_kills_process_group) ... {"name": "timeout", "status": "timeout", "exit": -9}
+ok
+test_frozen_identity (test_runner.SourceTests.test_frozen_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 1.198s
+
+OK
