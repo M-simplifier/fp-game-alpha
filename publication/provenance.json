@@ -7327,5 +7327,9 @@
   "docs/native-tooling.md": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
+  },
+  "tools/test_windows_toolchain_paths.py": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Boot-library-only Windows Unicode path preflight, preserving independent Python/Cabal/GHC comparison and failed original outcomes."
   }
 }

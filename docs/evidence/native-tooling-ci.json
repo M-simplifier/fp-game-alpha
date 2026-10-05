@@ -1,47 +1,93 @@
 {
   "schema": 1,
   "observed_date_utc": "2026-10-05",
-  "head_commit": "8f967a0a72453dcd728b5129c23dd3d4d7066b2a",
-  "scope": "Published revision observed with successful Linux/macOS jobs and an unfinished Windows unit stage. A source-supported wait/cancellation repair requires a later Windows run.",
+  "head_commit": "a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b",
+  "scope": "Completed native matrix: Linux/macOS passed; Windows units recovered, integration failed at first game build. Diagnostic comparison is pending.",
   "native_jobs": [
     {
       "host": "Linux",
       "conclusion": "success",
       "integration_records": 350,
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939783"
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722641"
     },
     {
       "host": "macOS",
       "conclusion": "success",
       "integration_records": 350,
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939921"
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722116"
     },
     {
       "host": "Windows",
-      "status": "in_progress_at_observation",
-      "conclusion": null,
-      "observed_at_utc": "2026-10-05T08:53:00Z",
-      "stage": "Test typed native package",
-      "stage_started_utc": "2026-10-05T08:42:20Z",
-      "integration_reached": false,
-      "passed_before_stall": [
-        "Actual PowerShell duplicate-PATH bootstrap checks",
-        "Native CLI bootstrap",
-        "Pinned formatter"
+      "conclusion": "failure",
+      "stage": "Native integration: first game build",
+      "passed_before_failure": [
+        "Bootstrap and formatting",
+        "Scaffold boundaries",
+        "81 cancellation gates, child-start barrier, closed-gate timeout and stream tests"
       ],
-      "observation": "The unit stage had not completed and integration had not started at the recorded observation. No live blocked-thread stack was captured.",
-      "source_supported_risk": "Pinned process1.6.19 Windows job-completion FFI can delay asynchronous cancellation of its calling thread; this is not proof of the exact blocked CI stack.",
-      "follow_up": "Windows-scoped waiter worker keeps the deadline owner interruptible; terminate the job before joining the waiter. Actual Windows verification pending.",
-      "cancellation_action_confirmed": false,
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679940001#step:11:1"
+      "reason": "ghc-pkg rejected the Japanese-path package database with an invalid-directory argument. Transliteration of diagnostics can display question marks; corrupted argv is not yet established.",
+      "follow_up": "Bounded direct Cabal, ghc-pkg and retained Python comparisons preserve Japanese paths and the original failure. No compiler change or path substitution.",
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722567#step:12:1"
     }
   ],
   "retained_alpha_workflow": {
     "conclusion": "success for all six validation jobs",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460898",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904817",
     "deployment": "intentionally skipped on the pull request"
   },
   "previous_revisions": [
+    {
+      "schema": 1,
+      "observed_date_utc": "2026-10-05",
+      "head_commit": "8f967a0a72453dcd728b5129c23dd3d4d7066b2a",
+      "scope": "Published revision observed with successful Linux/macOS jobs and an unfinished Windows unit stage. A source-supported wait/cancellation repair requires a later Windows run.",
+      "native_jobs": [
+        {
+          "host": "Linux",
+          "conclusion": "success",
+          "integration_records": 350,
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939783"
+        },
+        {
+          "host": "macOS",
+          "conclusion": "success",
+          "integration_records": 350,
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939921"
+        },
+        {
+          "host": "Windows",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "observed_at_utc": "2026-10-05T08:53:00Z",
+          "stage": "Test typed native package",
+          "stage_started_utc": "2026-10-05T08:42:20Z",
+          "integration_reached": false,
+          "passed_before_stall": [
+            "Actual PowerShell duplicate-PATH bootstrap checks",
+            "Native CLI bootstrap",
+            "Pinned formatter"
+          ],
+          "observation": "The unit stage had not completed and integration had not started at the recorded observation. No live blocked-thread stack was captured.",
+          "source_supported_risk": "Pinned process1.6.19 Windows job-completion FFI can delay asynchronous cancellation of its calling thread; this is not proof of the exact blocked CI stack.",
+          "follow_up": "Windows-scoped waiter worker keeps the deadline owner interruptible; terminate the job before joining the waiter. Actual Windows verification pending.",
+          "cancellation_action_confirmed": true,
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679940001#step:11:1",
+          "cancellation_scope": "Existing PR concurrency policy cancelled the stalled job after the next repair push; diagnostic recovery, not a pass.",
+          "recovered_log": "Scaffold boundary tests passed. Process fixtures were retained during cancellation; no specific process case or blocked stack was recorded."
+        }
+      ],
+      "retained_alpha_workflow": {
+        "conclusion": "success for all six validation jobs",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460898",
+        "deployment": "intentionally skipped on the pull request"
+      },
+      "exclusions": [
+        "Physical editor sessions",
+        "Human gameplay assessment",
+        "Graphical/browser host acceptance",
+        "Follow-up revision verification"
+      ]
+    },
     {
       "schema": 1,
       "observed_date_utc": "2026-10-05",
@@ -132,6 +178,6 @@
     "Physical editor sessions",
     "Human gameplay assessment",
     "Graphical/browser host acceptance",
-    "Follow-up revision verification"
+    "Later revision verification"
   ]
 }

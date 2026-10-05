@@ -206,22 +206,25 @@ first-use failures, their structural fixes and the tests that prevent recurrence
 
 ## Local measured evidence
 
-The current Linux x86_64 run uses GHC 9.6.7 and Cabal 3.12.1.0 and passes the
+The recorded Linux x86_64 snapshot uses GHC 9.6.7 and Cabal 3.12.1.0 and passes the
 real CLI/relocation/game-development and POSIX terminal/compiler cancellation
 suite, including shell-backed Ctrl-Z/fg, initial background launch, stopped-job
 cancellation and foreground/settings restoration. The source-bound summary is recorded at
-`docs/evidence/native-tooling-linux.json` in the foundation distribution.
-Published revision `8f967a0a72453dcd728b5129c23dd3d4d7066b2a` passed native CI
-on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939783)
-and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679939921),
-with 350 records each. [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37284460895/job/111679940001#step:11:1)
-entered the unit stage at 08:42:20 UTC; it had not completed and integration had
-not started at the 08:53 observation. No blocked-thread stack or successful
-cancellation action was captured. A source-supported job-wait/cancellation risk
-is addressed by a Windows-scoped waiter; actual Windows verification is pending.
-The unit step now prints the installed process-library version and has a five-minute
-ceiling after dependency setup. The foundation's `docs/evidence/native-tooling-ci.json`
-records these observations and earlier exact run/head results.
+`docs/evidence/native-tooling-linux.json` in the foundation distribution. It qualifies
+its recorded `a4b1d1e` source snapshot, not later diagnostic-only edits.
+Published revision `a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b` passed native CI
+on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722641)
+and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722116),
+with 350 records each. [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722567#step:12:1)
+passed the complete native unit suite, including the repaired cancellation and
+one-second timeout cases. Integration then failed at the first game build:
+`ghc-pkg` rejected its Japanese-path package database. Diagnostic transliteration
+means question marks alone do not establish damaged arguments. Bounded direct
+Cabal, `ghc-pkg` and retained Python comparisons keep the original Unicode paths
+and failure. A small Windows preflight runs these pinned-tool comparisons before
+the native CLI dependency matrix; the boundary remains under investigation. No Windows end-to-end
+claim is made. Exact current and earlier results are recorded in the foundation's
+`docs/evidence/native-tooling-ci.json`.
 
 The fresh secure package-index acquisition took 96.669 seconds on this machine.
 A resumed dependency/source build took 734.737 seconds, after an earlier process

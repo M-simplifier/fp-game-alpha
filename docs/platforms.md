@@ -42,9 +42,8 @@ or public deployment is part of this route. Windows/macOS host support is unclai
 ## Native developer tooling migration
 
 The [Haskell CLI](native-tooling.md) has a source bootstrap and an executable
-Linux/Windows/macOS integration matrix. Its first published revision passed native
-Linux and macOS CI. Windows passes bootstrap and formatting, but the latest
-unit stage stalled before integration. A source-supported Windows job-wait repair
-needs an actual follow-up run; no blocked-thread stack was captured. The guide links exact jobs and source revision.
-Existing Python/core route records retain their original evidence. Optional
-terminal creation does not establish another host or limit the AI from implementing one.
+Linux/Windows/macOS integration matrix. Linux and macOS pass the documented
+native checks. Windows passes bootstrap and unit tests but its first Japanese-path
+game build currently fails in `ghc-pkg`; end-to-end support remains unverified.
+The guide links exact jobs and revisions. Existing Python/core evidence retains
+its original scope. Optional terminal creation does not limit other game hosts.

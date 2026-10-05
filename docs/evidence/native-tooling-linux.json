@@ -1743,5 +1743,7 @@
     },
     "compiled_external_dependency_units": 42,
     "index_cache_bytes": 1194703972
-  }
+  },
+  "source_snapshot_commit": "a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b",
+  "snapshot_qualification": "Historical full Linux validation of the recorded input hashes. Later diagnostic-only workflow/docs/probe edits are not qualified by this report; the Windows path preflight has its own CI outcome."
 }

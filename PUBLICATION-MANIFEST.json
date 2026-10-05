@@ -141,7 +141,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "9d53e878ab72f5e9df5f863c9232bc37a08b79421cbb2eaa33e82bf8a3508aa8",
+   "sha256_lf": "5208a317caca2a7e5243a4a371ce0fb428aba9f4f0042fce49224bb8c2eba40a",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -300,7 +300,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-ci.json",
-   "sha256_lf": "b514f9a6d7dc56702755619d167b7219a66d617b27ff525a3f47ab659b42b73d",
+   "sha256_lf": "2676bc64b2d0c640e06180c7512967de60915f5081843cab6de0e007afe511f9",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -311,7 +311,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-linux.json",
-   "sha256_lf": "c09cd044a2fe506f1d760ce136a9d2ee0170ed2cbcb340bdb6eb820175a8eb3f",
+   "sha256_lf": "b522c8d58780ff61678d1d904ecbb7aaed9b5c5840afa7d5ce00b34e6b77cf10",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "496b045749fa1876183d07692688eaecd48bda23b9b994866025af5803182f8f",
+   "sha256_lf": "72bf2a8b1fd64013561687efa467d3574b32b2397df646e4b5f933c6f5a92781",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -483,7 +483,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "b11ab569a2187dc81a0242dedd7c805c7eeaff80c61316491f80bb5d89162915",
+   "sha256_lf": "4247d5199508d07ecaf4a8ecda8178458e83e70a66412b568cf2a66bbf167531",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -775,7 +775,7 @@
   },
   {
    "path": "docs/support/routes.json",
-   "sha256_lf": "dc50786d27285d7fb2f3a3036e2aecbad8e81cac4cea4111fdb884ec11e190c0",
+   "sha256_lf": "972ab41a1a6cdbfa68b01527627fe50d50dcba00b5438beffb5415061264848e",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2577,7 +2577,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "ef9d90efd467f641c02056f72f0088aca318680092d830f04f507d8457b8b768",
+   "sha256_lf": "da3875d1dd293eba4f063e92f03f956168689ed20b2c1cfd8b6e3ad471b410cb",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19420,6 +19420,18 @@
    "sha256_lf": "7937b205b396841928f531bb4d26e31da7854760eee7f41b89b0cbdf124afd69",
    "origin": {
     "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "tools/test_windows_toolchain_paths.py",
+   "sha256_lf": "29c8999ff812aff5599971309a3a6c22f3cd48ab74fa1c532a674bcfb3b2272d",
+   "origin": {
+    "kind": "authored-for-public-alpha",
+    "scope": "Boot-library-only Windows Unicode path preflight, preserving independent Python/Cabal/GHC comparison and failed original outcomes."
    },
    "license": "LICENSE",
    "maturity": "experimental",
