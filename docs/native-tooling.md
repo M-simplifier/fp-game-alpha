@@ -211,21 +211,22 @@ real CLI/relocation/game-development and POSIX terminal/compiler cancellation
 suite, including shell-backed Ctrl-Z/fg, initial background launch, stopped-job
 cancellation and foreground/settings restoration. The source-bound summary is recorded at
 `docs/evidence/native-tooling-linux.json` in the foundation distribution.
-The first published revision `dd98e45e7376d7703640ccd6c4c2c98d5966ad7c`
-passed native CI on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659024827)
-and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025184),
-with 349 integration records each. [Windows bootstrap](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37277924220/job/111659025017#step:8:1)
-failed when PowerShell returned duplicate application paths. The resolver fix and
-actual PowerShell regression await follow-up Windows CI. These first-head results
-do not claim the follow-up revision passed; the foundation's
-`docs/evidence/native-tooling-ci.json` records their exact scope.
+Published revision `991612f4dc74b809692e7940e432c67f0315ecc4` passed native CI
+on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053397)
+and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053663),
+with 350 integration records each. [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053670#step:11:1)
+passed the duplicate-PATH regression, native bootstrap and formatting, then a
+creation test exposed normalization hiding a linked parent. Raw-path validation
+now precedes normalization; its Windows rerun is pending. These results qualify
+the recorded revision only. The foundation's `docs/evidence/native-tooling-ci.json`
+retains current and earlier exact run/head records.
 
 The fresh secure package-index acquisition took 96.669 seconds on this machine.
 A resumed dependency/source build took 734.737 seconds, after an earlier process
 was interrupted and before application compile errors were corrected. This is
 **not** an uninterrupted successful cold-install time. With dependencies cached,
-a fresh application build took 20.971 seconds. The unstripped executable was
-21,706,160 bytes; 30 version-startup trials had a median of 13.539 milliseconds.
+a fresh application build took 19.213 seconds. The unstripped executable was
+21,706,160 bytes; 30 version-startup trials had a median of 13.405 milliseconds.
 The package-index/source cache occupied 1,194,703,972 apparent bytes (about
 1.11 GiB) and the 42-unit external dependency store 119,220,746 apparent bytes
 (about 114 MiB). These are local disk observations, not network download sizes or

@@ -300,7 +300,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-ci.json",
-   "sha256_lf": "e4a03e1ea1727564bd6537e75138d502890b12601f4dd499fa6c92bd17cc521e",
+   "sha256_lf": "873b507beae4e40d0554deab42d2c5f9a0877cc69c17953172b2ec11d8c901f2",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -311,7 +311,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-linux.json",
-   "sha256_lf": "651a8e1d8bc80f29318570c53ba13622e4c128db7a3dd643dc46c1b46992729c",
+   "sha256_lf": "f142f9f8351b23a162d3afd7fb377353c27a37e2e6b8a4d74627f1ef05da210c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -366,7 +366,7 @@
   },
   {
    "path": "docs/failure-prevention.md",
-   "sha256_lf": "052dc6c410d11b77ce290c0736c447245ff1368cc9fbbc254e565494c2d9fc9b",
+   "sha256_lf": "b062b7abe2f0740e38acd34a890a7ace499558bced1e1a7670673a5465dbd97e",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "72c0268a674f9a7eeee17586ee453f85517d5e8bc2074d54fedd01fa01b82be7",
+   "sha256_lf": "805f738c36b8d399d57998a8c1c329ff48985c2115e962bca6a46eb1c449a6e2",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -483,7 +483,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "622f8d94431e9b70faafac896a7e4502f0cf9c254ccc1af68443796600258194",
+   "sha256_lf": "cda090770b4edc157095107400adbf00cb3a3e73849d84cd10aa4b9cd03d73ca",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -775,7 +775,7 @@
   },
   {
    "path": "docs/support/routes.json",
-   "sha256_lf": "59cd96fd5d4058fd2a0c0eb2aebed70f955278f69e7b0b38249054f09db17b34",
+   "sha256_lf": "71a1dfc9b8b1def581e744a19c0fe5347e5b975af1ca676e4227cb8853665c9c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19195,7 +19195,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Create.hs",
-   "sha256_lf": "437b13076202cc1f1596b741844e377837421a359771cf483de77d394e89d301",
+   "sha256_lf": "3697d91e85ec2291a7f37d292cdac4f4b62c521efd450ef63c550d08a533b06c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19250,7 +19250,7 @@
   },
   {
    "path": "tools/haskell/test/CreateSpec.hs",
-   "sha256_lf": "5246b4699f0eb72205f0e1fac6401c87e96c0fe83d0421c710659eab98925f34",
+   "sha256_lf": "2647d89e749bcd26613bc99b04a81bdea027ba12f19b2341bd57130a7ebdb74e",
    "origin": {
     "kind": "authored-for-public-alpha"
    },

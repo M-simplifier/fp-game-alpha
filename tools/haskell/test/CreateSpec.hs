@@ -24,6 +24,7 @@ import System.Directory
     doesFileExist,
     doesPathExist,
     makeAbsolute,
+    pathIsSymbolicLink,
     withCurrentDirectory,
   )
 import System.FilePath (takeDirectory, (</>))
@@ -59,6 +60,8 @@ runCreateTests = withSystemTempDirectory "fp-game-create-tests-" $ \temporaryAli
   case linkResult of
     Left _ -> putStrLn "Scaffold symlink tests skipped: this host did not permit creating a test link"
     Right () -> do
+      fixtureIsLink <- pathIsSymbolicLink linked
+      expect "directory-link fixture is recognized as a link" fixtureIsLink
       expectError "linked destination ancestor" UnsafePath (createProject foundation options {createDestination = linked </> "game"})
       expectError "linked destination" UnsafePath (createProject foundation options {createDestination = linked})
       expectError "relative parent must not hide a destination link" UnsafePath (planProject foundation options {createDestination = linked </> ".." </> "hidden-link-game"})
@@ -68,6 +71,9 @@ runCreateTests = withSystemTempDirectory "fp-game-create-tests-" $ \temporaryAli
       createDirectoryLink foundation linkedSource
       expectError "linked foundation source" UnsafePath (planProject linkedSource options {createDestination = temporary </> "linked-source-game"})
       expectError "relative parent must not hide a source link" UnsafePath (planProject (linkedSource </> "..") options {createDestination = temporary </> "hidden-source-game"})
+      withCurrentDirectory temporary $ do
+        expectError "relative spelling must not hide a destination link" UnsafePath (planProject foundation options {createDestination = "linked" </> ".." </> "hidden-relative-game"})
+        expectError "relative spelling must not hide a source link" UnsafePath (planProject ("linked-source" </> "..") options {createDestination = temporary </> "hidden-relative-source-game"})
       let partialSource = temporary </> "source-fixture"
       createDirectoryIfMissing True (partialSource </> "templates" </> "terminal-adventure")
       createDirectoryLink (foundation </> ".agents") (partialSource </> ".agents")

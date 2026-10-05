@@ -43,7 +43,8 @@ or public deployment is part of this route. Windows/macOS host support is unclai
 
 The [Haskell CLI](native-tooling.md) has a source bootstrap and an executable
 Linux/Windows/macOS integration matrix. Its first published revision passed native
-Linux and macOS CI; Windows stopped at bootstrap discovery and the resolver fix
-still needs follow-up verification. The guide links exact jobs and source revision.
+Linux and macOS CI. Windows now passes bootstrap and formatting, but a path
+validation test exposed normalization hiding a linked parent; its fix needs a
+follow-up Windows run. The guide links exact jobs and source revision.
 Existing Python/core route records retain their original evidence. Optional
 terminal creation does not establish another host or limit the AI from implementing one.

@@ -250,6 +250,11 @@ for the distinction between executed checks and unverified platform routes.
   `../foundation` / `../My Game` route. Resolve chosen top-level roots from caller
   cwd while checking linked ancestors; keep generated internal paths strict.
   Both positive relative-root cases and symlink/`..` negatives are exercised
+  Windows CI then showed that `makeAbsolute` could collapse a linked parent
+  before validation saw it. Reject raw linked ancestors first, then normalize.
+  Fixtures must prove the alias is actually linked and exercise relative source
+  and destination `alias/..` paths; a normalized spelling cannot establish the
+  safety of the original traversal
 - **Text transport compatibility:** Decoding UTF-8 alone did not preserve Python's
   universal-newline contract on Windows. Captured streams replace malformed UTF-8
   and normalize CRLF/lone CR to LF; real-child exact stdout/stderr fixtures check

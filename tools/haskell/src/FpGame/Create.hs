@@ -284,7 +284,11 @@ checkedAbsolute path = do
     failTool UnsafePath "Paths must be nonempty and must not contain control characters."
   -- Top-level roots are chosen by the caller, so ../My Game is legitimate.
   -- Inspect the raw spelling before resolving it: alias/../ must not hide a
-  -- symbolic-link ancestor. Generated relative file names remain stricter.
+  -- symbolic-link ancestor. On Windows even makeAbsolute removes parent
+  -- components, so this check must precede it. Relative ancestor prefixes are
+  -- checked against the same current directory used by makeAbsolute below.
+  -- Generated relative file names remain stricter.
+  rejectLinks path
   absolute <- makeAbsolute path
   rejectLinks absolute
   -- canonicalizePath can retain ../ beneath a nonexistent directory. Collapse
