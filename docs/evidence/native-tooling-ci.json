@@ -1,43 +1,81 @@
 {
   "schema": 1,
   "observed_date_utc": "2026-10-05",
-  "head_commit": "01038a3e7390702917a77ef76a78fd69fae448d4",
-  "scope": "Explicit compiler profile passed Windows native package and first Japanese game operations; integration stopped at independent Python comparison output encoding. Linux/macOS completed the full392-check native suite. No complete Windows acceptance is claimed.",
+  "head_commit": "caf0d94689f9ec6812d6cd4efde639a3ec36788a",
+  "scope": "Linux and macOS completed native integration. Windows passed real Japanese-path game development and source-only relocation, then failed the final timeout fixture\u2019s started-marker assertion. The captured cause was not printed; no complete Windows acceptance or runtime-cause claim is made.",
   "windows_path_preflight": {
     "conclusion": "success",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111734693131",
-    "qualification": "Required compiler-only declared profile passed; unselected launcher-route failures remain labelled diagnostic observations."
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37304344172/job/111744300511"
   },
   "native_jobs": [
     {
       "host": "Linux",
       "conclusion": "success",
-      "records": 392,
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160616"
+      "records": 400,
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37304344172/job/111745743728"
     },
     {
       "host": "macOS",
       "conclusion": "success",
-      "records": 392,
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160600"
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37304344172/job/111745743968"
     },
     {
       "host": "Windows",
       "conclusion": "failure",
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160730#step:13:1",
-      "passed": "Explicit profile preflight, bootstrap checks/bootstrap, formatter, complete native units, Japanese-path game build/test/check/smoke, bounded smoke and CRLF Unicode source check.",
-      "failure": "The isolated legacy compiler-selection Python -c adapter printed JSON using cp1252 stdout and raised UnicodeEncodeError on Japanese paths.",
-      "not_reached": "Later game edits, source-only relocation and remaining integration checks.",
-      "repair_scope": "Test adapter only: explicitly initialize UTF-8 stdout as the ordinary legacy entrypoint does. Forced-cp1252 real-checker regression passes locally, and removing that initialization reproduces the failure; actual follow-up Windows CI pending."
+      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37304344172/job/111745744277#step:13:1",
+      "passed": "Explicit compiler profile, bootstrap, formatter, native units, Unicode/CRLF checking, cp1252 comparison-adapter regression, compiler-error/refusal cases, key mechanic edit/play, copied native tooling bootstrap, relocated build/test/check/smoke, stamina edit/play and caller-cwd check.",
+      "failure": "The final real-ghc-timeout check with --timeout2 returned exit1, then timeout-interrupted-running-ghc found no started marker.",
+      "qualification": "About2.49seconds elapsed between the test label and assertion. This is consistent with a deadline but does not establish it. The exact captured command/stdout/stderr were saved only on the completed runner and were not printed, so an early compiler error versus startup timing is unresolved.",
+      "next_evidence": "Print the complete captured result and observed tool versions, assert the exact timeout diagnostic, and run a bounded direct/boot-launcher Template Haskell probe before any timing or cancellation-fixture semantic change."
     }
   ],
   "retained_alpha_workflow": {
     "conclusion": "success for all six validation jobs",
-    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391565",
+    "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37304344187",
     "deployment": "intentionally skipped on the pull request"
   },
-  "last_full_linux_macos_revision": "01038a3e7390702917a77ef76a78fd69fae448d4",
+  "last_full_linux_macos_revision": "caf0d94689f9ec6812d6cd4efde639a3ec36788a",
   "previous_revisions": [
+    {
+      "schema": 1,
+      "observed_date_utc": "2026-10-05",
+      "head_commit": "01038a3e7390702917a77ef76a78fd69fae448d4",
+      "scope": "Explicit compiler profile passed Windows native package and first Japanese game operations; integration stopped at independent Python comparison output encoding. Linux/macOS completed the full392-check native suite. No complete Windows acceptance is claimed.",
+      "windows_path_preflight": {
+        "conclusion": "success",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111734693131",
+        "qualification": "Required compiler-only declared profile passed; unselected launcher-route failures remain labelled diagnostic observations."
+      },
+      "native_jobs": [
+        {
+          "host": "Linux",
+          "conclusion": "success",
+          "records": 392,
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160616"
+        },
+        {
+          "host": "macOS",
+          "conclusion": "success",
+          "records": 392,
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160600"
+        },
+        {
+          "host": "Windows",
+          "conclusion": "failure",
+          "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391554/job/111736160730#step:13:1",
+          "passed": "Explicit profile preflight, bootstrap checks/bootstrap, formatter, complete native units, Japanese-path game build/test/check/smoke, bounded smoke and CRLF Unicode source check.",
+          "failure": "The isolated legacy compiler-selection Python -c adapter printed JSON using cp1252 stdout and raised UnicodeEncodeError on Japanese paths.",
+          "not_reached": "Later game edits, source-only relocation and remaining integration checks.",
+          "repair_scope": "Test adapter only: explicitly initialize UTF-8 stdout as the ordinary legacy entrypoint does. Forced-cp1252 real-checker regression passes locally, and removing that initialization reproduces the failure; actual follow-up Windows CI pending."
+        }
+      ],
+      "retained_alpha_workflow": {
+        "conclusion": "success for all six validation jobs",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37301391565",
+        "deployment": "intentionally skipped on the pull request"
+      },
+      "last_full_linux_macos_revision": "01038a3e7390702917a77ef76a78fd69fae448d4"
+    },
     {
       "schema": 1,
       "observed_date_utc": "2026-10-05",
@@ -359,5 +397,11 @@
         "Follow-up revision verification"
       ]
     }
-  ]
+  ],
+  "next_revision_scope": {
+    "diagnostic_only": true,
+    "required_jobs": "Windows compiler-profile/Template Haskell preflight and the retained alpha validation jobs",
+    "native_matrix": "Intentionally disabled for this diagnostic-only revision; a green result is not native acceptance.",
+    "restoration_obligation": "Remove the temporary native-cli if:false before the final candidate and verify actual Linux, Windows and macOS native jobs all execute and pass."
+  }
 }

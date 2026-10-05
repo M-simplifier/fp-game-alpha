@@ -141,7 +141,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "43bf61721d5e148a86c5ac05ab7cc0ccbdf21bfd4529282a31128610eeaea496",
+   "sha256_lf": "aa15090d2260a8cbd73ca0a48133dbac625fe58687998b736a04aabd51887a63",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -300,7 +300,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-ci.json",
-   "sha256_lf": "6f5df3cece1108135f138b5e919b15655d6cef624a983480ba50ab6db5dbc3c1",
+   "sha256_lf": "15357fd10e8492c6d8c53ce334bdb98907f3b6b368515a814d14ad56b2af56c9",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -311,7 +311,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-linux.json",
-   "sha256_lf": "8bd1a651d10dbf9f4733813a6e57b918aac6467481a5c1934bd4652cacbbcc6f",
+   "sha256_lf": "38ab67f0a679b339c635effb470a4a062e469b3586645bcadba414638ffc6d49",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19360,7 +19360,7 @@
   },
   {
    "path": "tools/test_native_cli.py",
-   "sha256_lf": "dd4f8da4ce5045357a5e41cecb3aa4800bdea9fece681bc7d8ff8f5fd70d25be",
+   "sha256_lf": "282b94a5aeb0594c97f4b1fc4f5202c14b6955039a8feaf1867325ab50bbe24b",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -19439,7 +19439,7 @@
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",
-   "sha256_lf": "ef606a9b5018e23250611aed2e2b78ad052721231c37bfa0ba37ceed9d3749be",
+   "sha256_lf": "4b0a7585e1070558675f8558773872f4219aed6f21a82ef6b71399c5416cface",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Boot-library-only Windows Unicode path preflight, preserving independent Python/Cabal/GHC comparison and failed original outcomes."

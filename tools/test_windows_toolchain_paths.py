@@ -4,10 +4,13 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
+import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +30,8 @@ main = do
       (_, Just out, Just err, child) <- createProcess (proc executable arguments)
         { cwd = Just directory, std_in = NoStream, std_out = CreatePipe,
           std_err = CreatePipe, create_group = True, use_process_jobs = True }
+      childPid <- getPid child
+      hPutStrLn stderr ("launcher child pid: " ++ show childPid)
       output <- newEmptyMVar
       errors <- newEmptyMVar
       _ <- forkIO (B.hGetContents out >>= putMVar output)
@@ -37,6 +42,70 @@ main = do
       exitWith code
     _ -> fail "Expected cwd, executable and arguments"
 '''
+
+
+def template_haskell_probe(launcher, compiler, report):
+    """Observe the unchanged five-second fixture before imposing a short deadline."""
+    with tempfile.TemporaryDirectory(prefix='FP native acceptance 日本語 ') as temporary:
+        project = Path(temporary).resolve() / 'relocated continued game 日本語'
+        directories = [project / name for name in ('src', 'vendor/game-transition/src', 'vendor/game-arena/src')]
+        for directory in directories:
+            directory.mkdir(parents=True)
+        output = project / '.build/check-th-probe'
+        output.mkdir(parents=True)
+        source = project / 'src/Slow.hs'
+        source.write_text('{-# LANGUAGE TemplateHaskell #-}\nmodule Slow where\n'
+            'import Control.Concurrent (threadDelay)\n'
+            'import Language.Haskell.TH (runIO)\n'
+            'value :: ()\nvalue = $(do\n'
+            '  runIO (writeFile "timeout-started" "started" >> threadDelay 5000000 >> writeFile "timeout-late" "late")\n'
+            '  [| () |])\n', encoding='utf-8')
+        command = [str(value) for value in [launcher, project, compiler, '-fno-code', '-fforce-recomp',
+                   '-XGHC2021', '-Wall', '-fdiagnostics-color=never', '-outputdir', output,
+                   *['-i' + str(directory) for directory in directories], source]]
+        stdout_file, stderr_file = project / 'probe.stdout', project / 'probe.stderr'
+        observed = {'started_seconds': None, 'late_seconds': None}
+        expired = False
+        start = time.monotonic()
+        with stdout_file.open('wb') as stdout, stderr_file.open('wb') as stderr:
+            process = subprocess.Popen(command, cwd=project, stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr)
+            try:
+                while process.poll() is None:
+                    elapsed = time.monotonic() - start
+                    for field, filename in (('started_seconds', 'timeout-started'), ('late_seconds', 'timeout-late')):
+                        if observed[field] is None and (project / filename).is_file():
+                            observed[field] = round(elapsed, 3)
+                    if elapsed >= 60:
+                        expired = True
+                        break
+                    time.sleep(0.02)
+            finally:
+                if process.poll() is None:
+                    if os.name == 'nt':
+                        cleanup = subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'],
+                                                 capture_output=True, timeout=10)
+                        report(label='th-probe-tree-cleanup', exit_code=cleanup.returncode,
+                               stderr=cleanup.stderr.decode('utf-8', errors='replace'))
+                    else:
+                        match = re.search(r'launcher child pid: Just (\d+)', stderr_file.read_text(encoding='utf-8', errors='replace'))
+                        if match:
+                            try:
+                                os.killpg(int(match[1]), signal.SIGKILL)
+                            except ProcessLookupError:
+                                pass
+                    if process.poll() is None:
+                        process.kill()
+                    process.wait(timeout=10)
+        started = (project / 'timeout-started').is_file()
+        late = (project / 'timeout-late').is_file()
+        report(label='real-ghc-th-capability', required=True,
+               exit_code=0 if process.returncode == 0 and started and late and not expired else 1,
+               process_exit_code=process.returncode, external_deadline_expired=expired,
+               command=command, cwd=str(project), compiler=str(compiler),
+               observed_marker_latency=observed, seconds=round(time.monotonic() - start, 3),
+               started_exists=started, late_exists=late,
+               stdout=stdout_file.read_text(encoding='utf-8', errors='replace'),
+               stderr=stderr_file.read_text(encoding='utf-8', errors='replace'))
 
 
 def main():
@@ -151,6 +220,8 @@ def main():
                        [real_ghc or ghc, '-threaded', '-Wall', '-Werror', '-package', 'process',
                         '-package', 'bytestring', '-outputdir', helper, '-o', launcher, source], helper)
         run('boot-process-version', [ghc_pkg, 'field', 'process', 'version'], helper)
+        if compiled['exit_code'] == 0:
+            template_haskell_probe(launcher, real_ghc or ghc, report)
         original_routes = ('direct-cabal', 'retained-python', 'haskell-process')
         selected_routes = ('direct-cabal-real-compiler', 'project-selected-real-compiler',
                            'retained-python-selected-compiler', 'haskell-process-selected-compiler')

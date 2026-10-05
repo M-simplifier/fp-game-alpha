@@ -49,6 +49,10 @@ jobs:
         timeout-minutes: 5
         run: python tools/test_windows_toolchain_paths.py
   native-cli:
+    # DIAGNOSTIC-ONLY REVISION: obtain the required Windows boot/TH evidence
+    # before another costly native build. This skip is not platform acceptance.
+    # Restore this matrix before the final candidate and verify all three jobs ran.
+    if: ${{ false }}
     needs: windows-path-preflight
     strategy:
       fail-fast: false

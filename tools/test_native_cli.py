@@ -239,10 +239,14 @@ def cancellation(binary, project):
     source = slow_source(project, 'Slow.hs', started, late)
     result = cli(binary, 'real-ghc-timeout', 'check', project,
                  str(source.relative_to(project)), '--timeout', '2', expected=1)
-    require('timeout-reports-failure', bool(result['stderr']))
-    require('timeout-interrupted-running-ghc', (project / started).is_file())
+    # Preserve the real failure evidence in CI output, not only a runner-local
+    # log file. Do not infer slow startup or compiler failure from a missing marker.
+    diagnostic = json.dumps({'result': result, 'observed_tools': ENVIRONMENT}, ensure_ascii=True)
+    require('timeout-reports-exact-deadline', result['stderr'] ==
+            'Command timed out; process tree terminated.', diagnostic)
+    require('timeout-interrupted-running-ghc', (project / started).is_file(), diagnostic)
     time.sleep(4)
-    require('timeout-leaves-no-running-compiler-effect', not (project / late).exists())
+    require('timeout-leaves-no-running-compiler-effect', not (project / late).exists(), diagnostic)
     if os.name == 'nt':
         RECORDS.append({'check': 'posix-signal-cancellation', 'status': 'not-applicable'})
         return

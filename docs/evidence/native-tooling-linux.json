@@ -1882,7 +1882,7 @@
       "skipped": 3
     },
     "workflow": {
-      "status": "configured",
+      "status": "Native matrix temporarily disabled for next diagnostic-only revision; required Windows preflight plus alpha remain. Not acceptance; restore matrix before final candidate.",
       "platforms": [
         "Linux",
         "Windows",
@@ -1892,13 +1892,21 @@
       "unit_step_timeout_minutes": 5
     },
     "published_ci_history": "docs/evidence/native-tooling-ci.json",
-    "windows_explicit_profile_runtime": "At01038a3 native units and Japanese-path build/test/check/smoke, bounded smoke and CRLF Unicode check passed. Integration then failed in the independent Python comparison adapter while printing JSON under cp1252. Relocation/later checks were not reached.",
-    "macos_current_runtime": "Native CI at01038a3 passed392 records. Current adapter-only test change awaits next CI; production is unchanged.",
+    "windows_explicit_profile_runtime": "Atcaf0d946 the Windows profile, units, adapter, game edits and Python-free relocated native build/test/check/smoke and stamina play passed. Final timeout fixture lacked its started marker; exact returned diagnostic was not printed, so deadline versus early compiler error is unresolved.",
+    "macos_current_runtime": "Native macOS CI atcaf0d946 completed successfully. Current diagnostic-only changes do not rerun or qualify that platform.",
     "legacy_adapter_forced_cp1252": {
       "status": "pass on Linux",
       "scope": "Real unchanged legacy check_file invokes installed GHC on a Japanese-path source; child Python stdout starts with forced cp1252, adapter changes it to UTF-8, decoded JSON preserves the exact source path.",
       "negative_control": "Removing only stdout.reconfigure reproduces UnicodeEncodeError.",
-      "windows": "Actual follow-up CI pending."
+      "windows": "Passed actual Windows CI atcaf0d946."
+    },
+    "diagnostic_th_probe_linux": {
+      "status": "pass",
+      "started_seconds": 0.823,
+      "late_seconds": 5.812,
+      "exit_seconds": 5.975,
+      "exit_code": 0,
+      "scope": "Real GHC Template Haskell source in boot preflight, not Windows runtime evidence."
     }
   },
   "prior_findings": {
@@ -1921,11 +1929,12 @@
     {
       "file": "tools/test_native_cli.py",
       "tested_sha256_lf": "b9f25bcf8c7c2bea9dd13a604036b392ce6d95a69d886e23f5bf74b02da97089",
-      "published_sha256_lf": "dd4f8da4ce5045357a5e41cecb3aa4800bdea9fece681bc7d8ff8f5fd70d25be",
-      "scope": "Test-only changes: positive Windows caller-relative CompilerPath check from compiler.parent; legacy compiler-selection comparison initializes UTF-8 stdout; shared real-checker regression forces cp1252 and verifies decoded Japanese paths.",
-      "verification": "The compiler.parent branch passed actual Windows CI at01038a3. Focused real-GHC cp1252 adapter regression passes on Linux; removing only the UTF-8 initialization reproduces UnicodeEncodeError. Current adapter fix awaits actual Windows CI. No complete Linux rerun is claimed for these later test bytes.",
-      "qualification": "Original392-check input hash is retained, not rebound. Production/bootstrap/preflight/workflow sources remain unchanged; the separate prevention-note delta below is documentation-only.",
-      "intermediate_published_sha256_lf": "337c72d0bc2d33e0913f11746a9cbfb70d6d6c4f4e3edef863e4f16e45e0c4d2"
+      "published_sha256_lf": "282b94a5aeb0594c97f4b1fc4f5202c14b6955039a8feaf1867325ab50bbe24b",
+      "scope": "Test-only changes since the392 receipt: Windows-relative bootstrap case, UTF-8 legacy comparison adapter/regression, and exact timeout-result classification with complete failure diagnostics. Original2s timeout and started-marker requirement remain unchanged.",
+      "verification": "Earlier relative/encoding repairs passed actual Windows atcaf0d946. New diagnostic assertion syntax/whitespace pass and the recorded real Linux timeout result matches the classifier. No full local rerun for these diagnostic bytes.",
+      "qualification": "Original392-check input hashes are preserved, not rebound. Production runtime and generator sources are unchanged.",
+      "intermediate_published_sha256_lf": "337c72d0bc2d33e0913f11746a9cbfb70d6d6c4f4e3edef863e4f16e45e0c4d2",
+      "previous_published_sha256_lf": "dd4f8da4ce5045357a5e41cecb3aa4800bdea9fece681bc7d8ff8f5fd70d25be"
     },
     {
       "file": "docs/failure-prevention.md",
@@ -1933,6 +1942,22 @@
       "published_sha256_lf": "88f3e07ece28e2d59e6f8a8a4f05232eb671e320881f9d6b75fc0eb05b5175af",
       "scope": "Documentation-only prevention lesson for adapter stdout initialization and forced-cp1252 negative control.",
       "verification": "Documentation lint and whitespace checks pass; no runtime-source change."
+    },
+    {
+      "file": "tools/test_windows_toolchain_paths.py",
+      "tested_sha256_lf": "ef606a9b5018e23250611aed2e2b78ad052721231c37bfa0ba37ceed9d3749be",
+      "published_sha256_lf": "4b0a7585e1070558675f8558773872f4219aed6f21a82ef6b71399c5416cface",
+      "scope": "Diagnostic-only bounded real Template Haskell probe added to required Windows compiler-profile preflight, capturing exact command/output and marker timings.",
+      "verification": "Complete Linux boot preflight passed. Real TH started at0.823s, wrote its late marker at5.812s and exited0 at5.975s. Windows cause remains unobserved pending this probe.",
+      "qualification": "Original392-check input hashes are preserved, not rebound. Production runtime and generator sources are unchanged."
+    },
+    {
+      "file": ".github/workflows/native-tooling.yml",
+      "tested_sha256_lf": "43bf61721d5e148a86c5ac05ab7cc0ccbdf21bfd4529282a31128610eeaea496",
+      "published_sha256_lf": "aa15090d2260a8cbd73ca0a48133dbac625fe58687998b736a04aabd51887a63",
+      "scope": "Temporary explicit native-cli if:false for the diagnostic-only revision, leaving required Windows preflight and alpha checks.",
+      "verification": "YAML/whitespace checked. This is not native acceptance. Restore full matrix before final candidate and verify all three native jobs actually execute.",
+      "qualification": "Original392-check input hashes are preserved, not rebound. Production runtime and generator sources are unchanged."
     }
   ]
 }
