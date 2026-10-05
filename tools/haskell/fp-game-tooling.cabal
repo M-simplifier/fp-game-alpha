@@ -30,6 +30,7 @@ library
   hs-source-dirs: src
   exposed-modules:
     FpGame.CLI
+    FpGame.Cabal
     FpGame.Command
     FpGame.Config
     FpGame.Create

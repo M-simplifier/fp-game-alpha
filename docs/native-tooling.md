@@ -15,8 +15,9 @@ binary releases in this route. Installing GHC/Cabal is a separate, explicit
 step using the [official GHCup guide](https://www.haskell.org/ghcup/install/).
 The verified baseline is GHC 9.6.7 / Cabal 3.12.1.0. Source compilation requires
 GHC 9.6 or newer APIs; other compiler versions and dependency resolutions remain
-unverified. The resulting binary uses PATH-selected game tools and does not
-silently change the game compiler or inherit a GHC-API helper's version lock.
+unverified. The resulting binary uses Cabal's project-selected game compiler
+and the Cabal executable on PATH. It does not silently change the game compiler
+or inherit a GHC-API helper's version lock.
 
 Before a compiler is installed, a Haskell source executable cannot diagnose it.
 These tiny shell/PowerShell checks can; they do not install anything:
@@ -39,11 +40,8 @@ sh tools/bootstrap-fp-game.sh --download
 .build/tools/fp-game doctor --json
 ```
 
-```powershell
-# Windows PowerShell
-./tools/bootstrap-fp-game.ps1 -Download
-./.build/tools/fp-game.exe doctor --json
-```
+On Windows, use the [explicit compiler profile](#windows-explicitly-select-the-installed-compiler)
+below before bootstrapping and operating on a game with Japanese paths.
 
 With a populated dependency index/store, omit `--download` / `-Download` for an
 offline build. The source is under `tools/haskell`, build objects under
@@ -57,10 +55,105 @@ Normal CLI commands run that executable directly, without rebuilding it.
 Re-run bootstrap explicitly after changing tool source. Windows can refuse an
 update while the old executable is running; close that process and retry.
 
-The tool's package/index acquisition is distinct from later game builds. Game
-build/test use project-local configuration, store and output with repositories
-disabled. They require only GHC-bundled packages for this baseline profile.
+The tool's package/index acquisition and compiler selection are distinct from
+later game builds. Game build/test use project-local configuration, store and
+output with repositories disabled. They require only GHC-bundled packages for
+this baseline profile.
 Do not describe an already-warm dependency cache as a clean-machine setup test.
+
+## Windows: explicitly select the installed compiler
+
+This is an **opt-in** route for a known Windows launcher boundary, not an
+automatic compiler replacement. In the pinned GHC 9.6.7 installation, the
+unversioned C launcher aliases corrupted Japanese arguments. The same
+installation's `ghc-9.6.7.exe` passed the bounded actual library and executable
+Japanese-path builds in the [Windows compiler-path probe](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1).
+That finding does not establish the full native three-OS end-to-end matrix for
+this change; that acceptance remains pending. It does not show that every
+Windows installation, wrapper or compiler version has the same behavior.
+
+Choose an executable that actually exists on this machine and probe it. The
+following path is an example, not a discovered installation location:
+
+```powershell
+# From the foundation or generated game root; use your actual installed path.
+$compiler = 'C:/ghcup/ghc/9.6.7/bin/ghc-9.6.7.exe'
+if (-not (Test-Path -LiteralPath $compiler -PathType Leaf)) { throw 'Choose an installed compiler.' }
+& $compiler --numeric-version
+if ($LASTEXITCODE -ne 0) { throw 'The selected compiler probe failed.' }
+./tools/bootstrap-fp-game.ps1 -Check -CompilerPath $compiler
+./tools/bootstrap-fp-game.ps1 -Download -CompilerPath $compiler
+```
+
+Inspect the reported version and path before proceeding. `-CompilerPath` probes
+and reports the selected executable and passes the same selection to both
+`cabal build` and `cabal list-bin`. Omit `-Download` when the pinned dependency
+cache is ready. Bootstrap does not edit PATH, switch the installed GHC version,
+rewrite aliases or add a game compiler profile. Without this option it retains
+its ordinary selection; it never silently bypasses an alias.
+
+Bootstrap builds the **separate** `tools/haskell` source package. Passing
+`-CompilerPath` selects the compiler for that tool build only. A game, including
+the foundation root project, needs its own Cabal compiler selection. Inspect
+its existing `cabal.project`, `cabal.project.local`, compiler wrappers and local
+settings first. Preserve deliberate choices; do not replace a custom profile
+merely because the baseline example uses a different executable.
+
+For a project with no local profile, create `cabal.project.local` in that game
+root with a raw, forward-slash absolute path:
+
+```cabal
+with-compiler: C:/ghcup/ghc/9.6.7/bin/ghc-9.6.7.exe
+```
+
+`with-compiler` consumes the whole field as a path, including spaces. Do not
+add JSON or shell quote characters: Cabal 3.12.1.0 treats those as literal parts
+of the executable name. The chosen path must not contain a newline.
+
+This PowerShell example writes that one setting as UTF-8 and refuses an existing
+file. Run it from the intended game root with `$compiler` set and probed above.
+If the file already exists, inspect and deliberately edit it while preserving
+its other settings instead of deleting or overwriting it:
+
+```powershell
+$localProfile = Join-Path (Get-Location).Path 'cabal.project.local'
+$stream = [IO.File]::Open($localProfile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write)
+try {
+    $line = 'with-compiler: ' + $compiler.Replace('\', '/') + "`n"
+    $bytes = [Text.UTF8Encoding]::new($false).GetBytes($line)
+    $stream.Write($bytes, 0, $bytes.Length)
+} finally { $stream.Dispose() }
+./.build/tools/fp-game.exe doctor --json
+./.build/tools/fp-game.exe build --json
+./.build/tools/fp-game.exe test --json
+```
+
+This compiler-only profile is machine-local, ignored by Git and nonportable.
+It is never copied into generated source. When relocating a game, leave it
+behind and deliberately recreate the selection after inspecting the new
+machine's compiler and the destination's existing settings. The copied native
+tool source and game source remain independent of this absolute host path.
+
+## Project compiler diagnostics and saved-source checks
+
+Native `doctor` and `check FILE` ask `cabal path` for the project's selected
+compiler using the same guarded `.build` state and offline configuration as
+native builds. Cabal parses the project configuration; the CLI does not guess
+from an ambient `ghc`, rewrite compiler wrappers or override a custom compiler.
+A failed, timed-out or invalid compiler query is an error, with no fallback to
+another compiler on PATH. Doctor reports the selected compiler's path and
+version; saved-source checks invoke that selected executable.
+
+Doctor is not entirely filesystem-read-only: when Cabal is present, it creates a
+scoped temporary configuration and cache under guarded `.build` and removes that
+query state afterward. Existing build state is preserved. A valid project-selected
+compiler does not require an ambient `ghc` alias. The query has a fixed 20-second
+timeout and does not build the game. The shipped local project profile queries without downloads or repository
+access. Cabal's `--offline` and disabled package repositories are not a network
+sandbox: a custom project with remote imports can have Cabal's own import side
+effects. Inspect and trust that project configuration before querying it. Missing
+Cabal on PATH is reported without creating project state. `ready-to-try`
+still means detection and selection succeeded, not that a build or test passed.
 
 ## Commands and independent roots
 
@@ -96,7 +189,10 @@ a ceiling on the AI's work. Do not substitute a terminal template for the brief.
 Generated workspaces carry native tool source, dependency pins, both bootstrap
 scripts, core hashes/notices and local continuation guidance. After copying a
 game without `.build`, bootstrap its copied source once and use its local native
-executable. The original foundation is not a build dependency. Tool dependency
+executable. Machine-local `cabal.project.local` selections are excluded;
+inspect and recreate them deliberately for the destination machine as described
+[above](#windows-explicitly-select-the-installed-compiler). The original
+foundation is not a build dependency. Tool dependency
 acquisition may still need the network on a machine without the pinned cache.
 The ordinary `build.config` Cabal route remains independent of the tooling too.
 
@@ -112,9 +208,11 @@ The ordinary `build.config` Cabal route remains independent of the tooling too.
 - Validation failures add `status: "error"` and a stable `error_code`; the process
   and JSON exit code are both 1. Invalid command syntax exits 2
 - Doctor identifies `implementation: "haskell"` rather than a Python runtime;
-  `ready-to-try` detects tools and does not establish a successful game build
+  `ready-to-try` detects tools and the project compiler selection; it does not
+  establish a successful game build
 - `check` without a file builds the project. File checks use the existing saved
-  `.hs`/declared-source profile, not an arbitrary Cabal component reconstruction
+  `.hs`/declared-source profile with Cabal's selected compiler, not an arbitrary
+  Cabal component reconstruction
 - Captured commands default to 180 seconds; `--timeout SECONDS` accepts 1–86400
 - Interactive `run` inherits terminal input/output. On POSIX it replaces the
   CLI process with Cabal, leaving ordinary job control with the shell. A tool-level
@@ -210,8 +308,9 @@ The recorded Linux x86_64 snapshot uses GHC 9.6.7 and Cabal 3.12.1.0 and passes 
 real CLI/relocation/game-development and POSIX terminal/compiler cancellation
 suite, including shell-backed Ctrl-Z/fg, initial background launch, stopped-job
 cancellation and foreground/settings restoration. The source-bound summary is recorded at
-`docs/evidence/native-tooling-linux.json` in the foundation distribution. It qualifies
-its recorded `a4b1d1e` source snapshot, not later diagnostic-only edits.
+`docs/evidence/native-tooling-linux.json` in the foundation distribution and binds
+its exact input-file hashes. Windows-specific execution still needs the matching
+published revision's runner; a Linux pass does not establish that route.
 Published revision `a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b` passed native CI
 on [Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722641)
 and [macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37288904838/job/111694722116),
@@ -222,16 +321,21 @@ one-second timeout cases. Integration then failed at the first game build:
 means question marks alone do not establish damaged arguments. Bounded direct
 Cabal, `ghc-pkg` and retained Python comparisons keep the original Unicode paths
 and failure. A small Windows preflight runs these pinned-tool comparisons before
-the native CLI dependency matrix; the boundary remains under investigation. No Windows end-to-end
-claim is made. Exact current and earlier results are recorded in the foundation's
-`docs/evidence/native-tooling-ci.json`.
+the native CLI dependency matrix. The later
+[explicit-compiler probe](#windows-explicitly-select-the-installed-compiler)
+isolates the unversioned launcher boundary and passes the bounded real Japanese
+library/executable builds with the same installation's versioned compiler.
+Full native acceptance of that explicit selection remains pending; no Windows
+end-to-end claim is made. Exact current and earlier results are recorded in the
+foundation's `docs/evidence/native-tooling-ci.json`.
 
 The fresh secure package-index acquisition took 96.669 seconds on this machine.
 A resumed dependency/source build took 734.737 seconds, after an earlier process
 was interrupted and before application compile errors were corrected. This is
 **not** an uninterrupted successful cold-install time. With dependencies cached,
-a fresh application build took 21.960 seconds. The unstripped executable was
-21,706,160 bytes; 30 version-startup trials had a median of 14.835 milliseconds.
+a fresh application build took 25.863 seconds. The unstripped executable was
+21,753,048 bytes; 30 version-startup trials had a median of 14.558 milliseconds
+(range 12.108–18.765 milliseconds). These are observations, not an improvement claim.
 The package-index/source cache occupied 1,194,703,972 apparent bytes (about
 1.11 GiB) and the 42-unit external dependency store 119,220,746 apparent bytes
 (about 114 MiB). These are local disk observations, not network download sizes or

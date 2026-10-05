@@ -274,6 +274,22 @@ for the distinction between executed checks and unverified platform routes.
   requires both real version probes to succeed, and checks that no build output
   is created. It runs before Windows dependency acquisition; non-Windows hosts
   report this Windows-specific case as not applicable
+- **Compiler entry points and explicit selection:** The pinned Windows runner's
+  unversioned GHC C aliases lost Japanese arguments; the same installation's
+  versioned compiler passed complete Japanese-path library/executable builds.
+  Inspect the actual launcher boundary, not only its reported version or terminal
+  diagnostic encoding. The [GHC 9.6.7 wrapper source](https://github.com/ghc/ghc/blob/ghc-9.6.7-release/hadrian/bindist/cwrappers/version-wrapper.c)
+  accepts narrow argument strings. Keep the alias failure as a labelled diagnostic
+  and require the declared compiler-only profile in `test_windows_toolchain_paths.py`.
+  Explicit bootstrap `-CompilerPath` and exclusive machine-local Cabal profiles
+  preserve user choices without changing PATH. Native doctor and saved-source
+  checks query Cabal's chosen compiler; a failed query must never silently fall
+  back to ambient GHC. Integration checks the reported/invoked compiler, unavailable
+  selection refusal, preserved existing profiles, and scoped query cleanup.
+  An initial quoted-profile example failed real Cabal selection: `with-compiler`
+  consumes a whole raw field, so quote characters became part of the filename.
+  Use a raw forward-slash field with control characters rejected; an actual
+  forwarding wrapper with spaces/Japanese verifies both field grammar and identity
 - **First-use machine output:** Cabal's first JSON path query also printed config
   initialization prose, although warm-cache output was clean. CI uses the quiet
   path query, verified against a fresh empty Cabal configuration. Machine-readable

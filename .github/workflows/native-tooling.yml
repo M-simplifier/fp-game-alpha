@@ -92,6 +92,23 @@ jobs:
             ${{ steps.haskell.outputs.cabal-store }}
             ${{ steps.cache-environment.outputs.packages }}
           key: native-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-environment.outputs.image }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-${{ hashFiles('tools/haskell/*.cabal', 'tools/haskell/cabal.project*', '.github/workflows/native-tooling.yml') }}
+      - name: Select explicit Windows compiler profile
+        if: runner.os == 'Windows'
+        shell: pwsh
+        timeout-minutes: 5
+        run: |
+          $selection = Join-Path $env:RUNNER_TEMP 'fp-game-compiler.txt'
+          python tools/test_windows_toolchain_paths.py --select-compiler-output $selection
+          if ($LASTEXITCODE -ne 0) { throw 'Declared Windows compiler profile failed' }
+          $compiler = [IO.File]::ReadAllText($selection).Trim()
+          Write-Host "Explicit project compiler: $compiler"
+          "FP_GAME_COMPILER=$compiler" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          $profile = 'with-compiler: ' + $compiler.Replace('\', '/') + "`n"
+          $file = [IO.File]::Open((Join-Path $PWD 'tools/haskell/cabal.project.local'), [IO.FileMode]::CreateNew)
+          try {
+            $bytes = [Text.UTF8Encoding]::new($false).GetBytes($profile)
+            $file.Write($bytes, 0, $bytes.Length)
+          } finally { $file.Dispose() }
       - name: Bootstrap native CLI on Linux and macOS
         if: runner.os != 'Windows'
         shell: bash
@@ -107,20 +124,20 @@ jobs:
         run: |
           @'
           from pathlib import Path
-          import sys, tempfile
+          import os, sys, tempfile
           sys.path.insert(0, 'tools')
           from test_native_cli import bootstrap_refusals
           with tempfile.TemporaryDirectory(prefix='native bootstrap checks ') as temporary:
-              bootstrap_refusals(Path(temporary).resolve())
+              bootstrap_refusals(Path(temporary).resolve(), Path(os.environ['FP_GAME_COMPILER']))
           '@ | python -
       - name: Bootstrap native CLI on Windows
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           if ('${{ steps.native-dependencies.outputs.cache-hit }}' -eq 'true') {
-            ./tools/bootstrap-fp-game.ps1
+            ./tools/bootstrap-fp-game.ps1 -CompilerPath $env:FP_GAME_COMPILER
           } else {
-            ./tools/bootstrap-fp-game.ps1 -Download
+            ./tools/bootstrap-fp-game.ps1 -Download -CompilerPath $env:FP_GAME_COMPILER
           }
       - name: Install pinned formatter and check native package sources
         shell: bash
@@ -153,7 +170,13 @@ jobs:
           ghc-pkg field process version
           cabal test all --offline --builddir=../../.build/native-tool --test-show-details=direct
       - name: Execute independent native game development and refusal contracts
-        run: python tools/test_native_cli.py --binary .build/tools/fp-game${{ runner.os == 'Windows' && '.exe' || '' }}
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then
+            python tools/test_native_cli.py --binary .build/tools/fp-game.exe --windows-compiler "$FP_GAME_COMPILER"
+          else
+            python tools/test_native_cli.py --binary .build/tools/fp-game
+          fi
       - name: Save validated native dependencies on main only
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.native-dependencies.outputs.cache-hit != 'true'
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830

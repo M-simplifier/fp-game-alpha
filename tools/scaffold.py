@@ -113,7 +113,7 @@ def prepare(slug, destination, title, target, rendering, license_choice, author)
         files['LICENSE'] = text.replace('2026 Masaya Shirasawa', '2026 ' + author).encode('utf-8')
     else:
         files['LICENSE.game.txt'] = b'No game license has been chosen. No license is granted for your additions by this file. Foundation and original template notices remain separate.\n'
-    files['.gitignore'] = b'.build/\ndist-newstyle/\n__pycache__/\n*.hi\n*.o\n*.exe\ndata/\n'
+    files['.gitignore'] = b'.build/\ndist-newstyle/\n__pycache__/\n*.hi\n*.o\n*.exe\ncabal.project.local\ndata/\n'
     files['.gitattributes'] = b'* text=auto eol=lf\n'
     config = {'schema': 1, 'slug': slug, 'template': TEMPLATE, 'target': target, 'rendering': rendering,
               'source_dirs': ['src', 'vendor/game-transition/src', 'vendor/game-arena/src'],

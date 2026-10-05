@@ -86,7 +86,7 @@
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
-   "sha256_lf": "b2f0f174b9fd10a3eb5e2089175c550c45063dc318cc65c3bc5770fd6226763f",
+   "sha256_lf": "47dffe8e5b9f92ac4feecf76ce69aa6bcddbb501839346ef8e28713d1cd8305b",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -141,7 +141,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "5208a317caca2a7e5243a4a371ce0fb428aba9f4f0042fce49224bb8c2eba40a",
+   "sha256_lf": "43bf61721d5e148a86c5ac05ab7cc0ccbdf21bfd4529282a31128610eeaea496",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -300,7 +300,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-ci.json",
-   "sha256_lf": "dccfb12d7963fb9479a2a1acde702007472130d486528880e575a59c23d89259",
+   "sha256_lf": "f9f3709d9ed139111e09eb8bad994bfbc4f5fac19c9dc5199a2b65a0f361b93f",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -311,7 +311,7 @@
   },
   {
    "path": "docs/evidence/native-tooling-linux.json",
-   "sha256_lf": "b522c8d58780ff61678d1d904ecbb7aaed9b5c5840afa7d5ce00b34e6b77cf10",
+   "sha256_lf": "76f2d3c3b264229f71e11f0b3bfcea1640a915d6625505c8a76e53597f535001",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -366,7 +366,7 @@
   },
   {
    "path": "docs/failure-prevention.md",
-   "sha256_lf": "6e7e18fc89b0a8853979da286b52f2f0242f4c39306648cc3a76d1e4709bb7fb",
+   "sha256_lf": "0b67811f9fe7556013d1d5f30501451e864607e5e9dc436eded6d97ec1786986",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "72bf2a8b1fd64013561687efa467d3574b32b2397df646e4b5f933c6f5a92781",
+   "sha256_lf": "1fc25568455a20b593f0d6145836c1453d40dc7b6898571e0ecf69a8992aa344",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -472,7 +472,7 @@
   },
   {
    "path": "docs/new-game.md",
-   "sha256_lf": "f1a4c48b397aa5149cce65976b9670741875b8f5b117090647a66ac84b23e930",
+   "sha256_lf": "0d849f8868bf1cdc33ded8599240b6a3a6cd1c7cd6eef4aa3d619a2aed0b7ffa",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -483,7 +483,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "4247d5199508d07ecaf4a8ecda8178458e83e70a66412b568cf2a66bbf167531",
+   "sha256_lf": "bac0e12427629c3177e162399edf1f010b8051430fee43bf0e951538d5e69aae",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -753,7 +753,7 @@
   },
   {
    "path": "docs/setup.md",
-   "sha256_lf": "1f9dd2f39e70cb75b6025c5228e09f1cb766ca01b82491b1fd7dc9c2e274571e",
+   "sha256_lf": "457356f9857d7b47e98d689adb8e57bb42c6cb84f4c5a340ec726f058adffd21",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19015,7 +19015,7 @@
   },
   {
    "path": "tools/bootstrap-fp-game.ps1",
-   "sha256_lf": "6d62f743fbd0b4283e9da0e5fa1f91115c966e9e79e23d4b5bedb853a21925c3",
+   "sha256_lf": "41dd8a34950d082bcbfbe7e5446bd946417f0ec59e9d520148784b36e72f6b1e",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -19107,7 +19107,7 @@
   },
   {
    "path": "tools/haskell/README.md",
-   "sha256_lf": "89a1a486036024d618fd8d1a67736b702c953a4681b7efb3a5f68a8adeb708aa",
+   "sha256_lf": "7866cc76445ecd766c161542ad0a57592392a6c542aa407101172392fa3e1396",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19151,7 +19151,7 @@
   },
   {
    "path": "tools/haskell/fp-game-tooling.cabal",
-   "sha256_lf": "dd3991d88634319a335f65721a5122c60541a671478f49de2a0ae47d61109732",
+   "sha256_lf": "bd093c09bf8dd870c0bf3c706f8165e8f1d9e41678f4876c0bf217d3f75e541d",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19172,8 +19172,19 @@
    "review": "explicit technical selection; license notice reviewed"
   },
   {
+   "path": "tools/haskell/src/FpGame/Cabal.hs",
+   "sha256_lf": "b3063fbbf725f5d880906035e45d53bcc9e95fc52b48a89aba89edbd2df6a581",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "tools/haskell/LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
    "path": "tools/haskell/src/FpGame/Command.hs",
-   "sha256_lf": "7f2c4550a98d0fe22fac8972f4b6e7bfb7c43ca80a2551a31caf2dc5eaa9f68e",
+   "sha256_lf": "7c96460b50fbd0d2a365eb36447b697be47cffe639b9e8ec0c185f5b5871fbdd",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19195,7 +19206,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Create.hs",
-   "sha256_lf": "3697d91e85ec2291a7f37d292cdac4f4b62c521efd450ef63c550d08a533b06c",
+   "sha256_lf": "b79608659637d2378486551c38f76afdabf143f1acca3cee36d424df91780d3d",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19217,7 +19228,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Path.hs",
-   "sha256_lf": "6b8bed58cbb9687fb31b3b25d5ede8ba2f6c445fbb608618456a91caff331898",
+   "sha256_lf": "47b391e61d9b575cdb32aeb446bc6f6d7b72b4fb81f43098fc8c4b93d667e1c2",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19261,7 +19272,7 @@
   },
   {
    "path": "tools/haskell/test/Main.hs",
-   "sha256_lf": "a39c2957ff01c0f276dcbc0e5fe055205388dd85da803efda20ae0a5bd8161cd",
+   "sha256_lf": "3098b444e7db4dd22bf61963727d46d3cf2c00707e7acd95e9e1ccc06879fe02",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19305,7 +19316,7 @@
   },
   {
    "path": "tools/scaffold.py",
-   "sha256_lf": "ba722bc97523e7f7d2912a5d4c6302c5f3e8a037a4752fb39fdf33161ff55253",
+   "sha256_lf": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19349,7 +19360,7 @@
   },
   {
    "path": "tools/test_native_cli.py",
-   "sha256_lf": "50623dbaa2fd927627674ba00194a38196120ddee20e4316a9545e601e330f29",
+   "sha256_lf": "337c72d0bc2d33e0913f11746a9cbfb70d6d6c4f4e3edef863e4f16e45e0c4d2",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -19428,7 +19439,7 @@
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",
-   "sha256_lf": "fe2ab058e398ce866c088976485e66792af7d68e09e8b95c2454f98910320386",
+   "sha256_lf": "ef606a9b5018e23250611aed2e2b78ad052721231c37bfa0ba37ceed9d3749be",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Boot-library-only Windows Unicode path preflight, preserving independent Python/Cabal/GHC comparison and failed original outcomes."

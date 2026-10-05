@@ -1,23 +1,45 @@
 # One explicit build, then use .build/tools/fp-game.exe directly. No Python required.
 [CmdletBinding()]
-param([switch]$Download, [switch]$Check)
+param([switch]$Download, [switch]$Check, [string]$CompilerPath)
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 if ($Download -and $Check) { Write-Error 'Choose either -Download or -Check.'; exit 2 }
+# Resolve an explicitly chosen compiler from the caller's location, before any
+# build-directory writes or Push-Location. Keep wrapper/symlink identity intact.
+$compiler = $null
+if ($PSBoundParameters.ContainsKey('CompilerPath')) {
+    if ([string]::IsNullOrWhiteSpace($CompilerPath) -or $CompilerPath -match '[\x00-\x1f]') {
+        throw 'CompilerPath must name an existing compiler executable.'
+    }
+    $compiler = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($CompilerPath)
+    $item = Get-Item -LiteralPath $compiler -Force -ErrorAction Stop
+    if ($item.PSIsContainer -or $item.PSProvider.Name -ne 'FileSystem') {
+        throw 'CompilerPath must name an existing compiler executable.'
+    }
+}
 $missing = $false
 foreach ($tool in @('ghc', 'cabal')) {
     # PATH may contain multiple spellings of the same application directory.
     # Get-Command can return several matches; invoke one checked application.
     $command = Get-Command $tool -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
-    if ($null -eq $command) {
+    $application = if ($tool -eq 'ghc' -and $null -ne $compiler) { $compiler } elseif ($null -ne $command) { $command.Source } else { $null }
+    if ($null -eq $application) {
         [Console]::Error.WriteLine("$tool is missing from PATH.")
         $missing = $true
     } else {
-        $version = & $command.Source --numeric-version
+        $version = & $application --numeric-version
         if ($LASTEXITCODE -ne 0) {
             [Console]::Error.WriteLine("$tool was found but its version check failed.")
             $missing = $true
-        } else { [Console]::Error.WriteLine("${tool}: $version") }
+        } else {
+            if ($tool -eq 'ghc' -and $null -ne $compiler) {
+                if (($version -join "`n").Trim() -notmatch '^\d+(\.\d+)+$') {
+                    throw 'CompilerPath did not report a numeric GHC version.'
+                }
+                [Console]::Error.WriteLine("Explicit compiler: $compiler")
+            }
+            [Console]::Error.WriteLine("${tool}: $version")
+        }
     }
 }
 if ($missing) {
@@ -57,9 +79,12 @@ try {
     }
     $options = @('build', 'exe:fp-game', "--builddir=$build")
     if (-not $Download) { $options += '--offline' }
+    $compilerOptions = @()
+    if ($null -ne $compiler) { $compilerOptions += "--with-compiler=$compiler" }
+    $options += $compilerOptions
     & cabal @options
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    $source = & cabal list-bin exe:fp-game --offline "--builddir=$build"
+    $source = & cabal list-bin exe:fp-game --offline "--builddir=$build" @compilerOptions
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     $source = ($source -join "`n").Trim()
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw 'Cabal did not identify the built executable.' }

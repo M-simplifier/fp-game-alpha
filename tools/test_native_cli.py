@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import platform
 import shutil
+import shlex
 import signal
 import subprocess
 import sys
@@ -31,11 +32,12 @@ def source_hashes():
     for name in ['tools/haskell', 'templates/terminal-adventure',
                  'libraries/game-transition', 'libraries/game-arena']:
         for path in (ROOT / name).rglob('*'):
-            if path.is_file() and not any(part in {'.build', 'dist-newstyle', '__pycache__'}
+            if path.is_file() and not any(part in {'.build', 'dist-newstyle', '__pycache__', 'cabal.project.local'}
                                           for part in path.relative_to(ROOT).parts):
                 inputs.add(path)
     for name in ['tools/bootstrap-fp-game.sh', 'tools/bootstrap-fp-game.ps1',
                  'tools/test_native_cli.py', 'tools/test_native_terminal.py',
+                 'tools/test_windows_toolchain_paths.py',
                  'tools/acceptance/features.py', 'tools/fp_game.py', 'tools/scaffold.py',
                  'tools/toolchains.json', 'tools/formatter.py', 'tools/formatter.lock.json',
                  'docs/native-tooling.md', 'docs/failure-prevention.md',
@@ -96,11 +98,13 @@ def error(label, result):
             and bool(result.get('stderr')))
 
 
-def bootstrap(project, label):
+def bootstrap(project, label, compiler=None):
     if os.name == 'nt':
         shell = shutil.which('pwsh') or shutil.which('powershell')
         require(label + '-powershell-present', shell is not None)
         command = [shell, '-NoProfile', '-File', project / 'tools/bootstrap-fp-game.ps1']
+        if compiler is not None:
+            command += ['-CompilerPath', compiler]
     else:
         command = [shutil.which('sh'), project / 'tools/bootstrap-fp-game.sh']
     run(label, command, project.parent, json_result=False)
@@ -140,7 +144,7 @@ def powershell_duplicate_path_check(project, trial):
     require('powershell-duplicate-path-check-does-not-build', not (project / '.build').exists())
 
 
-def bootstrap_refusals(trial):
+def bootstrap_refusals(trial, compiler=None):
     project = trial / 'bootstrap refusal 日本語'
     (project / 'tools/haskell').mkdir(parents=True)
     (project / 'tools/haskell/cabal.project').write_text('packages: .\n', encoding='utf-8')
@@ -159,6 +163,23 @@ def bootstrap_refusals(trial):
             and 'cabal' in missing.stderr.lower() and 'ghcup/install' in missing.stderr)
     require('bootstrap-check-creates-no-output', not (project / '.build').exists())
     powershell_duplicate_path_check(project, trial)
+    if os.name == 'nt' and compiler is not None:
+        selected = run('bootstrap-explicit-compiler-check', [*command, '-Check', '-CompilerPath', compiler],
+                       trial, json_result=False)
+        require('bootstrap-reports-explicit-compiler', str(compiler) in selected.stderr)
+        local_profile = project / 'tools/haskell/cabal.project.local'
+        local_profile.write_text('-- user-owned settings must be preserved\n', encoding='utf-8')
+        profile_before = local_profile.read_bytes()
+        # Resolve from the selected compiler's own directory: valid even when
+        # the temporary project and compiler live on different Windows volumes.
+        run('bootstrap-relative-compiler-check', [*command, '-Check', '-CompilerPath',
+            './' + compiler.name], compiler.parent, json_result=False)
+        require('bootstrap-preserves-existing-profile', local_profile.read_bytes() == profile_before)
+        run('bootstrap-missing-explicit-compiler', [*command, '-Check', '-CompilerPath',
+            trial / 'missing-ghc.exe'], trial, expected=1, json_result=False)
+        run('bootstrap-directory-as-compiler', [*command, '-Check', '-CompilerPath', trial],
+            trial, expected=1, json_result=False)
+        require('explicit-bootstrap-check-does-not-build', not (project / '.build').exists())
     leaf = project / '.build/tools' / ('fp-game.exe' if os.name == 'nt' else 'fp-game')
     leaf.mkdir(parents=True)
     sentinel = leaf / 'sentinel'
@@ -180,8 +201,12 @@ def source_snapshot(destination):
         shutil.copytree(ROOT / name, destination / name,
                         ignore=shutil.ignore_patterns('.build', 'dist-newstyle', '__pycache__',
                                                      'node_modules', 'dist', 'vendor', '.runtime',
-                                                     '*.hi', '*.o', '*.exe'))
+                                                     '*.hi', '*.o', '*.exe', 'cabal.project.local'))
     shutil.copy2(ROOT / 'LICENSE', destination / 'LICENSE')
+    # A genuine boot-package-only project for Cabal's authoritative path query.
+    # The root checkout project references examples deliberately absent here.
+    (destination / 'cabal.project').write_text(
+        'packages: libraries/game-transition libraries/game-arena\n', encoding='utf-8')
 
 
 def symlink_or_record(link, target, directory=False):
@@ -244,12 +269,36 @@ def cancellation(binary, project):
     source.unlink()
 
 
-def acceptance(binary, trial):
-    bootstrap_refusals(trial)
+def compiler_profile(project, compiler):
+    """Explicit machine-local selection; never overwrite a caller's profile."""
+    value = str(compiler).replace('\\', '/')
+    if any(ord(character) < 32 for character in value):
+        raise ValueError('Compiler path contains a control character')
+    with (project / 'cabal.project.local').open('x', encoding='utf-8', newline='\n') as profile:
+        # This Cabal field is a whole raw value, not a Haskell/JSON string literal.
+        profile.write('with-compiler: ' + value + '\n')
+
+
+def same_path(left, right):
+    # Normalize spelling only: do not resolve symlinks or bypass custom wrappers.
+    return os.path.normcase(os.path.abspath(left)) == os.path.normcase(os.path.abspath(right))
+
+
+def acceptance(binary, trial, compiler=None):
+    bootstrap_refusals(trial, compiler)
     unrelated = trial / 'unrelated caller 日本語'
     unrelated.mkdir()
     fixture = trial / 'source snapshot 日本語'
     source_snapshot(fixture)
+    selected_compiler = compiler or Path(shutil.which('ghc')).absolute()
+    query_compiler = selected_compiler
+    if os.name != 'nt':
+        # Exercise the actual field grammar and preserve a user-selected wrapper
+        # with spaces/Unicode, forwarding every argument to the real compiler.
+        query_compiler = trial / 'custom compiler 日本語'
+        query_compiler.write_text('#!/bin/sh\nexec ' + shlex.quote(str(selected_compiler)) + ' "$@"\n', encoding='utf-8')
+        query_compiler.chmod(0o755)
+    compiler_profile(fixture, query_compiler)
     require('foundation-snapshot-has-no-git', not (fixture / '.git').exists())
     installed = trial / 'installed tooling 日本語' / binary.name
     installed.parent.mkdir()
@@ -258,14 +307,46 @@ def acceptance(binary, trial):
     game = trial / 'first independent game 日本語'
     args = ['acceptance-game', str(game), '--title', '独立したゲーム']
 
-    doctor = cli(binary, 'native-doctor', 'doctor', fixture, cwd=unrelated)
+    fresh_cabal_home = trial / 'absent global Cabal home'
+    doctor = cli(binary, 'native-doctor', 'doctor', fixture, cwd=unrelated,
+                 env=dict(os.environ, CABAL_DIR=str(fresh_cabal_home)))
+    require('doctor-does-not-initialize-global-cabal-home', not fresh_cabal_home.exists())
     ENVIRONMENT.update({name: doctor['tools'][name]['version'] for name in ['ghc', 'cabal']})
+    ENVIRONMENT['compiler_profile'] = 'explicit project-local compiler; Cabal authoritative selection'
     require('doctor-identifies-haskell', doctor.get('implementation') == 'haskell')
     require('doctor-not-a-build-claim', doctor.get('status') == 'ready-to-try')
+    require('doctor-reports-selected-compiler', same_path(doctor['tools']['ghc']['path'], query_compiler)
+            and doctor['compiler_selection']['path'] == doctor['tools']['ghc']['path'])
+    require('doctor-cleans-scoped-query-state', not (fixture / '.build').exists())
+    if os.name != 'nt':
+        cabal_only = trial / 'cabal only PATH'
+        cabal_only.mkdir()
+        (cabal_only / 'cabal').symlink_to(shutil.which('cabal'))
+        # A custom compiler name cannot infer the package-tool sibling; retain
+        # its real package manager while deliberately excluding ambient ghc.
+        (cabal_only / 'ghc-pkg').symlink_to(shutil.which('ghc-pkg'))
+        no_ambient = cli(binary, 'doctor-explicit-compiler-without-ambient-ghc', 'doctor', fixture,
+                         env=dict(os.environ, PATH=str(cabal_only)))
+        require('doctor-honors-selected-compiler-without-ambient-ghc',
+                same_path(no_ambient['tools']['ghc']['path'], query_compiler)
+                and no_ambient['status'] == 'ready-to-try')
+        require('no-ambient-doctor-cleans-query-state', not (fixture / '.build').exists())
+    existing_state = fixture / '.build'
+    existing_state.mkdir()
+    sentinel = existing_state / 'user-cache-sentinel'
+    sentinel.write_bytes(b'preserve existing state')
+    cli(binary, 'doctor-preserves-existing-build-state', 'doctor', fixture)
+    require('doctor-removes-only-its-own-query-state', list(existing_state.iterdir()) == [sentinel]
+            and sentinel.read_bytes() == b'preserve existing state')
+    shutil.rmtree(existing_state)
+    missing_project = trial / 'missing tools project'
+    missing_project.mkdir()
     missing_path = dict(os.environ, PATH=str(trial / 'absent-tools'))
-    missing = cli(binary, 'missing-tools', 'doctor', fixture, expected=1, env=missing_path)
+    missing = cli(binary, 'missing-tools', 'doctor', missing_project, expected=1, env=missing_path)
     require('missing-tools-explicit', missing.get('status') == 'missing-tools'
-            and set(missing.get('missing', [])) >= {'ghc', 'cabal'})
+            and set(missing.get('missing', [])) >= {'ghc', 'cabal'}
+            and missing.get('compiler_selection') is None)
+    require('missing-tools-doctor-creates-no-state', not list(missing_project.iterdir()))
     run('unknown-command', [binary, 'unknown-command'], unrelated, expected=2, json_result=False)
 
     invalid_run = trial / 'invalid run target'
@@ -381,6 +462,34 @@ def acceptance(binary, trial):
     require('vendored-file-hashes', all(hashlib.sha256((game / name).read_bytes()).hexdigest() == digest
             for name, digest in lock['sha256_lf'].items()))
 
+    require('generated-no-machine-compiler-profile', not list(game.rglob('cabal.project.local')))
+    compiler_profile(game, selected_compiler)
+    profile_bytes = (game / 'cabal.project.local').read_bytes()
+    try:
+        compiler_profile(game, trial / 'different-compiler')
+    except FileExistsError:
+        pass
+    else:
+        raise AssertionError('Compiler setup overwrote an existing local profile')
+    require('compiler-profile-preserves-existing-config', (game / 'cabal.project.local').read_bytes() == profile_bytes)
+    # A deliberately unavailable explicit compiler must fail the authoritative
+    # query while a valid ambient GHC is still present. No fallback can pass.
+    unavailable = trial / 'unavailable compiler project'
+    unavailable.mkdir()
+    (unavailable / 'src').mkdir()
+    (unavailable / 'src/Unavailable.hs').write_text('module Unavailable where\n', encoding='utf-8')
+    (unavailable / 'cabal.project').write_text('packages: .\n', encoding='utf-8')
+    (unavailable / 'unavailable.cabal').write_text('cabal-version: 3.0\nname: unavailable\nversion: 0.1.0.0\n'
+        'build-type: Simple\nlibrary\n  exposed-modules: Unavailable\n  hs-source-dirs: src\n'
+        '  default-language: Haskell2010\n  build-depends: base\n', encoding='utf-8')
+    (unavailable / 'fp-game.json').write_text('{"source_dirs":["src"]}', encoding='utf-8')
+    compiler_profile(unavailable, trial / 'absent chosen compiler' / 'ghc.exe')
+    for action, options in [('doctor', []), ('check', ['src/Unavailable.hs'])]:
+        refused = cli(binary, 'unavailable-selected-compiler-' + action, action, unavailable, *options, expected=1)
+        error('unavailable-compiler-' + action, refused)
+        require('unavailable-compiler-no-fallback-' + action, refused['error_code'] == 'invalid-config'
+                and 'No PATH fallback' in refused['stderr'])
+        require('unavailable-query-cleans-temporary-state-' + action, not (unavailable / '.build').exists())
     for action in ['build', 'test', 'check']:
         result = cli(binary, 'native-' + action, action, game, cwd=unrelated)
         executed(action, result)
@@ -396,8 +505,22 @@ def acceptance(binary, trial):
     good = game / 'src/Unicode.hs'
     good.write_bytes('-- 日本語\r\nmodule Unicode where\r\nvalue :: Integer\r\nvalue = 7\r\n'.encode())
     native = cli(binary, 'native-crlf-unicode-check', 'check', game, 'src/Unicode.hs')
-    legacy = run('legacy-contract-check', [sys.executable, ROOT / 'tools/fp_game.py',
-        'check', 'src/Unicode.hs', '--project', game, '--json'], unrelated)
+    require('saved-check-uses-selected-compiler', same_path(native['command'][0], selected_compiler))
+    if os.name == 'nt':
+        # Keep the real unchanged Python checker, changing only its explicit
+        # compiler lookup for this diagnostic comparison. PATH stays untouched.
+        adapter = ("import json,sys; from pathlib import Path; from unittest.mock import patch; "
+                   "sys.path.insert(0,sys.argv[1]); import fp_game; "
+                   "original=fp_game.shutil.which; "
+                   "selected=lambda name,*a,**k: sys.argv[3] if name=='ghc' else original(name,*a,**k); "
+                   "context=patch.object(fp_game.shutil,'which',selected); context.start(); "
+                   "result=fp_game.check_file(Path(sys.argv[2]),'src/Unicode.hs'); "
+                   "print(json.dumps(result,ensure_ascii=False)); sys.exit(result['exit_code'])")
+        legacy = run('legacy-check-explicit-compiler-selection-adapter',
+                     [sys.executable, '-c', adapter, ROOT / 'tools', game, selected_compiler], unrelated)
+    else:
+        legacy = run('legacy-contract-check', [sys.executable, ROOT / 'tools/fp_game.py',
+            'check', 'src/Unicode.hs', '--project', game, '--json'], unrelated)
     require('legacy-execution-schema-compatible', set(native) == set(legacy))
     require('legacy-compiler-flags-compatible', all(flag in native['command'] and flag in legacy['command']
             for flag in ['-fno-code', '-fforce-recomp', '-XGHC2021', '-Wall', '-fdiagnostics-color=never']))
@@ -426,6 +549,17 @@ def acceptance(binary, trial):
     if symlink_or_record(fresh / '.build', trial, directory=True):
         error('linked-build-state', cli(binary, 'linked-build-state-refused', 'build', fresh, expected=1))
 
+    linked_logs = trial / 'linked log project'
+    (linked_logs / '.build').mkdir(parents=True)
+    outside_logs = trial / 'outside logs'
+    outside_logs.mkdir()
+    if symlink_or_record(linked_logs / '.build/logs', outside_logs, directory=True):
+        refused = cli(binary, 'linked-log-directory-refused', 'build', linked_logs, expected=1)
+        error('linked-logs', refused)
+        require('linked-logs-specific-refusal', refused['error_code'] == 'unsafe-path')
+        require('linked-log-directory-outside-untouched', not list(outside_logs.iterdir()))
+        require('linked-logs-refused-before-config-write', not (linked_logs / '.build/cabal.config').exists())
+
     external_config = trial / 'external-cabal-config'
     external_config.write_bytes(b'outside content must not be truncated\n')
     config_path = game / '.build/cabal.config'
@@ -451,14 +585,17 @@ def acceptance(binary, trial):
     require('actual-key-gameplay', all(word in played.stdout for word in
             ['Collected the key.', 'Saved.', 'Loaded.', 'You escaped.']))
 
+    require('native-operations-preserve-selected-profile', (game / 'cabal.project.local').read_bytes() == profile_bytes)
     relocated = trial / 'relocated continued game 日本語'
-    shutil.copytree(game, relocated, ignore=shutil.ignore_patterns('.build', 'dist-newstyle', '__pycache__', '*.py'))
+    shutil.copytree(game, relocated, ignore=shutil.ignore_patterns('.build', 'dist-newstyle', '__pycache__', '*.py', 'cabal.project.local'))
     shutil.rmtree(game)
     shutil.rmtree(fixture)
     require('original-game-and-foundation-removed', not game.exists() and not fixture.exists())
     require('relocated-no-python-scripts', not list(relocated.rglob('*.py')))
     require('relocated-no-game-build-cache', not (relocated / '.build').exists())
-    native_local = bootstrap(relocated, 'standalone-native-bootstrap')
+    require('relocated-profile-not-copied', not list(relocated.rglob('cabal.project.local')))
+    compiler_profile(relocated, selected_compiler)
+    native_local = bootstrap(relocated, 'standalone-native-bootstrap', compiler)
     local_hash = hashlib.sha256(native_local.read_bytes()).hexdigest()
     local_modified = native_local.stat().st_mtime_ns
     for action in ['build', 'test']:
@@ -484,8 +621,14 @@ def acceptance(binary, trial):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--binary', type=Path, required=True)
+    parser.add_argument('--windows-compiler', type=Path, help='Explicit verified compiler profile; required on Windows')
     parser.add_argument('--report', type=Path, default=ROOT / '.build/native-cli-report.json')
     args = parser.parse_args()
+    if os.name == 'nt' and args.windows_compiler is None:
+        parser.error('Windows acceptance requires --windows-compiler from the declared toolchain profile')
+    compiler = args.windows_compiler.absolute() if args.windows_compiler is not None else None
+    if compiler is not None and not compiler.is_file():
+        parser.error('The explicitly selected compiler does not exist')
     binary = args.binary.resolve()
     require('real-native-executable-present', binary.is_file())
     input_hashes = source_hashes()
@@ -495,7 +638,7 @@ def main():
         with tempfile.TemporaryDirectory(prefix='FP native acceptance 日本語 ') as temporary:
             trial = Path(temporary).resolve()
             require('trial-outside-foundation', not trial.is_relative_to(ROOT))
-            acceptance(binary, trial)
+            acceptance(binary, trial, compiler)
         require('source-inputs-stable-through-test', source_hashes() == input_hashes)
         status = 'pass'
     finally:

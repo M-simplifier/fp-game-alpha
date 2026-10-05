@@ -434,7 +434,7 @@ substituteTokens substitutions source =
 nativeReadme :: Text.Text -> Text.Text
 nativeReadme content =
   let nativeCommands = Text.replace "python tools/fp_game.py " ".build/tools/fp-game " content
-      bootstrap = "## Build the native tooling once\n\nThe game builds with GHC's bundled packages and the vendored kernels. The CLI has its own reviewed, pinned source and dependencies under `tools/haskell/`. On Linux/macOS run `sh tools/bootstrap-fp-game.sh --download`; on Windows run `powershell -File tools/bootstrap-fp-game.ps1 -Download`. This explicitly downloads the pinned CLI dependencies. With those dependencies already cached, omit `--download` / `-Download` for an offline bootstrap. No Python is needed for the native core commands. On Windows use `.build/tools/fp-game.exe`. Read [native tooling](docs/native-tooling.md) for setup details and optional legacy adapters.\n\nAfter bootstrapping, run the native executable from this game directory:\n\n"
+      bootstrap = "## Build the native tooling once\n\nThe game builds with GHC's bundled packages and the vendored kernels. The CLI has its own reviewed, pinned source and dependencies under `tools/haskell/`. On Linux/macOS run `sh tools/bootstrap-fp-game.sh --download`; on Windows first select the verified real versioned compiler as described in [native tooling](docs/native-tooling.md), then run `powershell -File tools/bootstrap-fp-game.ps1 -Download -CompilerPath $compiler` and set the game's `cabal.project.local` choice. This explicitly downloads the pinned CLI dependencies. With those dependencies already cached, omit `--download` / `-Download` for an offline bootstrap. The machine-local compiler choice is ignored by Git and must be selected again on another machine; never overwrite an existing choice. No Python is needed for the native core commands. On Windows use `.build/tools/fp-game.exe`. Read [native tooling](docs/native-tooling.md) for setup details and optional legacy adapters.\n\nAfter bootstrapping, run the native executable from this game directory:\n\n"
    in Text.replace "```sh\n.build/tools/fp-game doctor" (bootstrap <> "```sh\n.build/tools/fp-game doctor") nativeCommands
 
 renderFoundation :: Files -> IO Files
@@ -483,7 +483,7 @@ generatedFiles options inputs lock = do
         [ ("licenses/FOUNDATION-MIT.txt", foundationLicense),
           ("NOTICE.md", notice),
           ownLicense,
-          (".gitignore", ".build/\ndist-newstyle/\n__pycache__/\n*.hi\n*.o\n*.exe\ndata/\n"),
+          (".gitignore", ".build/\ndist-newstyle/\n__pycache__/\n*.hi\n*.o\n*.exe\ncabal.project.local\ndata/\n"),
           (".gitattributes", "* text=auto eol=lf\n"),
           ("hie.yaml", "cradle:\n  cabal:\n"),
           (".github/workflows/game.yml", gameWorkflow (gameSlug options))
@@ -698,6 +698,7 @@ foundationSources =
     "tools/bootstrap-fp-game.ps1",
     "tools/haskell/app/Main.hs",
     "tools/haskell/src/FpGame/CLI.hs",
+    "tools/haskell/src/FpGame/Cabal.hs",
     "tools/haskell/src/FpGame/Command.hs",
     "tools/haskell/src/FpGame/Config.hs",
     "tools/haskell/src/FpGame/Create.hs",
@@ -735,10 +736,28 @@ gameWorkflow slug =
       "          ghc-version: '9.6.7'",
       "          cabal-version: '3.12.1.0'",
       "          cabal-update: false",
+      "      - name: Select declared Windows compiler profile",
+      "        if: runner.os == 'Windows'",
+      "        shell: pwsh",
+      "        run: |",
+      "          $installed = (& ghcup whereis ghc 9.6.7).Trim()",
+      "          if ($LASTEXITCODE -ne 0) { throw 'GHC installation lookup failed' }",
+      "          $compiler = Join-Path (Split-Path -Parent $installed) 'ghc-9.6.7.exe'",
+      "          if (!(Test-Path -LiteralPath $compiler -PathType Leaf)) { throw 'Selected compiler is absent' }",
+      "          $version = & $compiler --numeric-version",
+      "          if ($LASTEXITCODE -ne 0 -or ($version -join \"`n\").Trim() -ne '9.6.7') { throw 'Selected compiler is not GHC 9.6.7' }",
+      "          Write-Host \"Explicit project compiler: $compiler\"",
+      "          \"FP_GAME_COMPILER=$compiler\" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8",
+      "          $profile = 'with-compiler: ' + $compiler.Replace('\\', '/') + \"`n\"",
+      "          $file = [IO.File]::Open((Join-Path $PWD 'cabal.project.local'), [IO.FileMode]::CreateNew)",
+      "          try {",
+      "            $bytes = [Text.UTF8Encoding]::new($false).GetBytes($profile)",
+      "            $file.Write($bytes, 0, $bytes.Length)",
+      "          } finally { $file.Dispose() }",
       "      - name: Bootstrap native CLI (Windows)",
       "        if: runner.os == 'Windows'",
       "        shell: pwsh",
-      "        run: ./tools/bootstrap-fp-game.ps1 -Download",
+      "        run: ./tools/bootstrap-fp-game.ps1 -Download -CompilerPath $env:FP_GAME_COMPILER",
       "      - name: Bootstrap native CLI (Linux/macOS)",
       "        if: runner.os != 'Windows'",
       "        run: sh tools/bootstrap-fp-game.sh --download",
@@ -747,6 +766,7 @@ gameWorkflow slug =
       "          python-version: '3.12'",
       "      - run: python tools/formatter.py install",
       "      - run: python tools/formatter.py check",
+      "      - run: ./.build/tools/fp-game doctor",
       "      - run: ./.build/tools/fp-game build",
       "      - run: ./.build/tools/fp-game test",
       "      - run: ./.build/tools/fp-game check",

@@ -83,6 +83,20 @@ used independently; see [tooling](tooling.md), [editors](editors.md), and
 map/outline/show reading and the original design-view adapters. Keep its guide
 or a pinned public link reachable in the new game when using it.
 
+When an explicit compiler choice is needed, follow the
+[Windows compiler-profile recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler).
+Probe the actual installed executable; do not silently change versions, rewrite
+PATH or bypass an alias. `-CompilerPath` selects the separate tooling bootstrap,
+while the game uses its own Cabal project selection. Inspect and preserve any
+existing local profile or compiler wrapper. Add a compiler-only
+`cabal.project.local` exclusively when absent, using a raw forward-slash
+absolute path; keep it ignored and out of copied/generated source. Recreate it
+deliberately for a relocated workspace. Native doctor/check follow Cabal's
+selection and fail rather than guessing another compiler. The bounded Windows
+Japanese-path compiler probe passed; full native three-OS end-to-end acceptance
+of this route remains pending. Continue the requested game's real build, tests
+and play checks instead of treating the probe or profile alone as completion.
+
 ## 4. Implement a real playable slice, then continue
 
 1. Implement the brief's first meaningful rule and its domain tests

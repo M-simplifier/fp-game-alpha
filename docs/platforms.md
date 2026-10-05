@@ -43,7 +43,18 @@ or public deployment is part of this route. Windows/macOS host support is unclai
 
 The [Haskell CLI](native-tooling.md) has a source bootstrap and an executable
 Linux/Windows/macOS integration matrix. Linux and macOS pass the documented
-native checks. Windows passes bootstrap and unit tests but its first Japanese-path
-game build currently fails in `ghc-pkg`; end-to-end support remains unverified.
-The guide links exact jobs and revisions. Existing Python/core evidence retains
-its original scope. Optional terminal creation does not limit other game hosts.
+native checks at the recorded revision. Windows passed bootstrap and unit tests,
+but that revision's first Japanese-path game build failed in `ghc-pkg`. A later
+[bounded compiler-path probe](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1)
+identified Japanese argument corruption in the unversioned C launcher aliases:
+actual Japanese-path library and executable builds passed using only
+`ghc-9.6.7.exe` from the same GHC 9.6.7 installation. The
+[explicit selection recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler)
+selects bootstrap and game compilers separately, without changing global PATH
+or installing a different version. Existing project settings and wrappers stay
+authoritative; machine-local profiles are deliberately recreated after relocation.
+
+Full native three-OS end-to-end acceptance of this change remains pending.
+The guide links exact jobs and revisions; the bounded compiler probe is not a
+Windows end-to-end pass. Existing Python/core evidence retains its original
+scope. Optional terminal creation does not limit other game hosts.

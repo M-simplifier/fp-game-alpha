@@ -6,14 +6,15 @@
     "os": "Linux",
     "architecture": "x86_64",
     "ghc": "9.6.7",
-    "cabal": "3.12.1.0"
+    "cabal": "3.12.1.0",
+    "compiler_profile": "explicit project-local compiler; Cabal authoritative selection"
   },
-  "binary_sha256": "0d0d28055a01afeb511b7c63cfea599dfef094ad517be4b1977b7f8da19415a1",
+  "binary_sha256": "b6d2ba3e0abd378473d4f35eab9aefff3b9b6da620dfabcf4621404c2a94e1b0",
   "input_source_scope": "Native package, bootstrap, harness, optional starter/core fixtures, legacy contract oracle, native/prevention guides, workflow and formatter selection; excludes local outputs and evidence reports.",
   "input_sha256_lf": {
-    ".github/workflows/native-tooling.yml": "9d53e878ab72f5e9df5f863c9232bc37a08b79421cbb2eaa33e82bf8a3508aa8",
-    "docs/failure-prevention.md": "6e7e18fc89b0a8853979da286b52f2f0242f4c39306648cc3a76d1e4709bb7fb",
-    "docs/native-tooling.md": "496b045749fa1876183d07692688eaecd48bda23b9b994866025af5803182f8f",
+    ".github/workflows/native-tooling.yml": "43bf61721d5e148a86c5ac05ab7cc0ccbdf21bfd4529282a31128610eeaea496",
+    "docs/failure-prevention.md": "0b67811f9fe7556013d1d5f30501451e864607e5e9dc436eded6d97ec1786986",
+    "docs/native-tooling.md": "1fc25568455a20b593f0d6145836c1453d40dc7b6898571e0ecf69a8992aa344",
     "formatter.json": "da691d87ad89f0ce9fce220137177b3a22c4fd89486168b839730697cf044649",
     "libraries/game-arena/LICENSE": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
     "libraries/game-arena/game-arena.cabal": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f",
@@ -44,31 +45,33 @@
     "templates/terminal-adventure/src/Game/View.hs": "95048aaebcb3fde0a4b8674025630c16c05d84ad31b7e45e5fd21fa483cd55e0",
     "templates/terminal-adventure/test/Spec.hs": "43640cec9798345d6e7d946458eec736b6d78b9db4dff55a184e80d424dafc6e",
     "tools/acceptance/features.py": "14da4e30d7d0615585fbc575761d89e6b58babb36d72431e93ab473b0448ae49",
-    "tools/bootstrap-fp-game.ps1": "6d62f743fbd0b4283e9da0e5fa1f91115c966e9e79e23d4b5bedb853a21925c3",
+    "tools/bootstrap-fp-game.ps1": "41dd8a34950d082bcbfbe7e5446bd946417f0ec59e9d520148784b36e72f6b1e",
     "tools/bootstrap-fp-game.sh": "4ec0ab3189571b8d1bbb6b1476786f17f22e42629c87fb9e45976a0326dfd83e",
     "tools/formatter.lock.json": "da7f851116f3624d01b00d0018978c8b01bd86a59ba044046ec46b7f6e91a967",
     "tools/formatter.py": "be915f97d2283cde52fbaf8b9d63fa434d29d0ac329acafdbf1f7e4993afe135",
     "tools/fp_game.py": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b",
     "tools/haskell/LICENSE": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
-    "tools/haskell/README.md": "89a1a486036024d618fd8d1a67736b702c953a4681b7efb3a5f68a8adeb708aa",
+    "tools/haskell/README.md": "7866cc76445ecd766c161542ad0a57592392a6c542aa407101172392fa3e1396",
     "tools/haskell/app/Main.hs": "e1080b183cfdf5af497c721889853052456e37e0506e56c7cac510ef765bf341",
     "tools/haskell/cabal.project": "25f08a9d44f8aeaca807c6d5725f4a1f8f5cb1b90266b11c3f4b9dd763771fc3",
     "tools/haskell/cabal.project.freeze": "f151b4cb20713dc0aba3ad25eab29d7bba8eabbed484e0c47ee3dfaf59cc9b54",
-    "tools/haskell/fp-game-tooling.cabal": "dd3991d88634319a335f65721a5122c60541a671478f49de2a0ae47d61109732",
+    "tools/haskell/fp-game-tooling.cabal": "bd093c09bf8dd870c0bf3c706f8165e8f1d9e41678f4876c0bf217d3f75e541d",
     "tools/haskell/src/FpGame/CLI.hs": "a9d175a2a44e2194f4f7c21afd164b9e0f2addb2720144104918b518b4f67850",
-    "tools/haskell/src/FpGame/Command.hs": "7f2c4550a98d0fe22fac8972f4b6e7bfb7c43ca80a2551a31caf2dc5eaa9f68e",
+    "tools/haskell/src/FpGame/Cabal.hs": "b3063fbbf725f5d880906035e45d53bcc9e95fc52b48a89aba89edbd2df6a581",
+    "tools/haskell/src/FpGame/Command.hs": "7c96460b50fbd0d2a365eb36447b697be47cffe639b9e8ec0c185f5b5871fbdd",
     "tools/haskell/src/FpGame/Config.hs": "3df7e6a5fd8341ca5371a8e9bc6b64fd1b2656ae5d33b80af686eb140cf76b0f",
-    "tools/haskell/src/FpGame/Create.hs": "3697d91e85ec2291a7f37d292cdac4f4b62c521efd450ef63c550d08a533b06c",
+    "tools/haskell/src/FpGame/Create.hs": "b79608659637d2378486551c38f76afdabf143f1acca3cee36d424df91780d3d",
     "tools/haskell/src/FpGame/Error.hs": "05b3cc493e4f0f14700743149c16962032be869d40a855eae799764338a99eff",
-    "tools/haskell/src/FpGame/Path.hs": "6b8bed58cbb9687fb31b3b25d5ede8ba2f6c445fbb608618456a91caff331898",
+    "tools/haskell/src/FpGame/Path.hs": "47b391e61d9b575cdb32aeb446bc6f6d7b72b4fb81f43098fc8c4b93d667e1c2",
     "tools/haskell/src/FpGame/Process.hs": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
     "tools/haskell/src/FpGame/Result.hs": "4c8f6e5c056f7136605b2e0e91a5eba0318a61ef448914a16a926eb99c236959",
     "tools/haskell/test/CreateSpec.hs": "2647d89e749bcd26613bc99b04a81bdea027ba12f19b2341bd57130a7ebdb74e",
-    "tools/haskell/test/Main.hs": "a39c2957ff01c0f276dcbc0e5fe055205388dd85da803efda20ae0a5bd8161cd",
+    "tools/haskell/test/Main.hs": "3098b444e7db4dd22bf61963727d46d3cf2c00707e7acd95e9e1ccc06879fe02",
     "tools/haskell/test/ProcessSpec.hs": "0d06d85db44c78e4042fa97cbd23e1d5e40a47e6688ca6924a8a77c368705c89",
-    "tools/scaffold.py": "ba722bc97523e7f7d2912a5d4c6302c5f3e8a037a4752fb39fdf33161ff55253",
-    "tools/test_native_cli.py": "50623dbaa2fd927627674ba00194a38196120ddee20e4316a9545e601e330f29",
+    "tools/scaffold.py": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9",
+    "tools/test_native_cli.py": "b9f25bcf8c7c2bea9dd13a604036b392ce6d95a69d886e23f5bf74b02da97089",
     "tools/test_native_terminal.py": "27d9ed288fe2319451878a251b9528df004c9d31719f23c17d1723af86a2a451",
+    "tools/test_windows_toolchain_paths.py": "ef606a9b5018e23250611aed2e2b78ad052721231c37bfa0ba37ceed9d3749be",
     "tools/toolchains.json": "32e39c823f87e4672a3fb2ca419e24c838a2f455b00ec60af2b48ae546f6083c"
   },
   "checks": [
@@ -84,14 +87,14 @@
       "check": "bootstrap-tool-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.092,
+      "seconds": 0.183,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "check": "bootstrap-before-ghc-exists",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.004,
+      "seconds": 0.003,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -111,7 +114,7 @@
       "check": "bootstrap-refuses-directory-leaf",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.063,
+      "seconds": 0.071,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -122,7 +125,7 @@
       "check": "bootstrap-refuses-linked-leaf",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.065,
+      "seconds": 0.063,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -137,8 +140,8 @@
       "check": "native-doctor",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.118,
-      "stdout_sha256": "b7ce7618c6014181923aa33793e3c287b00c7ff6bd288d6ef455bd3679e0bd85"
+      "seconds": 0.356,
+      "stdout_sha256": "947d9359b02ab521352f45a72ca3605d649cc4981125f80d0281eb9c2859fda1"
     },
     {
       "check": "native-doctor-stdout-is-one-json-value",
@@ -153,6 +156,10 @@
       "status": "pass"
     },
     {
+      "check": "doctor-does-not-initialize-global-cabal-home",
+      "status": "pass"
+    },
+    {
       "check": "doctor-identifies-haskell",
       "status": "pass"
     },
@@ -161,11 +168,69 @@
       "status": "pass"
     },
     {
+      "check": "doctor-reports-selected-compiler",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-cleans-scoped-query-state",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.436,
+      "stdout_sha256": "e0d34866d708ffde7879af2afca6baaf1cadbefc75e39a480bd6f246c4a05f10"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-explicit-compiler-without-ambient-ghc-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-honors-selected-compiler-without-ambient-ghc",
+      "status": "pass"
+    },
+    {
+      "check": "no-ambient-doctor-cleans-query-state",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.574,
+      "stdout_sha256": "947d9359b02ab521352f45a72ca3605d649cc4981125f80d0281eb9c2859fda1"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-preserves-existing-build-state-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "doctor-removes-only-its-own-query-state",
+      "status": "pass"
+    },
+    {
       "check": "missing-tools",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.014,
-      "stdout_sha256": "783bd98248226f479ce5bf2c3804138c3955b7ad502071241c27582d3f778f7f"
+      "seconds": 0.015,
+      "stdout_sha256": "48dfe9a1ad9d13962a3468581830f97627c58b9b24eda02bfe12a1b2ecd591fc"
     },
     {
       "check": "missing-tools-stdout-is-one-json-value",
@@ -184,17 +249,21 @@
       "status": "pass"
     },
     {
+      "check": "missing-tools-doctor-creates-no-state",
+      "status": "pass"
+    },
+    {
       "check": "unknown-command",
       "exit_code": 2,
       "expected_exit_code": 2,
-      "seconds": 0.022,
+      "seconds": 0.029,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "check": "executable-option-injection-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.014,
+      "seconds": 0.015,
       "stdout_sha256": "e78243809b3428418029dc4d9ba5715512fdbf70b099301b7e32986e96102d50"
     },
     {
@@ -221,7 +290,7 @@
       "check": "interactive-deadline-refused-before-config",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.015,
+      "seconds": 0.014,
       "stdout_sha256": "ecc6730d045188daef3ba4af2dff557a596b0e350125f658992c42c12277f3fa"
     },
     {
@@ -252,8 +321,8 @@
       "check": "native-create-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.054,
-      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
+      "seconds": 0.055,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
     },
     {
       "check": "native-create-plan-stdout-is-one-json-value",
@@ -279,8 +348,8 @@
       "check": "installed-plan-needs-no-toolchain-or-python",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.034,
-      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
+      "seconds": 0.055,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
     },
     {
       "check": "installed-plan-needs-no-toolchain-or-python-stdout-is-one-json-value",
@@ -306,8 +375,8 @@
       "check": "relative-root-create-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.066,
-      "stdout_sha256": "c769dfadd2b7681c6f584f7068561ca57fb3c4cdf6ed45e7eab1de2ee6838f7c"
+      "seconds": 0.055,
+      "stdout_sha256": "894f04fbfb115488b257441cd92f30cbd0d1fba490a265800166b009c5650ca3"
     },
     {
       "check": "relative-root-create-plan-stdout-is-one-json-value",
@@ -333,8 +402,8 @@
       "check": "caller-relative-destination-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.048,
-      "stdout_sha256": "51db3fd92721cd1fbd22aee4592bf476400e6bf4c8c26211cadd3c43c989950b"
+      "seconds": 0.135,
+      "stdout_sha256": "67333d025aa7e5225fcd9ed9a3b54a768590b2a10a2c57153d508c55e4cc7420"
     },
     {
       "check": "caller-relative-destination-plan-stdout-is-one-json-value",
@@ -356,8 +425,8 @@
       "check": "relative-root-create",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.129,
-      "stdout_sha256": "6cc29bf14d383306c60801bd84c690ff8a04ced9b3c8c19c4797237355b68073"
+      "seconds": 0.304,
+      "stdout_sha256": "c72dfc2f99de111ba79502f12cf0872012349fa6fef6e1a3b5aeb6e9a1ebc1ad"
     },
     {
       "check": "relative-root-create-stdout-is-one-json-value",
@@ -383,8 +452,8 @@
       "check": "legacy-contract-plan",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.148,
-      "stdout_sha256": "e9b601e1ef686f9a5b14ff67d8bd95324140612789ceb750752ad324c50de105"
+      "seconds": 0.181,
+      "stdout_sha256": "0d31576d08b0f7a63d0d53dc6ff40743fde5c1764af96dc59be596b4180032cc"
     },
     {
       "check": "legacy-contract-plan-stdout-is-one-json-value",
@@ -414,8 +483,8 @@
       "check": "native-plan-ignores-local-outputs",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.046,
-      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
+      "seconds": 0.343,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
     },
     {
       "check": "native-plan-ignores-local-outputs-stdout-is-one-json-value",
@@ -437,8 +506,8 @@
       "check": "linked-template-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.024,
-      "stdout_sha256": "f5320bccc28f9143415e229521fed16bebb7afb745b899fdc8dc3a096d46a73a"
+      "seconds": 0.051,
+      "stdout_sha256": "eb8d1f606ade71048f6ded039959b8445ded74c006b77fed499e577558d4d7ec"
     },
     {
       "check": "linked-template-refused-stdout-is-one-json-value",
@@ -460,8 +529,8 @@
       "check": "native-plan-alias",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.051,
-      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
+      "seconds": 0.1,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
     },
     {
       "check": "native-plan-alias-stdout-is-one-json-value",
@@ -483,8 +552,8 @@
       "check": "native-create-dry-run",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.054,
-      "stdout_sha256": "cb28477c9171b43558de3eab2cc1818e53c1bbff3ccf3a5c0a48b5cf98e8b04c"
+      "seconds": 0.195,
+      "stdout_sha256": "b9edb2416e9da35b444ebd1c6fc4e1f29d02e3fec78b461432500d163bbc671c"
     },
     {
       "check": "native-create-dry-run-stdout-is-one-json-value",
@@ -506,8 +575,8 @@
       "check": "linked-foundation-root-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.013,
-      "stdout_sha256": "29ba24c3f4bfb0758c56b6c698ac21834e32076ea4451ba6d82a5e6c7650be58"
+      "seconds": 0.015,
+      "stdout_sha256": "f3e89b491d82176bada6c9808f5dcebeddaf03afa13d1361067d8f81271d8147"
     },
     {
       "check": "linked-foundation-root-refused-stdout-is-one-json-value",
@@ -533,7 +602,7 @@
       "check": "invalid-name",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.014,
+      "seconds": 0.018,
       "stdout_sha256": "8577fa88ff8f9c3c73fc0bf62715e774025e02e752b597e2b70c37a853ccee06"
     },
     {
@@ -560,7 +629,7 @@
       "check": "unsupported-platform",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.014,
+      "seconds": 0.017,
       "stdout_sha256": "51b4a5edbac13a60ec850ceb86240487699cda54a8b4d61e1d2e3ef5d90e6678"
     },
     {
@@ -614,7 +683,7 @@
       "check": "existing-destination-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.018,
+      "seconds": 0.024,
       "stdout_sha256": "700c8582428cb7e6613a802bb34d1ccf09dc7e73ae8b4b94401c0e071ec013dd"
     },
     {
@@ -641,8 +710,8 @@
       "check": "native-create",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.155,
-      "stdout_sha256": "47f6c17e10e75ed858f98d77efc08fb053effecc2bf5bbefe612d2b7c352a59b"
+      "seconds": 0.168,
+      "stdout_sha256": "a65e296b04e259b1b6ecdb19d669c0e775f030e8aed2f23a2a48532817999f17"
     },
     {
       "check": "native-create-stdout-is-one-json-value",
@@ -668,7 +737,7 @@
       "check": "repeat-create-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.027,
+      "seconds": 0.015,
       "stdout_sha256": "700c8582428cb7e6613a802bb34d1ccf09dc7e73ae8b4b94401c0e071ec013dd"
     },
     {
@@ -712,11 +781,81 @@
       "status": "pass"
     },
     {
+      "check": "generated-no-machine-compiler-profile",
+      "status": "pass"
+    },
+    {
+      "check": "compiler-profile-preserves-existing-config",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.054,
+      "stdout_sha256": "20c30b429bde22a268300c686f89a0e2017a1d826662beab8f1026a7cd7ad2b2"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-doctor-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-doctor-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-no-fallback-doctor",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-query-cleans-temporary-state-doctor",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-check",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.053,
+      "stdout_sha256": "da5a6c36ead13f325c7b27907d961f5a5c8eba90b922f931fe64e454b43195df"
+    },
+    {
+      "check": "unavailable-selected-compiler-check-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-check-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-selected-compiler-check-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-check-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-compiler-no-fallback-check",
+      "status": "pass"
+    },
+    {
+      "check": "unavailable-query-cleans-temporary-state-check",
+      "status": "pass"
+    },
+    {
       "check": "native-build",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 30.585,
-      "stdout_sha256": "9e5edff66a46a4162490df1c5de357b51c82d3a46c57b8695a8bdd7877d38cbd"
+      "seconds": 35.144,
+      "stdout_sha256": "9fc7a8e61b9a8c54f51a9026a6f8ce0858372afb55488309138c29e27c924adf"
     },
     {
       "check": "native-build-stdout-is-one-json-value",
@@ -750,8 +889,8 @@
       "check": "native-test",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 6.206,
-      "stdout_sha256": "860e2628730fc91edb251fddfacccb9e3a24aaeac33754dc67dacbd49a04df3f"
+      "seconds": 3.349,
+      "stdout_sha256": "21a77db36a797eaedac8fc120533d15d4313976e440bc79c5a28bc00966a5fe0"
     },
     {
       "check": "native-test-stdout-is-one-json-value",
@@ -785,8 +924,8 @@
       "check": "native-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 2.862,
-      "stdout_sha256": "1177d0b5a67540e734c3e03b19453fee42634fcd507a0378363f922938a10844"
+      "seconds": 1.818,
+      "stdout_sha256": "ac1e0efa2528ca77bf56588e76fbc091ef3514f92c131001b26dd96b615b25be"
     },
     {
       "check": "native-check-stdout-is-one-json-value",
@@ -820,8 +959,8 @@
       "check": "native-smoke",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.311,
-      "stdout_sha256": "a028c78305212143abd7ba28a47a5d219dfa7f2e5d0d33a4861446bbd7e614e6"
+      "seconds": 0.364,
+      "stdout_sha256": "0727a6de7e49f27f203a1f8833e5ea06a57d1f9aa6aaa22f7cd2992d4c788a69"
     },
     {
       "check": "native-smoke-stdout-is-one-json-value",
@@ -855,8 +994,8 @@
       "check": "native-smoke-explicit-deadline",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.426,
-      "stdout_sha256": "a028c78305212143abd7ba28a47a5d219dfa7f2e5d0d33a4861446bbd7e614e6"
+      "seconds": 0.209,
+      "stdout_sha256": "0727a6de7e49f27f203a1f8833e5ea06a57d1f9aa6aaa22f7cd2992d4c788a69"
     },
     {
       "check": "native-smoke-explicit-deadline-stdout-is-one-json-value",
@@ -878,8 +1017,8 @@
       "check": "native-crlf-unicode-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.809,
-      "stdout_sha256": "fdfed78cd916dfaa359d77f393500a33cbab4f999bc8b0c19fef47963e0b5c35"
+      "seconds": 0.645,
+      "stdout_sha256": "709ba5410a21185b23ad4c8f67e76ee17ad3ba2aa1b3b29757e8a3c446cb42c8"
     },
     {
       "check": "native-crlf-unicode-check-stdout-is-one-json-value",
@@ -894,11 +1033,15 @@
       "status": "pass"
     },
     {
+      "check": "saved-check-uses-selected-compiler",
+      "status": "pass"
+    },
+    {
       "check": "legacy-contract-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.586,
-      "stdout_sha256": "db9d9711252f5945098a2aa6e2159d8a1c114d88060845696273f91c3601876e"
+      "seconds": 0.347,
+      "stdout_sha256": "5d55aa1598925fd16a4011d4ddd7221852d5cd4bfe7dabbd668505c4f18edc14"
     },
     {
       "check": "legacy-contract-check-stdout-is-one-json-value",
@@ -924,8 +1067,8 @@
       "check": "native-real-compiler-error",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.394,
-      "stdout_sha256": "d934bc5ecbd2991d2d4b013117f753a644e779ab00c7f1a4cad7ef96e92885e3"
+      "seconds": 0.991,
+      "stdout_sha256": "a332a5b7e3005c2f28f85805d714d0c1cc4847e1c75304c7d5cdd46770441f90"
     },
     {
       "check": "native-real-compiler-error-stdout-is-one-json-value",
@@ -959,7 +1102,7 @@
       "check": "source-escape-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.02,
+      "seconds": 0.016,
       "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
     },
     {
@@ -982,7 +1125,7 @@
       "check": "linked-source-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.015,
+      "seconds": 0.019,
       "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
     },
     {
@@ -1005,7 +1148,7 @@
       "check": "wrong-source-shape",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.02,
+      "seconds": 0.013,
       "stdout_sha256": "94d0fb2d933491e0798c0ea247fa53869720cab02604a50dd3f0f9d55ef212f1"
     },
     {
@@ -1028,7 +1171,7 @@
       "check": "escape-source-dir",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.017,
+      "seconds": 0.059,
       "stdout_sha256": "d4efc0379713889b0175d4d510fea429aefeec74925c92712a70837d30333000"
     },
     {
@@ -1051,8 +1194,8 @@
       "check": "linked-build-state-refused",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 0.014,
-      "stdout_sha256": "63c8ac5f7bf6f1768bbb3161a84c66d97ebc8bebe7204e2d35acc57d79077503"
+      "seconds": 0.013,
+      "stdout_sha256": "45ea3dfe441f87c84f2eb344df81111e846a7305d72c90e4659dae9e96b61441"
     },
     {
       "check": "linked-build-state-refused-stdout-is-one-json-value",
@@ -1071,11 +1214,46 @@
       "status": "pass"
     },
     {
+      "check": "linked-log-directory-refused",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.014,
+      "stdout_sha256": "05fa576d5adf3126833b6c21aa95b8fa6df45421c6b8519c2584a67d2f587845"
+    },
+    {
+      "check": "linked-log-directory-refused-stdout-is-one-json-value",
+      "status": "pass"
+    },
+    {
+      "check": "linked-log-directory-refused-json-exit-agrees",
+      "status": "pass"
+    },
+    {
+      "check": "linked-log-directory-refused-no-protocol-noise-on-stderr",
+      "status": "pass"
+    },
+    {
+      "check": "linked-logs-typed-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-logs-specific-refusal",
+      "status": "pass"
+    },
+    {
+      "check": "linked-log-directory-outside-untouched",
+      "status": "pass"
+    },
+    {
+      "check": "linked-logs-refused-before-config-write",
+      "status": "pass"
+    },
+    {
       "check": "hardlinked-config-atomic-replacement",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.253,
-      "stdout_sha256": "eccc782e9fdc99639f75dc072aaba18caeb5f8bcb2397c428eb80ff1252db834"
+      "seconds": 0.618,
+      "stdout_sha256": "3ff0868f9073b68a9f1771adbb6087904c155f75d60b9a8c102fc67c15e70734"
     },
     {
       "check": "hardlinked-config-atomic-replacement-stdout-is-one-json-value",
@@ -1105,8 +1283,8 @@
       "check": "native-key-tests",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 6.347,
-      "stdout_sha256": "0bd466b63f1cd0f7c3fcbaa507c0658f1bb03ca962a52c3271b9159692f4c026"
+      "seconds": 11.067,
+      "stdout_sha256": "c75ed7b5eafe2399295abb064e91feeef9b9d108ed09b51ec9f83821b99b83fd"
     },
     {
       "check": "native-key-tests-stdout-is-one-json-value",
@@ -1124,11 +1302,15 @@
       "check": "native-key-play",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 3.515,
-      "stdout_sha256": "3fe452f660943efb80c0ecdd4ec43992602705c328e5a4e3f52f87a912c40162"
+      "seconds": 3.785,
+      "stdout_sha256": "3042b50074e8d60136df8fbfc341b9f611294c89a34f58cc1aa01afbd8744a34"
     },
     {
       "check": "actual-key-gameplay",
+      "status": "pass"
+    },
+    {
+      "check": "native-operations-preserve-selected-profile",
       "status": "pass"
     },
     {
@@ -1144,11 +1326,15 @@
       "status": "pass"
     },
     {
+      "check": "relocated-profile-not-copied",
+      "status": "pass"
+    },
+    {
       "check": "standalone-native-bootstrap",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 27.798,
-      "stdout_sha256": "b1456fb3ebd203896b228ae1e57f1b3d9ca1a67ebfbf072b6952288dbcf7b485"
+      "seconds": 22.512,
+      "stdout_sha256": "3b02aa0be12c4ba59fe5631dbd1ce9222637c57540a5a88b4baa78dae97cb01a"
     },
     {
       "check": "standalone-native-bootstrap-executable-created",
@@ -1158,8 +1344,8 @@
       "check": "relocated-native-build",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 25.977,
-      "stdout_sha256": "32795065a121fd2e86bf9639ec824756405b2cfc00aeba18db6c945fcb1bca6f"
+      "seconds": 21.96,
+      "stdout_sha256": "dbb289b6ab853146239240dffb464e9fd496ffcd820bb1ad896e8f09e1774cd8"
     },
     {
       "check": "relocated-native-build-stdout-is-one-json-value",
@@ -1189,8 +1375,8 @@
       "check": "relocated-native-test",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 4.896,
-      "stdout_sha256": "5fbba4f5a5a9d7eda075c731ab95ef72038d70c5572a908e95c7716b7ee3948f"
+      "seconds": 3.114,
+      "stdout_sha256": "a2242183b6e79c4181df6160e0813aaca76f904bcbd0a63e59c0ce044334d2e3"
     },
     {
       "check": "relocated-native-test-stdout-is-one-json-value",
@@ -1220,8 +1406,8 @@
       "check": "relocated-native-check",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.751,
-      "stdout_sha256": "30c43164673b658d6abca508f6d5ccb6998914a98ecfbdbe5b29e0447808ad2a"
+      "seconds": 0.83,
+      "stdout_sha256": "83cbc75e6b4d36421245d5eb323f19a99503f85b260cbf84ed827a96c9ca7dd3"
     },
     {
       "check": "relocated-native-check-stdout-is-one-json-value",
@@ -1239,8 +1425,8 @@
       "check": "relocated-native-smoke",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.451,
-      "stdout_sha256": "564ab8f107769a901c104126c62f77bb425fd5d2f8248f99d1e216755bdc4189"
+      "seconds": 0.282,
+      "stdout_sha256": "79aec0d2f7071b280ce93d20b1777c2dc6a6316fc51a179443054ca841f17d34"
     },
     {
       "check": "relocated-native-smoke-stdout-is-one-json-value",
@@ -1502,8 +1688,8 @@
       "check": "relocated-stamina-tests",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 7.016,
-      "stdout_sha256": "c4d96009ca88a587a0c75d03b1b70e8b0dc8dc44c1ada1b708b1b699bd793e69"
+      "seconds": 6.775,
+      "stdout_sha256": "3b1a7180059ae3601b3bafd6376e0b039cff0220fecffd2ec815c9fc418f68a5"
     },
     {
       "check": "relocated-stamina-tests-stdout-is-one-json-value",
@@ -1521,8 +1707,8 @@
       "check": "relocated-stamina-play",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 2.813,
-      "stdout_sha256": "d3dbfeea7fd6ee49344b4eb18fe616ade1e0232671d0f2626ca08584ebbb2d7b"
+      "seconds": 2.823,
+      "stdout_sha256": "cfa678aebd33337d34b910c9c3935a39bf113446e4d71a8c5aef7a9e16584ccb"
     },
     {
       "check": "actual-second-mechanic",
@@ -1540,8 +1726,8 @@
       "check": "caller-cwd-default",
       "exit_code": 0,
       "expected_exit_code": 0,
-      "seconds": 0.585,
-      "stdout_sha256": "ae47a85dcc92e42bc999c7ae0ab3520607fdb61881f2a16303f96ba4238051b8"
+      "seconds": 0.729,
+      "stdout_sha256": "74dcc7e1c8faf198080e3863f18fa1a2446e9df28f078addcd383170ce59641b"
     },
     {
       "check": "caller-cwd-default-stdout-is-one-json-value",
@@ -1571,8 +1757,8 @@
       "check": "real-ghc-timeout",
       "exit_code": 1,
       "expected_exit_code": 1,
-      "seconds": 2.138,
-      "stdout_sha256": "5d83a41feb97adc4e993131d76d596488e28ba860ed986e8084ab00250e0f230"
+      "seconds": 2.458,
+      "stdout_sha256": "b2ee613014ae8f9c5297d8cb5d8f9677e99f2b52121ba7d5295dc4eede196e89"
     },
     {
       "check": "real-ghc-timeout-stdout-is-one-json-value",
@@ -1627,20 +1813,64 @@
       "status": "pass"
     }
   ],
-  "interactive_contract": "POSIX interactive run execs Cabal; normal shell job control owns the process. Interactive tool-level timeout is refused; use captured run --smoke. No private foreground proxy or C stop adapter is distributed.",
+  "observed_date_utc": "2026-10-05",
+  "metrics_binding": "Fresh cached-dependency application benchmark production inputs match the actual integration input hashes; benchmark and bootstrap builds are separate binaries.",
+  "measurements": {
+    "schema": 1,
+    "platform": "Linux-x86_64",
+    "ghc": "9.6.7",
+    "cabal": "3.12.1.0",
+    "executable_bytes": 21753048,
+    "version_startup_trials": 30,
+    "version_startup_median_ms": 14.558,
+    "version_startup_min_ms": 12.108,
+    "version_startup_max_ms": 18.765,
+    "secure_index_acquisition_seconds": 96.669,
+    "dependency_bootstrap_completed_attempt_seconds": 734.737,
+    "bootstrap_scope": "Initially empty dedicated cache. First dependency download attempt was cancelled by executor; this completed-attempt time includes resumed download/compilation and initial application compile failure, so it is not an uninterrupted cold-success measurement.",
+    "fresh_application_build_cached_dependencies_seconds": 25.863,
+    "fresh_application_build_exit_code": 0,
+    "benchmark_executable_sha256": "ec2fc2664067d103514175c33f479293926c8cfbb275d5ca160c05eda2cc3ec9",
+    "compiled_dependency_store_bytes": 119220746,
+    "benchmark_source_sha256": {
+      "tools/haskell/app/Main.hs": "e1080b183cfdf5af497c721889853052456e37e0506e56c7cac510ef765bf341",
+      "tools/haskell/cabal.project": "25f08a9d44f8aeaca807c6d5725f4a1f8f5cb1b90266b11c3f4b9dd763771fc3",
+      "tools/haskell/cabal.project.freeze": "f151b4cb20713dc0aba3ad25eab29d7bba8eabbed484e0c47ee3dfaf59cc9b54",
+      "tools/haskell/fp-game-tooling.cabal": "bd093c09bf8dd870c0bf3c706f8165e8f1d9e41678f4876c0bf217d3f75e541d",
+      "tools/haskell/src/FpGame/CLI.hs": "a9d175a2a44e2194f4f7c21afd164b9e0f2addb2720144104918b518b4f67850",
+      "tools/haskell/src/FpGame/Cabal.hs": "b3063fbbf725f5d880906035e45d53bcc9e95fc52b48a89aba89edbd2df6a581",
+      "tools/haskell/src/FpGame/Command.hs": "7c96460b50fbd0d2a365eb36447b697be47cffe639b9e8ec0c185f5b5871fbdd",
+      "tools/haskell/src/FpGame/Config.hs": "3df7e6a5fd8341ca5371a8e9bc6b64fd1b2656ae5d33b80af686eb140cf76b0f",
+      "tools/haskell/src/FpGame/Create.hs": "b79608659637d2378486551c38f76afdabf143f1acca3cee36d424df91780d3d",
+      "tools/haskell/src/FpGame/Error.hs": "05b3cc493e4f0f14700743149c16962032be869d40a855eae799764338a99eff",
+      "tools/haskell/src/FpGame/Path.hs": "47b391e61d9b575cdb32aeb446bc6f6d7b72b4fb81f43098fc8c4b93d667e1c2",
+      "tools/haskell/src/FpGame/Process.hs": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
+      "tools/haskell/src/FpGame/Result.hs": "4c8f6e5c056f7136605b2e0e91a5eba0318a61ef448914a16a926eb99c236959"
+    },
+    "compiled_external_dependency_units": 42,
+    "index_cache_bytes": 1194703972
+  },
+  "interactive_contract": "POSIX interactive run execs Cabal; normal shell job control owns the process. Interactive tool-level timeout is refused; use captured run --smoke.",
   "additional_validation": {
     "native_package_unit_suite": {
       "status": "pass",
-      "scope": "CLI/Create/Process tests, including real child Unicode/newline output, positive rejection controls and started-child cancellation"
+      "scope": "CLI/Cabal parser/Create/Process tests, including81 real cancellation gates and bounded timeout"
+    },
+    "compiler_boundary_review": {
+      "status": "pass on Linux",
+      "checks": 10,
+      "scope": "Actual selected-only compiler, relative/Unicode custom wrapper identity, no fallback, scoped query cleanup and existing state preservation"
     },
     "native_generated_documentation": {
       "status": "pass",
-      "files": 85
+      "files": 86,
+      "workflow_yaml": "pass"
     },
     "native_formatter": {
       "status": "pass",
       "version": "0.9.0.0",
-      "scope": "Linux native formatter; Haskell package files and explicit Linux/Darwin/Windows defines on CPP modules"
+      "files": 13,
+      "scope": "Pinned formatter on Linux plus explicit Linux/Darwin/Windows CPP defines; formatting is not runtime verification"
     },
     "legacy_tool_tests": {
       "status": "pass",
@@ -1651,10 +1881,6 @@
       "tests": 26,
       "skipped": 3
     },
-    "fresh_cabal_cache_path_query": {
-      "status": "pass",
-      "scope": "Cabal3.12.1.0 fresh empty configuration; --verbose=0 yields one JSON value instead of first-use initialization prose"
-    },
     "workflow": {
       "status": "configured",
       "platforms": [
@@ -1662,44 +1888,18 @@
         "Windows",
         "macOS"
       ],
-      "cold_setup_ceiling_minutes": 45
+      "cold_setup_ceiling_minutes": 45,
+      "unit_step_timeout_minutes": 5
     },
-    "windows_runtime": "Native bootstrap/formatter passed at8f967a0. Unit stage started08:42:20UTC and remained unfinished at08:53; new wait repair is not yet verified on Windows.",
-    "macos_runtime": "Native CI passed at8f967a0,350 records; later Windows-specific wait repair requires new CI.",
-    "windows_bootstrap_regression": {
-      "status": "pass at 991612f4dc74b809692e7940e432c67f0315ecc4",
-      "scope": "Actual duplicate-PATH checks, native bootstrap and formatter passed. This does not qualify the entire Windows job, which later failed CreateSpec.",
-      "url": "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37281388286/job/111670053670"
-    },
-    "first_published_native_ci": {
-      "head_commit": "dd98e45e7376d7703640ccd6c4c2c98d5966ad7c",
-      "Linux": "success, 349 integration records",
-      "macOS": "success, 349 integration records",
-      "Windows": "bootstrap discovery failed; fix awaiting follow-up CI",
-      "record": "docs/evidence/native-tooling-ci.json"
-    },
-    "latest_published_native_ci": {
-      "head_commit": "8f967a0a72453dcd728b5129c23dd3d4d7066b2a",
-      "Linux": "success,350 records",
-      "macOS": "success,350 records",
-      "Windows": "unit stage unfinished at08:53UTC; integration not reached; no blocked stack or successful cancellation captured",
-      "record": "docs/evidence/native-tooling-ci.json"
-    },
-    "windows_conditional_waiter_check": {
-      "status": "compiled and exercised with POSIX backend only",
-      "scope": "Not Windows Job Object runtime evidence; actual Windows CI pending"
-    },
-    "unit_step_containment": {
-      "timeout_minutes": 5,
-      "diagnostic": "ghc-pkg field process version",
-      "scope": "After dependency/bootstrap setup; tests are not skipped. Overall cold-setup job ceiling remains45minutes."
-    }
+    "published_ci_history": "docs/evidence/native-tooling-ci.json",
+    "windows_explicit_profile_runtime": "Pending actual native matrix. The714f859 boot-only probe verified the same-installation versioned compiler route; it did not run the full native suite.",
+    "macos_current_runtime": "Pending actual matrix for the new Cabal compiler-query implementation."
   },
   "prior_findings": {
-    "foreground_proxy": "Controlled reproduction confirmed a late self-stop race. Removing private interactive foreground ownership addresses it; prior proxy passes are not final-architecture evidence.",
-    "timing_oracles": "Earlier delay-only cancellation evidence remains inconclusive. Shell tests require exact command completion and kernel/Bash stopped acknowledgement; the separate background-start oracle race reproduced with direct Cabal.",
-    "normalization_order": "Windows makeAbsolute could hide a linked parent before validation. Raw linked ancestors are now rejected before normalization; fixtures verify links and relative source/destination alias/.. refusals.",
-    "windows_job_completion": "Unit-stage stall observed without a blocked-thread stack. Pinned process1.6.19 source supports a cancellation-delivery risk in native job waiting; the Windows-only repair moves that wait to a scoped worker and terminates before joining. Actual Windows verification remains pending."
+    "quoted_compiler_profile": "The first current-candidate Linux attempt failed at doctor: Cabal3.12.1.0 treats quotes as literal filename characters in with-compiler. A real spaced/Japanese forwarding wrapper confirmed raw whole-field syntax; the corrected suite passed.",
+    "windows_alias_route": "Pinned Windows unversioned C launchers lost Japanese arguments; explicit same-installation versioned compiler selection passed the bounded complete library/executable probe. Alias observations remain visible in preflight diagnostics.",
+    "timing_oracles": "Earlier delay-only cancellation evidence remains inconclusive; current checks require real started-child signals and positive controls.",
+    "foreground_proxy": "Controlled reproduction confirmed a late self-stop race; POSIX interactive execution now delegates ordinary job control to Cabal and the shell."
   },
   "exclusions": [
     "Physical editor sessions",
@@ -1707,43 +1907,17 @@
     "Human fun evaluation",
     "Clean-machine or prebuilt binary distribution",
     "Uninterrupted successful cold tool installation",
-    "Universal provider-owned interactive signal cleanup"
+    "Universal provider-owned interactive signal cleanup",
+    "Remote-import network sandboxing"
   ],
-  "observed_date_utc": "2026-10-05",
-  "measurements": {
-    "schema": 1,
-    "platform": "Linux-x86_64",
-    "ghc": "9.6.7",
-    "cabal": "3.12.1.0",
-    "executable_bytes": 21706160,
-    "version_startup_trials": 30,
-    "version_startup_median_ms": 14.835,
-    "version_startup_min_ms": 12.25,
-    "version_startup_max_ms": 39.701,
-    "secure_index_acquisition_seconds": 96.669,
-    "dependency_bootstrap_completed_attempt_seconds": 734.737,
-    "bootstrap_scope": "Initially empty dedicated cache. First dependency download attempt was cancelled by executor; this completed-attempt time includes resumed download/compilation and initial application compile failure, so it is not an uninterrupted cold-success measurement.",
-    "fresh_application_build_cached_dependencies_seconds": 21.96,
-    "fresh_application_build_exit_code": 0,
-    "benchmark_executable_sha256": "8ddbbddf765675c80101feff2cee4fc365efb3b3f50a57622666f257bd57e4a7",
-    "compiled_dependency_store_bytes": 119220746,
-    "benchmark_source_sha256": {
-      "tools/haskell/app/Main.hs": "e1080b183cfdf5af497c721889853052456e37e0506e56c7cac510ef765bf341",
-      "tools/haskell/cabal.project": "25f08a9d44f8aeaca807c6d5725f4a1f8f5cb1b90266b11c3f4b9dd763771fc3",
-      "tools/haskell/cabal.project.freeze": "f151b4cb20713dc0aba3ad25eab29d7bba8eabbed484e0c47ee3dfaf59cc9b54",
-      "tools/haskell/fp-game-tooling.cabal": "dd3991d88634319a335f65721a5122c60541a671478f49de2a0ae47d61109732",
-      "tools/haskell/src/FpGame/CLI.hs": "a9d175a2a44e2194f4f7c21afd164b9e0f2addb2720144104918b518b4f67850",
-      "tools/haskell/src/FpGame/Command.hs": "7f2c4550a98d0fe22fac8972f4b6e7bfb7c43ca80a2551a31caf2dc5eaa9f68e",
-      "tools/haskell/src/FpGame/Config.hs": "3df7e6a5fd8341ca5371a8e9bc6b64fd1b2656ae5d33b80af686eb140cf76b0f",
-      "tools/haskell/src/FpGame/Create.hs": "3697d91e85ec2291a7f37d292cdac4f4b62c521efd450ef63c550d08a533b06c",
-      "tools/haskell/src/FpGame/Error.hs": "05b3cc493e4f0f14700743149c16962032be869d40a855eae799764338a99eff",
-      "tools/haskell/src/FpGame/Path.hs": "6b8bed58cbb9687fb31b3b25d5ede8ba2f6c445fbb608618456a91caff331898",
-      "tools/haskell/src/FpGame/Process.hs": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4",
-      "tools/haskell/src/FpGame/Result.hs": "4c8f6e5c056f7136605b2e0e91a5eba0318a61ef448914a16a926eb99c236959"
-    },
-    "compiled_external_dependency_units": 42,
-    "index_cache_bytes": 1194703972
-  },
-  "source_snapshot_commit": "a4b1d1e30ae34a34254edf67d8fb13f6d2b36c3b",
-  "snapshot_qualification": "Historical full Linux validation of the recorded input hashes. Later diagnostic-only workflow/docs/probe edits are not qualified by this report; the Windows path preflight has its own CI outcome."
+  "post_run_source_deltas": [
+    {
+      "file": "tools/test_native_cli.py",
+      "tested_sha256_lf": "b9f25bcf8c7c2bea9dd13a604036b392ce6d95a69d886e23f5bf74b02da97089",
+      "published_sha256_lf": "337c72d0bc2d33e0913f11746a9cbfb70d6d6c4f4e3edef863e4f16e45e0c4d2",
+      "scope": "Windows-only bootstrap relative CompilerPath regression now runs from compiler.parent with ./basename instead of deriving a relative path across potentially different volumes. No skip remains.",
+      "verification": "Python syntax check and static Windows path-shape checks pass. This branch was not executed on Linux. Actual final-head Windows/three-OS CI remains required.",
+      "qualification": "The recorded Linux input hash is retained, not rebound to unexecuted bytes. All production/bootstrap/preflight/docs/workflow hashes remain as tested."
+    }
+  ]
 }

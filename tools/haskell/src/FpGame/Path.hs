@@ -70,7 +70,7 @@ buildState (ProjectRoot root) = do
   requireUnlinked root state
   createDirectoryIfMissing False state
   -- Cabal may write beneath each of these paths, so check existing trees too.
-  mapM_ (checkTree . (state </>)) ["store", "package-cache", "dist"]
+  mapM_ (checkTree . (state </>)) ["store", "package-cache", "logs", "dist"]
   pure state
   where
     checkTree path = do

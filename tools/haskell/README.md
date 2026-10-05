@@ -16,10 +16,11 @@ sh tools/bootstrap-fp-game.sh
 ```
 
 ```powershell
-# Windows: explicit first dependency acquisition
-./tools/bootstrap-fp-game.ps1 -Download
+# Windows: first select $compiler using the verified profile in the native guide
+# Explicit first dependency acquisition
+./tools/bootstrap-fp-game.ps1 -Download -CompilerPath $compiler
 # Later, from an existing dependency cache
-./tools/bootstrap-fp-game.ps1
+./tools/bootstrap-fp-game.ps1 -CompilerPath $compiler
 ```
 
 Run these examples from the foundation or a generated game's root. The wrappers
@@ -42,7 +43,15 @@ index. GHC's bundled packages are selected by the tested compiler, rather than
 forcing Linux-specific package versions onto Windows. Source compilation needs
 GHC 9.6 or newer APIs; only the GHC 9.6.7 baseline is verified. Other compilers
 and their dependency resolutions remain unverified. The built tool uses the
-game compiler selected on PATH, independently of the compiler that built it. Source acquisition on an
+compiler selected by the game's Cabal project, independently of the compiler
+that built it. Doctor and saved-source check use Cabal's bounded structured query,
+with a temporary cache inside the project. Bootstrap `-CompilerPath` is a separate,
+explicit choice; it never rewrites the game's existing compiler configuration.
+Follow the [Windows profile](../../docs/native-tooling.md) before using Japanese
+paths with the pinned Windows toolchain. Machine-local `cabal.project.local` is
+ignored and is not part of portable source. Cabal's package-offline mode is not a
+network sandbox: explicitly imported remote project files retain Cabal semantics.
+Source acquisition on an
 empty cache costs more than a warm build; do not confuse the two measurements.
 No prebuilt release, compiler-free source bootstrap or zero-install claim is made.
 
@@ -71,7 +80,8 @@ retains inherited console behavior and Job Objects.
 
 1. [Main](app/Main.hs) sets UTF-8 streams, parses the request and renders its result
 2. [CLI](src/FpGame/CLI.hs) defines commands/options and validates their syntax
-3. [Command](src/FpGame/Command.hs) dispatches the chosen command and observed tools
+3. [Command](src/FpGame/Command.hs) dispatches commands; [Cabal](src/FpGame/Cabal.hs)
+   owns the guarded local configuration and authoritative compiler query
 4. [Config](src/FpGame/Config.hs) and [Path](src/FpGame/Path.hs) validate the selected
    project's configuration, source boundary and mutable output locations
 5. [Create](src/FpGame/Create.hs) validates creation options, snapshots the explicit

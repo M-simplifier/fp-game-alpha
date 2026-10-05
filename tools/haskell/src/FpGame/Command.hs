@@ -6,22 +6,19 @@ module FpGame.Command (runCommand) where
 
 import Control.Monad (forM, when)
 import Data.Aeson (object, (.=))
-import Data.ByteString qualified as Bytes
 import Data.Maybe (fromMaybe, isJust)
 import Data.String (fromString)
 import Data.Text qualified as Text
-import Data.Text.Encoding qualified as Text
 import FpGame.CLI
+import FpGame.Cabal
 import FpGame.Config
 import FpGame.Create
 import FpGame.Error
 import FpGame.Path
 import FpGame.Process
 import FpGame.Result
-import System.Directory (findExecutable, getCurrentDirectory, renameFile)
-import System.FilePath (pathSeparator, (</>))
-import System.IO (hClose, hSetBinaryMode)
-import System.IO.Temp (withTempDirectory, withTempFile)
+import System.Directory (findExecutable, getCurrentDirectory)
+import System.IO.Temp (withTempDirectory)
 import System.Info qualified as Platform
 
 runCommand :: Options -> IO Result
@@ -42,7 +39,7 @@ runCommand options = do
       source <- checkedSource root filename
       config <- loadConfig root
       directories <- sourceDirectories root config
-      ghc <- requireTool "ghc"
+      ghc <- compilerExecutable <$> selectedCompiler root
       state <- buildState root
       withTempDirectory state "check-" $ \output ->
         executeHere
@@ -66,34 +63,17 @@ runCommand options = do
       source <- maybe getCurrentDirectory pure (selectedProject options)
       Report 0 <$> createProject source createOptions
 
-withCabal :: ProjectRoot -> String -> [String] -> (FilePath -> [String] -> IO a) -> IO a
-withCabal root action targets run = do
-  executable <- requireTool "cabal"
-  state <- buildState root
-  let config = state </> "cabal.config"
-  requireUnlinked (projectPath root) config
-  -- Replace the directory entry instead of truncating an existing inode: even a
-  -- hard-linked config must not write through to somebody else's file.
-  withTempFile state "cabal-config-" $ \temporary handle -> do
-    hSetBinaryMode handle True
-    Bytes.hPut handle (Text.encodeUtf8 (Text.pack (configuration state)))
-    hClose handle
-    requireUnlinked (projectPath root) config
-    renameFile temporary config
-  run executable (["--config-file=" ++ config, action] ++ targets ++ ["--offline", "--builddir=" ++ state </> "dist"])
-  where
-    configuration state =
-      "active-repositories: :none\nstore-dir: "
-        ++ portable (state </> "store")
-        ++ "\nremote-repo-cache: "
-        ++ portable (state </> "package-cache")
-        ++ "\n"
-    portable = map (\character -> if pathSeparator == '\\' && character == '\\' then '/' else character)
-
 doctor :: ProjectRoot -> IO Result
 doctor root = do
-  observations <- forM [("ghc", "9.6.7"), ("cabal", "3.12.1.0")] $ \(name, baseline) -> do
-    executable <- findExecutable name
+  ambientGhc <- findExecutable "ghc"
+  ambientCabal <- findExecutable "cabal"
+  -- Missing-tool diagnostics remain available before creating project state.
+  -- An explicit project compiler need not have an unversioned PATH alias.
+  compiler <- case ambientCabal of
+    Just _ -> Just <$> selectedCompiler root
+    Nothing -> pure Nothing
+  let chosenGhc = maybe ambientGhc (Just . compilerExecutable) compiler
+  observations <- forM [("ghc", chosenGhc, "9.6.7"), ("cabal", ambientCabal, "3.12.1.0")] $ \(name, executable, baseline) -> do
     version <- case executable of
       Nothing -> pure Nothing
       Just path -> do
@@ -119,12 +99,14 @@ doctor root = do
         "architecture" .= Platform.arch,
         "implementation" .= ("haskell" :: Text.Text),
         "tools" .= values,
+        "compiler_selection" .= fmap (\selected -> object ["id" .= compilerIdentifier selected, "path" .= compilerExecutable selected]) compiler,
+        "compiler_selection_source" .= ("Cabal project configuration; explicit choices are preserved" :: Text.Text),
         "optional_hls" .= hls,
         "editors" .= object ["vscode" .= vscode, "neovim" .= neovim],
         "baseline_downloads" .= downloads,
         "missing" .= missing,
         "setup" .= ("https://www.haskell.org/ghcup/install/" :: Text.Text),
-        "scope" .= ("Detects tools; build/test establishes this project. Tool installation remains explicit." :: Text.Text)
+        "scope" .= ("Resolves the project compiler using a scoped project-local query cache. No package downloads or builds; explicit remote project imports retain Cabal semantics. Missing Cabal creates no state." :: Text.Text)
       ]
   where
     fromStringKey = fromString
