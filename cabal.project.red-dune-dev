@@ -1,0 +1,11 @@
+-- Interactive source development only; release acceptance uses the original
+-- cabal.project.red-dune-live with every production component still -O2.
+import: cabal.project.red-dune-live
+
+tests: False
+package red-dune-live
+  flags: +development
+  -- Keep optimized module bodies, but do not expose optimization details that
+  -- make an implementation-only edit rebuild the whole downstream graph.
+  -- This is a development/runtime tradeoff; release acceptance is unchanged.
+  ghc-options: -fomit-interface-pragmas

@@ -64,7 +64,7 @@
   },
   {
    "path": ".github/workflows/red-dune-live.yml",
-   "sha256_lf": "ee537910c72e353ad8a359dd806f6934367975a4ef440d807ec4194f7dfbd17b"
+   "sha256_lf": "7e0e684168b352697693cd4c5eae941f3bc69df62bf50fdfe3ef8df9071d0b8e"
   },
   {
    "path": ".gitignore",
@@ -89,6 +89,10 @@
   {
    "path": "cabal.project",
    "sha256_lf": "2bd9da3af92a6f44efdd314ee68f0bdbd117682a51fe63f108ced344af8e53da"
+  },
+  {
+   "path": "cabal.project.red-dune-dev",
+   "sha256_lf": "a8ebc93e552eb14bf5b90b2a8161d487c4ba74be7d406398c90eb75cc848ca05"
   },
   {
    "path": "cabal.project.red-dune-live",
@@ -780,7 +784,7 @@
   },
   {
    "path": "formatter.json",
-   "sha256_lf": "da691d87ad89f0ce9fce220137177b3a22c4fd89486168b839730697cf044649"
+   "sha256_lf": "76f3aaf41904ffd2360471b96d75d7391cb0291349bb3c69ac35342cf98694c6"
   },
   {
    "path": "libraries/game-arena/LICENSE",
@@ -828,7 +832,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "6cbd89e7c73442c43a45e6fbbd8599d8f1e2969bd6132f071a20810ccff1721c"
+   "sha256_lf": "614cdf3bd1b9f845fe0d5872bd17016c73626893d931f7775a8f6c897e554aa6"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -1656,11 +1660,11 @@
   },
   {
    "path": "references/red-dune-live/PROVENANCE.md",
-   "sha256_lf": "a3e423322469cce7888dc753a6071146c8ce1dce275df5d9a7ffe6f7200c048c"
+   "sha256_lf": "5ca8a34c2115d3860de4c45bff6aaccf5480adf59cb8f9f3bd69a2fd93a3d4c8"
   },
   {
    "path": "references/red-dune-live/README.md",
-   "sha256_lf": "7663d6882f1b8e3aba1f0bed25c2ee13a8b3322d83a80e57073dd66298ed3cb5"
+   "sha256_lf": "1d475650623976c630f2c2749172c3c4ea631b12079df34fc5aa4c37bdda3ac4"
   },
   {
    "path": "references/red-dune-live/app/HostMain.hs",
@@ -1668,7 +1672,195 @@
   },
   {
    "path": "references/red-dune-live/app/RedDune/Host.hs",
-   "sha256_lf": "9ec81ffa4ea00c3e1a8c2724eb3fa1a4607d795933921b46b6256e5aa829ad50"
+   "sha256_lf": "87e334efb6397d29fecc4ea9644587c8e7b6159b5f83d6e549b04d4eac423b69"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Arena.hs",
+   "sha256_lf": "5289bbfd746d257c35313588b8264b7b768e901be3a58306492f2d3cad5fbe1b"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/CheckpointLibrary.hs",
+   "sha256_lf": "1a66c21ae83ab6b808d9197e276d5bdd29a39245c81ea55791d30000998c5557"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Codec.hs",
+   "sha256_lf": "e46b45e971ef85cb11ab74a9b9b76aca0d92fe072e842f2993b0854f479b79e2"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Codec/CBOR.hs",
+   "sha256_lf": "68f8e2b08388854beefc987d35d454b929bef176431113f1b2502d3b1ba39c42"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Codec/SHA256.hs",
+   "sha256_lf": "4f90d907d6595516825bf93a2f70368b27d184a269064f5f267294996054d8e9"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Codec/Value.hs",
+   "sha256_lf": "924c7cd209c66fbde0b37ea8b91505a88494d98f90052adc72497886a484b8cc"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/CombinedFixture.hs",
+   "sha256_lf": "045e4d45757721ac73bb6382db8b0b016eb627f4f71e6ad3b9578c471e19b535"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Construction.hs",
+   "sha256_lf": "616cf2054f449aae462426941e2195f5049667c66bba3be2592730a6d5567266"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Content.hs",
+   "sha256_lf": "fe87c39e8e5b288b5fd97d984759cd6af8b8fde1ecc37e0f3b333349d0be6642"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/ContentCodec.hs",
+   "sha256_lf": "84ac615a68847ae08070771406ffe5069d4e3ccf26174dc3e0ce9b65a1705ade"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Fixture.hs",
+   "sha256_lf": "cf51d5aca25dd3cdaa215e7141acb48ca0ba0230c7a3e921d2e16a2c066d0efa"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Inventory.hs",
+   "sha256_lf": "aec6b117ba7853bb800c1cf3e0cde248034c8a0fe781bc2b8b4ee7c0be2df10e"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/JSON.hs",
+   "sha256_lf": "1b33671417f4b6eedb1e8b66ff64f2c6bb71e2015d81b3088cb6126bdc0d4273"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Jobs.hs",
+   "sha256_lf": "7bd9e7cf3d534dc5e1ca88f11af99437b80ad9e1e01e2f75c16cf13e713dab76"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/KnownCatalog.hs",
+   "sha256_lf": "9a84f018dce5570432c33fe4b7f4e1b50f69b7fa401e17ece059fedf3f11358e"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/LegacyV3.hs",
+   "sha256_lf": "3ec7be2248f1ae11760e843d577eefa838784719a31f9c7a9be9608a381366af"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/M1Commands.hs",
+   "sha256_lf": "7304fd6214966425b0bac70e6bf84ff7a1a584833de5a9374c204fc561d68da3"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/M1Infrastructure.hs",
+   "sha256_lf": "43b2b714b5519aee86e36f54b2f4fcea6019bbcc5fbba3b3c39c63cd4d08f8ba"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/M1Logistics.hs",
+   "sha256_lf": "b0c9b7f5a6f1eace73add479caaedef0d1248dbaff4b4aff4384eb5201ae1263"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/M1Rules.hs",
+   "sha256_lf": "9bad0d480c4e1837443fcfe438512543607368fed983dc08ab237f92ac226122"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/M1Scheduler.hs",
+   "sha256_lf": "6e89c5aa73666d94ce012bd2d9e396bbead3ed5a23ed44ecb98f47fc871c91fd"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/M1State.hs",
+   "sha256_lf": "69df69e2b5e2a82570e2c751fb5f6cae75cd97ec7fd6a702ee1558dd0f766e77"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/M1View.hs",
+   "sha256_lf": "584fcb4160bdb79a142c8ccde4ac25ec2a20e992bbb3b59b203eb75207f5f3e1"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Maintenance.hs",
+   "sha256_lf": "29917143c6b0cc17fe0e47c6cbcf7128dcb532afa96ae184a45f33dcfb87f270"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Migrate.hs",
+   "sha256_lf": "c85b24ea4322d7617bd41809f41aa6e781437f723d30fd961d4ebc52ed938fd3"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Needs.hs",
+   "sha256_lf": "2878525ced2128ffb853be923d4f717568c4499f3137221a3cecac7447d83fd8"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Pickup.hs",
+   "sha256_lf": "7b23d40730f2636b6db85ba6c1c96516fa27365d1b72f01bc58839be40d5569a"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Power.hs",
+   "sha256_lf": "10cdfae31f11dbe3512d271f1eb47c06b53b97f3bfba56167b75cc16f159a4a5"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Presentation.hs",
+   "sha256_lf": "b78822c02a19751e2e1460bde4a848a3f1cc2f3ad4d67f977a23e8e2ea2e915d"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/RNG.hs",
+   "sha256_lf": "3791c5769dbd320c0215e8cf4682f32bd27e23208a5d3f30ec274f0a7769f3d9"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Ruleset.hs",
+   "sha256_lf": "e00c03d3c2aa612fba0598d0161502db72df2bbfa3c3d83fb5066244a8b42f7e"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/S01Fixture.hs",
+   "sha256_lf": "bb4645795cf2198f43da1cf6f1dfdaefd8e7cb8cb8bc54499a73dfc3a664ea69"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Save.hs",
+   "sha256_lf": "be55646ff2bcf791bc1391e4853247d1f3969761dfe19a76d68b79d01319a7df"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Scheduler.hs",
+   "sha256_lf": "13f0c5ee09da494ba7fd096ac7c2057eae999fdd44f3dcbf52befe30d1a42f07"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/SchedulerCore.hs",
+   "sha256_lf": "91cf3a648ba248e271f1a70289d208a5ac20f8c6353a5c653007a10b774a3ea2"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Session.hs",
+   "sha256_lf": "ce7d7e977fd9dd280e66aec45f1821f09cc0e8f1033bada3120b05dfde39989a"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/SessionTrace.hs",
+   "sha256_lf": "eadfa960e31892de5bf7ee2d6f1a8e6ff4075e26126acd42e6e4ae9d0c6c76ab"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Space.hs",
+   "sha256_lf": "a4822df987102094dec3d8b6855f3b608a3fe4eea8353a4f2cf2ff029ce8c383"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/SupplyChainFixture.hs",
+   "sha256_lf": "df65996b346fc3e313e7487ee10baebc2d59c2ffc0627df69f289bb8db347db8"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Topology.hs",
+   "sha256_lf": "4e9fcea02e53d7b6b0a8572a1d4b8e9139b28f5a7d6d5bd77227531019d7b866"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Transport.hs",
+   "sha256_lf": "4c7b851f564c86a0b82eb0cbd7eac0104e2ef397c5db6d9d2bcf2e086aa384dc"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Types.hs",
+   "sha256_lf": "8fd6cb4c7242c67a93f0cc15a76d9ba9476a2af57add6276167e8d2e3bdf8ce4"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/UIFixture.hs",
+   "sha256_lf": "8db4a4ba7136fa5c791b6ac75ea34fcd9fc95988c5fda0daa84d295b33e1ebbb"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/UIShell.hs",
+   "sha256_lf": "8bdb0b6834c72f8dc1b064eb0c5ce9b0e4f7c60807c313c4c5ef64483c1823ee"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Units.hs",
+   "sha256_lf": "bd2934368ea5e4a08bea6c49699444e9e3a1c4b96cff53594fe094ef62767790"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Workforce.hs",
+   "sha256_lf": "1997b61f30b66f10e67eaf62b11f26d33a1a3471201dedeb941e378773d188a0"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/World.hs",
+   "sha256_lf": "6049a4a36fa6761332a165c1066a003c362e80af915a742d5640dfbd89113add"
   },
   {
    "path": "references/red-dune-live/data/campaign-pack-v1.json",
@@ -1677,6 +1869,14 @@
   {
    "path": "references/red-dune-live/data/economy-v1.json",
    "sha256_lf": "184084eb7311c8fc2e47f95aae0922a3d8fcb5d42efd775c8bba0bac4755eea6"
+  },
+  {
+   "path": "references/red-dune-live/dev/DevMain.hs",
+   "sha256_lf": "949da9dbd4170ffb2bb1defdab8836f5f5991361bc6d7eb6c6d12f6a3270f2d4"
+  },
+  {
+   "path": "references/red-dune-live/devloop/DevLoopMain.hs",
+   "sha256_lf": "c2f0aabf6cf261cd1e88d0caccc6576504f1d63cd587ff54b2d92f0bdaf9fa89"
   },
   {
    "path": "references/red-dune-live/docs/ACCEPTANCE.md",
@@ -1689,6 +1889,14 @@
   {
    "path": "references/red-dune-live/docs/CAMPAIGN-DESIGN.md",
    "sha256_lf": "e473eb76057f0201bec33d8fd94feaec4acee8bcaf17a5d3411322a424003436"
+  },
+  {
+   "path": "references/red-dune-live/docs/DEVELOPMENT-EVIDENCE.md",
+   "sha256_lf": "44c55ad6a821dd2231ac81cf11a6ffa6726b2bdd9fb9f70d0838119117204cf9"
+  },
+  {
+   "path": "references/red-dune-live/docs/DEVELOPMENT.md",
+   "sha256_lf": "219814b40a7312b1a495eb9cbdb6d98815915658c991fd8be35dfdac905abec0"
   },
   {
    "path": "references/red-dune-live/docs/HOST-API.md",
@@ -1715,200 +1923,20 @@
    "sha256_lf": "b3c3feb1f06fc9405a7591fd9c7453899abbdc2d87e4cb122912e6fe38d208d4"
   },
   {
+   "path": "references/red-dune-live/evidence/development-correctness.json",
+   "sha256_lf": "010a42ea446b03327ad14abbb415d86933447f35b3c18c6b9bd647fab2be46d3"
+  },
+  {
+   "path": "references/red-dune-live/evidence/development-iteration.json",
+   "sha256_lf": "3bff2dd6c8900610e7f814f77132196514f7a7fbedd96d8261b8116da1256f1e"
+  },
+  {
    "path": "references/red-dune-live/evidence/performance.json",
    "sha256_lf": "8205428735c611420db337459e0027b99f8920c0e4289fa1bea0348f243eca9f"
   },
   {
    "path": "references/red-dune-live/red-dune-live.cabal",
-   "sha256_lf": "3a586205000fe46bd9adbc5d85b2103a8ddaa407122f59352d98d87c0b1aa0e8"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Arena.hs",
-   "sha256_lf": "5289bbfd746d257c35313588b8264b7b768e901be3a58306492f2d3cad5fbe1b"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/CheckpointLibrary.hs",
-   "sha256_lf": "1a66c21ae83ab6b808d9197e276d5bdd29a39245c81ea55791d30000998c5557"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Codec.hs",
-   "sha256_lf": "e46b45e971ef85cb11ab74a9b9b76aca0d92fe072e842f2993b0854f479b79e2"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Codec/CBOR.hs",
-   "sha256_lf": "68f8e2b08388854beefc987d35d454b929bef176431113f1b2502d3b1ba39c42"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Codec/SHA256.hs",
-   "sha256_lf": "4f90d907d6595516825bf93a2f70368b27d184a269064f5f267294996054d8e9"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Codec/Value.hs",
-   "sha256_lf": "924c7cd209c66fbde0b37ea8b91505a88494d98f90052adc72497886a484b8cc"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/CombinedFixture.hs",
-   "sha256_lf": "045e4d45757721ac73bb6382db8b0b016eb627f4f71e6ad3b9578c471e19b535"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Construction.hs",
-   "sha256_lf": "616cf2054f449aae462426941e2195f5049667c66bba3be2592730a6d5567266"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Content.hs",
-   "sha256_lf": "fe87c39e8e5b288b5fd97d984759cd6af8b8fde1ecc37e0f3b333349d0be6642"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/ContentCodec.hs",
-   "sha256_lf": "84ac615a68847ae08070771406ffe5069d4e3ccf26174dc3e0ce9b65a1705ade"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Fixture.hs",
-   "sha256_lf": "cf51d5aca25dd3cdaa215e7141acb48ca0ba0230c7a3e921d2e16a2c066d0efa"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Inventory.hs",
-   "sha256_lf": "aec6b117ba7853bb800c1cf3e0cde248034c8a0fe781bc2b8b4ee7c0be2df10e"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/JSON.hs",
-   "sha256_lf": "1b33671417f4b6eedb1e8b66ff64f2c6bb71e2015d81b3088cb6126bdc0d4273"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Jobs.hs",
-   "sha256_lf": "7bd9e7cf3d534dc5e1ca88f11af99437b80ad9e1e01e2f75c16cf13e713dab76"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/KnownCatalog.hs",
-   "sha256_lf": "9a84f018dce5570432c33fe4b7f4e1b50f69b7fa401e17ece059fedf3f11358e"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/LegacyV3.hs",
-   "sha256_lf": "3ec7be2248f1ae11760e843d577eefa838784719a31f9c7a9be9608a381366af"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/M1Commands.hs",
-   "sha256_lf": "7304fd6214966425b0bac70e6bf84ff7a1a584833de5a9374c204fc561d68da3"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/M1Infrastructure.hs",
-   "sha256_lf": "43b2b714b5519aee86e36f54b2f4fcea6019bbcc5fbba3b3c39c63cd4d08f8ba"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/M1Logistics.hs",
-   "sha256_lf": "b0c9b7f5a6f1eace73add479caaedef0d1248dbaff4b4aff4384eb5201ae1263"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/M1Rules.hs",
-   "sha256_lf": "9bad0d480c4e1837443fcfe438512543607368fed983dc08ab237f92ac226122"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/M1Scheduler.hs",
-   "sha256_lf": "6e89c5aa73666d94ce012bd2d9e396bbead3ed5a23ed44ecb98f47fc871c91fd"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/M1State.hs",
-   "sha256_lf": "69df69e2b5e2a82570e2c751fb5f6cae75cd97ec7fd6a702ee1558dd0f766e77"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/M1View.hs",
-   "sha256_lf": "584fcb4160bdb79a142c8ccde4ac25ec2a20e992bbb3b59b203eb75207f5f3e1"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Maintenance.hs",
-   "sha256_lf": "29917143c6b0cc17fe0e47c6cbcf7128dcb532afa96ae184a45f33dcfb87f270"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Migrate.hs",
-   "sha256_lf": "c85b24ea4322d7617bd41809f41aa6e781437f723d30fd961d4ebc52ed938fd3"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Needs.hs",
-   "sha256_lf": "2878525ced2128ffb853be923d4f717568c4499f3137221a3cecac7447d83fd8"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Pickup.hs",
-   "sha256_lf": "7b23d40730f2636b6db85ba6c1c96516fa27365d1b72f01bc58839be40d5569a"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Power.hs",
-   "sha256_lf": "10cdfae31f11dbe3512d271f1eb47c06b53b97f3bfba56167b75cc16f159a4a5"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Presentation.hs",
-   "sha256_lf": "b78822c02a19751e2e1460bde4a848a3f1cc2f3ad4d67f977a23e8e2ea2e915d"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/RNG.hs",
-   "sha256_lf": "3791c5769dbd320c0215e8cf4682f32bd27e23208a5d3f30ec274f0a7769f3d9"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Ruleset.hs",
-   "sha256_lf": "e00c03d3c2aa612fba0598d0161502db72df2bbfa3c3d83fb5066244a8b42f7e"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/S01Fixture.hs",
-   "sha256_lf": "bb4645795cf2198f43da1cf6f1dfdaefd8e7cb8cb8bc54499a73dfc3a664ea69"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Save.hs",
-   "sha256_lf": "be55646ff2bcf791bc1391e4853247d1f3969761dfe19a76d68b79d01319a7df"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Scheduler.hs",
-   "sha256_lf": "13f0c5ee09da494ba7fd096ac7c2057eae999fdd44f3dcbf52befe30d1a42f07"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/SchedulerCore.hs",
-   "sha256_lf": "91cf3a648ba248e271f1a70289d208a5ac20f8c6353a5c653007a10b774a3ea2"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Session.hs",
-   "sha256_lf": "ce7d7e977fd9dd280e66aec45f1821f09cc0e8f1033bada3120b05dfde39989a"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/SessionTrace.hs",
-   "sha256_lf": "eadfa960e31892de5bf7ee2d6f1a8e6ff4075e26126acd42e6e4ae9d0c6c76ab"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Space.hs",
-   "sha256_lf": "a4822df987102094dec3d8b6855f3b608a3fe4eea8353a4f2cf2ff029ce8c383"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/SupplyChainFixture.hs",
-   "sha256_lf": "df65996b346fc3e313e7487ee10baebc2d59c2ffc0627df69f289bb8db347db8"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Topology.hs",
-   "sha256_lf": "4e9fcea02e53d7b6b0a8572a1d4b8e9139b28f5a7d6d5bd77227531019d7b866"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Transport.hs",
-   "sha256_lf": "4c7b851f564c86a0b82eb0cbd7eac0104e2ef397c5db6d9d2bcf2e086aa384dc"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Types.hs",
-   "sha256_lf": "8fd6cb4c7242c67a93f0cc15a76d9ba9476a2af57add6276167e8d2e3bdf8ce4"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/UIFixture.hs",
-   "sha256_lf": "8db4a4ba7136fa5c791b6ac75ea34fcd9fc95988c5fda0daa84d295b33e1ebbb"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/UIShell.hs",
-   "sha256_lf": "8bdb0b6834c72f8dc1b064eb0c5ce9b0e4f7c60807c313c4c5ef64483c1823ee"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Units.hs",
-   "sha256_lf": "bd2934368ea5e4a08bea6c49699444e9e3a1c4b96cff53594fe094ef62767790"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/Workforce.hs",
-   "sha256_lf": "1997b61f30b66f10e67eaf62b11f26d33a1a3471201dedeb941e378773d188a0"
-  },
-  {
-   "path": "references/red-dune-live/src/Colony/World.hs",
-   "sha256_lf": "6049a4a36fa6761332a165c1066a003c362e80af915a742d5640dfbd89113add"
+   "sha256_lf": "8c86c3fb24ff6d530d593bcfb5de336fa3b498fd95dd4dc7749bc16372ace247"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Campaign.hs",
@@ -1920,7 +1948,7 @@
   },
   {
    "path": "references/red-dune-live/src/RedDune/Game.hs",
-   "sha256_lf": "cf2fc0d342b1a7f1c551048401367364ebebcd1cd4c837b90a9e3de95fe2de9c"
+   "sha256_lf": "6d8bca68e2b95c41db84ce36966a981dfddc32ce427adaa06ed342131fd4badd"
   },
   {
    "path": "references/red-dune-live/src/RedDune/GameSave.hs",
@@ -1940,7 +1968,7 @@
   },
   {
    "path": "references/red-dune-live/test/LiveBoundaryTests.hs",
-   "sha256_lf": "672ec13c911cb4218484a3b37d8973c1f95b4ff1380c3f05c48fe6dc816cdb9d"
+   "sha256_lf": "580213b0053b75dc9ec1c0a51414dc8670f10b112cda24c8f9cc597555d2b6a7"
   },
   {
    "path": "references/red-dune-live/test/LiveCampaignTests.hs",
@@ -1963,20 +1991,36 @@
    "sha256_lf": "10f755eb8137d4a24018450c73b239f434bce18b33a067d1978ea3c132b8edf0"
   },
   {
+   "path": "references/red-dune-live/tools/bench_dev.py",
+   "sha256_lf": "b4fc0bdbd8d4fa6176fcc09462669fa90c1cea92f64d9f6e3f830de1c0fa16ae"
+  },
+  {
    "path": "references/red-dune-live/tools/check.sh",
    "sha256_lf": "765fb06ac84ee29e7f41ddc91c0ba5df6ff97f90589499d247ecf8d4c7eeb5f6"
+  },
+  {
+   "path": "references/red-dune-live/tools/dev.sh",
+   "sha256_lf": "c228f473791f62bb22da177a8143e82b0e8f391581999780887cb8aaece6af81"
   },
   {
    "path": "references/red-dune-live/tools/test_browser_protocol.cjs",
    "sha256_lf": "4e968b6dfe76483027ae83431032d1032607e4594a2d555878ed89bed92d6d4f"
   },
   {
+   "path": "references/red-dune-live/tools/test_devloop.py",
+   "sha256_lf": "b4aea877c5387ab4fbf4fe33a8f91a8f72ef3b84ca7e7caff393d7c1ffec710e"
+  },
+  {
+   "path": "references/red-dune-live/tools/test_devloop_lifecycle.py",
+   "sha256_lf": "8fde3bd6d13e9904b91dc14db535023bed39f915cb716adf774f068a1916d001"
+  },
+  {
    "path": "references/red-dune-live/tools/test_http.cjs",
-   "sha256_lf": "255603b111c9e732d603d8e2772710d89ddcec614dc46f88e8272ee04e501b9b"
+   "sha256_lf": "8ed666268e6df887a1606ad6f74f5e13a77216c6da7753d38f95ba6fd23edf6b"
   },
   {
    "path": "references/red-dune-live/ui/app.js",
-   "sha256_lf": "a441b752b8624255c5a97bb068b5841782c890a899c31f805811ba6083bd5255"
+   "sha256_lf": "c291f884d8ee397f700ad64fce47337deead81dcc031a16990f891b0d86d945c"
   },
   {
    "path": "references/red-dune-live/ui/index.html",

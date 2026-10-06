@@ -8,12 +8,12 @@ module RedDune.Host (HostConfig (..), runHost, runHostLifecycleTests) where
 import Colony.JSON qualified as J
 import Colony.Presentation (arr, encodeJSON, num, obj, str)
 import Colony.World (CoreMode (..), branchId, worldAuthority, worldId, worldMode, worldRuleset)
-import Control.Concurrent (forkFinally, forkIO, killThread, threadDelay)
+import Control.Concurrent (ThreadId, forkIOWithUnmask, killThread, myThreadId, threadDelay)
 import Control.Concurrent.MVar
 import Control.Concurrent.QSem
 import Control.DeepSeq (force)
 import Control.Exception
-import Control.Monad (forever, unless, void, when)
+import Control.Monad (forM_, forever, unless, void, when)
 import Data.ByteString qualified as B
 import Data.ByteString.Char8 qualified as C
 import Data.Char (isAlphaNum, toLower)
@@ -26,12 +26,14 @@ import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
 import Data.Word (Word64)
 import GHC.Clock (getMonotonicTimeNSec)
+import GHC.Conc (BlockReason (BlockedOnException), ThreadStatus (ThreadBlocked), threadStatus)
 import Network.Socket
 import Network.Socket.ByteString qualified as N
 import RedDune.ContentPack (ContentPack, defaultPack)
 import RedDune.Game
 import RedDune.GameSave
 import System.Directory
+import System.Environment (lookupEnv, setEnv, unsetEnv)
 import System.FilePath ((</>))
 import System.IO
 import System.Posix.Files (getSymbolicLinkStatus, isRegularFile)
@@ -64,6 +66,7 @@ data Host = Host
     currentEpoch :: !Word64,
     responseSerial :: !Word64,
     runtimeId :: !String,
+    devRevision :: !(Maybe String),
     owner :: !(Maybe Owner),
     speed :: !Int,
     savedRevision :: !(Maybe (Word64, Word64)),
@@ -83,7 +86,41 @@ data Host = Host
     lastAutosave :: !Word64
   }
 
-data Env = Env {config :: !HostConfig, host :: !(MVar Host), completed :: !(MVar [Completion]), beforeIO :: !(String -> IO ())}
+data Env = Env {config :: !HostConfig, host :: !(MVar Host), completed :: !(MVar [Completion]), beforeIO :: !(String -> IO ()), children :: !ChildScope}
+
+-- Every thread that can touch this runtime belongs to this scope. Nothing means
+-- shutdown has sealed admission; completed children are removed while it is open.
+newtype ChildScope = ChildScope (MVar (Maybe (M.Map ThreadId (MVar ()))))
+
+withChildScope :: (ChildScope -> IO a) -> IO a
+withChildScope = bracket (ChildScope <$> newMVar (Just M.empty)) stopChildren
+
+spawnChild :: ChildScope -> IO () -> IO ()
+spawnChild (ChildScope registry) action = mask_ $ modifyMVar_ registry $ \active -> case active of
+  Nothing -> throwIO ThreadKilled
+  Just running -> do
+    started <- newEmptyMVar
+    finished <- newEmptyMVar
+    tid <- forkIOWithUnmask $ \unmask -> do
+      self <- myThreadId
+      let retire = uninterruptibleMask_ $ modifyMVar_ registry $ \current -> do
+            putMVar finished ()
+            pure (M.delete self <$> current)
+      (takeMVar started >> unmask action) `finally` retire
+    -- Publication and admission are indivisible with respect to shutdown. The
+    -- child may start immediately, but cannot retire until we release registry.
+    putMVar started ()
+    pure (Just (M.insert tid finished running))
+
+stopChildren :: ChildScope -> IO ()
+stopChildren (ChildScope registry) = uninterruptibleMask_ $ do
+  running <- modifyMVar registry (\active -> pure (Nothing, maybe M.empty id active))
+  -- Cleanup alone is uninterruptible: a second Ctrl-C must not release the store
+  -- lock while old children still write. Child actions remain unmasked and their
+  -- socket waits / IO barriers are interruptible; no cancellation timeout may
+  -- return authority to the caller while a child is still alive.
+  mapM_ killThread (M.keys running)
+  mapM_ readMVar (M.elems running)
 
 leaseNanos :: Word64
 leaseNanos = 4000000000
@@ -98,7 +135,13 @@ freshId = do
     hex = "0123456789abcdef"
 
 runHost :: HostConfig -> ContentPack -> IO ()
-runHost cfg pack = do
+runHost cfg pack = runHostWith cfg pack (const (pure ())) (const (pure ()))
+
+-- Private hooks let lifecycle checks observe real sockets and stop a checkpoint
+-- inside its transaction. Neither HTTP requests nor environment variables can
+-- install these hooks.
+runHostWith :: HostConfig -> ContentPack -> (String -> IO ()) -> (Env -> IO ()) -> IO ()
+runHostWith cfg pack ioBarrier ready = do
   unless (hostPort cfg >= 1024 && hostPort cfg <= 65535) (fail "Port must be 1024..65535")
   createDirectoryIfMissing True (hostStore cfg)
   -- POSIX advisory lock is released by the OS even after process death.
@@ -110,22 +153,33 @@ runHost cfg pack = do
     game <- either fail pure (reidentifyGameToBranch ident reservedBranch template)
     initialEntry <- writeCheckpoint cfg ident game
     now <- getMonotonicTimeNSec
-    state <- newMVar (freshHost ident game initialEntry now)
+    revision <- lookupEnv "RED_DUNE_DEV_REVISION"
+    state <- newMVar (freshHost ident game initialEntry now) {devRevision = revision}
     box <- newMVar []
-    let env = Env cfg state box (const (pure ()))
-    bracket (forkIO (ticker env)) killThread $ \_ -> withSocketsDo $
+    withChildScope $ \scope -> withSocketsDo $
       bracket (socket AF_INET Stream defaultProtocol) close $ \listener -> do
+        let env = Env cfg state box ioBarrier scope
         setSocketOption listener ReuseAddr 1
         bind listener (SockAddrInet (fromIntegral (hostPort cfg)) (tupleToHostAddress (127, 0, 0, 1)))
         listen listener 32
         slots <- newQSem 32
-        putStrLn ("Red Dune live: http://127.0.0.1:" ++ show (hostPort cfg) ++ "/")
-        putStrLn ("Checkpoints: " ++ hostStore cfg ++ "; loopback only; close the page to pause")
-        hFlush stdout
-        forever $ do
+        -- GHCi's unbuffered stdout also carries supervisor command markers.
+        -- Concurrent putStrLn can interleave characters, so only the supervisor
+        -- announces readiness for a development runtime.
+        case revision of
+          Nothing -> do
+            putStrLn ("Red Dune live: http://127.0.0.1:" ++ show (hostPort cfg) ++ "/")
+            putStrLn ("Checkpoints: " ++ hostStore cfg ++ "; loopback only; close the page to pause")
+            hFlush stdout
+          Just _ -> pure ()
+        spawnChild scope (ticker env)
+        ready env
+        forever $ mask_ $ do
           waitQSem slots
           (conn, _) <- accept listener `onException` signalQSem slots
-          void $ forkFinally (serve env conn) (\_ -> close conn `finally` signalQSem slots)
+          let release = close conn `finally` signalQSem slots
+              handleRequest = serve env conn `catch` \(_ :: IOException) -> pure ()
+          spawnChild scope (handleRequest `finally` release) `onException` release
 
 freshHost :: String -> GameState -> J.JSON -> Word64 -> Host
 freshHost ident game initialEntry now =
@@ -134,6 +188,7 @@ freshHost ident game initialEntry now =
       currentEpoch = 1,
       responseSerial = 0,
       runtimeId = ident,
+      devRevision = Nothing,
       owner = Nothing,
       speed = 1,
       savedRevision = Just (1, gameRevision game),
@@ -164,7 +219,7 @@ pauseGame h = case applyAction (obj [("op", str "pause")]) (currentGame h) of
 safely :: Env -> (Host -> IO Host) -> IO ()
 safely env action = modifyMVar_ (host env) $ \h ->
   action h `catch` \(e :: SomeException) ->
-    case fromException e :: Maybe AsyncException of
+    case fromException e :: Maybe SomeAsyncException of
       Just _ -> throwIO e
       Nothing -> pure (pauseGame h) {fault = Just (displayException e), owner = Nothing}
 
@@ -249,11 +304,11 @@ savedJSON :: J.JSON -> J.JSON
 savedJSON entry = obj [("status", str "saved"), ("lastSuccess", entry), ("error", J.JNull)]
 
 spawnWork :: Env -> IO Completion -> IO ()
-spawnWork env work = void $ forkIO $ work >>= \event -> modifyMVar_ (completed env) (pure . (++ [event]))
+spawnWork env work = spawnChild (children env) $ work >>= \event -> modifyMVar_ (completed env) (pure . (++ [event]))
 
 attemptIO :: IO a -> IO (Either String a)
 attemptIO action =
-  (Right <$> action) `catch` \(e :: SomeException) -> case fromException e :: Maybe AsyncException of
+  (Right <$> action) `catch` \(e :: SomeException) -> case fromException e :: Maybe SomeAsyncException of
     Just _ -> throwIO e
     Nothing -> pure (Left (displayException e))
 
@@ -261,7 +316,7 @@ startSave :: Env -> Host -> IO Host
 startSave env h = do
   ident <- freshId
   let captured = currentGame h; epoch = currentEpoch h; revision = gameRevision captured
-  spawnWork env $ Saved ident epoch revision <$> attemptIO (beforeIO env "save" >> writeCheckpoint (config env) ident captured)
+  spawnWork env $ Saved ident epoch revision <$> attemptIO (beforeIO env "save" >> writeCheckpointWith (beforeIO env "checkpoint") (config env) ident captured)
   pure h {saving = True, savePending = False, workers = workers h + 1, saveStatus = obj [("status", str "writing"), ("capturedRevision", num revision), ("lastSuccess", lastSuccess (saveStatus h))]}
 
 checkpointEntry :: String -> GameState -> J.JSON
@@ -312,8 +367,7 @@ reserveBranch cfg source = do
     $ \(path, h) -> do
       B.hPut h bytes
       hFlush h
-      fd <- handleToFd h
-      fileSynchronise fd `finally` closeFd fd
+      bracket (handleToFd h) closeFd fileSynchronise
       readback <- B.readFile path
       unless (readback == bytes) (fail "Branch counter readback mismatch")
       renameFile path counterPath
@@ -321,7 +375,10 @@ reserveBranch cfg source = do
   pure next
 
 writeCheckpoint :: HostConfig -> String -> GameState -> IO J.JSON
-writeCheckpoint cfg ident game = do
+writeCheckpoint = writeCheckpointWith (pure ())
+
+writeCheckpointWith :: IO () -> HostConfig -> String -> GameState -> IO J.JSON
+writeCheckpointWith beforeCommit cfg ident game = do
   bytes <- either fail pure (encodeGame game)
   when (B.length bytes > 33554432) (fail "Checkpoint exceeds 32 MiB bound")
   let destination = hostStore cfg </> (ident ++ ".rdg")
@@ -331,11 +388,11 @@ writeCheckpoint cfg ident game = do
     $ \(path, h) -> do
       B.hPut h bytes
       hFlush h
-      fd <- handleToFd h
-      fileSynchronise fd `finally` closeFd fd
+      bracket (handleToFd h) closeFd fileSynchronise
       verified <- B.readFile path
       unless (verified == bytes) (fail "Checkpoint readback mismatch")
       void (either fail pure (decodeGame verified))
+      beforeCommit
       renameFile path destination
       bracket (openFd (hostStore cfg) ReadOnly defaultFileFlags {directory = True, nofollow = True, cloexec = True}) closeFd fileSynchronise
   pure (checkpointEntry ident game)
@@ -414,6 +471,7 @@ snapshot client result h =
                   obj
                     [ ("schema", str "red-dune-shell-0.5"),
                       ("runtimeId", str (runtimeId h)),
+                      ("devRevision", maybe J.JNull str (devRevision h)),
                       ("responseSerial", num (responseSerial h)),
                       ("session", obj [("authority", str (worldAuthority w)), ("epochCounter", num (currentEpoch h)), ("world", num (worldId w)), ("branch", num (branchId w)), ("ruleset", str (worldRuleset w)), ("dirty", J.JBool (dirty h))]),
                       ("catalog", obj [("status", str (catalogStatus h)), ("entries", arr (catalog h)), ("warnings", arr (map str (catalogWarnings h))), ("error", maybe J.JNull str (catalogError h))]),
@@ -470,7 +528,7 @@ request env client path body = modifyMVar (host env) $ \h -> do
           dispatched <- try (dispatch env path (foldr M.delete fields ["requestId", "requestCounter", "runtimeId", "sessionEpoch", "clientId"]) h)
           (changed, receipt) <- case dispatched of
             Right pair -> pure pair
-            Left (e :: SomeException) -> case fromException e :: Maybe AsyncException of
+            Left (e :: SomeException) -> case fromException e :: Maybe SomeAsyncException of
               Just _ -> throwIO e
               Nothing -> pure ((pauseGame h) {fault = Just (displayException e), owner = Nothing}, rejected "runtimeFault" (displayException e))
           let order = take 1024 (ident : receiptOrder changed)
@@ -538,7 +596,7 @@ dispatch env path fields h
                     ( do
                         beforeIO env "activate"
                         restored <- either fail pure (reidentifyGameToBranch identity reservedBranch target)
-                        entryJSON <- writeCheckpoint (config env) identity restored
+                        entryJSON <- writeCheckpointWith (beforeIO env "checkpoint") (config env) identity restored
                         pure (restored, entryJSON)
                     )
               pure (h {workers = workers h + 1, loadState = Activating token entry epoch revision, savePending = False}, ok "loadActivationRequested")
@@ -552,7 +610,7 @@ dispatch env path fields h
             template <- either fail pure (startGame (either (const "settlement") id (getString "scenario" fields)) (fromMaybe (gamePack (currentGame h)) (gameStagedPack (currentGame h))))
             reservedBranch <- reserveBranch (config env) (branchId (gameWorld template))
             game <- either fail pure (reidentifyGameToBranch identity reservedBranch template)
-            committed <- attemptIO (writeCheckpoint (config env) identity game)
+            committed <- attemptIO (writeCheckpointWith (beforeIO env "checkpoint") (config env) identity game)
             case committed of
               Left err -> pure (h {saveStatus = saveFailureWith (saveStatus h) err}, rejected "restartRejected" ("New campaign was not activated: " ++ err))
               Right entry ->
@@ -675,11 +733,17 @@ failure status message = (status, "application/json; charset=utf-8", jsonBytes (
 -- test entrypoint; no request, environment variable or player input can set one.
 runHostLifecycleTests :: IO ()
 runHostLifecycleTests = do
+  testCompletionAdoption
+  testAsyncCancellation
+  testRepeatedHostShutdown
+
+testCompletionAdoption :: IO ()
+testCompletionAdoption = do
   temporary <- getTemporaryDirectory
   ident <- freshId
   let store = temporary </> ("red-dune-lifecycle-" ++ ident)
       cfg = HostConfig 8787 store "ui"
-  bracket_ (createDirectory store) (removePathForcibly store) $ do
+  bracket_ (createDirectory store) (removePathForcibly store) $ withChildScope $ \scope -> do
     template <- either fail pure (startGame "settlement" defaultPack)
     branch <- reserveBranch cfg (branchId (gameWorld template))
     game <- either fail pure (reidentifyGameToBranch ident branch template)
@@ -692,9 +756,12 @@ runHostLifecycleTests = do
     saveGate <- newEmptyMVar
     counter <- newIORef (0 :: Integer)
     let barrier kind = case kind of "read" -> readMVar readGate; "activate" -> readMVar activationGate; "save" -> readMVar saveGate >> fail "Injected stale save failure"; _ -> pure ()
-        env = Env cfg state box barrier
+        env = Env cfg state box barrier scope
         client = "native-lifecycle-controller"
         submit fields = do
+          -- Checkpoint encoding can outlast the lease on a debug build. These
+          -- checks exercise completion fencing, not wall-clock ownership expiry.
+          void (request env client "/api/claim" (Just (obj [])))
           n <- atomicModifyIORef' counter (\value -> (value + 1, value + 1))
           current <- readMVar state
           request
@@ -721,7 +788,8 @@ runHostLifecycleTests = do
           Preview token _ _ _ _ -> pure token
           Activating token _ _ _ -> pure token
           _ -> fail "Expected active checkpoint ticket"
-    bracket (forkIO (ticker env)) killThread $ \_ -> do
+    spawnChild scope (ticker env)
+    do
       void (request env client "/api/claim" (Just (obj [])))
       void (submit [("op", str "previewLoad"), ("entry", str ident), ("action", str "restore")])
       reading <- readMVar state
@@ -770,5 +838,134 @@ runHostLifecycleTests = do
       modifyMVar_ state (\h -> pure h {requestReceipts = M.empty, receiptOrder = []})
       evictedReply <- request env client "/api/command" (Just oldRequest)
       let resultStatus = J.object evictedReply >>= J.field "result" >>= J.object >>= getString "status"
-      assertTest (resultStatus == Right "identityRejected") "Evicted request identity executed a second time"
+      assertTest (resultStatus == Right "identityRejected") ("Expected evicted request rejection, received: " ++ show resultStatus)
       putStrLn "PASS: controlled read cancellation, pre-durability non-publication, activation cancellation, restart while candidate blocked, late completion fencing, retained orphan checkpoint, stale save failure isolation, evicted request rejection"
+
+-- Unlike AsyncException, this type also exercises the extensible async exception
+-- hierarchy (used by cancellation libraries and System.Timeout).
+data LifecycleCancellation = LifecycleCancellation deriving (Show)
+
+instance Exception LifecycleCancellation where
+  toException = asyncExceptionToException
+  fromException = asyncExceptionFromException
+
+testAsyncCancellation :: IO ()
+testAsyncCancellation = do
+  result <- try (attemptIO (throwIO LifecycleCancellation)) :: IO (Either LifecycleCancellation (Either String ()))
+  assertLifecycle (case result of Left LifecycleCancellation -> True; _ -> False) "Async cancellation became an ordinary checkpoint failure"
+  putStrLn "PASS: extensible async cancellation is rethrown"
+
+assertLifecycle :: Bool -> String -> IO ()
+assertLifecycle condition message = unless condition (fail message)
+
+awaitLifecycle :: String -> IO a -> IO a
+awaitLifecycle label action = do
+  result <- timeout 15000000 action
+  maybe (fail ("Lifecycle timeout: " ++ label)) pure result
+
+-- Always unmask the test runtime too: forkFinally called inside bracket's masked
+-- acquire would otherwise accidentally test a cancellation-resistant host.
+withTestThread :: IO () -> (ThreadId -> MVar (Either SomeException ()) -> IO a) -> IO a
+withTestThread action use = do
+  exited <- newEmptyMVar
+  bracket
+    (forkIOWithUnmask (\unmask -> try (unmask action) >>= putMVar exited))
+    (\tid -> uninterruptibleMask_ (killThread tid >> void (readMVar exited)))
+    (\tid -> use tid exited)
+
+-- Twenty actual runHost lifetimes share one process, save directory, and port.
+-- Each has an accepted, incomplete HTTP request and a verified temporary save
+-- waiting just before rename. Barriers make the cancellation window deterministic.
+testRepeatedHostShutdown :: IO ()
+testRepeatedHostShutdown = bracket (lookupEnv "RED_DUNE_DEV_REVISION") restoreRevision $ \_ -> withSocketsDo $ do
+  temporary <- getTemporaryDirectory
+  ident <- freshId
+  port <- bracket (socket AF_INET Stream defaultProtocol) close $ \probe -> do
+    bind probe (SockAddrInet 0 (tupleToHostAddress (127, 0, 0, 1)))
+    address <- getSocketName probe
+    case address of
+      SockAddrInet value _ -> pure (fromIntegral value)
+      _ -> fail "Expected an IPv4 test listener"
+  let store = temporary </> ("red-dune-stop-start-" ++ ident)
+      cfg = HostConfig port store "ui"
+  previous <- newIORef Nothing
+  bracket_ (createDirectory store) (removePathForcibly store) $ forM_ [1 .. 20 :: Int] $ \iteration -> do
+    let checkedRevision = if iteration == 1 then Nothing else Just ("checked-revision-" ++ show iteration)
+    restoreRevision checkedRevision
+    ready <- newEmptyMVar
+    writing <- newEmptyMVar
+    writeGate <- newEmptyMVar
+    cancelling <- newEmptyMVar
+    cleanupGate <- newEmptyMVar
+    let barrier kind =
+          when (kind == "checkpoint") $
+            (putMVar writing () >> readMVar writeGate)
+              `finally` uninterruptibleMask_ (putMVar cancelling () >> readMVar cleanupGate)
+        releaseBarriers = void (tryPutMVar cleanupGate ()) >> void (tryPutMVar writeGate ())
+    withTestThread (runHostWith cfg defaultPack barrier (putMVar ready)) $ \runtimeThread exited -> flip finally releaseBarriers $ do
+      env <- awaitLifecycle "host ready" (readMVar ready)
+      initial <- readMVar (host env)
+      setEnv "RED_DUNE_DEV_REVISION" "future-revision"
+      observed <- request env "" "/api/state" Nothing
+      let observedRevision = J.object observed >>= J.field "shell" >>= J.object >>= J.field "devRevision"
+      assertLifecycle (observedRevision == Right (maybe J.JNull str checkedRevision)) "Environment change relabelled the current runtime revision"
+      earlier <- readIORef previous
+      forM_ earlier $ \(oldRuntime, oldBranch) -> do
+        assertLifecycle (runtimeId initial /= oldRuntime) "Restart reused runtime authority"
+        assertLifecycle (branchId (gameWorld (currentGame initial)) > oldBranch) "Restart reused store branch"
+      writeIORef previous (Just (runtimeId initial, branchId (gameWorld (currentGame initial))))
+      -- Exercise the ordinary save path, including its completion publication.
+      modifyMVar_ (host env) (startSave env)
+      awaitLifecycle "checkpoint before rename" (readMVar writing)
+      names <- listDirectory store
+      assertLifecycle (any (isSuffixOf ".capture-") names) "Save barrier did not hold an actual temporary checkpoint"
+      bracket (socket AF_INET Stream defaultProtocol) close $ \client -> do
+        connect client (SockAddrInet (fromIntegral port) (tupleToHostAddress (127, 0, 0, 1)))
+        N.sendAll client "GET /api/state HTTP/1.1\r\n"
+        let ChildScope registry = children env
+            waitForHandler = do
+              active <- readMVar registry
+              case active of
+                Just running | M.size running == 3 -> pure (M.elems running)
+                _ -> threadDelay 1000 >> waitForHandler
+        completions <- awaitLifecycle "accepted HTTP handler" waitForHandler
+        killThread runtimeThread
+        awaitLifecycle "worker cancellation finalizer" (readMVar cancelling)
+        premature <- tryReadMVar exited
+        assertLifecycle (case premature of Nothing -> True; _ -> False) "runHost returned before a child finalizer completed"
+        sealed <- readMVar registry
+        assertLifecycle (case sealed of Nothing -> True; _ -> False) "Shutdown did not seal child admission"
+        lateSpawn <- try (spawnChild (children env) (fail "Late child ran")) :: IO (Either AsyncException ())
+        assertLifecycle (case lateSpawn of Left ThreadKilled -> True; _ -> False) "Closed runtime accepted a new child"
+        -- A second interrupt during cleanup must also wait for child ownership.
+        withTestThread (killThread runtimeThread) $ \interruptThread secondInterrupt -> do
+          let waitForInterrupt = do
+                status <- threadStatus interruptThread
+                case status of
+                  ThreadBlocked BlockedOnException -> pure ()
+                  _ -> threadDelay 1000 >> waitForInterrupt
+          awaitLifecycle "second interrupt blocked by cleanup" waitForInterrupt
+          putMVar cleanupGate ()
+          stopped <- awaitLifecycle "runtime joined" (readMVar exited)
+          let wasCancelled = case stopped of
+                Left e -> case fromException e of Just ThreadKilled -> True; _ -> False
+                Right () -> False
+          assertLifecycle wasCancelled "runHost swallowed or replaced cancellation"
+          void (awaitLifecycle "second interrupt" (readMVar secondInterrupt))
+        forM_ completions $ \finished -> do
+          joined <- tryReadMVar finished
+          assertLifecycle (joined == Just ()) "Host returned with an unjoined child"
+        disconnected <- awaitLifecycle "accepted socket closed" (try (N.recv client 4096) :: IO (Either IOException B.ByteString))
+        assertLifecycle (either (const True) B.null disconnected) "Old HTTP handler still responded after shutdown"
+        retained <- readMVar (host env)
+        putMVar writeGate ()
+        after <- readMVar (host env)
+        events <- readMVar (completed env)
+        assertLifecycle (currentGame after == currentGame retained && responseSerial after == responseSerial retained) "Retired host changed state"
+        assertLifecycle (null events) "Cancelled save published a late completion"
+        remaining <- listDirectory store
+        assertLifecycle (length (filter (isSuffixOf ".rdg") remaining) == iteration) "Cancelled checkpoint wrote after host shutdown"
+        assertLifecycle (not (any (isSuffixOf ".capture-") remaining)) "Cancelled checkpoint leaked its temporary file"
+  putStrLn "PASS: 20 same-process host restarts; new authority and branch; captured dev revision; HTTP socket cleanup; cancelled in-flight checkpoint cleanup; child joins; sealed admission; repeated interrupts"
+  where
+    restoreRevision = maybe (unsetEnv "RED_DUNE_DEV_REVISION") (setEnv "RED_DUNE_DEV_REVISION")

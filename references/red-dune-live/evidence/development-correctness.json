@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "recoveryStatus": "Historical summary plus exact retained lifecycle receipt; not a fresh runtime-test result",
+  "supervisorSha256": "c2f0aabf6cf261cd1e88d0caccc6576504f1d63cd587ff54b2d92f0bdaf9fa89",
+  "devMainSha256": "949da9dbd4170ffb2bb1defdab8836f5f5991361bc6d7eb6c6d12f6a3270f2d4",
+  "historicalReportedChecks": {
+    "realNativeGHCi": 12,
+    "deterministicCases": 24,
+    "sameProcessSequentialHostRestarts": 20,
+    "productionSmokeSuites": [
+      "live-boundary",
+      "live-construction",
+      "live-host-lifecycle",
+      "live-tile-order",
+      "live-legacy"
+    ],
+    "nativeHttp": true,
+    "nodeProtocol": true
+  },
+  "exactRetainedHistoricalLifecycleReceipt": [
+    {
+      "test": "artifact-alias-refusal",
+      "passed": true,
+      "cases": 18
+    },
+    {
+      "test": "interrupt-rebuild-teardown",
+      "passed": true,
+      "noLiveInterpreter": true
+    },
+    {
+      "test": "interrupt-outermost-cleanup",
+      "passed": true,
+      "noLiveInterpreter": true
+    },
+    {
+      "test": "rapid-undo-to-superseded-source",
+      "passed": true,
+      "noLiveInterpreter": true
+    },
+    {
+      "test": "generation-fence-success-aba",
+      "passed": true,
+      "noLiveInterpreter": true
+    },
+    {
+      "test": "generation-fence-failure-aba",
+      "passed": true,
+      "noLiveInterpreter": true
+    },
+    {
+      "test": "core-generation-rebuild-aba",
+      "passed": true,
+      "noLiveInterpreter": true
+    }
+  ],
+  "originalFullRuntimeLogsRecovered": false,
+  "newRuntimeTestsRun": false,
+  "browserAcceptanceRun": false
+}

@@ -12,7 +12,7 @@ source is included in the foundation's current pinned formatting policy.
 
 ## Derived and new source
 
-- `src/Colony/`: copied from the archived MIT implementation, formatted and extended
+- `core/Colony/`: copied from the archived MIT implementation, formatted and extended
   in the live tree. Live construction, inventories, reservations, incoming stock,
   natural sources and world validation are extended here. `Colony.Space` also has
   a reviewed valid-coordinate tile-order fast path, retaining the exact original

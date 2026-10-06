@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "status": "Historical summary recovered from recorded results; original raw sample files and compiler logs unavailable",
+  "measuredDate": "2026-10-06",
+  "newMeasurementsRunDuringRecovery": false,
+  "toolchain": "GHC 9.6.7 / Cabal 3.12.1.0",
+  "selectedProfile": {
+    "cabal_package": "red-dune-live",
+    "development_flag": "+development",
+    "package_ghc_options": "-fomit-interface-pragmas",
+    "verified_core_compiler_command_suffix": "-Wall -Werror -O2 -hide-all-packages -fomit-interface-pragmas",
+    "scope": "The option applied package-wide in the isolated experiment, including the native supervisor. The 47-module Colony core was compiled and optimized; gameplay, host and DevMain were interpreted.",
+    "not_tested": "Conditional core-only or selective Needs-only implementation"
+  },
+  "selectedProfileEditSummaryMs": {
+    "save_to_detection": {
+      "samples": 20,
+      "median": 243.276495,
+      "p95": 448.478116,
+      "min": 217.086504,
+      "max": 1691.755534
+    },
+    "compile_restart": {
+      "samples": 20,
+      "median": 6258.0,
+      "p95": 7786,
+      "min": 5046,
+      "max": 8250
+    },
+    "host_ready": {
+      "samples": 20,
+      "median": 382.0,
+      "p95": 460,
+      "min": 329,
+      "max": 626
+    },
+    "detection_to_ready": {
+      "samples": 20,
+      "median": 6678.5,
+      "p95": 8202,
+      "min": 5376,
+      "max": 8688
+    },
+    "save_to_ready": {
+      "samples": 20,
+      "median": 7130.3477145,
+      "p95": 9131.394149,
+      "min": 5777.715248,
+      "max": 9730.417016
+    },
+    "ordinary_http_input": {
+      "samples": 20,
+      "median": 57.47563701122999,
+      "p95": 72.55821199715137,
+      "min": 45.90271799266338,
+      "max": 73.14441500604153
+    },
+    "startup_wall_ms_excluded_from_edit_distribution": 2909.1095629930496
+  },
+  "recordedValidation": {
+    "successful_native_supervisor_samples": 20,
+    "compiled_colony_module_counts": {
+      "Colony.Needs": 20
+    },
+    "expected_health_alternation": "999,1000 repeated for 20 samples",
+    "all_runtime_ids_unique": true,
+    "needs_source_restored_byte_for_byte": true
+  },
+  "measuredSourceHashes": {
+    "supervisor_source_DevLoopMain_hs": "daac930ea7e0a130952a3b9824bd1d2ec31575bd88517785ce4c6d72e8fd794f",
+    "restored_Needs_hs": "2878525ced2128ffb853be923d4f717568c4499f3137221a3cecac7447d83fd8"
+  },
+  "otherHistoricalSummaries": {
+    "leafNativeWatcher": {
+      "samples": 20,
+      "saveToHttpReadyMedianMs": 754.32,
+      "saveToHttpReadyP95Ms": 883.56,
+      "finalHardeningIncluded": false,
+      "selectedInterfaceProfileIncluded": false
+    },
+    "leafNormalNative": {
+      "samples": 20,
+      "detectionToHttpReadyMedianMs": 7933.75,
+      "detectionToHttpReadyP95Ms": 9827.96
+    },
+    "deepNormalNative": {
+      "completeSamples": 9,
+      "saveToHttpReadyMedianMs": 84954.864398,
+      "minimumMs": 74030.949682,
+      "maximumMs": 114595.889031,
+      "stoppedForDiminishingValue": true,
+      "p95": null
+    }
+  },
+  "tickTrials": [
+    {
+      "forcedTicks": 1200,
+      "meanMs": 10.96002960000002,
+      "p99Ms": 23.182557,
+      "maxMs": 55.329316,
+      "above50ms": 2
+    },
+    {
+      "forcedTicks": 1200,
+      "meanMs": 12.339086980833326,
+      "p99Ms": 43.569668,
+      "maxMs": 152.852688,
+      "above50ms": 9
+    },
+    {
+      "forcedTicks": 1200,
+      "meanMs": 11.973427625,
+      "p99Ms": 28.268957,
+      "maxMs": 77.423008,
+      "above50ms": 4
+    }
+  ],
+  "limits": [
+    "Measurements precede final supervisor hardening; the leaf watcher run also precedes the selected interface setting.",
+    "Other builds ran concurrently. These observations are not controlled speedups, final-code timings or strict50ms tick guarantees.",
+    "The incomplete nine-sample baseline has no reported percentile.",
+    "Exact original raw20-sample records could not be recovered and were not reconstructed.",
+    "Readiness and accepted commands were checked through HTTP. Actual browser rendering and input acceptance remain unrun."
+  ],
+  "browserAcceptance": null
+}
