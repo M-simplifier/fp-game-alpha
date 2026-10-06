@@ -16,6 +16,8 @@ module RedDune.Native.Store
     saveGame,
     checkpoints,
     checkpointCatalog,
+    latestCheckpointCatalog,
+    checkpointPage,
     previewCheckpoint,
     confirmCheckpoint,
     prepareGame,
@@ -45,7 +47,7 @@ data Store = Store {storeRoot :: !FilePath, storeHandle :: !(Ptr ()), storeFacto
 
 data Checkpoint = Checkpoint {checkpointName :: !String, checkpointBranch :: !Word64, checkpointSequence :: !Word64, checkpointHour :: !Integer, checkpointScenario :: !String} deriving (Eq, Show)
 
-data Catalog = Catalog {catalogEntries :: ![Checkpoint], catalogUnreadable :: !Int, catalogOlder :: !Int} deriving (Eq, Show)
+data Catalog = Catalog {catalogEntries :: ![Checkpoint], catalogUnreadable :: !Int, catalogTotal :: !Int} deriving (Eq, Show)
 
 data Preview = Preview {previewName :: !String, previewBytes :: !BS.ByteString, previewGame :: !GameState}
 
@@ -154,24 +156,41 @@ checkpoints :: Store -> IO [Checkpoint]
 checkpoints store = catalogEntries <$> checkpointCatalog store
 
 checkpointCatalog :: Store -> IO Catalog
-checkpointCatalog store = do
-  names <- listDirectory (storeRoot store)
-  let candidates = reverse (sortOn filenameOrder [name | name <- names, takeExtension name == ".rdlive"])
-      recent = take 256 candidates
-  results <- mapM (try . entry) recent :: IO [Either IOException Checkpoint]
-  let entries = [checkpoint | Right checkpoint <- results]
-  pure
-    ( Catalog
-        (reverse (sortOn (\e -> (checkpointBranch e, checkpointSequence e, checkpointHour e, checkpointName e)) entries))
-        (length [() | Left _ <- results])
-        (max 0 (length candidates - length recent))
-    )
-  where
-    entry name = do
-      game <- readBytes store name >>= must . decodeGame
-      let (namedBranch, sequenceNumber, _) = filenameOrder name
-      require (namedBranch == 0 || namedBranch == branchId (gameWorld game)) "Checkpoint branch and filename differ"
-      pure (Checkpoint name (branchId (gameWorld game)) sequenceNumber (elapsedTicks (gameWorld game) (gameCampaign game) `div` 1200) (scenarioId (campaignScenario (gameCampaign game))))
+checkpointCatalog store = checkpointNames store >>= \names -> readCatalog store (length names) names
+
+-- Ordinary startup validates only the latest healthy save. The library
+-- validates seven selected candidates per page, so every old save remains
+-- accessible without decoding the entire immutable history on each launch.
+latestCheckpointCatalog :: Store -> IO Catalog
+latestCheckpointCatalog store = do
+  names <- checkpointNames store
+  let findHealthy skipped [] = pure (Catalog [] skipped (length names))
+      findHealthy skipped (name : rest) = do
+        result <- try (checkpointEntry store name) :: IO (Either IOException Checkpoint)
+        case result of
+          Right checkpoint -> pure (Catalog [checkpoint] skipped (length names))
+          Left _ -> findHealthy (skipped + 1) rest
+  findHealthy 0 names
+
+checkpointPage :: Store -> Int -> IO Catalog
+checkpointPage store page = do
+  names <- checkpointNames store
+  readCatalog store (length names) (take 7 (drop (max 0 page * 7) names))
+
+checkpointNames :: Store -> IO [String]
+checkpointNames store = reverse . sortOn filenameOrder . filter ((== ".rdlive") . takeExtension) <$> listDirectory (storeRoot store)
+
+readCatalog :: Store -> Int -> [String] -> IO Catalog
+readCatalog store total names = do
+  results <- mapM (try . checkpointEntry store) names :: IO [Either IOException Checkpoint]
+  pure (Catalog [checkpoint | Right checkpoint <- results] (length [() | Left _ <- results]) total)
+
+checkpointEntry :: Store -> String -> IO Checkpoint
+checkpointEntry store name = do
+  game <- readBytes store name >>= must . decodeGame
+  let (namedBranch, sequenceNumber, _) = filenameOrder name
+  require (namedBranch == 0 || namedBranch == branchId (gameWorld game)) "Checkpoint branch and filename differ"
+  pure (Checkpoint name (branchId (gameWorld game)) sequenceNumber (elapsedTicks (gameWorld game) (gameCampaign game) `div` 1200) (scenarioId (campaignScenario (gameCampaign game))))
 
 filenameOrder :: String -> (Word64, Word64, String)
 filenameOrder name = case stripPrefix "b-" (dropExtension name) of

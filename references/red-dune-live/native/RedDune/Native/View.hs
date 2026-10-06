@@ -17,7 +17,7 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (forM_, when)
-import Data.List (sortOn)
+import Data.List (find, sortOn)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
 import Raylib.Core
@@ -54,6 +54,7 @@ data Screen = Screen
     screenAutoPause :: !Bool,
     screenPalettePage :: !Int,
     screenSupplyPage :: !Int,
+    screenStockPage :: !Int,
     screenBuildRotation :: !S.Rotation
   }
 
@@ -76,6 +77,7 @@ data UiCommand
   | QuitGame
   | PalettePage Int
   | SupplyPage Int
+  | StockPage Int
   | RotateBuilding
   deriving (Eq, Show)
 
@@ -94,6 +96,7 @@ newScreen game dialog =
       screenAutoPause = True,
       screenPalettePage = 0,
       screenSupplyPage = 0,
+      screenStockPage = 0,
       screenBuildRotation = S.R0
     }
 
@@ -195,6 +198,9 @@ drawColony font width height time mouse screen = do
       world = gameWorld game
       p = project width height camera
       scale = cameraScale camera
+      SimTick currentTick = simTick world
+      solarHour = fromIntegral (currentTick `mod` 28800) / 1200 :: Double
+      night = max 0 (min 1 ((cos (solarHour * pi / 12) + 0.15) * 1.1))
   beginScissorMode 0 85 (width - 370) (height - 235)
   drawRectangleGradientV 0 85 (width - 370) (height - 235) (Color 206 148 107 255) (Color 231 181 130 255)
   -- Authored contour bands are cosmetic; authoritative terrain remains in Space.
@@ -210,10 +216,16 @@ drawColony font width height time mouse screen = do
     Nothing -> pure ()
     Just state -> do
       let space = m1Space state
-      forM_ (Set.toAscList (S.spatialRoads space)) $ \(S.Tile x y) -> tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (Color 151 105 78 255)
+      forM_ (M.toAscList (S.mapTerrain (S.spatialMap space))) $ \(S.Tile x y, terrain) ->
+        when (terrain `elem` [S.Rock, S.Cliff, S.Salt]) $ tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (if terrain == S.Salt then Color 225 217 192 255 else Color 128 94 79 255)
+      forM_ (Set.toAscList (S.spatialRoads space)) $ \(S.Tile x y) -> do
+        tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (Color 151 105 78 255)
+        tileQuad width height camera (fromInteger x + 0.14) (fromInteger y + 0.14) 0.72 0.72 0 (Color 183 141 102 255)
       forM_ (M.elems (S.spatialSources space)) $ \source -> case S.sourceRegionBounds source of
         S.Rect (S.Tile x y) w h -> do
-          tileQuad width height camera (fromInteger x) (fromInteger y) (fromInteger w) (fromInteger h) 0 (Color 93 138 143 80)
+          let kind = S.sourceRegionKind source
+              color = if kind == "aquifer" then Color 93 138 143 80 else if kind == "sand_deposit" then Color 241 199 134 100 else Color 130 106 92 90
+          tileQuad width height camera (fromInteger x) (fromInteger y) (fromInteger w) (fromInteger h) 0 color
           let Vector2 lx ly = p (fromInteger x) (fromInteger y)
           when (S.sourceRegionKind source == "aquifer") (txt font "地下水" lx (ly + 10) 14 water)
       forM_ (sortOn (depth camera) (M.elems (S.spatialPlacements space))) $ \placement -> case S.placementShape placement of
@@ -227,6 +239,7 @@ drawColony font width height time mouse screen = do
               broken = maybe False ((== FacilityBroken) . maintenanceStatus) (M.lookup (S.placementId placement) (maintenanceFacilities (worldMaintenance world)))
               roof = if broken then Color 169 74 55 255 else buildingColor name
               elevation = if name `elem` ["farm", "solar"] then scale * 0.3 else scale * 1.45
+              production = find (\job -> M.lookup (jobId job) (worldJobSites world) == Just (S.placementId placement) && not (terminal job)) (M.elems (worldJobs world))
           when selected $ tileQuad width height camera (px - 0.4) (py - 0.4) (bw + 0.8) (bh + 0.8) 0 (Color 254 224 137 255)
           if S.placementStage placement /= S.Built
             then do
@@ -235,8 +248,16 @@ drawColony font width height time mouse screen = do
               buildingBox width height camera (px + bw - 0.28) py 0.28 bh (scale * 1.8) (Color 125 76 52 255)
             else do
               buildingBox width height camera px py bw bh elevation roof
+              when (name `notElem` ["farm", "solar", "hand_pump"]) $ do
+                let wallColor = if night > 0.25 && name == "housing" then Color 255 209 122 255 else Color 88 85 73 255
+                forM_ [0 .. 2 :: Int] $ \n -> do
+                  let u = px + 0.6 + fromIntegral n * (bw - 1.2) / 3
+                  quad (raise (scale * 0.35) (p u (py + bh))) (raise (scale * 0.35) (p (u + 0.5) (py + bh))) (raise (scale * 0.9) (p (u + 0.5) (py + bh))) (raise (scale * 0.9) (p u (py + bh))) wallColor
               case name of
-                "farm" -> forM_ [0 .. 4 :: Int] $ \r -> tileQuad width height camera (px + 0.4) (py + 0.35 + fromIntegral r * 0.65) (bw - 0.8) 0.32 (elevation + 1) (Color 93 134 79 255)
+                "farm" -> forM_ [0 .. 4 :: Int] $ \r -> do
+                  let growth = maybe 0 (\job -> if jobPhase job == Running then fromInteger (jobProgress job) / fromInteger (max 1 (jobRequired job)) else 0) production
+                  tileQuad width height camera (px + 0.4) (py + 0.35 + fromIntegral r * 0.65) (bw - 0.8) 0.32 (elevation + 1) (Color 126 102 65 255)
+                  when (growth > 0) $ tileQuad width height camera (px + 0.4) (py + 0.35 + fromIntegral r * 0.65) ((bw - 0.8) * (0.15 + 0.85 * growth)) 0.27 (elevation + 2) (Color 89 136 73 255)
                 "solar" -> forM_ [0 .. 2 :: Int] $ \r -> tileQuad width height camera (px + 0.25 + fromIntegral r * 0.95) (py + 0.3) 0.65 (bh - 0.6) (elevation + 2) (Color 45 74 83 255)
                 "housing" -> do
                   tileQuad width height camera (px + 0.3) (py + 0.4) (bw - 0.6) 0.35 (elevation + 1) (Color 221 141 91 255)
@@ -251,6 +272,10 @@ drawColony font width height time mouse screen = do
                   when (not broken && any (\job -> M.lookup (jobId job) (worldJobSites world) == Just (S.placementId placement) && jobPhase job == Running) (M.elems (worldJobs world))) $
                     forM_ [0 .. 2 :: Int] $
                       \n -> drawCircleV (raise (elevation + scale * (1.2 + fromIntegral n * 0.7) + realToFrac (sin time) * 2) chimney) (scale * 0.25) (Color 250 238 209 100)
+                _ | name `elem` ["depot", "warehouse"] -> do
+                  forM_ [0 .. 3 :: Int] $ \n -> tileQuad width height camera (px + 0.4 + fromIntegral n * (bw - 0.8) / 4) (py + 0.2) 0.08 (bh - 0.4) (elevation + 1) (Color 160 101 75 255)
+                  let stock = sum [P.physical world (Owner Warehouse (S.placementId placement)) resource | resource <- allResources]
+                  forM_ [0 .. min 3 ((stock + 199999) `div` 200000) - 1] $ \n -> tileQuad width height camera (px + 0.5 + fromInteger n * 0.65) (py + 0.8) 0.5 0.6 (elevation + 1) (Color 206 168 112 255)
                 _ -> pure ()
           when (selected || name `elem` ["farm", "kitchen", "pantry", "hand_pump"]) $ do
             let Vector2 lx ly = p (px + bw / 2) (py + bh / 2)
@@ -284,6 +309,15 @@ drawColony font width height time mouse screen = do
               footprint = if name == "road" then (1, 1) else maybe (3, 3) buildingFootprint (M.lookup name (contentBuildings (worldContent world)))
               (bw, bh) = if screenBuildRotation screen `elem` [S.R90, S.R270] then (snd footprint, fst footprint) else footprint
           tileQuad width height camera (fromInteger tx) (fromInteger ty) (fromInteger bw) (fromInteger bh) 0 (Color 252 232 140 170)
+      -- Light follows the existing authoritative day clock; it changes no
+      -- labour, power or weather rules. Keep the controls outside this tint.
+      drawRectangle 0 85 (width - 370) (height - 235) (Color 33 44 67 (round (night * 105)))
+      when (night > 0.25) $ forM_ (M.elems (S.spatialPlacements space)) $ \placement -> case S.placementShape placement of
+        S.BuildingShape "housing" (S.Tile x y) _ | S.placementStage placement == S.Built -> do
+          let pos = p (fromInteger x + 1.6) (fromInteger y + 3.2)
+          drawCircleV pos (scale * 0.55) (Color 252 194 103 (round (night * 75)))
+        _ -> pure ()
+      txt font (if night > 0.4 then "夜の開拓 / 交代の班が暮らしを支える" else "昼の開拓 / 物資は道路を通って届く") 28 106 13 (if night > 0.4 then paper else muted)
   endScissorMode
   where
     depth camera placement = case S.placementShape placement of
@@ -369,13 +403,19 @@ meter font x y label value fraction color = do
 wrap :: NativeFont -> String -> Float -> Float -> Float -> Float -> Color -> IO ()
 wrap font text x y width size color = forM_ (zip [0 :: Int ..] (chunks (max 1 (floor (width / size))) text)) $ \(n, label) -> txt font label x (y + fromIntegral n * (size + 7)) size color
   where
-    chunks _ [] = []; chunks count rest = take count rest : chunks count (drop count rest)
+    chunks _ [] = []
+    chunks count rest =
+      let boundary n = case drop n rest of
+            next : _ | n > 1 && (next `elem` "、。，．！？：；）］｝」』】〉》" || last (take n rest) `elem` "（［｛「『【〈《") -> boundary (n - 1)
+            _ -> n
+          split = boundary count
+       in take split rest : chunks count (drop split rest)
 
 drawPanel :: NativeFont -> Float -> Float -> Int -> Screen -> IO [Button]
 drawPanel font x y _height screen = do
   let game = screenGame screen; world = gameWorld game; d = gameDescriptor game; policy = gamePolicies game
   case screenTab screen of
-    ColonyTab | Just ident <- screenSelected screen -> drawInspector font x y game ident
+    ColonyTab | Just ident <- screenSelected screen -> drawInspector font x y screen ident
     ColonyTab -> do
       txt font "開拓の手順" x y 21 copper
       let commissions =
@@ -504,15 +544,15 @@ drawDialog font width height dialog = do
         [] -> pure [button (x + 40) (y + 421) 520 "新しい開拓を始める" ShowNewCampaign True]
     SaveLibrary catalog page -> do
       let entries = Store.catalogEntries catalog
-      txt font "保存された開拓" (x + 40) (y + 35) 30 copper
+      txt font ("保存された開拓  " ++ show (page + 1) ++ "/" ++ show (max 1 ((Store.catalogTotal catalog + 6) `div` 7))) (x + 40) (y + 35) 30 copper
       txt font "選択 → 内容の確認 → 新しい分岐で再開" (x + 40) (y + 89) 17 muted
       when
-        (Store.catalogUnreadable catalog > 0 || Store.catalogOlder catalog > 0)
-        (txt font ("最新256件を表示 / 読めない保存 " ++ show (Store.catalogUnreadable catalog) ++ "件 / 以前 " ++ show (Store.catalogOlder catalog) ++ "件") (x + 40) (y + 114) 12 copper)
-      let shown = take 7 (drop (page * 7) entries)
+        (Store.catalogUnreadable catalog > 0)
+        (txt font ("このページで読めない保存 " ++ show (Store.catalogUnreadable catalog) ++ "件 / 正常な保存を選べます") (x + 40) (y + 114) 12 copper)
+      let shown = take 7 entries
           choices = [button (x + 40) (y + 135 + fromIntegral n * 45) 520 ("履歴 " ++ show (Store.checkpointBranch e) ++ "・保存 " ++ show (Store.checkpointSequence e) ++ " / " ++ show (Store.checkpointHour e) ++ "時間 / " ++ if Store.checkpointScenario e == "recovery" then "回復" else "定住") (ReadSave (Store.checkpointName e)) False | (n, e) <- zip [0 :: Int ..] shown]
-      when (null entries) (txt font "まだ保存がありません。" (x + 40) (y + 155) 20 muted)
-      pure (choices ++ [button (x + 40) (y + 477) 120 "前へ" (LibraryPage (max 0 (page - 1))) False, button (x + 171) (y + 477) 120 "次へ" (LibraryPage (min (max 0 ((length entries - 1) `div` 7)) (page + 1))) False, button (x + 420) (y + 477) 140 "戻る" CloseDialog False])
+      when (null entries) (txt font "このページに読める保存はありません。" (x + 40) (y + 155) 20 muted)
+      pure (choices ++ [button (x + 40) (y + 477) 120 "前へ" (LibraryPage (max 0 (page - 1))) False, button (x + 171) (y + 477) 120 "次へ" (LibraryPage (min (max 0 ((Store.catalogTotal catalog - 1) `div` 7)) (page + 1))) False, button (x + 420) (y + 477) 140 "戻る" CloseDialog False])
     LoadPreview preview -> do
       let game = Store.previewGame preview; c = gameCampaign game
       txt font "この開拓から、再開する" (x + 40) (y + 35) 28 copper
@@ -539,9 +579,10 @@ drawDialog font width height dialog = do
 scenarioCaption :: String -> String
 scenarioCaption scenario = if scenario == "recovery" then "回復" else "定住"
 
-drawInspector :: NativeFont -> Float -> Float -> GameState -> EntityId -> IO [Button]
-drawInspector font x y game ident = do
-  let world = gameWorld game
+drawInspector :: NativeFont -> Float -> Float -> Screen -> EntityId -> IO [Button]
+drawInspector font x y screen ident = do
+  let game = screenGame screen
+      world = gameWorld game
       policy = gamePolicies game
       placement = worldM1 world >>= M.lookup ident . S.spatialPlacements . m1Space
       name = case S.placementShape <$> placement of Just (S.BuildingShape prototype _ _) -> prototype; Just (S.RoadShape _) -> "road"; _ -> "施設"
@@ -551,29 +592,32 @@ drawInspector font x y game ident = do
   txt font (siteName name) x y 27 copper
   txt font ("施設 " ++ show number ++ " / " ++ case S.placementStage <$> placement of Just S.Built -> "完成"; _ -> "建設中") x (y + 39) 14 muted
   wrap font (siteReport game ident) x (y + 71) 319 16 ink
-  txt font "施設にある物資" x (y + 135) 17 copper
   let stocks = [(resource, stock resource) | resource <- allResources, stock resource > 0]
-  forM_ (zip [0 :: Int ..] (take 6 stocks)) $ \(n, (resource, amount)) -> do
-    let cellX = x + fromIntegral (n `mod` 2) * 164; cellY = y + 163 + fromIntegral (n `div` 2) * 43
+      pages = max 1 ((length stocks + 5) `div` 6)
+      page = screenStockPage screen `mod` pages
+      stockButton = button x (y + 131) 322 ("施設にある物資  " ++ show (page + 1) ++ "/" ++ show pages ++ if pages > 1 then "  → 次の物資" else "") (StockPage ((page + 1) `mod` pages)) False
+  forM_ (zip [0 :: Int ..] (take 6 (drop (page * 6) stocks))) $ \(n, (resource, amount)) -> do
+    let cellX = x + fromIntegral (n `mod` 2) * 164; cellY = y + 174 + fromIntegral (n `div` 2) * 40
     txt font (resourceName resource) cellX cellY 14 muted
-    txt font (resourceAmount resource amount) cellX (cellY + 18) 15 ink
-  when (length stocks > 6) (txt font ("ほか " ++ show (length stocks - 6) ++ "種類") x (y + 277) 12 muted)
-  case filter (not . C.constructionTerminal) activeJobs of
-    job : _ -> do
-      let progress = C.constructionProgress job; required = C.constructionRequired (C.constructionSnapshot job)
-      meter font x (y + 308) "建設の進行" (show (progress * 100 `div` max 1 required) ++ "%") (fromInteger progress / fromInteger (max 1 required)) mint
-      txt font (case C.constructionBlocked job of Nothing -> "物資と作業員を待っています"; Just problem -> take 30 (show problem)) x (y + 364) 14 muted
-      pure [button x (y + 417) 322 "建設計画を取り消す" (Choose (CancelPlan ident)) False, button x (y + 466) 322 "開拓の手順に戻る" ClearSelection False]
-    _ ->
-      pure
-        ( [button x (y + 467) 322 "開拓の手順に戻る" ClearSelection False]
-            ++ if M.member ident (worldSites world)
-              then
-                [ button x (y + 295) 155 "三交代の班を配置" (Choose (StaffFacility ident)) False,
-                  button (x + 164) (y + 295) 158 "班を解放" (Choose (ReleaseFacility ident)) False,
-                  button x (y + 337) 322 (if ident `elem` P.productionSites policy then "連続生産：有効" else "連続生産：停止") (Choose (ToggleProduction ident)) (ident `elem` P.productionSites policy),
-                  button x (y + 421) 322 "材料と出荷の配送をつなぐ" (Choose (ConnectFacility ident)) False,
-                  button x (y + 379) 322 (if maybe False siteEnabled (M.lookup ident (worldSites world)) then "施設を停止する" else "施設を動かす") (Choose (SetFacility ident (not (maybe False siteEnabled (M.lookup ident (worldSites world)))))) False
-                ]
-              else []
-        )
+    txt font (resourceAmount resource amount) cellX (cellY + 17) 15 ink
+  controls <-
+    case filter (not . C.constructionTerminal) activeJobs of
+      job : _ -> do
+        let progress = C.constructionProgress job; required = C.constructionRequired (C.constructionSnapshot job)
+        meter font x (y + 308) "建設の進行" (show (progress * 100 `div` max 1 required) ++ "%") (fromInteger progress / fromInteger (max 1 required)) mint
+        txt font (case C.constructionBlocked job of Nothing -> "物資と作業員を待っています"; Just problem -> take 30 (show problem)) x (y + 364) 14 muted
+        pure [button x (y + 417) 322 "建設計画を取り消す" (Choose (CancelPlan ident)) False, button x (y + 466) 322 "開拓の手順に戻る" ClearSelection False]
+      _ ->
+        pure
+          ( [button x (y + 467) 322 "開拓の手順に戻る" ClearSelection False]
+              ++ if M.member ident (worldSites world)
+                then
+                  [ button x (y + 295) 155 "三交代の班を配置" (Choose (StaffFacility ident)) False,
+                    button (x + 164) (y + 295) 158 "班を解放" (Choose (ReleaseFacility ident)) False,
+                    button x (y + 337) 322 (if ident `elem` P.productionSites policy then "連続生産：有効" else "連続生産：停止") (Choose (ToggleProduction ident)) (ident `elem` P.productionSites policy),
+                    button x (y + 421) 322 "材料と出荷の配送をつなぐ" (Choose (ConnectFacility ident)) False,
+                    button x (y + 379) 322 (if maybe False siteEnabled (M.lookup ident (worldSites world)) then "施設を停止する" else "施設を動かす") (Choose (SetFacility ident (not (maybe False siteEnabled (M.lookup ident (worldSites world)))))) False
+                  ]
+                else if name == "pantry" then [button x (y + 295) 155 "三交代の班を配置" (Choose (StaffFacility ident)) False, button (x + 164) (y + 295) 158 "班を解放" (Choose (ReleaseFacility ident)) False] else []
+          )
+  pure (stockButton : controls)

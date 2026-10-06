@@ -16,8 +16,12 @@ import Data.Char (ord)
 import Data.List (find, intercalate, nub)
 import Data.Map.Strict qualified as M
 import Data.Word (Word64)
+import Foreign (castPtr)
+import Foreign.C (withCString)
 import GHC.IO.Encoding (setForeignEncoding, setLocaleEncoding, utf8)
 import Raylib.Core
+import Raylib.Core.Textures (c'exportImage, c'loadImageFromScreen, c'unloadImage, loadImage)
+import Raylib.Internal.Foreign (c'free)
 import Raylib.Types (ConfigFlag (..), KeyboardKey (..), MouseButton (..), Vector2, pattern Vector2)
 import Raylib.Util (drawing, withWindow)
 import RedDune.Campaign
@@ -50,7 +54,7 @@ main =
     let fallback = maybe (root </> "saves") (\path -> path </> "RedDune" </> "saves") local
     options <- either (ioError . userError) pure (parseOptions (Options (maybe fallback id configured) Nothing Nothing) arguments)
     Store.withStore (optionStore options) $ \store -> do
-      catalog <- Store.checkpointCatalog store
+      catalog <- Store.latestCheckpointCatalog store
       initial <- either (ioError . userError) pure (startGame "settlement" defaultPack)
       game <- Store.prepareGame store initial
       let started = null (Store.catalogEntries catalog)
@@ -60,6 +64,9 @@ main =
       withWindow 1440 940 "Red Dune" 60 $ \_resources -> do
         setWindowMinSize 1280 880
         setExitKey KeyNull
+        let iconPath = root </> "assets" </> "icon.png"
+        iconExists <- doesFileExist iconPath
+        when iconExists (loadImage iconPath >>= setWindowIcon)
         glyphText <- readFile (root </> "assets" </> "glyphs.txt")
         let glyphs = nub ([32 .. 126] ++ map ord glyphText)
         fontFile <- findFont
@@ -151,11 +158,9 @@ loop root options store font previous = do
     (Just folder, ["capture", name]) | takeFileName name == name && takeExtension name == ".png" -> do
       createDirectoryIfMissing True folder
       _ <- drawing (drawView font width height time usedMouse (appScreen saved))
-      currentDirectory <- getCurrentDirectory
-      takeScreenshot (map (\c -> if c == '\\' then '/' else c) (makeRelative currentDirectory (folder </> name)))
+      captureFrame (folder </> name)
       writeFile (folder </> replaceExtension name "json") (encodeJSON (observeGame (screenGame (appScreen saved))))
-      fps <- getFPS
-      writeFile (folder </> replaceExtension name "meta.txt") (unlines ["Actual native GPU capture; synthetic pointer/key replay", "size=" ++ show width ++ "x" ++ show height, "fps=" ++ show fps, "focused=" ++ show focused, "replay suspends automatic focus pausing; default owner play pauses"])
+      writeFile (folder </> replaceExtension name "meta.txt") (unlines ["Actual native GPU capture; synthetic pointer/key replay", "size=" ++ show width ++ "x" ++ show height, "frameSeconds=" ++ show dt, "windowSeconds=" ++ show time, "frames=" ++ show (appFrames saved), "focused=" ++ show focused, "replay suspends automatic focus pausing; default owner play pauses"])
     _ -> pure ()
   let finished = appQuit saved || close || maybe False (appFrames saved >=) (optionFrames options)
   if finished
@@ -167,6 +172,14 @@ loop root options store font previous = do
           paused <- pauseGame (screenGame (appScreen saved))
           loop root options store font saved {appQuit = False, appScreen = (appScreen saved) {screenGame = paused, screenNotice = "保存できないため、終了を止めました。F5で再試行してください：" ++ take 60 failure}}
     else loop root options store font saved
+
+-- TakeScreenshot prefixes raylib's fixed startup path. Export the actual
+-- framebuffer directly, retaining its native buffer for this bounded QA call.
+captureFrame :: FilePath -> IO ()
+captureFrame path = bracket c'loadImageFromScreen (\frame -> c'unloadImage frame >> c'free (castPtr frame)) $ \frame ->
+  withCString path $ \filename -> do
+    exported <- c'exportImage frame filename
+    when (exported == 0) (ioError (userError "Native GPU capture could not be saved"))
 
 firstJust :: [Maybe a] -> Maybe a
 firstJust [] = Nothing
@@ -230,7 +243,7 @@ performUnchecked store app command = case command of
     Right candidate -> do
       forced <- evaluate (force candidate)
       pure (update screen {screenGame = forced, screenNotice = decisionMessage decision, screenSaved = False})
-  SelectSite ident -> pure (update screen {screenSelected = Just ident, screenTab = ColonyTab})
+  SelectSite ident -> pure (update screen {screenSelected = Just ident, screenStockPage = 0, screenTab = ColonyTab})
   ClearSelection -> pure (update screen {screenSelected = Nothing})
   SelectTab tab -> pure (update screen {screenTab = tab, screenBuild = if tab == BuildingTab then screenBuild screen else Nothing})
   SelectBuild name -> do
@@ -240,6 +253,7 @@ performUnchecked store app command = case command of
   ChangeSpeed speed -> pure (update screen {screenSpeed = speed})
   PalettePage page -> pure (update screen {screenPalettePage = max 0 page})
   SupplyPage page -> pure (update screen {screenSupplyPage = max 0 page})
+  StockPage page -> pure (update screen {screenStockPage = max 0 page})
   RotateBuilding -> pure (update screen {screenBuildRotation = toEnum ((fromEnum (screenBuildRotation screen) + 1) `mod` 4)})
   ToggleAlerts -> pure (update screen {screenAutoPause = not (screenAutoPause screen)})
   SaveNow -> do
@@ -247,9 +261,13 @@ performUnchecked store app command = case command of
     pure app {appScreen = screen {screenNotice = "開拓を保存しました。", screenSaved = True}, appSavedRevision = gameRevision game, appSaveTime = 0}
   ShowLibrary -> do
     paused <- pauseGame game
-    entries <- Store.checkpointCatalog store
+    entries <- Store.checkpointPage store 0
     pure (update screen {screenGame = paused, screenDialog = SaveLibrary entries 0, screenBuild = Nothing})
-  LibraryPage page -> case screenDialog screen of SaveLibrary entries _ -> pure (update screen {screenDialog = SaveLibrary entries page}); _ -> pure app
+  LibraryPage page -> case screenDialog screen of
+    SaveLibrary _ _ -> do
+      entries <- Store.checkpointPage store page
+      pure (update screen {screenDialog = SaveLibrary entries page})
+    _ -> pure app
   ReadSave name -> do
     preview <- Store.previewCheckpoint store name
     pure (update screen {screenDialog = LoadPreview preview})
@@ -263,7 +281,7 @@ performUnchecked store app command = case command of
     if appStarted app
       then pure (update screen {screenDialog = NoDialog, screenBuild = Nothing, screenNotice = ""})
       else do
-        catalog <- Store.checkpointCatalog store
+        catalog <- Store.latestCheckpointCatalog store
         pure (update screen {screenDialog = Welcome catalog, screenBuild = Nothing, screenNotice = ""})
   ShowNewCampaign -> do
     paused <- pauseGame game
@@ -356,13 +374,17 @@ friendlyFailure failure
 readQa :: Options -> Int -> IO (Int, String)
 readQa options consumed = case optionQa options of
   Nothing -> pure (consumed, "")
-  Just folder -> do
-    let path = folder </> "input.txt"
-    exists <- doesFileExist path
-    if not exists
-      then pure (consumed, "")
-      else do
-        content <- readFile path
-        _ <- evaluate (length content)
-        let pending = drop consumed (lines content)
-        case pending of { value : _ -> pure (consumed + 1, value); _ -> pure (consumed, "") }
+  Just folder ->
+    ( do
+        let path = folder </> "input.txt"
+        exists <- doesFileExist path
+        if not exists
+          then pure (consumed, "")
+          else do
+            content <- readFile path
+            _ <- evaluate (length content)
+            let complete = if null content || last content == '\n' then lines content else init (lines content)
+                pending = drop consumed complete
+            case pending of { value : _ -> pure (consumed + 1, value); _ -> pure (consumed, "") }
+    )
+      `catch` (\(_ :: IOException) -> pure (consumed, ""))

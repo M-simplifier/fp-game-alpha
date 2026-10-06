@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "platform": "Windows x64 / GHC 9.6.7 / h-raylib 5.6.0.0",
+  "scope": "Local native implementation acceptance; owner enjoyment acceptance remains pending",
+  "campaign_build_checkpoint": "3cf7fe6004abe2225971f2070c272a375583499e",
+  "input": "Opt-in raw pointer/key replay through ordinary UI hit tests; real native GPU frames and real-time authoritative clock",
+  "owner_physical_mouse_keyboard_test": false,
+  "owner_enjoyment_acceptance": false,
+  "scenarios": [
+    {
+      "scenario": "settlement",
+      "elapsed_hours": 66,
+      "ending": "SettlementSecured",
+      "all_six_objectives": true,
+      "new_food_produced_g": 324000,
+      "new_food_eaten_g": 216000,
+      "consecutive_stable_hours": 38,
+      "gpu_capture_sha256": "b42d133ce8c3044dac9fccc59f9ed598dc57faee51c53542c3a792a3f5320932",
+      "observation_sha256": "c14bc332afabd31cb8ccdccb9ded09208da7b6b93976e558f44e46e86167d051"
+    },
+    {
+      "scenario": "recovery",
+      "elapsed_hours": 42,
+      "ending": "SettlementSecured",
+      "all_six_objectives": true,
+      "new_food_produced_g": 234000,
+      "new_food_eaten_g": 150000,
+      "consecutive_stable_hours": 19,
+      "gpu_capture_sha256": "66f793b638e28524e94071ccc550f8f6b3b43f3fbb401978a7b89e7df971b933",
+      "observation_sha256": "2ca4e45a0a992c48886f72f8289fe277284aca9e245bc7653fd8b5a6664abd24"
+    }
+  ],
+  "native_store_acceptance": {
+    "result": "PASS",
+    "cases": [
+      "commissioning grants neither inventory nor time",
+      "paused fresh authority and immutable branch restore",
+      "exact flushed readback",
+      "200-tick physical continuation: stock, provenance, jobs, ledger and residents",
+      "stale preview rejection",
+      "process lock contention",
+      "path traversal rejected",
+      "ancestor directory identity pinned",
+      "corrupt saves skipped without hiding healthy history",
+      "latest healthy startup and all history pages",
+      "numeric save sequence ordering",
+      "Japanese save directory"
+    ]
+  },
+  "visual_qa": {
+    "resolutions": [
+      [
+        1440,
+        940
+      ],
+      [
+        1280,
+        880
+      ]
+    ],
+    "observed": [
+      "Japanese welcome, introduction and campaign conclusions",
+      "three-shift water, food and service crews",
+      "real warehouse construction and physical stock receipt",
+      "food delivery disabled, re-enabled and buffer raised to 78 kg",
+      "save preview/confirm followed by paused restart",
+      "complete facility palette and save-library paging",
+      "all warehouse stock pages, including pieces and medicine doses",
+      "authoritative day clock, crop progress and repair state"
+    ],
+    "artifact_policy": "GPU PNGs, replay inputs and full world observations remain in the local task scratch directory; no owner saves are published"
+  },
+  "source_sha256": {
+    "references/red-dune-live/native/Main.hs": "a617e31c97bff912045b4a1ec8ebbddecac2aa8a2b704af18154f48daaa54e51",
+    "references/red-dune-live/native/RedDune/Native/Font.hs": "53b4403d6de33802729d41a901549ff02cc43d2d6bab24f3772ea87e80c62dd6",
+    "references/red-dune-live/native/RedDune/Native/Play.hs": "0eff7e3ebcc7109322463968dd896a1f5a42409b64404a828d219a035d92f783",
+    "references/red-dune-live/native/RedDune/Native/Store.hs": "f2fc79515493d7ac9bd3cbcabe71c0b53cca44caf1dbdaaa83b9f4ed77ac6827",
+    "references/red-dune-live/native/RedDune/Native/View.hs": "bec6436d8402a784b5255bd504d6213b0c4525a05c27e5f472066db68872c6d8",
+    "references/red-dune-live/native/cbits/store.c": "8543b5a6a5d60b9854f8a77c8733a688cdd471fbf43f1970a5f97fef21dfd92a",
+    "references/red-dune-live/test/NativeTests.hs": "cceeb7a74e6d07de5f0ca0bb175f84eaaa425c68ccb93d2d226543c7fda9ee1b"
+  },
+  "performance": {
+    "basis": "One actual settlement continuation at 8x on this machine",
+    "elapsed_ticks_from": 28800,
+    "elapsed_ticks_to": 60856,
+    "wall_seconds": 200,
+    "claim": "Observed continuation only, not a historical or cross-machine performance guarantee"
+  },
+  "packaged_app_acceptance": {
+    "result": "PASS",
+    "installed_binary_sha256": "ff0f305ad32166c377a698bc5bd2b19302839b6a113e19e002468af845a81349",
+    "launch_exit_code": 0,
+    "gpu_capture_sha256": "d147785c0e8851ff6f54fc0759312fa6cfe49b2be4779f23a0fe04837ebf867b",
+    "details": [
+      "launch from permanent app directory with no compiler or browser process",
+      "Japanese introduction and authored procedural icon",
+      "OS DLL imports only; Haskell and raylib DLLs are not required",
+      "dependency notices for 26 resolved packages",
+      "owner default store is separate from Linux and QA stores"
+    ]
+  }
+}

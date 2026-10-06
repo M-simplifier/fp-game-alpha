@@ -10,6 +10,8 @@ try {
     $binary = (& cabal list-bin --project-file=cabal.project.red-dune-native exe:red-dune).Trim()
     if ($LASTEXITCODE -ne 0) { throw 'Cannot locate native executable' }
     New-Item -ItemType Directory -Force -Path (Join-Path $output 'assets') | Out-Null
+    & python (Join-Path $PSScriptRoot 'native_icon.py') (Join-Path $output 'assets')
+    if ($LASTEXITCODE -ne 0) { throw 'Icon generation failed' }
     Copy-Item -LiteralPath $binary -Destination (Join-Path $output 'Red Dune.exe')
     $source = (Get-ChildItem -LiteralPath (Join-Path $repo 'references\red-dune-live\native') -Filter '*.hs' -Recurse -File | ForEach-Object { [System.IO.File]::ReadAllText($_.FullName) }) -join ''
     $glyphs = -join ($source.ToCharArray() | Where-Object { [int]$_ -gt 126 } | Sort-Object -Unique)

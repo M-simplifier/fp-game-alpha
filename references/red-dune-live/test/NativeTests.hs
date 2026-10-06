@@ -64,6 +64,11 @@ main = do
     BS.writeFile (root </> "corrupted.rdlive") (BS.take 80 originalBytes)
     damaged <- Store.checkpointCatalog store
     check "a corrupt save does not hide healthy saves" (Store.catalogUnreadable damaged == 1 && length (Store.catalogEntries damaged) == length ordered)
+    BS.writeFile (root </> "b-999-s-1.rdlive") (BS.take 80 originalBytes)
+    latestHealthy <- Store.latestCheckpointCatalog store
+    check "startup skips newest corrupt save" (Store.catalogUnreadable latestHealthy == 1 && take 1 ordered == Store.catalogEntries latestHealthy)
+    pages <- mapM (Store.checkpointPage store) [0 .. (Store.catalogTotal latestHealthy - 1) `div` 7]
+    check "every historic save remains accessible" (concatMap Store.catalogEntries pages == ordered && sum (map Store.catalogUnreadable pages) == 2)
     traversal <- try (Store.previewCheckpoint store "../escape.rdlive") :: IO (Either IOException Store.Preview)
     check "traversal rejected" (case traversal of Left _ -> True; _ -> False)
     renamed <- try (renameDirectory root (root ++ "-moved")) :: IO (Either IOException ())

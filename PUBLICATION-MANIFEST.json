@@ -1656,7 +1656,7 @@
   },
   {
    "path": "references/red-dune-live/ASSETS.md",
-   "sha256_lf": "9e8d5c2134e77e68bda45cb6297d250201a9cfcc1f6b4f8cecf0634f56c9e90d"
+   "sha256_lf": "7749cdb4d362c8a02ba31750f4c80a231cfee5d6b96b865a37535a8a9b433c7f"
   },
   {
    "path": "references/red-dune-live/LICENSE",
@@ -1939,12 +1939,16 @@
    "sha256_lf": "3bff2dd6c8900610e7f814f77132196514f7a7fbedd96d8261b8116da1256f1e"
   },
   {
+   "path": "references/red-dune-live/evidence/native-windows.json",
+   "sha256_lf": "afa881952b75339a51f1bc7582da205c16f1d7e48852a2f9cfc7d35b4350cc6f"
+  },
+  {
    "path": "references/red-dune-live/evidence/performance.json",
    "sha256_lf": "8205428735c611420db337459e0027b99f8920c0e4289fa1bea0348f243eca9f"
   },
   {
    "path": "references/red-dune-live/native/Main.hs",
-   "sha256_lf": "1970db923abbfdc2ee5412fa43af5b3f08b03dfec9baa6285ae5c516d53b63f0"
+   "sha256_lf": "a617e31c97bff912045b4a1ec8ebbddecac2aa8a2b704af18154f48daaa54e51"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Font.hs",
@@ -1952,15 +1956,15 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Play.hs",
-   "sha256_lf": "74255d5d877d69135d8bb7caf27109341356642ab753b433497a190ba978b427"
+   "sha256_lf": "0eff7e3ebcc7109322463968dd896a1f5a42409b64404a828d219a035d92f783"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Store.hs",
-   "sha256_lf": "ddba2e9ec7969a70a48915338e79b8cf2ca0811d0950e263b6b55e28ad2a19b9"
+   "sha256_lf": "f2fc79515493d7ac9bd3cbcabe71c0b53cca44caf1dbdaaa83b9f4ed77ac6827"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/View.hs",
-   "sha256_lf": "6f1053c0d1a9f8f2d3dbfcbd9c46aed441e51ec4e9d7c4042a170ef899fa35c3"
+   "sha256_lf": "bec6436d8402a784b5255bd504d6213b0c4525a05c27e5f472066db68872c6d8"
   },
   {
    "path": "references/red-dune-live/native/assets/glyphs.txt",
@@ -2028,7 +2032,7 @@
   },
   {
    "path": "references/red-dune-live/test/NativeTests.hs",
-   "sha256_lf": "04b32e18bdf148452b55930013071c26229ec3562e9e22dae079c61601a60f33"
+   "sha256_lf": "cceeb7a74e6d07de5f0ca0bb175f84eaaa425c68ccb93d2d226543c7fda9ee1b"
   },
   {
    "path": "references/red-dune-live/tools/bench_dev.py",
@@ -2036,7 +2040,7 @@
   },
   {
    "path": "references/red-dune-live/tools/build-native.ps1",
-   "sha256_lf": "e672725b431a71a8067cdbd76aeb329214c1d123eacff30354a3bd67d18c1abd"
+   "sha256_lf": "35f7e2bee96de9beabd58164d36a965d7ddaabf835218951a0332712af074a11"
   },
   {
    "path": "references/red-dune-live/tools/check.sh",
@@ -2045,6 +2049,10 @@
   {
    "path": "references/red-dune-live/tools/dev.sh",
    "sha256_lf": "c228f473791f62bb22da177a8143e82b0e8f391581999780887cb8aaece6af81"
+  },
+  {
+   "path": "references/red-dune-live/tools/native_icon.py",
+   "sha256_lf": "438ab15c2b46bfbf99a31813813168355fa63d542bc266d1fa1dc9671cfb152a"
   },
   {
    "path": "references/red-dune-live/tools/native_notices.py",

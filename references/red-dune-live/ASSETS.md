@@ -13,6 +13,8 @@ third-party artwork, audio recordings, fonts, textures or prebuilt executables.
   workers, carts and interface. Geometry and activity come from the game state
 - The Windows app reads an installed Japanese system font into memory. No font
   file is copied into its package or modified on disk
+- `tools/native_icon.py`: authored procedural colony icon, generated into the
+  local package without external artwork or fonts
 - Font names in CSS are local/system fallback requests. No font files or remote
   font URLs are shipped, fetched or sublicensed by this package
 - `data/*.json`: authored economic and campaign data, not asset-store content

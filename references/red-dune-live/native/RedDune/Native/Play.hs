@@ -17,7 +17,7 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (unless)
-import Data.List (find, nub)
+import Data.List (find, intercalate, nub)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as S
 import RedDune.Campaign
@@ -231,9 +231,10 @@ deliveryName world route
       Nothing -> "施設"
 
 resourceAmount :: Resource -> Integer -> String
-resourceAmount resource amount =
-  printf "%.1f" (fromInteger amount / 1000 :: Double)
-    ++ if resource `elem` [Water, Brine] then " L" else if resource `elem` [Parts, Circuit, Medicine, Tools] then " 個" else " kg"
+resourceAmount resource amount
+  | resource `elem` [Parts, Circuit, Tools] = show amount ++ " 個"
+  | resource == Medicine = show amount ++ " 回分"
+  | otherwise = printf "%.1f" (fromInteger amount / 1000 :: Double) ++ if resource `elem` [Water, Brine] then " L" else " kg"
 
 resourceName :: Resource -> String
 resourceName resource = maybe (show resource) id (lookup resource [(Water, "水"), (Brine, "塩水"), (Ore, "鉱石"), (Sand, "砂"), (Circuit, "回路"), (Medicine, "医薬品"), (Tools, "道具"), (Ration, "食料"), (Crops, "作物"), (Fuel, "燃料"), (Parts, "部品"), (Stone, "石材"), (Metal, "金属"), (Glass, "ガラス"), (Biomass, "残渣"), (Waste, "廃棄物")])
@@ -264,16 +265,24 @@ siteReport :: GameState -> EntityId -> String
 siteReport game ident = case M.lookup ident (worldSites world) of
   Nothing -> "生活・備蓄を支える施設"
   Just site
-    | facilityStopped (worldMaintenance world) ident -> "停止中 / 部品を届けて修復"
+    | facilityStopped (worldMaintenance world) ident -> case find (\job -> maintenanceTarget job == ident && not (maintenanceTerminal job)) (M.elems (maintenanceJobs (worldMaintenance world))) of
+        Just job | maintenancePhase job == MaintenanceRunning -> "修理中 " ++ show (100 * maintenanceProgress job `div` max 1 (maintenanceRequired job)) ++ "% / 保守班が作業中"
+        Just job | maintenanceBlocked job == Just MissingStock -> "修理部品を待っています / 必要 " ++ resourceAmount Parts (maintenanceParts job)
+        _ -> "故障中 / 保守班と部品の配送を確認"
     | not (siteEnabled site) -> "生産を停止しています"
     | Just job <- find (\j -> M.lookup (jobId j) (worldJobSites world) == Just ident && not (terminal j)) (M.elems (worldJobs world)) ->
         if jobPhase job == Running
           then "生産中 " ++ show (100 * jobProgress job `div` max 1 (jobRequired job)) ++ "%"
           else case jobBlocked job of
-            Just MissingStock -> "材料待ち / 供給タブで配送を確認"
+            Just MissingStock -> inputReport site
             Just NoCapacity -> "出荷待ち / 出力先が満杯"
             _ -> "作業待ち / 班・電力・道路を確認"
     | freeWeight (worldInventory world) (siteOutput site) <= 0 -> "出荷待ち / 出力先が満杯"
-    | otherwise -> "待機 / 材料・人員・配送を確認"
+    | otherwise -> inputReport site
   where
     world = gameWorld game
+    inputReport site =
+      let missing = case M.lookup (siteRecipe site) (contentRecipes (worldContent world)) of
+            Nothing -> []
+            Just recipe -> [(resource, required - physical world (siteInput site) resource) | (resource, required) <- M.toAscList (recipeInputs recipe), physical world (siteInput site) resource < required]
+       in if null missing then "待機 / 班・出荷・生産の有効を確認" else "不足: " ++ intercalate "、" [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- missing]
