@@ -66,7 +66,7 @@ mockだけで終えず、変更したファイル・handle・FFI等の実際の�
 
 ## 実行できる形式検証の研究
 
-対象の失敗が明確なら、[研究の再現入口](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/research-reproduction.md)から
+対象の失敗が明確なら、[研究の再現入口](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/research-reproduction.md)から
 実際の固定ソース・負例・実行記録へ進む。quantity の選択関数契約、
 SBV の整数 cancellation model、TLC の有限 save protocol は別の境界を調べる。
 必要な prover だけを opt-in で入れ、通常の新規ゲーム作成を重くしない。

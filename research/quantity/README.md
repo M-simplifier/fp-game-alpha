@@ -34,10 +34,11 @@ or changed frozen source makes the command fail.
 This is finite compiler/runtime validation. It does **not** run LiquidHaskell
 or prove a universal bound. The historical LiquidHaskell SAFE25 result applies
 only to six selected binders under the pinned GHC 9.6.3/LiquidHaskell
-0.9.6.3.1/Z3 4.15.1 assumptions. Its six mutants were historically UNSAFE;
-they have not been rerun by this source-only command. See the canonical
-guarantee scope in `docs/guarantees.md` and the reproduction plan in
-`docs/research-reproduction.md`.
+0.9.6.3.1/Z3 4.15.1 assumptions. The separate checker and six mutants were
+rerun on 2026-10-05; its [current record](lh-checker/README.md#recorded-new-linux-run)
+owns that evidence. This source-only command does not invoke it. See the
+[guarantee scope](../../docs/guarantees.md) for the assumptions, including the
+independent LiquidHaskell division-soundness failure.
 
 The separate opt-in [pinned LiquidHaskell checker](lh-checker/README.md)
 provides the recovered six mutants, exact checker flags, trusted-source

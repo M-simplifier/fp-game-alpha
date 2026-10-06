@@ -1,345 +1,100 @@
-# Review findings and prevention ledger
+# Reusable failure-prevention lessons
 
-A regression for one reported input proves that input stays fixed. A prevention
-claim also needs a mechanism that catches the *class* of mistake at a boundary.
-When review or playtesting finds a bug, record the route that exposed it, why
-the previous guarantee missed it, the repair, the reusable check, its measured
-evidence and what the check still cannot establish. Keep proposed checks marked
-as proposals until they actually run. Consult [verification](verification.md)
-for measured platform results and proof scope.
-The [native-tooling lessons](#native-tooling-ownership-and-transport-boundaries)
-cover process, filesystem and first-use contracts exposed during migration.
+Choose checks for the behavior and boundaries changed. A small fix needs its
+relevant regression, not a new ledger entry or a repeat of every platform,
+publication and clean-clone check. Run the publication gate when publishing;
+exercise clean setup or relocation when setup, source selection or portability
+changes. Preserve existing required CI.
 
-## Saved-source CLI: comment mistaken for a module declaration
+Record a lesson here only when it helps prevent a recurring class of mistake.
+Name the condition, mechanism and limit; leave task-specific evidence with its
+test or change. A passing example is not a general proof. The
+[dated finding histories](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/failure-prevention.md)
+retain original reproductions, repairs and measured scope.
 
-- **Detection:** A real `inspect`/`context` fixture began with a comment
-  containing `module Prelude`; the earlier text regex selected the comment as
-  the module. A block comment containing `module Bogus` gave the same risk.
-- **Missed guarantee:** The early fixture started with an ordinary module line.
-  A regex over raw source did not implement Haskell comment or lexical rules.
-- **Repair:** Compile the saved file and ask GHCi for its loaded modules,
-  imports and type/binding information. Fail if the requested source module
-  cannot be established or a requested symbol is missing.
-- **Class prevention, implemented:** `tools/test_tools.py` runs the actual
-  compiler query on line/block-comment decoys and checks that `Tiny`, its real
-  type and its structure are returned. Compiler errors must remain nonzero.
-  The CLI uses GHC/GHCi as the syntax authority, rather than another source
-  regex for the declaration.
-- **Limit:** Saved-source queries are not an HLS session or unsaved editor
-  state. Parsing GHCi's display still has a version-specific contract; this
-  fixture does not test every Haskell extension or compiler version.
+## Public construction and numeric boundaries
 
-## Saved-source CLI: valid empty export list treated as failure
+- A hidden constructor does not make an exported record selector read-only.
+  Use ordinary projections when outside update must be forbidden; compile a
+  positive client and a negative update for the intended diagnostic
+- Validate relations as well as individual values: a world that belongs to one
+  board must not be accepted against another merely because their shapes match
+- Parse external numbers as unbounded `Integer`, check the original domain,
+  then narrow. Bounded `Int` parsing can wrap before a range check; include huge
+  positive/negative inputs and verify rejected commands preserve state
+- Validate bounds before overflow-sensitive arithmetic. For bounded width,
+  prefer `position <= limit - size` after checking `size`, and test machine
+  extremes at affected external boundaries
 
-- **Detection:** `module Empty () where` compiled but a heuristic expected a
-  nonempty `:browse` result and returned failure.
-- **Missed guarantee:** The earlier check equated no browse output with a
-  broken module, although an empty export list is valid.
-- **Repair:** Establish success from compiler load, module identity and GHCi
-  command status, not from the number of exported bindings.
-- **Class prevention, implemented:** `tools/test_tools.py` compiles and queries
-  the actual empty module and requires success and module identity. It also
-  requires a missing binding and a real type error to fail, so success cannot
-  be obtained by simply ignoring GHCi errors.
-- **Limit:** This covers the saved-source `inspect` contract, not all package
-  visibility cases or an editor's in-memory buffer.
+These lessons came from Lantern, Garden, generated Model and live-tuning checks.
+They do not prove every parser or internal constructor safe. See
+[Haskell guidance](haskell.md) and
+[verification practice](practice/haskell/verification-review.md).
 
-## Lantern: public selector enabled a record update
+## Compiler-backed inspection
 
-- **Detection:** An outside GHC client compiled `world { positions = ... }`
-  although `World`'s constructor was hidden. A malformed value then reached
-  `legal`, where `!!` raised an exception.
-- **Missed guarantee:** Constructor hiding was reviewed, but an exported
-  record selector remained an update field. A positive API test alone could
-  not show that invalid construction was impossible.
-- **Repair:** Keep update fields private and export ordinary projection
-  functions. `legal` checks the original world before indexing; invalid moves
-  preserve state and produce no transition output.
-- **Class prevention, implemented:** `tools/test_lantern_api.py` compiles a
-  positive outside client, then requires GHC to reject a record-update client
-  *for the record-selector reason*. Lantern law tests exercise malformed
-  positions and invalid admission. The generated starter has an external
-  record-update rejection in `tools/test_workspace.py`. River and Station now
-  have matching positive/negative outside-client fixtures in
-  `tools/test_river_api.py` and `tools/test_station_api.py`; Station also
-  rejects forged `TurnId` construction. Each fixture requires the relevant
-  compiler diagnostic instead of accepting any compilation failure.
-- **Limit:** A compile-negative test covers this public module and field, not
-  every internal constructor, parser, lens, role/coercion or future export.
-  Internal code and any new construction route still need review.
+Use the compiler to identify loaded modules, imports and bindings; a source
+regex can mistake a comment for a module declaration. An empty export list is
+valid. Establish successful loading separately from output size, and require
+real compiler errors or missing symbols to fail. `tools/test_tools.py` tests
+these cases; saved-source queries still do not represent unsaved editor state.
 
-## Lantern: world accepted against a different board
+## Portable source and caches
 
-- **Detection:** Review paired a valid world created from board A with board B;
-  the old `wellFormed` checked shape but not ownership.
-- **Missed guarantee:** `World` and `Board` were individually well formed, but
-  the relation between them was absent from the invariant. Shape checks and
-  constructor privacy alone cannot establish provenance.
-- **Repair:** `World` retains its checked board, and `wellFormed b world`
-  requires that board to equal `b` before `legal` or admission can proceed.
-- **Class prevention, implemented for Lantern:** The law test presents a world
-  to a distinct board and requires rejection. The public boundary documents
-  board ownership as part of state validity.
-- **Limit:** Runtime board equality is a Lantern-specific relation. A reusable
-  board-indexed type or checked session capability could make mismatch harder
-  to express, but no such general API is implemented or claimed here.
+Select generated-game inputs explicitly. Ignored binaries, build caches and
+editor settings must not enter a game because a directory was copied recursively.
+Test generation after build-output pollution, not just from a clean checkout.
+Keep notices, source identities and enough tool source for independent continuation.
 
-## Lantern: coordinate addition wrapped `Int`
-
-- **Detection:** Review supplied extreme `Int` coordinates. `p + size`
-  overflowed before a bounds check, making an out-of-board placement appear
-  valid.
-- **Missed guarantee:** The arithmetic was written as a familiar geometric
-  condition; tests used ordinary board-sized values and did not probe machine
-  bounds. An `Int` alias or `newtype` alone would not establish a range.
-- **Repair:** Validate the cart size first, then compare `p >= 0` and
-  `p <= 6 - size`; subtraction is bounded by the validated size. The same
-  pattern checks Garden pixel bounds before coordinate subtraction.
-- **Class prevention, implemented in these boundaries:** Lantern tests reject
-  `minBound` and `maxBound` coordinates; Garden tests reject extreme pixels.
-  [Haskell guidance](haskell.md) now asks reviewers to locate overflow-sensitive
-  arithmetic at every external construction boundary.
-- **Limit:** These cases do not prove all arithmetic in all reference games
-  overflow-safe. A general property suite or checked numeric representation
-  remains future work and must name its units and range explicitly.
-
-## Procedure for the next finding
-
-Add a row or section with a minimal reproduction and an acceptance command.
-Identify whether the new test merely freezes a case or changes the construction
-path, type/API boundary, template, or systematic check. Route the lesson into
-the canonical guide and generated development path when a first user can
-benefit. Re-run the relevant actual compiler/runtime test, source publication
-gate and clean-clone route; keep untested proposals labelled as such.
-
-## Pinned source archives are not a verified extraction cache
-
-The Afterlight source-check helper originally verified archive hashes and
-extracted file names, but that did not establish extracted file contents.
-An existing cached symlink or hardlink could alias two expected paths: an
-extraction overwrite could leave both names present with the wrong bytes.
-This was found in a pre-publication review, not an observed compromised cache.
-
-The helper now rejects linked cache entries before writing, rejects archive
-links, and compares every extracted regular file with its pinned archive
-member before invoking Cabal. Cache tests cover hash mismatch, extra files,
-regular-file repair, hardlink rejection and symlink rejection. Compiler calls
-are mocked in those cache tests; the complete Haskell suites are separate.
-
-Apply this boundary whenever a version/hash-pinned archive is reused through
-a writable extraction cache. A passing archive digest alone does not attest
-installed/extracted bytes. This mechanism is not protection against another
-process mutating the files concurrently after verification; builds assume
-exclusive control of their local cache.
-
-## Headless transport: preserve turns and readable journals
-
-- Failure class: decoding untrusted decimal turns directly into bounded `Int`
-  can wrap an enormous number into the current turn, accepting a stale/invalid
-  transport request. Decode to `Integer`, compare to the exact visible turn,
-  and never narrow the request. Positive and negative wrap aliases are tested
-  in `tools/test_play.py` against the actual Haskell executable.
-- Failure class: a character-count limit permits multi-byte reasons whose saved
-  journal exceeds its own read-size limit. Check the serialized UTF-8 byte count
-  before replacing the previous journal. An oversized write must leave the
-  prior episode readable; the regression uses multi-byte text.
-- Scope: Station's headless transport and local Python journal. These checks do
-  not prove all codecs safe or turn the local files into an adversarial sandbox.
-
-## Scratch browser host: controls retain identity across redraws
-
-Paper Circuit's first Undo handler refreshed the SVG then focused Restart.
-A keyboard user's next activation could therefore restart the game. The
-production input router now returns the invoked control's semantic selector,
-which the host focuses after redraw. Its DOM-stub regression checks Undo,
-Restart, tile selection and invalid input. This checks routing identity;
-actual browser focus/keyboard behavior remains a separate pending check.
-
-Static ES-module imports also execute before an enclosing startup `try` body.
-A failed engine/shim import could leave the preparation message indefinitely.
-The host now awaits dynamic imports inside the startup error boundary. This
-structurally includes dependency loading in error handling; actual browser
-network-failure injection has not been run.
-
-## Build outputs must not become generated-game inputs
-
-Review of the Haskell Design integration exposed a distribution boundary error:
-terminal scaffolding recursively copied all editor files. After building the reader,
-ignored binaries, dependencies and local configuration could enter a new game; the
-text newline conversion could also modify binary bytes. Clean-checkout CI missed
-this usage-order problem.
-
-The generator now selects four reviewed wrapper source files explicitly, refuses
-linked wrapper sources, and leaves the optional reader distribution to its own setup
-route. A regression fixture adds binary outputs with NUL/CRLF, dependency/vendor/build
-folders and local settings, then asserts the entire generated file map is unchanged.
-Future distribution additions need an explicit source or binary selection contract;
-Git ignore status and a clean checkout are not sufficient export boundaries.
-
-## An active audit owns its rescan requests
-
-An earlier Linux CI attempt reported one unexpected audit event during an
-excluded-file test. Investigation found a deterministic scheduling defect:
-invalidating an active scan could leave a debounce timer alive after that worker
-had already processed the new generation, producing another cache-only scan.
-The old log does not prove that interleaving caused its event, so that attribution
-remains a hypothesis; the scheduler defect itself was reproduced.
-
-Invalidations during work now request a successor from the same worker. Idle
-invalidations debounce; explicit refresh cancels pending debounce. Fake-timer and
-deferred-scan regressions cover the trailing timer, late invalidation during cache
-persistence, coalescing and disposal without relying on wall-clock sleeps. The
-original excluded-file integration assertion remains intact. The old scheduler
-fails the deterministic trailing-timer check (three scans instead of two).
-
-Review of the first repair exposed a second completion-window race: clearing
-worker ownership in a later Promise.finally reaction could strand an intervening
-microtask's invalidation. Cleanup now runs inside the worker's try/finally. A
-queued-microtask regression failed before this repair (one scan instead of two)
-and requires that completion never drops a subsequent invalidation.
-
-## Live-tuning decoder: machine integer wrap before validation
-
-- **Detection:** Review admitted textual budget `18446744073709551622` as 6
-  on a 64-bit host when parsing directly to `Int`
-- **Missed guarantee:** Pure admission and private constructors did not validate
-  the original textual number before a lossy bounded conversion
-- **Repair / class prevention:** Parse `Integer`, validate the bounded domain,
-  and only then narrow. Inspect every external numeric construction path
-- **Executed evidence:** `research/live-tuning/check.py` passes 13 pure checks
-  and seven real CLI rejection cases, including huge positive/negative values
-  and unchanged complete runtime after failures
-- **Limit:** Finite regressions exercise this decoder; they do not prove every
-  parser safe or make arbitrary filesystem paths time-bounded
+A pinned archive digest does not attest an existing writable extraction cache.
+Reject linked entries and compare extracted regular-file bytes with pinned
+members before use. Cache integrity tests do not protect against concurrent
+replacement after verification; state that ownership assumption.
 
 ## Native tooling ownership and transport boundaries
 
-These migration findings changed boundary mechanisms, not just example outputs.
-The actual package tests are `tools/haskell/test/Main.hs`, `CreateSpec.hs` and
-`ProcessSpec.hs`; independent end-to-end checks are `tools/test_native_cli.py`
-and `tools/test_native_terminal.py`. The source-bound Linux record is
-`docs/evidence/native-tooling-linux.json`. See [verification](verification.md)
-for the distinction between executed checks and unverified platform routes.
+- Captured child processes need one clear owner through success, failure and
+  cancellation. Stop the managed tree before joining blocked pipe readers;
+  Windows job-completion waits need a separately interruptible deadline owner
+- A cancellation test must observe that the child actually started and include
+  a positive completion control. A timeout or missing dependency is not proof
+  that the intended cancellation path worked
+- Prefer normal shell ownership for interactive POSIX jobs. Native `run` execs
+  Cabal; captured `run --smoke` owns deadlines. Test actual suspend/resume when
+  changing this boundary rather than inventing another foreground proxy
+- Refuse linked output leaves and use fresh temporary files plus rename for
+  replacement. Never truncate a potentially hardlinked configuration file
+- Resolve caller-selected relative roots, but reject raw linked ancestors before
+  normalization can hide `alias/..`. Generated internal names remain strict
+- Keep the game's Cabal-selected compiler separate from tooling bootstrap.
+  Respect existing profiles; a failed compiler query must not fall back to PATH.
+  Probe actual executable/argument handling, including spaces and Unicode
+- Machine-readable output needs first-use and encoding checks: configuration
+  initialization prose, CRLF, malformed UTF-8 and duplicate PATH matches can
+  invalidate warm-cache assumptions
 
-- **Captured-process lifetime:** Cancelling reader threads before stopping the
-  child could block cleanup on an OS pipe read. Acquire ownership while masked,
-  terminate the managed tree once before cancelling readers, then close/reap.
-  The earlier delay-only cancellation attempt remains **inconclusive**: absence
-  of a later effect cannot prove cancellation if the child never started. Current
-  tests wait for a real started-child signal, exercise a positive completion
-  control, and check both prompt return and absence of later descendant effects.
-  A Windows TH probe then measured healthy entry at4.656s, beyond the former2s
-  fixture budget. A live positive release-gate control now establishes entry and
-  effect; the15s negative deadline cannot finish naturally while its gate is shut.
-  Release only after return and report the bounded four-second effect observation
-- **Windows job completion:** A Windows unit stage stalled without a captured
-  blocked-thread stack. Source inspection of pinned `process-1.6.19` found a
-  job-completion FFI wait that can delay cancellation of its calling thread.
-  Keep the deadline owner on an interruptible result wait, scope the native
-  waiter separately, and terminate the Job Object before joining that worker.
-  This is a source-supported risk and repair boundary, not an observed-stack
-  diagnosis; a successful Windows rerun is still required
-- **Terminal ownership:** A separate foreground proxy first hung on terminal
-  reads, then introduced a confirmed `bg`/`fg` late-stop race. Remove that extra
-  ownership: POSIX interactive `run` execs Cabal, letting the shell manage its
-  normal job directly. Interactive tool deadlines were not a legacy feature;
-  require captured `run --smoke` for `--timeout` instead of inventing a private
-  job-control protocol. Real private-shell tests cover natural suspend/resume,
-  background/foreground operation, restored settings and genuine exit 19
-- **Shell test synchronization:** A separate initial-background oracle race also
-  reproduced with direct Cabal. A prompt byte or sleep did not establish command
-  completion or a stopped job. Use unique completion markers, actual kernel-stop
-  observation and Bash `jobs -s` acknowledgement before `fg`, with failure
-  transcripts. This correction does not erase the independently reproduced
-  foreground-proxy runtime race above
-- **Linked output and hardlinks:** `mv` could treat a linked executable leaf as
-  an outside directory; truncating a linked Cabal config could damage another
-  file. Bootstrap checks the output leaf before replacement, and config updates
-  use a fresh temporary file plus rename. Real refusal/preservation checks cover
-  directory/symlink leaves and an outside hardlink sentinel
-- **Root paths versus generated paths:** Absolute-only tests missed the advertised
-  `../foundation` / `../My Game` route. Resolve chosen top-level roots from caller
-  cwd while checking linked ancestors; keep generated internal paths strict.
-  Both positive relative-root cases and symlink/`..` negatives are exercised
-  Windows CI then showed that `makeAbsolute` could collapse a linked parent
-  before validation saw it. Reject raw linked ancestors first, then normalize.
-  Fixtures must prove the alias is actually linked and exercise relative source
-  and destination `alias/..` paths; a normalized spelling cannot establish the
-  safety of the original traversal
-- **Text transport compatibility:** Decoding UTF-8 alone did not preserve Python's
-  universal-newline contract on Windows. Captured streams replace malformed UTF-8
-  and normalize CRLF/lone CR to LF; real-child exact stdout/stderr fixtures check
-  those rules. Interactive inherited streams and arbitrary binary data are separate.
-  A Python comparison adapter bypassed the legacy CLI's UTF-8 stdout setup and
-  failed dumping valid Japanese-path JSON under Windows cp1252. Match that
-  entrypoint's stream setup; a real-checker regression forces cp1252 and verifies
-  the decoded path, with the former adapter reproducing `UnicodeEncodeError`
-- **Tool discovery cardinality:** Windows CI placed the same application directory
-  on PATH with both slash spellings. PowerShell returned multiple Application
-  matches; treating their `.Source` values as one command produced a joined,
-  invalid executable path. Select one match explicitly. The regression proves
-  multiple matches exist, invokes the actual PowerShell bootstrap with `-Check`,
-  requires both real version probes to succeed, and checks that no build output
-  is created. It runs before Windows dependency acquisition; non-Windows hosts
-  report this Windows-specific case as not applicable
-- **Compiler entry points and explicit selection:** The pinned Windows runner's
-  unversioned GHC C aliases lost Japanese arguments; the same installation's
-  versioned compiler passed complete Japanese-path library/executable builds.
-  Inspect the actual launcher boundary, not only its reported version or terminal
-  diagnostic encoding. The [GHC 9.6.7 wrapper source](https://github.com/ghc/ghc/blob/ghc-9.6.7-release/hadrian/bindist/cwrappers/version-wrapper.c)
-  accepts narrow argument strings. Keep the alias failure as a labelled diagnostic
-  and require the declared compiler-only profile in `test_windows_toolchain_paths.py`.
-  Explicit bootstrap `-CompilerPath` and exclusive machine-local Cabal profiles
-  preserve user choices without changing PATH. Native doctor and saved-source
-  checks query Cabal's chosen compiler; a failed query must never silently fall
-  back to ambient GHC. Integration checks the reported/invoked compiler, unavailable
-  selection refusal, preserved existing profiles, and scoped query cleanup.
-  An initial quoted-profile example failed real Cabal selection: `with-compiler`
-  consumes a whole raw field, so quote characters became part of the filename.
-  Use a raw forward-slash field with control characters rejected; an actual
-  forwarding wrapper with spaces/Japanese verifies both field grammar and identity
-- **First-use machine output:** Cabal's first JSON path query also printed config
-  initialization prose, although warm-cache output was clean. CI uses the quiet
-  path query, verified against a fresh empty Cabal configuration. Machine-readable
-  flags need a first-use check, not only an already-initialized environment
+The package tests in `tools/haskell/test/` and the foundation's native CLI and
+terminal integration suites own these regressions. Keep skipped or inconclusive
+checks visible. Passing these checks does not establish installed-editor UI,
+crash durability or protection from hostile concurrent filesystem mutation.
 
-The Linux process and game checks are executed evidence. Windows/macOS workflow
-execution, physical editors, SIGKILL/crash cleanup and adversarial filesystem
-mutation remain outside that evidence. Keep skipped or inconclusive checks
-visible; a timeout, missing dependency or unrelated failure is not a valid
-negative control for the intended boundary.
+## Event, editor and persistence boundaries
 
-## Editor workspace trust must cover the selected project
+- During an active audit, queue a successor on the owning worker. Clear ownership
+  inside its completion boundary so a late microtask cannot strand an invalidation.
+  Use deterministic scheduling tests for the actual race
+- Editor trust must cover both the selected project and file within the same
+  workspace folder, using lexical and canonical paths. A globally trusted editor
+  is insufficient for an unrelated project or a symlink escape
+- Preserve the opened document URI across an asynchronous compiler call. Associate
+  an alias only with verified nonzero device/inode identity, without rounding
+  large IDs or conflating case-sensitive paths
+- After UI redraw, restore the invoked control's semantic identity. Keep dynamic
+  import failures inside the startup error boundary. DOM stubs do not establish
+  real keyboard focus or network-failure behavior
+- Bound serialized journal bytes, not character counts, and preserve the prior
+  readable file on rejection. Validate untrusted turn numbers without narrowing
+  them into a wrapping machine integer
 
-- **Observed gap:** VSCode's global trusted-workspace flag could permit a command
-  for an active file from an unrelated project. The adapter derived that project's
-  executable path without establishing that the project itself was trusted
-- **Boundary:** Before spawning, require the selected project and active file to
-  lie within the same current workspace folder, using both lexical component
-  boundaries and canonical filesystem paths. Reject sibling-prefix matches and
-  symlink escapes; ask the user to open and trust the intended project folder
-- **Regression:** Node adapter contracts cover unrelated folders, misleading
-  prefixes, linked escapes, nested projects and multiroot success. A separate
-  test executes real native doctor/check and GHC/GHCi inspection through the
-  command registrations with only VSCode UI mocked
-- **Limit:** These checks are not installed-editor UI acceptance or a sandbox
-  against concurrent filesystem replacement. A trusted build can execute code
-
-## Compiler diagnostic paths must identify the opened document
-
-- **Observed failure:** [PR36 Windows CI](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37386540140/job/112022388427#step:14:1)
-  produced the expected GHC type error, but its long path spelling differed from
-  the temporary directory's Windows short alias. Raw pathname equality left the
-  diagnostic attached to a different URI from the document the user opened
-- **Boundary:** Capture the selected URI after trusted-workspace validation and
-  before awaiting the compiler. Reuse that exact URI only when both paths name
-  existing regular files with the same nonzero device/inode identity. Read IDs
-  as BigInt; rounding 64-bit values, matching basenames, or lowercasing every
-  platform can incorrectly combine distinct files. Keep other diagnostics separate
-- **Regression:** Adapter contracts cover Windows aliases, POSIX links, distinct
-  siblings, different devices, missing files, zero IDs and in-flight document
-  changes. Real compiler checks retain strict selected-URI error, warning and
-  clearing assertions, with a separate observed-alias flag and a real POSIX
-  trusted-symlink workspace check. Inspect actual Windows results for alias coverage
-- **Limit:** Mocked editor UI is not installed-editor acceptance. Filesystem
-  identity checks do not provide a sandbox against concurrent file replacement
+These are conditional lessons, not requirements to add an editor, browser,
+audit scheduler or journal to every game. Test the real boundary when it changes.

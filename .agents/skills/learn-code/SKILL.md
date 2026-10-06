@@ -27,7 +27,7 @@ into a compulsory quiz, or infer understanding from silence. Teaching alone does
 not authorize code edits, dependency installation or gameplay changes. If asked
 to make a change, preserve unrelated edits and verify the changed behavior.
 
-The [Station lesson](../../../docs/learn-code-station.ja.md) demonstrates this
+The [optional Station lesson](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/learn-code-station.ja.md) demonstrates this
 method on pinned real code. It is a worked example, not a required game layout
 or a script to recite for every project. Later sessions should resume from the
 learner's actual question and changed source, not a presumed permanent level.

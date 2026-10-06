@@ -1,7 +1,7 @@
 # Use saved-source tools from an editor
 
 For the richer Haskell Design declaration reader and editor view, see
-[Haskell Design setup](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md). The wrappers below are a separate,
+[Haskell Design setup](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/haskell-design.md). The wrappers below are a separate,
 smaller compiler-command integration.
 
 These optional small wrappers show real compiler results for the selected
@@ -43,7 +43,7 @@ Marketplace publication is not claimed.
 ## Neovim
 
 Neovim 0.10+ provides `vim.system`; the tested host version is recorded in
-[verification](verification.md). In a game folder, load the local module:
+[historical verification](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/verification.md). In a game folder, load the local module:
 
 ```vim
 :lua dofile(vim.fn.getcwd() .. '/editors/neovim/fp-game.lua').setup({ python = 'python' })

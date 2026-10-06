@@ -327,72 +327,12 @@ The [prevention ledger](failure-prevention.md#native-tooling-ownership-and-trans
 records the discovered ownership, filesystem, relative-root, text transport and
 first-use failures, their structural fixes and the tests that prevent recurrence.
 
-## Verified CI and local measurements
+## Verification scope
 
-### CI scheduling baseline
-
-At `c7337c40cb117f2f4bfd98f067dda74f0a8577b4`,
-[main run 37391622640](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37391622640)
-passed all validation jobs and Pages deployment. Its now-removed
-[standalone Windows preflight](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37391622640/job/112037793244)
-took 229 seconds, including 173 seconds of Haskell setup and 43 seconds of probes.
-The [Windows native job](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37391622640/job/112038999492)
-then repeated setup (375 seconds) and the full probes (41 seconds). These are
-individual job/step durations, not a promised 229-second end-to-end saving.
-Removing the duplicate eliminates that prerequisite and redundant runner work;
-runner queueing, setup and the remaining critical path can change total latency.
-
-The native dependency cache key includes this workflow's contents. A workflow
-edit therefore starts with a new key, even if a previous main run populated its
-own key. PRs remain restore-only, with no broader fallback key; only a successful
-native job on a main push can populate the new key. Compare cold-key and
-exact-key-hit runs separately, and separate native dependency cache hits from
-Haskell setup timings.
-
-### Earlier native migration measurements
-
-These are historical, revision-specific results. They predate the native-default
-entrypoint cleanup and do not claim that cleanup has passed a new CI run. The
-operational default and the evidence maturity are separate decisions.
-
-Published revision `be1208af3a475b094964dd04b7fcdb4335deef51` completed native
-bootstrap, typed package tests and the independent integration suite on
-[Linux](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295460) (424 records),
-[macOS](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295554) (424 records) and
-[Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675) (358 records).
-These are **experimental developer CLI and optional terminal-game workspace**
-routes using GHC 9.6.7 / Cabal 3.12.1.0. Windows uses the explicit same-installation
-versioned compiler profile above. Actual checks covered Japanese/space paths,
-compiler selection, refusals, gameplay edits, source-only relocation and native
-tooling rebuild, scripted terminal play, and gated compiler timeout cleanup.
-POSIX terminal job-control checks apply to Linux/macOS, not Windows. The
-[retained alpha workflow](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094306)
-also passed its six validation jobs; pull-request deployment was skipped.
-
-This does not establish physical-editor, graphical-host or arbitrary-game
-acceptance. Each requested game still needs its own host/toolchain and play
-checks. Exact current and earlier results, including failed and diagnostic-only
-revisions, remain in the foundation's `docs/evidence/native-tooling-ci.json`.
-
-The dated Linux x86_64 local receipt at `docs/evidence/native-tooling-linux.json`
-is preserved with its original 392-check input hashes and explicitly recorded
-later focused checks/deltas. It is historical evidence, not a newly rebound
-local run for this documentation revision. Its measurements below are local
-observations; the successful three-OS CI above is separately identified by head.
-
-The fresh secure package-index acquisition took 96.669 seconds on this machine.
-A resumed dependency/source build took 734.737 seconds, after an earlier process
-was interrupted and before application compile errors were corrected. This is
-**not** an uninterrupted successful cold-install time. With dependencies cached,
-a fresh application build took 25.863 seconds. The unstripped executable was
-21,753,048 bytes; 30 version-startup trials had a median of 14.558 milliseconds
-(range 12.108–18.765 milliseconds). These are observations, not an improvement claim.
-The package-index/source cache occupied 1,194,703,972 apparent bytes (about
-1.11 GiB) and the 42-unit external dependency store 119,220,746 apparent bytes
-(about 114 MiB). These are local disk observations, not network download sizes or
-minimum installation requirements. Compiler installation is excluded.
-
-The relocated tool is rebuilt from its own copied source using the already-warm
-pinned dependency cache. Later game builds use their own isolated configuration
-and GHC-bundled packages. This proves source/workspace independence, not a second
-cold-machine installation or an available prebuilt binary distribution.
+The current commands and required CI are described above. For exact historical
+revisions, job links, cache conditions and measured setup/startup costs, read the
+[pinned CI and measurement record](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/native-tooling.md#verified-ci-and-local-measurements).
+Those observations are not a fresh run of this checkout or of a generated game.
+Tooling changes need their affected checks and current CI; a game's feature
+change needs its own tests and host play checks. Source-only relocation proves
+independent continuation, not a cold-machine install or a prebuilt distribution.

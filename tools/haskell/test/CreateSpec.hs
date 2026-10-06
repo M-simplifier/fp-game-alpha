@@ -115,6 +115,10 @@ runCreateTests = withSystemTempDirectory "fp-game-create-tests-" $ \temporaryAli
     forM_ ["tools/fp_game.py", "tools/scaffold.py", "tools/acceptance/legacy_oracle.py"] $ \name ->
       expect ("retired product helper is not distributed: " <> name) (nestedField "files" (Key.fromString name) manifest == Nothing)
     expect "specialist inspection remains available" (nestedField "files" "tools/inspect_haskell.py" manifest /= Nothing)
+    forM_ ["docs/verification.md", "docs/learn-code-station.ja.md", "docs/evidence/formal-research-linux-20261005.json", "docs/evidence/historical-guarantees.json", "docs/evidence/neovim-windows.json", "docs/evidence/quantity-windows.json", "docs/evidence/vscode-windows.json", "docs/evidence/windows-development.json"] $ \name ->
+      expect ("foundation history stays upstream: " <> name) (nestedField "files" (Key.fromString name) manifest == Nothing)
+    forM_ ["docs/DEVELOPMENT.md", "docs/TECHNICAL-GUIDES.md", "docs/native-tooling.md", "docs/haskell.md", "docs/failure-prevention.md", "docs/learn-code.md", ".agents/skills/game-dev/SKILL.md", ".agents/skills/learn-code/SKILL.md", "licenses/FOUNDATION-MIT.txt", "docs/practice/LICENSE.upstream", "tools/haskell/LICENSE"] $ \name ->
+      expect ("independent development keeps its local entry: " <> name) (nestedField "files" (Key.fromString name) manifest /= Nothing)
     expect "manifest excludes its own recursive hash" (nestedField "files" "scaffold-manifest.json" manifest == Nothing)
     readme <- BS.readFile (planned </> "README.md")
     expect "native bootstrap travels with continuation instructions" ("bootstrap-fp-game" `BS.isInfixOf` readme && ".build/tools/fp-game build" `BS.isInfixOf` readme)

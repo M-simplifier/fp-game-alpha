@@ -64,7 +64,7 @@
   },
   {
    "path": ".agents/skills/haskell-excellence/SKILL.md",
-   "sha256_lf": "dbf4afa8431f262042c9231b30b34d6d7e28765c694e36b4fdac66be09afe972",
+   "sha256_lf": "5b8cf57afbd9e05e2fea9a1d1e2bff89b3e1737f60e70516095ab497fec605bf",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -75,7 +75,7 @@
   },
   {
    "path": ".agents/skills/learn-code/SKILL.md",
-   "sha256_lf": "74a51ba11901f4c22399e40df817424cedd430b81f8bc690fea108abc567bf17",
+   "sha256_lf": "cd147933d1bde3812055d965e2c30dce77dbc791256eda3b7fef297d1e311904",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -198,7 +198,7 @@
   },
   {
    "path": "PUBLICATION-MANIFEST.md",
-   "sha256_lf": "1ca937bf4f5d2199b32f667560fe98022a404018ac09962e9e181cf1f13d5ee7",
+   "sha256_lf": "54515fe5f83af1fb6b8b738f2f574081435a8a96cdad4ca52cba877ac1198318",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -264,7 +264,7 @@
   },
   {
    "path": "docs/editors.md",
-   "sha256_lf": "d74d56276c177d6ca46e00c342588bf8dc13433cdeb18ca2b2113d2ea6b22742",
+   "sha256_lf": "5375cdb490ae88d6c85a4188356f9838ddaaf07fd47fe5fa8de7025d8d33bfd6",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -366,7 +366,7 @@
   },
   {
    "path": "docs/failure-prevention.md",
-   "sha256_lf": "426990bdf29c06f318264ff28eb948fbdf02546d1d85a6a414a3b62de48c2b0c",
+   "sha256_lf": "a08b3cbac0e13b1724d5fbfcc402a5027bc202ba70d5a65c2dde35578974a845",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -388,7 +388,7 @@
   },
   {
    "path": "docs/guarantees.md",
-   "sha256_lf": "056bf7a34f1e2c818b0ba41392aa68d8120c9b9de2eb249826806afaf4f1a04a",
+   "sha256_lf": "ea7db841beff661b770a36dcf221dee956faa2e6700c9dd183f301e9e5a97a72",
    "origin": {
     "kind": "author-supplied-curated-historical-research",
     "origin": "GUARANTEES.md",
@@ -413,7 +413,7 @@
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "63893a3eedd1f302d29c3b8c2a5f08985eb7ff2c8acc1e10209d60127bf5d6c8",
+   "sha256_lf": "ca201969e0f53239d0b10c950a2c7139696844f3370ee7322959bc5b9541e41d",
    "origin": {
     "kind": "author-supplied-public-doc-candidate",
     "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
@@ -449,7 +449,7 @@
   },
   {
    "path": "docs/learn-code.md",
-   "sha256_lf": "3dffaf05ddaa411311b29236e4b52f1fe541be0c841869ad79b822122b710311",
+   "sha256_lf": "7c13b6b2f8468937fdab17b8aed0d0c999827f5f1815054dbe40859377343644",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "cb90106cfbc1bd465b6f9dba180d229859f3c043e876a66887e2d3d1bbe8e4ea",
+   "sha256_lf": "51a22140af05b66c069a07aeae727ea81a7edce76ecfb504f98e09cdebc6e571",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -648,7 +648,7 @@
   },
   {
    "path": "docs/practice/haskell/verification-review.md",
-   "sha256_lf": "70570d4cf2d4d3745db6c2e62691c0cb0267cf962cacceac0d9d1a653a7a50f3",
+   "sha256_lf": "1233bbdb1ae87de41c0160cbe907b489508b4c277743c1c24d136e82af88c924",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -659,7 +659,7 @@
   },
   {
    "path": "docs/purpose.md",
-   "sha256_lf": "1be88d1684f84cecdcb30709765d3d78cb5a503642cf427a0aa4829d4e735083",
+   "sha256_lf": "4cb1c0670f01e21468d8c66ad5c803e083ff4c0b5ff1c2f2d91fefdd2a43ca8f",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -728,7 +728,7 @@
   },
   {
    "path": "docs/research-reproduction.md",
-   "sha256_lf": "67c063cf238ff46a12478466b71ffdb93b6b0fea18be2057f18e28306855ca74",
+   "sha256_lf": "c05bee462cae0a70d161fbd6584ef80999d7ac757371d6e16c2ef03e35cfe975",
    "origin": {
     "kind": "author-supplied-curated-historical-research",
     "origin": "REPRODUCTION.md",
@@ -742,7 +742,7 @@
   },
   {
    "path": "docs/roadmap.md",
-   "sha256_lf": "2f416b2a1eaa200d5dfe5e3a53580098b69f64270b022579d3fc62a81215d74b",
+   "sha256_lf": "48bced70f7144b7d866fe69735c5218d0ba50b89358bef4fd81790a87ffc50a6",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -786,7 +786,7 @@
   },
   {
    "path": "docs/terminal-starter.md",
-   "sha256_lf": "5d77c63a67340d3e392b81358e5c671c56c00fa52dfb342750d7f4ab82a0498e",
+   "sha256_lf": "e3d224e3ea44b2533cd4f12d279ee2d21224b1e89530f03fcf68955698f8b4e7",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -797,7 +797,7 @@
   },
   {
    "path": "docs/tooling.md",
-   "sha256_lf": "439caffef03afb48e0f29c798e7794c591c6575cd67c64b2736a8df0542c77fd",
+   "sha256_lf": "46ddae904775be262a6d7fd4967ad5a63e80a559d68c961d998affa48f758adb",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -808,7 +808,7 @@
   },
   {
    "path": "docs/verification.md",
-   "sha256_lf": "81788fb4176d1248838bc58938383984e40e99d6f81afbeeda34c9c8cab00b0c",
+   "sha256_lf": "8eca2549725a4ad117b5db939725b4e7d105a0cc6a08d5b554f1a92b6a59e184",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -15848,7 +15848,7 @@
   },
   {
    "path": "research/quantity/README.md",
-   "sha256_lf": "105f485f310ef5227cdeb956b60c61de9bbe61b269eb9515b9273ff481447a59",
+   "sha256_lf": "292ea49803fb54c9b004b73363e39a7ab9fc20153a291bd6904854ebc12ef4c7",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -18905,7 +18905,7 @@
   },
   {
    "path": "templates/terminal-adventure/docs/DEVELOPMENT.md",
-   "sha256_lf": "903de393cd91e81ddc91528eb030c891ad95fbca7464816f059969c67a371266",
+   "sha256_lf": "6bf78a53a45bbfa4d0a3ced73e50451c4e56932f3b2860f04a582b7e7f8f75a9",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19311,7 +19311,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Create.hs",
-   "sha256_lf": "4ebecdbe95172f0be24d9bff1d6b51a5c8df1f0a739760ae40a24826c0467fec",
+   "sha256_lf": "8142c09cd0c5d9ebb4ee2f56e96ec071d7267f9937d3cc3a2b81b897e2c4b3df",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19366,7 +19366,7 @@
   },
   {
    "path": "tools/haskell/test/CreateSpec.hs",
-   "sha256_lf": "1866ccf52f4b388a8442ffae4f21e543eea44660cc0ee91d764f72c9e6f67462",
+   "sha256_lf": "c9c763cabb5fe8d4e0f9ae9faf249a2dcec57f079f96ff41799cf835d334e465",
    "origin": {
     "kind": "authored-for-public-alpha"
    },

@@ -14,7 +14,7 @@ The reference games teach by being worth reading. Keep advanced types where they
 - Keep units and authority visible: elapsed time versus a timestamp, requested movement versus resolved movement, player action versus external completion.
 
 Each safety claim names its mechanism: representation, abstraction boundary, runtime validation, property test, proof tool, or environmental assumption. A semantic name alone is not evidence.
-Apply the [finding and prevention ledger](failure-prevention.md) when a review or playtest discovers a bug; distinguish one-case regression from a reusable boundary check.
+Use the relevant [prevention lessons](failure-prevention.md) when they fit a change; distinguish a one-case regression from a reusable boundary check.
 
 ## Reduce what must be held in mind
 
@@ -49,31 +49,20 @@ Its README identifies, in order:
 
 A source-code reader should not need the editor extension, an LLM, or private background context.
 
-## Review rubric
+## Review the changed path
 
-Score each dimension 0 (obscured or missing), 1 (usable with explanation), or 2 (clear in the artifact):
+For a meaningful rule or API change, follow one affected input through its
+public entrypoint, state decision, result and test. Check the names, units,
+state ownership, branching, failure behavior and abstraction boundaries that
+matter to that path. Keep advanced types when their benefit is concrete.
 
-| Dimension | Evidence for 2 |
-| --- | --- |
-| Domain vocabulary | Names track the game's concepts; units and authority are unambiguous |
-| Type meaning | Every advanced type and wrapper has an explained benefit; guarantees are accurately scoped |
-| Local reasoning | The main rule path is readable without reconstructing an unrelated subsystem |
-| Function shape | Helpers express useful concepts; nesting and abstraction levels do not hide control flow |
-| Boundary clarity | Pure rules, admission, observation, clock, renderer, and IO have identifiable owners |
-| Failure visibility | Rejection, legal failure, partiality, and terminal behavior are discoverable |
-| Example quality | A checked reading path, meaningful tests, and a change exercise agree with the code |
+Report actionable findings with the relevant file or transition. There is no
+point score, required number of strengths, or mandatory report for a mechanical
+edit. Select behavior checks in proportion to what changed; formatting is not
+behavioral evidence. False guarantees, duplicated authoritative rules, private
+data and incompatible asset licenses still need correction before release.
 
-For an alpha reference-game designation, use 11/14 as a review trigger, not an automated quality proof; no dimension may be 0. Any false guarantee, hidden rules duplication, unchecked advertised route, private data, or incompatible asset license blocks release regardless of score.
-
-A reviewer records two useful strengths, the three highest-impact improvements at most, and the exact files and transitions supporting the result. Preserve behavior with tests when changing readability.
-
-## Generate, review, and improve the guidance
-
-Apply this rubric to newly AI-authored game code as well as reference refactors.
-Before handing over a playable increment, follow one real input through the public
-rule entry, state decision, result and test. Name what a reader must understand at
-each step. Format first so layout does not obscure structural review; then check
-vocabulary, state ownership, branching and abstractions separately.
+## Reusable readability lessons
 
 Concrete lessons from Paper Circuit's readability revision:
 
@@ -91,10 +80,10 @@ Concrete lessons from Paper Circuit's readability revision:
   diagnostic representations changed. Formatting or a reviewer score alone is
   not behavioral evidence or proof that beginners understand the result.
 
-A refactor report should identify the original reading difficulty, the change,
-why it helps, the behavior checks and any tradeoff. Promote only reusable findings
-into this guide, with their conditions. Try the updated guidance on a different
-brief or new feature before claiming better generated-code quality. Keep
+When a refactor needs explanation, identify the reading difficulty, why the
+change helps, its behavior checks and any tradeoff. Add guidance only for a
+reusable lesson, with its conditions; an ordinary task need not update this guide.
+Do not claim better generated-code quality from one example. Keep
 human intent → AI reasoning → repeatable tools in that order: these criteria help
 an AI choose an architecture, not force every game into the example's structure.
 

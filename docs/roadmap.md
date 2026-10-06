@@ -1,30 +1,27 @@
-# Source inventory and next milestones
+# Next milestones
 
-| Material | Initial disposition | Scope and next acceptance |
-| --- | --- | --- |
-| Transition / Arena / Finite | Selected MIT kernel; executable alpha | Preserve API, test laws and document assumptions |
-| Garden | Selected experimental pure-core reference | Deterministic world, event and clock adapters, pause/reset/debt and bounded input checks; no graphical host claim |
-| Tapline | Selected experimental pure-core reference | Six-round trace and Step/Arena regression; exact deadline, ordered duplicate taps, reset barrier and focus pause; no graphical host claim |
-| Station Dispatch | Selected experimental pure domain reference | Six orders, stale-turn rejection, Step/Arena and full 864-state finite enumeration; JSON save, asynchronous UI IDs and browser host still pending |
-| River Home | Selected experimental pure-core reference | Authored multi-day journey, original simulation/clock/save, Step/Arena and finite invariant/save regressions; original QuickCheck suite and graphical host not reproduced |
-| Complete Afterlight | Full source selected; optional verification in progress | Full Session/Arena, native renderer/audio and Web host preserved; pinned core/parity check route. Native GPU and browser acceptance remain separate |
-| Lantern finite puzzle | Selected experimental source and executable law test | Checked board, original valid-board transition, Step/Arena agreement and a four-state fully observed reachability graph; no general-board or SMT claim |
-| [Red Dune 0.6](red-dune.md) | Selected optional MIT source reference | Linux/GHC 9.6 only; 178 original inputs preserved, restored fixtures and isolated check helper. Full game checks on 2487 core; build/core laws on formatted 84a074 core; browser, full campaign and performance acceptance remain unclaimed |
-| [Red Dune live campaign](red-dune-live.md) | Active optional MIT reference; separate package and source tree | Linux native host, policies, complete campaign saves and procedural browser command room; bounded smoke CI is separate from the full campaign and actual browser acceptance gates |
-| Historical Red Dune 0.7 snapshot | Excluded | Not imported wholesale; the active live continuation has its own source, provenance, tests and acceptance scope |
-| SMT/TLC/SBV and platform research | Deferred experimental material | Select small reproducible experiments after first-user acceptance; no universal guarantee inferred |
-| LiquidHaskell / Qty | Selected source-only quantity lab; stronger proof blocked on pinned checker setup | Frozen original/annotation sources, GHC negative examples and full finite oracle route; historical selected-binder SAFE25 and mutants remain separate, pinned LH environment not yet reproduced |
+This page lists remaining work. Current commands, evidence and limits belong
+with the relevant feature guide; completed work is not a second status ledger.
+The [README](../README.md) routes to those guides and the
+[publication manifest](../PUBLICATION-MANIFEST.md) records selected source.
 
-The supplied Red Dune 0.6 report includes the author's suite, old 960-profile
-goldens, 15 mutants, HTTP and a short S01 new-food trace. Independent final
-review, S02, automatic replenishment, all campaigns, browser and D2 remain
-unfinished. None of these historical claims constitutes public-clone acceptance.
+- Station Dispatch: JSON save and asynchronous UI/storage integration, followed
+  by actual browser-host acceptance
+- Reference hosts: graphical/input/audio checks for the selected pure-core
+  games and the preserved Afterlight native/Web hosts, with device performance
+  assessed separately from core tests
+- Red Dune: continue through the [live campaign guide](red-dune-live.md)'s
+  remaining gameplay, browser and distribution gates; preserve the optional
+  [archived source route](red-dune.md) independently
+- Research: use the [experiment guides](research-reproduction.md) for current
+  scoped results. Broader protocol models, cross-backend parity and independent
+  proof-certificate checking remain separate experiments. LiquidHaskell's
+  [false-division acceptance](../research/liquidhaskell/README.md) still blocks
+  a soundness claim even though the pinned diagnostic was reproduced
+- Bend: select an isolated public runner for the historical comparison before
+  claiming a public rerun. Native CPU, GPU and BendTT kernel checking each need
+  their own prerequisites and executed result
 
-The first milestone is an independent terminal game workspace, actual key
-and stamina development, relocation, and ordinary Cabal acceptance. Lantern
-is the first additional reference; Tapline, Garden, River Home and the Station
-Dispatch domain follow as pure-core examples.
-The next milestones complete Station save/UI, graphical/Web hosts, Red Dune,
-and the remaining research reproduction routes. Toolchains,
+Prioritize a concrete game requirement over expanding the catalog. Toolchains,
 large binaries and repeated raw logs belong in reproducible downloads or
 appropriate release artifacts, not in the source repository.

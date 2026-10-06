@@ -12,7 +12,7 @@
 
 「この型の矢印は何を表すの？」「Undoでどの値が戻るの？」「このルールを変えるなら
 どこを読むの？」という質問から始めても構いません。すでに分かっている部分は省きます。
-短い実例として、[Stationの各駅便を読む解説](learn-code-station.ja.md)も用意しています。
+短い実例として、[Stationの各駅便を読む解説](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/learn-code-station.ja.md)も用意しています。
 
 以下は、解説を担当するAIのための手順です。
 
@@ -90,9 +90,9 @@ Haskellが初めてという前提は、他のプログラミング経験まで�
 
 ## 別のゲームへ持っていく
 
-AIが独立したゲームを作るときは、スキル本体とこの案内、Stationの実例をそれぞれ
-`.agents/skills/learn-code/SKILL.md`、`docs/learn-code.md`、
-`docs/learn-code-station.ja.md`へコピーすると、同じ相対リンクで使えます。
+AIが独立したゲームを作るときは、スキル本体とこの案内をそれぞれ
+`.agents/skills/learn-code/SKILL.md`、`docs/learn-code.md`へコピーすると、
+同じ相対リンクで使えます。Stationの実例は上の固定版リンクから必要なときだけ読めます。
 配布元のMIT表記と取得した版も残してください。既存の同名ファイルを上書きせず、
 そのゲームの継続用スキルや案内から学習の入口をたどれるようにします。
 
