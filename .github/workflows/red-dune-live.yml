@@ -44,7 +44,7 @@ jobs:
       - name: Check Windows physical play and immutable saves
         shell: pwsh
         run: |
-          $binary = (cabal list-bin --project-file=cabal.project.red-dune-native test:live-native).Trim()
+          $binary = (cabal list-bin --project-file=cabal.project.red-dune-native test:live-native --enable-tests).Trim()
           & $binary (Join-Path $env:RUNNER_TEMP ('red-dune-' + [guid]::NewGuid()))
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
   bounded-native-host:

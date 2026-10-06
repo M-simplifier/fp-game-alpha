@@ -116,3 +116,15 @@ int rd_store_commit(rd_store *s, const char *temporary, const char *final) {
 
 unsigned long rd_store_error(void) { return GetLastError(); }
 void rd_store_free(void *p) { free(p); }
+
+void rd_native_error(const wchar_t *message) {
+    /* Avoid raylib's CloseWindow/ShowCursor names colliding with the import
+       library. Resolve only MessageBoxW from the system's KnownDLL. */
+    HMODULE module = LoadLibraryExW(L"user32.dll", NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
+    if (module) {
+        typedef int (WINAPI *show_message)(HWND, LPCWSTR, LPCWSTR, UINT);
+        show_message show = (show_message)GetProcAddress(module, "MessageBoxW");
+        if (show) show(NULL, message, L"Red Dune", MB_OK | MB_ICONERROR);
+        FreeLibrary(module);
+    }
+}

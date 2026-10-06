@@ -5,18 +5,32 @@
 -- Windows owns the ancestor pins, exclusive process lock and write-through
 -- rename. Nothing becomes visible before exact readback and game validation.
 module RedDune.Native.Store
-  ( Store, Checkpoint (..), Preview, previewGame, previewName,
-    withStore, storeRoot, saveGame, checkpoints, previewCheckpoint,
-    confirmCheckpoint, activateGame
-  ) where
+  ( Store,
+    Checkpoint (..),
+    Catalog (..),
+    Preview,
+    previewGame,
+    previewName,
+    withStore,
+    storeRoot,
+    saveGame,
+    checkpoints,
+    checkpointCatalog,
+    previewCheckpoint,
+    confirmCheckpoint,
+    prepareGame,
+    activateGame,
+    showNativeError,
+  )
+where
 
 import Colony.Session
 import Colony.World
-import Control.Exception (bracket, finally)
+import Control.Exception (IOException, bracket, finally, try)
 import Control.Monad (unless)
 import Data.ByteString qualified as BS
 import Data.List (sortOn, stripPrefix)
-import Data.Word (Word8, Word64)
+import Data.Word (Word64, Word8)
 import Foreign (Ptr, alloca, castPtr, nullPtr, peek)
 import Foreign.C
 import RedDune.Campaign
@@ -24,20 +38,35 @@ import RedDune.ContentPack
 import RedDune.Game hiding (previewGame)
 import RedDune.GameSave
 import System.Directory (listDirectory, makeAbsolute)
-import System.FilePath (splitDirectories, takeExtension)
+import System.FilePath (dropExtension, splitDirectories, takeExtension)
 import Text.Read (readMaybe)
 
 data Store = Store {storeRoot :: !FilePath, storeHandle :: !(Ptr ()), storeFactory :: !AuthorityFactory}
-data Checkpoint = Checkpoint {checkpointName :: !String, checkpointBranch :: !Word64, checkpointHour :: !Integer, checkpointScenario :: !String} deriving (Eq, Show)
+
+data Checkpoint = Checkpoint {checkpointName :: !String, checkpointBranch :: !Word64, checkpointSequence :: !Word64, checkpointHour :: !Integer, checkpointScenario :: !String} deriving (Eq, Show)
+
+data Catalog = Catalog {catalogEntries :: ![Checkpoint], catalogUnreadable :: !Int, catalogOlder :: !Int} deriving (Eq, Show)
+
 data Preview = Preview {previewName :: !String, previewBytes :: !BS.ByteString, previewGame :: !GameState}
 
 foreign import ccall unsafe "rd_store_open" openStore :: CWString -> IO (Ptr ())
+
 foreign import ccall unsafe "rd_store_close" closeStore :: Ptr () -> IO ()
+
 foreign import ccall unsafe "rd_store_write" writeStore :: Ptr () -> CString -> Ptr Word8 -> CULong -> IO CInt
+
 foreign import ccall unsafe "rd_store_read" readStore :: Ptr () -> CString -> Ptr (Ptr Word8) -> Ptr CULong -> IO CInt
+
 foreign import ccall unsafe "rd_store_commit" commitStore :: Ptr () -> CString -> CString -> IO CInt
+
 foreign import ccall unsafe "rd_store_error" storeError :: IO CULong
+
 foreign import ccall unsafe "rd_store_free" freeStore :: Ptr a -> IO ()
+
+foreign import ccall safe "rd_native_error" nativeError :: CWString -> IO ()
+
+showNativeError :: String -> IO ()
+showNativeError message = withCWString message nativeError
 
 must :: Either String a -> IO a
 must = either (ioError . userError) pure
@@ -54,8 +83,10 @@ withStore :: FilePath -> (Store -> IO a) -> IO a
 withStore path action = do
   require (not (null path) && '\0' `notElem` path && ".." `notElem` splitDirectories path) "Invalid save directory"
   absolute <- makeAbsolute path
-  bracket (withCWString absolute openStore >>= \p -> if p == nullPtr then storeError >>= \e -> ioError (userError ("Cannot lock save directory (Windows " ++ show e ++ ")")) else pure p)
-    closeStore $ \pointer -> do
+  bracket
+    (withCWString absolute openStore >>= \p -> if p == nullPtr then storeError >>= \e -> ioError (userError ("Cannot lock save directory (Windows " ++ show e ++ ")")) else pure p)
+    closeStore
+    $ \pointer -> do
       factory <- newAuthorityFactory
       action (Store absolute pointer factory)
 
@@ -73,19 +104,27 @@ writeBytes store name bytes = withCString name $ \filename -> BS.useAsCStringLen
 reserveBranch :: Store -> Word64 -> IO Word64
 reserveBranch store sourceBranch = do
   names <- listDirectory (storeRoot store)
-  let found = ([n | name <- names, Just tailName <- [stripPrefix "branch-" name], Just n <- [readMaybe (takeWhile (/= '.') tailName)]] ++
-               [n | name <- names, Just tailName <- [stripPrefix "b-" name], Just n <- [readMaybe (takeWhile (/= '-') tailName)]]) :: [Word64]
+  let found =
+        ( [n | name <- names, Just tailName <- [stripPrefix "branch-" name], Just n <- [readMaybe (takeWhile (/= '.') tailName)]]
+            ++ [n | name <- names, Just tailName <- [stripPrefix "b-" name], Just n <- [readMaybe (takeWhile (/= '-') tailName)]]
+        ) ::
+          [Word64]
       highest = maximum (sourceBranch : found)
   require (highest < maxBound) "Save branch counter exhausted"
   let branch = highest + 1
-  writeBytes store ("branch-" ++ show branch ++ ".reserve") (BS.pack [82,68,66,82,65,78,67,72])
+  writeBytes store ("branch-" ++ show branch ++ ".reserve") (BS.pack [82, 68, 66, 82, 65, 78, 67, 72])
   pure branch
 
-activateGame :: Store -> GameState -> IO GameState
-activateGame store game = do
+prepareGame :: Store -> GameState -> IO GameState
+prepareGame store game = do
   branch <- reserveBranch store (branchId (gameWorld game))
   session <- newSession (storeFactory store) (worldAuthorities (gameWorld game)) >>= either (ioError . userError . show) pure
   candidate <- must (reidentifyGameToBranch (sessionAuthority session) branch game)
+  pure candidate
+
+activateGame :: Store -> GameState -> IO GameState
+activateGame store game = do
+  candidate <- prepareGame store game
   _ <- saveGame store candidate
   pure candidate
 
@@ -112,14 +151,36 @@ saveGame store game = do
   pure final
 
 checkpoints :: Store -> IO [Checkpoint]
-checkpoints store = do
+checkpoints store = catalogEntries <$> checkpointCatalog store
+
+checkpointCatalog :: Store -> IO Catalog
+checkpointCatalog store = do
   names <- listDirectory (storeRoot store)
-  entries <- mapM entry [name | name <- names, takeExtension name == ".rdlive"]
-  pure (reverse (sortOn (\e -> (checkpointBranch e, checkpointHour e, checkpointName e)) entries))
+  let candidates = reverse (sortOn filenameOrder [name | name <- names, takeExtension name == ".rdlive"])
+      recent = take 256 candidates
+  results <- mapM (try . entry) recent :: IO [Either IOException Checkpoint]
+  let entries = [checkpoint | Right checkpoint <- results]
+  pure
+    ( Catalog
+        (reverse (sortOn (\e -> (checkpointBranch e, checkpointSequence e, checkpointHour e, checkpointName e)) entries))
+        (length [() | Left _ <- results])
+        (max 0 (length candidates - length recent))
+    )
   where
     entry name = do
       game <- readBytes store name >>= must . decodeGame
-      pure (Checkpoint name (branchId (gameWorld game)) (elapsedTicks (gameWorld game) (gameCampaign game) `div` 1200) (scenarioId (campaignScenario (gameCampaign game))))
+      let (namedBranch, sequenceNumber, _) = filenameOrder name
+      require (namedBranch == 0 || namedBranch == branchId (gameWorld game)) "Checkpoint branch and filename differ"
+      pure (Checkpoint name (branchId (gameWorld game)) sequenceNumber (elapsedTicks (gameWorld game) (gameCampaign game) `div` 1200) (scenarioId (campaignScenario (gameCampaign game))))
+
+filenameOrder :: String -> (Word64, Word64, String)
+filenameOrder name = case stripPrefix "b-" (dropExtension name) of
+  Just rest ->
+    let (branchText, suffix) = break (== '-') rest
+     in case (readMaybe branchText, stripPrefix "-s-" suffix >>= readMaybe) of
+          (Just branch, Just sequenceNumber) -> (branch, sequenceNumber, name)
+          _ -> (0, 0, name)
+  Nothing -> (0, 0, name)
 
 previewCheckpoint :: Store -> String -> IO Preview
 previewCheckpoint store name = do

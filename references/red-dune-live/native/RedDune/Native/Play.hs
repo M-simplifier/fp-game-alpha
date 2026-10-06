@@ -17,21 +17,31 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (unless)
-import Data.List (find)
+import Data.List (find, nub)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as S
 import RedDune.Campaign
 import RedDune.Game
 import RedDune.Policies
+import Text.Printf (printf)
 
 data Department = WaterWorks | FoodWorks | ServiceWorks deriving (Eq, Show, Read)
+
 data Decision
-  = Commission Department | ToggleTime | ReserveWarehouse
-  | ToggleDelivery String | ChangeBuffer String Integer
-  | ToggleProduction EntityId | SetFacility EntityId Bool
-  | StaffFacility EntityId | ReleaseFacility EntityId
-  | Plan Space.PlacementShape | CancelPlan EntityId
-  | ToggleRepairs | ToggleBuildingCrews
+  = Commission Department
+  | ToggleTime
+  | ReserveWarehouse
+  | ToggleDelivery String
+  | ChangeBuffer String Integer
+  | ToggleProduction EntityId
+  | SetFacility EntityId Bool
+  | StaffFacility EntityId
+  | ReleaseFacility EntityId
+  | ConnectFacility EntityId
+  | Plan Space.PlacementShape
+  | CancelPlan EntityId
+  | ToggleRepairs
+  | ToggleBuildingCrews
   deriving (Eq, Show)
 
 act :: [(String, String)] -> GameState -> Either String GameState
@@ -49,7 +59,8 @@ commands bodies game = do
   (world, output) <- issue 1 bodies (gameWorld game)
   unless (all accepted (outputReceipts output)) (Left (show (map receiptOutcome (outputReceipts output))))
   edit (\g -> g {gameWorld = world}) game
-  where accepted receipt = case receiptOutcome receipt of Applied _ -> True; _ -> False
+  where
+    accepted receipt = case receiptOutcome receipt of Applied _ -> True; _ -> False
 
 decide :: Decision -> GameState -> Either String GameState
 decide decision game = case decision of
@@ -61,7 +72,8 @@ decide decision game = case decision of
   ToggleProduction ident -> edit (\g -> g {gamePolicies = policy {policiesEnabled = True, productionSites = if ident `elem` productionSites policy then filter (/= ident) (productionSites policy) else ident : productionSites policy}}) game
   SetFacility ident enabled -> commands [SetSiteEnabled ident enabled] game
   StaffFacility ident -> staff ident game
-  ReleaseFacility ident -> commands [AssignWorkers (W.OperateFacility ident) shift [] | shift <- [0..2]] game
+  ReleaseFacility ident -> commands [AssignWorkers (W.OperateFacility ident) shift [] | shift <- [0 .. 2]] game
+  ConnectFacility ident -> connect ident game
   Plan shape -> commands [PlaceConstructionPlan (s01Colony descriptor) shape 2 Nothing] game
   CancelPlan ident -> do
     state <- maybe (Left "No construction state") Right (worldM1 world)
@@ -69,7 +81,55 @@ decide decision game = case decision of
     commands [CancelConstructionPlan ident (C.constructionRevision job)] game
   ToggleRepairs -> edit (\g -> g {gamePolicies = policy {policiesEnabled = True, assistMaintenance = not (assistMaintenance policy)}}) game
   ToggleBuildingCrews -> edit (\g -> g {gamePolicies = policy {policiesEnabled = True, assistConstruction = not (assistConstruction policy)}}) game
-  where world = gameWorld game; descriptor = gameDescriptor game; policy = gamePolicies game
+  where
+    world = gameWorld game; descriptor = gameDescriptor game; policy = gamePolicies game
+
+-- New factories require a real input/output route as well as workers. Routes
+-- use existing producers and warehouses; carts, reservations and road access
+-- still determine whether a delivery can physically complete.
+connect :: EntityId -> GameState -> Either String GameState
+connect ident game = do
+  site <- maybe (Left "Production facility is absent") Right (M.lookup ident (worldSites world))
+  recipe <- lookupRecipe (worldContent world) (siteRecipe site)
+  reserve <- case stores of destination : _ -> Right destination; [] -> Left "Reserve warehouse is absent"
+  let key direction resource = "facility-" ++ show number ++ "-" ++ direction ++ "-" ++ resourceKey resource
+      sources resource =
+        nub
+          ( [ siteOutput other
+            | (otherId, other) <- M.toAscList (worldSites world),
+              otherId /= ident,
+              Just otherRecipe <- [M.lookup (siteRecipe other) (contentRecipes (worldContent world))],
+              M.member resource (recipeOutputs otherRecipe)
+            ]
+              ++ stores
+          )
+      incoming resource = any (\route -> policyDestination route == siteInput site && policyResource route == resource) existing
+      outgoing resource = any (\route -> siteOutput site `elem` policySources route && policyResource route == resource) existing
+      inputs =
+        [ DeliveryPolicy (key "input" resource) (sources resource) (siteInput site) resource (min 400000 (3 * amount)) amount 1 True
+        | (resource, amount) <- M.toAscList (recipeInputs recipe),
+          not (incoming resource)
+        ]
+      outputs =
+        [ DeliveryPolicy
+            (key "output" resource)
+            [siteOutput site]
+            (if resource == Ration then s01Pantry descriptor else reserve)
+            resource
+            (min 400000 (3 * amount))
+            amount
+            (if resource == Ration then 0 else 3)
+            True
+        | (resource, amount) <- M.toAscList (recipeOutputs recipe),
+          not (outgoing resource)
+        ]
+  edit (\g -> g {gamePolicies = (gamePolicies g) {policiesEnabled = True, deliveryPolicies = existing ++ inputs ++ outputs}}) game
+  where
+    world = gameWorld game
+    descriptor = gameDescriptor game
+    stores = s01Warehouses descriptor
+    existing = deliveryPolicies (gamePolicies game)
+    EntityId number = ident
 
 policyEdit :: String -> (DeliveryPolicy -> DeliveryPolicy) -> GameState -> Either String GameState
 policyEdit key change game = do
@@ -78,9 +138,13 @@ policyEdit key change game = do
 
 commission :: Department -> GameState -> Either String GameState
 commission department game = do
-  let descriptor = gameDescriptor game; world = gameWorld game; policy = gamePolicies game
+  let descriptor = gameDescriptor game
+      world = gameWorld game
+      policy = gamePolicies game
       standard = survivalPolicies descriptor
-      pump = s01Pump descriptor; farm = s01Farm descriptor; kitchen = s01Kitchen descriptor
+      pump = s01Pump descriptor
+      farm = s01Farm descriptor
+      kitchen = s01Kitchen descriptor
       Owner _ pantry = s01Pantry descriptor
       included target = case (department, target) of
         (WaterWorks, W.OperateFacility ident) -> ident `elem` [pump, pantry]
@@ -89,10 +153,10 @@ commission department game = do
         _ -> False
       crews = [body | body@(AssignWorkers target _ _) <- s01RosterCommands descriptor, included target]
       enables = if department == FoodWorks then [SetSiteEnabled farm True, SetSiteEnabled kitchen True] else []
-      siteIds = case department of WaterWorks -> [pump]; FoodWorks -> [farm,kitchen]; ServiceWorks -> []
-      keys = case department of WaterWorks -> ["pantry-water"]; FoodWorks -> ["pantry-food","farm-water","kitchen-crops","kitchen-water","kitchen-fuel","farm-biomass","kitchen-waste"]; ServiceWorks -> []
+      siteIds = case department of WaterWorks -> [pump]; FoodWorks -> [farm, kitchen]; ServiceWorks -> []
+      keys = case department of WaterWorks -> ["pantry-water"]; FoodWorks -> ["pantry-food", "farm-water", "kitchen-crops", "kitchen-water", "kitchen-fuel", "farm-biomass", "kitchen-waste"]; ServiceWorks -> []
       additions = [route | route <- deliveryPolicies standard, policyId route `elem` keys]
-      merged = M.elems (M.union (M.fromList [(policyId r,r) | r <- additions]) (M.fromList [(policyId r,r) | r <- deliveryPolicies policy]))
+      merged = M.elems (M.union (M.fromList [(policyId r, r) | r <- additions]) (M.fromList [(policyId r, r) | r <- deliveryPolicies policy]))
   (staffed, output) <- issue 1 (crews ++ enables) world
   unless (all (\receipt -> case receiptOutcome receipt of Applied _ -> True; _ -> False) (outputReceipts output)) (Left "Some workers are already assigned. Release their old assignment before commissioning.")
   edit (\g -> g {gameWorld = staffed, gamePolicies = policy {policiesEnabled = True, productionSites = S.toAscList (S.fromList (siteIds ++ productionSites policy)), deliveryPolicies = merged, assistMaintenance = assistMaintenance policy || department == ServiceWorks, assistConstruction = assistConstruction policy || department == ServiceWorks}}) game
@@ -103,26 +167,76 @@ staff ident game = do
   placement <- maybe (Left "Building is absent") Right (M.lookup ident (Space.spatialPlacements (m1Space state)))
   name <- case Space.placementShape placement of Space.BuildingShape prototype _ _ -> Right prototype; _ -> Left "Roads have no operating crew"
   building <- lookupBuilding (worldContent world) name
-  let target = W.OperateFacility ident; required = fromInteger (buildingWorkers building)
-      roster shift = M.findWithDefault [] (target,shift) (W.workforceRosters (m1Workforce state))
-      free shift = [person | (person,resident) <- M.toAscList (needsResidents (worldNeeds world)), residentShift resident == shift, residentStatus resident == Living,
-                    person `notElem` concat [names | ((other,s),names) <- M.toList (W.workforceRosters (m1Workforce state)), s == shift, other /= target]]
+  let target = W.OperateFacility ident
+      required = fromInteger (buildingWorkers building)
+      roster shift = M.findWithDefault [] (target, shift) (W.workforceRosters (m1Workforce state))
+      free shift =
+        [ person
+        | (person, resident) <- M.toAscList (needsResidents (worldNeeds world)),
+          residentShift resident == shift,
+          residentStatus resident == Living,
+          person `notElem` concat [names | ((other, s), names) <- M.toList (W.workforceRosters (m1Workforce state)), s == shift, other /= target]
+        ]
       choice shift = take required (roster shift ++ filter (`notElem` roster shift) (free shift))
-  unless (all (\shift -> length (choice shift) == required) [0..2]) (Left "Not enough free people across all three shifts. Release another facility first.")
-  commands [AssignWorkers target shift (choice shift) | shift <- [0..2]] game
-  where world = gameWorld game
+  unless (all (\shift -> length (choice shift) == required) [0 .. 2]) (Left "Not enough free people across all three shifts. Release another facility first.")
+  commands [AssignWorkers target shift (choice shift) | shift <- [0 .. 2]] game
+  where
+    world = gameWorld game
 
 siteName :: String -> String
-siteName prototype = maybe prototype id (lookup prototype
-  [("depot","開拓拠点"),("warehouse","倉庫"),("housing","住居"),("pantry","配給所"),("hand_pump","手動井戸"),("pump","揚水機"),("brine_pump","塩水ポンプ"),
-   ("farm","農場"),("greenhouse","温室"),("kitchen","厨房"),("solar","太陽光発電"),("battery","蓄電池"),("tank","貯水槽"),("mine","鉱山"),("quarry","採石場"),("smelter","製錬所"),
-   ("kiln","窯"),("workshop","工房"),("electronics","電子部品工房"),("refinery","精製所"),("recycler","再生工房"),("clinic","診療所"),("research","研究所"),("road","道路")])
+siteName prototype =
+  maybe
+    prototype
+    id
+    ( lookup
+        prototype
+        [ ("depot", "開拓拠点"),
+          ("warehouse", "倉庫"),
+          ("housing", "住居"),
+          ("pantry", "配給所"),
+          ("hand_pump", "手動井戸"),
+          ("pump", "揚水機"),
+          ("brine_pump", "塩水ポンプ"),
+          ("farm", "農場"),
+          ("greenhouse", "温室"),
+          ("kitchen", "厨房"),
+          ("solar", "太陽光発電"),
+          ("battery", "蓄電池"),
+          ("tank", "貯水槽"),
+          ("mine", "鉱山"),
+          ("quarry", "採石場"),
+          ("smelter", "製錬所"),
+          ("kiln", "窯"),
+          ("workshop", "工房"),
+          ("electronics", "電子部品工房"),
+          ("refinery", "精製所"),
+          ("recycler", "再生工房"),
+          ("clinic", "診療所"),
+          ("desalinator", "淡水化施設"),
+          ("research", "研究所"),
+          ("road", "道路")
+        ]
+    )
 
 routeName :: String -> String
-routeName key = maybe key id (lookup key [("pantry-water","井戸 → 配給所 / 水"),("pantry-food","厨房 → 配給所 / 食料"),("farm-water","井戸 → 農場 / 水"),("kitchen-crops","農場 → 厨房 / 作物"),("kitchen-water","井戸 → 厨房 / 水"),("kitchen-fuel","倉庫 → 厨房 / 燃料"),("farm-biomass","農場 → 倉庫 / 残渣"),("kitchen-waste","厨房 → 倉庫 / 廃棄物")])
+routeName key = maybe key id (lookup key [("pantry-water", "井戸 → 配給所 / 水"), ("pantry-food", "厨房 → 配給所 / 食料"), ("farm-water", "井戸 → 農場 / 水"), ("kitchen-crops", "農場 → 厨房 / 作物"), ("kitchen-water", "井戸 → 厨房 / 水"), ("kitchen-fuel", "倉庫 → 厨房 / 燃料"), ("farm-biomass", "農場 → 倉庫 / 残渣"), ("kitchen-waste", "厨房 → 倉庫 / 廃棄物")])
+
+deliveryName :: World -> DeliveryPolicy -> String
+deliveryName world route
+  | routeName (policyId route) /= policyId route = routeName (policyId route)
+  | otherwise = ownerName (policyDestination route) ++ "へ / " ++ resourceName (policyResource route)
+  where
+    ownerName (Owner _ ident) = case worldM1 world >>= M.lookup ident . Space.spatialPlacements . m1Space of
+      Just placement -> case Space.placementShape placement of Space.BuildingShape name _ _ -> siteName name; _ -> "施設"
+      Nothing -> "施設"
+
+resourceAmount :: Resource -> Integer -> String
+resourceAmount resource amount =
+  printf "%.1f" (fromInteger amount / 1000 :: Double)
+    ++ if resource `elem` [Water, Brine] then " L" else if resource `elem` [Parts, Circuit, Medicine, Tools] then " 個" else " kg"
 
 resourceName :: Resource -> String
-resourceName resource = maybe (show resource) id (lookup resource [(Water,"水"),(Ration,"食料"),(Crops,"作物"),(Fuel,"燃料"),(Parts,"部品"),(Stone,"石材"),(Metal,"金属"),(Glass,"ガラス"),(Biomass,"残渣"),(Waste,"廃棄物")])
+resourceName resource = maybe (show resource) id (lookup resource [(Water, "水"), (Brine, "塩水"), (Ore, "鉱石"), (Sand, "砂"), (Circuit, "回路"), (Medicine, "医薬品"), (Tools, "道具"), (Ration, "食料"), (Crops, "作物"), (Fuel, "燃料"), (Parts, "部品"), (Stone, "石材"), (Metal, "金属"), (Glass, "ガラス"), (Biomass, "残渣"), (Waste, "廃棄物")])
 
 -- Player-facing diagnosis reads current public physical state, not future RNG.
 advice :: GameState -> (String, String)
@@ -138,9 +252,13 @@ advice game
   | not (campaignRecovered campaign) = ("故障に備えながら、暮らしを続けよう。", "厨房の停止は開拓開始から24時間後。部品と配給の余裕を確保します。")
   | otherwise = ("一日を越えて、暮らしを続けよう。", "物資の滞りと疲労を見守り、安定した配給を維持してください。")
   where
-    world = gameWorld game; d = gameDescriptor game; campaign = gameCampaign game; policy = gamePolicies game
+    world = gameWorld game
+    d = gameDescriptor game
+    campaign = gameCampaign game
+    policy = gamePolicies game
     broken = maybe False ((== FacilityBroken) . maintenanceStatus) (M.lookup (s01Kitchen d) (maintenanceFacilities (worldMaintenance world)))
-    water = physical world (s01Pantry d) Water; food = physical world (s01Pantry d) Ration
+    water = physical world (s01Pantry d) Water
+    food = physical world (s01Pantry d) Ration
 
 siteReport :: GameState -> EntityId -> String
 siteReport game ident = case M.lookup ident (worldSites world) of
@@ -149,7 +267,13 @@ siteReport game ident = case M.lookup ident (worldSites world) of
     | facilityStopped (worldMaintenance world) ident -> "停止中 / 部品を届けて修復"
     | not (siteEnabled site) -> "生産を停止しています"
     | Just job <- find (\j -> M.lookup (jobId j) (worldJobSites world) == Just ident && not (terminal j)) (M.elems (worldJobs world)) ->
-        if jobPhase job == Running then "生産中 " ++ show (100 * jobProgress job `div` max 1 (jobRequired job)) ++ "%" else "作業待ち / " ++ show (jobBlocked job)
+        if jobPhase job == Running
+          then "生産中 " ++ show (100 * jobProgress job `div` max 1 (jobRequired job)) ++ "%"
+          else case jobBlocked job of
+            Just MissingStock -> "材料待ち / 供給タブで配送を確認"
+            Just NoCapacity -> "出荷待ち / 出力先が満杯"
+            _ -> "作業待ち / 班・電力・道路を確認"
     | freeWeight (worldInventory world) (siteOutput site) <= 0 -> "出荷待ち / 出力先が満杯"
     | otherwise -> "待機 / 材料・人員・配送を確認"
-  where world = gameWorld game
+  where
+    world = gameWorld game

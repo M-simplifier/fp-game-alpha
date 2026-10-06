@@ -81,20 +81,23 @@ requestSerial (RequestToken _ serial) = serial
 tokenText :: RequestToken -> String
 tokenText (RequestToken (Epoch authority counter) serial) = authority ++ ":" ++ show counter ++ ":" ++ show serial
 
+#ifdef mingw32_HOST_OS
 osEntropy16 :: IO BS.ByteString
 osEntropy16 = allocaBytes 16 $ \pointer -> do
-#ifdef mingw32_HOST_OS
   status <- os_random nullPtr pointer 16 2
   unless (status == 0) (ioError (userError "Windows system entropy unavailable"))
+  BS.packCStringLen (castPtr pointer, 16)
 #else
+osEntropy16 :: IO BS.ByteString
+osEntropy16 = allocaBytes 16 $ \pointer -> do
   let go offset
         | offset == 16 = pure ()
         | otherwise = do
             count <- throwErrnoIfMinus1Retry "getrandom" (os_getrandom (pointer `plusPtr` offset) (fromIntegral (16 - offset)) 0)
             if count <= 0 || toInteger count > toInteger (16 - offset) then ioError (userError "getrandom short/invalid progress") else go (offset + fromIntegral count)
   go 0
-#endif
   BS.packCStringLen (castPtr pointer, 16)
+#endif
 
 newAuthorityFactory :: IO AuthorityFactory
 newAuthorityFactory = newAuthorityFactoryWith osEntropy16
