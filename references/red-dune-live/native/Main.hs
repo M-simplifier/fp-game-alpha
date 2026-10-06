@@ -6,10 +6,11 @@ module Main where
 import Colony.Content
 import Colony.Presentation (encodeJSON)
 import Colony.Space qualified as Space
+import Colony.Units (Resource (Stone))
 import Colony.World
 import Control.DeepSeq (force)
 import Control.Exception (IOException, bracket, catch, evaluate)
-import Control.Monad (unless, when)
+import Control.Monad (unless)
 import Data.Char (ord)
 import Data.List (find, intercalate, nub)
 import Data.Map.Strict qualified as M
@@ -52,7 +53,7 @@ main = do
       glyphText <- readFile (root </> "assets" </> "glyphs.txt")
       let glyphs=nub ([32..126]++map ord glyphText)
       fontFile <- findFont
-      bracket (loadFontEx fontFile 36 (Just glyphs)) (\font -> unloadFont font (Just resources)) $ \font ->
+      bracket (loadFontEx fontFile 36 (Just glyphs)) (\font -> unloadFont font resources) $ \font ->
         loop root options store font (App screen 0 (gameRevision game) 0 0 0 False)
   `catch` (\(errorValue :: IOException) -> do
     temp <- getTemporaryDirectory
@@ -103,9 +104,10 @@ loop root options store font previous = do
   cameraScreen <- cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
   selected <- if click && command==Nothing && isNoDialog (screenDialog cameraScreen) && usedMouseInMap width height usedMouse
     then case screenBuild cameraScreen of
-         Just prototype -> let tile=unproject width height (screenCamera cameraScreen) usedMouse
+         Just prototype -> do
+              let tile=unproject width height (screenCamera cameraScreen) usedMouse
                   shape=if prototype=="road" then Space.RoadShape tile else Space.BuildingShape prototype tile Space.R0
-              in perform store operated {appScreen=cameraScreen} (Choose (Plan shape))
+              perform store operated {appScreen=cameraScreen} (Choose (Plan shape))
          Nothing -> pure operated {appScreen=cameraScreen {screenSelected=placementAt (screenGame cameraScreen) (unproject width height (screenCamera cameraScreen) usedMouse),screenTab=ColonyTab}}
     else pure operated {appScreen=cameraScreen}
   advanced <- advanceFrame (max 0 (min 0.1 dt)) selected

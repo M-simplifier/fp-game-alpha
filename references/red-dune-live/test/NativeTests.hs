@@ -7,6 +7,7 @@ import Colony.World
 import Control.Exception (IOException, try)
 import Control.Monad (foldM, unless)
 import Data.ByteString qualified as BS
+import Data.Map.Strict qualified as M
 import RedDune.Game
 import RedDune.GameSave
 import RedDune.Native.Play
@@ -47,7 +48,8 @@ main=do
     check "source survives confirmation" (decodeGame source==Right activated)
     a<-must (decide ToggleTime activated) >>= must.advanceGame 200
     b<-must (decide ToggleTime restored) >>= must.advanceGame 200
-    check "restored physical suffix" (worldInventory (gameWorld a)==worldInventory (gameWorld b) && simTick (gameWorld a)==simTick (gameWorld b))
+    let stockView world=M.map (\lot->(lotOwner lot,lotResource lot,lotQty lot,lotBorn lot,lotExpires lot,lotProvenance lot)) (invLots (worldInventory world))
+    check "restored physical suffix" (stockView (gameWorld a)==stockView (gameWorld b) && invLedger (worldInventory (gameWorld a))==invLedger (worldInventory (gameWorld b)) && worldJobs (gameWorld a)==worldJobs (gameWorld b) && worldNeeds (gameWorld a)==worldNeeds (gameWorld b) && simTick (gameWorld a)==simTick (gameWorld b))
     originalBytes<-BS.readFile (root </> first)
     BS.writeFile (root </> first) (BS.take 80 originalBytes)
     rejected<-try (Store.confirmCheckpoint store preview) :: IO (Either IOException GameState)
