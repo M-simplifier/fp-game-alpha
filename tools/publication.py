@@ -14,7 +14,16 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = 'PUBLICATION-MANIFEST.json'
-MAX_MANIFEST_BYTES = 1024 * 1024
+HEADER = {
+    'schema': 2,
+    'digest_format': 'SHA256 of UTF-8 source with LF newlines',
+    'self_hash': 'manifest excluded to avoid recursive hash',
+    'selection_policy': 'publication/policy.json',
+    'provenance': 'publication/provenance.json',
+    'default_origin': {'kind': 'authored-for-public-alpha'},
+    'export': 'selected',
+    'review': 'explicit technical selection; license notice reviewed',
+}
 
 
 def selected_files():
@@ -24,9 +33,29 @@ def selected_files():
     return sorted(set(name for name in result.stdout.decode('utf-8').split('\0') if name))
 
 
-def source_size_limit(name, policy):
-    """Only the exact generated root inventory gets a bounded larger limit."""
-    return MAX_MANIFEST_BYTES if name == MANIFEST else policy['max_source_bytes']
+def source_path(name):
+    """Reject noncanonical/escaping names and links before opening any source."""
+    if (not isinstance(name, str) or not name or '\\' in name or ':' in name
+            or any(part in {'', '.', '..'} for part in name.split('/'))):
+        raise ValueError('Noncanonical source path')
+    path = ROOT
+    for part in name.split('/'):
+        path /= part
+        if path.is_symlink():
+            raise ValueError('Linked source path')
+    return path
+
+
+def read_json(name):
+    def unique_keys(pairs):
+        value = {}
+        for key, item in pairs:
+            if key in value:
+                raise ValueError(f'Duplicate JSON key in {name}')
+            value[key] = item
+        return value
+    return json.loads(source_path(name).read_text(encoding='utf-8'),
+                      object_pairs_hook=unique_keys)
 
 
 def canonical(path):
@@ -45,21 +74,48 @@ def metadata(name, policy):
 
 
 def snapshot():
-    policy = json.loads((ROOT / 'publication/policy.json').read_text(encoding='utf-8'))
-    provenance = json.loads((ROOT / 'publication/provenance.json').read_text(encoding='utf-8'))
+    policy = read_json(HEADER['selection_policy'])
     records = []
     for name in sorted(set(selected_files()) | {MANIFEST}):
-        rule = metadata(name, policy)
-        records.append({
-            'path': name, 'sha256_lf': None if name == MANIFEST else digest(ROOT / name),
-            'origin': provenance.get(name, {'kind': 'authored-for-public-alpha'}),
-            'license': rule['license'], 'maturity': rule['maturity'],
-            'export': 'selected', 'review': 'explicit technical selection; license notice reviewed',
-        })
-    value = {'schema': 1, 'digest_format': 'SHA256 of UTF-8 source with LF newlines',
-             'self_hash': 'manifest excluded to avoid recursive hash', 'files': records}
-    (ROOT / MANIFEST).write_text(json.dumps(value, ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
+        metadata(name, policy)
+        records.append({'path': name, 'sha256_lf': None if name == MANIFEST
+                        else digest(source_path(name))})
+    value = dict(HEADER, files=records)
+    source_path(MANIFEST).write_text(json.dumps(value, ensure_ascii=False, indent=1) + '\n',
+                                    encoding='utf-8', newline='\n')
     print(f'Wrote review candidate: {MANIFEST} ({len(records)} files)')
+
+
+def read_manifest():
+    manifest = read_json(MANIFEST)
+    if (not isinstance(manifest, dict) or type(manifest.get('schema')) is not int
+            or set(manifest) != set(HEADER) | {'files'}
+            or any(manifest[key] != value for key, value in HEADER.items())):
+        raise ValueError('Unsupported publication manifest contract')
+    records = manifest['files']
+    if not isinstance(records, list):
+        raise ValueError('Manifest files must be a sorted list')
+    for record in records:
+        if not isinstance(record, dict) or set(record) != {'path', 'sha256_lf'}:
+            raise ValueError('Malformed manifest file record')
+        source_path(record['path'])
+        value = record['sha256_lf']
+        valid = value is None if record['path'] == MANIFEST else (
+            isinstance(value, str) and re.fullmatch('[0-9a-f]{64}', value))
+        if not valid:
+            raise ValueError('Invalid manifest source digest')
+    names = [record['path'] for record in records]
+    if names != sorted(set(names)):
+        raise ValueError('Manifest paths must be sorted and unique')
+    expected = {record['path']: record for record in records}
+    if MANIFEST not in expected:
+        raise ValueError('Manifest must select itself')
+    # Authenticate the canonical metadata before trusting its defaults or rules.
+    # A removed legacy origin or weakened policy cannot hide behind a fallback.
+    for name in (HEADER['selection_policy'], HEADER['provenance']):
+        if name not in expected or digest(source_path(name)) != expected[name]['sha256_lf']:
+            raise ValueError(f'Manifest metadata digest mismatch: {name}')
+    return expected
 
 
 def scan_text(text, policy):
@@ -81,29 +137,28 @@ def scan_text(text, policy):
 
 
 def gate(report_path):
-    policy = json.loads((ROOT / 'publication/policy.json').read_text(encoding='utf-8'))
-    manifest = json.loads((ROOT / MANIFEST).read_text(encoding='utf-8'))
-    records = manifest['files']
-    expected = {record['path']: record for record in records}
+    expected = read_manifest()
+    policy = read_json(HEADER['selection_policy'])
+    provenance = read_json(HEADER['provenance'])
+    if not isinstance(provenance, dict):
+        raise ValueError('Malformed provenance inventory')
     actual = set(selected_files())
     problems = []
-    if len(expected) != len(records):
-        problems.append({'rule': 'duplicate-manifest-path'})
     if set(expected) != actual:
         problems.append({'rule': 'manifest-file-set', 'missing': sorted(actual - set(expected)),
                          'stale': sorted(set(expected) - actual)})
     inspection = []
     forbidden = {'.git', '.codex', '.aws', 'node_modules', 'AGENTS.md', '.env'}
     for name in sorted(actual):
-        path = ROOT / name
+        path = source_path(name)
         issues = []
-        if any(part in forbidden for part in Path(name).parts) or path.is_symlink():
+        if any(part in forbidden for part in Path(name).parts):
             issues.append({'rule': 'internal-or-linked-file'})
         if '.agents' in Path(name).parts and name not in policy.get('authored_public_skills', []):
             issues.append({'rule': 'unreviewed-agent-content'})
         if not path.is_file():
             issues.append({'rule': 'not-regular-file'})
-        elif path.stat().st_size > source_size_limit(name, policy):
+        elif path.stat().st_size > policy['max_source_bytes']:
             issues.append({'rule': 'large-source-file'})
         else:
             try:
@@ -115,18 +170,20 @@ def gate(report_path):
                 issues.append({'rule': 'binary-or-unknown-encoding'})
         record = expected.get(name)
         if record is not None:
-            if record['export'] != 'selected' or record['maturity'] not in {'completed', 'experimental', 'blocked'}:
-                issues.append({'rule': 'invalid-disposition'})
-            if not record.get('origin') or not (ROOT / record['license']).is_file():
-                issues.append({'rule': 'missing-origin-or-license'})
             if name != MANIFEST and path.is_file() and digest(path) != record['sha256_lf']:
                 issues.append({'rule': 'manifest-digest'})
+            origin = provenance.get(name, HEADER['default_origin'])
+            if not isinstance(origin, dict) or not isinstance(origin.get('kind'), str) or not origin['kind']:
+                issues.append({'rule': 'missing-origin-or-license'})
             try:
                 rule = metadata(name, policy)
-                if any(record[key] != rule[key] for key in ('license', 'maturity')):
-                    issues.append({'rule': 'selection-metadata'})
             except ValueError:
                 issues.append({'rule': 'unreviewed-selection'})
+            else:
+                if rule['maturity'] not in {'completed', 'experimental', 'blocked'}:
+                    issues.append({'rule': 'invalid-disposition'})
+                if rule['license'] not in expected or not source_path(rule['license']).is_file():
+                    issues.append({'rule': 'missing-origin-or-license'})
         inspection.append({'path': name, 'status': 'FAIL' if issues else 'PASS', 'checks': issues})
     ok = not problems and all(row['status'] == 'PASS' for row in inspection)
     report = {'schema': 1, 'status': 'PASS' if ok else 'FAIL',
@@ -153,7 +210,7 @@ def main():
             snapshot()
             return 0
         return gate(args.report)
-    except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as error:
+    except (OSError, ValueError, KeyError, TypeError, subprocess.CalledProcessError) as error:
         print(f'Publication check failed: {error}', file=sys.stderr)
         return 1
 
