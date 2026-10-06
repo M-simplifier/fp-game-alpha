@@ -1,8 +1,8 @@
 # Publication manifest
 
 `PUBLICATION-MANIFEST.json` records every selected path, source digest, license,
-maturity, export decision and inspection result. The readable source inventory
-is in [the milestone document](docs/roadmap.md).
+maturity, export decision and inspection result. The [README](README.md) links the source families and their current guides;
+[the roadmap](docs/roadmap.md) lists remaining work.
 
 The public history begins at its existing initial commit. Selected source is
 derived from an author-supplied technical snapshot identified by commit digest

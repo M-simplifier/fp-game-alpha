@@ -15,7 +15,7 @@ Check the actual public API and callers, including decode/update/instances.
 Small mechanical edits do not require reading every guide or adding a harness.
 Distinguish compiler rejection, tests, runtime evidence and proved properties.
 
-For new code as well as refactors, apply the readability review in that guide
-after formatting and behavior checks. Follow one actual transition through names,
-state ownership and decisions; report concrete improvement reasons and tradeoffs.
-Promote conditional lessons from real revisions, not arbitrary universal style rules.
+For meaningful rule or API changes, review one affected transition through names,
+state ownership and decisions. Report concrete issues or tradeoffs when useful;
+mechanical edits need no scoring or separate review report. Promote a lesson
+only when it is reusable, with the conditions under which it helps.

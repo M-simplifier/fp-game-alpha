@@ -58,7 +58,7 @@ use. The feature relationship is grounded in the
 [official HLS feature list](https://haskell-language-server.readthedocs.io/en/latest/features.html).
 An HLS executable on PATH does not prove a live session is connected.
 
-The [Haskell Design reader](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md) independently provides
+The [Haskell Design reader](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/haskell-design.md) independently provides
 `map`/`outline`/`show` and optional trusted inference. It retains its own setup,
 compiler constraints and editor adapters. Formatter provisioning, headless
 player journals and formal-method research tools are also separate; none is a
@@ -69,4 +69,4 @@ and inspect/context to the Python specialist. See [editor setup](editors.md).
 The [VSCode command API](https://code.visualstudio.com/api/extension-guides/command)
 also allows an extension to query a provider such as HLS. A missing executable
 must fail visibly rather than substitute another backend or an empty result.
-See the scoped platform/editor records in [verification](verification.md).
+See the scoped platform/editor records in [historical verification](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/verification.md).

@@ -76,6 +76,6 @@ can examine decisions, while actual input, presentation and player experience
 need their corresponding checks. More passing tests alone do not establish
 that a game is enjoyable.
 
-The [roadmap](roadmap.md) records selected work and remaining gaps. Publish each
+The [roadmap](roadmap.md) records remaining work. Publish each
 usable result with its scope and reproducible evidence, then use new games and
 user feedback to decide what the common design needs next.

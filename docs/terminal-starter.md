@@ -76,5 +76,5 @@ key/locked-exit mechanic, verifies both branches and persistence, copies only
 the game into an isolated path with spaces, builds/runs using its own files,
 then adds and tests a second gameplay change without regeneration. That
 sequence establishes a development route on each host where it actually runs.
-Consult [native tooling](native-tooling.md#verified-ci-and-local-measurements) for measured results; a configured
+Consult [native tooling](native-tooling.md#verification-scope) for measured results; a configured
 workflow or planned renderer does not count as completed acceptance.

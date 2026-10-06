@@ -109,8 +109,10 @@ both modules with identical outputs. The compact
 [source-only record](evidence/quantity-windows.json) contains the case map,
 category counts and output hashes. A deliberately missing compiler makes
 `doctor` fail; a GHC error must match the named type/constructor diagnostic.
-This is finite source-only validation. LiquidHaskell, its six proof mutants,
-Z3 and the other historical research tools were not run in this checkout.
+This historical run is finite source-only validation; it did not run
+LiquidHaskell or Z3. Later checker executions and their limits are recorded by
+the [quantity checker](../research/quantity/lh-checker/README.md) and the other
+[research routes](research-reproduction.md).
 The [source-only CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37178075499)
 passed on Windows, Linux and macOS, including independent game development
 acceptance on each checkout.
