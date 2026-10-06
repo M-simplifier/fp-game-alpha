@@ -1,0 +1,10 @@
+packages:
+  libraries/game-transition
+  libraries/game-arena
+  references/red-dune-live
+
+tests: False
+constraints: h-raylib ==5.6.0.0
+
+package h-raylib
+  flags: +disable-lens +detect-platform
