@@ -37,9 +37,9 @@ General platformer solvability and fun are not proved by this experiment.
 
 The publication policy allowlists the two skill files by exact path; there is
 no general `.agents` exception. Core and WASI provenance retain source hashes
-and licenses. Generated manifest JSON uses one-space indentation so this larger
-reviewed source catalog remains below the unchanged 512 KiB per-file limit.
-All ordinary source still receives the same gate and pattern scan.
+and licenses. The [compact publication manifest](../PUBLICATION-MANIFEST.md)
+references that canonical metadata without repeating it for each file. The
+inventory and all ordinary source receive the same 512 KiB limit and pattern scan.
 
 The official landing page is unchanged in this integration. A future card,
 subject to its writing owner's review, could describe: “Signal Courier: a new

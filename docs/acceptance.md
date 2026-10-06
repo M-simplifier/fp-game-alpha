@@ -1,7 +1,8 @@
 # Alpha acceptance contract
 
 Each published path must appear in the machine-readable publication manifest
-with provenance, license, maturity and an export decision. Preserve the public
+with a source digest and hash-bound references resolving provenance, license,
+maturity and the selected export decision. Preserve the public
 repository's history and MIT copyright notice. Import selected technical files
 as ordinary new commits, never a private repository's Git history.
 
