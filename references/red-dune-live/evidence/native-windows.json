@@ -75,7 +75,7 @@
     "references/red-dune-live/native/RedDune/Native/Font.hs": "53b4403d6de33802729d41a901549ff02cc43d2d6bab24f3772ea87e80c62dd6",
     "references/red-dune-live/native/RedDune/Native/Play.hs": "0eff7e3ebcc7109322463968dd896a1f5a42409b64404a828d219a035d92f783",
     "references/red-dune-live/native/RedDune/Native/Store.hs": "f2fc79515493d7ac9bd3cbcabe71c0b53cca44caf1dbdaaa83b9f4ed77ac6827",
-    "references/red-dune-live/native/RedDune/Native/View.hs": "bec6436d8402a784b5255bd504d6213b0c4525a05c27e5f472066db68872c6d8",
+    "references/red-dune-live/native/RedDune/Native/View.hs": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124",
     "references/red-dune-live/native/cbits/store.c": "8543b5a6a5d60b9854f8a77c8733a688cdd471fbf43f1970a5f97fef21dfd92a",
     "references/red-dune-live/test/NativeTests.hs": "cceeb7a74e6d07de5f0ca0bb175f84eaaa425c68ccb93d2d226543c7fda9ee1b"
   },
@@ -88,9 +88,9 @@
   },
   "packaged_app_acceptance": {
     "result": "PASS",
-    "installed_binary_sha256": "ff0f305ad32166c377a698bc5bd2b19302839b6a113e19e002468af845a81349",
+    "installed_binary_sha256": "16c6dbfc27504fc9bd0e0e08d7a18e011b36a3a69ec4d567c19761714386ef80",
     "launch_exit_code": 0,
-    "gpu_capture_sha256": "d147785c0e8851ff6f54fc0759312fa6cfe49b2be4779f23a0fe04837ebf867b",
+    "gpu_capture_sha256": "5030d6ccb3b6538d38b474569fdc758cd14a2ed4236f4f2234ecc6e849dbd686",
     "details": [
       "launch from permanent app directory with no compiler or browser process",
       "Japanese introduction and authored procedural icon",

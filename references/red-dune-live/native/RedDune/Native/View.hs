@@ -405,10 +405,10 @@ wrap font text x y width size color = forM_ (zip [0 :: Int ..] (chunks (max 1 (f
   where
     chunks _ [] = []
     chunks count rest =
-      let boundary n = case drop n rest of
-            next : _ | n > 1 && (next `elem` "、。，．！？：；）］｝」』】〉》" || last (take n rest) `elem` "（［｛「『【〈《") -> boundary (n - 1)
+      let chooseBreak n = case drop n rest of
+            next : _ | n > 1 && (next `elem` "、。，．！？：；）］｝」』】〉》" || last (take n rest) `elem` "（［｛「『【〈《") -> chooseBreak (n - 1)
             _ -> n
-          split = boundary count
+          split = chooseBreak count
        in take split rest : chunks count (drop split rest)
 
 drawPanel :: NativeFont -> Float -> Float -> Int -> Screen -> IO [Button]

@@ -1940,7 +1940,7 @@
   },
   {
    "path": "references/red-dune-live/evidence/native-windows.json",
-   "sha256_lf": "afa881952b75339a51f1bc7582da205c16f1d7e48852a2f9cfc7d35b4350cc6f"
+   "sha256_lf": "7baf1a416d75fd64653eadbbdf5857f3f6bb9b0b2e5626ad1b2c8f977166c33c"
   },
   {
    "path": "references/red-dune-live/evidence/performance.json",
@@ -1964,7 +1964,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/View.hs",
-   "sha256_lf": "bec6436d8402a784b5255bd504d6213b0c4525a05c27e5f472066db68872c6d8"
+   "sha256_lf": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124"
   },
   {
    "path": "references/red-dune-live/native/assets/glyphs.txt",
