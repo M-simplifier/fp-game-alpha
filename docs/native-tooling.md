@@ -303,6 +303,12 @@ publication; manual native-only dispatch is also available. Its presence is not
 proof that those jobs passed; inspect results for the exact revision. Dependency
 caches are OS/architecture/toolchain/lock-specific, never cache game output or
 the final executable, and can be written only by a validated main push.
+The Windows matrix job runs the complete compiler-path and Template Haskell
+preflight once, before native bootstrap. `--select-compiler-output` adds an output
+file only after every required profile assertion passes; it does not select a
+smaller suite. Linux/macOS start independently, without a separate Windows job
+ahead of the whole matrix. A Windows failure still fails native acceptance and
+blocks Pages publication.
 The native job also runs generated-document lint, formatter integration, ordinary
 Cabal workspace continuation and real native editor-adapter subprocess checks.
 They reuse its existing executable rather than add another dependency bootstrap
@@ -322,6 +328,28 @@ records the discovered ownership, filesystem, relative-root, text transport and
 first-use failures, their structural fixes and the tests that prevent recurrence.
 
 ## Verified CI and local measurements
+
+### CI scheduling baseline
+
+At `c7337c40cb117f2f4bfd98f067dda74f0a8577b4`,
+[main run 37391622640](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37391622640)
+passed all validation jobs and Pages deployment. Its now-removed
+[standalone Windows preflight](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37391622640/job/112037793244)
+took 229 seconds, including 173 seconds of Haskell setup and 43 seconds of probes.
+The [Windows native job](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37391622640/job/112038999492)
+then repeated setup (375 seconds) and the full probes (41 seconds). These are
+individual job/step durations, not a promised 229-second end-to-end saving.
+Removing the duplicate eliminates that prerequisite and redundant runner work;
+runner queueing, setup and the remaining critical path can change total latency.
+
+The native dependency cache key includes this workflow's contents. A workflow
+edit therefore starts with a new key, even if a previous main run populated its
+own key. PRs remain restore-only, with no broader fallback key; only a successful
+native job on a main push can populate the new key. Compare cold-key and
+exact-key-hit runs separately, and separate native dependency cache hits from
+Haskell setup timings.
+
+### Earlier native migration measurements
 
 These are historical, revision-specific results. They predate the native-default
 entrypoint cleanup and do not claim that cleanup has passed a new CI run. The

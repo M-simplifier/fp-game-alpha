@@ -141,7 +141,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "69b3b65bc729f54bfd01121ebe96d8806f3d26fb8a33ccd1e992c7a41e148d1f",
+   "sha256_lf": "0eeb21c15425515467f6985a63b709c39c3d278e1d0d89ed3dd2a593f71ff54a",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "742459f65d642f6e8b086675c3c9b8a30233fa193f3553fc77e285ec6793bb0b",
+   "sha256_lf": "cb90106cfbc1bd465b6f9dba180d229859f3c043e876a66887e2d3d1bbe8e4ea",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."

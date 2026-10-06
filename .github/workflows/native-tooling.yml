@@ -10,26 +10,7 @@ concurrency:
   group: native-tooling-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
-  windows-path-preflight:
-    # Diagnose the exact compiler/path boundary before rebuilding CLI dependencies.
-    # This uses only GHC boot libraries and the frozen independent Python test oracle.
-    runs-on: windows-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-        with:
-          python-version: '3.12'
-      - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
-        with:
-          ghc-version: '9.6.7'
-          cabal-version: '3.12.1.0'
-          cabal-update: false
-      - name: Compare Windows Unicode paths with pinned boot tools
-        timeout-minutes: 5
-        run: python tools/test_windows_toolchain_paths.py
   native-cli:
-    needs: windows-path-preflight
     strategy:
       fail-fast: false
       matrix:
@@ -73,6 +54,9 @@ jobs:
             ${{ steps.cache-environment.outputs.packages }}
           key: native-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-environment.outputs.image }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-${{ hashFiles('tools/haskell/*.cabal', 'tools/haskell/cabal.project*', '.github/workflows/native-tooling.yml') }}
       - name: Select explicit Windows compiler profile
+        # Run the complete path/Template Haskell preflight once, before bootstrap.
+        # Selection output is written only after every required assertion passes.
+        # Linux/macOS need not wait for an unrelated Windows toolchain setup.
         if: runner.os == 'Windows'
         shell: pwsh
         timeout-minutes: 5
