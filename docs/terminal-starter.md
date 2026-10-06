@@ -19,20 +19,28 @@ one complete turn/input/view loop, an explicit Machine/Arena adapter, validated
 versioned saves, config, regressions and independent build/CI. Its acceptance
 record applies to this example's development route.
 
+First follow [native bootstrap](native-tooling.md) once in the clone. Then,
+from that clone on Linux/macOS:
+
 ```sh
-python tools/fp_game.py doctor
-python tools/fp_game.py plan my-game "../My Game" --title "My Game"
-python tools/fp_game.py scaffold my-game "../My Game" --title "My Game" --dry-run
-python tools/fp_game.py scaffold my-game "../My Game" --title "My Game"
-cd "../My Game"
-python tools/fp_game.py build
-python tools/fp_game.py check
-python tools/fp_game.py test
-python tools/fp_game.py run --smoke
-python tools/fp_game.py run
+.build/tools/fp-game doctor
+.build/tools/fp-game create-plan my-game "../My Game" --title "My Game"
+.build/tools/fp-game create my-game "../My Game" --title "My Game" --dry-run
+.build/tools/fp-game create my-game "../My Game" --title "My Game"
+.build/tools/fp-game build --project "../My Game"
+.build/tools/fp-game check --project "../My Game"
+.build/tools/fp-game test --project "../My Game"
+.build/tools/fp-game run --smoke --project "../My Game"
+.build/tools/fp-game run --project "../My Game"
 ```
 
-Plan and dry-run perform no filesystem writes. Scaffold rejects an existing
+On Windows use `./.build/tools/fp-game.exe` and the native guide's explicit,
+separate tool/game compiler selections. To continue from the game folder,
+bootstrap the copied source once and use its local executable. Relocation does
+not carry build output or machine-local compiler profiles; deliberately recreate
+the required selections on the destination machine.
+
+`create-plan` and `create --dry-run` perform no filesystem writes. `create` rejects an existing
 destination, including an empty directory or symlink, and reserves a new
 directory exclusively. A failed write leaves an explicit incomplete marker,
 never a success report. The defaults are native/terminal and unlicensed
@@ -68,5 +76,5 @@ key/locked-exit mechanic, verifies both branches and persistence, copies only
 the game into an isolated path with spaces, builds/runs using its own files,
 then adds and tests a second gameplay change without regeneration. That
 sequence establishes a development route on each host where it actually runs.
-Consult [verification](verification.md) for measured results; a configured
+Consult [native tooling](native-tooling.md#verified-ci-and-local-measurements) for measured results; a configured
 workflow or planned renderer does not count as completed acceptance.

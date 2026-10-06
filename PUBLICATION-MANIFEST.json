@@ -16,7 +16,7 @@
   },
   {
    "path": ".agents/skills/game-platform/SKILL.md",
-   "sha256_lf": "894e39facd47cd60b3a7e1156fea7ebc13712d6e4b4a3dc7f0243ce84e14d93e",
+   "sha256_lf": "9ce4e17d1ed90549a56e66f4d62e72d44572cc66abc6c79eb16c79f047b3f91e",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -86,7 +86,7 @@
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
-   "sha256_lf": "47dffe8e5b9f92ac4feecf76ce69aa6bcddbb501839346ef8e28713d1cd8305b",
+   "sha256_lf": "8f359aa50d781ec16f204711e86728e3f71afd5c47606156e1197c726b6ff2f9",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -119,7 +119,7 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "c77207d355aee5231a971fa2e5664973842dda1b8ff997514f23da7fcf3bfca3",
+   "sha256_lf": "4b06bf7f096e554efb07911731aac3a0aea2d0f5a62d54a4761fbfae8d81a6ed",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -141,7 +141,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "43bf61721d5e148a86c5ac05ab7cc0ccbdf21bfd4529282a31128610eeaea496",
+   "sha256_lf": "69b3b65bc729f54bfd01121ebe96d8806f3d26fb8a33ccd1e992c7a41e148d1f",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -209,7 +209,7 @@
   },
   {
    "path": "README.md",
-   "sha256_lf": "1c34800f62fbd00fb77eb27ca6cb6e9fe860ba9fa188d4c2f03cbcb5a98d2952",
+   "sha256_lf": "9b1532431d2b4c085d2e83d4f46da6fa0fb29a597575fe074e8f8b2a0d339995",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -242,7 +242,7 @@
   },
   {
    "path": "docs/acceptance.md",
-   "sha256_lf": "1e58989a4679ed168a067f649ede676122c6931e576dae805ad640d63ea4941b",
+   "sha256_lf": "fa589cee7d41ba31cf9036ff2c94adcd649efabb2d4ccad7a983156ed7beea69",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -264,7 +264,7 @@
   },
   {
    "path": "docs/editors.md",
-   "sha256_lf": "f14bcecd2ebc6cb94b4d635bda49b5ba76875f862b56c51edb7d5187842895fb",
+   "sha256_lf": "d74d56276c177d6ca46e00c342588bf8dc13433cdeb18ca2b2113d2ea6b22742",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -366,7 +366,7 @@
   },
   {
    "path": "docs/failure-prevention.md",
-   "sha256_lf": "bb342853e10bc37b0397c4059d8107d7685933becc2239528017b0bbdef2fcda",
+   "sha256_lf": "426990bdf29c06f318264ff28eb948fbdf02546d1d85a6a414a3b62de48c2b0c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -402,7 +402,7 @@
   },
   {
    "path": "docs/haskell-design.md",
-   "sha256_lf": "5b702dc68ef39cf068908aa0a875dba6eb5a90274b22bfdbb49ce93f12b12123",
+   "sha256_lf": "684ee9f7aad7ee7ceffab88e3d9061482f002be1ac024838fe955b9aeeb112b0",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -460,7 +460,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "08525a3b9fe4a9023b7823952c52ad2b8d2f8095bd5bdf3b42f18d260a39d161",
+   "sha256_lf": "742459f65d642f6e8b086675c3c9b8a30233fa193f3553fc77e285ec6793bb0b",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -472,7 +472,7 @@
   },
   {
    "path": "docs/new-game.md",
-   "sha256_lf": "56f10de6f0cfcacc567db1c49456ade373d6798ff6c9dfc0861d2ca4fbc451a6",
+   "sha256_lf": "610471f2a24889ae0e7dfcb44ab072a5e9596ce0eca704ce73982971501637d8",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -483,7 +483,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "83693f72b5fa53729215ab22a8970c88550b45347c5ef3bff3e10f78d6ee853c",
+   "sha256_lf": "015bba00b0e73100040025b0580acbd5d8f0b43796372cdce252e97fb11e9a33",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -714,7 +714,7 @@
   },
   {
    "path": "docs/research-references.md",
-   "sha256_lf": "4bb2e1fdd5dc6dbc0d069e0e4f24a42fc24dfb3211c700901282c4a0c3f9a964",
+   "sha256_lf": "d0d29d00be3784fd0749b4d7a68cbc66e9f7e9d07ae0dff0aaea7156df64bee2",
    "origin": {
     "kind": "author-supplied-curated-historical-research",
     "origin": "REFERENCES.md",
@@ -753,7 +753,7 @@
   },
   {
    "path": "docs/setup.md",
-   "sha256_lf": "550da3f8899857a472a6d54a8171b8d5bbec045a17fde334e825af962ae68090",
+   "sha256_lf": "9b9f07e6b61e23b1107bc3a7733b9bd48c9b3dae4f379d8ae2f6de4f0fba8e35",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -775,7 +775,7 @@
   },
   {
    "path": "docs/support/routes.json",
-   "sha256_lf": "a72e846ea71afe3af3d48500c41c618cd8744dd3aeb0525d2485da9ee249f170",
+   "sha256_lf": "120c074add0fefcf52aecdd8cb129adb79cb17ed1039ea69ae31895f436859bd",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -786,7 +786,7 @@
   },
   {
    "path": "docs/terminal-starter.md",
-   "sha256_lf": "3d4041e300669b5ab99016c5df45d0277eb7fa27562781c9cbe266a78f029ae7",
+   "sha256_lf": "5d77c63a67340d3e392b81358e5c671c56c00fa52dfb342750d7f4ab82a0498e",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -797,7 +797,7 @@
   },
   {
    "path": "docs/tooling.md",
-   "sha256_lf": "ff76e3084f2b3ce58445159cc2dc21f451f3952f7c6e994178b1f5448489f1b8",
+   "sha256_lf": "439caffef03afb48e0f29c798e7794c591c6575cd67c64b2736a8df0542c77fd",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -808,7 +808,7 @@
   },
   {
    "path": "docs/verification.md",
-   "sha256_lf": "74f8b3b5c6945d25ee46bfa5dcacb1634a324e2c4e5ba0a14631b42a4e28ca1f",
+   "sha256_lf": "81788fb4176d1248838bc58938383984e40e99d6f81afbeeda34c9c8cab00b0c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2360,8 +2360,19 @@
    "review": "explicit technical selection; license notice reviewed"
   },
   {
+   "path": "editors/neovim/adapter-contract.lua",
+   "sha256_lf": "12930c84347d56932367a21c37a65c4e0d46dbc2f4d8289b938d6635af8e6d99",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
    "path": "editors/neovim/fp-game.lua",
-   "sha256_lf": "5ff3b3637f24d0c573eb18db3b110221289cf4f9bf11ea3e444bedd32e7a337e",
+   "sha256_lf": "9fe00da3d75fd976e3a8c8821401de69aa2638b57c5380b07dd4521266492580",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2372,7 +2383,7 @@
   },
   {
    "path": "editors/neovim/test.lua",
-   "sha256_lf": "62d1d431ca0d3f06c368c928a0c80a178fd5b63c5c6ec0b4329f53668029fd94",
+   "sha256_lf": "1474fe0e238e526e9243e4a332216b14cb7e5d0689126abf80e5e5cec270ad63",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2394,7 +2405,7 @@
   },
   {
    "path": "editors/vscode/extension.js",
-   "sha256_lf": "648f94a7cdec086b69a8533e130e95eb6ad7c66b80eb8c2ffa11cf5ff6ce2a85",
+   "sha256_lf": "53c2d5b7faffa10742a2689a3b8ca3de2ce9cb888bbe83c402cd56e877318516",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2405,7 +2416,18 @@
   },
   {
    "path": "editors/vscode/package.json",
-   "sha256_lf": "28cb63c352aade6fdcc043a77fa25b9faf976d22b76435c2b2bf1839754d4e0a",
+   "sha256_lf": "1a756e10812bcd7a0ba63d853bbbc3cd24e87a63ca700e003f8769d88494f027",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "editors/vscode/test/adapter-contract.js",
+   "sha256_lf": "7fcb774b679959aa84ce743611a5403c8f02b5398aee5448573669e48f6f2a39",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2416,7 +2438,18 @@
   },
   {
    "path": "editors/vscode/test/index.js",
-   "sha256_lf": "8adacb6857e9badd934c13c59716722edca8a60a72145cbcdd3710f67c5793b8",
+   "sha256_lf": "a8b83be9275dca4e090c89db7721cff1088c53b44cded4090310c63ccc43ec29",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "editors/vscode/test/native-contract.js",
+   "sha256_lf": "4e27f34bb20d93403a9ca007f75af0c10e046718d5ef94fc1b460ca1abd8845d",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -2577,7 +2610,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "da3875d1dd293eba4f063e92f03f956168689ed20b2c1cfd8b6e3ad471b410cb",
+   "sha256_lf": "6cbd89e7c73442c43a45e6fbbd8599d8f1e2969bd6132f071a20810ccff1721c",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -4441,7 +4474,7 @@
   },
   {
    "path": "references/garden/README.md",
-   "sha256_lf": "a93ac9aac3e795d2c29881662c27005da7fec836fbeb2e27056614f7c8657ab6",
+   "sha256_lf": "cf0147ecdb2dee6aca0299d86852ea812850e8658d65a0cc797837d8066b8119",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -4593,7 +4626,7 @@
   },
   {
    "path": "references/lantern/README.md",
-   "sha256_lf": "1d1a2393cbb164cfca2423220f14852d0b90693d42aa468c1ae1c0155cf11e90",
+   "sha256_lf": "c81ea016171263fa0364ae180a26b0c0f89fa56855f24c62a4989a3ad5ac5f00",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -9988,7 +10021,7 @@
   },
   {
    "path": "references/river/README.md",
-   "sha256_lf": "03c906da3ec5eae8295f36afd0c0a6b05466bf0cb053e38c063add5b1376b4b5",
+   "sha256_lf": "fd9350e379395f43a4d033d755e195c6a32661f73b355443eace278f2df66279",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -10722,7 +10755,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "2fb1b3eb78dc88decdfb586f7c86aaccf8fad3e56cd640dc6ff90f37317b837f",
+   "sha256_lf": "ed16d905495b408500adf2867c33f9d4563891a41754fc7698df26910226082b",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -10838,7 +10871,7 @@
   },
   {
    "path": "references/tapline/README.md",
-   "sha256_lf": "fa89b1f290cb4a260c6ea3b584a65bebaca4f09f641bdc90df5ee2e646f33385",
+   "sha256_lf": "26eaac6618a33df0e4fcc1d01d0fcfcf2e5f498993d6590281a91412dbb55f54",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -10941,7 +10974,7 @@
   },
   {
    "path": "research/haskell-tooling/README.md",
-   "sha256_lf": "66b5397a46675cb21fcfe0bd84464e2856960659262fd8bb23af8f8c9f003543",
+   "sha256_lf": "b7433f5b7e55530ccb0cea56b47c7a5885e2367c0e1a965c9d9884684d842cc6",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -10987,7 +11020,7 @@
   },
   {
    "path": "research/haskell-tooling/probe/README.md",
-   "sha256_lf": "943258901fde2e3b1d75523652e8494f21fbb2a9593c41d4deb20117bd6aa1fd",
+   "sha256_lf": "ce2a003c5c70b54200a8aa76cd9c3cc8aca825bafe9fe06c8732ee952bf8d3e4",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -18806,7 +18839,7 @@
   },
   {
    "path": "templates/terminal-adventure/README.md.tmpl",
-   "sha256_lf": "d791847ee2f31d3f86ee044d13be30f2574d357bd1609f345bf4ec3f12c64b54",
+   "sha256_lf": "0d3188cde4b39696041632620a2e3163a1ebdb461e78dacabcccead7f772ee20",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -18872,7 +18905,7 @@
   },
   {
    "path": "templates/terminal-adventure/docs/DEVELOPMENT.md",
-   "sha256_lf": "bf3a3c7a68c5e543f2dec51857bed4ae848af915cd95cb394f31a18e27e5f275",
+   "sha256_lf": "903de393cd91e81ddc91528eb030c891ad95fbca7464816f059969c67a371266",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -18916,7 +18949,7 @@
   },
   {
    "path": "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl",
-   "sha256_lf": "61a076705d4dbc99ed94e432bcc41a6447a1828d6c4d6ed15b6b19861ee2ca3e",
+   "sha256_lf": "cc4a4477062ab347f7bb682629491fcd1b5bce2991386affc0946f3ca84d0b06",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19014,6 +19047,89 @@
    "review": "explicit technical selection; license notice reviewed"
   },
   {
+   "path": "tools/acceptance/fixtures/python_cli/README.md",
+   "sha256_lf": "cff2f2013700aa886c5327fe83aee96125e3ce838480e08bd6389ae51383b32d",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "tools/acceptance/fixtures/python_cli/fp_game.py",
+   "sha256_lf": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b",
+   "origin": {
+    "kind": "frozen-test-oracle",
+    "origin": "tools/fp_game.py",
+    "commit": "23239482865ef3a81db3b15b653882182f8eca74",
+    "source_sha256_lf": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "tools/acceptance/fixtures/python_cli/provenance.json",
+   "sha256_lf": "7421ae08e6e29e48bcf5421fc63747eddd612636f4c6c58851a51b0c8f814c9a",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "tools/acceptance/fixtures/python_cli/scaffold.py",
+   "sha256_lf": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9",
+   "origin": {
+    "kind": "frozen-test-oracle",
+    "origin": "tools/scaffold.py",
+    "commit": "23239482865ef3a81db3b15b653882182f8eca74",
+    "source_sha256_lf": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "tools/acceptance/legacy_oracle.py",
+   "sha256_lf": "532096426902717717309cfc09bcac740a451d7449cf018d44ae3c2928d6490b",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "tools/acceptance/native.py",
+   "sha256_lf": "e3ae11c4129282711a99c4c1ac3c1c5fe035d477a599abcd2984034ad8bcee69",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
+   "path": "tools/acceptance/test_frozen_oracle.py",
+   "sha256_lf": "e0e8732e8b1b8ca4c11c1e4c74e862bbbfde67e556ad402728834215b7ecbec3",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
    "path": "tools/bootstrap-fp-game.ps1",
    "sha256_lf": "41dd8a34950d082bcbfbe7e5446bd946417f0ec59e9d520148784b36e72f6b1e",
    "origin": {
@@ -19050,7 +19166,7 @@
   },
   {
    "path": "tools/docs_lint.py",
-   "sha256_lf": "63d2e81797038009f72cabd778bcc4cff6d31cec816ce780a96e34e4ec453941",
+   "sha256_lf": "a5e80fb4be17431d8c063439c1db25aef584f264e92edfe89ba5b2206858a7a4",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19082,17 +19198,6 @@
    "review": "explicit technical selection; license notice reviewed"
   },
   {
-   "path": "tools/fp_game.py",
-   "sha256_lf": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b",
-   "origin": {
-    "kind": "authored-for-public-alpha"
-   },
-   "license": "LICENSE",
-   "maturity": "experimental",
-   "export": "selected",
-   "review": "explicit technical selection; license notice reviewed"
-  },
-  {
    "path": "tools/haskell/LICENSE",
    "sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
    "origin": {
@@ -19107,7 +19212,7 @@
   },
   {
    "path": "tools/haskell/README.md",
-   "sha256_lf": "7866cc76445ecd766c161542ad0a57592392a6c542aa407101172392fa3e1396",
+   "sha256_lf": "60a08850cd2199ef3f24c358c75b63afa0bbc8329d6d78c527ea163366ad5029",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19162,7 +19267,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/CLI.hs",
-   "sha256_lf": "a9d175a2a44e2194f4f7c21afd164b9e0f2addb2720144104918b518b4f67850",
+   "sha256_lf": "38585d932c1137ce01dd09751d324828c3075da47ba0423a849c971b82af1b36",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19206,7 +19311,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Create.hs",
-   "sha256_lf": "b79608659637d2378486551c38f76afdabf143f1acca3cee36d424df91780d3d",
+   "sha256_lf": "4ebecdbe95172f0be24d9bff1d6b51a5c8df1f0a739760ae40a24826c0467fec",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19261,7 +19366,7 @@
   },
   {
    "path": "tools/haskell/test/CreateSpec.hs",
-   "sha256_lf": "2647d89e749bcd26613bc99b04a81bdea027ba12f19b2341bd57130a7ebdb74e",
+   "sha256_lf": "1866ccf52f4b388a8442ffae4f21e543eea44660cc0ee91d764f72c9e6f67462",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19272,7 +19377,7 @@
   },
   {
    "path": "tools/haskell/test/Main.hs",
-   "sha256_lf": "3098b444e7db4dd22bf61963727d46d3cf2c00707e7acd95e9e1ccc06879fe02",
+   "sha256_lf": "ba8eb5f3837f17b79ce68a3de233012d32ae6a5464554ef71abfc176bb7bd526",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19293,8 +19398,19 @@
    "review": "explicit technical selection; license notice reviewed"
   },
   {
+   "path": "tools/inspect_haskell.py",
+   "sha256_lf": "b6464cfb323a4d67a23b206f73a3e453d0b056456f392de4db97d74be8c235e0",
+   "origin": {
+    "kind": "authored-for-public-alpha"
+   },
+   "license": "LICENSE",
+   "maturity": "experimental",
+   "export": "selected",
+   "review": "explicit technical selection; license notice reviewed"
+  },
+  {
    "path": "tools/play.py",
-   "sha256_lf": "884218b518814b5774a145eff902e3677059d578574ba30a876e1b3d85f6fb4b",
+   "sha256_lf": "663d96d17d2738433e808bd70a05206df96a0ba78bd224bb928c1fbb4874ff89",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19315,19 +19431,8 @@
    "review": "explicit technical selection; license notice reviewed"
   },
   {
-   "path": "tools/scaffold.py",
-   "sha256_lf": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9",
-   "origin": {
-    "kind": "authored-for-public-alpha"
-   },
-   "license": "LICENSE",
-   "maturity": "experimental",
-   "export": "selected",
-   "review": "explicit technical selection; license notice reviewed"
-  },
-  {
    "path": "tools/test_editors.py",
-   "sha256_lf": "7d054d50d0342eb25c6dc7876c7ff42969744414e71343925cb1422affb2e11e",
+   "sha256_lf": "fca670952e9a84485b3069e9d3064ecb3cdcc79bbcf7a84ddd3af3fd6f44106d",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19338,7 +19443,7 @@
   },
   {
    "path": "tools/test_formatter.py",
-   "sha256_lf": "d6fa23e254b62974fcf3bca639b792adc2eb1b5ca61fee85ee020481bf3d7182",
+   "sha256_lf": "e2d739395f59cd29a2c75b0f194ae7a0f90f3b361ada0258d5bb1a57861c3a32",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19349,7 +19454,7 @@
   },
   {
    "path": "tools/test_lantern_api.py",
-   "sha256_lf": "1fb80da21355742b4fd5a0d995012ff0b73b15da6b592caa32ec21390fe50c71",
+   "sha256_lf": "ba9772f92f354eb30eec495434849034e8708250a184d842be9726f9feab646a",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19360,7 +19465,7 @@
   },
   {
    "path": "tools/test_native_cli.py",
-   "sha256_lf": "5437c85dd852eefbfe8b9392eb2caaafe8b85e2ba4aa019da0eb8bada733d154",
+   "sha256_lf": "dbd51474554a8ef39890c6efde322aa4d80d76fc5ab9d73a9bdc1f86431f4f0d",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Maintained native tooling migration; source and bounded verification only, no redistributed binary or dependency cache."
@@ -19406,7 +19511,7 @@
   },
   {
    "path": "tools/test_river_api.py",
-   "sha256_lf": "0339dc88fa1cf6bec5d74e66e412a63bb4f305cdf92e81e82fd404d22f6161dc",
+   "sha256_lf": "5216d08f4e0bf881cf304249943afb23ecfd341e485ecd716134fe4efe457cba",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19417,7 +19522,7 @@
   },
   {
    "path": "tools/test_station_api.py",
-   "sha256_lf": "72e480562a07cc9ee41646b57cece5b50a35c2a750acba682442536821c577f0",
+   "sha256_lf": "61119bd8264750761d5ac36f8060de183571ad44d809e6031048cccd74b636cf",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19428,7 +19533,7 @@
   },
   {
    "path": "tools/test_tools.py",
-   "sha256_lf": "7937b205b396841928f531bb4d26e31da7854760eee7f41b89b0cbdf124afd69",
+   "sha256_lf": "124b40c8509ddf8656deb77484f908865711eb2ec65c7df1bf95858c2f9c72b4",
    "origin": {
     "kind": "authored-for-public-alpha"
    },
@@ -19439,7 +19544,7 @@
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",
-   "sha256_lf": "4b0a7585e1070558675f8558773872f4219aed6f21a82ef6b71399c5416cface",
+   "sha256_lf": "e4207fcf72c7dbfeeb5020f993ea4876f99fb777653c0691ef53d44cd6c2def6",
    "origin": {
     "kind": "authored-for-public-alpha",
     "scope": "Boot-library-only Windows Unicode path preflight, preserving independent Python/Cabal/GHC comparison and failed original outcomes."
@@ -19451,7 +19556,7 @@
   },
   {
    "path": "tools/test_workspace.py",
-   "sha256_lf": "10927f36a3c326ccd20f3c7f61e139de832d11e0e83a9b35edbac5856ed6cb60",
+   "sha256_lf": "4984964fe859fcc357f5541267ab8ce351ddeca6e5b8459b11f8a09567e9808a",
    "origin": {
     "kind": "authored-for-public-alpha"
    },

@@ -1,11 +1,17 @@
 # Native Haskell development tools
 
-The maintained `fp-game` executable moves planning, optional terminal generation,
-doctor, build, test, saved-source check and run into Haskell. It is a separate
-source package: its JSON/hash dependencies never enter the small game core or
-the generated game's offline dependency graph. The existing Python CLI and
-editor adapters remain available while native cross-platform acceptance matures.
-This is not a claim that every tool in the repository is now Python-free.
+The native `fp-game` executable is the authoritative path for `create-plan`,
+`create`, `doctor`, `build`, `test`, saved-source `check` and `run`. It is a
+separate source package: its JSON/hash dependencies never enter the small game
+core or the generated game's offline dependency graph. There is no parallel
+Python implementation of these operational commands.
+
+Compiler inspection remains a separate `tools/inspect_haskell.py` specialist.
+Formatter, player-journal, prover and Haskell Design tools retain their own
+responsibilities and prerequisites. Choosing the native CLI as the default does
+not broaden its experimental evidence or make every tool Python-free. Clone,
+invoke `$new-game`, and give the AI an arbitrary brief and requested platform;
+the terminal starter below is optional learning material, not the primary UX.
 
 ## Start without hiding setup cost
 
@@ -63,8 +69,8 @@ Do not describe an already-warm dependency cache as a clean-machine setup test.
 
 ## Windows: explicitly select the installed compiler
 
-This is an **opt-in** route for a known Windows launcher boundary, not an
-automatic compiler replacement. In the pinned GHC 9.6.7 installation, the
+The verified Windows profile explicitly selects an installed compiler to
+avoid a known launcher boundary. It never automatically replaces a compiler. In the pinned GHC 9.6.7 installation, the
 unversioned C launcher aliases corrupted Japanese arguments. The same
 installation's `ghc-9.6.7.exe` passed the bounded actual library and executable
 Japanese-path builds in the [Windows compiler-path probe](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1).
@@ -174,8 +180,8 @@ destination is a different argument and can be a chosen folder outside the clone
 ```
 
 On Windows use `./.build/tools/fp-game.exe` in place of the executable path above.
-`plan` and `scaffold` remain aliases for `create-plan` and `create`. `--dry-run`
-returns the plan without reserving a destination. An existing directory is
+Use `create-plan` to inspect the typed plan, or `create --dry-run` to return it
+without reserving a destination. An existing directory is
 always refused, even if empty. Never regenerate over a user's changed game.
 Source links, path escapes and linked mutable output are checked explicitly;
 these checks are not a sandbox for adversarial filesystem races.
@@ -228,47 +234,46 @@ The executable and [package source](../tools/haskell/README.md) must remain
 separate from compiler-API editor helpers. This CLI does not acquire their GHC
 API version coupling or claim to inspect an unsaved editor buffer.
 
-## Intentional compatibility differences
+## Command ownership and continuation
 
-The Python CLI remains usable and no existing editor or play consumer is
-silently redirected. Compare intended contracts, not incidental bugs:
-
-- Default project selection is caller cwd, whereas the copied Python script
-  defaults to its own project root. Use `--project` for explicit parity
-- Executed JSON keeps its four existing fields. Typed validation errors add
-  `error_code`; doctor reports the native implementation instead of Python
-- Captured POSIX child signals are reported with shell-style `128 + signal`,
-  rather than a negative subprocess return code. Interactive execution instead
-  follows Cabal's and the shell's lifetime/status behavior
+- The native binary owns project selection, configuration validation, typed
+  creation plans, destination ownership, build/check execution and result rendering
+- Captured POSIX child signals use shell-style `128 + signal`; interactive
+  execution follows Cabal's and the shell's lifetime/status behavior
 - Title/author substitution is single-pass. Literal placeholder-looking text
-  supplied by a user remains literal instead of being substituted a second time
+  supplied by a user remains literal
 - Source/destination validation rejects unsafe internal paths, linked selected
   source, linked mutable output, unsupported device names and unsafe executable
   target strings such as `--help`. Top-level roots still resolve normal relative
   paths such as `../My Game` from caller cwd. Existing destinations are never reused
-- The generated distribution intentionally adds native source, bootstrap,
-  continuation documentation and workflow changes. Its file set and manifest
-  hashes therefore differ from the Python starter. Unchanged game/kernel bytes
-  are compared directly; native metadata is not passed off as byte-identical
+- Generated source carries the native CLI, bootstrap, pinned dependencies,
+  continuation documentation and workflow. Copying a workspace excludes local
+  build state and compiler profiles, not the source needed to continue it
 
-These differences do not authorize overwriting an existing game, treating a
-terminal starter as another platform, or removing the retained compatibility
-route before its consumers are migrated and verified.
+Creation never authorizes overwriting an existing game or substituting a terminal
+starter for another requested platform. Add mechanics to the user's current
+source and tests; do not regenerate the workspace to continue development.
 
-## Why Python and host adapters remain
+## Separate specialist tools and host adapters
 
-Python remains intentionally in the existing `fp_game.py` / `scaffold.py`
-compatibility path, compiler `inspect`/`context` and current editor wrappers,
-headless journal/play tooling, formatter provisioning, independent test/oracle
-harnesses, and maintainer publication/docs checks. Optional asset preparation
-also has its own dependencies. These have different compatibility or durability
-contracts and are not silently redirected in this slice.
+`tools/inspect_haskell.py` owns only `inspect` and `context`, requiring Python
+3.12+ and both GHC and GHCi on PATH. This inspection profile is independent of
+the Cabal-selected compiler used by native doctor/check. The small editor
+wrappers dispatch to the appropriate backend; they do not rebuild the native
+binary or fall back to Python for operational commands. See
+[the compiler/editor contract](tooling.md) and [editor setup](editors.md).
 
-The native generation/build/test/check/doctor/run path does not call Python
-after setup; its bootstrap scripts do not call Python either. The native
-acceptance driver removes copied Python files before rebuilding and continuing
-a relocated game. Keeping an independent Python test oracle helps expose
-behavioral disagreement rather than copying the implementation's assumptions.
+Python remains in formatter provisioning, headless player journals, independent
+test/oracle harnesses, maintainer publication/docs checks and some optional asset
+preparation. Provers and the Haskell Design reader retain their separate setup
+and evidence. Those tools have distinct jobs, not duplicate create/build/run
+implementations. There is no compatibility launcher for the removed Python CLI
+or scaffolder.
+
+The native operational path and its bootstrap scripts do not call Python. Native
+acceptance removes copied Python files before rebuilding and continuing a
+relocated game. An independent Python test oracle helps expose behavioral
+mistakes without duplicating production command interpretation.
 Browser JavaScript, editor TypeScript/Lua, C interfaces and shaders retain real
 host responsibilities; replacing them merely to change language is not the goal.
 For interactive POSIX use, the native tool execs Cabal and lets the existing
@@ -291,15 +296,22 @@ Replace that placeholder with the actual installed executable selected by the
 [Windows recipe](#windows-explicitly-select-the-installed-compiler); it is not a
 literal filename or automatic compiler discovery.
 
-`.github/workflows/native-tooling.yml` executes bootstrap, typed package tests
-and the same integration suite on Linux, Windows and macOS. Its presence is not
+The reusable `.github/workflows/native-tooling.yml` executes bootstrap, typed
+package tests and the same integration suite on Linux, Windows and macOS.
+`alpha-checks` calls it once on each PR/main push and requires it before Pages
+publication; manual native-only dispatch is also available. Its presence is not
 proof that those jobs passed; inspect results for the exact revision. Dependency
 caches are OS/architecture/toolchain/lock-specific, never cache game output or
 the final executable, and can be written only by a validated main push.
-Relevant path filters keep unrelated game/research changes from rerunning the
-migration matrix. The job's 45-minute ceiling permits a slower first cold setup;
-warm cached runs finish normally, and individual integration commands still have
-bounded timeouts. Existing alpha CI and Python routes remain in place.
+The native job also runs generated-document lint, formatter integration, ordinary
+Cabal workspace continuation and real native editor-adapter subprocess checks.
+They reuse its existing executable rather than add another dependency bootstrap
+to the source/kernel job. That job checks the kernel through ordinary Cabal and
+retains the separate inspection, player and source gates. The native job's
+45-minute ceiling permits slower first setup; captured commands remain bounded.
+The VSCode adapter subprocess check mocks only host UI; it does not establish
+installed-editor acceptance. Lightweight Node/Lua contracts separately exercise
+routing and refusal cases. A configured check is not evidence of a passed revision.
 
 No physical editor session, graphical presentation, touch device, binary release
 or human fun assessment follows from these checks. Record unavailable Windows
@@ -310,6 +322,10 @@ records the discovered ownership, filesystem, relative-root, text transport and
 first-use failures, their structural fixes and the tests that prevent recurrence.
 
 ## Verified CI and local measurements
+
+These are historical, revision-specific results. They predate the native-default
+entrypoint cleanup and do not claim that cleanup has passed a new CI run. The
+operational default and the evidence maturity are separate decisions.
 
 Published revision `be1208af3a475b094964dd04b7fcdb4335deef51` completed native
 bootstrap, typed package tests and the independent integration suite on

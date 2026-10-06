@@ -39,11 +39,11 @@ pointer/keyboard, interruption and responsive-device acceptance remain unverifie
 The host is loopback-only; another machine's browser cannot reach it. No tunnel
 or public deployment is part of this route. Windows/macOS host support is unclaimed.
 
-## Native developer tooling migration
+## Native developer tooling
 
-The [Haskell CLI](native-tooling.md#verified-ci-and-local-measurements) is an
-**experimental developer CLI and optional terminal-workspace route** on Linux,
-Windows and macOS. At `be1208af`, all three actual CI jobs completed bootstrap,
+The [Haskell CLI](native-tooling.md) is the authoritative operational path.
+Its verification remains an **experimental developer CLI and optional
+terminal-workspace route** on Linux, Windows and macOS. At `be1208af`, all three actual CI jobs completed bootstrap,
 typed package tests and independent game-development/relocation checks. The
 [route registry](support/routes.json) and native guide link each exact job.
 

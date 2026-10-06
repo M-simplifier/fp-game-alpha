@@ -9,8 +9,15 @@ regenerate the game or require the original starter checkout.
 
 Implement the user's next actual mechanic through its state, rules, view and
 regressions. Follow the local versioned type/arena contracts only as needed.
+Use [native tooling](../../../docs/native-tooling.md) for doctor/build/test/check/run.
+Bootstrap explicitly once, then use `.build/tools/fp-game` (`fp-game.exe` on
+Windows). Preserve the game's Cabal compiler selection; the bootstrap compiler
+is a separate choice. Continue with the copied tool source after relocation.
 Run the project's advertised build/test/play commands and update its spec.
 Report what works and any route, save migration or asset-license gap.
+
+Optional inspect/context uses `tools/inspect_haskell.py` with Python and GHC/GHCi
+on PATH; it does not inherit native doctor/check's project-selected compiler.
 
 Use [the formatter guide](../../../docs/formatting.md): inspect plan, install the
 pinned project-local tool when permitted, then check/write/check owned source

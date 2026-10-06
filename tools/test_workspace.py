@@ -6,6 +6,8 @@ report contains hashes and outcomes, never personal absolute paths or raw logs.
 import argparse
 import hashlib
 import json
+import os
+import platform
 from pathlib import Path
 import shutil
 import subprocess
@@ -13,7 +15,9 @@ import sys
 import tempfile
 
 from acceptance.features import add_key, add_stamina
-import fp_game
+import inspect_haskell
+from acceptance.native import binary_path
+from test_native_cli import compiler_profile
 
 ROOT = Path(__file__).resolve().parents[1]
 RECORDS = []
@@ -21,7 +25,7 @@ RECORDS = []
 
 def run(label, command, project, input_text=None, expected=0):
     print(label, flush=True)
-    result = fp_game.execute(command, project, timeout=300, input_text=input_text)
+    result = inspect_haskell.execute(command, project, timeout=300, input_text=input_text)
     record = {'check': label, 'exit_code': result['exit_code'], 'expected_exit_code': expected,
               'stdout_sha256': hashlib.sha256(result['stdout'].encode()).hexdigest()}
     RECORDS.append(record)
@@ -63,7 +67,7 @@ def check_public_model_api(game):
              '-fdiagnostics-color=never', '-i' + str(game / 'src'),
              '-outputdir', str(output)]
     run('public-model-read', [*flags, str(good)], game)
-    rejection = fp_game.execute([*flags, str(bad)], game, timeout=90)
+    rejection = inspect_haskell.execute([*flags, str(bad)], game, timeout=90)
     (output / 'RejectModelUpdate.json').write_text(json.dumps(rejection, indent=2), encoding='utf-8')
     require('public-model-update-rejected-for-selector',
             rejection['exit_code'] != 0 and 'position' in rejection['stderr']
@@ -72,21 +76,28 @@ def check_public_model_api(game):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--binary', type=Path)
+    parser.add_argument('--windows-compiler', type=Path)
     parser.add_argument('--report', type=Path, default=ROOT / '.build/development-report.json')
     args = parser.parse_args()
+    if os.name == 'nt' and args.windows_compiler is None:
+        parser.error('Windows acceptance requires --windows-compiler from the declared profile')
+    binary = binary_path(args.binary)
     temporary_root = Path(tempfile.gettempdir()).resolve()
     trial = Path(tempfile.mkdtemp(prefix='FP game development ', dir=temporary_root)).resolve()
     require('independent-space-path', trial.is_relative_to(temporary_root) and not trial.is_relative_to(ROOT) and ' ' in trial.name)
     game = trial / 'first user game'
-    cli = [sys.executable, str(ROOT / 'tools/fp_game.py')]
+    cli = [str(binary)]
     parameters = ['acceptance-game', str(game), '--title', 'Independent game']
     run('doctor', [*cli, 'doctor', '--json'], ROOT)
-    run('plan', [*cli, 'plan', *parameters, '--json'], ROOT)
-    run('dry-run', [*cli, 'scaffold', *parameters, '--dry-run', '--json'], ROOT)
+    run('plan', [*cli, 'create-plan', *parameters, '--json'], ROOT)
+    run('dry-run', [*cli, 'create', *parameters, '--dry-run', '--json'], ROOT)
     require('dry-run-created-nothing', not game.exists())
-    run('scaffold', [*cli, 'scaffold', *parameters, '--json'], ROOT)
+    run('scaffold', [*cli, 'create', *parameters, '--json'], ROOT)
+    if args.windows_compiler:
+        compiler_profile(game, args.windows_compiler.absolute())
     snapshot = (game / 'scaffold-manifest.json').read_bytes()
-    run('existing-directory-refused', [*cli, 'scaffold', *parameters, '--json'], ROOT, expected=1)
+    run('existing-directory-refused', [*cli, 'create', *parameters, '--json'], ROOT, expected=1)
     require('existing-directory-preserved', snapshot == (game / 'scaffold-manifest.json').read_bytes())
     require('separate-game-license', not (game / 'LICENSE').exists() and (game / 'LICENSE.game.txt').exists())
     require('continuation-skill-local', (game / '.agents/skills/game-dev/SKILL.md').is_file())
@@ -106,22 +117,27 @@ def main():
     require('collect-unlock-save-load', all(text in unlocked for text in ['Collected the key.', 'Saved.', 'Loaded.', 'You escaped.']))
     relocated = trial / 'isolated continued game'
     require('copy-target-new-and-independent', not relocated.exists() and relocated.parent == trial and not relocated.is_relative_to(ROOT))
-    shutil.copytree(game, relocated, ignore=shutil.ignore_patterns('.build', 'dist-newstyle', '__pycache__'))
+    shutil.copytree(game, relocated, ignore=shutil.ignore_patterns('.build', 'dist-newstyle', '__pycache__', 'cabal.project.local'))
     require('copied-without-build-cache', not (relocated / '.build').exists())
+    if args.windows_compiler:
+        compiler_profile(relocated, args.windows_compiler.absolute())
     cabal(relocated, 'build', label='isolated-build')
     cabal(relocated, 'test', label='isolated-tests')
     require('isolated-runtime', 'gameplay/save smoke: PASS' in cabal(relocated, 'run', '--', '--smoke', label='isolated-smoke'))
-    run('local-cli-run', [sys.executable, 'tools/fp_game.py', 'run', '--smoke', '--json'], relocated)
-    run('local-continuation-cli', [sys.executable, 'tools/fp_game.py', 'context', 'src/Game/Rules.hs', '--symbol', 'advance', '--json'], relocated)
+    local_binary = relocated / '.build/tools' / binary.name
+    local_binary.parent.mkdir(parents=True)
+    shutil.copy2(binary, local_binary)
+    run('local-cli-run', [str(local_binary), 'run', '--smoke', '--json'], relocated)
+    run('local-continuation-cli', [sys.executable, 'tools/inspect_haskell.py', 'context', 'src/Game/Rules.hs', '--symbol', 'advance', '--json'], relocated)
     add_stamina(relocated)
     require('second-feature-without-regeneration', (relocated / 'scaffold-manifest.json').read_bytes() == snapshot)
     cabal(relocated, 'test', label='stamina-tests')
     continued = cabal(relocated, 'run', input_text='south\neast\nnorth\neast\nrest\neast\nrest\nsouth\nexit\nquit\n', label='stamina-runtime')
     require('second-mechanic-visible', all(text in continued for text in ['Too tired to move.', 'Rested to recover stamina.', 'You escaped.']))
     require('prior-save-not-silently-migrated', 'UnsupportedFormat' in cabal(relocated, 'run', input_text='load\nquit\n', label='save-migration-contract'))
-    environment = fp_game.doctor(ROOT)
+    environment = {'os': platform.system(), 'architecture': platform.machine(), 'python': platform.python_version()}
     inputs = [p for base in ['templates', 'libraries'] for p in (ROOT / base).rglob('*') if p.is_file()]
-    inputs += [ROOT / 'tools' / name for name in ['fp_game.py', 'scaffold.py', 'test_workspace.py', 'acceptance/features.py']]
+    inputs += [ROOT / 'tools' / name for name in ['inspect_haskell.py', 'test_workspace.py', 'acceptance/features.py', 'acceptance/native.py', 'haskell/src/FpGame/Create.hs']]
     report = {'schema': 1, 'status': 'pass', 'scope': 'Generated independent terminal game: actual key edit, relocation, actual stamina edit; standard Cabal; saved-source CLI. No editor session, graphical route or manual fun evaluation.',
               'environment': {name: environment[name] for name in ['os', 'architecture', 'python']},
               'input_sha256_lf': {path.relative_to(ROOT).as_posix(): hashlib.sha256(path.read_bytes().replace(b'\r\n', b'\n')).hexdigest() for path in sorted(inputs)},

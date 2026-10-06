@@ -16,6 +16,6 @@
       {"command": "fpGame.inspect", "title": "FP Game: Inspect Saved Module"},
       {"command": "fpGame.context", "title": "FP Game: Type Context at Cursor"}
     ],
-    "configuration": {"title": "FP Game", "properties": {"fpGame.python": {"type": "string", "default": "python", "description": "Python 3.12+ executable used for the project-local CLI."}}}
+    "configuration": {"title": "FP Game", "properties": {"fpGame.python": {"type": "string", "default": "python", "description": "Python 3.12+ executable used only for project-local tools/inspect_haskell.py inspect/context. Doctor/check use .build/tools/fp-game (fp-game.exe on Windows)."}}}
   }
 }

@@ -31,7 +31,7 @@ then `respond` in [HeadlessMain](app/HeadlessMain.hs). The
 [readability pilot](../../research/readability/station-refactor.md) follows a
 complete player action and records the refactor's before/after checks.
 
-Run `python tools/fp_game.py test` from the foundation root and
+Run `.build/tools/fp-game test` from the foundation root and
 `python tools/test_station_api.py` for outside-client compilation. The finite
 test enumerates every reachable state/history under the six fixed orders and
 three choices: 864 states, 969 attempted choices and 541 terminal states.
@@ -56,3 +56,7 @@ original digests in the publication manifest. This edition adds the
 Step/Arena adapter, finite tests, API compiler fixtures and reading path. It
 does not include private Git history, artwork, a host or the unfinished save
 and UI files.
+
+For this command, [bootstrap the native CLI](../../docs/native-tooling.md) once
+from the foundation root. On Windows use `./.build/tools/fp-game.exe test`;
+its explicit game compiler profile is separate from the tool bootstrap compiler.

@@ -15,9 +15,10 @@ to this guide.
   signatures, without pulling every function body into context
 - `haskell-design show`: retrieve the selected declaration or function body,
   including clauses, guards and `where` bindings, with source locations
-- Existing `python tools/fp_game.py inspect FILE` and `context FILE --symbol NAME`:
+- `python tools/inspect_haskell.py inspect FILE` and `context FILE --symbol NAME`:
   compiler-backed GHCi browse/info/type queries and imports for their documented
-  saved-source profile; see [the compiler contract](tooling.md)
+  saved-source profile, requiring Python plus GHC/GHCi on PATH; see
+  [the compiler contract](tooling.md)
 - HLS: live completion, hovers, references, formatting and unsaved-buffer diagnostics
 
 The native reader adds structure-first reading; it does not rename or replace
@@ -25,7 +26,7 @@ The native reader adds structure-first reading; it does not rename or replace
 An unsigned binding may be shown as `name :: ?`. The design view is an additional
 editor view, not a replacement for the game's build, tests, or HLS.
 The existing [small FP Game editor wrappers](editors.md) remain separate adapters
-for the Python CLI commands.
+for native doctor/check and the separate Python inspect/context commands.
 
 ## Build once, read without an editor
 

@@ -117,7 +117,7 @@ planProject source options = do
         "baseline_downloads" .= preparedDownloads prepared,
         "prerequisites" .= prerequisites,
         "mutates" .= False,
-        "next" .= ("scaffold, then build/test/run and implement the agreed game mechanic" :: String)
+        "next" .= ("create, then build/test/run and implement the agreed game mechanic" :: String)
       ]
 
 -- | Reserve a previously nonexistent root and create every file exclusively.
@@ -410,11 +410,7 @@ renderTemplate options inputs =
                   ("GAME_LICENSE", Text.pack (licenseDescription (gameLicense options))),
                   ("CABAL_LICENSE", if licenseName (gameLicense options) == "MIT" then "MIT" else "NONE")
                 ]
-              adaptedTemplate = case name of
-                "README.md" -> nativeReadme content
-                "docs/DEVELOPMENT.md" -> content <> "\n## Native core tooling\n\nThe complete reviewed Haskell CLI source travels in `tools/haskell/`; it is independent of the foundation checkout. Use the bootstrap commands in the [README](../README.md) once, then `.build/tools/fp-game build`, `test`, `check`, and `run`. On Windows the executable is `.build/tools/fp-game.exe`. See [native tooling](native-tooling.md) for source ownership, setup and the optional legacy adapters. Formatter setup remains a separate, explicit Python helper.\n"
-                _ -> content
-              rendered = substituteTokens (Map.fromList substitutions) adaptedTemplate
+              rendered = substituteTokens (Map.fromList substitutions) content
           pure (name, Text.encodeUtf8 rendered)
       )
 
@@ -430,12 +426,6 @@ substituteTokens substitutions source =
           prefix
             <> Map.findWithDefault ("{{" <> name <> "}}") name substitutions
             <> substituteTokens substitutions (Text.drop 2 closing)
-
-nativeReadme :: Text.Text -> Text.Text
-nativeReadme content =
-  let nativeCommands = Text.replace "python tools/fp_game.py " ".build/tools/fp-game " content
-      bootstrap = "## Build the native tooling once\n\nThe game builds with GHC's bundled packages and the vendored kernels. The CLI has its own reviewed, pinned source and dependencies under `tools/haskell/`. On Linux/macOS run `sh tools/bootstrap-fp-game.sh --download`; on Windows first select the verified real versioned compiler as described in [native tooling](docs/native-tooling.md), then run `powershell -File tools/bootstrap-fp-game.ps1 -Download -CompilerPath $compiler` and set the game's `cabal.project.local` choice. This explicitly downloads the pinned CLI dependencies. With those dependencies already cached, omit `--download` / `-Download` for an offline bootstrap. The machine-local compiler choice is ignored by Git and must be selected again on another machine; never overwrite an existing choice. No Python is needed for the native core commands. On Windows use `.build/tools/fp-game.exe`. Read [native tooling](docs/native-tooling.md) for setup details and optional legacy adapters.\n\nAfter bootstrapping, run the native executable from this game directory:\n\n"
-   in Text.replace "```sh\n.build/tools/fp-game doctor" (bootstrap <> "```sh\n.build/tools/fp-game doctor") nativeCommands
 
 renderFoundation :: Files -> IO Files
 renderFoundation inputs =
@@ -561,7 +551,7 @@ prerequisites :: Value
 prerequisites =
   object
     [ "python_minimum" .= ("3.12" :: String),
-      "python_scope" .= ("optional legacy formatter/inspection adapters; native core commands do not require Python" :: String),
+      "python_scope" .= ("optional specialist formatter/inspection helpers; native core commands do not require Python" :: String),
       "ghc_baseline" .= ("9.6.7" :: String),
       "cabal_baseline" .= ("3.12.1.0" :: String),
       "dependencies" .= ("game: only packages bundled with GHC and vendored kernels; CLI: pinned tools/haskell dependencies" :: String),
@@ -673,6 +663,7 @@ foundationSources =
     "docs/verification.md",
     "docs/formatting.md",
     "docs/native-tooling.md",
+    "docs/tooling.md",
     "docs/learn-code.md",
     "docs/learn-code-station.ja.md",
     ".agents/skills/learn-code/SKILL.md",
@@ -689,8 +680,7 @@ foundationSources =
     "editors/vscode/extension.js",
     "editors/vscode/LICENSE",
     "editors/neovim/fp-game.lua",
-    "tools/fp_game.py",
-    "tools/scaffold.py",
+    "tools/inspect_haskell.py",
     "tools/toolchains.json",
     "tools/formatter.py",
     "tools/formatter.lock.json",

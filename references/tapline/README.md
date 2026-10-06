@@ -29,7 +29,7 @@ command list as the player's action. An empty joint action is a valid clock
 frame. `observe` returns the pure render model. Admission never implements a
 second Tapline rule.
 
-Run `python tools/fp_game.py test` from the foundation root. The regression
+Run `.build/tools/fp-game test` from the foundation root. The regression
 plays all six winning rounds, compares direct/Step/Arena outputs, and checks
 the deadline, reset, order, focus pause, and a deduplication mutation. The
 package is an executable **pure-core reference**; graphical hosting and
@@ -41,3 +41,7 @@ original file digests and the per-title MIT license are in the publication
 manifest. This edition adds a thin shared-library adapter, named behavior
 boundaries, reader guidance, and explicit regressions. No old private Git
 history, artwork, binaries, or browser host is included.
+
+For this command, [bootstrap the native CLI](../../docs/native-tooling.md) once
+from the foundation root. On Windows use `./.build/tools/fp-game.exe test`;
+its explicit game compiler profile is separate from the tool bootstrap compiler.

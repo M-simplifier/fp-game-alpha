@@ -14,7 +14,7 @@ from unittest.mock import patch
 import zipfile
 
 import formatter
-import scaffold
+from acceptance.native import create_game
 
 INTEGRATION = '--integration' in sys.argv
 if INTEGRATION:
@@ -262,11 +262,7 @@ class RealFormatterTests(unittest.TestCase):
     def test_independent_game_check_write_and_protection(self):
         executable = formatter.verified(formatter.ROOT)
         with tempfile.TemporaryDirectory(prefix='formatter generated game ') as temporary:
-            destination, files = scaffold.prepare('format-game', Path(temporary) / 'game', 'Format game', 'native', 'terminal', 'unlicensed', None)
-            for name, content in files.items():
-                path = destination / name
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_bytes(content)
+            destination = create_game('format-game', Path(temporary).resolve() / 'game', 'Format game')
             cache_relative = executable.parent.relative_to(formatter.ROOT)
             shutil.copytree(executable.parent, destination / cache_relative)
             result = formatter.perform('check', destination)

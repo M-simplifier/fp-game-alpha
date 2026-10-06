@@ -1,38 +1,18 @@
 name: native-tooling
+# Called once by alpha-checks so generated acceptance gates Pages publication.
+# Manual dispatch is retained for explicitly requested native-only diagnostics.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'tools/**'
-      - 'templates/**'
-      - 'libraries/**'
-      - 'formatter.json'
-      - 'docs/**'
-      - '.agents/**'
-      - 'editors/vscode/**'
-      - 'editors/neovim/**'
-      - '.github/workflows/native-tooling.yml'
-  pull_request:
-    paths:
-      - 'tools/**'
-      - 'templates/**'
-      - 'libraries/**'
-      - 'formatter.json'
-      - 'docs/**'
-      - '.agents/**'
-      - 'editors/vscode/**'
-      - 'editors/neovim/**'
-      - '.github/workflows/native-tooling.yml'
+  workflow_call:
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  group: native-tooling-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   windows-path-preflight:
     # Diagnose the exact compiler/path boundary before rebuilding CLI dependencies.
-    # This uses only GHC boot libraries and the retained independent Python route.
+    # This uses only GHC boot libraries and the frozen independent Python test oracle.
     runs-on: windows-latest
     timeout-minutes: 15
     steps:
@@ -177,6 +157,19 @@ jobs:
           else
             python tools/test_native_cli.py --binary .build/tools/fp-game
           fi
+      - name: Check generated docs, formatter and ordinary Cabal continuation
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then
+            export FP_GAME_BINARY="$(python -c "from pathlib import Path; import sys; sys.stdout.write(str(Path('.build/tools/fp-game.exe').resolve()))")"
+            python tools/test_workspace.py --binary "$FP_GAME_BINARY" --windows-compiler "$FP_GAME_COMPILER"
+          else
+            export FP_GAME_BINARY="$(python -c "from pathlib import Path; import sys; sys.stdout.write(str(Path('.build/tools/fp-game').resolve()))")"
+            python tools/test_workspace.py --binary "$FP_GAME_BINARY"
+          fi
+          python tools/docs_lint.py --binary "$FP_GAME_BINARY"
+          python tools/test_formatter.py --integration
+          node editors/vscode/test/native-contract.js --binary "$FP_GAME_BINARY"
       - name: Save validated native dependencies on main only
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.native-dependencies.outputs.cache-hit != 'true'
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830

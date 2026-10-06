@@ -4,13 +4,30 @@ Your standalone game project. All game files are ordinary editable source.
 No framework checkout, editor extension, hosted account or LLM is required to
 build/play. The shared kernels are vendored and pinned in `foundation.lock.json`.
 
+## Build the native tooling once
+
+Follow [native tooling](docs/native-tooling.md) for the GHC/Cabal prerequisites
+and explicit bootstrap. The CLI's pinned external dependencies stay separate
+from this game's GHC-bundled-only build. On Linux/macOS, from this game directory:
+
 ```sh
-python tools/fp_game.py doctor
-python tools/fp_game.py build
-python tools/fp_game.py test
-python tools/fp_game.py run --smoke
-python tools/fp_game.py run
+sh tools/bootstrap-fp-game.sh --check
+sh tools/bootstrap-fp-game.sh --download
+.build/tools/fp-game doctor
+.build/tools/fp-game build
+.build/tools/fp-game test
+.build/tools/fp-game run --smoke
+.build/tools/fp-game run
 ```
+
+Omit `--download` when the pinned dependency cache is already populated. On
+Windows follow the guide's explicit compiler recipe, bootstrap with PowerShell,
+and use `./.build/tools/fp-game.exe`. Bootstrap `-CompilerPath` selects the tool's
+compiler only; inspect and preserve the game's separate Cabal compiler profile.
+Never overwrite `cabal.project.local` or copy this machine-local selection to
+another machine. After relocation, bootstrap the copied source once and
+recreate any needed compiler selection deliberately. Normal commands reuse the
+binary without rebuilding it. Python is not required for these core commands.
 
 Standard Cabal also works with this project's isolated config, including a
 fresh global cache:

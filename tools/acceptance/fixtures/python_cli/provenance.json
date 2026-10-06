@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "source_commit": "23239482865ef3a81db3b15b653882182f8eca74",
+  "scope": "Exact former product implementations, retained only for independent test comparisons. Never distributed to generated projects. Historical results remain scoped to their recorded sources.",
+  "sha256_lf": {
+    "fp_game.py": "e14066cb1875e5d18a727ee891139fc8b1ef6b57c463ac753d9ed5f931077c0b",
+    "scaffold.py": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9"
+  }
+}

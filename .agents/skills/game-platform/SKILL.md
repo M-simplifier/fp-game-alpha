@@ -7,6 +7,9 @@ Read [current platform evidence](../../../docs/platforms.md),
 [packaging practice](../../../docs/practice/games/stack.md), and for browser work
 [the browser boundary guide](../../../docs/practice/games/browser.md).
 Use [current editor setup](../../../docs/editors.md) when the task includes editing tools.
+Use the [native CLI](../../../docs/native-tooling.md) for operational commands:
+bootstrap once, then run `.build/tools/fp-game` (`fp-game.exe` on Windows).
+Keep its bootstrap compiler separate from the game's Cabal-selected compiler.
 
 Choose from the user's requirements and existing project, not a reference's
 fixed defaults. Establish actual versions/dependencies and a minimal host probe,

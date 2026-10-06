@@ -308,3 +308,38 @@ execution, physical editors, SIGKILL/crash cleanup and adversarial filesystem
 mutation remain outside that evidence. Keep skipped or inconclusive checks
 visible; a timeout, missing dependency or unrelated failure is not a valid
 negative control for the intended boundary.
+
+## Editor workspace trust must cover the selected project
+
+- **Observed gap:** VSCode's global trusted-workspace flag could permit a command
+  for an active file from an unrelated project. The adapter derived that project's
+  executable path without establishing that the project itself was trusted
+- **Boundary:** Before spawning, require the selected project and active file to
+  lie within the same current workspace folder, using both lexical component
+  boundaries and canonical filesystem paths. Reject sibling-prefix matches and
+  symlink escapes; ask the user to open and trust the intended project folder
+- **Regression:** Node adapter contracts cover unrelated folders, misleading
+  prefixes, linked escapes, nested projects and multiroot success. A separate
+  test executes real native doctor/check and GHC/GHCi inspection through the
+  command registrations with only VSCode UI mocked
+- **Limit:** These checks are not installed-editor UI acceptance or a sandbox
+  against concurrent filesystem replacement. A trusted build can execute code
+
+## Compiler diagnostic paths must identify the opened document
+
+- **Observed failure:** [PR36 Windows CI](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37386540140/job/112022388427#step:14:1)
+  produced the expected GHC type error, but its long path spelling differed from
+  the temporary directory's Windows short alias. Raw pathname equality left the
+  diagnostic attached to a different URI from the document the user opened
+- **Boundary:** Capture the selected URI after trusted-workspace validation and
+  before awaiting the compiler. Reuse that exact URI only when both paths name
+  existing regular files with the same nonzero device/inode identity. Read IDs
+  as BigInt; rounding 64-bit values, matching basenames, or lowercasing every
+  platform can incorrectly combine distinct files. Keep other diagnostics separate
+- **Regression:** Adapter contracts cover Windows aliases, POSIX links, distinct
+  siblings, different devices, missing files, zero IDs and in-flight document
+  changes. Real compiler checks retain strict selected-URI error, warning and
+  clearing assertions, with a separate observed-alias flag and a real POSIX
+  trusted-symlink workspace check. Inspect actual Windows results for alias coverage
+- **Limit:** Mocked editor UI is not installed-editor acceptance. Filesystem
+  identity checks do not provide a sandbox against concurrent file replacement

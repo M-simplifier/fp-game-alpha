@@ -18,7 +18,9 @@ main = do
 runTests :: IO ()
 runTests = do
   expect "integer overflow is rejected before narrowing" $ rejected ["build", "--timeout", replicate 100 '9']
-  expect "unknown target is command syntax" $ rejected ["plan", "my-game", "dest", "--target", "unknown"]
+  expect "obsolete plan alias rejected" $ rejected ["plan", "my-game", "dest"]
+  expect "obsolete scaffold alias rejected" $ rejected ["scaffold", "my-game", "dest"]
+  expect "unknown target is command syntax" $ rejected ["create-plan", "my-game", "dest", "--target", "unknown"]
   expect "zero timeout is rejected" $ rejected ["build", "--timeout", "0"]
   expect "duplicate options are rejected" $ rejected ["build", "--project", ".", "--project", "."]
   expect "command-specific options cannot leak" $ rejected ["test", "--smoke"]

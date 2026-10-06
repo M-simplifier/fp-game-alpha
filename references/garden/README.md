@@ -30,7 +30,7 @@ the world fingerprint is diagnostic and **not** a collision-free identity.
 The screen-input adapter checks bounds before subtracting its pixel origin,
 including extreme `Int` coordinates.
 
-Run `python tools/fp_game.py test` from the foundation root. The regression
+Run `.build/tools/fp-game test` from the foundation root. The regression
 checks deterministic seed/reset, event Step/Arena agreement, scheduler
 Step/Arena agreement, the five-tick cap and debt, pause/resume
 edges, pixel bounds, a dropped-tick mutation, and a counterexample to splitting
@@ -43,3 +43,7 @@ The publication manifest records each original digest. This edition adds
 explicit shared-library adapters, safer screen-coordinate validation, an
 auditable example and regressions. No private Git history, artwork, compiled
 toolchain, or graphical host is included.
+
+For this command, [bootstrap the native CLI](../../docs/native-tooling.md) once
+from the foundation root. On Windows use `./.build/tools/fp-game.exe test`;
+its explicit game compiler profile is separate from the tool bootstrap compiler.

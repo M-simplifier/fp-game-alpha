@@ -9,7 +9,7 @@ import subprocess
 import sys
 import tempfile
 
-import scaffold
+from acceptance.native import binary_path, create_game
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,15 +28,33 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('editor', choices=['neovim', 'vscode'])
     parser.add_argument('--with-hls', action='store_true')
+    parser.add_argument('--binary', help='Native fp-game used to create the editor test game')
+    parser.add_argument('--windows-compiler', type=Path, default=os.environ.get('FP_GAME_COMPILER'),
+                        help='Explicit native compiler profile; inspector still uses separate PATH GHC/GHCi')
     arguments = parser.parse_args()
+    compiler = arguments.windows_compiler.absolute() if arguments.windows_compiler else None
+    if compiler is not None and (not compiler.is_file() or any(ord(char) < 32 for char in str(compiler))):
+        parser.error('The explicitly selected compiler must be an existing file without control characters')
     trial = Path(tempfile.mkdtemp(prefix='FP game editor ')).resolve()
     if not trial.is_relative_to(Path(tempfile.gettempdir()).resolve()):
         raise ValueError('Unexpected test workspace')
     project = trial / 'independent editor game'
-    scaffold.scaffold(argparse.Namespace(name='editor-fixture', destination=project, title='Editor fixture', target='native', rendering='terminal', license='unlicensed', author=None, dry_run=False))
+    binary = binary_path(arguments.binary)
+    create_game('editor-fixture', project, title='Editor fixture', binary=binary)
+    if compiler is not None:
+        with (project / 'cabal.project.local').open('x', encoding='utf-8', newline='\n') as profile:
+            profile.write('with-compiler: ' + compiler.as_posix() + '\n')
+    # Test the same project-local native entrypoint shipped by bootstrap. The
+    # tested binary is copied, never replaced with a Python product scaffold.
+    local_binary = project / '.build/tools' / ('fp-game.exe' if os.name == 'nt' else 'fp-game')
+    local_binary.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(binary, local_binary)
     package = project / 'editor-fixture.cabal'
     package.write_text(package.read_text().replace('Game.Save\n', 'Game.Save, EditorProbe\n'), encoding='utf-8')
     environment = os.environ.copy()
+    environment.pop('FP_GAME_EDITOR_COMPILER', None)
+    if compiler is not None:
+        environment['FP_GAME_EDITOR_COMPILER'] = str(compiler)
     environment['XDG_STATE_HOME'] = str(trial / 'private-state')
     if arguments.editor == 'neovim':
         environment['FP_GAME_EDITOR_PROJECT'] = str(project)

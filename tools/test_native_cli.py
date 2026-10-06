@@ -38,7 +38,9 @@ def source_hashes():
     for name in ['tools/bootstrap-fp-game.sh', 'tools/bootstrap-fp-game.ps1',
                  'tools/test_native_cli.py', 'tools/test_native_terminal.py',
                  'tools/test_windows_toolchain_paths.py',
-                 'tools/acceptance/features.py', 'tools/fp_game.py', 'tools/scaffold.py',
+                 'tools/acceptance/features.py', 'tools/inspect_haskell.py',
+                 'tools/acceptance/legacy_oracle.py', 'tools/acceptance/fixtures/python_cli/fp_game.py',
+                 'tools/acceptance/fixtures/python_cli/scaffold.py', 'tools/acceptance/fixtures/python_cli/provenance.json',
                  'tools/toolchains.json', 'tools/formatter.py', 'tools/formatter.lock.json',
                  'docs/native-tooling.md', 'docs/failure-prevention.md',
                  '.github/workflows/native-tooling.yml', 'formatter.json']:
@@ -404,7 +406,7 @@ def legacy_adapter_source():
 
 def legacy_adapter_encoding_check(project, compiler, cwd):
     result = run('legacy-adapter-forced-cp1252',
-                 [sys.executable, '-c', legacy_adapter_source(), ROOT / 'tools', project, compiler],
+                 [sys.executable, '-c', legacy_adapter_source(), ROOT / 'tools/acceptance/fixtures/python_cli', project, compiler],
                  cwd, env=dict(os.environ, PYTHONIOENCODING='cp1252'))
     executed('legacy-adapter-forced-cp1252', result)
     require('legacy-adapter-preserves-unicode-path',
@@ -521,8 +523,8 @@ def acceptance(binary, trial, compiler=None):
     require('relative-create-planned-bytes', all(hashlib.sha256((relative_game / name).read_bytes()).hexdigest() == digest
             for name, digest in relative_plan['files'].items()))
     shutil.rmtree(relative_game)
-    legacy_plan = run('legacy-contract-plan', [sys.executable, ROOT / 'tools/fp_game.py',
-        'plan', *args, '--project', ROOT, '--json'], unrelated)
+    legacy_plan = run('legacy-contract-plan', [sys.executable, ROOT / 'tools/acceptance/legacy_oracle.py',
+        'plan', *args, '--json'], unrelated)
     require('legacy-plan-shape-compatible', set(legacy_plan) <= set(plan))
     require('legacy-plan-metadata-compatible', all(plan[key] == legacy_plan[key]
             for key in ['status', 'exit_code', 'destination', 'template', 'target',
@@ -531,7 +533,15 @@ def acceptance(binary, trial, compiler=None):
                       if name.startswith(('src/', 'app/', 'test/', 'vendor/'))]
     require('legacy-game-source-bytes-compatible', bool(shared_sources) and all(
             plan['files'].get(name) == legacy_plan['files'][name] for name in shared_sources))
-    for name in ['tools/haskell/.build/poison.bin', 'editors/haskell-design/.runtime/poison.bin']:
+    require('generated-product-excludes-retired-python', not any(name in plan['files'] for name in ['tools/fp_game.py', 'tools/scaffold.py'])
+            and not any(name.startswith('tools/acceptance/') for name in plan['files']))
+    require('generated-product-retains-specialist-inspection', 'tools/inspect_haskell.py' in plan['files'])
+    require('generated-editor-source-boundary', {name for name in plan['files'] if name.startswith('editors/')} ==
+            {'editors/vscode/package.json', 'editors/vscode/extension.js', 'editors/vscode/LICENSE', 'editors/neovim/fp-game.lua'})
+    for name in ['tools/haskell/.build/poison.bin', 'editors/haskell-design/.runtime/poison.bin',
+                 'editors/haskell-design/dist/poison.bin', 'editors/haskell-design/node_modules/poison.bin',
+                 'editors/haskell-design/native/vendor/poison.bin', 'editors/haskell-design/native/dist-newstyle/poison.bin',
+                 'editors/haskell-design/.haskell-design.json', 'editors/vscode/local-only.json']:
         path = fixture / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(b'not distributable\x00\r\n')
@@ -546,8 +556,9 @@ def acceptance(binary, trial, compiler=None):
         error('linked-template', cli(binary, 'linked-template-refused', 'create-plan', fixture, *args, expected=1))
         selected.unlink()
     selected.write_bytes(original)
-    alias = cli(binary, 'native-plan-alias', 'plan', fixture, *args, cwd=unrelated)
-    require('plan-alias-equivalent', plan == alias)
+    for obsolete in ['plan', 'scaffold']:
+        refused = run('obsolete-' + obsolete + '-refused', [binary, obsolete, *args, '--json'], unrelated, expected=2, json_result=False)
+        require('obsolete-' + obsolete + '-has-no-fallback', 'Unknown command: ' + obsolete in refused.stderr and not game.exists())
     dry = cli(binary, 'native-create-dry-run', 'create', fixture, *args, '--dry-run', cwd=unrelated)
     require('dry-run-equivalent-and-no-directory', dry == plan and not game.exists())
 
@@ -639,9 +650,9 @@ def acceptance(binary, trial, compiler=None):
         # compiler lookup for this diagnostic comparison. PATH stays untouched.
         adapter = legacy_adapter_source()
         legacy = run('legacy-check-explicit-compiler-selection-adapter',
-                     [sys.executable, '-c', adapter, ROOT / 'tools', game, selected_compiler], unrelated)
+                     [sys.executable, '-c', adapter, ROOT / 'tools/acceptance/fixtures/python_cli', game, selected_compiler], unrelated)
     else:
-        legacy = run('legacy-contract-check', [sys.executable, ROOT / 'tools/fp_game.py',
+        legacy = run('legacy-contract-check', [sys.executable, ROOT / 'tools/acceptance/legacy_oracle.py',
             'check', 'src/Unicode.hs', '--project', game, '--json'], unrelated)
     require('legacy-execution-schema-compatible', set(native) == set(legacy))
     require('legacy-compiler-flags-compatible', all(flag in native['command'] and flag in legacy['command']

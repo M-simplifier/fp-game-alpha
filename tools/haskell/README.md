@@ -1,9 +1,12 @@
 # fp-game native tooling
 
-A maintained, opt-in Haskell executable for developer-facing planning,
-terminal workspace creation, doctor, build, test, saved-source check and run.
+The authoritative Haskell executable for `create-plan`, optional terminal
+workspace `create`, `doctor`, `build`, `test`, saved-source `check` and `run`.
 See the [native tool guide](../../docs/native-tooling.md) for the complete
-bootstrap, command, compatibility and continuation contract.
+bootstrap, command and continuation contract. Its experimental acceptance
+remains scoped to the actual checked revisions, toolchains and terminal profile.
+An arbitrary `$new-game` brief still drives the game and host design; this
+optional starter is not a limit on that workflow.
 
 This package is separate from the root Cabal project and from each game's
 GHC-bundled-only dependency boundary. Build it once using the wrappers:
@@ -56,7 +59,7 @@ empty cache costs more than a warm build; do not confuse the two measurements.
 No prebuilt release, compiler-free source bootstrap or zero-install claim is made.
 
 `create-plan` builds a typed plan, and `create` interprets it with exclusive
-creation. `plan`/`scaffold` are aliases. The source foundation is `--project`,
+creation. The source foundation is `--project`,
 the output destination is a separate positional argument, and neither is the
 installed tool directory. Without `--project`, commands use caller cwd.
 
@@ -66,9 +69,13 @@ settings and binaries. They can rebuild the tool and continue without the
 original foundation. The optional starter is not a universal game generator;
 AI-led development must still implement the actual brief and host.
 
-Python is retained only in separate compatibility/inspection/play/formatting,
-maintenance and independent test paths. The migrated native core does not
-spawn it. Editor live buffers and headless journal durability are separate work.
+The separate `tools/inspect_haskell.py` owns inspect/context and requires Python
+plus GHC/GHCi on PATH; it does not use the game's Cabal-selected compiler query.
+The small editor wrappers use this specialist for inspection and the native binary
+for doctor/check. Formatter, player-journal, prover and Haskell Design tools remain
+independent, as do maintenance and test/oracle harnesses. The native operational
+path does not spawn Python or retain a duplicate Python CLI/scaffolder. Live
+editor buffers and headless journal durability have their own contracts.
 
 Interactive POSIX execution replaces the CLI with Cabal, so the shell retains
 ordinary job control without a private foreground proxy or C adapter. Captured
