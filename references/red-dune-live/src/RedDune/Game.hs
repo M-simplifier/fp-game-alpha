@@ -271,7 +271,9 @@ observeGame game =
           [ ("title", str (packTitle (gamePack game))),
             ("identity", str (packIdentity (gamePack game))),
             ("revision", num (packRevision (gamePack game))),
-            ("stagedRevision", maybe J.JNull (num . packRevision) (gameStagedPack game))
+            ("stagedRevision", maybe J.JNull (num . packRevision) (gameStagedPack game)),
+            ("stagedIdentity", maybe J.JNull (str . packIdentity) (gameStagedPack game)),
+            ("stagedTitle", maybe J.JNull (str . packTitle) (gameStagedPack game))
           ]
       ),
       ("buildable", arr (map str C.liveBuildablePrototypes)),

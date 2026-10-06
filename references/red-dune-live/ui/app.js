@@ -2,6 +2,15 @@
 // Thin view + command adapter. No simulation, pathfinding, economy, RNG or
 // authoritative entity creation lives here. IDs/quantities remain strings.
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+// Opt-in source identity; HTTP readiness is not browser acceptance evidence.
+const development=window.location.hash==='#dev';
+function devStatus(message){
+  if(!development)return;
+  let panel=document.querySelector('#devStatus');
+  if(!panel){panel=document.createElement('p');panel.id='devStatus';panel.setAttribute('role','status');document.body.prepend(panel);}
+  panel.textContent=message;
+}
+
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const fmt=x=>{if(x===null||x===undefined)return '—';try{return BigInt(x).toLocaleString('ja-JP');}catch{return String(x??'—');}};
 const labels={water:'清水',ration:'レーション',crops:'作物',fuel:'燃料',parts:'部品'};
@@ -43,7 +52,7 @@ function acceptResponse(data,requestRuntime,isObservation){
     const staleOwner=pendingCommand?.kind==='deliver'&&[pendingCommand.source,pendingCommand.destination].some(id=>cacheGone(id,data.view));
     if(pending.boundary!==data.view.boundary||staleRevision||staleOwner){pending=null;pendingGeneration=null;pendingCommand=null;pendingGhost=null;intentGeneration++;$('#confirmIntent').disabled=true;$('#intentStatus').textContent=(staleOwner?'配送対象cacheが回収済み/撤去されました（gone）。対象':staleRevision?'建設計画のrevision':'境界')+'が変わったため、この意図は失効しました。閉じて新しく確認してください';}
   }
-  render();reconcileLoad();
+  render();reconcileLoad();devStatus(data.shell.devRevision?`DEV: checked ${data.shell.devRevision.slice(0,12)} · ${data.view.mode} · source reloadは新しいcampaignです`:'DEV: source revision未確認');
 }
 async function api(request,path='/api/command'){
   const requestRuntime=responseRuntime;
@@ -412,7 +421,7 @@ $('#cancelLoad').addEventListener('click',cancelLoad);
 $('#discardUnsaved').addEventListener('change',renderLibrary);
 $('#librarySave').addEventListener('click',()=>sendSave());
 
-async function poll(){if(pollBusy)return;pollBusy=true;try{await api(null,'/api/state');}catch(e){if(!(e instanceof StaleResponse))$('#connection').textContent='! 接続未確認: '+e.message+' · 成功・切替は未確認';}finally{pollBusy=false;}}
+async function poll(){if(pollBusy)return;pollBusy=true;try{await api(null,'/api/state');}catch(e){if(!(e instanceof StaleResponse)){$('#connection').textContent='! 接続未確認: '+e.message+' · 成功・切替は未確認';devStatus('DEV: host確認待ち。反映中・コンパイル失敗・停止の詳細は開発ターミナルで確認してください');}}finally{pollBusy=false;}}
 async function firstConnect(){await poll();if(state?.runtime.owner==='none')await claimControl();}
 firstConnect();setInterval(()=>{if(!document.hidden)poll();},400);
 setInterval(async()=>{if(document.hidden||heartbeatBusy||state?.runtime.owner!=='mine')return;heartbeatBusy=true;try{await ownership('/api/heartbeat');}catch(error){if(!(error instanceof StaleResponse)){$('#connection').textContent='接続未確認。4秒の操作権期限で自動停止します';}}finally{heartbeatBusy=false;}},1000);
@@ -427,7 +436,7 @@ function renderCampaign(){
   const ended=c.ending!=='Ongoing';$('#campaignEnding').hidden=!ended;$('#campaignEnding').textContent=ended?(c.ending==='SettlementSecured'?'SETTLEMENT SECURED · 住民と新しい補給網が安定しました。保存して別のシナリオへ進めます':c.ending):'';
   $('#enablePolicies').disabled=state.runtime.owner!=='mine'||ended;
   $('#disablePolicies').disabled=state.runtime.owner!=='mine'||ended;
-  const pack=state.pack;$('#packIdentity').textContent=pack?`${pack.title} · revision ${pack.revision} · identity ${pack.identity}${pack.stagedRevision?' · 次回revision '+pack.stagedRevision:''}`:'';
+  const pack=state.pack;$('#packIdentity').textContent=pack?`${pack.title} · revision ${pack.revision} · identity ${pack.identity}${pack.stagedRevision?' · 次回 '+pack.stagedTitle+' · revision '+pack.stagedRevision+' · identity '+pack.stagedIdentity:''}`:'';
   const policies=state.policies;
   const box=$('#policySummary');box.replaceChildren();
   if(policies){box.append(el('p',policies.enabled?'生活維持の政策: 実行中':'生活維持の政策: 停止'));

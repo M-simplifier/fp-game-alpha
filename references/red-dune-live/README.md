@@ -103,11 +103,16 @@ for the same actions usable by headless drivers.
 
 ## Read and change the game
 
+For frequent source edits, use the [checked native development loop](docs/DEVELOPMENT.md).
+It keeps the simulation optimized while reloading gameplay/host modules in GHCi,
+and always restarts into a fresh paused campaign. Content staging and policy
+forms remain the no-compilation tuning path.
+
 1. `src/RedDune/ContentPack.hs`: authored scenario/economic input and validation
 2. `src/RedDune/Game.hs`: `GameState`, `applyAction`, `advanceGame`; the pure entrypoints
 3. `src/RedDune/Policies.hs`: enabled policies become ordinary commands
 4. `src/RedDune/Campaign.hs`: evidence from committed physical transitions and endings
-5. `src/Colony/Scheduler.hs`, `Arena.hs`: the underlying world boundary and receipts
+5. `core/Colony/Scheduler.hs`, `Arena.hs`: the underlying world boundary and receipts
 6. `src/RedDune/GameSave.hs`: complete framed checkpoint encoding/validation
 7. `app/RedDune/Host.hs`: one clock, ownership, HTTP, durable files and async adoption
 8. `ui/`: projection rendering, input envelopes and response/retry guards only

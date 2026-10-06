@@ -7,6 +7,7 @@ on:
       - 'libraries/game-transition/**'
       - 'libraries/game-arena/**'
       - 'cabal.project.red-dune-live'
+      - 'cabal.project.red-dune-dev'
       - '.github/workflows/red-dune-live.yml'
   pull_request:
     paths:
@@ -14,6 +15,7 @@ on:
       - 'libraries/game-transition/**'
       - 'libraries/game-arena/**'
       - 'cabal.project.red-dune-live'
+      - 'cabal.project.red-dune-dev'
       - '.github/workflows/red-dune-live.yml'
   workflow_dispatch:
 permissions:
@@ -53,6 +55,15 @@ jobs:
       - name: Check bounded domain, saves, lifecycle, native HTTP and client protocol
         # No 66-hour/42-hour campaign, tick benchmark or real-browser claim here.
         run: bash references/red-dune-live/tools/check.sh smoke
+      - name: Check bounded native development reload and cleanup
+        # Separate developer objects/saves from the production smoke profile.
+        # These are correctness cases, not latency benchmarks or browser tests.
+        run: |
+          dev_dist=.build/red-dune-dev/dist
+          cabal build --project-file=cabal.project.red-dune-dev --builddir="$dev_dist" exe:red-dune-devloop
+          dev_binary=$(cabal list-bin --project-file=cabal.project.red-dune-dev --builddir="$dev_dist" exe:red-dune-devloop)
+          python3 references/red-dune-live/tools/test_devloop_lifecycle.py --binary "$dev_binary"
+          python3 references/red-dune-live/tools/test_devloop.py --binary "$dev_binary" --dist-dir "$dev_dist" --timeout 180
       - name: Save validated dependencies on main only
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.dependencies.outputs.cache-hit != 'true'
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0

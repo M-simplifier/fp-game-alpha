@@ -3915,329 +3915,329 @@
     "review": "Reviewed exact file: only project continuation or code-learning guidance; no private configuration, credentials, personal context or background automation instructions",
     "adaptation": "Signal Courier local routes and pinned public reading links"
   },
-  "references/red-dune-live/src/Colony/Arena.hs": {
+  "references/red-dune-live/core/Colony/Arena.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Arena.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "bdc8a96f5c63723a88af04600809c21c4e090cdf1289d5ec2e78e9fee90e0313",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/CheckpointLibrary.hs": {
+  "references/red-dune-live/core/Colony/CheckpointLibrary.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/CheckpointLibrary.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "a6a84e1c640c108493fde2dcb1995cb0018f5449c20dbddf8fb58750857f9061",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Codec/CBOR.hs": {
+  "references/red-dune-live/core/Colony/Codec/CBOR.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Codec/CBOR.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "3b3e32986720d6065d8f1aeeabdc66b7f2a549a41c5d89138e7f2e779f9c4e59",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Codec/SHA256.hs": {
+  "references/red-dune-live/core/Colony/Codec/SHA256.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Codec/SHA256.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "1c0182339120c49cad4be3b6e2072868d9e082bf9c537742c885acabdb029fd7",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Codec/Value.hs": {
+  "references/red-dune-live/core/Colony/Codec/Value.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Codec/Value.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "171dbdaf9b12a93b20aa04a3b08ed3f074152c877349a658963998b45f2b1054",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Codec.hs": {
+  "references/red-dune-live/core/Colony/Codec.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Codec.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "76f477ae09a423cee113c52dd5ded0aa6f996a1031f7a4ea37e9ff3f8e5ec171",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/CombinedFixture.hs": {
+  "references/red-dune-live/core/Colony/CombinedFixture.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/CombinedFixture.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "c3f6047cab7cb44213242efe111f37c168240da3ea1e380a341feebd8bdd2dcc",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Construction.hs": {
+  "references/red-dune-live/core/Colony/Construction.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Construction.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "03dd24b6175b615a382ac14f7066cca1fab1df9a64c5885145f98ecf1a42f919",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Content.hs": {
+  "references/red-dune-live/core/Colony/Content.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Content.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "4daa41f2dd47f32f63af47f4bb4282a41acab7d85ea2a249a6f5a47754d19017",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/ContentCodec.hs": {
+  "references/red-dune-live/core/Colony/ContentCodec.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/ContentCodec.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "252b1b365eb9a94b0d85a521cd04cd638295fae6ee766ef63dab9ef02d407ffa",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Fixture.hs": {
+  "references/red-dune-live/core/Colony/Fixture.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Fixture.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "43f59908090d192174658608bd0f387ac05f0992b655b7482d4f44c58016e1c9",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Inventory.hs": {
+  "references/red-dune-live/core/Colony/Inventory.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Inventory.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "6aea4fac37f9bef4f9e5c28219ea650e3722985dfea859c31841094139fc2198",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/JSON.hs": {
+  "references/red-dune-live/core/Colony/JSON.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/JSON.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "8b472a34be9beef337be7daac59897a621acc1a08b95d2177a8c8becf028a8ad",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Jobs.hs": {
+  "references/red-dune-live/core/Colony/Jobs.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Jobs.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "7a5372a7c177e2c87563bee95ebd9e850beefb7160501bb7afdd140d63cb8e69",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/KnownCatalog.hs": {
+  "references/red-dune-live/core/Colony/KnownCatalog.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/KnownCatalog.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "fb95736b2d4a6165e76f571ae9252b0d639425be53e03a5b8391d18ffe02ff4e",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/LegacyV3.hs": {
+  "references/red-dune-live/core/Colony/LegacyV3.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/LegacyV3.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "f16138f58eba3d2f1e6bbb080c1ab5f5098fb363d516b00e52a3dfd6cedf3f07",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/M1Commands.hs": {
+  "references/red-dune-live/core/Colony/M1Commands.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/M1Commands.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "a2a6d6c221aee278cc5268f6e73fba375b55d5a16863de1e8b74e9aac867e96b",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/M1Infrastructure.hs": {
+  "references/red-dune-live/core/Colony/M1Infrastructure.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/M1Infrastructure.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "d26be2473c5303622d49b5bde9c2297ae308a533e897d885101420ff1798011b",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/M1Logistics.hs": {
+  "references/red-dune-live/core/Colony/M1Logistics.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/M1Logistics.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "6cfcb0b8c58b3750f69ba25ff38af923a9e80c9031d7b3b040512e1232e73292",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/M1Rules.hs": {
+  "references/red-dune-live/core/Colony/M1Rules.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/M1Rules.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "3f84e25c0db90f41b9cc537711c4e0818871f8eb780e423d267510649f9e98af",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/M1Scheduler.hs": {
+  "references/red-dune-live/core/Colony/M1Scheduler.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/M1Scheduler.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "cce302b83ff28cc1c1b333c27ba44fa083aac104a188975bf4c870b0fb9a7095",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/M1State.hs": {
+  "references/red-dune-live/core/Colony/M1State.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/M1State.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "f3b7ae7b5eeb54cb6fe630b4a88b09f330295d5d8e7ca96b43555cf2a92a145d",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/M1View.hs": {
+  "references/red-dune-live/core/Colony/M1View.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/M1View.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "e713309415e3bb5b9b96a5a1b13d6ce5bf6f7c568e7ccdcf36adb4585bb8673a",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Maintenance.hs": {
+  "references/red-dune-live/core/Colony/Maintenance.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Maintenance.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "90cce8ff841b701acc7b0c005bad10d4abf8b77ef3407dc4cbebc3d125d9df9c",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Migrate.hs": {
+  "references/red-dune-live/core/Colony/Migrate.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Migrate.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "e9083273aaf5cc91ef910bd27bb42d0967e07c98d53d50544600018110a51adb",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Needs.hs": {
+  "references/red-dune-live/core/Colony/Needs.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Needs.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "90a4e13bc66b0541f0abe032450231feaad532c6af84abcd3ce36582ed70d2cd",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Pickup.hs": {
+  "references/red-dune-live/core/Colony/Pickup.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Pickup.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "794cab5dc663e2f651f696f0b15e63e088bd6db6db2c3117bf5c6504ab3f01f3",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Power.hs": {
+  "references/red-dune-live/core/Colony/Power.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Power.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "b2a609b6e6075977c3d559abab66559d3d72febba0e53d07f7b357702441d643",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Presentation.hs": {
+  "references/red-dune-live/core/Colony/Presentation.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Presentation.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "dcd2a8d7ad6526d5d51502ed20e20edaa55149567802580958af330ea097a113",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/RNG.hs": {
+  "references/red-dune-live/core/Colony/RNG.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/RNG.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "a0c3c47d80458c5f491126b26c70d12c227deb96656cccd8620b7436363eada9",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Ruleset.hs": {
+  "references/red-dune-live/core/Colony/Ruleset.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Ruleset.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "a0642ed0ce887618b75ea47fc9e00a419ab391f76930029008b30e9699f6c986",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/S01Fixture.hs": {
+  "references/red-dune-live/core/Colony/S01Fixture.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/S01Fixture.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "1ce209e4f37d9b2f944faa991c94e00dacbfb38a884fd8e0ecde4be5bd619892",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Save.hs": {
+  "references/red-dune-live/core/Colony/Save.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Save.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "cc07e69da198f216c40eef48ab8f3dac00aa4dac19140bea8154c1be89d342e2",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Scheduler.hs": {
+  "references/red-dune-live/core/Colony/Scheduler.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Scheduler.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "d6780bcc1945ecbb3bc8067486fb155520177164f3387e5a5b112d0265269b63",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/SchedulerCore.hs": {
+  "references/red-dune-live/core/Colony/SchedulerCore.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/SchedulerCore.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "f40da91c8e134036a8ce9362754e4dc600f2ec9b8807e9f8f8476faedf424821",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Session.hs": {
+  "references/red-dune-live/core/Colony/Session.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Session.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "1ea32c42132738fba14ddc87616b627effff444e525afa06875e97138002413e",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/SessionTrace.hs": {
+  "references/red-dune-live/core/Colony/SessionTrace.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/SessionTrace.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "896199edfec2c71ff6ed60eb3ec213467f5af7a424c6bb100ab34334e0ebe834",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Space.hs": {
+  "references/red-dune-live/core/Colony/Space.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Space.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "d0c74b62c9b93b0a00c315a6f100bd4b67548148d7b0693adee25ca3605dae3b",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/SupplyChainFixture.hs": {
+  "references/red-dune-live/core/Colony/SupplyChainFixture.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/SupplyChainFixture.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "72cfacb13899c2de8153ba5a4c137f47ed46d8ccb1dbe86ec0c7c7898e8b455f",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Topology.hs": {
+  "references/red-dune-live/core/Colony/Topology.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Topology.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "3d6d743bdd69289d048903db835aa0d8d7dc595451df7f4c697c70a3f91c3c65",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Transport.hs": {
+  "references/red-dune-live/core/Colony/Transport.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Transport.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "cd0feea2f7a52f989e85a9bb78392def5d6a77a2ad2e973ecaf35ce2af660453",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Types.hs": {
+  "references/red-dune-live/core/Colony/Types.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Types.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "2aaf21f099ab574bcce899648684f0dac3599cc2158528db879191aa68bf8eeb",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/UIFixture.hs": {
+  "references/red-dune-live/core/Colony/UIFixture.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/UIFixture.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "374e33f3436f06141aa26244bc3599a3e52d07829734e5acd20586e4181183cd",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/UIShell.hs": {
+  "references/red-dune-live/core/Colony/UIShell.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/UIShell.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "270ec77458bb258a88237f2e358ed7c49ed1d594c9810329973c1f922d68d758",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Units.hs": {
+  "references/red-dune-live/core/Colony/Units.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Units.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "082f8af0cb1a2de3e4faa62753b31a2d263e232fd729f318ac9d58a813f9ef75",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/Workforce.hs": {
+  "references/red-dune-live/core/Colony/Workforce.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Workforce.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
     "source_sha256_lf": "fc2bce749efec74ba9f75301232b4a9c25f84b7aeb8665bd18ca9bb663e6eeb8",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
-  "references/red-dune-live/src/Colony/World.hs": {
+  "references/red-dune-live/core/Colony/World.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/World.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",

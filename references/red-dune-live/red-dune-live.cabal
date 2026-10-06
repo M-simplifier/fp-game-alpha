@@ -5,16 +5,23 @@ build-type: Simple
 synopsis: Playable long-session Red Dune colony survival campaign
 license: MIT
 license-file: LICENSE
-extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md, ui/*.html, ui/*.css, ui/*.js, tools/*.cjs, tools/*.sh, evidence/*.json, evidence/*.txt
+extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md, ui/*.html, ui/*.css, ui/*.js, tools/*.cjs, tools/*.sh, tools/*.py, evidence/*.json, evidence/*.txt
 
 common shared
   default-language: GHC2021
-  ghc-options: -O2 -Wall -Werror
+  ghc-options: -Wall -Werror
   build-depends: base >=4.18 && <4.19, containers, array, bytestring, text, parsec, binary, deepseq, mtl, directory, unix, filepath, game-arena >=0.1 && <0.2, game-transition >=0.1 && <0.2
 
-library
+flag development
+  description: Enable the isolated interactive gameplay/host component
+  default: False
+  manual: True
+
+-- The simulation stays compiled and optimized during gameplay editing.
+library colony-core
   import: shared
-  hs-source-dirs: src
+  ghc-options: -O2
+  hs-source-dirs: core
   exposed-modules:
     Colony.Arena
     Colony.CheckpointLibrary
@@ -63,15 +70,71 @@ library
     Colony.Units
     Colony.Workforce
     Colony.World
+
+library
+  import: shared
+  ghc-options: -O2
+  hs-source-dirs: src
+  build-depends: red-dune-live:colony-core
+  exposed-modules:
     RedDune.Campaign
     RedDune.ContentPack
     RedDune.Game
     RedDune.GameSave
     RedDune.Policies
     RedDune.Protocol
+  reexported-modules:
+    Colony.Arena,
+    Colony.CheckpointLibrary,
+    Colony.Codec.CBOR,
+    Colony.Codec.SHA256,
+    Colony.Codec.Value,
+    Colony.Codec,
+    Colony.CombinedFixture,
+    Colony.Construction,
+    Colony.Content,
+    Colony.ContentCodec,
+    Colony.Fixture,
+    Colony.Inventory,
+    Colony.JSON,
+    Colony.Jobs,
+    Colony.KnownCatalog,
+    Colony.LegacyV3,
+    Colony.M1Commands,
+    Colony.M1Infrastructure,
+    Colony.M1Logistics,
+    Colony.M1Rules,
+    Colony.M1Scheduler,
+    Colony.M1State,
+    Colony.M1View,
+    Colony.Maintenance,
+    Colony.Migrate,
+    Colony.Needs,
+    Colony.Pickup,
+    Colony.Power,
+    Colony.Presentation,
+    Colony.RNG,
+    Colony.Ruleset,
+    Colony.S01Fixture,
+    Colony.Save,
+    Colony.Scheduler,
+    Colony.SchedulerCore,
+    Colony.Session,
+    Colony.SessionTrace,
+    Colony.Space,
+    Colony.SupplyChainFixture,
+    Colony.Topology,
+    Colony.Transport,
+    Colony.Types,
+    Colony.UIFixture,
+    Colony.UIShell,
+    Colony.Units,
+    Colony.Workforce,
+    Colony.World
 
 executable red-dune-live
   import: shared
+  ghc-options: -O2
   main-is: HostMain.hs
   hs-source-dirs: app
   other-modules: RedDune.Host
@@ -80,6 +143,7 @@ executable red-dune-live
 
 test-suite live-campaign
   import: shared
+  ghc-options: -O2
   type: exitcode-stdio-1.0
   main-is: LiveCampaignTests.hs
   hs-source-dirs: test
@@ -88,6 +152,7 @@ test-suite live-campaign
 
 test-suite live-construction
   import: shared
+  ghc-options: -O2
   type: exitcode-stdio-1.0
   main-is: LiveConstructionTests.hs
   hs-source-dirs: test
@@ -96,6 +161,7 @@ test-suite live-construction
 
 test-suite live-boundary
   import: shared
+  ghc-options: -O2
   type: exitcode-stdio-1.0
   main-is: LiveBoundaryTests.hs
   hs-source-dirs: test
@@ -103,6 +169,7 @@ test-suite live-boundary
 
 executable red-dune-tick-bench
   import: shared
+  ghc-options: -O2
   main-is: LiveTickBench.hs
   hs-source-dirs: test
   ghc-options: -rtsopts -threaded
@@ -110,6 +177,7 @@ executable red-dune-tick-bench
 
 test-suite live-host-lifecycle
   import: shared
+  ghc-options: -O2
   type: exitcode-stdio-1.0
   main-is: HostLifecycleTests.hs
   hs-source-dirs: test, app
@@ -119,6 +187,7 @@ test-suite live-host-lifecycle
 
 test-suite live-tile-order
   import: shared
+  ghc-options: -O2
   type: exitcode-stdio-1.0
   main-is: LiveTileOrderTests.hs
   hs-source-dirs: test
@@ -126,7 +195,37 @@ test-suite live-tile-order
 
 test-suite live-legacy
   import: shared
+  ghc-options: -O2
   type: exitcode-stdio-1.0
   main-is: LiveLegacyTests.hs
   hs-source-dirs: test
   build-depends: red-dune-live
+
+-- Cabal owns dependency flags/package DBs; no hand-written ghc package list.
+-- Sources are home modules only here, so :reload actually checks gameplay.
+executable red-dune-dev
+  import: shared
+  if !flag(development)
+    buildable: False
+  main-is: DevMain.hs
+  hs-source-dirs: dev, app, src
+  other-modules:
+    RedDune.Host
+    RedDune.Campaign
+    RedDune.ContentPack
+    RedDune.Game
+    RedDune.GameSave
+    RedDune.Policies
+    RedDune.Protocol
+  ghc-options: -rtsopts -threaded
+  build-depends: red-dune-live:colony-core, network ==3.1.4.0
+
+-- Operational watcher is native Haskell; Python is a measurement oracle only.
+executable red-dune-devloop
+  import: shared
+  if !flag(development)
+    buildable: False
+  main-is: DevLoopMain.hs
+  hs-source-dirs: devloop
+  ghc-options: -O2 -threaded -rtsopts
+  build-depends: red-dune-live:colony-core, network ==3.1.4.0, process, time
