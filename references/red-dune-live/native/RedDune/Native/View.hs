@@ -675,7 +675,7 @@ drawView font width height time mouse screen = do
     card 30 (bottom - 68) 520 46 (Color 244 246 215 243)
     txt font (if campaignFreshConsumed campaign > 0 then "新しい食事を食べた  " ++ resourceAmount Ration (campaignFreshConsumed campaign) else "つくった食事が、暮らしに届いた") 46 (bottom - 59) 24 mint
   let panelHelp = [button (right + 205) 132 78 "見方" (HelpCommand (Help.OpenHelp (contextTopic screen))) False | panelOpen]
-      normal = (if panelOpen then filter (\b -> let Rectangle x _ _ _ = buttonRect b in x < right - 25) sites else sites) ++ top ++ dock ++ content ++ panelHelp ++ [button 28 342 226 "向きを変える ↻" RotateBuilding False | screenBuild screen /= Nothing] ++ hintButtons ++ [helpButton]
+      normal = (if panelOpen then filter (\b -> let Rectangle x _ _ _ = buttonRect b in x < right - 25) sites else sites) ++ top ++ dock ++ content ++ panelHelp ++ [button 28 342 226 "向きを変える ↻" RotateBuilding False | canRotateBuild screen] ++ hintButtons ++ [helpButton]
       visible = filter (not . null . buttonLabel) normal
   underlying <- case screenDialog screen of
     NoDialog -> mapM_ (drawButton font mouse) visible >> pure normal
@@ -706,6 +706,9 @@ drawView font width height time mouse screen = do
 
 isPlainScreen :: Screen -> Bool
 isPlainScreen screen = Help.helpTopic (screenHelpUi screen) == Nothing && case screenDialog screen of NoDialog -> True; _ -> False
+
+canRotateBuild :: Screen -> Bool
+canRotateBuild screen = case screenBuild screen of Just name -> name `notElem` ["road", "detail-erase"]; Nothing -> False
 
 contextTopic :: Screen -> Help.TopicId
 contextTopic screen = case screenDialog screen of
@@ -963,7 +966,7 @@ drawDiningPanel font x y game = do
       let sx = x + 158; sy = y + 252
       drawFacility (round (sx * 2)) (round ((sy + 35) * 2)) (Camera 1.5 1.5 24 0) 0 0 "pantry" 0 0 3 3 False 0 (const 0)
       wrap font "道と建物を一緒に計画します。建材と予備班が工事を進めます。" x (y + 323) 332 22 muted
-      txt font "席・石畳・植栽を並べて、形をつくる。" x (y + 463) 21 ink
+      txt font "席や灯りで周りを飾れます。" x (y + 463) 21 ink
       pure [button x (y + 408) 332 "場所を選ぶ" (SelectBuild "dining") True, button x (y + 508) 332 "周りを飾る" (SelectTab PlacesTab) False]
     status : _ -> do
       let built = diningBuilt status
@@ -1102,6 +1105,7 @@ drawInspector font x y screen ident
           active = ident `elem` P.productionSites policy && maybe False siteEnabled (M.lookup ident (worldSites world))
           configured = crew > 0 && maybe False siteEnabled (M.lookup ident (worldSites world))
           starting = worksite == Nothing && not active && not configured && name `elem` ["hand_pump", "farm", "kitchen"]
+          stoppedDescription = (if statusMood status == MoodBusy then "進行中の作業は続きます。" else "") ++ "次の生産は始めません。担当と配送は残ります。"
           startDescription = case name of
             "hand_pump" -> "井戸・配給所・荷車の担当を三交代に配置します。押すと時間が進みます。"
             "farm" -> "農場の担当と水・作物の配送を準備します。押すと時間が進みます。"
@@ -1112,7 +1116,7 @@ drawInspector font x y screen ident
       card x (y + 99) 334 (if starting then 176 else 128) (Color 240 233 215 255)
       drawCircleV (Vector2 (x + 16) (y + 122)) 6 (moodColor (statusMood status))
       txt font (statusTitle status) (x + 32) (y + 107) 24 (moodColor (statusMood status))
-      wrap font (if starting then startDescription else if configured && not active then "次の生産を始めない設定です。担当と配送はそのまま残っています。" else statusDetail status) (x + 14) (y + 148) 303 (if starting then 20 else 22) ink
+      wrap font (if starting then startDescription else if configured && not active then stoppedDescription else statusDetail status) (x + 14) (y + 148) 303 (if starting || configured && not active then 20 else 22) ink
       case statusProgress status of
         Nothing -> pure ()
         Just progress -> do

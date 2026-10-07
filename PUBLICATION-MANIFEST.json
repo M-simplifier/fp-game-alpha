@@ -1944,7 +1944,7 @@
   },
   {
    "path": "references/red-dune-live/evidence/native-windows.json",
-   "sha256_lf": "2ac918310421ff9d3ede725354197b73c5a558869bde1973960d7f1f54b1ac61"
+   "sha256_lf": "41d5717026f53ef8bfa41bdfd8ef5f2fd36f08c842d4c5051dbb727e0058c0d1"
   },
   {
    "path": "references/red-dune-live/evidence/performance.json",
@@ -1952,7 +1952,7 @@
   },
   {
    "path": "references/red-dune-live/native/Main.hs",
-   "sha256_lf": "85beb8640c36be38639d3892f78dca75a3278763ac205df92ca229c5873e112c"
+   "sha256_lf": "bdf6daa37a04a879f1339a0148c1dde1b449cd0168fc6085c0206fe81ef1c7b4"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Font.hs",
@@ -1964,7 +1964,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Play.hs",
-   "sha256_lf": "525c75fe531bbe97d0499f05a5249441264ab0602b51747c67bf525807facb2c"
+   "sha256_lf": "ae66b681720ff8ec116d4fa9154af2c723a2f3b7917bb52f212acf87cbcc2c66"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Store.hs",
@@ -1972,7 +1972,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/View.hs",
-   "sha256_lf": "b41b9b2eaeecd66058beb7f8a2cc93242c43fc281cf1a775ef1ae78140f7d5ae"
+   "sha256_lf": "6c3f3cb1f9baa93c892f8046562ca47044f19b3147a47a306c32e697b8a52eea"
   },
   {
    "path": "references/red-dune-live/native/assets/glyphs.txt",

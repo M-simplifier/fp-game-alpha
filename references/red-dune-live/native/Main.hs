@@ -165,12 +165,13 @@ loop root options store font previous = do
       createDirectoryIfMissing True folder
       appendFile (folder </> "help-events.txt") (show action ++ " worldUnchanged=" ++ show (screenGame guidedScreen == screenGame (appScreen operated)) ++ "\n")
     _ -> pure ()
-  cameraScreen0 <- cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
+  let helpFrameHeld = Help.helpHoldsClock (screenHelpUi guidedScreen) (screenHelpUi (appScreen operated))
+  cameraScreen0 <- if helpFrameHeld then pure (appScreen operated) else cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
   let noticeAge = screenNoticeAge cameraScreen0 + dt
       persistent = any (`isPrefixOf` screenNotice cameraScreen0) ["操作を完了", "保存できない", "自動保存でき", "進行を停止", "厨房が故障"]
       cameraScreen = cameraScreen0 {screenCues = fadeCues dt (screenCues cameraScreen0), screenNoticeAge = noticeAge, screenNotice = if noticeAge > 8 && not persistent then "" else screenNotice cameraScreen0}
   selected <-
-    if click && command == Nothing && isPlainScreen cameraScreen && usedMouseInMap width height cameraScreen usedMouse
+    if not helpFrameHeld && click && command == Nothing && isPlainScreen cameraScreen && usedMouseInMap width height cameraScreen usedMouse
       then case screenBuild cameraScreen of
         Just prototype -> do
           let tile = unproject width height (screenCamera cameraScreen) usedMouse
@@ -286,7 +287,7 @@ keyboard screen = do
   help <- isKeyPressed KeyF1
   rotate <- isKeyPressed KeyR
   speeds <- mapM isKeyPressed [KeyOne, KeyTwo, KeyThree, KeyFour]
-  pure (if escape then Just CloseDialog else if help then Just (toggleHelp screen) else if save && isNoDialog (screenDialog screen) then Just SaveNow else if not (isPlainScreen screen) then Nothing else if space then Just (Choose ToggleTime) else if load then Just ShowLibrary else if rotate then Just RotateBuilding else ChangeSpeed . snd <$> find fst (zip speeds [1, 2, 4, 8]))
+  pure (if escape then Just CloseDialog else if help then Just (toggleHelp screen) else if save && isNoDialog (screenDialog screen) then Just SaveNow else if not (isPlainScreen screen) then Nothing else if space then Just (Choose ToggleTime) else if load then Just ShowLibrary else if rotate && canRotateBuild screen then Just RotateBuilding else ChangeSpeed . snd <$> find fst (zip speeds [1, 2, 4, 8]))
 
 cameraInput :: Double -> Screen -> IO Screen
 cameraInput dt screen
