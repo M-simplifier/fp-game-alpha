@@ -98,5 +98,90 @@
       "dependency notices for 26 resolved packages",
       "owner default store is separate from Linux and QA stores"
     ]
+  },
+  "study_2026_10_07": {
+    "scope": "Actual native GPU play with synthetic pointer/key input; owner physical input and enjoyment acceptance remain pending",
+    "native_trial_rule_pack": "Unmodified default rules, no shortened building or recipe times",
+    "initial_trial_checkpoint": "5c9c20d8b4eb7169c71bc0f1bd6c140b6a3dd881",
+    "initial_trial_speed": 4,
+    "window_elapsed_seconds": {
+      "selected_site_response": 0.3582245,
+      "first_physical_shipment_delivery": 4.9969781,
+      "first_cooked_food_arrival_and_local_meal": 134.413854
+    },
+    "timing_claim": "One observed real-time trial, not a cross-machine performance guarantee",
+    "dining_plan_preview": {
+      "tile": [
+        60,
+        68
+      ],
+      "rotation": "R180",
+      "new_road_tiles": 3,
+      "stone_cost_g": 46000,
+      "metal_cost_g": 40000,
+      "uncommitted_before_confirmation": true,
+      "gpu_sha256": "9642465de0cfb0fe80bf732d57fafb6bec283237a0070522e70fbb029b2637a9"
+    },
+    "decorated_resume": {
+      "result": "PASS",
+      "preview_then_confirm": true,
+      "resumed_paused": true,
+      "retained_pieces": 6,
+      "retained_places_sha256": "97036a2aa5c9b271a30b20779584103c0a74dc2e30028fe364dbcec7fa805172",
+      "actual_local_eaters": 4,
+      "planned_users": 6,
+      "local_food_g": 4316,
+      "gpu_sha256": "c8f99757524201ceb944b37e5e8c88c53f51fe7e23d21b9d45795274fa1d7f74",
+      "observed_resolutions": [
+        [
+          1440,
+          940
+        ],
+        [
+          1280,
+          880
+        ]
+      ]
+    },
+    "domain_acceptance": {
+      "result": "PASS",
+      "test_suites": [
+        "live-dining",
+        "live-boundary",
+        "live-legacy",
+        "live-construction",
+        "live-native"
+      ],
+      "accelerated_domain_case_scope": "Dining construction/meal integration tests shorten build and recipe times; native trial above does not",
+      "cases": [
+        "real kitchen shipment and FEFO consumption",
+        "exact stock and nutrition ledger loss",
+        "busy or empty dining falls back to base ration",
+        "duplicate pantry owner normalization",
+        "paid road admission and scenery protection",
+        "strict RDLIVE1 migration",
+        "RDLIVE2 queued plans, meal records and 80-tick restore continuation"
+      ]
+    },
+    "limits": [
+      "One dining place; no relocation or cancellation after confirmation",
+      "No resident commute simulation or production bonus from decorative pieces",
+      "Owner mouse/keyboard trial and enjoyment judgment have not occurred"
+    ],
+    "packaged_trial": {
+      "installed_binary_sha256": "717a783f179ddbd8e1d81b2d3115d8e77273cc4ff79663408000a744e3e9252e",
+      "launch_exit_code": 0,
+      "matches_built_binary": true,
+      "separate_trial_save": true,
+      "owner_trial_save_not_seeded_by_replay": true,
+      "original_binary_unchanged": true,
+      "gpu_sha256": "e6f5b6861b428f4429bd4cb1d020d0930bb875f93bdee69fecfb1c97b24d33b5"
+    },
+    "source_sha256_lf": {
+      "references/red-dune-live/native/Main.hs": "be416589b7e7d174d0bdc72504458db2e838969afe16e0fe31f9389aba14e40b",
+      "references/red-dune-live/native/RedDune/Native/Play.hs": "525c75fe531bbe97d0499f05a5249441264ab0602b51747c67bf525807facb2c",
+      "references/red-dune-live/native/RedDune/Native/View.hs": "cbc30a3aa92db58980e7ebeb7ff87c2bc4b7fc9d3932fc08872cf1dbbfe6325f",
+      "references/red-dune-live/src/RedDune/Game.hs": "16e4b3f01c57824a3b1a456820b7baca1f0eecaabd05ee644f3c7beae5368d1f"
+    }
   }
 }

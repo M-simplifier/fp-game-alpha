@@ -56,7 +56,7 @@ overviewCamera game = case points of
   where
     points = [(fromInteger x, fromInteger y) | state <- maybe [] (: []) (worldM1 (gameWorld game)), placement <- M.elems (S.spatialPlacements (m1Space state)), S.BuildingShape _ (S.Tile x y) _ <- [S.placementShape placement]]
 
-data Dialog = NoDialog | Introduction String | Welcome Store.Catalog | SaveLibrary Store.Catalog Int | LoadPreview Store.Preview | NewCampaign | Conclusion GameState
+data Dialog = NoDialog | Introduction String | Welcome Store.Catalog | SaveLibrary Store.Catalog Int | LoadPreview Store.Preview | NewCampaign | Conclusion GameState | DiningPreview S.Tile S.Rotation Int (M.Map Resource Integer)
 
 data Screen = Screen
   { screenGame :: !GameState,
@@ -67,6 +67,7 @@ data Screen = Screen
     screenSpeed :: !Int,
     screenDialog :: !Dialog,
     screenNotice :: !String,
+    screenNoticeAge :: !Double,
     screenSaved :: !Bool,
     screenAutoPause :: !Bool,
     screenPalettePage :: !Int,
@@ -81,6 +82,7 @@ data UiCommand
   = Choose Decision
   | BeginWork EntityId
   | PlaceDining S.Tile S.Rotation
+  | ConfirmDining S.Tile S.Rotation
   | FocusDining S.Tile
   | HomeView
   | SelectSite EntityId
@@ -115,6 +117,7 @@ newScreen game dialog =
       screenSpeed = 4,
       screenDialog = dialog,
       screenNotice = "",
+      screenNoticeAge = 0,
       screenSaved = False,
       screenAutoPause = True,
       screenPalettePage = 0,
@@ -258,6 +261,7 @@ drawColony font width height time mouse screen = do
       clock = if worldMode world == Active then realToFrac time else fromIntegral tick / 20
       night = max 0 (min 1 ((cos (fromIntegral (tick `mod` 28800) * pi / 14400) + 0.15) * 0.85)) :: Float
       placements = maybe [] (sortOn (depth camera) . M.elems . S.spatialPlacements . m1Space) (worldM1 world)
+      diningPlans = M.keys (gameDiningPlaces game) ++ case screenDialog screen of DiningPreview tile _ _ _ -> [tile]; _ -> []
       hotspots = [Button (placementRect width height camera world placement) "" (SelectSite (S.placementId placement)) False | placement <- placements, case S.placementShape placement of S.BuildingShape {} -> True; _ -> False]
       hovered = if screenBuild screen == Nothing then buttonCommand <$> find (inside mouse . buttonRect) (reverse hotspots) else Nothing
   beginScissorMode 0 100 width (height - 214)
@@ -282,6 +286,12 @@ drawColony font width height time mouse screen = do
         tileQuad width height camera (fromInteger x - 0.08) (fromInteger y - 0.08) 1.16 1.16 0 (Color 126 99 76 255)
         tileQuad width height camera (fromInteger x + 0.07) (fromInteger y + 0.07) 0.86 0.86 1 (Color 216 189 145 255)
       forM_ (M.toAscList (gamePlaces game)) $ \(tile, (kind, rotation)) -> drawPlace width height camera night tile kind rotation
+      forM_ diningPlans $ \tile@(S.Tile x y) ->
+        when (not (any (\placement -> case S.placementShape placement of S.BuildingShape "pantry" origin _ -> origin == tile; _ -> False) placements)) $ do
+          tileQuad width height camera (fromInteger x) (fromInteger y) 3 3 0 (Color 251 219 124 135)
+          drawWorksite width height camera (fromInteger x) (fromInteger y) 3 3 0
+          let Vector2 sx sy = p (fromInteger x + 1.5) (fromInteger y + 1.5)
+          txt font "食事の場（予定）" (sx - 90) (sy - 74) 23 ink
       let drawBuilding placement = case S.placementShape placement of
             S.RoadShape (S.Tile x y) -> when (S.placementStage placement /= S.Built) $ tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (Color 246 193 81 180)
             S.BuildingShape name (S.Tile x y) rotation -> do
@@ -303,7 +313,7 @@ drawColony font width height time mouse screen = do
                 drawEllipseLines (round cx) (round cy) (scale * (bw + bh) / 2) (scale * (bw + bh) / 4) copper
               if S.placementStage placement /= S.Built
                 then drawWorksite width height camera px py bw bh progress
-                else drawFacility width height camera clock night name px py bw bh running progress stock
+                else drawFacility width height camera clock night (if M.member (S.Tile x y) (gameDiningPlaces game) then "dining" else name) px py bw bh running progress stock
               when (selected || pointed || name `elem` ["hand_pump", "farm", "kitchen", "pantry"]) $ do
                 let Vector2 centerX centerY = p (px + bw / 2) (py + bh / 2)
                     cx = centerX + (if name == "farm" then -42 else if name == "kitchen" then 38 else 0)
@@ -374,7 +384,7 @@ drawColony font width height time mouse screen = do
           if name == "dining"
             then do
               tileQuad width height camera (fromInteger tx) (fromInteger ty) (fromInteger bw) (fromInteger bh) 0 (Color 249 224 127 165)
-              drawFacility width height camera clock night "pantry" (fromInteger tx) (fromInteger ty) (fromInteger bw) (fromInteger bh) False 0 (const 0)
+              drawFacility width height camera clock night "dining" (fromInteger tx) (fromInteger ty) (fromInteger bw) (fromInteger bh) False 0 (const 0)
             else
               if take 7 name == "detail-"
                 then case lookup name [("detail-square", PlaceSquare), ("detail-bench", PlaceBench), ("detail-garden", PlaceGarden), ("detail-lantern", PlaceLantern)] of
@@ -551,10 +561,10 @@ drawFacility width height camera clock night name x y bw bh running progress sto
       when (stock Water > 0) $ do
         drawEllipse (round (cx + s * 1.5)) (round (cy + s * 0.3)) (s * 0.4) (s * 0.21) (Color 98 154 162 255)
         drawEllipse (round (cx + s * 1.5)) (round (cy + s * 0.03)) (s * 0.4) (s * 0.2) (Color 121 192 194 255)
-    "pantry" -> do
+    _ | name `elem` ["pantry", "dining"] -> do
       buildingBox width height camera x y bw bh (s * 0.7) cream
       forM_ [(x, y), (x + bw, y), (x, y + bh), (x + bw, y + bh)] $ \(u, v) -> drawLineEx (p u v) (lift (s * 2) u v) 3 (Color 120 84 57 255)
-      forM_ [0 .. 4 :: Int] $ \stripe -> tileQuad width height camera (x + fromIntegral stripe * bw / 5) y (bw / 5) bh (s * 2) (if even stripe then Color 238 188 90 255 else Color 254 233 173 255)
+      forM_ [0 .. 4 :: Int] $ \stripe -> tileQuad width height camera (x + fromIntegral stripe * bw / 5) y (bw / 5) bh (s * 2) (if name == "dining" then if even stripe then Color 74 133 128 255 else Color 184 214 185 255 else if even stripe then Color 238 188 90 255 else Color 254 233 173 255)
       forM_ [0 .. 2 :: Int] $ \n -> do
         let u = x + 0.45 + fromIntegral n * (bw - 0.9) / 3
         tileQuad width height camera u (y + bh + 0.3) 0.7 0.45 (s * 0.35) (Color 154 108 65 255)
@@ -623,6 +633,8 @@ drawView font width height time mouse screen = do
       bottom = fromIntegral height - 114
       hour = elapsedTicks world campaign `div` 1200
       minute = elapsedTicks world campaign `mod` 1200 `div` 20
+      SimTick absoluteTick = simTick world
+      clockHour = (absoluteTick `div` 1200) `mod` 24
       people = M.elems (needsResidents (worldNeeds world))
       served = all (\person -> residentHourWaterDue person == residentHourWaterServed person && residentHourFoodDue person == residentHourFoodServed person) people
       top =
@@ -637,7 +649,7 @@ drawView font width height time mouse screen = do
   drawLine 0 99 width 99 line
   txt font "RED DUNE" 28 14 26 copper
   txt font "赤い土地に、暮らしをつくる" 29 60 20 muted
-  txt font (printf "%02d:%02d" hour minute) 599 15 29 ink
+  txt font (printf "%02d:%02d" clockHour minute) 599 15 29 ink
   txt font ("開拓 " ++ show (hour `div` 24 + 1) ++ "日目") 600 59 20 muted
   stockBadge font 728 17 "水" (P.physical world (s01Pantry d) Water) 10000 water
   stockBadge font 884 17 "食事" (P.physical world (s01Pantry d) Ration) 5000 mint
@@ -669,6 +681,16 @@ drawView font width height time mouse screen = do
     dialog -> do
       mapM_ (drawButton font (Vector2 (-1) (-1))) visible
       drawRectangle 0 0 width height (Color 29 28 25 165)
+      case dialog of
+        DiningPreview (S.Tile tx ty) _ _ _ -> do
+          let px = fromInteger tx
+              py = fromInteger ty
+              corners = [project width height (screenCamera screen) x y | (x, y) <- [(px, py), (px + 3, py), (px + 3, py + 3), (px, py + 3)]]
+              Vector2 cx cy = project width height (screenCamera screen) (px + 1.5) (py + 1.5)
+          forM_ (zip corners (drop 1 corners ++ take 1 corners)) $ \(a, b) -> drawLineEx a b 4 (Color 255 229 142 255)
+          card (cx - 94) (cy - 102) 188 40 paper
+          txt font "選んだ場所" (cx - 80) (cy - 97) 23 copper
+        _ -> pure ()
       dialogButtons <- drawDialog font width height dialog
       mapM_ (drawButton font mouse) dialogButtons
       pure dialogButtons
@@ -740,54 +762,47 @@ drawPanel font x y _height screen = do
         txt font progress (x + 28) (py + 24) 13 muted
       pure commissions
     SupplyTab -> do
-      txt font "物資の通り道" x y 21 copper
-      txt font "止まった経路を直し、余裕を調整" x (y + 30) 14 muted
+      txt font "配送のようす" x y 30 copper
+      txt font "荷車で運ぶ備蓄の目標を調整" x (y + 57) 22 muted
       let order route = (P.policyPriority route, maybe 9 id (lookup (P.policyId route) (zip ["pantry-water", "pantry-food", "farm-water", "kitchen-crops", "kitchen-water", "kitchen-fuel"] [0 :: Int ..])), P.policyId route)
           routes = sortOn order (P.deliveryPolicies policy)
-          page = max 0 (min ((max 1 (length routes) - 1) `div` 6) (screenSupplyPage screen))
-          shown = take 6 (drop (page * 6) routes)
-      buttons <-
+          page = max 0 (min ((max 1 (length routes) - 1) `div` 4) (screenSupplyPage screen))
+          shown = take 4 (drop (page * 4) routes)
+      controls <-
         fmap concat $
           mapM
             ( \(n, route) -> do
-                let py = y + 65 + fromIntegral n * 66
+                let py = y + 94 + fromIntegral n * 116
                     (status, _) = P.policyStatus world route
-                    label = case status of "disabled" -> "停止"; "deliveryInFlight" -> "運搬中"; "bufferSatisfied" -> "備蓄十分"; "sourceEmpty" -> "供給元が空"; "destinationFull" -> "受取先が満杯"; _ -> "出荷待ち"
+                    label = case status of "disabled" -> "停止中"; "deliveryInFlight" -> "荷車で運搬中"; "bufferSatisfied" -> "備蓄が揃っています"; "sourceEmpty" -> "送り元で生産待ち"; "destinationFull" -> "受け取り先が満杯"; _ -> "出荷を待っています"
                     amount = P.physical world (P.policyDestination route) (P.policyResource route)
-                txt font (deliveryName world route) x py 16 ink
-                txt font label x (py + 27) 13 muted
-                txt font (printf "%.0f/%.0f" (fromInteger amount / 1000 :: Double) (fromInteger (P.policyTarget route) / 1000 :: Double)) (x + 112) (py + 27) 13 muted
-                pure
-                  [ button (x + 208) (py + 20) 36 "－" (Choose (ChangeBuffer (P.policyId route) (-P.policyBatch route))) False,
-                    button (x + 249) (py + 20) 36 "＋" (Choose (ChangeBuffer (P.policyId route) (P.policyBatch route))) False,
-                    button (x + 290) (py + 20) 32 (if P.policyEnabled route then "✓" else "×") (Choose (ToggleDelivery (P.policyId route))) False
-                  ]
+                card x py 332 108 (Color 241 233 211 255)
+                txt font (deliveryName world route) (x + 10) (py + 4) 22 ink
+                txt font label (x + 10) (py + 35) 20 muted
+                txt font (printf "%.0f / %.0f" (fromInteger amount / 1000 :: Double) (fromInteger (P.policyTarget route) / 1000 :: Double)) (x + 10) (py + 71) 22 (resourceColor (P.policyResource route))
+                pure [button (x + 174) (py + 60) 44 "－" (Choose (ChangeBuffer (P.policyId route) (-P.policyBatch route))) False, button (x + 224) (py + 60) 44 "＋" (Choose (ChangeBuffer (P.policyId route) (P.policyBatch route))) False, button (x + 282) (py + 60) 44 (if P.policyEnabled route then "Ⅱ" else "▶") (Choose (ToggleDelivery (P.policyId route))) False]
             )
             (zip [0 :: Int ..] shown)
-      when (null routes) (wrap font "暮らしタブで班を配置すると、配送計画がここに現れます。" x (y + 75) 314 18 muted)
-      txt font (show (page + 1) ++ "/" ++ show (max 1 ((length routes + 5) `div` 6))) (x + 135) (y + 471) 16 muted
-      pure
-        ( buttons
-            ++ [ button x (y + 463) 115 "前の経路" (SupplyPage (max 0 (page - 1))) False,
-                 button (x + 203) (y + 463) 119 "次の経路" (SupplyPage (min ((max 1 (length routes) - 1) `div` 6) (page + 1))) False
-               ]
-        )
+      when (null routes) (wrap font "井戸や厨房を動かすと、ここに配送が現れます。" x (y + 110) 332 24 ink)
+      txt font (show (page + 1) ++ "/" ++ show (max 1 ((length routes + 3) `div` 4))) (x + 145) (y + 574) 22 muted
+      pure (controls ++ [button x (y + 568) 134 "前の経路" (SupplyPage (max 0 (page - 1))) False, button (x + 198) (y + 568) 134 "次の経路" (SupplyPage (min ((max 1 (length routes) - 1) `div` 4) (page + 1))) False])
     BuildingTab -> do
-      txt font "土地を育てる" x y 21 copper
-      let upper = [button x (y + 40) 322 "予備倉庫と道路を計画" (Choose ReserveWarehouse) False]
-          prototypes = "road" : C.liveBuildablePrototypes
-          page = max 0 (min ((length prototypes - 1) `div` 12) (screenPalettePage screen))
-          shown = take 12 (drop (page * 12) prototypes)
-      txt font "選んで地図へ / R 回転 / Esc 解除" x (y + 91) 14 muted
-      let choices = [button (x + fromIntegral (n `mod` 2) * 163) (y + 122 + fromIntegral (n `div` 2) * 43) 155 (siteName name) (SelectBuild name) (screenBuild screen == Just name) | (n, name) <- zip [0 :: Int ..] shown]
-      txt font (show (page + 1) ++ "/" ++ show ((length prototypes + 11) `div` 12)) (x + 138) (y + 406) 16 muted
-      pure
-        ( upper
-            ++ choices
-            ++ [ button x (y + 397) 115 "前の施設" (PalettePage (max 0 (page - 1))) False,
-                 button (x + 203) (y + 397) 119 "次の施設" (PalettePage (min ((length prototypes - 1) `div` 12) (page + 1))) False
-               ]
-        )
+      txt font "次に、何を建てよう" x y 29 copper
+      wrap font "選んで世界へ置く。道路は始点と終点を選びます。" x (y + 59) 332 22 muted
+      let preferred = ["road", "warehouse", "tank", "farm", "kitchen", "housing", "solar", "pump"]
+          prototypes = preferred ++ filter (`notElem` preferred) C.liveBuildablePrototypes
+          page = max 0 (min ((length prototypes - 1) `div` 8) (screenPalettePage screen))
+          shown = take 8 (drop (page * 8) prototypes)
+          controls = [button (x + fromIntegral (n `mod` 2) * 172) (y + 169 + fromIntegral (n `div` 2) * 83) 160 (siteName name) (SelectBuild name) (screenBuild screen == Just name) | (n, name) <- zip [0 :: Int ..] shown]
+      forM_ (zip [0 :: Int ..] shown) $ \(n, name) -> do
+        let sx = x + fromIntegral (n `mod` 2) * 172
+            sy = y + 138 + fromIntegral (n `div` 2) * 83
+            cost = if name == "road" then M.singleton Stone 2000 else maybe M.empty buildingCost (M.lookup name (contentBuildings (worldContent world)))
+            label = case M.toAscList cost of (resource, amount) : _ -> resourceName resource ++ " " ++ resourceAmount resource amount; _ -> ""
+        txt font label (sx + 8) sy 19 muted
+      txt font "材料と班が現場を進めます。" x (y + 515) 22 ink
+      txt font (show (page + 1) ++ "/" ++ show ((length prototypes + 7) `div` 8)) (x + 145) (y + 574) 22 muted
+      pure (controls ++ [button x (y + 568) 134 "前の施設" (PalettePage (max 0 (page - 1))) False, button (x + 198) (y + 568) 134 "次の施設" (PalettePage (min ((length prototypes - 1) `div` 8) (page + 1))) False])
     PeopleTab -> do
       txt font "三つの班で、暮らしをつなぐ" x y 20 copper
       case worldM1 world of
@@ -822,19 +837,19 @@ drawDiningPanel font x y game = do
       let built = diningBuilt status
           meals = diningMeals status
           served = length meals
-          title = if not built then "建設を進めています" else if served > 0 then "ここで食事をしています" else if diningStock status > 0 then "料理が届きました" else if diningIncoming status > 0 then "料理を運んでいます" else "厨房の料理を待っています"
+          title = if not built then "建設を進めています" else if served > 0 then "ここで" ++ show served ++ "人が食べた" else if diningStock status > 0 then "料理が届きました" else if diningIncoming status > 0 then "料理を運んでいます" else "厨房の料理を待っています"
           color = if served > 0 then mint else if built then water else copper
           S.Tile tx ty = diningTile status
       txt font ("選んだ場所  " ++ show tx ++ ", " ++ show ty) x (y + 62) 22 muted
       card x (y + 108) 332 148 (Color 240 234 212 255)
-      txt font title (x + 12) (y + 120) 24 color
+      txt font title (x + 12) (y + 120) (if served > 0 then 32 else 24) color
       txt font "ここにある料理" (x + 12) (y + 163) 22 muted
-      txt font (resourceAmount Ration (diningStock status)) (x + 12) (y + 198) 31 mint
+      txt font (resourceAmount Ration (diningStock status)) (x + 12) (y + 198) 23 mint
       txt font ("運搬中 " ++ resourceAmount Ration (diningIncoming status)) x (y + 280) 22 water
-      txt font ("この場を使う " ++ show (length (diningResidents status)) ++ "人") x (y + 330) 24 ink
+      txt font ("使う予定の住民 " ++ show (length (diningResidents status)) ++ "人") x (y + 330) 24 ink
       txt font ("直近にここで食べた " ++ show served ++ "人") x (y + 369) 22 mint
       wrap font (if not built then "建設が終わるまでは、いつもの配給所で食事をします。" else "勤務していない住民が、現地の料理を食べます。空の時は通常の配給を使います。") x (y + 408) 332 21 muted
-      pure [button x (y + 500) 332 "この場所を見にいく" (FocusDining (diningTile status)) True, button x (y + 552) 332 "周りを飾る" (SelectTab PlacesTab) False]
+      pure (if served > 0 then [button x (y + 500) 332 "周りを飾る" (SelectTab PlacesTab) True, button x (y + 552) 332 "この場所を見にいく" (FocusDining (diningTile status)) False] else [button x (y + 500) 332 "この場所を見にいく" (FocusDining (diningTile status)) True, button x (y + 552) 332 "周りを飾る" (SelectTab PlacesTab) False])
 
 objectives :: GameState -> [(Bool, String, String)]
 objectives game =
@@ -849,9 +864,19 @@ objectives game =
 
 drawDialog :: NativeFont -> Int -> Int -> Dialog -> IO [Button]
 drawDialog font width height dialog = do
-  let x = fromIntegral width / 2 - 300; y = fromIntegral height / 2 - 280
+  let x = case dialog of DiningPreview {} -> fromIntegral width - 626; _ -> fromIntegral width / 2 - 300
+      y = fromIntegral height / 2 - 280
   card x y 600 550 paper
   case dialog of
+    DiningPreview (S.Tile tx ty) rotation roads cost -> do
+      txt font "ここに、食事の場をつくる" (x + 40) (y + 35) 28 copper
+      txt font ("選んだ場所 " ++ show tx ++ ", " ++ show ty) (x + 40) (y + 93) 24 ink
+      txt font ("つなぐ道路 " ++ show roads ++ "本") (x + 40) (y + 142) 24 ink
+      txt font "合計費用" (x + 40) (y + 190) 22 ink
+      forM_ (zip [0 :: Int ..] [(resource, amount) | (resource, amount) <- M.toAscList cost, amount > 0]) $ \(row, (resource, amount)) ->
+        txt font (resourceName resource ++ " " ++ resourceAmount resource amount) (x + 40) (y + 228 + fromIntegral row * 34) 22 ink
+      wrap font "食事の場は1か所。確定後の移設・取消はできません。席や灯りはいつでも並べ替えられます。" (x + 40) (y + 294) 520 22 muted
+      pure [button (x + 40) (y + 415) 520 "ここに建てる" (ConfirmDining (S.Tile tx ty) rotation) True, button (x + 40) (y + 466) 520 "場所を選び直す" (SelectBuild "dining") False]
     Introduction scenario -> do
       txt font "RED DUNE" (x + 40) (y + 32) 36 copper
       txt font "40人が、この赤い土地で暮らし始める。" (x + 40) (y + 93) 24 ink
@@ -954,7 +979,12 @@ drawInspector font x y screen ident
         Just _ -> pure [button x (y + 292) 334 (if P.assistConstruction policy then "建設班を休ませる" else "建設班を動かす") (Choose ToggleBuildingCrews) (P.assistConstruction policy), button x (y + 346) 334 "この計画を取り消す" (Choose (CancelPlan ident)) False]
         Nothing
           | M.member ident (worldSites world) || name == "pantry" -> do
-              let begin = button x (y + 292) 334 "班を配置して動かす" (BeginWork ident) True
+              let beginLabel = case name of
+                    "hand_pump" -> "水を汲み始める"
+                    "farm" -> "作物を育て始める"
+                    "kitchen" -> "料理を作り始める"
+                    _ -> "班を配置して動かす"
+                  begin = button x (y + 292) 334 beginLabel (BeginWork ident) True
                   pause = button x (y + 292) 334 "この場所の生産を休む" (Choose (ToggleProduction ident)) False
               pure ((if active then [pause] else if name == "pantry" && crew > 0 then [] else [begin]) ++ [button x (y + 346) 334 "配送の様子を見る" (SelectTab SupplyTab) False] ++ [button x (y + 400) 334 "この場所の班を解放" (Choose (ReleaseFacility ident)) False | crew > 0])
           | otherwise -> pure []

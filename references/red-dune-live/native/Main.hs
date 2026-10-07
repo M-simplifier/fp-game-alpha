@@ -15,7 +15,7 @@ import Control.Exception (IOException, bracket, catch, evaluate)
 import Control.Monad (forM_, when)
 import Data.ByteString qualified as BS
 import Data.Char (ord)
-import Data.List (find, intercalate, nub)
+import Data.List (find, intercalate, isPrefixOf, nub)
 import Data.Map.Strict qualified as M
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as TE
@@ -155,7 +155,9 @@ loop root options store font previous = do
       stamped = previous {appQaRead = qaCount, appFrames = appFrames previous + 1}
   operated <- maybe (pure stamped) (perform store stamped) requested
   cameraScreen0 <- cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
-  let cameraScreen = cameraScreen0 {screenCues = fadeCues dt (screenCues cameraScreen0)}
+  let noticeAge = screenNoticeAge cameraScreen0 + dt
+      persistent = any (`isPrefixOf` screenNotice cameraScreen0) ["操作を完了", "保存できない", "自動保存でき", "進行を停止", "厨房が故障"]
+      cameraScreen = cameraScreen0 {screenCues = fadeCues dt (screenCues cameraScreen0), screenNoticeAge = noticeAge, screenNotice = if noticeAge > 8 && not persistent then "" else screenNotice cameraScreen0}
   selected <-
     if click && command == Nothing && isNoDialog (screenDialog cameraScreen) && usedMouseInMap width height cameraScreen usedMouse
       then case screenBuild cameraScreen of
@@ -189,6 +191,7 @@ loop root options store font previous = do
       captureFrame (folder </> name)
       writeFile (folder </> replaceExtension name "json") (encodeJSON (observeGame (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "dining.txt") (show (diningStatuses (screenGame (appScreen saved))))
+      writeFile (folder </> replaceExtension name "places.txt") (show (gamePlaces (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "meta.txt") (unlines ["Actual native GPU capture; synthetic pointer/key replay", "size=" ++ show width ++ "x" ++ show height, "frameSeconds=" ++ show dt, "windowSeconds=" ++ show time, "frames=" ++ show (appFrames saved), "focused=" ++ show focused, "replay suspends automatic focus pausing; default owner play pauses"])
     _ -> pure ()
   let finished = appQuit saved || close || maybe False (appFrames saved >=) (optionFrames options)
@@ -274,7 +277,8 @@ cameraInput dt screen
 perform :: Store.Store -> App -> UiCommand -> IO App
 perform store app command = do
   result <- ioResult (performUnchecked store app command)
-  pure (either (\message -> app {appScreen = (appScreen app) {screenNotice = "操作を完了できませんでした：" ++ take 100 message}}) id result)
+  let handled = either (\message -> app {appScreen = (appScreen app) {screenNotice = "操作を完了できませんでした：" ++ take 100 message}}) id result
+  pure handled {appScreen = (appScreen handled) {screenNoticeAge = 0}}
 
 ioResult :: IO a -> IO (Either String a)
 ioResult work = (Right <$> work) `catch` (\(errorValue :: IOException) -> pure (Left (show errorValue)))
@@ -285,9 +289,17 @@ performUnchecked store app command = case command of
   PlaceDining tile rotation -> case planDining tile rotation game of
     Left failure -> pure (update screen {screenNotice = friendlyFailure failure})
     Right candidate -> do
+      paused <- pauseGame game
+      let roads = length [() | Space.RoadShape _ <- gameBuildQueue candidate] - length [() | Space.RoadShape _ <- gameBuildQueue game]
+          cost = M.unionWith (+) (M.singleton Stone (2000 * fromIntegral roads)) (maybe M.empty buildingCost (M.lookup "pantry" (contentBuildings (worldContent (gameWorld game)))))
+          Space.Tile x y = tile
+      pure (update screen {screenGame = paused, screenCamera = Camera (fromInteger x + 7.5) (fromInteger y - 4.5) 26 0, screenBuild = Nothing, screenDialog = DiningPreview tile rotation roads cost, screenNotice = ""})
+  ConfirmDining tile rotation -> case planDining tile rotation game of
+    Left failure -> pure (update screen {screenDialog = NoDialog, screenNotice = friendlyFailure failure})
+    Right candidate -> do
       resumed <- if worldMode (gameWorld candidate) == Paused then either (ioError . userError) pure (act [("op", "resume")] candidate) else pure candidate
       forced <- evaluate (force resumed)
-      pure (update screen {screenGame = forced, screenBuild = Nothing, screenTab = DiningTab, screenNotice = "食事の場を計画しました。道路と建設が進み、厨房から料理を運びます。", screenSaved = False})
+      pure (update screen {screenGame = forced, screenBuild = Nothing, screenTab = DiningTab, screenDialog = NoDialog, screenNotice = "食事の場を計画しました。道路と建設が進み、厨房から料理を運びます。", screenSaved = False})
   BeginWork ident -> case decide (StartSite ident) game >>= (\candidate -> if worldMode (gameWorld candidate) == Paused then act [("op", "resume")] candidate else Right candidate) of
     Left failure -> pure (update screen {screenNotice = friendlyFailure failure})
     Right candidate -> do
@@ -317,7 +329,7 @@ performUnchecked store app command = case command of
   SelectBuild name -> do
     let cost = if name == "road" then M.singleton Stone 2000 else maybe M.empty buildingCost (M.lookup name (contentBuildings (worldContent (gameWorld game))))
         costText = intercalate " / " [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- M.toAscList cost]
-    pure (update screen {screenBuild = Just name, screenRoadStart = Nothing, screenNotice = if take 7 name == "detail-" then "好きな場所へ置く / Rで向き / Escで戻る" else if name == "road" then "道路の始点、終点を順に選ぶ / Escで戻る" else siteName name ++ "を配置：" ++ costText ++ " / Esc で解除"})
+    pure (update screen {screenBuild = Just name, screenDialog = NoDialog, screenRoadStart = Nothing, screenNotice = if take 7 name == "detail-" then "好きな場所へ置く / Rで向き / Escで戻る" else if name == "road" then "道路の始点、終点を順に選ぶ / Escで戻る" else if name == "dining" then "好きな場所を選ぶ / 向きを変える / 費用を確認して確定" else siteName name ++ "を配置：" ++ costText ++ " / Esc で解除"})
   ChangeSpeed speed -> pure (update screen {screenSpeed = speed})
   PalettePage page -> pure (update screen {screenPalettePage = max 0 page})
   SupplyPage page -> pure (update screen {screenSupplyPage = max 0 page})
@@ -343,7 +355,7 @@ performUnchecked store app command = case command of
     LoadPreview preview -> do
       when (appStarted app) (Store.saveGame store game >> pure ())
       candidate <- Store.confirmCheckpoint store preview
-      pure app {appScreen = screen {screenGame = candidate, screenSelected = Nothing, screenBuild = Nothing, screenTab = ColonyTab, screenDialog = NoDialog, screenNotice = "新しい履歴で再開しました。時間は一時停止です。", screenSaved = True}, appDebt = 0, appSavedRevision = gameRevision candidate, appSaveTime = 0, appStarted = True}
+      pure app {appScreen = screen {screenGame = candidate, screenSelected = Nothing, screenBuild = Nothing, screenCamera = openingCamera candidate, screenTab = ColonyTab, screenDialog = NoDialog, screenNotice = "新しい履歴で再開しました。時間は一時停止です。", screenSaved = True}, appDebt = 0, appSavedRevision = gameRevision candidate, appSaveTime = 0, appStarted = True}
     _ -> pure app
   CloseDialog ->
     if appStarted app
@@ -384,6 +396,8 @@ advanceFrame dt app
               newlyBroken = not (campaignDisrupted before) && campaignDisrupted after
               alarm = screenAutoPause screen && newlyBroken
               ending = campaignEnding before /= campaignEnding after
+              firstDining = not (any (not . null . diningMeals) (diningStatuses game)) && any (not . null . diningMeals) (diningStatuses forced)
+              firstDelivery = not (campaignFreshPantry before) && campaignFreshPantry after
           stopped <- if alarm || ending then pauseGame forced else pure forced
           pure
             app
@@ -393,7 +407,8 @@ advanceFrame dt app
                       screenCues = take 8 (worldFeedback game stopped ++ screenCues screen),
                       screenSaved = gameRevision stopped == appSavedRevision app,
                       screenDialog = if ending then Conclusion stopped else screenDialog screen,
-                      screenNotice = if newlyBroken then "厨房が故障しました。配給の備蓄と保守班を確認してください。" else if ending then fst (advice stopped) else screenNotice screen
+                      screenNoticeAge = if firstDining || firstDelivery || newlyBroken then 0 else screenNoticeAge screen,
+                      screenNotice = if newlyBroken then "厨房が故障しました。配給の備蓄と保守班を確認してください。" else if ending then fst (advice stopped) else if firstDining then "住民が、ここで料理を食べました。周りを飾ってみよう。" else if firstDelivery then "厨房の料理が届きました。食事の場をつくれます。" else screenNotice screen
                     },
                 appDebt = if alarm then 0 else total - fromIntegral count,
                 appSaveTime = appSaveTime app + dt
