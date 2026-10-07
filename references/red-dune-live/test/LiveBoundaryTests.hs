@@ -16,6 +16,8 @@ import Colony.World
 import Control.Monad (forM_, unless)
 import Data.ByteString qualified as BS
 import Data.Map.Strict qualified as M
+import Data.Text qualified as T
+import Data.Text.Encoding qualified as TE
 import Data.Word (Word64)
 import RedDune.Campaign
 import RedDune.ContentPack
@@ -69,7 +71,7 @@ main = do
   check "checksum rejects payload damage" (isLeft (decodeGame (BS.init bytes <> BS.singleton 255)))
   check "checkpoint rejects trailing bytes" (isLeft (decodeGame (bytes <> BS.singleton 0)))
   check "checkpoint rejects truncated payload" (isLeft (decodeGame (BS.take 64 bytes)))
-  source <- readFile "data/campaign-pack-v1.json"
+  source <- BS.readFile "data/campaign-pack-v1.json" >>= either (ioError . userError . show) (pure . T.unpack) . TE.decodeUtf8'
   originalPackJSON <- must (J.parseJSON source)
   let highRevision = 9007199254740993
       candidateJSON = setField "revision" (J.JInteger highRevision) originalPackJSON

@@ -1688,7 +1688,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Codec.hs",
-   "sha256_lf": "e46b45e971ef85cb11ab74a9b9b76aca0d92fe072e842f2993b0854f479b79e2"
+   "sha256_lf": "fd8fa7412b51839c555ffcaafb995041c50bdffd2f02e77afd888b05765c9ff3"
   },
   {
    "path": "references/red-dune-live/core/Colony/Codec/CBOR.hs",
@@ -1760,7 +1760,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/M1Scheduler.hs",
-   "sha256_lf": "6e89c5aa73666d94ce012bd2d9e396bbead3ed5a23ed44ecb98f47fc871c91fd"
+   "sha256_lf": "18817f9c9cf912c6e24e61479a7ea11fbd762294e8469effd3d9371d703b8fbd"
   },
   {
    "path": "references/red-dune-live/core/Colony/M1State.hs",
@@ -1780,7 +1780,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Needs.hs",
-   "sha256_lf": "2878525ced2128ffb853be923d4f717568c4499f3137221a3cecac7447d83fd8"
+   "sha256_lf": "17a979252adea27955765eaf7a1fb219a952be7c8b46619fc7f002c09be03bdb"
   },
   {
    "path": "references/red-dune-live/core/Colony/Pickup.hs",
@@ -1804,7 +1804,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/S01Fixture.hs",
-   "sha256_lf": "bb4645795cf2198f43da1cf6f1dfdaefd8e7cb8cb8bc54499a73dfc3a664ea69"
+   "sha256_lf": "30962664ad37d74f5baad65113cdfe3b9582d8214d216c0e03ea5e640bf94b5c"
   },
   {
    "path": "references/red-dune-live/core/Colony/Save.hs",
@@ -1952,15 +1952,15 @@
   },
   {
    "path": "references/red-dune-live/native/Main.hs",
-   "sha256_lf": "3974ef880a5a978dea5cf135cfbc49ccbb87b5dc392078002caf121cc3747deb"
+   "sha256_lf": "039e78e7f7955146d953f3dead421bd0f146fda55aad1b10094d6d1daa4a4068"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Font.hs",
-   "sha256_lf": "53b4403d6de33802729d41a901549ff02cc43d2d6bab24f3772ea87e80c62dd6"
+   "sha256_lf": "c0de43241d131baf1cbb0e365f401175408218384e5e46ef905c9491ffc01a99"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Play.hs",
-   "sha256_lf": "0eff7e3ebcc7109322463968dd896a1f5a42409b64404a828d219a035d92f783"
+   "sha256_lf": "525c75fe531bbe97d0499f05a5249441264ab0602b51747c67bf525807facb2c"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Store.hs",
@@ -1968,7 +1968,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/View.hs",
-   "sha256_lf": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124"
+   "sha256_lf": "631928add49266382b40503c370de984c9fbe538fdd365fb9bc9354868f7ca74"
   },
   {
    "path": "references/red-dune-live/native/assets/glyphs.txt",
@@ -1980,7 +1980,7 @@
   },
   {
    "path": "references/red-dune-live/red-dune-live.cabal",
-   "sha256_lf": "03e845d04b5d680dfcb687ba51e02431b9c36c285e7fbe52bef1e5e1dfc06c30"
+   "sha256_lf": "0c99bb637f0edaad94d30b55bdd0087f3d23e6e6e02d7c465669480e2ad53e8d"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Campaign.hs",
@@ -1992,11 +1992,11 @@
   },
   {
    "path": "references/red-dune-live/src/RedDune/Game.hs",
-   "sha256_lf": "6d8bca68e2b95c41db84ce36966a981dfddc32ce427adaa06ed342131fd4badd"
+   "sha256_lf": "16e4b3f01c57824a3b1a456820b7baca1f0eecaabd05ee644f3c7beae5368d1f"
   },
   {
    "path": "references/red-dune-live/src/RedDune/GameSave.hs",
-   "sha256_lf": "a27be648f2e9cbab6138e227d9a174eb0336d50ae32584d51547982b68f051f1"
+   "sha256_lf": "09b9bad80617a9f8c7f5f70c74884ee2c3363df85da541e91266cf2c95a067ea"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Policies.hs",
@@ -2012,7 +2012,7 @@
   },
   {
    "path": "references/red-dune-live/test/LiveBoundaryTests.hs",
-   "sha256_lf": "580213b0053b75dc9ec1c0a51414dc8670f10b112cda24c8f9cc597555d2b6a7"
+   "sha256_lf": "d91727ff0634bfc1ad08ad26232a0e64e0b68333376c487c50455f65fb1f9ce5"
   },
   {
    "path": "references/red-dune-live/test/LiveCampaignTests.hs",
@@ -2021,6 +2021,10 @@
   {
    "path": "references/red-dune-live/test/LiveConstructionTests.hs",
    "sha256_lf": "7cdddff34fe47aa491ae92f3c1032f770a3dfdad049b7c49504ccb25f1ce0c88"
+  },
+  {
+   "path": "references/red-dune-live/test/LiveDiningTests.hs",
+   "sha256_lf": "3bbc4c4400a3431c9c70d4ae6ecd49615b56fb3271325e08b90802d829d5fc23"
   },
   {
    "path": "references/red-dune-live/test/LiveLegacyTests.hs",

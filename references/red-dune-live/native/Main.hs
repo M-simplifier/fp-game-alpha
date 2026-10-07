@@ -4,13 +4,15 @@
 module Main where
 
 import Colony.Content
+import Colony.M1State (m1Space)
 import Colony.Presentation (encodeJSON)
 import Colony.Space qualified as Space
+import Colony.Transport (ShipmentStatus (ShipmentDelivered), shipmentStatus, transportShipments)
 import Colony.Units (Resource (Stone))
 import Colony.World
 import Control.DeepSeq (force)
 import Control.Exception (IOException, bracket, catch, evaluate)
-import Control.Monad (when)
+import Control.Monad (forM_, when)
 import Data.ByteString qualified as BS
 import Data.Char (ord)
 import Data.List (find, intercalate, nub)
@@ -33,6 +35,7 @@ import RedDune.Native.Font (NativeFont, fontFace, loadNativeFont, unloadNativeFo
 import RedDune.Native.Play
 import RedDune.Native.Store qualified as Store
 import RedDune.Native.View
+import RedDune.Policies (assistConstruction, policiesEnabled)
 import System.Directory
 import System.Environment
 import System.Exit (exitFailure)
@@ -41,7 +44,7 @@ import Text.Read (readMaybe)
 
 data Options = Options {optionStore :: !FilePath, optionQa :: !(Maybe FilePath), optionFrames :: !(Maybe Int), optionPack :: !(Maybe FilePath), optionNew :: !(Maybe String), optionHidden :: !Bool}
 
-data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool, appNewPack :: !ContentPack}
+data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool, appNewPack :: !ContentPack, appQaMilestones :: !(M.Map String Double)}
 
 main :: IO ()
 main =
@@ -65,11 +68,11 @@ main =
     let scenario = maybe "settlement" id (optionNew options)
     Store.withStore (optionStore options) $ \store -> do
       catalog <- Store.latestCheckpointCatalog store
-      initial <- either (ioError . userError) pure (startGame scenario pack)
+      initial <- either (ioError . userError) pure (startVillageGame scenario pack)
       game <- Store.prepareGame store initial
       let started = optionNew options /= Nothing || null (Store.catalogEntries catalog)
       when started (Store.saveGame store game >> pure ())
-      let screen = (newScreen game (if started then Introduction scenario else Welcome catalog)) {screenSaved = started}
+      let screen = (newScreen game (if started then NoDialog else Welcome catalog)) {screenSaved = started}
       setConfigFlags ([Msaa4xHint, WindowResizable, VsyncHint] ++ [WindowHidden | optionHidden options])
       withWindow 1440 940 "Red Dune" 60 $ \_resources -> do
         setWindowMinSize 1280 880
@@ -82,11 +85,13 @@ main =
         fontFile <- findFont
         fontBytes <- BS.readFile fontFile >>= either (ioError . userError) pure . fontFace
         bracket (loadNativeFont fontBytes glyphs) unloadNativeFont $ \font -> do
-          loop root options store font (App screen 0 (gameRevision game) 0 0 0 False started pack)
+          loop root options store font (App screen 0 (gameRevision game) 0 0 0 False started pack M.empty)
     `catch` ( \(errorValue :: IOException) -> do
                 temp <- getTemporaryDirectory
                 writeFile (temp </> "red-dune-startup-error.txt") (show errorValue)
-                Store.showNativeError ("Red Dune を起動できませんでした。\n保存先がほかのウィンドウで使用中なら、その開拓を閉じてから再度起動してください。\n\n" ++ show errorValue)
+                arguments <- getArgs
+                when ("--hidden" `notElem` arguments) $
+                  Store.showNativeError ("Red Dune を起動できませんでした。\n保存先がほかのウィンドウで使用中なら、その開拓を閉じてから再度起動してください。\n\n" ++ show errorValue)
                 exitFailure
             )
 
@@ -149,14 +154,21 @@ loop root options store font previous = do
       requested = firstJust [command, keyCommand, qaKey]
       stamped = previous {appQaRead = qaCount, appFrames = appFrames previous + 1}
   operated <- maybe (pure stamped) (perform store stamped) requested
-  cameraScreen <- cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
+  cameraScreen0 <- cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
+  let cameraScreen = cameraScreen0 {screenCues = fadeCues dt (screenCues cameraScreen0)}
   selected <-
-    if click && command == Nothing && isNoDialog (screenDialog cameraScreen) && usedMouseInMap width height usedMouse
+    if click && command == Nothing && isNoDialog (screenDialog cameraScreen) && usedMouseInMap width height cameraScreen usedMouse
       then case screenBuild cameraScreen of
         Just prototype -> do
           let tile = unproject width height (screenCamera cameraScreen) usedMouse
               shape = if prototype == "road" then Space.RoadShape tile else Space.BuildingShape prototype tile (screenBuildRotation cameraScreen)
-          perform store operated {appScreen = cameraScreen} (Choose (Plan shape))
+              detail = lookup prototype [("detail-square", PlaceSquare), ("detail-bench", PlaceBench), ("detail-garden", PlaceGarden), ("detail-lantern", PlaceLantern)]
+              commandForPlace = if prototype == "dining" then PlaceDining tile (screenBuildRotation cameraScreen) else if prototype == "detail-erase" then Choose (RemoveDetail tile) else maybe (Choose (Plan shape)) (\kind -> Choose (PlaceDetail kind tile (screenBuildRotation cameraScreen))) detail
+          if prototype == "road"
+            then case screenRoadStart cameraScreen of
+              Nothing -> pure operated {appScreen = cameraScreen {screenRoadStart = Just tile, screenNotice = "道路の終点を選んでください。Escで取り消せます。"}}
+              Just from -> perform store operated {appScreen = cameraScreen {screenRoadStart = Nothing}} (Choose (RoadPath from tile))
+            else perform store operated {appScreen = cameraScreen} commandForPlace
         Nothing -> pure operated {appScreen = cameraScreen {screenSelected = placementAt (screenGame cameraScreen) (unproject width height (screenCamera cameraScreen) usedMouse), screenTab = ColonyTab}}
       else pure operated {appScreen = cameraScreen}
   attended <-
@@ -168,13 +180,15 @@ loop root options store font previous = do
         pure selected {appScreen = (appScreen selected) {screenGame = paused, screenSaved = False, screenNotice = "ウィンドウを離れたため、一時停止しました。"}, appDebt = 0}
       else pure selected
   advanced <- advanceFrame (max 0 (min 0.1 dt)) attended
-  saved <- autoSave store advanced
+  checkpointed <- autoSave store advanced
+  saved <- recordMilestones options time checkpointed
   case (optionQa options, words qaLine) of
     (Just folder, ["capture", name]) | takeFileName name == name && takeExtension name == ".png" -> do
       createDirectoryIfMissing True folder
       _ <- drawing (drawView font width height time usedMouse (appScreen saved))
       captureFrame (folder </> name)
       writeFile (folder </> replaceExtension name "json") (encodeJSON (observeGame (screenGame (appScreen saved))))
+      writeFile (folder </> replaceExtension name "dining.txt") (show (diningStatuses (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "meta.txt") (unlines ["Actual native GPU capture; synthetic pointer/key replay", "size=" ++ show width ++ "x" ++ show height, "frameSeconds=" ++ show dt, "windowSeconds=" ++ show time, "frames=" ++ show (appFrames saved), "focused=" ++ show focused, "replay suspends automatic focus pausing; default owner play pauses"])
     _ -> pure ()
   let finished = appQuit saved || close || maybe False (appFrames saved >=) (optionFrames options)
@@ -190,6 +204,20 @@ loop root options store font previous = do
 
 -- TakeScreenshot prefixes raylib's fixed startup path. Export the actual
 -- framebuffer directly, retaining its native buffer for this bounded QA call.
+recordMilestones :: Options -> Double -> App -> IO App
+recordMilestones options time app = case optionQa options of
+  Nothing -> pure app
+  Just folder -> do
+    let screen = appScreen app
+        game = screenGame screen
+        world = gameWorld game
+        conditions = [("first-site-response", screenSelected screen /= Nothing), ("first-real-delivery", any ((== ShipmentDelivered) . shipmentStatus) (M.elems (transportShipments (worldTransport world)))), ("first-cooked-food-arrived", campaignFreshPantry (gameCampaign game)), ("dining-planned", not (M.null (gameDiningPlaces game))), ("dining-actual-use", any (not . null . diningMeals) (diningStatuses game))]
+        fresh = [label | (label, ready) <- conditions, ready, M.notMember label (appQaMilestones app)]
+    when (not (null fresh)) $ do
+      createDirectoryIfMissing True folder
+      forM_ fresh $ \label -> appendFile (folder </> "milestones.txt") (label ++ " windowSeconds=" ++ show time ++ " simTick=" ++ show (simTick world) ++ " speed=" ++ show (screenSpeed screen) ++ "\n")
+    pure app {appQaMilestones = foldr (\label -> M.insert label time) (appQaMilestones app) fresh}
+
 captureFrame :: FilePath -> IO ()
 captureFrame path = bracket c'loadImageFromScreen (\frame -> c'unloadImage frame >> c'free (castPtr frame)) $ \frame ->
   withCString path $ \filename -> do
@@ -205,8 +233,8 @@ isNoDialog :: Dialog -> Bool
 isNoDialog NoDialog = True
 isNoDialog _ = False
 
-usedMouseInMap :: Int -> Int -> Vector2 -> Bool
-usedMouseInMap width height (Vector2 x y) = x >= 0 && x < fromIntegral (width - 370) && y >= 85 && y < fromIntegral (height - 150)
+usedMouseInMap :: Int -> Int -> Screen -> Vector2 -> Bool
+usedMouseInMap width height screen (Vector2 x y) = x >= 0 && x < fromIntegral width && y >= 100 && y < fromIntegral (height - 114) && (screenTab screen == ColonyTab && screenSelected screen == Nothing || x < fromIntegral (width - 406))
 
 keyboard :: Screen -> IO (Maybe UiCommand)
 keyboard screen = do
@@ -233,7 +261,7 @@ cameraInput dt screen
       let camera = screenCamera screen
           next =
             if f
-              then homeCamera
+              then overviewCamera (screenGame screen)
               else
                 camera
                   { cameraX = cameraX camera + realToFrac dt * 25 * (if right then 1 else 0) - realToFrac dt * 25 * (if left then 1 else 0),
@@ -253,18 +281,43 @@ ioResult work = (Right <$> work) `catch` (\(errorValue :: IOException) -> pure (
 
 performUnchecked :: Store.Store -> App -> UiCommand -> IO App
 performUnchecked store app command = case command of
-  Choose decision -> case decide decision game of
+  FocusDining (Space.Tile x y) -> pure (update screen {screenCamera = Camera (fromInteger x + 7.5) (fromInteger y - 4.5) 26 0, screenTab = DiningTab, screenSelected = Nothing, screenBuild = Nothing})
+  PlaceDining tile rotation -> case planDining tile rotation game of
+    Left failure -> pure (update screen {screenNotice = friendlyFailure failure})
+    Right candidate -> do
+      resumed <- if worldMode (gameWorld candidate) == Paused then either (ioError . userError) pure (act [("op", "resume")] candidate) else pure candidate
+      forced <- evaluate (force resumed)
+      pure (update screen {screenGame = forced, screenBuild = Nothing, screenTab = DiningTab, screenNotice = "食事の場を計画しました。道路と建設が進み、厨房から料理を運びます。", screenSaved = False})
+  BeginWork ident -> case decide (StartSite ident) game >>= (\candidate -> if worldMode (gameWorld candidate) == Paused then act [("op", "resume")] candidate else Right candidate) of
     Left failure -> pure (update screen {screenNotice = friendlyFailure failure})
     Right candidate -> do
       forced <- evaluate (force candidate)
-      pure (update screen {screenGame = forced, screenNotice = decisionMessage decision, screenSaved = False})
-  SelectSite ident -> pure (update screen {screenSelected = Just ident, screenStockPage = 0, screenTab = ColonyTab})
-  ClearSelection -> pure (update screen {screenSelected = Nothing})
-  SelectTab tab -> pure (update screen {screenTab = tab, screenBuild = if tab == BuildingTab then screenBuild screen else Nothing})
+      pure (update screen {screenGame = forced, screenNotice = "班を配置しました。作業と配送が進みます。", screenSaved = False})
+  HomeView -> pure (update screen {screenCamera = overviewCamera game, screenSelected = Nothing, screenTab = ColonyTab, screenBuild = Nothing, screenRoadStart = Nothing})
+  Choose decision -> case decide decision game of
+    Left failure -> pure (update screen {screenNotice = friendlyFailure failure})
+    Right candidate -> do
+      let builds = case decision of Plan _ -> True; RoadPath _ _ -> True; _ -> False
+          queued = if builds then candidate {gamePolicies = (gamePolicies candidate) {policiesEnabled = True, assistConstruction = True}} else candidate
+      resumed <- if builds && worldMode (gameWorld queued) == Paused then either (ioError . userError) pure (act [("op", "resume")] queued) else pure queued
+      forced <- evaluate (force resumed)
+      pure (update screen {screenGame = forced, screenNotice = decisionMessage decision, screenSaved = gameRevision forced == appSavedRevision app, screenBuild = case decision of Plan (Space.BuildingShape {}) -> Nothing; _ -> screenBuild screen})
+  SelectSite ident -> do
+    let placement = worldM1 (gameWorld game) >>= M.lookup ident . Space.spatialPlacements . m1Space
+        camera = case placement of
+          Just target -> case Space.placementShape target of
+            Space.BuildingShape name (Space.Tile x y) _ ->
+              let (bw, bh) = maybe (3, 3) buildingFootprint (M.lookup name (contentBuildings (worldContent (gameWorld game))))
+               in homeCamera {cameraX = fromInteger x + fromInteger bw / 2 + 6, cameraY = fromInteger y + fromInteger bh / 2 - 6, cameraScale = 22}
+            _ -> screenCamera screen
+          _ -> screenCamera screen
+    pure (update screen {screenSelected = Just ident, screenStockPage = 0, screenTab = ColonyTab, screenCamera = camera})
+  ClearSelection -> pure (update screen {screenSelected = Nothing, screenTab = ColonyTab, screenBuild = Nothing, screenRoadStart = Nothing})
+  SelectTab tab -> pure (update screen {screenTab = tab, screenBuild = if tab `elem` [BuildingTab, PlacesTab] then screenBuild screen else Nothing, screenRoadStart = Nothing})
   SelectBuild name -> do
     let cost = if name == "road" then M.singleton Stone 2000 else maybe M.empty buildingCost (M.lookup name (contentBuildings (worldContent (gameWorld game))))
         costText = intercalate " / " [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- M.toAscList cost]
-    pure (update screen {screenBuild = Just name, screenNotice = siteName name ++ "を配置：" ++ costText ++ " / Esc で解除"})
+    pure (update screen {screenBuild = Just name, screenRoadStart = Nothing, screenNotice = if take 7 name == "detail-" then "好きな場所へ置く / Rで向き / Escで戻る" else if name == "road" then "道路の始点、終点を順に選ぶ / Escで戻る" else siteName name ++ "を配置：" ++ costText ++ " / Esc で解除"})
   ChangeSpeed speed -> pure (update screen {screenSpeed = speed})
   PalettePage page -> pure (update screen {screenPalettePage = max 0 page})
   SupplyPage page -> pure (update screen {screenSupplyPage = max 0 page})
@@ -294,7 +347,7 @@ performUnchecked store app command = case command of
     _ -> pure app
   CloseDialog ->
     if appStarted app
-      then pure (update screen {screenDialog = NoDialog, screenBuild = Nothing, screenNotice = ""})
+      then pure (update screen {screenDialog = NoDialog, screenBuild = Nothing, screenRoadStart = Nothing, screenSelected = Nothing, screenTab = ColonyTab, screenNotice = ""})
       else do
         catalog <- Store.latestCheckpointCatalog store
         pure (update screen {screenDialog = Welcome catalog, screenBuild = Nothing, screenNotice = ""})
@@ -303,9 +356,9 @@ performUnchecked store app command = case command of
     pure (update screen {screenGame = paused, screenDialog = NewCampaign, screenBuild = Nothing})
   StartScenario scenario -> do
     when (appStarted app) (Store.saveGame store game >> pure ())
-    original <- either (ioError . userError) pure (startGame scenario (appNewPack app))
+    original <- either (ioError . userError) pure (startVillageGame scenario (appNewPack app))
     candidate <- Store.activateGame store original
-    pure app {appScreen = screen {screenGame = candidate, screenTab = ColonyTab, screenSelected = Nothing, screenBuild = Nothing, screenCamera = homeCamera, screenSpeed = 1, screenDialog = Introduction scenario, screenNotice = "", screenSaved = True}, appDebt = 0, appSavedRevision = gameRevision candidate, appSaveTime = 0, appStarted = True}
+    pure app {appScreen = screen {screenGame = candidate, screenTab = ColonyTab, screenSelected = Nothing, screenBuild = Nothing, screenCamera = openingCamera candidate, screenSpeed = 4, screenDialog = NoDialog, screenNotice = "", screenSaved = True}, appDebt = 0, appSavedRevision = gameRevision candidate, appSaveTime = 0, appStarted = True, appQaMilestones = M.empty}
   QuitGame -> pure app {appQuit = True}
   where
     screen = appScreen app
@@ -337,6 +390,7 @@ advanceFrame dt app
               { appScreen =
                   screen
                     { screenGame = stopped,
+                      screenCues = take 8 (worldFeedback game stopped ++ screenCues screen),
                       screenSaved = gameRevision stopped == appSavedRevision app,
                       screenDialog = if ending then Conclusion stopped else screenDialog screen,
                       screenNotice = if newlyBroken then "厨房が故障しました。配給の備蓄と保守班を確認してください。" else if ending then fst (advice stopped) else screenNotice screen
@@ -362,6 +416,10 @@ autoSave store app
 
 decisionMessage :: Decision -> String
 decisionMessage decision = case decision of
+  PlaceDetail _ _ _ -> "この場所に置きました。並べ方や向きは自由に変えられます。"
+  RemoveDetail _ -> "この場所を片付けました。"
+  RoadPath _ _ -> "道路の計画を受け付けました。建材と班が現場を進めます。"
+  StartSite _ -> "班と配送を準備しました。作業と運搬を見守りましょう。"
   Commission WaterWorks -> "井戸・配給所・運搬班を配置しました。時間を進めて、配送を見守りましょう。"
   Commission FoodWorks -> "農場と厨房の班を配置しました。作物が育ち、食事になり、運ばれていきます。"
   Commission ServiceWorks -> "建設と保守の予備班を準備しました。修復を優先して作業します。"

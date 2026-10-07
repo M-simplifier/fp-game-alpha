@@ -21,14 +21,46 @@ import Data.List (find, intercalate, nub)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as S
 import RedDune.Campaign
+import RedDune.ContentPack (ContentPack)
 import RedDune.Game
 import RedDune.Policies
 import Text.Printf (printf)
+
+startVillageGame :: String -> ContentPack -> Either String GameState
+startVillageGame = startGameWith (s01FixtureAt "red-dune-live-1" "red-dune-village-v1" villageLayouts villageRoads)
+
+villageLayouts :: [(String, Space.Tile)]
+villageLayouts =
+  [ ("depot", Space.Tile 50 49),
+    ("warehouse", Space.Tile 50 58),
+    ("warehouse", Space.Tile 50 64),
+    ("warehouse", Space.Tile 50 70),
+    ("housing", Space.Tile 68 60),
+    ("housing", Space.Tile 72 60),
+    ("housing", Space.Tile 68 64),
+    ("housing", Space.Tile 72 64),
+    ("pantry", Space.Tile 64 60),
+    ("solar", Space.Tile 55 49),
+    ("battery", Space.Tile 55 54),
+    ("farm", Space.Tile 68 49),
+    ("kitchen", Space.Tile 74 54),
+    ("hand_pump", Space.Tile 60 60)
+  ]
+
+villageRoads :: S.Set Space.Tile
+villageRoads = S.fromList (concat [horizontal 53 51 58, vertical 58 53 74, horizontal 57 56 58, horizontal 62 51 60, horizontal 68 51 58, horizontal 74 51 58, horizontal 63 58 77, horizontal 67 67 77, vertical 67 63 67, vertical 77 58 67, horizontal 55 70 72, vertical 72 55 58, horizontal 58 72 77, vertical 75 57 58])
+  where
+    horizontal y a b = [Space.Tile x y | x <- [a .. b]]
+    vertical x a b = [Space.Tile x y | y <- [a .. b]]
 
 data Department = WaterWorks | FoodWorks | ServiceWorks deriving (Eq, Show, Read)
 
 data Decision
   = Commission Department
+  | StartSite EntityId
+  | PlaceDetail PlaceKind Space.Tile Space.Rotation
+  | RemoveDetail Space.Tile
+  | RoadPath Space.Tile Space.Tile
   | ToggleTime
   | ReserveWarehouse
   | ToggleDelivery String
@@ -67,6 +99,24 @@ decide decision game = case decision of
   ToggleTime -> act [("op", if worldMode world == Active then "pause" else "resume")] game
   ReserveWarehouse -> act [("op", "expand"), ("prototype", "warehouse")] game
   Commission department -> commission department game
+  StartSite ident -> startSite ident game
+  PlaceDetail kind tile rotation ->
+    if M.lookup tile (gamePlaces game) == Just (kind, rotation)
+      then Right game
+      else do
+        validatePlace game (tile, (kind, rotation))
+        edit (\g -> g {gamePlaces = M.insert tile (kind, rotation) (gamePlaces g)}) game
+  RemoveDetail tile -> if M.member tile (gamePlaces game) then edit (\g -> g {gamePlaces = M.delete tile (gamePlaces g)}) game else Right game
+  RoadPath from to -> do
+    state <- maybe (Left "Map is absent") Right (worldM1 world)
+    let Space.Tile x y = from
+        Space.Tile u v = to
+        range a b = if a <= b then [a .. b] else reverse [b .. a]
+        path = nub ([Space.Tile n y | n <- range x u] ++ [Space.Tile u n | n <- range y v])
+        needed = filter (`S.notMember` Space.spatialRoads (m1Space state)) path
+    unless (length needed <= 64 && null (gameBuildQueue game)) (Left "Road plan must be at most 64 tiles and wait for the current queue")
+    mapM_ (\tile -> validatePlace game (tile, (PlaceSquare, Space.R0)) >> unless (maybe True ((== PlaceSquare) . fst) (M.lookup tile (gamePlaces game))) (Left "Keep placed furniture out of the road")) needed
+    edit (\g -> g {gameBuildQueue = map Space.RoadShape needed, gamePolicies = (gamePolicies g) {policiesEnabled = True, assistConstruction = True}}) game
   ToggleDelivery key -> policyEdit key (\route -> route {policyEnabled = not (policyEnabled route)}) game
   ChangeBuffer key delta -> policyEdit key (\route -> route {policyTarget = max (policyBatch route) (min 400000 (policyTarget route + delta))}) game
   ToggleProduction ident -> edit (\g -> g {gamePolicies = policy {policiesEnabled = True, productionSites = if ident `elem` productionSites policy then filter (/= ident) (productionSites policy) else ident : productionSites policy}}) game
@@ -84,52 +134,127 @@ decide decision game = case decision of
   where
     world = gameWorld game; descriptor = gameDescriptor game; policy = gamePolicies game
 
+-- A local work order configures ordinary rosters, recipes and delivery plans.
+-- It grants no stock or labour and does not skip the physical trip or batch.
+startSite :: EntityId -> GameState -> Either String GameState
+startSite ident game
+  | ident == s01Pump descriptor = commission WaterWorks game
+  | ident `elem` [s01Farm descriptor, s01Kitchen descriptor] = do
+      let keys = if ident == s01Farm descriptor then ["farm-water", "farm-biomass"] else ["pantry-food", "kitchen-crops", "kitchen-water", "kitchen-fuel", "kitchen-waste"]
+          assignments = [body | body@(AssignWorkers (W.OperateFacility target) _ _) <- s01RosterCommands descriptor, target == ident]
+          routes = [route | route <- deliveryPolicies (survivalPolicies descriptor), policyId route `elem` keys]
+      staffed <- commands (assignments ++ [SetSiteEnabled ident True]) game
+      edit (\g -> g {gamePolicies = mergeRoutes routes (gamePolicies g) {policiesEnabled = True, productionSites = nub (ident : productionSites (gamePolicies g))}}) staffed
+  | otherwise = do
+      staffed <- staff ident game
+      linked <- connect ident staffed
+      if M.member ident (worldSites (gameWorld linked))
+        then do
+          enabled <- commands [SetSiteEnabled ident True] linked
+          edit (\g -> g {gamePolicies = (gamePolicies g) {policiesEnabled = True, productionSites = nub (ident : productionSites (gamePolicies g))}}) enabled
+        else pure linked
+  where
+    descriptor = gameDescriptor game
+
+mergeRoutes :: [DeliveryPolicy] -> Policies -> Policies
+mergeRoutes additions policy = policy {deliveryPolicies = M.elems (M.union (M.fromList [(policyId route, route) | route <- additions]) (M.fromList [(policyId route, route) | route <- deliveryPolicies policy]))}
+
 -- New factories require a real input/output route as well as workers. Routes
 -- use existing producers and warehouses; carts, reservations and road access
 -- still determine whether a delivery can physically complete.
 connect :: EntityId -> GameState -> Either String GameState
-connect ident game = do
-  site <- maybe (Left "Production facility is absent") Right (M.lookup ident (worldSites world))
-  recipe <- lookupRecipe (worldContent world) (siteRecipe site)
-  reserve <- case stores of destination : _ -> Right destination; [] -> Left "Reserve warehouse is absent"
-  let key direction resource = "facility-" ++ show number ++ "-" ++ direction ++ "-" ++ resourceKey resource
-      sources resource =
-        nub
-          ( [ siteOutput other
-            | (otherId, other) <- M.toAscList (worldSites world),
-              otherId /= ident,
-              Just otherRecipe <- [M.lookup (siteRecipe other) (contentRecipes (worldContent world))],
-              M.member resource (recipeOutputs otherRecipe)
+connect ident game
+  | Just owner <- find (\(Owner kind target) -> target == ident && kind `elem` [Pantry, Tank]) (M.keys (invStorage (worldInventory world))) =
+      let resources = case owner of Owner Pantry _ -> [(Water, 40000, 20000), (Ration, 18000, 9000)]; _ -> [(Water, 60000, 30000)]
+          supply resource = nub ([siteOutput site | site <- M.elems (worldSites world), Just recipe <- [M.lookup (siteRecipe site) (contentRecipes (worldContent world))], M.member resource (recipeOutputs recipe)] ++ stores)
+          additions = [DeliveryPolicy ("service-" ++ show number ++ "-" ++ resourceKey resource) (supply resource) owner resource target batch 0 True | (resource, target, batch) <- resources]
+       in edit (\g -> g {gamePolicies = mergeRoutes additions (gamePolicies g) {policiesEnabled = True}}) game
+  | otherwise = do
+      site <- maybe (Left "Production facility is absent") Right (M.lookup ident (worldSites world))
+      recipe <- lookupRecipe (worldContent world) (siteRecipe site)
+      reserve <- case stores of destination : _ -> Right destination; [] -> Left "Reserve warehouse is absent"
+      let key direction resource = "facility-" ++ show number ++ "-" ++ direction ++ "-" ++ resourceKey resource
+          sources resource =
+            nub
+              ( [ siteOutput other
+                | (otherId, other) <- M.toAscList (worldSites world),
+                  otherId /= ident,
+                  Just otherRecipe <- [M.lookup (siteRecipe other) (contentRecipes (worldContent world))],
+                  M.member resource (recipeOutputs otherRecipe)
+                ]
+                  ++ stores
+              )
+          incoming resource = any (\route -> policyDestination route == siteInput site && policyResource route == resource) existing
+          outgoing resource = any (\route -> siteOutput site `elem` policySources route && policyResource route == resource) existing
+          inputs =
+            [ DeliveryPolicy (key "input" resource) (sources resource) (siteInput site) resource (min 400000 (3 * amount)) amount 1 True
+            | (resource, amount) <- M.toAscList (recipeInputs recipe),
+              not (incoming resource)
             ]
-              ++ stores
-          )
-      incoming resource = any (\route -> policyDestination route == siteInput site && policyResource route == resource) existing
-      outgoing resource = any (\route -> siteOutput site `elem` policySources route && policyResource route == resource) existing
-      inputs =
-        [ DeliveryPolicy (key "input" resource) (sources resource) (siteInput site) resource (min 400000 (3 * amount)) amount 1 True
-        | (resource, amount) <- M.toAscList (recipeInputs recipe),
-          not (incoming resource)
-        ]
-      outputs =
-        [ DeliveryPolicy
-            (key "output" resource)
-            [siteOutput site]
-            (if resource == Ration then s01Pantry descriptor else reserve)
-            resource
-            (min 400000 (3 * amount))
-            amount
-            (if resource == Ration then 0 else 3)
-            True
-        | (resource, amount) <- M.toAscList (recipeOutputs recipe),
-          not (outgoing resource)
-        ]
-  edit (\g -> g {gamePolicies = (gamePolicies g) {policiesEnabled = True, deliveryPolicies = existing ++ inputs ++ outputs}}) game
+          outputs =
+            [ DeliveryPolicy
+                (key "output" resource)
+                [siteOutput site]
+                (if resource == Ration then s01Pantry descriptor else reserve)
+                resource
+                (min 400000 (3 * amount))
+                amount
+                (if resource == Ration then 0 else 3)
+                True
+            | (resource, amount) <- M.toAscList (recipeOutputs recipe),
+              not (outgoing resource)
+            ]
+      edit (\g -> g {gamePolicies = (gamePolicies g) {policiesEnabled = True, deliveryPolicies = existing ++ inputs ++ outputs}}) game
   where
     world = gameWorld game
     descriptor = gameDescriptor game
     stores = s01Warehouses descriptor
     existing = deliveryPolicies (gamePolicies game)
     EntityId number = ident
+
+data SiteMood = MoodQuiet | MoodWaiting | MoodBusy | MoodReady | MoodTrouble deriving (Eq, Show)
+
+data SiteStatus = SiteStatus {statusMood :: !SiteMood, statusTitle :: !String, statusDetail :: !String, statusProgress :: !(Maybe Float)} deriving (Eq, Show)
+
+rosterCount :: GameState -> EntityId -> Int
+rosterCount game ident = case worldM1 (gameWorld game) of
+  Nothing -> 0
+  Just state -> minimum [length (M.findWithDefault [] (W.OperateFacility ident, shift) (W.workforceRosters (m1Workforce state))) | shift <- [0 .. 2]]
+
+siteStatus :: GameState -> EntityId -> SiteStatus
+siteStatus game ident
+  | Just job <- construction = SiteStatus (if C.constructionPhase job == C.ConstructionRunning then MoodBusy else MoodWaiting) (if C.constructionPhase job == C.ConstructionRunning then "建てています" else "建設を待っています") (case C.constructionBlocked job of Just MissingStock -> "建材の到着待ち"; Just _ -> "班・道路・建材を確認"; Nothing -> "建設班が現場を受け持ちます") (Just (fromInteger (C.constructionProgress job) / fromInteger (max 1 (C.constructionRequired (C.constructionSnapshot job)))))
+  | facilityStopped (worldMaintenance world) ident = SiteStatus MoodTrouble "修理が必要" (siteReport game ident) Nothing
+  | name == "pantry" =
+      if rosterCount game ident == 0
+        then SiteStatus MoodWaiting "配給する人がいません" "班を配置すると、届いた水と食事を配ります" Nothing
+        else
+          if physical world (Owner Pantry ident) Water <= 0 || physical world (Owner Pantry ident) Ration <= 0
+            then SiteStatus MoodTrouble "届く物資を待っています" "水と食料の配送を確認" Nothing
+            else SiteStatus MoodReady "水と食事を配っています" "届いた備蓄が40人の生活を支えています" Nothing
+  | Just site <- M.lookup ident (worldSites world) =
+      if ident `notElem` productionSites (gamePolicies game) || not (siteEnabled site)
+        then SiteStatus MoodQuiet "作業を始められます" "班と配送を整えて、連続して作ります" Nothing
+        else
+          if rosterCount game ident == 0
+            then SiteStatus MoodWaiting "作業する人がいません" "空いている班を配置してください" Nothing
+            else case activeJob of
+              Just job | jobPhase job == Running -> SiteStatus MoodBusy (if name `elem` ["farm", "greenhouse"] then "作物を育てています" else if name == "kitchen" then "食事を作っています" else "作業中") "班が作業しています" (Just (fromInteger (jobProgress job) / fromInteger (max 1 (jobRequired job))))
+              _ -> case missingInputs site of
+                [] | any (\resource -> physical world (siteOutput site) resource > 0) allResources -> SiteStatus MoodReady "できた物資を出荷待ち" "積荷が届いて初めて、次の場所で使えます" Nothing
+                [] -> SiteStatus MoodWaiting "次の作業を待っています" (siteReport game ident) Nothing
+                missing -> SiteStatus MoodWaiting (resourceName (fst (head missing)) ++ "の到着待ち") (intercalate " / " [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- missing]) Nothing
+  | name == "housing" = SiteStatus MoodReady "休める家" "この家に割り当てられた住人の寝床です" Nothing
+  | otherwise = SiteStatus MoodReady "備蓄の場所" "運ばれてきた物資をここに置きます" Nothing
+  where
+    world = gameWorld game
+    placement = worldM1 world >>= M.lookup ident . Space.spatialPlacements . m1Space
+    name = case Space.placementShape <$> placement of Just (Space.BuildingShape prototype _ _) -> prototype; _ -> "road"
+    construction = worldM1 world >>= find (\job -> C.constructionSiteId job == ident && not (C.constructionTerminal job)) . M.elems . C.constructionJobs . m1Construction
+    activeJob = find (\job -> M.lookup (jobId job) (worldJobSites world) == Just ident && not (terminal job)) (M.elems (worldJobs world))
+    missingInputs site = case M.lookup (siteRecipe site) (contentRecipes (worldContent world)) of
+      Nothing -> []
+      Just recipe -> [(resource, amount - physical world (siteInput site) resource) | (resource, amount) <- M.toAscList (recipeInputs recipe), physical world (siteInput site) resource < amount]
 
 policyEdit :: String -> (DeliveryPolicy -> DeliveryPolicy) -> GameState -> Either String GameState
 policyEdit key change game = do

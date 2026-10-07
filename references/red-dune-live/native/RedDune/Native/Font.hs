@@ -25,7 +25,7 @@ newtype NativeFont = NativeFont (Ptr Font)
 loadNativeFont :: BS.ByteString -> [Int] -> IO NativeFont
 loadNativeFont bytes glyphs = BS.useAsCStringLen bytes $ \(pointer, size) ->
   withCString ".ttf" $ \kind -> withArrayLen (map fromIntegral glyphs :: [CInt]) $ \count codes -> do
-    loaded <- c'loadFontFromMemory kind (castPtr pointer) (fromIntegral size) 36 codes (fromIntegral count)
+    loaded <- c'loadFontFromMemory kind (castPtr pointer) (fromIntegral size) 48 codes (fromIntegral count)
     unless (loaded /= nullPtr) (ioError (userError "The system Japanese font could not be allocated"))
     let font = NativeFont loaded
     ( do

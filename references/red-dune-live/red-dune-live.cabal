@@ -232,6 +232,15 @@ test-suite live-legacy
   hs-source-dirs: test
   build-depends: red-dune-live
 
+test-suite live-dining
+  import: shared
+  ghc-options: -O2
+  type: exitcode-stdio-1.0
+  main-is: LiveDiningTests.hs
+  hs-source-dirs: test, native
+  other-modules: RedDune.Native.Play
+  build-depends: red-dune-live
+
 -- Cabal owns dependency flags/package DBs; no hand-written ghc package list.
 -- Sources are home modules only here, so :reload actually checks gameplay.
 executable red-dune-dev

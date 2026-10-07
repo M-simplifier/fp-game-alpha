@@ -5,8 +5,10 @@
 module RedDune.Game where
 
 import Colony.Construction qualified as C
+import Colony.Content (Content, buildingFootprint, lookupBuilding)
 import Colony.JSON qualified as J
 import Colony.M1State
+import Colony.Needs
 import Colony.Presentation (arr, encodeJSON, num, obj, ownerJSON, presentation, previewPlanJSON, receiptJSON, str)
 import Colony.S01Fixture
 import Colony.Scheduler (pureStep)
@@ -15,16 +17,25 @@ import Colony.Space qualified as Space
 import Colony.Transport (incomingDeliveryQuantity)
 import Colony.Types
 import Colony.Units
+import Colony.Workforce qualified as W
 import Colony.World
 import Control.DeepSeq (NFData, force)
 import Control.Monad (foldM, unless)
+import Data.List (find)
 import Data.Map.Strict qualified as M
+import Data.Sequence qualified as Q
+import Data.Set qualified as S
 import Data.Word (Word64)
 import GHC.Generics (Generic)
 import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Policies
 import RedDune.Protocol
+
+-- Player-authored scenery occupies real map tiles and survives checkpoints.
+-- It changes no production, nutrition, travel cost or campaign evidence.
+data PlaceKind = PlaceSquare | PlaceBench | PlaceGarden | PlaceLantern
+  deriving (Eq, Ord, Show, Read, Enum, Bounded, Generic, NFData)
 
 data GameState = GameState
   { gameWorld :: !World,
@@ -35,15 +46,20 @@ data GameState = GameState
     gamePolicies :: !Policies,
     gameRevision :: !Word64,
     gameBuildQueue :: ![Space.PlacementShape],
-    gameNotices :: ![String]
+    gameNotices :: ![String],
+    gamePlaces :: !(M.Map Space.Tile (PlaceKind, Space.Rotation)),
+    gameDiningPlaces :: !(M.Map Space.Tile Space.Rotation)
   }
   deriving (Eq, Show, Read, Generic, NFData)
 
 startGame :: String -> ContentPack -> Either String GameState
-startGame scenarioIdValue pack = do
+startGame = startGameWith (s01FixtureWithRuleset "red-dune-live-1")
+
+startGameWith :: (Content -> Either Failure (S01Descriptor, World)) -> String -> ContentPack -> Either String GameState
+startGameWith fixture scenarioIdValue pack = do
   validatePack pack
   scenario <- maybe (Left "Unknown scenario; choose settlement or recovery") Right (M.lookup scenarioIdValue (packScenarios pack))
-  (d, original) <- mapFailure (s01FixtureWithRuleset "red-dune-live-1" (packEconomy pack))
+  (d, original) <- mapFailure (fixture (packEconomy pack))
   -- Scenario grants are authored only here. They never count as campaign evidence.
   let inv = worldInventory original
       scaled = M.map (\lot -> if lotResource lot == Ration then lot {lotQty = checkedQty (qtyValue (lotQty lot) * scenarioRationPercent scenario `div` 100)} else lot) (invLots inv)
@@ -56,7 +72,7 @@ startGame scenarioIdValue pack = do
       participant = Participant OperatorRole (Epoch (worldAuthority original) 1)
       world = original {worldInventory = inventory, worldParticipants = M.insert 2 participant (worldParticipants original), worldM1 = fmap (\s -> s {m1Scenario = "red-dune-live-1"}) (worldM1 original)}
       ready = if scenarioStartsBroken scenario then breakKitchen d world else world
-      game = GameState ready d pack Nothing (initialCampaign scenario ready) emptyPolicies 1 [] []
+      game = GameState ready d pack Nothing (initialCampaign scenario ready) emptyPolicies 1 [] [] M.empty M.empty
   validateGame game
   pure game
   where
@@ -84,10 +100,196 @@ validateGame game = do
   unless (length (deliveryPolicies p) <= 256 && length (gameBuildQueue game) <= 64) (Left "Policy/construction queue budget exceeded")
   unless (length (map policyId (deliveryPolicies p)) == M.size (M.fromList [(policyId route, ()) | route <- deliveryPolicies p])) (Left "Duplicate policy identity")
   mapM_ (validatePolicy w) (deliveryPolicies p)
+  unless (M.size (gamePlaces game) <= 2048) (Left "Place budget exceeded")
+  mapM_ (validatePlace game) (M.toAscList (gamePlaces game))
+  unless (M.size (gameDiningPlaces game) <= 1) (Left "The current colony can staff one communal dining place")
+  mapM_ (validateDining game) (M.toAscList (gameDiningPlaces game))
+  let diningOwners = S.fromList [owner | status <- diningStatuses game, Just owner <- [diningOwner status]]
+  unless (all (`S.member` diningOwners) (M.elems (needsDiningPreferences (worldNeeds w)))) (Left "Dining assignment lacks its player-placed pantry")
+  unless (all ((<= simTick w) . mealTick) (M.elems (needsLastMeals (worldNeeds w)))) (Left "Meal evidence is from a future tick")
   where
     validatePolicy w route = do
       unless (policyTarget route >= 0 && policyTarget route <= 400000 && policyBatch route > 0 && policyBatch route <= 400000 && policyPriority route >= 0 && policyPriority route <= 3) (Left "Policy quantity/priority out of bounds")
       unless (all (`M.member` invStorage (worldInventory w)) (policyDestination route : policySources route)) (Left "Policy references unknown physical owner")
+
+validatePlace :: GameState -> (Space.Tile, (PlaceKind, Space.Rotation)) -> Either String ()
+validatePlace game (tile, (kind, _)) = do
+  state <- maybe (Left "Place requires a physical map") Right (worldM1 world)
+  mapFailure (Space.checkTile (Space.spatialMap (m1Space state)) tile)
+  let placements = M.elems (Space.spatialPlacements (m1Space state))
+      overlaps placement = case Space.placementShape placement of
+        Space.BuildingShape {} -> case Space.placementGeometry (worldContent world) placement of Right (tiles, _) -> S.member tile tiles; Left _ -> True
+        Space.RoadShape road -> kind /= PlaceSquare && road == tile
+      queuedOverlap shape = case shape of
+        Space.BuildingShape prototype origin rotation ->
+          case lookupBuilding (worldContent world) prototype >>= \building -> mapFailure (Space.footprintGeometry (buildingFootprint building) origin rotation) of
+            Right (tiles, _) -> S.member tile tiles
+            Left _ -> True
+        Space.RoadShape road -> kind /= PlaceSquare && road == tile
+  unless (not (any overlaps placements)) (Left "Place overlaps a building or planned road")
+  unless (not (any queuedOverlap (gameBuildQueue game))) (Left "Place overlaps a queued building or road")
+  unless (kind == PlaceSquare || not (S.member tile (Space.spatialRoads (m1Space state)))) (Left "Keep the transport road clear")
+  where
+    world = gameWorld game
+
+data DiningStatus = DiningStatus
+  { diningTile :: !Space.Tile,
+    diningRotation :: !Space.Rotation,
+    diningOwner :: !(Maybe Owner),
+    diningBuilt :: !Bool,
+    diningStock :: !Integer,
+    diningIncoming :: !Integer,
+    diningResidents :: ![EntityId],
+    diningMeals :: ![(EntityId, MealRecord)]
+  }
+  deriving (Eq, Show)
+
+selectedDiningResidents :: S01Descriptor -> [EntityId]
+selectedDiningResidents descriptor = concatMap (take 2) (M.elems (s01ShiftResidents descriptor))
+
+diningStatuses :: GameState -> [DiningStatus]
+diningStatuses game = [status tile rotation | (tile, rotation) <- M.toAscList (gameDiningPlaces game)]
+  where
+    world = gameWorld game
+    placements = maybe [] (M.elems . Space.spatialPlacements . m1Space) (worldM1 world)
+    status tile rotation =
+      let placement = find ((== Space.BuildingShape "pantry" tile rotation) . Space.placementShape) placements
+          built = maybe False ((== Space.Built) . Space.placementStage) placement
+          owner = if built then Owner Pantry . Space.placementId <$> placement else Nothing
+          quantity = maybe 0 (\source -> physical world source Ration) owner
+          incoming = maybe 0 (\source -> incomingDeliveryQuantity (worldTransport world) source Ration) owner
+          meals = [(ident, meal) | (ident, meal) <- M.toAscList (needsLastMeals (worldNeeds world)), Just (mealOwner meal) == owner]
+       in DiningStatus tile rotation owner built quantity incoming (selectedDiningResidents (gameDescriptor game)) meals
+
+validateDining :: GameState -> (Space.Tile, Space.Rotation) -> Either String ()
+validateDining game (tile, rotation) = do
+  state <- maybe (Left "Dining requires a physical map") Right (worldM1 (gameWorld game))
+  let shape = Space.BuildingShape "pantry" tile rotation
+      present = any ((== shape) . Space.placementShape) (M.elems (Space.spatialPlacements (m1Space state)))
+      queued = shape `elem` gameBuildQueue game
+  unless (present || queued) (Left "Dining place lacks its construction plan")
+
+-- The player chooses the real footprint and orientation. Roads and the pantry
+-- remain normal, paid construction jobs; preview admission reserves nothing in
+-- the authoritative world. No food, finished road, or building is granted here.
+planDining :: Space.Tile -> Space.Rotation -> GameState -> Either String GameState
+planDining tile rotation game = do
+  unless (M.null (gameDiningPlaces game)) (Left "This colony already has a dining place")
+  unless (null (gameBuildQueue game)) (Left "Wait for the current construction queue")
+  unless (gameRevision game < maxBound) (Left "Live revision exhausted")
+  roads <- diningRoadPath tile rotation game
+  let descriptor = gameDescriptor game
+      shape = Space.BuildingShape "pantry" tile rotation
+      queue = map Space.RoadShape roads ++ [shape]
+  unless (length queue <= 64) (Left "Dining road must fit the 64-stage construction queue")
+  (_, admission) <- issue 2 [PlaceConstructionPlan (s01Colony descriptor) planned 2 Nothing | planned <- queue] (gameWorld game)
+  unless (all receiptApplied (outputReceipts admission)) (Left ("Dining placement is blocked: " ++ show (map receiptOutcome (outputReceipts admission))))
+  let world = gameWorld game
+  workforce <- maybe (Left "Dining requires the colony workforce") (Right . m1Workforce) (worldM1 world)
+  let assigned = S.fromList (concat (M.elems (W.workforceRosters workforce)))
+      drivers = [command | command@(AssignWorkers target@(W.DriveVehicle _) shift names) <- s01RosterCommands descriptor, null (M.findWithDefault [] (target, shift) (W.workforceRosters workforce)), all (`S.notMember` assigned) names]
+  (staffed, driverReceipts) <- issue 2 drivers world
+  unless (all receiptApplied (outputReceipts driverReceipts)) (Left "Dining transport workers are unavailable")
+  let next =
+        game
+          { gameWorld = staffed,
+            gameDiningPlaces = M.singleton tile rotation,
+            gameBuildQueue = queue,
+            gamePolicies = (gamePolicies game) {policiesEnabled = True, assistConstruction = True, assistMaintenance = True},
+            gameRevision = gameRevision game + 1
+          }
+  validateGame next
+  pure next
+
+diningDeliveryPolicies :: GameState -> [DeliveryPolicy]
+diningDeliveryPolicies game =
+  [ DeliveryPolicy ("dining-food-" ++ show ident) [Owner MachineOutput (s01Kitchen (gameDescriptor game))] owner Ration 6000 3000 0 True
+  | status <- diningStatuses game,
+    Just owner@(Owner Pantry ident) <- [diningOwner status]
+  ]
+
+-- The twelfth spare shift resident serves the meal after building work ends.
+-- Existing maintenance keeps the eleventh spare resident. During another
+-- construction the server releases their roster, allowing the ordinary pair of
+-- builders to work while dining visitors retain normal pantry fallback.
+configureDining :: Bool -> GameState -> Either String GameState
+configureDining _ game | M.null (gameDiningPlaces game) = Right game
+configureDining releaseForBuilding game = do
+  state <- maybe (Left "Dining requires workforce state") Right (worldM1 world)
+  let statuses = diningStatuses game
+      builtOwners = [owner | status <- statuses, Just owner <- [diningOwner status]]
+      preferences = M.fromList [(ident, owner) | owner <- builtOwners, ident <- selectedDiningResidents (gameDescriptor game)]
+      wf = m1Workforce state
+      assigned = S.fromList (concat (M.elems (W.workforceRosters wf)))
+      commands =
+        [ AssignWorkers target shift names
+        | Owner Pantry ident <- builtOwners,
+          let target = W.OperateFacility ident,
+          (shift, people) <- M.toAscList (s01ShiftResidents (gameDescriptor game)),
+          let old = M.findWithDefault [] (target, shift) (W.workforceRosters wf)
+              candidate = take 1 (drop 12 people)
+              names = if releaseForBuilding then [] else candidate,
+          names /= old,
+          releaseForBuilding || (not (null names) && all (`S.notMember` assigned) names)
+        ]
+      prepared = world {worldNeeds = (worldNeeds world) {needsDiningPreferences = preferences}}
+  (staffed, _) <- issue 2 commands prepared
+  let policy = gamePolicies game
+      merged = M.elems (M.union (M.fromList [(policyId route, route) | route <- deliveryPolicies policy]) (M.fromList [(policyId route, route) | route <- diningDeliveryPolicies game]))
+  pure game {gameWorld = staffed, gamePolicies = policy {deliveryPolicies = merged}}
+  where
+    world = gameWorld game
+
+diningConstructionActive :: GameState -> Bool
+diningConstructionActive game = maybe False (any (not . C.constructionTerminal) . M.elems . C.constructionJobs . m1Construction) (worldM1 (gameWorld game))
+
+receiptApplied :: CommandReceipt -> Bool
+receiptApplied receipt = case receiptOutcome receipt of Applied _ -> True; _ -> False
+
+-- Search from the chosen pantry connector to the kitchen's connected road
+-- component. The returned order grows outward from the existing network, so
+-- carts can physically reach each subsequent construction input.
+diningRoadPath :: Space.Tile -> Space.Rotation -> GameState -> Either String [Space.Tile]
+diningRoadPath tile rotation game = do
+  state <- maybe (Left "Map is absent") Right (worldM1 world)
+  building <- lookupBuilding (worldContent world) "pantry"
+  (footprint, port) <- mapFailure (Space.footprintGeometry (buildingFootprint building) tile rotation)
+  unless (all (`M.notMember` gamePlaces game) (S.toList footprint)) (Left "Dining footprint overlaps placed scenery")
+  let space = m1Space state
+  occupied <- mapFailure (Space.reservedTiles (worldContent world) space)
+  location <- maybe (Left "Kitchen lacks a physical road connector") Right (M.lookup (Owner MachineOutput (s01Kitchen (gameDescriptor game))) (Space.spatialOwnerLocations space))
+  anchor <- maybe (Left "Kitchen lacks a physical road connector") Right (Space.ownerRoadConnector location)
+  let existing = Space.spatialRoads space
+      network = roadComponent existing anchor
+      furniture = S.fromList [position | (position, (kind, _)) <- M.toList (gamePlaces game), kind /= PlaceSquare]
+      blocked = S.unions [footprint, M.keysSet occupied `S.difference` existing, Space.sourceTiles space, M.keysSet (Space.spatialCaches space), furniture]
+      allowed position = S.notMember position blocked && case Space.checkWalkable (Space.spatialMap space) position of Right () -> True; Left _ -> False
+      origin = Space.roadConnector port
+      search queue parents = case Q.viewl queue of
+        Q.EmptyL -> Left "No road route reaches this dining place"
+        current Q.:< rest
+          | S.member current network -> Right (filter (`S.notMember` existing) (trace parents current))
+          | otherwise ->
+              let unseen = [next | next <- diningNeighbours current, allowed next, M.notMember next parents]
+                  linked = foldr (\next -> M.insert next (Just current)) parents unseen
+               in search (rest Q.>< Q.fromList unseen) linked
+      trace parents position = position : maybe [] (trace parents) (M.findWithDefault Nothing position parents)
+  unless (not (S.null network) && allowed origin) (Left "Dining connector cannot reach the kitchen road")
+  search (Q.singleton origin) (M.singleton origin Nothing)
+  where
+    world = gameWorld game
+
+diningNeighbours :: Space.Tile -> [Space.Tile]
+diningNeighbours (Space.Tile x y) = [Space.Tile (x - 1) y, Space.Tile x (y - 1), Space.Tile x (y + 1), Space.Tile (x + 1) y]
+
+roadComponent :: S.Set Space.Tile -> Space.Tile -> S.Set Space.Tile
+roadComponent roads origin = visit S.empty (S.singleton origin)
+  where
+    visit seen pending = case S.minView pending of
+      Nothing -> seen
+      Just (position, rest)
+        | S.member position seen || S.notMember position roads -> visit seen rest
+        | otherwise -> visit (S.insert position seen) (S.union rest (S.fromList (diningNeighbours position) `S.difference` seen))
 
 -- New authority/branch on host activation prevents an old outstanding HTTP
 -- command from becoming a fresh command after restoring a checkpoint.
@@ -221,11 +423,13 @@ runPolicies game
             then pure game {gameWorld = w, gameBuildQueue = rest}
             else pure game {gameWorld = w, gameBuildQueue = [], gameNotices = take 8 ("Expansion blocked: inspect placement/route" : gameNotices game)}
         _ -> pure game
-      let deliveries = deliveryPolicies p ++ (if assistConstruction p then constructionPolicies d (gameWorld queued) ++ reservePolicies d (gameWorld queued) else []) ++ (if assistMaintenance p then maintenanceDeliveryPolicies d (gameWorld queued) else [])
-      supplied <- foldM (\g policy -> maybe (Right g) (issueOne g) (deliveryCommand (gameWorld g) policy)) queued deliveries
+      dining <- configureDining (diningConstructionActive queued) queued
+      let deliveries = deliveryPolicies (gamePolicies dining) ++ (if assistConstruction p then constructionPolicies d (gameWorld dining) ++ reservePolicies d (gameWorld dining) else []) ++ (if assistMaintenance p then maintenanceDeliveryPolicies d (gameWorld dining) else [])
+      supplied <- foldM (\g policy -> maybe (Right g) (issueOne g) (deliveryCommand (gameWorld g) policy)) dining deliveries
       repaired <- foldM issueOne supplied (if assistMaintenance p then maintenanceCommands (gameWorld supplied) else [])
       crewed <- foldM issueOne repaired (if assistConstruction p || assistMaintenance p then serviceRosterCommands d (gameWorld repaired) else [])
-      foldM (\g ident -> maybe (Right g) (issueOne g) (productionCommand (gameWorld g) ident)) crewed (productionSites p)
+      dined <- configureDining (diningConstructionActive crewed) crewed
+      foldM (\g ident -> maybe (Right g) (issueOne g) (productionCommand (gameWorld g) ident)) dined (productionSites p)
   where
     issueOne g command = do (w, _) <- issue 2 [command] (gameWorld g); pure g {gameWorld = w}
     success receipt = case receiptOutcome receipt of Applied _ -> True; _ -> False
