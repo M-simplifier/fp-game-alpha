@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "date_utc": "2026-10-07T18:21:36.256617+09:00",
+  "scope": "Windows native GPU capture and synthetic pointer/key input; no OS input or owner fun acceptance",
+  "samples": [
+    {
+      "case": "manual-build-then-launch",
+      "exit_code": 0,
+      "command_to_exit_seconds": 4.474413400050253,
+      "build_package_seconds": 2.6802117000333965,
+      "command_to_native_capture_seconds": 3.6601069001480937,
+      "binary_sha256": "c46767dcb963fba8c6c0fb8618eccef7a3fb3e42eef3a37bc6d4418a35578e6a",
+      "ready_capture": true,
+      "source_sha256": "3974ef880a5a978dea5cf135cfbc49ccbb87b5dc392078002caf121cc3747deb",
+      "view_source_sha256": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124",
+      "pack_source_sha256": "0e7a2ebaa0458fbbc626a2d4afe3cc36f132dfb5141d73bbba07b2b846be53ef"
+    },
+    {
+      "case": "one-command-unchanged",
+      "exit_code": 0,
+      "command_to_exit_seconds": 4.864397200057283,
+      "build_package_seconds": 1.601,
+      "command_to_native_capture_seconds": 4.0087711999658495,
+      "binary_sha256": "c46767dcb963fba8c6c0fb8618eccef7a3fb3e42eef3a37bc6d4418a35578e6a",
+      "ready_capture": true,
+      "source_sha256": "3974ef880a5a978dea5cf135cfbc49ccbb87b5dc392078002caf121cc3747deb",
+      "view_source_sha256": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124",
+      "pack_source_sha256": "0e7a2ebaa0458fbbc626a2d4afe3cc36f132dfb5141d73bbba07b2b846be53ef"
+    },
+    {
+      "case": "content-edit",
+      "exit_code": 0,
+      "command_to_exit_seconds": 7.222830599872395,
+      "build_package_seconds": 4.133,
+      "command_to_native_capture_seconds": 6.388538499828428,
+      "binary_sha256": "c46767dcb963fba8c6c0fb8618eccef7a3fb3e42eef3a37bc6d4418a35578e6a",
+      "ready_capture": true,
+      "source_sha256": "3974ef880a5a978dea5cf135cfbc49ccbb87b5dc392078002caf121cc3747deb",
+      "view_source_sha256": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124",
+      "pack_source_sha256": "892c85a9c047b2fc0b5992a4f80ff26117a586d564bb0f7ac339aa720aa367ab"
+    },
+    {
+      "case": "haskell-code-edit",
+      "exit_code": 0,
+      "command_to_exit_seconds": 11.039385499898344,
+      "build_package_seconds": 7.947,
+      "command_to_native_capture_seconds": 10.185745999915525,
+      "binary_sha256": "0276b551b981d22bb139e332b788f54b82ddf87204a11ab891b7612fa99264ed",
+      "ready_capture": true,
+      "source_sha256": "3974ef880a5a978dea5cf135cfbc49ccbb87b5dc392078002caf121cc3747deb",
+      "view_source_sha256": "9fb2e34655d194a68a4707c2fc1f6c71af6a5689af631ff0b8762235293c2aa9",
+      "pack_source_sha256": "0e7a2ebaa0458fbbc626a2d4afe3cc36f132dfb5141d73bbba07b2b846be53ef"
+    },
+    {
+      "case": "compile-failure",
+      "exit_code": 1,
+      "command_to_exit_seconds": 4.519467000151053,
+      "build_package_seconds": null,
+      "command_to_native_capture_seconds": null,
+      "binary_sha256": "0276b551b981d22bb139e332b788f54b82ddf87204a11ab891b7612fa99264ed",
+      "ready_capture": false,
+      "source_sha256": "4d8a43d88bdfc7abcb6eb0982adce185b0e6161f48ff1f215f13b2a1079f58f2",
+      "view_source_sha256": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124",
+      "pack_source_sha256": "0e7a2ebaa0458fbbc626a2d4afe3cc36f132dfb5141d73bbba07b2b846be53ef"
+    },
+    {
+      "case": "compile-retry",
+      "exit_code": 0,
+      "command_to_exit_seconds": 8.176481399917975,
+      "build_package_seconds": 4.037,
+      "command_to_native_capture_seconds": 7.321916199987754,
+      "binary_sha256": "29aa05692f7e6dff8ac4f0fea32a54234eed9fec0877105202309b3aaf944e18",
+      "ready_capture": true,
+      "source_sha256": "3974ef880a5a978dea5cf135cfbc49ccbb87b5dc392078002caf121cc3747deb",
+      "view_source_sha256": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124",
+      "pack_source_sha256": "0e7a2ebaa0458fbbc626a2d4afe3cc36f132dfb5141d73bbba07b2b846be53ef"
+    }
+  ],
+  "owner_install_unchanged": true,
+  "owner_saves_unchanged": true,
+  "previous_dev_saves_unchanged": true,
+  "new_dev_checkpoints": 15,
+  "source_and_content_restored": true,
+  "toolchain": {
+    "backend": "h-raylib 5.6.0.0",
+    "powershell": "7.6.5",
+    "ghc": "9.6.7",
+    "cabal": "3.12.1.0"
+  },
+  "timing_boundary": "Command invocation to GPU framebuffer export plus JSON observation, sampled every 20 ms. One sample per case after dependencies were cached; not a causal speedup, cold-build or real-time guarantee.",
+  "content_change": "Settlement freshFood objective 10000 -> 11000 g; observed pack identity and objective changed; native EXE unchanged.",
+  "code_change": "A visible objective label changed in Native.View, was rebuilt and captured, then restored."
+}

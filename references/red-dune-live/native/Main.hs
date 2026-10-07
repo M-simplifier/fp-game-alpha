@@ -15,6 +15,8 @@ import Data.ByteString qualified as BS
 import Data.Char (ord)
 import Data.List (find, intercalate, nub)
 import Data.Map.Strict qualified as M
+import Data.Text qualified as T
+import Data.Text.Encoding qualified as TE
 import Data.Word (Word64)
 import Foreign (castPtr)
 import Foreign.C (withCString)
@@ -37,9 +39,9 @@ import System.Exit (exitFailure)
 import System.FilePath
 import Text.Read (readMaybe)
 
-data Options = Options {optionStore :: !FilePath, optionQa :: !(Maybe FilePath), optionFrames :: !(Maybe Int)}
+data Options = Options {optionStore :: !FilePath, optionQa :: !(Maybe FilePath), optionFrames :: !(Maybe Int), optionPack :: !(Maybe FilePath), optionNew :: !(Maybe String), optionHidden :: !Bool}
 
-data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool}
+data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool, appNewPack :: !ContentPack}
 
 main :: IO ()
 main =
@@ -52,15 +54,23 @@ main =
     local <- lookupEnv "LOCALAPPDATA"
     configured <- lookupEnv "RED_DUNE_NATIVE_STORE"
     let fallback = maybe (root </> "saves") (\path -> path </> "RedDune" </> "saves") local
-    options <- either (ioError . userError) pure (parseOptions (Options (maybe fallback id configured) Nothing Nothing) arguments)
+    options <- either (ioError . userError) pure (parseOptions (Options (maybe fallback id configured) Nothing Nothing Nothing Nothing False) arguments)
+    pack <- case optionPack options of
+      Nothing -> pure defaultPack
+      Just path -> do
+        bytes <- BS.readFile path
+        source <- either (ioError . userError . show) pure (TE.decodeUtf8' bytes)
+        checked <- evaluate (force (decodePack (T.unpack source)))
+        either (ioError . userError) pure checked
+    let scenario = maybe "settlement" id (optionNew options)
     Store.withStore (optionStore options) $ \store -> do
       catalog <- Store.latestCheckpointCatalog store
-      initial <- either (ioError . userError) pure (startGame "settlement" defaultPack)
+      initial <- either (ioError . userError) pure (startGame scenario pack)
       game <- Store.prepareGame store initial
-      let started = null (Store.catalogEntries catalog)
+      let started = optionNew options /= Nothing || null (Store.catalogEntries catalog)
       when started (Store.saveGame store game >> pure ())
-      let screen = (newScreen game (if started then Introduction "settlement" else Welcome catalog)) {screenSaved = started}
-      setConfigFlags [Msaa4xHint, WindowResizable, VsyncHint]
+      let screen = (newScreen game (if started then Introduction scenario else Welcome catalog)) {screenSaved = started}
+      setConfigFlags ([Msaa4xHint, WindowResizable, VsyncHint] ++ [WindowHidden | optionHidden options])
       withWindow 1440 940 "Red Dune" 60 $ \_resources -> do
         setWindowMinSize 1280 880
         setExitKey KeyNull
@@ -72,7 +82,7 @@ main =
         fontFile <- findFont
         fontBytes <- BS.readFile fontFile >>= either (ioError . userError) pure . fontFace
         bracket (loadNativeFont fontBytes glyphs) unloadNativeFont $ \font -> do
-          loop root options store font (App screen 0 (gameRevision game) 0 0 0 False started)
+          loop root options store font (App screen 0 (gameRevision game) 0 0 0 False started pack)
     `catch` ( \(errorValue :: IOException) -> do
                 temp <- getTemporaryDirectory
                 writeFile (temp </> "red-dune-startup-error.txt") (show errorValue)
@@ -84,8 +94,13 @@ parseOptions :: Options -> [String] -> Either String Options
 parseOptions options [] = Right options
 parseOptions options ("--store" : path : rest) = parseOptions options {optionStore = path} rest
 parseOptions options ("--qa-dir" : path : rest) = parseOptions options {optionQa = Just path} rest
+parseOptions options ("--pack" : path : rest) = parseOptions options {optionPack = Just path} rest
+parseOptions options ("--new" : scenario : rest)
+  | scenario `elem` ["settlement", "recovery"] = parseOptions options {optionNew = Just scenario} rest
+  | otherwise = Left "Unknown scenario"
+parseOptions options ("--hidden" : rest) = parseOptions options {optionHidden = True} rest
 parseOptions options ("--frames" : number : rest) = case readMaybe number of Just n | n > 0 -> parseOptions options {optionFrames = Just n} rest; _ -> Left "Invalid frame limit"
-parseOptions _ _ = Left "Red Dune: --store DIRECTORY [--qa-dir DIRECTORY] [--frames NUMBER]"
+parseOptions _ _ = Left "Red Dune: --store DIRECTORY [--pack FILE] [--new settlement|recovery] [--qa-dir DIRECTORY] [--frames NUMBER] [--hidden]"
 
 findFont :: IO FilePath
 findFont = do
@@ -288,7 +303,7 @@ performUnchecked store app command = case command of
     pure (update screen {screenGame = paused, screenDialog = NewCampaign, screenBuild = Nothing})
   StartScenario scenario -> do
     when (appStarted app) (Store.saveGame store game >> pure ())
-    original <- either (ioError . userError) pure (startGame scenario defaultPack)
+    original <- either (ioError . userError) pure (startGame scenario (appNewPack app))
     candidate <- Store.activateGame store original
     pure app {appScreen = screen {screenGame = candidate, screenTab = ColonyTab, screenSelected = Nothing, screenBuild = Nothing, screenCamera = homeCamera, screenSpeed = 1, screenDialog = Introduction scenario, screenNotice = "", screenSaved = True}, appDebt = 0, appSavedRevision = gameRevision candidate, appSaveTime = 0, appStarted = True}
   QuitGame -> pure app {appQuit = True}

@@ -232,7 +232,7 @@
   },
   {
    "path": "docs/practice/games/stack.md",
-   "sha256_lf": "a5687f9e36a17395348f1435e4e3425f48a70e06d40668b53d509825d9578087"
+   "sha256_lf": "3c6042af690f610a65726711e0fe6f839488faf8033a5f9658615d8cfeb71907"
   },
   {
    "path": "docs/practice/games/time-and-state.md",
@@ -1896,11 +1896,11 @@
   },
   {
    "path": "references/red-dune-live/docs/DEVELOPMENT-EVIDENCE.md",
-   "sha256_lf": "44c55ad6a821dd2231ac81cf11a6ffa6726b2bdd9fb9f70d0838119117204cf9"
+   "sha256_lf": "3c8465d1d27cb2d457b98f9b70563d1131b388af0825372308576f5a1fe92912"
   },
   {
    "path": "references/red-dune-live/docs/DEVELOPMENT.md",
-   "sha256_lf": "219814b40a7312b1a495eb9cbdb6d98815915658c991fd8be35dfdac905abec0"
+   "sha256_lf": "1a023d28c244c824bde694e8d4730a71ffb84b52fe6dd7b0814b1f9032eee42d"
   },
   {
    "path": "references/red-dune-live/docs/HOST-API.md",
@@ -1939,6 +1939,10 @@
    "sha256_lf": "3bff2dd6c8900610e7f814f77132196514f7a7fbedd96d8261b8116da1256f1e"
   },
   {
+   "path": "references/red-dune-live/evidence/native-development-windows.json",
+   "sha256_lf": "f34d52285d9466a9e012de0a5e2025e9a8b6f9e3a80b20656b320ade3f086440"
+  },
+  {
    "path": "references/red-dune-live/evidence/native-windows.json",
    "sha256_lf": "7baf1a416d75fd64653eadbbdf5857f3f6bb9b0b2e5626ad1b2c8f977166c33c"
   },
@@ -1948,7 +1952,7 @@
   },
   {
    "path": "references/red-dune-live/native/Main.hs",
-   "sha256_lf": "a617e31c97bff912045b4a1ec8ebbddecac2aa8a2b704af18154f48daaa54e51"
+   "sha256_lf": "3974ef880a5a978dea5cf135cfbc49ccbb87b5dc392078002caf121cc3747deb"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Font.hs",
@@ -2045,6 +2049,10 @@
   {
    "path": "references/red-dune-live/tools/check.sh",
    "sha256_lf": "765fb06ac84ee29e7f41ddc91c0ba5df6ff97f90589499d247ecf8d4c7eeb5f6"
+  },
+  {
+   "path": "references/red-dune-live/tools/dev-native.ps1",
+   "sha256_lf": "596023bab804a7128e28a6217123a35f02e1ccd0b5c4d1131a57319cf49dacd1"
   },
   {
    "path": "references/red-dune-live/tools/dev.sh",
