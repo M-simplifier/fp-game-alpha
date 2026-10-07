@@ -286,5 +286,49 @@
     },
     "artifact_policy": "Screens, raw input replays, preference files and owner save copies remain local; no new screenshot egress",
     "owner_trial": "Pending for these overnight UI adjustments"
+  },
+  "farm_start_copy_fix": {
+    "parent_checkpoint": "19f0aa8abb66e6c00738c36b7d6609a6c4372e50",
+    "scope": "Two Japanese explanations corrected to match existing StartSite farm behavior; no game rule changes",
+    "farm_start_text": "農場の担当と水の配送を準備します。",
+    "actual_native_gpu_replay": {
+      "input": "Synthetic pointer/key input through ordinary UI hit tests, separate fresh QA store",
+      "resolution": [
+        1440,
+        940
+      ],
+      "farm_panel_and_water_food_help_visible": true,
+      "added_delivery_ids": [
+        "farm-biomass",
+        "farm-water"
+      ],
+      "kitchen_crops_added": false,
+      "exact_game_state_help_comparisons": 2,
+      "all_exact_game_states_equal": true,
+      "gpu_sha256": {
+        "farm-start": "b9a14db4976eacf31cad20b41ef808f7e623daeb4a5d0c37da1a9bb38a7431c8",
+        "farm-help": "262feaf9821e0ed4e0ed79f677ea0fa48efb6178b1b9b1996082432e6a4072b8"
+      }
+    },
+    "validation": {
+      "pinned_ormolu": "PASS",
+      "live-help": "PASS",
+      "native_build": "PASS",
+      "installed_launch_exit_code": 0
+    },
+    "installed_package": {
+      "folder": "Red Dune Help 2026-10-08",
+      "binary_sha256": "a56a914ec6d290e171dd332a3f056504f725286ff995af2980932b47f2c2d215",
+      "fresh_build_matches_installed": true,
+      "existing_trial_entry_and_save_argument_preserved": true,
+      "owner_original_files_unchanged": 21,
+      "no_process_killed": true
+    },
+    "source_sha256_lf": {
+      "references/red-dune-live/native/RedDune/Native/Help.hs": "13c18d17169c8b6efc98a63e678bf0aa32cb5cf1fe0da08d0f6474e87d44642a",
+      "references/red-dune-live/native/RedDune/Native/View.hs": "53ee54aff48965c33a3f917267c914e619a05bc9feadebdea528907355c0a4f0"
+    },
+    "owner_trial": "Pending for this copy correction; earlier positive owner trial record retained",
+    "artifact_policy": "Screens and raw replay remain local; no screenshot egress"
   }
 }

@@ -1108,7 +1108,7 @@ drawInspector font x y screen ident
           stoppedDescription = (if statusMood status == MoodBusy then "進行中の作業は続きます。" else "") ++ "次の生産は始めません。担当と配送は残ります。"
           startDescription = case name of
             "hand_pump" -> "井戸・配給所・荷車の担当を三交代に配置します。押すと時間が進みます。"
-            "farm" -> "農場の担当と水・作物の配送を準備します。押すと時間が進みます。"
+            "farm" -> "農場の担当と水の配送を準備します。押すと時間が進みます。"
             "kitchen" -> "厨房の担当と材料・料理の配送を準備します。押すと時間が進みます。"
             _ -> statusDetail status
       txt font (siteName name) x (y + 7) 25 copper
