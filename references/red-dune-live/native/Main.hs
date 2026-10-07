@@ -32,6 +32,7 @@ import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game
 import RedDune.Native.Font (NativeFont, fontFace, loadNativeFont, unloadNativeFont)
+import RedDune.Native.Help qualified as Help
 import RedDune.Native.Play
 import RedDune.Native.Store qualified as Store
 import RedDune.Native.View
@@ -68,11 +69,12 @@ main =
     let scenario = maybe "settlement" id (optionNew options)
     Store.withStore (optionStore options) $ \store -> do
       catalog <- Store.latestCheckpointCatalog store
+      (preferences, preferenceNotice) <- Store.loadPreferences store
       initial <- either (ioError . userError) pure (startVillageGame scenario pack)
       game <- Store.prepareGame store initial
       let started = optionNew options /= Nothing || null (Store.catalogEntries catalog)
       when started (Store.saveGame store game >> pure ())
-      let screen = (newScreen game (if started then NoDialog else Welcome catalog)) {screenSaved = started}
+      let screen = (newScreen game (if started then NoDialog else Welcome catalog)) {screenSaved = started, screenHelpUi = Help.newHelpUi preferences, screenNotice = maybe "" id preferenceNotice}
       setConfigFlags ([Msaa4xHint, WindowResizable, VsyncHint] ++ [WindowHidden | optionHidden options])
       withWindow 1440 940 "Red Dune" 60 $ \_resources -> do
         setWindowMinSize 1280 880
@@ -140,26 +142,35 @@ loop root options store font previous = do
         newHeight <= 2160 ->
           setWindowSize newWidth newHeight
     _ -> pure ()
-  buttons <- drawing (drawView font width height time usedMouse (appScreen previous))
+  let oldScreen = appScreen previous
+      guidedScreen = if appStarted previous && isPlainScreen oldScreen then oldScreen {screenHelpUi = Help.refreshHint (hintForScreen oldScreen) (screenHelpUi oldScreen)} else oldScreen
+      guided = previous {appScreen = guidedScreen}
+  buttons <- drawing (drawView font width height time usedMouse guidedScreen)
   let click = nativeClick || qaClick /= Nothing
       command = if click then buttonCommand <$> find (inside usedMouse . buttonRect) (reverse buttons) else Nothing
-  keyCommand <- keyboard (appScreen previous)
+  keyCommand <- keyboard guidedScreen
   let rawQaKey = case words qaLine of
         ["key", "space"] -> Just (Choose ToggleTime)
         ["key", "save"] -> Just SaveNow
         ["key", "escape"] -> Just CloseDialog
         ["key", "quit"] -> Just QuitGame
+        ["key", "help"] -> Just (toggleHelp guidedScreen)
         _ -> Nothing
-      qaKey = if isNoDialog (screenDialog (appScreen previous)) || rawQaKey `elem` [Just CloseDialog, Just QuitGame] then rawQaKey else Nothing
+      qaKey = if isPlainScreen guidedScreen || maybe False (\key -> overlayCommand key || key == SaveNow && isNoDialog (screenDialog guidedScreen)) rawQaKey then rawQaKey else Nothing
       requested = firstJust [command, keyCommand, qaKey]
-      stamped = previous {appQaRead = qaCount, appFrames = appFrames previous + 1}
+      stamped = guided {appQaRead = qaCount, appFrames = appFrames previous + 1}
   operated <- maybe (pure stamped) (perform store stamped) requested
+  case (optionQa options, requested) of
+    (Just folder, Just action) | isHelpEvent guidedScreen action -> do
+      createDirectoryIfMissing True folder
+      appendFile (folder </> "help-events.txt") (show action ++ " worldUnchanged=" ++ show (screenGame guidedScreen == screenGame (appScreen operated)) ++ "\n")
+    _ -> pure ()
   cameraScreen0 <- cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
   let noticeAge = screenNoticeAge cameraScreen0 + dt
       persistent = any (`isPrefixOf` screenNotice cameraScreen0) ["操作を完了", "保存できない", "自動保存でき", "進行を停止", "厨房が故障"]
       cameraScreen = cameraScreen0 {screenCues = fadeCues dt (screenCues cameraScreen0), screenNoticeAge = noticeAge, screenNotice = if noticeAge > 8 && not persistent then "" else screenNotice cameraScreen0}
   selected <-
-    if click && command == Nothing && isNoDialog (screenDialog cameraScreen) && usedMouseInMap width height cameraScreen usedMouse
+    if click && command == Nothing && isPlainScreen cameraScreen && usedMouseInMap width height cameraScreen usedMouse
       then case screenBuild cameraScreen of
         Just prototype -> do
           let tile = unproject width height (screenCamera cameraScreen) usedMouse
@@ -181,8 +192,9 @@ loop root options store font previous = do
         paused <- pauseGame (screenGame (appScreen selected))
         pure selected {appScreen = (appScreen selected) {screenGame = paused, screenSaved = False, screenNotice = "ウィンドウを離れたため、一時停止しました。"}, appDebt = 0}
       else pure selected
-  advanced <- advanceFrame (max 0 (min 0.1 dt)) attended
-  checkpointed <- autoSave store advanced
+  advanced <- if Help.helpHoldsClock (screenHelpUi guidedScreen) (screenHelpUi (appScreen attended)) then pure attended {appDebt = 0, appSaveTime = appSaveTime attended + dt} else advanceFrame (max 0 (min 0.1 dt)) attended
+  preferred <- persistPreferences store (screenHelpUi oldScreen) advanced
+  checkpointed <- autoSave store preferred
   saved <- recordMilestones options time checkpointed
   case (optionQa options, words qaLine) of
     (Just folder, ["capture", name]) | takeFileName name == name && takeExtension name == ".png" -> do
@@ -192,6 +204,7 @@ loop root options store font previous = do
       writeFile (folder </> replaceExtension name "json") (encodeJSON (observeGame (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "dining.txt") (show (diningStatuses (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "places.txt") (show (gamePlaces (screenGame (appScreen saved))))
+      writeFile (folder </> replaceExtension name "ui.txt") (uiSnapshot (appScreen saved))
       writeFile (folder </> replaceExtension name "meta.txt") (unlines ["Actual native GPU capture; synthetic pointer/key replay", "size=" ++ show width ++ "x" ++ show height, "frameSeconds=" ++ show dt, "windowSeconds=" ++ show time, "frames=" ++ show (appFrames saved), "focused=" ++ show focused, "replay suspends automatic focus pausing; default owner play pauses"])
     _ -> pure ()
   let finished = appQuit saved || close || maybe False (appFrames saved >=) (optionFrames options)
@@ -237,7 +250,32 @@ isNoDialog NoDialog = True
 isNoDialog _ = False
 
 usedMouseInMap :: Int -> Int -> Screen -> Vector2 -> Bool
-usedMouseInMap width height screen (Vector2 x y) = x >= 0 && x < fromIntegral width && y >= 100 && y < fromIntegral (height - 114) && (screenTab screen == ColonyTab && screenSelected screen == Nothing || x < fromIntegral (width - 406))
+usedMouseInMap width height screen mouse@(Vector2 x y) = x >= 0 && x < fromIntegral width && y >= 100 && y < fromIntegral (height - 114) && (screenTab screen == ColonyTab && screenSelected screen == Nothing || x < fromIntegral (width - 406)) && not (Help.activeHint (screenHelpUi screen) /= Nothing && inside mouse hintRectangle)
+
+toggleHelp :: Screen -> UiCommand
+toggleHelp screen = HelpCommand (if Help.helpTopic (screenHelpUi screen) == Nothing then Help.OpenHelp (contextTopic screen) else Help.CloseHelp)
+
+overlayCommand :: UiCommand -> Bool
+overlayCommand command = case command of HelpCommand {} -> True; CloseDialog -> True; QuitGame -> True; _ -> False
+
+isHelpEvent :: Screen -> UiCommand -> Bool
+isHelpEvent screen command = case command of HelpCommand {} -> True; CloseDialog -> Help.helpTopic (screenHelpUi screen) /= Nothing; _ -> False
+
+uiSnapshot :: Screen -> String
+uiSnapshot screen = unlines ["tab=" ++ show (screenTab screen), "selected=" ++ show (screenSelected screen), "camera=" ++ show (screenCamera screen), "build=" ++ show (screenBuild screen), "rotation=" ++ show (screenBuildRotation screen), "roadStart=" ++ show (screenRoadStart screen), "speed=" ++ show (screenSpeed screen), "dialog=" ++ dialogName (screenDialog screen), "help=" ++ show (screenHelpUi screen)]
+  where
+    dialogName dialog = case dialog of NoDialog -> "none"; Welcome {} -> "welcome"; SaveLibrary _ page -> "library:" ++ show page; LoadPreview preview -> "preview:" ++ Store.previewName preview; DiningPreview tile rotation roads _ -> "dining:" ++ show (tile, rotation, roads); NewCampaign -> "new"; Introduction scenario -> "intro:" ++ scenario; Conclusion {} -> "conclusion"
+
+persistPreferences :: Store.Store -> Help.HelpUi -> App -> IO App
+persistPreferences store before app
+  | Help.helpPreferences before == preferences = pure app
+  | otherwise = do
+      result <- ioResult (Store.savePreferences store preferences)
+      pure $ case result of
+        Right () -> app
+        Left _ -> app {appScreen = (appScreen app) {screenNotice = "案内の設定を保存できませんでした。今回はこのまま使えます。", screenNoticeAge = 0}}
+  where
+    preferences = Help.helpPreferences (screenHelpUi (appScreen app))
 
 keyboard :: Screen -> IO (Maybe UiCommand)
 keyboard screen = do
@@ -245,13 +283,14 @@ keyboard screen = do
   save <- isKeyPressed KeyF5
   load <- isKeyPressed KeyF9
   escape <- isKeyPressed KeyEscape
+  help <- isKeyPressed KeyF1
   rotate <- isKeyPressed KeyR
   speeds <- mapM isKeyPressed [KeyOne, KeyTwo, KeyThree, KeyFour]
-  pure (if escape then Just CloseDialog else if not (isNoDialog (screenDialog screen)) then Nothing else if space then Just (Choose ToggleTime) else if save then Just SaveNow else if load then Just ShowLibrary else if rotate then Just RotateBuilding else ChangeSpeed . snd <$> find fst (zip speeds [1, 2, 4, 8]))
+  pure (if escape then Just CloseDialog else if help then Just (toggleHelp screen) else if save && isNoDialog (screenDialog screen) then Just SaveNow else if not (isPlainScreen screen) then Nothing else if space then Just (Choose ToggleTime) else if load then Just ShowLibrary else if rotate then Just RotateBuilding else ChangeSpeed . snd <$> find fst (zip speeds [1, 2, 4, 8]))
 
 cameraInput :: Double -> Screen -> IO Screen
 cameraInput dt screen
-  | not (isNoDialog (screenDialog screen)) = pure screen
+  | not (isPlainScreen screen) = pure screen
   | otherwise = do
       up <- isKeyDown KeyW
       down <- isKeyDown KeyS
@@ -277,14 +316,23 @@ cameraInput dt screen
 perform :: Store.Store -> App -> UiCommand -> IO App
 perform store app command = do
   result <- ioResult (performUnchecked store app command)
-  let handled = either (\message -> app {appScreen = (appScreen app) {screenNotice = "操作を完了できませんでした：" ++ take 100 message}}) id result
+  let handled = either (\_ -> app {appScreen = (appScreen app) {screenNotice = operationFailure command}}) id result
   pure handled {appScreen = (appScreen handled) {screenNoticeAge = 0}}
 
 ioResult :: IO a -> IO (Either String a)
 ioResult work = (Right <$> work) `catch` (\(errorValue :: IOException) -> pure (Left (show errorValue)))
 
+operationFailure :: UiCommand -> String
+operationFailure command = case command of
+  SaveNow -> "保存できませんでした。保存先を確認し、F5でもう一度保存できます。"
+  ReadSave {} -> "保存を読み込めませんでした。保存一覧で別の保存を選ぶか、もう一度確認してください。"
+  ConfirmLoad -> "保存から再開できませんでした。保存一覧から選び直して、内容を確認してください。"
+  ShowLibrary -> "保存一覧を開けませんでした。保存先を確認して、もう一度開けます。"
+  _ -> "操作を完了できませんでした。画面を閉じて、選び直してからもう一度試せます。"
+
 performUnchecked :: Store.Store -> App -> UiCommand -> IO App
 performUnchecked store app command = case command of
+  HelpCommand action -> pure ((update screen {screenHelpUi = Help.updateHelp action (screenHelpUi screen)}) {appDebt = 0})
   FocusDining (Space.Tile x y) -> pure (update screen {screenCamera = Camera (fromInteger x + 7.5) (fromInteger y - 4.5) 26 0, screenTab = DiningTab, screenSelected = Nothing, screenBuild = Nothing})
   PlaceDining tile rotation -> case planDining tile rotation game of
     Left failure -> pure (update screen {screenNotice = friendlyFailure failure})
@@ -307,7 +355,7 @@ performUnchecked store app command = case command of
       pure (update screen {screenGame = forced, screenNotice = "班を配置しました。作業と配送が進みます。", screenSaved = False})
   HomeView -> pure (update screen {screenCamera = overviewCamera game, screenSelected = Nothing, screenTab = ColonyTab, screenBuild = Nothing, screenRoadStart = Nothing})
   Choose decision -> case decide decision game of
-    Left failure -> pure (update screen {screenNotice = friendlyFailure failure})
+    Left failure -> pure (update screen {screenNotice = decisionFailure game decision failure})
     Right candidate -> do
       let builds = case decision of Plan _ -> True; RoadPath _ _ -> True; _ -> False
           queued = if builds then candidate {gamePolicies = (gamePolicies candidate) {policiesEnabled = True, assistConstruction = True}} else candidate
@@ -355,14 +403,17 @@ performUnchecked store app command = case command of
     LoadPreview preview -> do
       when (appStarted app) (Store.saveGame store game >> pure ())
       candidate <- Store.confirmCheckpoint store preview
-      pure app {appScreen = screen {screenGame = candidate, screenSelected = Nothing, screenBuild = Nothing, screenCamera = openingCamera candidate, screenTab = ColonyTab, screenDialog = NoDialog, screenNotice = "新しい履歴で再開しました。時間は一時停止です。", screenSaved = True}, appDebt = 0, appSavedRevision = gameRevision candidate, appSaveTime = 0, appStarted = True}
+      pure app {appScreen = screen {screenGame = candidate, screenSelected = Nothing, screenBuild = Nothing, screenCamera = openingCamera candidate, screenTab = ColonyTab, screenDialog = NoDialog, screenHelpUi = Help.resumedHelpUi (Help.helpPreferences (screenHelpUi screen)), screenNotice = "元の保存を残し、新しい履歴で再開しました。時間は一時停止です。", screenSaved = True}, appDebt = 0, appSavedRevision = gameRevision candidate, appSaveTime = 0, appStarted = True}
     _ -> pure app
   CloseDialog ->
-    if appStarted app
-      then pure (update screen {screenDialog = NoDialog, screenBuild = Nothing, screenRoadStart = Nothing, screenSelected = Nothing, screenTab = ColonyTab, screenNotice = ""})
-      else do
-        catalog <- Store.latestCheckpointCatalog store
-        pure (update screen {screenDialog = Welcome catalog, screenBuild = Nothing, screenNotice = ""})
+    if Help.helpTopic (screenHelpUi screen) /= Nothing
+      then pure ((update screen {screenHelpUi = Help.updateHelp Help.CloseHelp (screenHelpUi screen)}) {appDebt = 0})
+      else
+        if appStarted app
+          then pure (update screen {screenDialog = NoDialog, screenBuild = Nothing, screenRoadStart = Nothing, screenSelected = Nothing, screenTab = ColonyTab, screenNotice = ""})
+          else do
+            catalog <- Store.latestCheckpointCatalog store
+            pure (update screen {screenDialog = Welcome catalog, screenBuild = Nothing, screenNotice = ""})
   ShowNewCampaign -> do
     paused <- pauseGame game
     pure (update screen {screenGame = paused, screenDialog = NewCampaign, screenBuild = Nothing})
@@ -382,7 +433,7 @@ pauseGame game = if worldMode (gameWorld game) == Active then either (ioError . 
 
 advanceFrame :: Double -> App -> IO App
 advanceFrame dt app
-  | not (isNoDialog (screenDialog screen)) || worldMode world /= Active = pure app {appDebt = 0, appSaveTime = appSaveTime app + dt}
+  | not (isPlainScreen screen) || worldMode world /= Active = pure app {appDebt = 0, appSaveTime = appSaveTime app + dt}
   | otherwise = do
       let total = min 16 (appDebt app + dt * 20 * fromIntegral (screenSpeed screen)); count = min 8 (floor total)
       case advanceGame count game of
@@ -448,14 +499,41 @@ decisionMessage decision = case decision of
   ConnectFacility _ -> "材料と出荷の配送計画をつなぎました。道路と運搬班がそろうと、物資が動きます。"
   _ -> "方針を変更しました。"
 
+decisionFailure :: GameState -> Decision -> String -> String
+decisionFailure game decision failure = case decision of
+  RoadPath _ _
+    | failure == "Road plan must be at most 64 tiles and wait for the current queue" ->
+        if null (gameBuildQueue game) then "道路は1回に64マスまで計画できます。もっと近い終点を選んでください。" else friendlyFailure "Wait for the current construction queue"
+  _ -> friendlyFailure failure
+
 friendlyFailure :: String -> String
 friendlyFailure failure
+  | Just explanation <- lookup failure ordinaryFailures = explanation
   | "Workforce" `contains` failure || "workers" `contains` failure || "people" `contains` failure = "班を配置できません。ほかの施設の割り当てと、作業中の人員を確認してください。"
   | "Conflict" `contains` failure || "Outside" `contains` failure || "Placement" `contains` failure = "ここには配置できません。建物・道路・地形と重ならない場所を選んでください。"
   | "already queued" `contains` failure = "予備倉庫の建設をすでに計画しています。現在の工事を確認してください。"
   | otherwise = "操作を受け付けられませんでした：" ++ take 80 failure
   where
-    contains needle haystack = any (needle `prefix`) (tails haystack); prefix a b = take (length a) b == a; tails [] = [[]]; tails value@(_ : rest) = value : tails rest
+    ordinaryFailures =
+      [ ("Wait for the current construction queue", "先に計画した道路・施設の着工待ちです。着工が進んでから、もう一度場所を選べます。"),
+        ("Expansion is already queued", "先に計画した道路・施設の着工待ちです。着工が進んでから、もう一度計画できます。"),
+        ("This colony already has a dining place", "食事の場はすでに計画されています。「食事の場」から場所を確認できます。"),
+        ("Dining footprint overlaps placed scenery", "飾りと重なっています。先に片づけるか、別の場所を選んでください。"),
+        ("Place overlaps a building or planned road", "建物や計画中の道路と重なっています。空いた地面を選んでください。"),
+        ("Place overlaps a queued building or road", "計画中の建物や道路と重なっています。空いた地面を選んでください。"),
+        ("Keep the transport road clear", "荷車が通る道路には置けません。道の横を選んでください。"),
+        ("Keep placed furniture out of the road", "道路に飾りが重なっています。飾りを片づけるか、別の終点を選んでください。"),
+        ("No road route reaches this dining place", "ここへつながる道路を計画できません。厨房の道路に近い、空いた場所を選んでください。"),
+        ("Dining connector cannot reach the kitchen road", "厨房の道路へつなげられません。空いた地面が続く場所を選んでください。"),
+        ("Dining road must fit the 64-stage construction queue", "厨房から遠すぎます。1回に道路と施設を合わせて64マスまで計画できます。もっと近い場所を選んでください。"),
+        ("Dining transport workers are unavailable", "食事の場へ運ぶ人を配置できません。ほかの施設の班を確認し、担当を外してから試してください。"),
+        ("Supply route has not been commissioned", "この配送はまだ準備されていません。送り元の施設を選んで、班と配送を準備してください。"),
+        ("Campaign ended; restart or restore to play", "この開拓は区切りを迎えました。保存一覧から以前の続きに戻るか、新しい開拓を選べます。"),
+        ("Cannot configure staffing while workers belong to other targets; release their assignments first", "ほかの施設に担当がいます。その施設の班を外してから、配置し直してください。")
+      ]
+    contains needle haystack = any (needle `prefix`) (tails haystack)
+    prefix a b = take (length a) b == a
+    tails [] = [[]]; tails value@(_ : rest) = value : tails rest
 
 -- Opt-in QA supplies raw pointer/key events to the ordinary hit-test path.
 -- It cannot edit state or advance the clock; it also captures actual GPU frames.

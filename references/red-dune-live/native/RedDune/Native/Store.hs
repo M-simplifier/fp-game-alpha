@@ -22,6 +22,8 @@ module RedDune.Native.Store
     confirmCheckpoint,
     prepareGame,
     activateGame,
+    loadPreferences,
+    savePreferences,
     showNativeError,
   )
 where
@@ -39,6 +41,7 @@ import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game hiding (previewGame)
 import RedDune.GameSave
+import RedDune.Native.Help qualified as Help
 import System.Directory (listDirectory, makeAbsolute)
 import System.FilePath (dropExtension, splitDirectories, takeExtension)
 import Text.Read (readMaybe)
@@ -60,6 +63,10 @@ foreign import ccall unsafe "rd_store_write" writeStore :: Ptr () -> CString -> 
 foreign import ccall unsafe "rd_store_read" readStore :: Ptr () -> CString -> Ptr (Ptr Word8) -> Ptr CULong -> IO CInt
 
 foreign import ccall unsafe "rd_store_commit" commitStore :: Ptr () -> CString -> CString -> IO CInt
+
+foreign import ccall unsafe "rd_store_read_ui" readUiStore :: Ptr () -> CString -> Ptr (Ptr Word8) -> Ptr CULong -> IO CInt
+
+foreign import ccall unsafe "rd_store_replace_ui" replaceUiStore :: Ptr () -> CString -> IO CInt
 
 foreign import ccall unsafe "rd_store_error" storeError :: IO CULong
 
@@ -93,8 +100,11 @@ withStore path action = do
       action (Store absolute pointer factory)
 
 readBytes :: Store -> String -> IO BS.ByteString
-readBytes store name = withCString name $ \filename -> alloca $ \bytes -> alloca $ \size -> do
-  readStore (storeHandle store) filename bytes size >>= (`checkResult` "Checkpoint read failed")
+readBytes = readWith readStore
+
+readWith :: (Ptr () -> CString -> Ptr (Ptr Word8) -> Ptr CULong -> IO CInt) -> Store -> String -> IO BS.ByteString
+readWith reader store name = withCString name $ \filename -> alloca $ \bytes -> alloca $ \size -> do
+  reader (storeHandle store) filename bytes size >>= (`checkResult` "Store read failed")
   pointer <- peek bytes
   count <- peek size
   BS.packCStringLen (castPtr pointer, fromIntegral count) `finally` freeStore pointer
@@ -102,6 +112,32 @@ readBytes store name = withCString name $ \filename -> alloca $ \bytes -> alloca
 writeBytes :: Store -> String -> BS.ByteString -> IO ()
 writeBytes store name bytes = withCString name $ \filename -> BS.useAsCStringLen bytes $ \(pointer, count) ->
   writeStore (storeHandle store) filename (castPtr pointer) (fromIntegral count) >>= (`checkResult` "Checkpoint write failed")
+
+loadPreferences :: Store -> IO (Help.Preferences, Maybe String)
+loadPreferences store = do
+  names <- listDirectory (storeRoot store)
+  if "ui-preferences.rdui" `notElem` names
+    then pure (Help.defaultPreferences, Nothing)
+    else do
+      result <- try (readWith readUiStore store "ui-preferences.rdui") :: IO (Either IOException BS.ByteString)
+      pure $ case result of
+        Right bytes | Just preferences <- Help.decodePreferences bytes -> (preferences, Nothing)
+        _ -> (Help.defaultPreferences, Just "案内の設定を読み込めませんでした。遊び方から設定し直せます。")
+
+savePreferences :: Store -> Help.Preferences -> IO ()
+savePreferences store preferences = do
+  let bytes = Help.encodePreferences preferences
+  names <- listDirectory (storeRoot store)
+  let sequences = [n | name <- names, Just suffix <- [stripPrefix "ui-preferences-" name], Just n <- [readMaybe (takeWhile (/= '.') suffix)]] :: [Word64]
+      highest = maximum (0 : sequences)
+  require (highest < maxBound) "UI preference sequence exhausted"
+  let temporary = "ui-preferences-" ++ show (highest + 1) ++ ".pending"
+  writeBytes store temporary bytes
+  readback <- readWith readUiStore store temporary
+  require (readback == bytes && Help.decodePreferences readback == Just preferences) "UI preference readback differs"
+  withCString temporary $ \filename -> replaceUiStore (storeHandle store) filename >>= (`checkResult` "UI preference commit failed")
+  committed <- readWith readUiStore store "ui-preferences.rdui"
+  require (committed == bytes) "Committed UI preferences differ"
 
 reserveBranch :: Store -> Word64 -> IO Word64
 reserveBranch store sourceBranch = do

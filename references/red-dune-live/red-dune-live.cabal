@@ -188,6 +188,7 @@ executable red-dune
     RedDune.Native.Play
     RedDune.Native.View
     RedDune.Native.Font
+    RedDune.Native.Help
   c-sources: native/cbits/store.c
   build-depends: red-dune-live, h-raylib >=5.5 && <5.7
   ghc-options: -O2 -threaded -rtsopts -optl-mwindows
@@ -199,7 +200,7 @@ test-suite live-native
   type: exitcode-stdio-1.0
   main-is: NativeTests.hs
   hs-source-dirs: test, native
-  other-modules: RedDune.Native.Store, RedDune.Native.Play
+  other-modules: RedDune.Native.Store, RedDune.Native.Play, RedDune.Native.Help
   c-sources: native/cbits/store.c
   build-depends: red-dune-live
   ghc-options: -O2 -threaded
@@ -240,6 +241,13 @@ test-suite live-dining
   hs-source-dirs: test, native
   other-modules: RedDune.Native.Play
   build-depends: red-dune-live
+
+test-suite live-help
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: NativeHelpTests.hs
+  hs-source-dirs: test, native
+  other-modules: RedDune.Native.Help
 
 -- Cabal owns dependency flags/package DBs; no hand-written ghc package list.
 -- Sources are home modules only here, so :reload actually checks gameplay.

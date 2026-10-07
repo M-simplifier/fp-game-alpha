@@ -8,9 +8,11 @@ import Control.Exception (IOException, try)
 import Control.Monad (foldM, replicateM_, unless)
 import Data.ByteString qualified as BS
 import Data.Map.Strict qualified as M
+import Data.Set qualified as Set
 import RedDune.ContentPack
 import RedDune.Game
 import RedDune.GameSave
+import RedDune.Native.Help qualified as Help
 import RedDune.Native.Play
 import RedDune.Native.Store qualified as Store
 import System.Directory
@@ -69,12 +71,35 @@ main = do
     check "startup skips newest corrupt save" (Store.catalogUnreadable latestHealthy == 1 && take 1 ordered == Store.catalogEntries latestHealthy)
     pages <- mapM (Store.checkpointPage store) [0 .. (Store.catalogTotal latestHealthy - 1) `div` 7]
     check "every historic save remains accessible" (concatMap Store.catalogEntries pages == ordered && sum (map Store.catalogUnreadable pages) == 2)
+    defaultUi <- Store.loadPreferences store
+    check "missing UI settings use independent defaults" (defaultUi == (Help.defaultPreferences, Nothing))
+    let preference = Help.Preferences False (Set.fromList [Help.WellHint, Help.RoadHint])
+    Store.savePreferences store preference
+    savedUi <- Store.loadPreferences store
+    check "UI settings have exact flushed readback" (savedUi == (preference, Nothing))
+    Store.savePreferences store Help.defaultPreferences
+    replacedUi <- Store.loadPreferences store
+    check "only UI settings can be replaced" (replacedUi == (Help.defaultPreferences, Nothing))
+    unchangedSource <- BS.readFile (root </> first)
+    check "preference replacement leaves checkpoint bytes unchanged" (unchangedSource == originalBytes)
+    BS.writeFile (root </> "ui-preferences.rdui") (BS.replicate 1025 65)
+    corruptUi <- Store.loadPreferences store
+    check "oversized UI settings fall back without invalidating the world" (fst corruptUi == Help.defaultPreferences && snd corruptUi /= Nothing)
+    healthyWorld <- Store.previewCheckpoint store first
+    check "world preview survives UI corruption" (Store.previewGame healthyWorld == activated)
+    BS.writeFile (root </> "ui-preferences-7.pending") (BS.pack [1, 2, 3])
+    Store.savePreferences store preference
+    recoveredUi <- Store.loadPreferences store
+    check "stale unfinished UI write does not block a later commit" (recoveredUi == (preference, Nothing))
     traversal <- try (Store.previewCheckpoint store "../escape.rdlive") :: IO (Either IOException Store.Preview)
     check "traversal rejected" (case traversal of Left _ -> True; _ -> False)
     renamed <- try (renameDirectory root (root ++ "-moved")) :: IO (Either IOException ())
     check "directory identity pinned" (case renamed of Left _ -> True; _ -> False)
   -- A process restart reacquires the lock and reads already committed saves.
-  Store.withStore root $ \store -> Store.checkpoints store >>= check "restart catalog" . (>= 3) . length
+  Store.withStore root $ \store -> do
+    Store.checkpoints store >>= check "restart catalog" . (>= 3) . length
+    preferences <- Store.loadPreferences store
+    check "guide OFF and seen IDs survive process restart" (fst preferences == Help.Preferences False (Set.fromList [Help.WellHint, Help.RoadHint]) && snd preferences == Nothing)
   Store.withStore (root </> "日本語") $ \store -> do
     saved <- Store.activateGame store original
     name <- Store.saveGame store saved

@@ -85,7 +85,8 @@ int rd_store_write(rd_store *s, const char *name, const unsigned char *bytes, un
     DWORD error = GetLastError(); CloseHandle(f); SetLastError(error); return ok;
 }
 
-int rd_store_read(rd_store *s, const char *name, unsigned char **bytes, unsigned long *size) {
+static int read_bounded(rd_store *s, const char *name, unsigned char **bytes, unsigned long *size,
+                        LONGLONG minimum, LONGLONG maximum) {
     wchar_t path[32768]; if (!path_for(s, name, path)) return 0;
     HANDLE f = CreateFileW(path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING,
         FILE_FLAG_OPEN_REPARSE_POINT, NULL);
@@ -93,7 +94,7 @@ int rd_store_read(rd_store *s, const char *name, unsigned char **bytes, unsigned
     BY_HANDLE_FILE_INFORMATION info; LARGE_INTEGER length;
     if (!GetFileInformationByHandle(f, &info) ||
         (info.dwFileAttributes & (FILE_ATTRIBUTE_REPARSE_POINT | FILE_ATTRIBUTE_DIRECTORY)) ||
-        !GetFileSizeEx(f, &length) || length.QuadPart < 40 || length.QuadPart > 33554472) {
+        !GetFileSizeEx(f, &length) || length.QuadPart < minimum || length.QuadPart > maximum) {
         CloseHandle(f); SetLastError(ERROR_INVALID_DATA); return 0;
     }
     unsigned char *buffer = malloc((size_t)length.QuadPart);
@@ -108,10 +109,35 @@ int rd_store_read(rd_store *s, const char *name, unsigned char **bytes, unsigned
     *bytes = buffer; *size = offset; return 1;
 }
 
+int rd_store_read(rd_store *s, const char *name, unsigned char **bytes, unsigned long *size) {
+    return read_bounded(s, name, bytes, size, 40, 33554472);
+}
+
+int rd_store_read_ui(rd_store *s, const char *name, unsigned char **bytes, unsigned long *size) {
+    if (strcmp(name, "ui-preferences.rdui") && strncmp(name, "ui-preferences-", 15)) {
+        SetLastError(ERROR_INVALID_NAME); return 0;
+    }
+    return read_bounded(s, name, bytes, size, 1, 1024);
+}
+
 int rd_store_commit(rd_store *s, const char *temporary, const char *final) {
     wchar_t a[32768], b[32768];
     if (!path_for(s, temporary, a) || !path_for(s, final, b)) return 0;
     return MoveFileExW(a, b, MOVEFILE_WRITE_THROUGH);
+}
+
+/* Only the small UI preference leaf can be replaced. World checkpoints retain
+   their immutable commit path above. The same ancestor pins and lock apply. */
+int rd_store_replace_ui(rd_store *s, const char *temporary) {
+    if (strncmp(temporary, "ui-preferences-", 15)) { SetLastError(ERROR_INVALID_NAME); return 0; }
+    wchar_t a[32768], b[32768];
+    if (!path_for(s, temporary, a) || !path_for(s, "ui-preferences.rdui", b)) return 0;
+    DWORD attributes = GetFileAttributesW(b);
+    if (attributes != INVALID_FILE_ATTRIBUTES &&
+        (attributes & (FILE_ATTRIBUTE_DIRECTORY | FILE_ATTRIBUTE_REPARSE_POINT))) {
+        SetLastError(ERROR_ACCESS_DENIED); return 0;
+    }
+    return MoveFileExW(a, b, MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH);
 }
 
 unsigned long rd_store_error(void) { return GetLastError(); }

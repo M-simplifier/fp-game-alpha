@@ -26,6 +26,7 @@ import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game
 import RedDune.Native.Font (NativeFont, drawNativeText, measureNativeText)
+import RedDune.Native.Help qualified as Help
 import RedDune.Native.Play
 import RedDune.Native.Store qualified as Store
 import RedDune.Policies qualified as P
@@ -75,7 +76,8 @@ data Screen = Screen
     screenStockPage :: !Int,
     screenBuildRotation :: !S.Rotation,
     screenRoadStart :: !(Maybe S.Tile),
-    screenCues :: ![WorldCue]
+    screenCues :: ![WorldCue],
+    screenHelpUi :: !Help.HelpUi
   }
 
 data UiCommand
@@ -104,6 +106,7 @@ data UiCommand
   | SupplyPage Int
   | StockPage Int
   | RotateBuilding
+  | HelpCommand Help.HelpAction
   deriving (Eq, Show)
 
 newScreen :: GameState -> Dialog -> Screen
@@ -125,7 +128,8 @@ newScreen game dialog =
       screenStockPage = 0,
       screenBuildRotation = S.R0,
       screenRoadStart = Nothing,
-      screenCues = []
+      screenCues = [],
+      screenHelpUi = Help.newHelpUi Help.defaultPreferences
     }
 
 data WorldCue = WorldCue {cueX :: !Float, cueY :: !Float, cueLabel :: !String, cueLife :: !Float, cueColor :: !Color}
@@ -258,7 +262,7 @@ drawColony font width height time mouse screen = do
       p = project width height camera
       scale = cameraScale camera
       SimTick tick = simTick world
-      clock = if worldMode world == Active then realToFrac time else fromIntegral tick / 20
+      clock = if worldMode world == Active && Help.helpTopic (screenHelpUi screen) == Nothing then realToFrac time else fromIntegral tick / 20
       night = max 0 (min 1 ((cos (fromIntegral (tick `mod` 28800) * pi / 14400) + 0.15) * 0.85)) :: Float
       placements = maybe [] (sortOn (depth camera) . M.elems . S.spatialPlacements . m1Space) (worldM1 world)
       diningPlans = M.keys (gameDiningPlaces game) ++ case screenDialog screen of DiningPreview tile _ _ _ -> [tile]; _ -> []
@@ -628,7 +632,7 @@ drawView font width height time mouse screen = do
       world = gameWorld game
       d = gameDescriptor game
       campaign = gameCampaign game
-      paused = worldMode world /= Active
+      paused = worldMode world /= Active || Help.helpTopic (screenHelpUi screen) /= Nothing
       right = fromIntegral width - 386
       bottom = fromIntegral height - 114
       hour = elapsedTicks world campaign `div` 1200
@@ -640,9 +644,9 @@ drawView font width height time mouse screen = do
       top =
         [button 239 18 132 (if paused then "▶ 進める" else "Ⅱ 停止") (Choose ToggleTime) paused]
           ++ [button (383 + fromIntegral n * 48) 18 44 (show speed ++ "×") (ChangeSpeed speed) (screenSpeed screen == speed) | (n, speed) <- zip [0 :: Int ..] [1, 2, 4, 8]]
-          ++ [button (fromIntegral width - 220) 18 88 "保存" SaveNow False, button (fromIntegral width - 122) 18 96 "開拓" ShowLibrary False]
+          ++ [button (fromIntegral width - 220) 18 88 "保存" SaveNow False, button (fromIntegral width - 122) 18 96 "保存一覧" ShowLibrary False]
       dock = [button 28 (bottom + 60) 130 "建てる" (SelectTab BuildingTab) (screenTab screen == BuildingTab), button 169 (bottom + 60) 176 "食事の場" (SelectTab DiningTab) (screenTab screen == DiningTab), button 356 (bottom + 60) 114 "飾る" (SelectTab PlacesTab) (screenTab screen == PlacesTab), button 481 (bottom + 60) 114 "配送" (SelectTab SupplyTab) (screenTab screen == SupplyTab), button 606 (bottom + 60) 130 "班を見る" (SelectTab PeopleTab) (screenTab screen == PeopleTab), button 747 (bottom + 60) 130 "全体へ" HomeView False]
-      focus = firstFocus game
+      helpButton = button (fromIntegral width - 250) (bottom + 60) 120 "遊び方" (HelpCommand (Help.OpenHelp (contextTopic screen))) False
       overview = screenTab screen == ColonyTab && screenSelected screen == Nothing
       panelOpen = not overview
   drawRectangle 0 0 width 100 paper
@@ -654,29 +658,26 @@ drawView font width height time mouse screen = do
   stockBadge font 728 17 "水" (P.physical world (s01Pantry d) Water) 10000 water
   stockBadge font 884 17 "食事" (P.physical world (s01Pantry d) Ration) 5000 mint
   txt font (show (length (filter ((== Living) . residentStatus) people)) ++ "人 " ++ if served && hour > 0 then "配給が届いています" else if not served then "配給が足りません" else "備蓄から、暮らしへ") 730 71 20 (if served then mint else copper)
-  when overview $ do
-    let (title, detail, _) = focus
-    card 28 124 592 88 (Color 255 249 234 239)
-    txt font title 46 135 28 ink
-    txt font detail 46 175 22 muted
+  hintButtons <- if isPlainScreen screen then drawHint font screen else pure []
   content <-
     if panelOpen
       then do
         card (right - 20) 121 378 (fromIntegral height - 251) panel
         controls <- drawPanel font right 147 height screen
         pure (button (right + 290) 132 44 "×" ClearSelection False : controls)
-      else pure [if campaignFreshPantry campaign then button 28 226 256 (if null (diningStatuses game) then "食事の場をつくる" else "食事の場を見にいく") (SelectTab DiningTab) True else button 28 226 226 (let (_, _, ident) = focus in if ident == s01Pump d then "井戸を見てみる" else if ident == s01Farm d then "畑を見てみる" else if ident == s01Kitchen d then "厨房を見てみる" else "配給所を見る") (SelectSite (let (_, _, ident) = focus in ident)) False]
+      else pure []
   drawRectangle 0 (height - 114) width 114 paper
   drawLine 0 (height - 114) width (height - 114) line
   let notice = if null (screenNotice screen) then if paused then "時間は停止中。施設を選んで作業を始められます。" else "建物を選ぶ / ホイールで拡大 / WASDで移動" else screenNotice screen
   txt font notice 28 (bottom + 16) 22 ink
-  txt font (if screenSaved screen then "保存済み" else "自動保存") (fromIntegral width - 126) (bottom + 73) 20 muted
+  txt font (if screenSaved screen then "保存済み" else "自動保存待ち") (fromIntegral width - 126) (bottom + 73) 18 muted
   when (campaignFreshPantry campaign && overview) $ do
     card 30 (bottom - 68) 520 46 (Color 244 246 215 243)
     txt font (if campaignFreshConsumed campaign > 0 then "新しい食事を食べた  " ++ resourceAmount Ration (campaignFreshConsumed campaign) else "つくった食事が、暮らしに届いた") 46 (bottom - 59) 24 mint
-  let normal = (if panelOpen then filter (\b -> let Rectangle x _ _ _ = buttonRect b in x < right - 25) sites else sites) ++ top ++ dock ++ content ++ [button 28 284 226 "向きを変える ↻" RotateBuilding False | screenBuild screen /= Nothing]
+  let panelHelp = [button (right + 205) 132 78 "見方" (HelpCommand (Help.OpenHelp (contextTopic screen))) False | panelOpen]
+      normal = (if panelOpen then filter (\b -> let Rectangle x _ _ _ = buttonRect b in x < right - 25) sites else sites) ++ top ++ dock ++ content ++ panelHelp ++ [button 28 342 226 "向きを変える ↻" RotateBuilding False | screenBuild screen /= Nothing] ++ hintButtons ++ [helpButton]
       visible = filter (not . null . buttonLabel) normal
-  case screenDialog screen of
+  underlying <- case screenDialog screen of
     NoDialog -> mapM_ (drawButton font mouse) visible >> pure normal
     dialog -> do
       mapM_ (drawButton font (Vector2 (-1) (-1))) visible
@@ -693,7 +694,149 @@ drawView font width height time mouse screen = do
         _ -> pure ()
       dialogButtons <- drawDialog font width height dialog
       mapM_ (drawButton font mouse) dialogButtons
-      pure dialogButtons
+      drawButton font mouse helpButton
+      pure (dialogButtons ++ [helpButton])
+  case Help.helpTopic (screenHelpUi screen) of
+    Nothing -> pure underlying
+    Just topic -> do
+      drawRectangle 0 0 width height (Color 29 28 25 165)
+      controls <- drawHelp font width height screen topic
+      mapM_ (drawButton font mouse) controls
+      pure controls
+
+isPlainScreen :: Screen -> Bool
+isPlainScreen screen = Help.helpTopic (screenHelpUi screen) == Nothing && case screenDialog screen of NoDialog -> True; _ -> False
+
+contextTopic :: Screen -> Help.TopicId
+contextTopic screen = case screenDialog screen of
+  Welcome {} -> Help.SavingAndResume
+  SaveLibrary {} -> Help.SavingAndResume
+  LoadPreview {} -> Help.SavingAndResume
+  NewCampaign -> Help.TimeAndControls
+  Conclusion {} -> Help.TimeAndControls
+  DiningPreview {} -> Help.DiningAndPlaces
+  _ -> case screenBuild screen of
+    Just name | take 7 name == "detail-" -> Help.DiningAndPlaces
+    Just "dining" -> Help.DiningAndPlaces
+    Just _ -> Help.RoadsAndBuilding
+    _ -> case screenTab screen of
+      SupplyTab -> Help.DeliveryAndStock
+      BuildingTab -> Help.RoadsAndBuilding
+      PeopleTab -> Help.ShiftCrews
+      PlacesTab -> Help.DiningAndPlaces
+      DiningTab -> Help.DiningAndPlaces
+      ColonyTab -> case screenSelected screen of
+        Just ident | isDiningSite game ident -> Help.DiningAndPlaces
+        Just ident | ident `elem` [s01Pump d, s01Farm d, s01Kitchen d] -> Help.WaterAndFood
+        Just _ -> Help.RoadsAndBuilding
+        Nothing -> Help.TimeAndControls
+  where
+    game = screenGame screen; d = gameDescriptor game
+
+contextDescription :: Screen -> String
+contextDescription screen = case screenDialog screen of
+  LoadPreview {} -> "保存の確認中です。閉じると、この確認画面に戻ります。"
+  SaveLibrary {} -> "保存一覧を開いています。閉じると、同じ一覧に戻ります。"
+  Welcome {} -> "前回の開拓を選べます。保存を確認してから再開します。"
+  DiningPreview {} -> "食事の場を建てる前の確認です。場所と費用を確かめられます。"
+  _ -> case screenBuild screen of
+    Just "road" -> "道路を配置中です。閉じると、選んだ始点の続きに戻ります。"
+    Just name | take 7 name == "detail-" -> "飾りを配置中です。閉じると、選んだ飾りと向きの続きに戻ります。"
+    Just _ -> "建設場所を選んでいます。閉じると、同じ計画の続きに戻ります。"
+    _ -> case screenTab screen of
+      ColonyTab | Just ident <- screenSelected screen -> siteName (sitePrototype (screenGame screen) ident) ++ "：" ++ statusTitle (siteStatus (screenGame screen) ident)
+      ColonyTab -> "全体の地図を見ています。建物を選ぶと、作業や在庫を確認できます。"
+      _ -> "元の画面：" ++ Help.topicTitle (contextTopic screen) ++ "。読む間は時間が進みません。"
+
+sitePrototype :: GameState -> EntityId -> String
+sitePrototype game ident = case worldM1 (gameWorld game) >>= M.lookup ident . S.spatialPlacements . m1Space of
+  Just placement -> case S.placementShape placement of S.BuildingShape name _ _ -> name; _ -> "road"
+  Nothing -> "施設"
+
+hintForScreen :: Screen -> Maybe Help.HintId
+hintForScreen screen
+  | not (isPlainScreen screen) = Nothing
+  | screenBuild screen == Just "road" = Just Help.RoadHint
+  | screenTab screen == PlacesTab = Just Help.PlacesHint
+  | screenTab screen == SupplyTab = Just Help.DeliveryHint
+  | screenTab screen == PeopleTab = Just Help.CrewsHint
+  | screenTab screen == DiningTab = diningHint
+  | screenTab screen /= ColonyTab = Nothing
+  | Just ident <- screenSelected screen =
+      if ident == s01Pump d && inactive ident
+        then Just Help.WellHint
+        else
+          if ident == s01Farm d && inactive ident
+            then Just Help.FarmHint
+            else
+              if ident == s01Kitchen d && inactive ident
+                then Just Help.KitchenHint
+                else
+                  if ident == s01Kitchen d && not fresh
+                    then Just Help.FirstFoodHint
+                    else
+                      if isDiningSite game ident
+                        then diningHint
+                        else Nothing
+  | inactive (s01Pump d) = Just Help.WellHint
+  | inactive (s01Farm d) = Just Help.FarmHint
+  | inactive (s01Kitchen d) = Just Help.KitchenHint
+  | not fresh = Just Help.FirstFoodHint
+  | otherwise = diningHint
+  where
+    game = screenGame screen
+    d = gameDescriptor game
+    inactive ident = ident `notElem` P.productionSites (gamePolicies game)
+    fresh = campaignFreshPantry (gameCampaign game)
+    diningHint = case diningStatuses game of
+      [] -> if fresh then Just Help.DiningPlanHint else Nothing
+      status : _ -> if null (diningMeals status) then Nothing else Just Help.DiningUseHint
+
+hintRectangle :: Rectangle
+hintRectangle = Rectangle 28 124 592 196
+
+drawHint :: NativeFont -> Screen -> IO [Button]
+drawHint font screen = case Help.activeHint (screenHelpUi screen) of
+  Nothing -> pure []
+  Just hint -> do
+    let (title, detail) = Help.hintCopy hint
+        d = gameDescriptor (screenGame screen)
+        action = case hint of
+          Help.WellHint -> ("井戸を見る", SelectSite (s01Pump d))
+          Help.FarmHint -> ("農場を見る", SelectSite (s01Farm d))
+          Help.KitchenHint -> ("厨房を見る", SelectSite (s01Kitchen d))
+          Help.FirstFoodHint -> ("厨房を見る", SelectSite (s01Kitchen d))
+          Help.DiningPlanHint -> ("場所を選ぶ", SelectTab DiningTab)
+          Help.DiningUseHint -> ("周りを飾る", SelectTab PlacesTab)
+          _ -> ("詳しく", HelpCommand (Help.OpenHelp (Help.hintTopic hint)))
+        secondary = if fst action == "詳しく" then [] else [button 219 268 98 "詳しく" (HelpCommand (Help.OpenHelp (Help.hintTopic hint))) False]
+    card 28 124 592 196 (Color 255 249 234 243)
+    txt font title 46 136 26 ink
+    wrap font detail 46 180 548 21 muted
+    pure ([button 46 268 164 (fst action) (snd action) False, button 325 268 98 "閉じる" (HelpCommand Help.DismissHint) False, button 431 268 164 "案内OFF" (HelpCommand (Help.SetGuides False)) False] ++ secondary)
+
+drawHelp :: NativeFont -> Int -> Int -> Screen -> Help.TopicId -> IO [Button]
+drawHelp font width height screen topic = do
+  let x = 60
+      y = 100
+      w = fromIntegral width - 120
+      h = fromIntegral height - 180
+      cx = x + 250
+      textWidth = min 760 (w - 282)
+      footer = y + h - 72
+      enabled = Help.guidesEnabled (Help.helpPreferences (screenHelpUi screen))
+      topics = [button (x + 26) (y + 116 + fromIntegral n * 60) 194 (Help.topicTitle chapter) (HelpCommand (Help.OpenHelp chapter)) (chapter == topic) | (n, chapter) <- zip [0 :: Int ..] Help.allTopics]
+  card x y w h paper
+  txt font "遊び方" (x + 26) (y + 20) 30 copper
+  txt font "どの章からでも読めます" (x + 26) (y + 77) 18 muted
+  txt font (Help.topicTitle topic) cx (y + 25) 30 copper
+  wrap font (contextDescription screen) cx (y + 79) textWidth 21 muted
+  forM_ (zip [0 :: Int ..] (Help.topicSections topic)) $ \(n, (heading, body)) -> do
+    let sy = y + 165 + fromIntegral n * 137
+    txt font heading cx sy 24 ink
+    wrap font body cx (sy + 40) textWidth 22 ink
+  txt font "読んでいる間は時間が止まります。Escで元の画面に戻ります。" (x + 26) (footer - 36) 20 muted
+  pure (topics ++ [button (x + 26) footer 194 (if enabled then "短い案内：ON" else "短い案内：OFF") (HelpCommand (Help.SetGuides (not enabled))) enabled, button (x + 234) footer 222 "案内をもう一度" (HelpCommand Help.RepeatHints) False, button (x + w - 232) footer 206 "元の画面へ" (HelpCommand Help.CloseHelp) True])
 
 stockBadge :: NativeFont -> Float -> Float -> String -> Integer -> Integer -> Color -> IO ()
 stockBadge font x y label amount hourly color = do
@@ -701,18 +844,6 @@ stockBadge font x y label amount hourly color = do
   card x y 140 49 (Color 240 231 207 255)
   txt font (label ++ " " ++ printf "%.1f" hours) (x + 8) (y + 1) 23 (if hours < 2 then copper else color)
   txt font "時間分の備蓄" (x + 8) (y + 29) 19 muted
-
-firstFocus :: GameState -> (String, String, EntityId)
-firstFocus game
-  | s01Pump d `notElem` P.productionSites policy = ("水を届けて、暮らしを動かそう", "井戸を選ぶと、できることが見えます", s01Pump d)
-  | s01Farm d `notElem` P.productionSites policy = ("この畑から、最初の食事を", "届いた水で作物を育てます", s01Farm d)
-  | s01Kitchen d `notElem` P.productionSites policy = ("育った作物を、食事にしよう", "厨房で作り、配給所へ運びます", s01Kitchen d)
-  | not (campaignFreshPantry (gameCampaign game)) = ("最初の食事が、届くまで", "畑・厨房・荷車の動きを見てみよう", s01Kitchen d)
-  | null (diningStatuses game) = ("ここで、食事の時間を", "食事の場を置き、住民が使う場所へ", pantry)
-  | any (not . null . diningMeals) (diningStatuses game) = ("選んだ場所に、暮らしが集まった", "日陰や灯りを並べ、自分の場所にしよう", pantry)
-  | otherwise = ("あなたの食事の場へ、料理を届けよう", "建設と荷車、厨房の実在庫を見てみよう", pantry)
-  where
-    d = gameDescriptor game; policy = gamePolicies game; Owner _ pantry = s01Pantry d
 
 meter :: NativeFont -> Float -> Float -> String -> String -> Float -> Color -> IO ()
 meter font x y label value fraction color = do
@@ -738,14 +869,14 @@ drawPanel font x y _height screen = do
   case screenTab screen of
     DiningTab -> drawDiningPanel font x y game
     PlacesTab -> do
-      txt font "好きな場所をつくる" x (y + 7) 26 copper
-      wrap font "選んで世界へ置く。Rで向きを変えられます。" x (y + 65) 320 22 muted
+      txt font "街を飾る" x (y + 7) 28 copper
+      wrap font "飾りを選び、地面をクリック。Rで回転できます。" x (y + 65) 320 21 muted
       let choices = [("石畳", "detail-square"), ("日陰の席", "detail-bench"), ("植栽鉢", "detail-garden"), ("灯り", "detail-lantern")]
       forM_ (zip [0 :: Int ..] [PlaceSquare, PlaceBench, PlaceGarden, PlaceLantern]) $ \(n, kind) -> do
         let sx = x + fromIntegral (n `mod` 2) * 172 + 52; sy = y + 160 + fromIntegral (n `div` 2) * 154
         card (sx - 50) (sy - 23) 134 64 (Color 229 212 177 70)
         drawPlace (round (sx * 2)) (round ((sy + 35) * 2)) (Camera 0.5 0.5 27 0) 0 (S.Tile 0 0) kind S.R0
-      txt font "食卓の周り、道沿い、家の間へ。" x (y + 461) 22 ink
+      txt font "置き直す時は、先に片づけます。" x (y + 461) 21 ink
       pure ([button (x + fromIntegral (n `mod` 2) * 172) (y + 197 + fromIntegral (n `div` 2) * 154) 160 label (SelectBuild key) (screenBuild screen == Just key) | (n, (label, key)) <- zip [0 :: Int ..] choices] ++ [button x (y + 516) 332 "置いたものを片付ける" (SelectBuild "detail-erase") False])
     ColonyTab | Just ident <- screenSelected screen -> drawInspector font x y screen ident
     ColonyTab -> do
@@ -762,8 +893,8 @@ drawPanel font x y _height screen = do
         txt font progress (x + 28) (py + 24) 13 muted
       pure commissions
     SupplyTab -> do
-      txt font "配送のようす" x y 30 copper
-      txt font "荷車で運ぶ備蓄の目標を調整" x (y + 57) 22 muted
+      txt font "配送" x y 30 copper
+      txt font "届け先の備蓄を調整" x (y + 57) 22 muted
       let order route = (P.policyPriority route, maybe 9 id (lookup (P.policyId route) (zip ["pantry-water", "pantry-food", "farm-water", "kitchen-crops", "kitchen-water", "kitchen-fuel"] [0 :: Int ..])), P.policyId route)
           routes = sortOn order (P.deliveryPolicies policy)
           page = max 0 (min ((max 1 (length routes) - 1) `div` 4) (screenSupplyPage screen))
@@ -774,12 +905,13 @@ drawPanel font x y _height screen = do
             ( \(n, route) -> do
                 let py = y + 94 + fromIntegral n * 116
                     (status, _) = P.policyStatus world route
-                    label = case status of "disabled" -> "停止中"; "deliveryInFlight" -> "荷車で運搬中"; "bufferSatisfied" -> "備蓄が揃っています"; "sourceEmpty" -> "送り元で生産待ち"; "destinationFull" -> "受け取り先が満杯"; _ -> "出荷を待っています"
+                    label = case status of "disabled" -> "停止中"; "deliveryInFlight" -> "荷車で運搬中"; "bufferSatisfied" -> "補充はまだ不要です"; "sourceEmpty" -> "送り元の在庫待ち"; "destinationFull" -> "届け先が満杯"; _ -> "出荷を待っています"
                     amount = P.physical world (P.policyDestination route) (P.policyResource route)
                 card x py 332 108 (Color 241 233 211 255)
                 txt font (deliveryName world route) (x + 10) (py + 4) 22 ink
                 txt font label (x + 10) (py + 35) 20 muted
-                txt font (printf "%.0f / %.0f" (fromInteger amount / 1000 :: Double) (fromInteger (P.policyTarget route) / 1000 :: Double)) (x + 10) (py + 71) 22 (resourceColor (P.policyResource route))
+                txt font ("現在 " ++ resourceAmount (P.policyResource route) amount) (x + 10) (py + 59) 19 (resourceColor (P.policyResource route))
+                txt font ("目標 " ++ resourceAmount (P.policyResource route) (P.policyTarget route)) (x + 10) (py + 83) 19 muted
                 pure [button (x + 174) (py + 60) 44 "－" (Choose (ChangeBuffer (P.policyId route) (-P.policyBatch route))) False, button (x + 224) (py + 60) 44 "＋" (Choose (ChangeBuffer (P.policyId route) (P.policyBatch route))) False, button (x + 282) (py + 60) 44 (if P.policyEnabled route then "Ⅱ" else "▶") (Choose (ToggleDelivery (P.policyId route))) False]
             )
             (zip [0 :: Int ..] shown)
@@ -787,8 +919,8 @@ drawPanel font x y _height screen = do
       txt font (show (page + 1) ++ "/" ++ show (max 1 ((length routes + 3) `div` 4))) (x + 145) (y + 574) 22 muted
       pure (controls ++ [button x (y + 568) 134 "前の経路" (SupplyPage (max 0 (page - 1))) False, button (x + 198) (y + 568) 134 "次の経路" (SupplyPage (min ((max 1 (length routes) - 1) `div` 4) (page + 1))) False])
     BuildingTab -> do
-      txt font "次に、何を建てよう" x y 29 copper
-      wrap font "選んで世界へ置く。道路は始点と終点を選びます。" x (y + 59) 332 22 muted
+      txt font "建てる" x y 30 copper
+      wrap font "種類を選び、地面をクリック。道路は両端を選びます。" x (y + 59) 332 22 muted
       let preferred = ["road", "warehouse", "tank", "farm", "kitchen", "housing", "solar", "pump"]
           prototypes = preferred ++ filter (`notElem` preferred) C.liveBuildablePrototypes
           page = max 0 (min ((length prototypes - 1) `div` 8) (screenPalettePage screen))
@@ -804,7 +936,7 @@ drawPanel font x y _height screen = do
       txt font (show (page + 1) ++ "/" ++ show ((length prototypes + 7) `div` 8)) (x + 145) (y + 574) 22 muted
       pure (controls ++ [button x (y + 568) 134 "前の施設" (PalettePage (max 0 (page - 1))) False, button (x + 198) (y + 568) 134 "次の施設" (PalettePage (min ((length prototypes - 1) `div` 8) (page + 1))) False])
     PeopleTab -> do
-      txt font "三つの班で、暮らしをつなぐ" x y 20 copper
+      txt font "三交代の班" x y 28 copper
       case worldM1 world of
         Nothing -> pure []
         Just state -> do
@@ -816,7 +948,7 @@ drawPanel font x y _height screen = do
             txt font (show (shift + 1) ++ "班  " ++ show (length assigned) ++ " / " ++ show (length group) ++ "人を配置") x py 18 ink
             txt font ("最大疲労 " ++ show (maximum (0 : map residentFatigue group) `div` 10) ++ "% / 休息は交代時に") x (py + 28) 14 muted
           txt font "予備の人員" x (y + 301) 18 copper
-          wrap font "保守と建設は同じ予備班を使います。保守を先に行い、終わると建設に戻ります。施設を選ぶと班を配置・解放できます。" x (y + 337) 320 17 muted
+          wrap font "保守と建設は同じ予備班を使います。保守を先に行い、終わると建設に戻ります。施設を選ぶと担当を配置・解除できます。" x (y + 337) 320 19 muted
           pure
             [ button x (y + 427) 322 (if P.assistMaintenance policy then "保守班：有効" else "保守班：停止") (Choose ToggleRepairs) (P.assistMaintenance policy),
               button x (y + 473) 322 (if P.assistConstruction policy then "建設班：有効" else "建設班：停止") (Choose ToggleBuildingCrews) (P.assistConstruction policy)
@@ -824,7 +956,7 @@ drawPanel font x y _height screen = do
 
 drawDiningPanel :: NativeFont -> Float -> Float -> GameState -> IO [Button]
 drawDiningPanel font x y game = do
-  txt font "みんなの食事の場" x (y + 7) 30 copper
+  txt font "食事の場" x (y + 7) 30 copper
   case diningStatuses game of
     [] -> do
       wrap font "日陰の食卓を、好きな場所へ。厨房で作った料理を運び、住民がここで食べます。" x (y + 74) 332 24 ink
@@ -837,17 +969,22 @@ drawDiningPanel font x y game = do
       let built = diningBuilt status
           meals = diningMeals status
           served = length meals
-          title = if not built then "建設を進めています" else if served > 0 then "ここで" ++ show served ++ "人が食べた" else if diningStock status > 0 then "料理が届きました" else if diningIncoming status > 0 then "料理を運んでいます" else "厨房の料理を待っています"
+          title = if not built then "完成を待っています" else if served > 0 then "前回の食事をここでとった人" else if diningStock status > 0 then "料理が届きました" else if diningIncoming status > 0 then "料理を運んでいます" else "厨房の料理を待っています"
           color = if served > 0 then mint else if built then water else copper
           S.Tile tx ty = diningTile status
       txt font ("選んだ場所  " ++ show tx ++ ", " ++ show ty) x (y + 62) 22 muted
       card x (y + 108) 332 148 (Color 240 234 212 255)
-      txt font title (x + 12) (y + 120) (if served > 0 then 32 else 24) color
-      txt font "ここにある料理" (x + 12) (y + 163) 22 muted
-      txt font (resourceAmount Ration (diningStock status)) (x + 12) (y + 198) 23 mint
+      txt font title (x + 12) (y + 120) (if served > 0 then 20 else 24) color
+      if served > 0
+        then do
+          txt font (show served ++ "人") (x + 12) (y + 151) 36 color
+          txt font ("料理 " ++ resourceAmount Ration (diningStock status)) (x + 12) (y + 209) 22 mint
+        else do
+          txt font "ここにある料理" (x + 12) (y + 163) 22 muted
+          txt font (resourceAmount Ration (diningStock status)) (x + 12) (y + 198) 23 mint
       txt font ("運搬中 " ++ resourceAmount Ration (diningIncoming status)) x (y + 280) 22 water
       txt font ("使う予定の住民 " ++ show (length (diningResidents status)) ++ "人") x (y + 330) 24 ink
-      txt font ("直近にここで食べた " ++ show served ++ "人") x (y + 369) 22 mint
+      txt font "各班2人に、利用を割り当てます" x (y + 369) 20 muted
       wrap font (if not built then "建設が終わるまでは、いつもの配給所で食事をします。" else "勤務していない住民が、現地の料理を食べます。空の時は通常の配給を使います。") x (y + 408) 332 21 muted
       pure (if served > 0 then [button x (y + 500) 332 "周りを飾る" (SelectTab PlacesTab) True, button x (y + 552) 332 "この場所を見にいく" (FocusDining (diningTile status)) False] else [button x (y + 500) 332 "この場所を見にいく" (FocusDining (diningTile status)) True, button x (y + 552) 332 "周りを飾る" (SelectTab PlacesTab) False])
 
@@ -963,12 +1100,19 @@ drawInspector font x y screen ident
           crew = rosterCount game ident
           worksite = worldM1 world >>= find (\job -> C.constructionSiteId job == ident && not (C.constructionTerminal job)) . M.elems . C.constructionJobs . m1Construction
           active = ident `elem` P.productionSites policy && maybe False siteEnabled (M.lookup ident (worldSites world))
-      txt font (siteName name) x (y + 7) 32 copper
+          configured = crew > 0 && maybe False siteEnabled (M.lookup ident (worldSites world))
+          starting = worksite == Nothing && not active && not configured && name `elem` ["hand_pump", "farm", "kitchen"]
+          startDescription = case name of
+            "hand_pump" -> "井戸・配給所・荷車の担当を三交代に配置します。押すと時間が進みます。"
+            "farm" -> "農場の担当と水・作物の配送を準備します。押すと時間が進みます。"
+            "kitchen" -> "厨房の担当と材料・料理の配送を準備します。押すと時間が進みます。"
+            _ -> statusDetail status
+      txt font (siteName name) x (y + 7) 25 copper
       txt font (if crew > 0 then "各班 " ++ show crew ++ "人を配置" else if name == "housing" then "住人の寝床" else "この場所でできること") x (y + 57) 22 muted
-      card x (y + 99) 334 128 (Color 240 233 215 255)
+      card x (y + 99) 334 (if starting then 176 else 128) (Color 240 233 215 255)
       drawCircleV (Vector2 (x + 16) (y + 122)) 6 (moodColor (statusMood status))
       txt font (statusTitle status) (x + 32) (y + 107) 24 (moodColor (statusMood status))
-      wrap font (statusDetail status) (x + 14) (y + 148) 303 22 ink
+      wrap font (if starting then startDescription else if configured && not active then "次の生産を始めない設定です。担当と配送はそのまま残っています。" else statusDetail status) (x + 14) (y + 148) 303 (if starting then 20 else 22) ink
       case statusProgress status of
         Nothing -> pure ()
         Just progress -> do
@@ -985,8 +1129,9 @@ drawInspector font x y screen ident
                     "kitchen" -> "料理を作り始める"
                     _ -> "班を配置して動かす"
                   begin = button x (y + 292) 334 beginLabel (BeginWork ident) True
-                  pause = button x (y + 292) 334 "この場所の生産を休む" (Choose (ToggleProduction ident)) False
-              pure ((if active then [pause] else if name == "pantry" && crew > 0 then [] else [begin]) ++ [button x (y + 346) 334 "配送の様子を見る" (SelectTab SupplyTab) False] ++ [button x (y + 400) 334 "この場所の班を解放" (Choose (ReleaseFacility ident)) False | crew > 0])
+                  pause = button x (y + 292) 334 "連続生産を止める" (Choose (ToggleProduction ident)) False
+                  resume = button x (y + 292) 334 "連続生産を再開" (Choose (ToggleProduction ident)) True
+              pure ((if active then [pause] else if configured then [resume] else if name == "pantry" && crew > 0 then [] else [begin]) ++ [button x (y + 346) 334 "配送の様子を見る" (SelectTab SupplyTab) False] ++ [button x (y + 400) 334 "この施設の班を外す" (Choose (ReleaseFacility ident)) False | crew > 0])
           | otherwise -> pure []
       let stockY = y + 470
           pages = max 1 ((length stocks + 3) `div` 4)
