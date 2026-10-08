@@ -25,6 +25,11 @@ Record a short `GAME-SPEC.md` with the intended player loop, necessary platform
 constraints and a concrete observable acceptance. Keep uncertain design choices
 explicit and revise them through play, not through an ever-growing preflight.
 
+Use [game-experience](../.agents/skills/game-experience/SKILL.md) when choosing
+what the playable slice should let someone try and enjoy. It routes separately
+to experience/progression and UI/Japanese guidance; read only what changes the
+current design decision, and keep human feedback separate from replay evidence.
+
 ## 2. Design this game's types and boundaries
 
 Read [the core API](architecture.md), [Haskell practice](haskell.md) and the
@@ -61,6 +66,14 @@ timing, input, saves, rendering or performance when those boundaries matter.
 Opening the new game in a later AI session must not require private memory or
 the original foundation checkout to rediscover these instructions. Public
 reading links may require network access; they must not become build dependencies.
+
+For player-facing work, keep the `game-experience` skill and its three
+`docs/game-experience/` documents reachable from the local continuation guide.
+Copy that small bundle with the foundation license and revision while retaining
+its relative links, or link to a reviewed public commit. This is part of the
+intent-driven workflow; the optional terminal scaffold does not install it
+automatically. A later AI session should find the design knowledge without
+private research notes or the original conversation.
 
 Use [setup](setup.md) and [platform records](platforms.md) as evidence and recipes.
 A planned or unverified route is work to perform for the requested platform,

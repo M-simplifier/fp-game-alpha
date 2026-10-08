@@ -12,7 +12,11 @@
  "files": [
   {
    "path": ".agents/skills/fp-gamedev/SKILL.md",
-   "sha256_lf": "4156e4daaa40fb94894b3bcd3a67a5d0a0b4dff563e4a4ee662fe349dfc9f81b"
+   "sha256_lf": "7a795916cb475f24411991576157226d9c0557d0823939155ac3ba659cdf1e82"
+  },
+  {
+   "path": ".agents/skills/game-experience/SKILL.md",
+   "sha256_lf": "0a923c9bd3360806d3a51590c7595e94d3f5f07d53f765f8e2727011b94941d1"
   },
   {
    "path": ".agents/skills/game-platform/SKILL.md",
@@ -40,7 +44,7 @@
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
-   "sha256_lf": "8f359aa50d781ec16f204711e86728e3f71afd5c47606156e1197c726b6ff2f9"
+   "sha256_lf": "9163da4bb708b87aaabf2ae38ac55013d1cb2394bf5240d7eb9bb930fb3937c6"
   },
   {
    "path": ".agents/skills/play-game/SKILL.md",
@@ -84,7 +88,7 @@
   },
   {
    "path": "README.md",
-   "sha256_lf": "9b1532431d2b4c085d2e83d4f46da6fa0fb29a597575fe074e8f8b2a0d339995"
+   "sha256_lf": "09cb6bc2667f63616aae701a91bf6f2368b9daed5e3deefad0a1ac72755f6e91"
   },
   {
    "path": "cabal.project",
@@ -151,6 +155,18 @@
    "sha256_lf": "d221d8d8697879fdbe99958080c379cbb79ef3727a1408d352fdb993ce26290a"
   },
   {
+   "path": "docs/game-experience/design.md",
+   "sha256_lf": "2811e7877df5c216a1f21005731974fe4bd068b67cb1e161155fcdecf84d177a"
+  },
+  {
+   "path": "docs/game-experience/sources.md",
+   "sha256_lf": "92ea63293429381d498371271d14868ab36b900b504277ff8072b9866d3cf71a"
+  },
+  {
+   "path": "docs/game-experience/ui-and-japanese.md",
+   "sha256_lf": "832fd000436a39e02b1e86d327b79805b46e5d43a4bc5bb097dc17488147fa90"
+  },
+  {
    "path": "docs/guarantees.md",
    "sha256_lf": "ea7db841beff661b770a36dcf221dee956faa2e6700c9dd183f301e9e5a97a72"
   },
@@ -180,7 +196,7 @@
   },
   {
    "path": "docs/new-game.md",
-   "sha256_lf": "610471f2a24889ae0e7dfcb44ab072a5e9596ce0eca704ce73982971501637d8"
+   "sha256_lf": "0a14e6c15185b77923872748470b58393db040e7f35bd509c732c391e985fd3d"
   },
   {
    "path": "docs/platforms.md",
@@ -828,7 +844,7 @@
   },
   {
    "path": "publication/policy.json",
-   "sha256_lf": "14a375e15f6929b13488eaa327c0e72f2a141e9a56659d5a9165a4fcd666ff08"
+   "sha256_lf": "e630392a1e0d5c366cc70fc6aad9f24228886b7026bde578964f526a91ac4a10"
   },
   {
    "path": "publication/provenance.json",
