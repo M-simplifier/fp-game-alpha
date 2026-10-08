@@ -421,9 +421,10 @@ drawColony font width height time mouse screen failure = do
                       bounds = Rectangle lx ly labelWidth (if showStatus then 65 else 37)
                       priority = if selected then 0 else if pointed then 1 else 2
                       statusLine = if showStatus then Just (caption, moodColor (statusMood status)) else Nothing
-                  pure $ if cx >= 0 && cx <= visibleWidth && cy >= 100 && cy <= fromIntegral height - 114
-                    then Just (WorldLabel priority bounds title titleWidth statusLine)
-                    else Nothing
+                  pure $
+                    if cx >= 0 && cx <= visibleWidth && cy >= 100 && cy <= fromIntegral height - 114
+                      then Just (WorldLabel priority bounds title titleWidth statusLine)
+                      else Nothing
             _ -> pure Nothing
       candidates <- mapM buildingLabel placements
       let overlaps (Rectangle ax ay aw ah) (Rectangle bx by bw bh) = ax < bx + bw && bx < ax + aw && ay < by + bh && by < ay + ah
