@@ -42,27 +42,18 @@
 
 ## 勉強会記録と既存の知識を読んだ範囲
 
-共有brainの次の四文書を全文読んだ。非公開の研究・批評記録であり、原文を
-ここへ転載せず、一般化できる制作判断と留保を自分の文で編集した。brainは
-読み取りだけに使った。各文書内のPro回答へのリンクをすべて開いたわけでは
-なく、それらの数値や結論を独立確認済みとして採用していない。
+制作時の非公開研究ノート4文書を全文読んだ。扱った範囲は公開理論、企画の
+比較と修正、最初の成功後の選択・反復・鑑賞、試作報告、設計仮説と反例で
+ある。原文を転載せず、一般化できる制作判断と留保を自分の文で編集した。
+研究回答をまとめた資料も読んだが、元の回答と参照先をすべて独立確認した
+わけではない。未確認の数値や効果を制作の証拠として採用していない。
 
-- `red-dune-game-design-study-2026-10-07.md`：公開理論、三企画、議論による修正、試作報告、原典の読了範囲。
-- `red-dune-long-term-choice-study-2026-10-07.md`：最初の成功後の選択、反復、鑑賞、満足して終えることへの留保。
-- `red-dune-pro-study-synthesis-2026-10-07.md`：研究回答を受けた批評と企画変更。一次資料を確認した箇所と、回答を介した整理の区別。
-- `game-experience-design-hypotheses-2026-10-07.md`：操作から結果・次の意図、即興、手間、履歴、仮説を弱める観察。
+既存の日本語編集ガイド、その根拠をまとめた資料、説明を具体化する手順を
+全文読んだ。具体的な行為から説明し、自然な日本語へ戻しながら条件を保持
+する判断を編集した。原文や未確認の研究の効果量は転載していない。
 
-既存の `clarify-reader-surface/SKILL.md`、`references/japanese-writing.md`、
-`references/japanese-writing-research.md`を全文読んだ。具体的な行為から説明し、
-自然な日本語へ戻しながら条件を保持する判断を編集した。私的な依頼文や
-原文、未確認のLLM研究の効果量を公開したものではない。
-
-このcheckoutの技能一覧を調べ、関連する
-[new-game](https://github.com/M-simplifier/fp-game-alpha/blob/d398bc98437d425a0eff0524c66fc3fa2c19d775/.agents/skills/new-game/SKILL.md)、
-[fp-gamedev](https://github.com/M-simplifier/fp-game-alpha/blob/d398bc98437d425a0eff0524c66fc3fa2c19d775/.agents/skills/fp-gamedev/SKILL.md)、
-[play-game](https://github.com/M-simplifier/fp-game-alpha/blob/d398bc98437d425a0eff0524c66fc3fa2c19d775/.agents/skills/play-game/SKILL.md)と制作入口の文書を読んだ。
-無関係なSKILL.mdは読み込んでいない。Codexの記憶要約には関連語の一致が
-なく、今回の証拠として使用していない。
+本リポジトリで公開している新規制作・実装・試遊のスキル3件と、制作入口の
+文書も読んだ。既存の役割に合わせて、今回の資料への導線を加えた。
 
 ## Red Duneで起きたことと、まだ分からないこと
 
