@@ -166,6 +166,7 @@
     "zgrannan/rest"
   ],
   "authored_public_skills": [
+    ".agents/skills/game-experience/SKILL.md",
     ".agents/skills/learn-code/SKILL.md",
     ".agents/skills/new-game/SKILL.md",
     ".agents/skills/play-game/SKILL.md",
@@ -180,6 +181,11 @@
     "references/signal-courier/.agents/skills/learn-code/SKILL.md"
   ],
   "selections": [
+    {
+      "prefix": ".agents/skills/game-experience/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
     {
       "prefix": ".agents/skills/learn-code/",
       "license": "LICENSE",
