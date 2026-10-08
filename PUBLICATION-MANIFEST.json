@@ -1980,7 +1980,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Play.hs",
-   "sha256_lf": "2a764cdc189a75786e0f9d7b77e5abf84252cd7b27c515732f38c5f001818521"
+   "sha256_lf": "33a1272e01c3afbe3524ad451dc514023c4b1b1c3aee9d7ee7ef854c4fc4e572"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Store.hs",
@@ -1988,7 +1988,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/View.hs",
-   "sha256_lf": "a801d0a953b3db329a64bc1269415936cb54c9affa25306ead99c9a1a0159e8a"
+   "sha256_lf": "bb1a65aa380845d4cf04da4abb0683b4b6ef43ee6d9fed9c0411c9cc2757f44c"
   },
   {
    "path": "references/red-dune-live/native/assets/glyphs.txt",
@@ -2064,7 +2064,7 @@
   },
   {
    "path": "references/red-dune-live/test/NativeTests.hs",
-   "sha256_lf": "1036c30f2c18c595afb41a461b875ac6378734364dd6a6de74b9650c6c67d026"
+   "sha256_lf": "bb502c29fa73296953af9ad755f0b248aef3d590ab13efb54bd83b9a7c7fd586"
   },
   {
    "path": "references/red-dune-live/tools/bench_dev.py",
