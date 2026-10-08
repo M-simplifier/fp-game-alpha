@@ -131,7 +131,8 @@ loop root options store font previous = do
   qa <- readQa options (appQaRead previous)
   let (qaCount, qaLine) = qa
       qaClick = case words qaLine of ["click", x, y] -> Vector2 <$> readMaybe x <*> readMaybe y; _ -> Nothing
-      usedMouse = maybe mouse id qaClick
+      qaPoint = case words qaLine of ["point", x, y] -> Vector2 <$> readMaybe x <*> readMaybe y; ["capture", _, x, y] -> Vector2 <$> readMaybe x <*> readMaybe y; _ -> qaClick
+      usedMouse = maybe mouse id qaPoint
   case words qaLine of
     ["window", w, h]
       | Just newWidth <- readMaybe w,
@@ -155,6 +156,7 @@ loop root options store font previous = do
         ["key", "escape"] -> Just CloseDialog
         ["key", "quit"] -> Just QuitGame
         ["key", "help"] -> Just (toggleHelp guidedScreen)
+        ["key", "rotate"] | canRotateBuild guidedScreen -> Just RotateBuilding
         _ -> Nothing
       qaKey = if isPlainScreen guidedScreen || maybe False (\key -> overlayCommand key || key == SaveNow && isNoDialog (screenDialog guidedScreen)) rawQaKey then rawQaKey else Nothing
       requested = firstJust [command, keyCommand, qaKey]
@@ -197,8 +199,9 @@ loop root options store font previous = do
   preferred <- persistPreferences store (screenHelpUi oldScreen) advanced
   checkpointed <- autoSave store preferred
   saved <- recordMilestones options time checkpointed
-  case (optionQa options, words qaLine) of
-    (Just folder, ["capture", name]) | takeFileName name == name && takeExtension name == ".png" -> do
+  let captureName = case words qaLine of ["capture", name] -> Just name; ["capture", name, _, _] | qaPoint /= Nothing -> Just name; _ -> Nothing
+  case (optionQa options, captureName) of
+    (Just folder, Just name) | takeFileName name == name && takeExtension name == ".png" -> do
       createDirectoryIfMissing True folder
       _ <- drawing (drawView font width height time usedMouse (appScreen saved))
       captureFrame (folder </> name)
@@ -251,7 +254,7 @@ isNoDialog NoDialog = True
 isNoDialog _ = False
 
 usedMouseInMap :: Int -> Int -> Screen -> Vector2 -> Bool
-usedMouseInMap width height screen mouse@(Vector2 x y) = x >= 0 && x < fromIntegral width && y >= 100 && y < fromIntegral (height - 114) && (screenTab screen == ColonyTab && screenSelected screen == Nothing || x < fromIntegral (width - 406)) && not (Help.activeHint (screenHelpUi screen) /= Nothing && inside mouse hintRectangle)
+usedMouseInMap = worldPointerVisible
 
 toggleHelp :: Screen -> UiCommand
 toggleHelp screen = HelpCommand (if Help.helpTopic (screenHelpUi screen) == Nothing then Help.OpenHelp (contextTopic screen) else Help.CloseHelp)
@@ -355,6 +358,11 @@ performUnchecked store app command = case command of
       forced <- evaluate (force candidate)
       pure (update screen {screenGame = forced, screenNotice = "班を配置しました。作業と配送が進みます。", screenSaved = False})
   HomeView -> pure (update screen {screenCamera = overviewCamera game, screenSelected = Nothing, screenTab = ColonyTab, screenBuild = Nothing, screenRoadStart = Nothing})
+  FocusSource ident -> case worldM1 (gameWorld game) >>= M.lookup ident . Space.spatialSources . m1Space of
+    Nothing -> pure (update screen {screenNotice = "この資源の区画を見つけられませんでした。"})
+    Just source -> case Space.sourceRegionBounds source of
+      Space.Rect (Space.Tile x y) w h ->
+        pure (update screen {screenCamera = Camera (fromInteger x + fromInteger w / 2) (fromInteger y + fromInteger h / 2) 14 0, screenNotice = resourceName (Space.sourceRegionResource source) ++ "の区画です。建物の辺を接し、入口と道路は区画の外へ。"})
   Choose decision -> case decide decision game of
     Left failure -> pure (update screen {screenNotice = decisionFailure game decision failure})
     Right candidate -> do
@@ -502,6 +510,8 @@ decisionMessage decision = case decision of
 
 decisionFailure :: GameState -> Decision -> String -> String
 decisionFailure game decision failure = case decision of
+  Plan (Space.BuildingShape name _ _)
+    | Just explanation <- placementExplanation name failure -> explanation
   RoadPath _ _
     | failure == "Road plan must be at most 64 tiles and wait for the current queue" ->
         if null (gameBuildQueue game) then "道路は1回に64マスまで計画できます。もっと近い終点を選んでください。" else friendlyFailure "Wait for the current construction queue"
@@ -509,6 +519,7 @@ decisionFailure game decision failure = case decision of
 
 friendlyFailure :: String -> String
 friendlyFailure failure
+  | Just explanation <- placementExplanation "" failure = explanation
   | Just explanation <- lookup failure ordinaryFailures = explanation
   | "Workforce" `contains` failure || "workers" `contains` failure || "people" `contains` failure = "班を配置できません。ほかの施設の割り当てと、作業中の人員を確認してください。"
   | "Conflict" `contains` failure || "Outside" `contains` failure || "Placement" `contains` failure = "ここには配置できません。建物・道路・地形と重ならない場所を選んでください。"

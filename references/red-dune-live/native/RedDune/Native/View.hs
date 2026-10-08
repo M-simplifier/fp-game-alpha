@@ -16,7 +16,7 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (forM_, when)
-import Data.List (find, sortOn)
+import Data.List (find, isInfixOf, sortOn)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
 import Raylib.Core
@@ -91,6 +91,7 @@ data UiCommand
   | ClearSelection
   | SelectTab Tab
   | SelectBuild String
+  | FocusSource EntityId
   | ChangeSpeed Int
   | SaveNow
   | ShowLibrary
@@ -184,6 +185,43 @@ card x y width height color = drawRectangleRounded (Rectangle x y width height) 
 inside :: Vector2 -> Rectangle -> Bool
 inside (Vector2 x y) (Rectangle u v width height) = x >= u && y >= v && x < u + width && y < v + height
 
+worldViewport :: Int -> Int -> Screen -> Rectangle
+worldViewport width height screen =
+  Rectangle 0 100 (fromIntegral (if screenTab screen == ColonyTab && screenSelected screen == Nothing then width else width - 406)) (fromIntegral (height - 214))
+
+worldPointerVisible :: Int -> Int -> Screen -> Vector2 -> Bool
+worldPointerVisible width height screen mouse =
+  inside mouse (worldViewport width height screen)
+    && not (Help.activeHint (screenHelpUi screen) /= Nothing && inside mouse hintRectangle)
+
+sourcesFor :: GameState -> String -> [S.SourceRegion]
+sourcesFor game prototype = case worldM1 world of
+  Nothing -> []
+  Just state ->
+    [ source
+    | source <- M.elems (S.spatialSources (m1Space state)),
+      Set.member (S.sourceRegionKind source, S.sourceRegionResource source) (S.sourceRequirements (worldContent world) prototype)
+    ]
+  where
+    world = gameWorld game
+
+sourceColor :: Resource -> Color
+sourceColor resource = case resource of
+  Water -> Color 68 132 139 108
+  Brine -> Color 52 112 144 108
+  Ore -> Color 119 91 113 135
+  Stone -> Color 116 110 103 145
+  Sand -> Color 203 155 84 145
+  _ -> Color 145 116 94 110
+
+placementExplanation :: String -> String -> Maybe String
+placementExplanation prototype failure
+  | "NoCompatibleSource" `isInfixOf` failure = Just (if prototype == "mine" then "鉱石の区画に、建物の辺を重ねず接してください。" else if prototype == "quarry" then "石材か砂の区画に、建物の辺を重ねず接してください。" else "必要な資源の区画に、建物の辺を重ねず接してください。")
+  | "SourceConflict" `isInfixOf` failure = Just "資源の区画に建物・道路・入口を重ねられません。Rで入口の向きも確認してください。"
+  | "FootprintConflict" `isInfixOf` failure || "RoadConflict" `isInfixOf` failure || "PortConflict" `isInfixOf` failure = Just "建物・道路・入口と重なっています。空いた場所へ動かすかRで向きを変えてください。"
+  | "SourceDepleted" `isInfixOf` failure = Just "この区画の資源は枯渇しています。別の区画を探してください。"
+  | otherwise = Nothing
+
 button :: Float -> Float -> Float -> String -> UiCommand -> Bool -> Button
 button x y width label command active = Button (Rectangle x y width 44) label command active
 
@@ -267,9 +305,12 @@ drawColony font width height time mouse screen = do
       placements = maybe [] (sortOn (depth camera) . M.elems . S.spatialPlacements . m1Space) (worldM1 world)
       diningPlans = M.keys (gameDiningPlaces game) ++ case screenDialog screen of DiningPreview tile _ _ _ -> [tile]; _ -> []
       hotspots = [Button (placementRect width height camera world placement) "" (SelectSite (S.placementId placement)) False | placement <- placements, case S.placementShape placement of S.BuildingShape {} -> True; _ -> False]
-      hovered = if screenBuild screen == Nothing then buttonCommand <$> find (inside mouse . buttonRect) (reverse hotspots) else Nothing
-  beginScissorMode 0 100 width (height - 214)
-  drawRectangleGradientV 0 100 width (height - 214) (Color 210 158 122 255) (Color 230 191 148 255)
+      visibleWorld = worldPointerVisible width height screen mouse
+      hovered = if screenBuild screen == Nothing && visibleWorld then buttonCommand <$> find (inside mouse . buttonRect) (reverse hotspots) else Nothing
+      Rectangle _ _ visibleWidth _ = worldViewport width height screen
+      viewportWidth = round visibleWidth
+  beginScissorMode 0 100 viewportWidth (height - 214)
+  drawRectangleGradientV 0 100 viewportWidth (height - 214) (Color 210 158 122 255) (Color 230 191 148 255)
   -- Dune contours are scenery; crop, stock and activity below read real state.
   forM_ [0 .. 14 :: Int] $ \n -> do
     let y = 80 + fromIntegral n * 71
@@ -279,13 +320,25 @@ drawColony font width height time mouse screen = do
     Nothing -> pure ()
     Just state -> do
       let space = m1Space state
-      forM_ (M.toAscList (S.mapTerrain (S.spatialMap space))) $ \(S.Tile x y, terrain) ->
-        when (terrain `elem` [S.Rock, S.Cliff, S.Salt]) $ tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (if terrain == S.Salt then Color 236 224 193 255 else Color 141 109 87 255)
+      forM_ (M.toAscList (S.mapTerrain (S.spatialMap space))) $ \(S.Tile x y, terrain) -> do
+        when (terrain `elem` [S.Rock, S.Cliff, S.Salt]) $
+          tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (if terrain == S.Salt then Color 236 224 193 255 else Color 141 109 87 255)
       forM_ (M.elems (S.spatialSources space)) $ \source -> case S.sourceRegionBounds source of
-        S.Rect (S.Tile x y) w h -> when (S.sourceRegionKind source == "aquifer") $ do
-          tileQuad width height camera (fromInteger x) (fromInteger y) (fromInteger w) (fromInteger h) 0 (Color 68 132 139 43)
-          let Vector2 sx sy = p (fromInteger x + 3) (fromInteger y + 3)
-          drawEllipse (round sx) (round sy) (scale * 2.3) scale (Color 74 135 144 30)
+        S.Rect (S.Tile x y) w h -> do
+          let px = fromInteger x
+              py = fromInteger y
+              fw = fromInteger w
+              fh = fromInteger h
+              corners = [p px py, p (px + fw) py, p (px + fw) (py + fh), p px (py + fh)]
+              label = resourceName (S.sourceRegionResource source)
+              Color red green blue _ = sourceColor (S.sourceRegionResource source)
+          tileQuad width height camera px py fw fh 0 (sourceColor (S.sourceRegionResource source))
+          forM_ (zip corners (tail corners ++ take 1 corners)) $ \(a, b) -> drawLineEx a b 2 (Color red green blue 230)
+          when (S.sourceRegionKind source /= "aquifer") $ do
+            let Vector2 sx sy = p (px + fw / 2) (py + fh / 2)
+            Vector2 labelWidth _ <- measureLabel font label 22
+            card (sx - labelWidth / 2 - 12) (sy - 18) (labelWidth + 24) 38 panel
+            txt font label (sx - labelWidth / 2) (sy - 14) 22 ink
       forM_ (Set.toAscList (S.spatialRoads space)) $ \(S.Tile x y) -> do
         tileQuad width height camera (fromInteger x - 0.08) (fromInteger y - 0.08) 1.16 1.16 0 (Color 126 99 76 255)
         tileQuad width height camera (fromInteger x + 0.07) (fromInteger y + 0.07) 0.86 0.86 1 (Color 216 189 145 255)
@@ -381,10 +434,14 @@ drawColony font width height time mouse screen = do
       mapM_ snd (sortOn fst scene)
       case screenBuild screen of
         Nothing -> pure ()
-        Just name -> do
+        Just name | visibleWorld -> do
           let S.Tile tx ty = unproject width height camera mouse
               footprint = if name == "road" then (1, 1) else maybe (3, 3) buildingFootprint (M.lookup (if name == "dining" then "pantry" else name) (contentBuildings (worldContent world)))
               (bw, bh) = if screenBuildRotation screen `elem` [S.R90, S.R270] then (snd footprint, fst footprint) else footprint
+              shape = if name == "road" then S.RoadShape (S.Tile tx ty) else S.BuildingShape name (S.Tile tx ty) (screenBuildRotation screen)
+              candidate = case screenRoadStart screen of Just from | name == "road" -> Just (RoadPath from (S.Tile tx ty)); _ | name /= "dining" && take 7 name /= "detail-" && name /= "road" -> Just (Plan shape); _ -> Nothing
+              failure = case candidate of Nothing -> Nothing; Just decision -> either Just (const Nothing) (decide decision game)
+              color = maybe (Color 85 174 118 135) (const (Color 211 91 69 155)) failure
           if name == "dining"
             then do
               tileQuad width height camera (fromInteger tx) (fromInteger ty) (fromInteger bw) (fromInteger bh) 0 (Color 249 224 127 165)
@@ -394,14 +451,39 @@ drawColony font width height time mouse screen = do
                 then case lookup name [("detail-square", PlaceSquare), ("detail-bench", PlaceBench), ("detail-garden", PlaceGarden), ("detail-lantern", PlaceLantern)] of
                   Just kind -> drawPlace width height camera night (S.Tile tx ty) kind (screenBuildRotation screen)
                   Nothing -> tileQuad width height camera (fromInteger tx) (fromInteger ty) 1 1 0 (Color 216 102 68 120)
-                else tileQuad width height camera (fromInteger tx) (fromInteger ty) (fromInteger bw) (fromInteger bh) 0 (Color 252 234 159 175)
+                else tileQuad width height camera (fromInteger tx) (fromInteger ty) (fromInteger bw) (fromInteger bh) 0 color
           case screenRoadStart screen of
             Just (S.Tile x y) -> do
               let range a b = if a <= b then [a .. b] else reverse [b .. a]
-              forM_ ([S.Tile u y | u <- range x tx] ++ [S.Tile tx v | v <- range y ty]) $ \(S.Tile u v) -> tileQuad width height camera (fromInteger u) (fromInteger v) 1 1 0 (Color 252 231 143 160)
+              forM_ ([S.Tile u y | u <- range x tx] ++ [S.Tile tx v | v <- range y ty]) $ \(S.Tile u v) -> tileQuad width height camera (fromInteger u) (fromInteger v) 1 1 0 color
             Nothing -> pure ()
-          let Vector2 sx sy = p (fromInteger tx) (fromInteger ty)
-          txt font (if name == "road" then "道をつなぐ" else if take 7 name == "detail-" then "ここに置く" else "ここに建てる") sx (sy - 34) 23 ink
+          when (name /= "road" && name /= "dining" && take 7 name /= "detail-") $ case M.lookup name (contentBuildings (worldContent world)) of
+            Nothing -> pure ()
+            Just building -> case S.footprintGeometry (buildingFootprint building) (S.Tile tx ty) (screenBuildRotation screen) of
+              Left _ -> pure ()
+              Right (_, portGeometry) -> do
+                let S.Tile cx cy = S.roadConnector portGeometry
+                    Vector2 ex ey = p (fromInteger cx + 0.5) (fromInteger cy + 0.5)
+                drawCircleV (Vector2 ex ey) 7 (maybe mint (const warning) failure)
+                when (failure == Nothing) (txt font "入口" (ex + 10) (ey - 25) 18 ink)
+          let label = case failure of
+                Just reason -> maybe "ここには置けません" id (placementExplanation name reason)
+                Nothing -> if name == "road" then (if screenRoadStart screen == Nothing then "道の始点を選ぶ" else "ここまで道をつなぐ") else if take 7 name == "detail-" then "ここに置く" else "ここに建てる"
+              maxWidth = fromIntegral viewportWidth - 56
+              labelColor = maybe ink (const copper) failure
+              background = maybe (Color 255 250 238 245) (const (Color 255 242 223 248)) failure
+          Vector2 labelWidth _ <- measureLabel font label 19
+          if labelWidth + 24 <= maxWidth
+            then do
+              let top = fromIntegral height - 172
+              card 28 top (labelWidth + 24) 46 background
+              txt font label 40 (top + 8) 19 labelColor
+            else do
+              let top = fromIntegral height - 190
+              card 28 top maxWidth 68 background
+              _ <- wrapMeasured font label 40 (top + 8) (maxWidth - 24) 18 labelColor
+              pure ()
+        Just _ -> pure ()
       drawRectangle 0 100 width (height - 214) (Color 40 52 73 (round (night * 57)))
       forM_ (screenCues screen) $ \cue -> do
         let Vector2 cx cy = p (cueX cue) (cueY cue)
@@ -410,7 +492,7 @@ drawColony font width height time mouse screen = do
         card (cx - tw / 2 - 12) (cy - lift) (tw + 24) 36 panel
         txt font (cueLabel cue) (cx - tw / 2) (cy - lift + 3) 22 (cueColor cue)
   endScissorMode
-  pure (if screenBuild screen == Nothing then hotspots else [])
+  pure (if screenBuild screen == Nothing && visibleWorld then hotspots else [])
   where
     depth camera placement = case S.placementShape placement of
       S.BuildingShape _ (S.Tile x y) _ -> depthXY camera x y
@@ -866,8 +948,29 @@ wrap font text x y width size color = forM_ (zip [0 :: Int ..] (chunks (max 1 (f
           split = chooseBreak count
        in take split rest : chunks count (drop split rest)
 
+-- Return the first free vertical position so callers can place controls after the text.
+-- Measuring with the drawing font keeps Japanese lines inside the panel's width.
+wrapMeasured :: NativeFont -> String -> Float -> Float -> Float -> Float -> Color -> IO Float
+wrapMeasured font content x top width size color = go content top
+  where
+    pitch = size * 1.45 + 4
+    go [] y = pure y
+    go remaining y = do
+      count <- longestFitting remaining 1 (length remaining)
+      let lineText = take count remaining
+      txt font lineText x y size color
+      go (drop count remaining) (y + pitch)
+    longestFitting remaining low high
+      | low >= high = pure low
+      | otherwise = do
+          let middle = (low + high + 1) `div` 2
+          Vector2 measured _ <- measureLabel font (take middle remaining) size
+          if measured <= width
+            then longestFitting remaining middle high
+            else longestFitting remaining low (middle - 1)
+
 drawPanel :: NativeFont -> Float -> Float -> Int -> Screen -> IO [Button]
-drawPanel font x y _height screen = do
+drawPanel font x y height screen = do
   let game = screenGame screen; world = gameWorld game; d = gameDescriptor game; policy = gamePolicies game
   case screenTab screen of
     DiningTab -> drawDiningPanel font x y game
@@ -881,7 +984,7 @@ drawPanel font x y _height screen = do
         drawPlace (round (sx * 2)) (round ((sy + 35) * 2)) (Camera 0.5 0.5 27 0) 0 (S.Tile 0 0) kind S.R0
       txt font "置き直す時は、先に片づけます。" x (y + 461) 21 ink
       pure ([button (x + fromIntegral (n `mod` 2) * 172) (y + 197 + fromIntegral (n `div` 2) * 154) 160 label (SelectBuild key) (screenBuild screen == Just key) | (n, (label, key)) <- zip [0 :: Int ..] choices] ++ [button x (y + 516) 332 "置いたものを片付ける" (SelectBuild "detail-erase") False])
-    ColonyTab | Just ident <- screenSelected screen -> drawInspector font x y screen ident
+    ColonyTab | Just ident <- screenSelected screen -> drawInspector font x y height screen ident
     ColonyTab -> do
       txt font "開拓の手順" x y 21 copper
       let commissions =
@@ -925,19 +1028,22 @@ drawPanel font x y _height screen = do
       txt font "建てる" x y 30 copper
       wrap font "種類を選び、地面をクリック。道路は両端を選びます。" x (y + 59) 332 22 muted
       let preferred = ["road", "warehouse", "tank", "farm", "kitchen", "housing", "solar", "pump"]
-          prototypes = preferred ++ filter (`notElem` preferred) C.liveBuildablePrototypes
+          canUseSource name = Set.null (S.sourceRequirements (worldContent world) name) || not (null (sourcesFor game name))
+          prototypes = filter canUseSource (preferred ++ filter (`notElem` preferred) C.liveBuildablePrototypes)
           page = max 0 (min ((length prototypes - 1) `div` 8) (screenPalettePage screen))
           shown = take 8 (drop (page * 8) prototypes)
+          selectedSources = maybe [] (sourcesFor game) (screenBuild screen)
           controls = [button (x + fromIntegral (n `mod` 2) * 172) (y + 169 + fromIntegral (n `div` 2) * 83) 160 (siteName name) (SelectBuild name) (screenBuild screen == Just name) | (n, name) <- zip [0 :: Int ..] shown]
+          sourceControls = [button (x + fromIntegral n * 172) (y + 521) 160 (resourceName (S.sourceRegionResource source) ++ "を見る") (FocusSource (S.sourceRegionId source)) False | (n, source) <- zip [0 :: Int ..] (take 2 selectedSources)]
       forM_ (zip [0 :: Int ..] shown) $ \(n, name) -> do
         let sx = x + fromIntegral (n `mod` 2) * 172
             sy = y + 138 + fromIntegral (n `div` 2) * 83
             cost = if name == "road" then M.singleton Stone 2000 else maybe M.empty buildingCost (M.lookup name (contentBuildings (worldContent world)))
             label = case M.toAscList cost of (resource, amount) : _ -> resourceName resource ++ " " ++ resourceAmount resource amount; _ -> ""
         txt font label (sx + 8) sy 19 muted
-      txt font "材料と班が現場を進めます。" x (y + 515) 22 ink
+      txt font (if null selectedSources then "材料と班が現場を進めます。" else "資源に辺で接し、入口は区画の外へ。") x (y + 495) (if null selectedSources then 22 else 18) ink
       txt font (show (page + 1) ++ "/" ++ show ((length prototypes + 7) `div` 8)) (x + 145) (y + 574) 22 muted
-      pure (controls ++ [button x (y + 568) 134 "前の施設" (PalettePage (max 0 (page - 1))) False, button (x + 198) (y + 568) 134 "次の施設" (PalettePage (min ((length prototypes - 1) `div` 8) (page + 1))) False])
+      pure (controls ++ sourceControls ++ [button x (y + 568) 134 "前の施設" (PalettePage (max 0 (page - 1))) False, button (x + 198) (y + 568) 134 "次の施設" (PalettePage (min ((length prototypes - 1) `div` 8) (page + 1))) False])
     PeopleTab -> do
       txt font "三交代の班" x y 28 copper
       case worldM1 world of
@@ -951,10 +1057,11 @@ drawPanel font x y _height screen = do
             txt font (show (shift + 1) ++ "班  " ++ show (length assigned) ++ " / " ++ show (length group) ++ "人を配置") x py 18 ink
             txt font ("最大疲労 " ++ show (maximum (0 : map residentFatigue group) `div` 10) ++ "% / 休息は交代時に") x (py + 28) 14 muted
           txt font "予備の人員" x (y + 301) 18 copper
-          wrap font "保守と建設は同じ予備班を使います。保守を先に行い、終わると建設に戻ります。施設を選ぶと担当を配置・解除できます。" x (y + 337) 320 19 muted
+          textEnd <- wrapMeasured font "保守と建設は同じ予備班を使います。保守を先に行い、終わると建設に戻ります。施設を選ぶと担当を配置・解除できます。" x (y + 337) 320 19 muted
+          let actionY = max (y + 427) (textEnd + 6)
           pure
-            [ button x (y + 427) 322 (if P.assistMaintenance policy then "保守班：有効" else "保守班：停止") (Choose ToggleRepairs) (P.assistMaintenance policy),
-              button x (y + 473) 322 (if P.assistConstruction policy then "建設班：有効" else "建設班：停止") (Choose ToggleBuildingCrews) (P.assistConstruction policy)
+            [ button x actionY 322 (if P.assistMaintenance policy then "保守班：有効" else "保守班：停止") (Choose ToggleRepairs) (P.assistMaintenance policy),
+              button x (actionY + 54) 322 (if P.assistConstruction policy then "建設班：有効" else "建設班：停止") (Choose ToggleBuildingCrews) (P.assistConstruction policy)
             ]
 
 drawDiningPanel :: NativeFont -> Float -> Float -> GameState -> IO [Button]
@@ -1088,8 +1195,8 @@ isDiningSite game ident = case worldM1 (gameWorld game) >>= M.lookup ident . S.s
   Just placement -> case S.placementShape placement of S.BuildingShape "pantry" tile _ -> M.member tile (gameDiningPlaces game); _ -> False
   _ -> False
 
-drawInspector :: NativeFont -> Float -> Float -> Screen -> EntityId -> IO [Button]
-drawInspector font x y screen ident
+drawInspector :: NativeFont -> Float -> Float -> Int -> Screen -> EntityId -> IO [Button]
+drawInspector font x y height screen ident
   | isDiningSite (screenGame screen) ident = drawDiningPanel font x y (screenGame screen)
   | otherwise = do
       let game = screenGame screen
@@ -1138,10 +1245,13 @@ drawInspector font x y screen ident
               pure ((if active then [pause] else if configured then [resume] else if name == "pantry" && crew > 0 then [] else [begin]) ++ [button x (y + 346) 334 "配送の様子を見る" (SelectTab SupplyTab) False] ++ [button x (y + 400) 334 "この施設の班を外す" (Choose (ReleaseFacility ident)) False | crew > 0])
           | otherwise -> pure []
       let stockY = y + 470
-          pages = max 1 ((length stocks + 3) `div` 4)
+      Vector2 _ amountHeight <- measureLabel font "99999.9 kg" 25
+      let secondRowBottom = stockY + 40 + 66 + 25 + amountHeight
+          pageSize = if secondRowBottom <= fromIntegral height - 130 then 4 else 2
+          pages = max 1 ((length stocks + pageSize - 1) `div` pageSize)
           page = screenStockPage screen `mod` pages
       txt font "ここにある物資" x stockY 23 ink
-      forM_ (zip [0 :: Int ..] (take 4 (drop (page * 4) stocks))) $ \(n, (resource, amount)) -> do
+      forM_ (zip [0 :: Int ..] (take pageSize (drop (page * pageSize) stocks))) $ \(n, (resource, amount)) -> do
         let sx = x + fromIntegral (n `mod` 2) * 169; sy = stockY + 40 + fromIntegral (n `div` 2) * 66
         txt font (resourceName resource) sx sy 20 muted
         txt font (resourceAmount resource amount) sx (sy + 25) 25 (resourceColor resource)

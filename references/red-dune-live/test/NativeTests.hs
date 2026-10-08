@@ -2,11 +2,13 @@
 
 module Main where
 
+import Colony.Space qualified as Space
 import Colony.Types
 import Colony.World
 import Control.Exception (IOException, try)
 import Control.Monad (foldM, replicateM_, unless)
 import Data.ByteString qualified as BS
+import Data.List (isInfixOf)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
 import RedDune.ContentPack
@@ -32,6 +34,14 @@ main = do
   exists <- doesPathExist root
   check "test directory must be fresh" (not exists)
   original <- must (startGame "settlement" defaultPack)
+  village <- must (startVillageGame "settlement" defaultPack)
+  let plan name x y rotation = decide (Plan (Space.BuildingShape name (Space.Tile x y) rotation)) village
+  check "mine beside ore is constructible" (case plan "mine" 12 20 Space.R0 of Right _ -> True; _ -> False)
+  check "quarry beside stone is constructible" (case plan "quarry" 20 100 Space.R0 of Right _ -> True; _ -> False)
+  check "quarry beside sand is constructible" (case plan "quarry" 92 108 Space.R0 of Right _ -> True; _ -> False)
+  check "mine entrance cannot cross the ore region" (case plan "mine" 12 20 Space.R180 of Left reason -> "SourceConflict" `isInfixOf` reason; _ -> False)
+  check "mine away from ore is rejected" (case plan "mine" 40 40 Space.R0 of Left reason -> "NoCompatibleSource" `isInfixOf` reason; _ -> False)
+  check "road crossing an aquifer fails before any plan is queued" (case decide (RoadPath (Space.Tile 58 53) (Space.Tile 67 51)) village of Left reason -> "SourceConflict" `isInfixOf` reason && null (gameBuildQueue village); Right _ -> False)
   setup <- foldM (\game dept -> must (decide (Commission dept) game)) original [WaterWorks, FoodWorks, ServiceWorks]
   check "commissioning does not create resources" (invLots (worldInventory (gameWorld original)) == invLots (worldInventory (gameWorld setup)))
   check "commissioning does not advance time" (simTick (gameWorld original) == simTick (gameWorld setup))
@@ -105,4 +115,4 @@ main = do
     name <- Store.saveGame store saved
     preview <- Store.previewCheckpoint store name
     check "Unicode save directory" (Store.previewGame preview == saved)
-  putStrLn "PASS native: physical commissioning, paused activation, exact readback, immutable branch restore, stale-preview rejection, locking, traversal, directory pinning, restart"
+  putStrLn "PASS native: source-adjacent extraction and road rejection, physical commissioning, paused activation, exact readback, immutable branch restore, stale-preview rejection, locking, traversal, directory pinning, restart"

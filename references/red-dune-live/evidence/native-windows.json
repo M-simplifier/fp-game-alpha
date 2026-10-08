@@ -339,5 +339,32 @@
     },
     "owner_trial": "Pending at this automated checkpoint; subsequent positive owner trial of the latest native app reported on 2026-10-08 at 09:45 JST",
     "artifact_policy": "Screens and raw replay remain local; no screenshot egress"
+  },
+  "resource_ui_fix_2026_10_08": {
+    "qa_gap": "Earlier construction tests supplied known valid ore and stone coordinates and rosters; native QA exercised the palette but did not try discovering, rotating, and placing extractors through the rendered UI.",
+    "change": "Visible source regions and focus controls, authoritative placement preview, entire-road admission before queuing, height-aware stock paging and measured crew text, and source-aware facility status.",
+    "replay": "Actual Windows native GPU frames and ordinary hit tests with synthetic pointer/key input; each case used a fresh QA store, never the owner save.",
+    "resolutions": [[1280, 880], [1440, 940]],
+    "observed": [
+      "Mine beside ore accepted at R0; R180 entrance through ore rejected with Japanese feedback",
+      "Quarry beside stone and beside sand each accepted as a construction worksite",
+      "Aquifer-crossing road preview shown red, rejected, and left the construction queue empty",
+      "Crew explanation and warehouse quantities fit at minimum window; all four warehouse stocks fit at 1440x940",
+      "Construction help opens and closes with exactly equal paused game observations"
+    ],
+    "gpu_sha256": {
+      "crew_1280": "70f5a7bd36ca4f28b1ed55d8acfe5fe8908574d7e3e98462f05499d7d2286b83",
+      "warehouse_1280": "d64042bc644f2da8266f889433cbc120f713217f50ff800bc70dac560a397487",
+      "warehouse_1440": "9a5bbadc857d2005390c984f9a205a5d260ba14bd444723c5aa38a2556b4eb3f",
+      "mine_invalid_rotation": "9bb2e26aa6dd99fb25ebaf93ff83f82b78ce55cc17619c06e99b228add994800",
+      "stone_worksite": "e817acf57d494f6501935c87aa457a590862c3f3a578d86ad96e0d5d5f09c419",
+      "sand_worksite": "c6399d258990ab38bc3149bf96be0218970630af60e17171416b45b91a381f97",
+      "road_crosses_aquifer": "7dbdb92f0c82c4fb6ede0743240731ec4e60a2254a66f78d7193684ca3275925",
+      "building_help": "eac141c27a4abe3c66cae322828b3b13a49224fb615888435d6cf1698bcf10aa"
+    },
+    "native_test": "live-native PASS: ore, stone, sand, invalid mine orientation, incompatible location, aquifer-crossing road, and existing save/restore safeguards",
+    "package_sha256": "88faeedb120ec799e75bbf59c2ca28f4622151d5f1520523dfeb0f4d8046f4a6",
+    "owner_trial_of_this_fix": "Pending; earlier positive trial belongs to the preceding native build.",
+    "artifact_policy": "Screens and raw replay remain local; no screenshot egress"
   }
 }
