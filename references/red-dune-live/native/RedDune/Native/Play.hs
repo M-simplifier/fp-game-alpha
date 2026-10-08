@@ -17,7 +17,7 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (unless)
-import Data.List (find, intercalate, nub)
+import Data.List (find, intercalate, isInfixOf, nub)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as S
 import RedDune.Campaign
@@ -116,6 +116,12 @@ decide decision game = case decision of
         needed = filter (`S.notMember` Space.spatialRoads (m1Space state)) path
     unless (length needed <= 64 && null (gameBuildQueue game)) (Left "Road plan must be at most 64 tiles and wait for the current queue")
     mapM_ (\tile -> validatePlace game (tile, (PlaceSquare, Space.R0)) >> unless (maybe True ((== PlaceSquare) . fst) (M.lookup tile (gamePlaces game))) (Left "Keep placed furniture out of the road")) needed
+    -- Check the whole route against the same physical admission used for each
+    -- construction stage. A road crossing a deposit must fail before any stage
+    -- is queued, instead of building a prefix and dropping the rest later.
+    unless (null needed) $ do
+      (_, output) <- issue 1 [PlaceConstructionPlan (s01Colony descriptor) (Space.RoadShape tile) 2 Nothing | tile <- needed] world
+      unless (all (\receipt -> case receiptOutcome receipt of Applied _ -> True; _ -> False) (outputReceipts output)) (Left (show (map receiptOutcome (outputReceipts output))))
     edit (\g -> g {gameBuildQueue = map Space.RoadShape needed, gamePolicies = (gamePolicies g) {policiesEnabled = True, assistConstruction = True}}) game
   ToggleDelivery key -> policyEdit key (\route -> route {policyEnabled = not (policyEnabled route)}) game
   ChangeBuffer key delta -> policyEdit key (\route -> route {policyTarget = max (policyBatch route) (min 400000 (policyTarget route + delta))}) game
@@ -223,7 +229,16 @@ rosterCount game ident = case worldM1 (gameWorld game) of
 
 siteStatus :: GameState -> EntityId -> SiteStatus
 siteStatus game ident
-  | Just job <- construction = SiteStatus (if C.constructionPhase job == C.ConstructionRunning then MoodBusy else MoodWaiting) (if C.constructionPhase job == C.ConstructionRunning then "建てています" else "建設を待っています") (case C.constructionBlocked job of Just MissingStock -> "建材の到着待ち"; Just _ -> "班・道路・建材を確認"; Nothing -> "建設班が現場を受け持ちます") (Just (fromInteger (C.constructionProgress job) / fromInteger (max 1 (C.constructionRequired (C.constructionSnapshot job)))))
+  | Just job <- construction =
+      let waitingWorkers = case C.constructionBlocked job of Just (InvalidReference reason) -> "WaitingWorkers" `isInfixOf` reason; _ -> False
+          crew = C.constructionCrewRequired (C.constructionSnapshot job)
+          title = if C.constructionPhase job == C.ConstructionRunning then "建てています" else if waitingWorkers then "建設班を待っています" else "建設を待っています"
+          detail = case C.constructionBlocked job of
+            Just MissingStock -> "建材の到着待ち。倉庫の在庫、道路、運転手を確認してください。"
+            Just _ | waitingWorkers -> "建設班" ++ show crew ++ "人が必要です。ほかの工事が終わるか、班の配置を見直してください。"
+            Just _ -> "班・道路・建材を確認"
+            Nothing -> "建設班が現場を受け持ちます"
+       in SiteStatus (if C.constructionPhase job == C.ConstructionRunning then MoodBusy else MoodWaiting) title detail (Just (fromInteger (C.constructionProgress job) / fromInteger (max 1 (C.constructionRequired (C.constructionSnapshot job)))))
   | facilityStopped (worldMaintenance world) ident = SiteStatus MoodTrouble "修理が必要" (siteReport game ident) Nothing
   | name == "pantry" =
       if rosterCount game ident == 0
@@ -244,11 +259,15 @@ siteStatus game ident
             else
               if rosterCount game ident == 0
                 then SiteStatus MoodWaiting "作業する人がいません" "空いている班を配置してください" Nothing
-                else case missingInputs site of
-                  [] | any (\resource -> physical world (siteOutput site) resource > 0) allResources -> SiteStatus MoodReady "できた物資を出荷待ち" "積荷が届いて初めて、次の場所で使えます" Nothing
-                  [] -> SiteStatus MoodWaiting "次の作業を待っています" (siteReport game ident) Nothing
-                  missing -> SiteStatus MoodWaiting (resourceName (fst (head missing)) ++ "の到着待ち") (intercalate " / " [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- missing]) Nothing
+                else case missingNatural site of
+                  (resource, remainingNatural, required) : _ -> SiteStatus MoodTrouble (resourceName resource ++ "の区画が不足") ("残り " ++ resourceAmount resource remainingNatural ++ " / 次の作業に " ++ resourceAmount resource required) Nothing
+                  [] -> case missingInputs site of
+                    [] | any (\resource -> physical world (siteOutput site) resource > 0) allResources -> SiteStatus MoodReady "できた物資を出荷待ち" "積荷が届いて初めて、次の場所で使えます" Nothing
+                    [] -> SiteStatus MoodWaiting "次の作業を待っています" (siteReport game ident) Nothing
+                    missing -> SiteStatus MoodWaiting (resourceName (fst (head missing)) ++ "の到着待ち") (intercalate " / " [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- missing]) Nothing
   | name == "housing" = SiteStatus MoodReady "休める家" "この家に割り当てられた住人の寝床です" Nothing
+  | name == "solar" = SiteStatus MoodReady "太陽光の発電設備" "日が出ている間に電力を生みます" Nothing
+  | name == "battery" = SiteStatus MoodReady "蓄電設備" "発電した電力を蓄えて使います" Nothing
   | otherwise = SiteStatus MoodReady "備蓄の場所" "運ばれてきた物資をここに置きます" Nothing
   where
     world = gameWorld game
@@ -259,6 +278,17 @@ siteStatus game ident
     missingInputs site = case M.lookup (siteRecipe site) (contentRecipes (worldContent world)) of
       Nothing -> []
       Just recipe -> [(resource, amount - physical world (siteInput site) resource) | (resource, amount) <- M.toAscList (recipeInputs recipe), physical world (siteInput site) resource < amount]
+    missingNatural site = case M.lookup (siteRecipe site) (contentRecipes (worldContent world)) of
+      Nothing -> []
+      Just recipe ->
+        [ (depositResource deposit, remainingNatural, required)
+        | (kind, required) <- M.toAscList (recipeNaturalSources recipe),
+          Just source <- [M.lookup kind (siteNatural site)],
+          Just deposit <- [M.lookup source (invDeposits (worldInventory world))],
+          let reserved = sum [qtyValue (naturalAmount r) | r <- M.elems (invNatural (worldInventory world)), naturalSource r == source],
+          let remainingNatural = max 0 (qtyValue (depositQty deposit) - reserved),
+          remainingNatural < required
+        ]
 
 policyEdit :: String -> (DeliveryPolicy -> DeliveryPolicy) -> GameState -> Either String GameState
 policyEdit key change game = do
