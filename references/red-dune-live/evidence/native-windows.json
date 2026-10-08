@@ -364,6 +364,16 @@
     },
     "native_test": "live-native PASS: ore, stone, sand, invalid mine orientation, incompatible location, valid clear road, aquifer-crossing road, and existing save/restore safeguards",
     "package_sha256": "7a84d364cc320ae64407e855b7bd5858f9f8cfd684992b2063fd417606969d21",
+    "installed_package": {
+      "folder": "Red Dune Resource 2026-10-08",
+      "binary_matches_qa": true,
+      "existing_desktop_shortcut_and_save_argument_preserved": true,
+      "previous_app_preserved": true,
+      "processes_killed": 0,
+      "original_owner_save_files_unchanged": 68,
+      "preview_confirm_resume_from_separate_copy": "24-hour settlement, 40 residents, paused, Windows native exit 0",
+      "copied_save_resume_gpu_sha256": "68902a69a03c5cdabb28c82d1e29104edc4ee626e7d2e92070e9f9d11e94f204"
+    },
     "owner_trial_of_this_fix": "Pending; earlier positive trial belongs to the preceding native build.",
     "artifact_policy": "Screens and raw replay remain local; no screenshot egress"
   }
