@@ -451,7 +451,9 @@ needsPhase tick (world, out, duties) = do
   catalog <- fatal P8 (workTargetCatalog staffed)
   (fatigued, workers, _) <- workforce P8 (W.advanceWorkforce W.PositiveCreditElapsedTick (context tick) catalog (worldNeeds staffed) (m1Workforce state) recorded)
   let withActivePantries = fatigued {needsPantries = M.map (filter (`S.member` active)) allPantries}
-  ((consumed, _), inventory) <- fatal P8 (runInventory (stepNeedsWithFatigue False (Base.mkTx staffed P8 0) tick withActivePantries) (worldInventory staffed))
+      busy = M.keysSet (W.workforceClaims workers) `S.union` S.fromList (concatMap W.dutyCrew (M.elems recorded))
+      freeResidents = M.keysSet (needsResidents fatigued) `S.difference` busy
+  ((consumed, _), inventory) <- fatal P8 (runInventory (stepNeedsForDining False freeResidents (Base.mkTx staffed P8 0) tick withActivePantries) (worldInventory staffed))
   let nextNeeds = consumed {needsPantries = allPantries}
   reconciled <- workforce P8 (W.reconcileClaims (context tick) catalog nextNeeds workers)
   maintenance <- fatal P8 (advanceFacilities True tick (worldWeather staffed) (worldOperatingFacilities staffed) (worldMaintenance staffed))

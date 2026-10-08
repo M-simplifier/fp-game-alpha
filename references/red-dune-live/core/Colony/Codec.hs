@@ -116,7 +116,26 @@ instance ValueCodec Fraction
 
 instance ValueCodec Resident
 
-instance ValueCodec NeedsState
+instance ValueCodec MealRecord
+
+-- Empty dining extensions retain the historical two-field canonical encoding,
+-- including archived checkpoint state hashes. Only the known old/new shapes
+-- are accepted; neither absent old fields nor future fields are guessed.
+instance ValueCodec NeedsState where
+  toCBOR state = do
+    residents <- toCBOR (needsResidents state)
+    pantries <- toCBOR (needsPantries state)
+    if M.null (needsDiningPreferences state) && M.null (needsLastMeals state)
+      then pure (CMap [(0, CInteger 0), (1, CMap [(0, residents), (1, pantries)])])
+      else do
+        preferences <- toCBOR (needsDiningPreferences state)
+        meals <- toCBOR (needsLastMeals state)
+        pure (CMap [(0, CInteger 0), (1, CMap [(0, residents), (1, pantries), (2, preferences), (3, meals)])])
+  fromCBOR (CMap [(0, CInteger 0), (1, CMap [(0, residents), (1, pantries)])]) =
+    NeedsState <$> fromCBOR residents <*> fromCBOR pantries
+  fromCBOR (CMap [(0, CInteger 0), (1, CMap [(0, residents), (1, pantries), (2, preferences), (3, meals)])]) =
+    NeedsStateWithDining <$> fromCBOR residents <*> fromCBOR pantries <*> fromCBOR preferences <*> fromCBOR meals
+  fromCBOR _ = problem "Invalid needs record: expected exactly two legacy or four dining fields"
 
 instance ValueCodec NeedResult
 

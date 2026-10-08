@@ -68,7 +68,7 @@
   },
   {
    "path": ".github/workflows/red-dune-live.yml",
-   "sha256_lf": "7e0e684168b352697693cd4c5eae941f3bc69df62bf50fdfe3ef8df9071d0b8e"
+   "sha256_lf": "54a29a6e6583dba89567672cccd9ab74af5ad0ab191656d9843aa321700c96ea"
   },
   {
    "path": ".gitignore",
@@ -101,6 +101,10 @@
   {
    "path": "cabal.project.red-dune-live",
    "sha256_lf": "9003cd41627bc5a69cfd6c7b72078964b9a21236d6f5aa5e977cab7321001de8"
+  },
+  {
+   "path": "cabal.project.red-dune-native",
+   "sha256_lf": "68d937e42318389a641b6ad63f32ae579dac962d578199f878cf01b0d65561ec"
   },
   {
    "path": "docs/acceptance.md",
@@ -244,7 +248,7 @@
   },
   {
    "path": "docs/practice/games/stack.md",
-   "sha256_lf": "a5687f9e36a17395348f1435e4e3425f48a70e06d40668b53d509825d9578087"
+   "sha256_lf": "3c6042af690f610a65726711e0fe6f839488faf8033a5f9658615d8cfeb71907"
   },
   {
    "path": "docs/practice/games/time-and-state.md",
@@ -800,7 +804,7 @@
   },
   {
    "path": "formatter.json",
-   "sha256_lf": "76f3aaf41904ffd2360471b96d75d7391cb0291349bb3c69ac35342cf98694c6"
+   "sha256_lf": "b34d2eb5c22ffe51d64be626862615037c4dd30995df9a7c759fac21db9f02d2"
   },
   {
    "path": "libraries/game-arena/LICENSE",
@@ -1668,7 +1672,7 @@
   },
   {
    "path": "references/red-dune-live/ASSETS.md",
-   "sha256_lf": "146cce9b3ef2eec86d132e7870887f116e9c0506f9c09021d7e284e6b9f19e2b"
+   "sha256_lf": "7749cdb4d362c8a02ba31750f4c80a231cfee5d6b96b865a37535a8a9b433c7f"
   },
   {
    "path": "references/red-dune-live/LICENSE",
@@ -1680,7 +1684,7 @@
   },
   {
    "path": "references/red-dune-live/README.md",
-   "sha256_lf": "1d475650623976c630f2c2749172c3c4ea631b12079df34fc5aa4c37bdda3ac4"
+   "sha256_lf": "f1ee6eea1644774a980bad735d1993883c89fcf3afa7a3cb2e2e967d9a754af2"
   },
   {
    "path": "references/red-dune-live/app/HostMain.hs",
@@ -1700,7 +1704,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Codec.hs",
-   "sha256_lf": "e46b45e971ef85cb11ab74a9b9b76aca0d92fe072e842f2993b0854f479b79e2"
+   "sha256_lf": "fd8fa7412b51839c555ffcaafb995041c50bdffd2f02e77afd888b05765c9ff3"
   },
   {
    "path": "references/red-dune-live/core/Colony/Codec/CBOR.hs",
@@ -1772,7 +1776,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/M1Scheduler.hs",
-   "sha256_lf": "6e89c5aa73666d94ce012bd2d9e396bbead3ed5a23ed44ecb98f47fc871c91fd"
+   "sha256_lf": "18817f9c9cf912c6e24e61479a7ea11fbd762294e8469effd3d9371d703b8fbd"
   },
   {
    "path": "references/red-dune-live/core/Colony/M1State.hs",
@@ -1792,7 +1796,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Needs.hs",
-   "sha256_lf": "2878525ced2128ffb853be923d4f717568c4499f3137221a3cecac7447d83fd8"
+   "sha256_lf": "17a979252adea27955765eaf7a1fb219a952be7c8b46619fc7f002c09be03bdb"
   },
   {
    "path": "references/red-dune-live/core/Colony/Pickup.hs",
@@ -1816,7 +1820,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/S01Fixture.hs",
-   "sha256_lf": "bb4645795cf2198f43da1cf6f1dfdaefd8e7cb8cb8bc54499a73dfc3a664ea69"
+   "sha256_lf": "30962664ad37d74f5baad65113cdfe3b9582d8214d216c0e03ea5e640bf94b5c"
   },
   {
    "path": "references/red-dune-live/core/Colony/Save.hs",
@@ -1832,7 +1836,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Session.hs",
-   "sha256_lf": "ce7d7e977fd9dd280e66aec45f1821f09cc0e8f1033bada3120b05dfde39989a"
+   "sha256_lf": "ac492fd27714428cb5d49fa460fcc78dea418b0e722904ccd62af4a54d1afc88"
   },
   {
    "path": "references/red-dune-live/core/Colony/SessionTrace.hs",
@@ -1908,11 +1912,11 @@
   },
   {
    "path": "references/red-dune-live/docs/DEVELOPMENT-EVIDENCE.md",
-   "sha256_lf": "44c55ad6a821dd2231ac81cf11a6ffa6726b2bdd9fb9f70d0838119117204cf9"
+   "sha256_lf": "3c8465d1d27cb2d457b98f9b70563d1131b388af0825372308576f5a1fe92912"
   },
   {
    "path": "references/red-dune-live/docs/DEVELOPMENT.md",
-   "sha256_lf": "219814b40a7312b1a495eb9cbdb6d98815915658c991fd8be35dfdac905abec0"
+   "sha256_lf": "1a023d28c244c824bde694e8d4730a71ffb84b52fe6dd7b0814b1f9032eee42d"
   },
   {
    "path": "references/red-dune-live/docs/HOST-API.md",
@@ -1931,6 +1935,10 @@
    "sha256_lf": "68fdf593268f486eedae82c0bdbff19a0680b3f11fece2012166ed6249b84bb3"
   },
   {
+   "path": "references/red-dune-live/docs/WINDOWS-PLAY.md",
+   "sha256_lf": "89e8055bfb973752fe4fef3e2a142f29e433498e5c616dcae8860f72c886ce48"
+  },
+  {
    "path": "references/red-dune-live/evidence/allocation-profile-top.txt",
    "sha256_lf": "5654d56b697de505b8e81bbf8daeb6187ec276b46d905c25f89fa0ea6fd53b89"
   },
@@ -1947,12 +1955,52 @@
    "sha256_lf": "3bff2dd6c8900610e7f814f77132196514f7a7fbedd96d8261b8116da1256f1e"
   },
   {
+   "path": "references/red-dune-live/evidence/native-development-windows.json",
+   "sha256_lf": "f34d52285d9466a9e012de0a5e2025e9a8b6f9e3a80b20656b320ade3f086440"
+  },
+  {
+   "path": "references/red-dune-live/evidence/native-windows.json",
+   "sha256_lf": "46faacbd772ac110a82dd39f0288f4f4b2e36112b39afcb9038108a8962e400b"
+  },
+  {
    "path": "references/red-dune-live/evidence/performance.json",
    "sha256_lf": "8205428735c611420db337459e0027b99f8920c0e4289fa1bea0348f243eca9f"
   },
   {
+   "path": "references/red-dune-live/native/Main.hs",
+   "sha256_lf": "bdf6daa37a04a879f1339a0148c1dde1b449cd0168fc6085c0206fe81ef1c7b4"
+  },
+  {
+   "path": "references/red-dune-live/native/RedDune/Native/Font.hs",
+   "sha256_lf": "c0de43241d131baf1cbb0e365f401175408218384e5e46ef905c9491ffc01a99"
+  },
+  {
+   "path": "references/red-dune-live/native/RedDune/Native/Help.hs",
+   "sha256_lf": "13c18d17169c8b6efc98a63e678bf0aa32cb5cf1fe0da08d0f6474e87d44642a"
+  },
+  {
+   "path": "references/red-dune-live/native/RedDune/Native/Play.hs",
+   "sha256_lf": "ae66b681720ff8ec116d4fa9154af2c723a2f3b7917bb52f212acf87cbcc2c66"
+  },
+  {
+   "path": "references/red-dune-live/native/RedDune/Native/Store.hs",
+   "sha256_lf": "2f0bd946d63556958209253bf84f3926265eec46b467d2d6c382023658ee2f9f"
+  },
+  {
+   "path": "references/red-dune-live/native/RedDune/Native/View.hs",
+   "sha256_lf": "53ee54aff48965c33a3f917267c914e619a05bc9feadebdea528907355c0a4f0"
+  },
+  {
+   "path": "references/red-dune-live/native/assets/glyphs.txt",
+   "sha256_lf": "d511511b4f0340ffaa556f963d14f0aee1b2b0afece3cbfdada9969d40986110"
+  },
+  {
+   "path": "references/red-dune-live/native/cbits/store.c",
+   "sha256_lf": "bda0e3c07872e09e6475a5476088ded270b43e617335c65c312c664a31b0778f"
+  },
+  {
    "path": "references/red-dune-live/red-dune-live.cabal",
-   "sha256_lf": "8c86c3fb24ff6d530d593bcfb5de336fa3b498fd95dd4dc7749bc16372ace247"
+   "sha256_lf": "6d0d473e41c3dc8f9ceaf76e9eb13a70904f163dd79465a0f520a0d4e88a65e7"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Campaign.hs",
@@ -1964,11 +2012,11 @@
   },
   {
    "path": "references/red-dune-live/src/RedDune/Game.hs",
-   "sha256_lf": "6d8bca68e2b95c41db84ce36966a981dfddc32ce427adaa06ed342131fd4badd"
+   "sha256_lf": "16e4b3f01c57824a3b1a456820b7baca1f0eecaabd05ee644f3c7beae5368d1f"
   },
   {
    "path": "references/red-dune-live/src/RedDune/GameSave.hs",
-   "sha256_lf": "a27be648f2e9cbab6138e227d9a174eb0336d50ae32584d51547982b68f051f1"
+   "sha256_lf": "09b9bad80617a9f8c7f5f70c74884ee2c3363df85da541e91266cf2c95a067ea"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Policies.hs",
@@ -1984,7 +2032,7 @@
   },
   {
    "path": "references/red-dune-live/test/LiveBoundaryTests.hs",
-   "sha256_lf": "580213b0053b75dc9ec1c0a51414dc8670f10b112cda24c8f9cc597555d2b6a7"
+   "sha256_lf": "d91727ff0634bfc1ad08ad26232a0e64e0b68333376c487c50455f65fb1f9ce5"
   },
   {
    "path": "references/red-dune-live/test/LiveCampaignTests.hs",
@@ -1993,6 +2041,10 @@
   {
    "path": "references/red-dune-live/test/LiveConstructionTests.hs",
    "sha256_lf": "7cdddff34fe47aa491ae92f3c1032f770a3dfdad049b7c49504ccb25f1ce0c88"
+  },
+  {
+   "path": "references/red-dune-live/test/LiveDiningTests.hs",
+   "sha256_lf": "3bbc4c4400a3431c9c70d4ae6ecd49615b56fb3271325e08b90802d829d5fc23"
   },
   {
    "path": "references/red-dune-live/test/LiveLegacyTests.hs",
@@ -2007,16 +2059,40 @@
    "sha256_lf": "10f755eb8137d4a24018450c73b239f434bce18b33a067d1978ea3c132b8edf0"
   },
   {
+   "path": "references/red-dune-live/test/NativeHelpTests.hs",
+   "sha256_lf": "34b12cba78dfe622bac0208e077d047c3e7c8140d1183f639904ffe12bb08f27"
+  },
+  {
+   "path": "references/red-dune-live/test/NativeTests.hs",
+   "sha256_lf": "ecb44a5850ccd008c69ced4c18d9e2508ea8e93ba7680c319aaad802e78f60cf"
+  },
+  {
    "path": "references/red-dune-live/tools/bench_dev.py",
    "sha256_lf": "b4fc0bdbd8d4fa6176fcc09462669fa90c1cea92f64d9f6e3f830de1c0fa16ae"
   },
   {
+   "path": "references/red-dune-live/tools/build-native.ps1",
+   "sha256_lf": "35f7e2bee96de9beabd58164d36a965d7ddaabf835218951a0332712af074a11"
+  },
+  {
    "path": "references/red-dune-live/tools/check.sh",
-   "sha256_lf": "765fb06ac84ee29e7f41ddc91c0ba5df6ff97f90589499d247ecf8d4c7eeb5f6"
+   "sha256_lf": "8c0dbce2333b4602baecc94dedb0891dcdeeffa44ff56ebd46c8a5f919ee063d"
+  },
+  {
+   "path": "references/red-dune-live/tools/dev-native.ps1",
+   "sha256_lf": "596023bab804a7128e28a6217123a35f02e1ccd0b5c4d1131a57319cf49dacd1"
   },
   {
    "path": "references/red-dune-live/tools/dev.sh",
    "sha256_lf": "c228f473791f62bb22da177a8143e82b0e8f391581999780887cb8aaece6af81"
+  },
+  {
+   "path": "references/red-dune-live/tools/native_icon.py",
+   "sha256_lf": "438ab15c2b46bfbf99a31813813168355fa63d542bc266d1fa1dc9671cfb152a"
+  },
+  {
+   "path": "references/red-dune-live/tools/native_notices.py",
+   "sha256_lf": "c4567887db76ca5f6606ecad05516d2aa49fd8ed6b0bee6a98ca1ed1e5ab648b"
   },
   {
    "path": "references/red-dune-live/tools/test_browser_protocol.cjs",

@@ -1,9 +1,46 @@
 # Fast, checked Red Dune development
 
-Linux, GHC 9.6.7, Cabal 3.12.1.0. This workflow plays the real Red Dune campaign.
+GHC 9.6.7, Cabal 3.12.1.0. These workflows play the real Red Dune campaign.
+The Windows command below builds and opens the native app. The remaining
+GHCi/HTTP workflow is Linux-specific.
 The operational supervisor, game rules, validation and HTTP host are Haskell.
 Python files under `tools/` are independent measurement/regression drivers only.
 The ordinary optimized play and acceptance commands remain in `tools/check.sh`.
+
+## Windows native editing
+
+From the repository root in PowerShell:
+
+```powershell
+.\references\red-dune-live\tools\dev-native.ps1
+# Or start the recovery scenario:
+.\references\red-dune-live\tools\dev-native.ps1 -Scenario recovery
+```
+
+Save a source or data edit, close the previous development window, and run the
+same command again. Existing Cabal incrementally rebuilds the changed dependency
+closure, then packages and launches `.build/red-dune-native-dev/app/Red Dune.exe`.
+Compilation or packaging failure stops before launch. A still-open development
+window is reported before building; it is never silently reused or terminated.
+
+The command validates `data/campaign-pack-v1.json` and starts a fresh paused
+campaign using that pack. `-ContentPack PATH` selects another existing pack in
+the same format. No Haskell compilation is needed for a pack edit. Invalid data
+cannot initialize a new campaign. F9 retains the normal preview/confirm flow:
+older saves use their own embedded pack, irrespective of the edited file.
+
+All development checkpoints remain in `.build/red-dune-native-dev/saves/`.
+The command explicitly selects this path, even if `RED_DUNE_NATIVE_STORE` points
+elsewhere. It does not install over the owner's app or use their ordinary saves.
+Re-running creates a new branch and retains earlier development checkpoints.
+
+On the measured Windows host, cached unchanged launch took 4.01 s to an actual
+native GPU capture, a pack edit 6.39 s, and a small Haskell view edit 10.19 s.
+These are single observations, including process startup and packaging, not a
+general speed guarantee. First dependency builds and large source edits differ.
+The [measurement and failure checks](DEVELOPMENT-EVIDENCE.md#windows-native-entry)
+keep this separate from the historical Linux reload results. There is no watcher;
+the same explicit command is the edit/play boundary.
 
 ## Three useful edit boundaries
 

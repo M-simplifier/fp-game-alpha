@@ -8,6 +8,7 @@ on:
       - 'libraries/game-arena/**'
       - 'cabal.project.red-dune-live'
       - 'cabal.project.red-dune-dev'
+      - 'cabal.project.red-dune-native'
       - '.github/workflows/red-dune-live.yml'
   pull_request:
     paths:
@@ -16,6 +17,7 @@ on:
       - 'libraries/game-arena/**'
       - 'cabal.project.red-dune-live'
       - 'cabal.project.red-dune-dev'
+      - 'cabal.project.red-dune-native'
       - '.github/workflows/red-dune-live.yml'
   workflow_dispatch:
 permissions:
@@ -24,6 +26,27 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
+  windows-native:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - id: haskell
+        uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d # v2
+        with:
+          ghc-version: '9.6.7'
+          cabal-version: '3.12.1.0'
+          cabal-update: false
+      - name: Resolve official dependencies
+        run: cabal update
+      - name: Build native app and save acceptance
+        run: cabal build --project-file=cabal.project.red-dune-native exe:red-dune test:live-native --enable-tests
+      - name: Check Windows physical play and immutable saves
+        shell: pwsh
+        run: |
+          $binary = (cabal list-bin --project-file=cabal.project.red-dune-native test:live-native --enable-tests).Trim()
+          & $binary (Join-Path $env:RUNNER_TEMP ('red-dune-' + [guid]::NewGuid()))
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
   bounded-native-host:
     runs-on: ubuntu-latest
     timeout-minutes: 20

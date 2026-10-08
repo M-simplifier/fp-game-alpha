@@ -9,7 +9,33 @@ This is active game implementation. The separately preserved `../red-dune` archi
 is unchanged. Native HTTP integration and pure campaign verification are separate
 from browser acceptance; see [verification](docs/HOST-VERIFICATION.md).
 
-## Play
+## Windows native app
+
+The Windows build renders and receives input in its own raylib window. It uses
+the same Haskell rules, content and framed game codec as the Linux host. It
+needs an installed Japanese Windows system font; no font files are shipped.
+See [native play controls and saves](docs/WINDOWS-PLAY.md).
+
+With GHC 9.6.7, Cabal 3.x, Python 3 and the official `h-raylib-5.6.0.0` sources
+available in Cabal's cache, build from the repository root:
+
+```powershell
+references/red-dune-live/tools/build-native.ps1
+& '.build/red-dune-native/Red Dune.exe'
+```
+
+The folder is a local runnable package, including glyph selection, play
+instructions and dependency notices. The native store uses Windows exclusive
+locking, pinned non-reparse directories, flushed exact readback and immutable
+write-through commits. Loading verifies the selected bytes again and starts a
+new paused branch. `RED_DUNE_NATIVE_STORE` and `--store` select a separate store.
+
+`test:live-native` checks Windows saves, corruption handling, lock contention,
+Unicode paths and physical continuation. Opt-in `--qa-dir` replays raw pointer
+coordinates through the ordinary button hit tests and captures native GPU frames;
+it does not establish owner input or enjoyment acceptance.
+
+## Linux browser play
 
 Linux, GHC 9.6.x (base 4.18), Cabal 3.x. The host adds the official
 `network-3.1.4.0` package to the two local foundation libraries. No Python runtime

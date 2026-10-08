@@ -9,6 +9,12 @@ third-party artwork, audio recordings, fonts, textures or prebuilt executables.
   preserved Red Dune interface under its retained MIT notice
 - `ui/style.css`: authored CSS colors, shapes, layout and accessibility controls
 - `ui/protocol.js`: authored transport/state-ordering helpers, not visual assets
+- `native/RedDune/Native/View.hs`: authored procedural native map, buildings,
+  workers, carts and interface. Geometry and activity come from the game state
+- The Windows app reads an installed Japanese system font into memory. No font
+  file is copied into its package or modified on disk
+- `tools/native_icon.py`: authored procedural colony icon, generated into the
+  local package without external artwork or fonts
 - Font names in CSS are local/system fallback requests. No font files or remote
   font URLs are shipped, fetched or sublicensed by this package
 - `data/*.json`: authored economic and campaign data, not asset-store content
@@ -18,9 +24,9 @@ third-party artwork, audio recordings, fonts, textures or prebuilt executables.
 
 The optional official Hackage `network` and `hsc2hs` dependencies are resolved by
 Cabal; their downloaded sources and binaries are not copied into this repository.
-A future binary distribution must separately collect all dependency notices and
-verify its platform-specific license requirements. Source acceptance here is not
-a blanket approval for a future binary or asset bundle.
+The local native build collects resolved Haskell package and vendored raylib
+notices in `THIRD-PARTY-NOTICES.txt`. Wider binary redistribution still needs a
+review of the actual compiler/runtime and platform license requirements.
 
 Keep `.build/`, `dist-newstyle/`, dependency downloads, `.red-dune-saves/`, `.rdg`
 and `.save` files, raw profiler dumps and binary acceptance fixtures out of the source

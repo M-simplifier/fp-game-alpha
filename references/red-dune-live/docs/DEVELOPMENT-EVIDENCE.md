@@ -1,5 +1,38 @@
 # Recovered development-loop evidence
 
+## Windows native entry
+
+The [Windows native measurements](../evidence/native-development-windows.json)
+are new 2026-10-07 observations using `tools/dev-native.ps1`, the existing
+optimized Cabal project and cached dependencies. Each case was sampled once:
+
+| Case | Command to actual GPU capture |
+| --- | ---: |
+| Existing build command, then separate launch | 3.66 s |
+| One command, unchanged source | 4.01 s |
+| Settlement food objective edited in JSON | 6.39 s |
+| Visible Haskell objective label edited | 10.19 s |
+| Compile failure | No launch or capture; nonzero exit in 4.52 s |
+| Corrected source after failure | 7.32 s |
+
+The new entry removes manual build/run coordination; this comparison establishes
+no compiler speedup. Native input used synthetic pointer/key replay through the
+ordinary hit testing and game commands, with an opt-in hidden GPU window. Every
+successful run started paused, accepted time-start input and advanced real ticks.
+The JSON food objective changed from 10000 to 11000 g with a changed pack identity
+and unchanged EXE. The Haskell edit rebuilt the view and appeared in the capture.
+The failed build preserved the previous EXE and never reached launch. Retry
+rendered the corrected source. The temporarily edited source and JSON were
+restored byte-for-byte without overwriting a concurrent editor's change.
+
+Fifteen new development checkpoints were retained. Earlier development saves,
+the owner's installed EXE and every existing owner-save file were unchanged.
+The native store regression suite also checks immutable paused branches and
+stale preview/confirm rejection. These measurements establish neither OS input
+feel nor owner enjoyment, and do not reuse Linux timing data.
+
+## Recovered Linux evidence
+
 The unpublished working environment was replaced after the 2026-10-06 development
 checks. The implementation was recovered and checked against recorded source identities. The final supervisor and DevMain match their previously recorded SHA256
 hashes; the host matched its recorded intermediate hash before the recorded

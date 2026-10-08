@@ -107,7 +107,13 @@ s01Fixture = s01FixtureWithRuleset "red-dune-reference-6"
 s01FixtureWithRuleset :: String -> Content -> Either Failure (S01Descriptor, World)
 s01FixtureWithRuleset rules content = do
   roads <- s01RoadTiles content
-  ((descriptor, space, construction, sites, needs, grids, siteGrids, transport), inventory) <- runInventory (build roads) (emptyInventory content)
+  s01FixtureAt rules "s01-d0-rowpack-v1" s01Layouts roads content
+
+-- Fresh layouts share all physical commissioning rules. Checkpoints retain
+-- their serialized spatial state rather than inheriting a newer layout.
+s01FixtureAt :: String -> String -> [(String, Space.Tile)] -> S.Set Space.Tile -> Content -> Either Failure (S01Descriptor, World)
+s01FixtureAt rules mapName layouts initialRoads content = do
+  ((descriptor, space, construction, sites, needs, grids, siteGrids, transport), inventory) <- runInventory (build initialRoads) (emptyInventory content)
   facilities <-
     mapM
       ( \placement -> case Space.placementShape placement of
@@ -153,11 +159,11 @@ s01FixtureWithRuleset rules content = do
         ident <- addDeposit kind resource quantity
         pure (ident, Space.SourceRegion ident kind resource (Space.Rect origin 8 8))
       let initial =
-            (Space.emptySpatial (Space.MapSpec "s01-d0-rowpack-v1" 1 (Space.Rect (Space.Tile 0 0) 128 128) (Space.Tile 192 224) M.empty))
+            (Space.emptySpatial (Space.MapSpec mapName 1 (Space.Rect (Space.Tile 0 0) 128 128) (Space.Tile 192 224) M.empty))
               { Space.spatialSources = M.fromList sources
               }
           aquifer = fst (head sources)
-      space <- foldM (seedBuilding colony aquifer) initial s01Layouts
+      space <- foldM (seedBuilding colony aquifer) initial layouts
       let placements = M.elems (Space.spatialPlacements space)
           named name = [Space.placementId p | p <- placements, case Space.placementShape p of Space.BuildingShape n _ _ -> name == n; _ -> False]
       depot <- single "depot" (named "depot")

@@ -5,12 +5,14 @@ build-type: Simple
 synopsis: Playable long-session Red Dune colony survival campaign
 license: MIT
 license-file: LICENSE
-extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md, ui/*.html, ui/*.css, ui/*.js, tools/*.cjs, tools/*.sh, tools/*.py, evidence/*.json, evidence/*.txt
+extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md, ui/*.html, ui/*.css, ui/*.js, tools/*.cjs, tools/*.sh, tools/*.py, tools/*.ps1, native/assets/*.txt, evidence/*.json, evidence/*.txt
 
 common shared
   default-language: GHC2021
   ghc-options: -Wall -Werror
-  build-depends: base >=4.18 && <4.19, containers, array, bytestring, text, parsec, binary, deepseq, mtl, directory, unix, filepath, game-arena >=0.1 && <0.2, game-transition >=0.1 && <0.2
+  build-depends: base >=4.18 && <4.19, containers, array, bytestring, text, parsec, binary, deepseq, mtl, directory, filepath, game-arena >=0.1 && <0.2, game-transition >=0.1 && <0.2
+  if !os(windows)
+    build-depends: unix
 
 flag development
   description: Enable the isolated interactive gameplay/host component
@@ -20,11 +22,14 @@ flag development
 -- The simulation stays compiled and optimized during gameplay editing.
 library colony-core
   import: shared
+  if os(windows)
+    extra-libraries: bcrypt
+  else
+    exposed-modules: Colony.CheckpointLibrary, Colony.Save, Colony.SessionTrace, Colony.UIShell
   ghc-options: -O2
   hs-source-dirs: core
   exposed-modules:
     Colony.Arena
-    Colony.CheckpointLibrary
     Colony.Codec.CBOR
     Colony.Codec.SHA256
     Colony.Codec.Value
@@ -55,24 +60,23 @@ library colony-core
     Colony.RNG
     Colony.Ruleset
     Colony.S01Fixture
-    Colony.Save
     Colony.Scheduler
     Colony.SchedulerCore
     Colony.Session
-    Colony.SessionTrace
     Colony.Space
     Colony.SupplyChainFixture
     Colony.Topology
     Colony.Transport
     Colony.Types
     Colony.UIFixture
-    Colony.UIShell
     Colony.Units
     Colony.Workforce
     Colony.World
 
 library
   import: shared
+  if !os(windows)
+    reexported-modules: Colony.CheckpointLibrary, Colony.Save, Colony.SessionTrace, Colony.UIShell
   ghc-options: -O2
   hs-source-dirs: src
   build-depends: red-dune-live:colony-core
@@ -85,7 +89,6 @@ library
     RedDune.Protocol
   reexported-modules:
     Colony.Arena,
-    Colony.CheckpointLibrary,
     Colony.Codec.CBOR,
     Colony.Codec.SHA256,
     Colony.Codec.Value,
@@ -116,24 +119,23 @@ library
     Colony.RNG,
     Colony.Ruleset,
     Colony.S01Fixture,
-    Colony.Save,
     Colony.Scheduler,
     Colony.SchedulerCore,
     Colony.Session,
-    Colony.SessionTrace,
     Colony.Space,
     Colony.SupplyChainFixture,
     Colony.Topology,
     Colony.Transport,
     Colony.Types,
     Colony.UIFixture,
-    Colony.UIShell,
     Colony.Units,
     Colony.Workforce,
     Colony.World
 
 executable red-dune-live
   import: shared
+  if os(windows)
+    buildable: False
   ghc-options: -O2
   main-is: HostMain.hs
   hs-source-dirs: app
@@ -175,8 +177,38 @@ executable red-dune-tick-bench
   ghc-options: -rtsopts -threaded
   build-depends: red-dune-live
 
+executable red-dune
+  import: shared
+  if !os(windows)
+    buildable: False
+  main-is: Main.hs
+  hs-source-dirs: native
+  other-modules:
+    RedDune.Native.Store
+    RedDune.Native.Play
+    RedDune.Native.View
+    RedDune.Native.Font
+    RedDune.Native.Help
+  c-sources: native/cbits/store.c
+  build-depends: red-dune-live, h-raylib >=5.5 && <5.7
+  ghc-options: -O2 -threaded -rtsopts -optl-mwindows
+
+test-suite live-native
+  import: shared
+  if !os(windows)
+    buildable: False
+  type: exitcode-stdio-1.0
+  main-is: NativeTests.hs
+  hs-source-dirs: test, native
+  other-modules: RedDune.Native.Store, RedDune.Native.Play, RedDune.Native.Help
+  c-sources: native/cbits/store.c
+  build-depends: red-dune-live
+  ghc-options: -O2 -threaded
+
 test-suite live-host-lifecycle
   import: shared
+  if os(windows)
+    buildable: False
   ghc-options: -O2
   type: exitcode-stdio-1.0
   main-is: HostLifecycleTests.hs
@@ -201,10 +233,28 @@ test-suite live-legacy
   hs-source-dirs: test
   build-depends: red-dune-live
 
+test-suite live-dining
+  import: shared
+  ghc-options: -O2
+  type: exitcode-stdio-1.0
+  main-is: LiveDiningTests.hs
+  hs-source-dirs: test, native
+  other-modules: RedDune.Native.Play
+  build-depends: red-dune-live
+
+test-suite live-help
+  import: shared
+  type: exitcode-stdio-1.0
+  main-is: NativeHelpTests.hs
+  hs-source-dirs: test, native
+  other-modules: RedDune.Native.Help
+
 -- Cabal owns dependency flags/package DBs; no hand-written ghc package list.
 -- Sources are home modules only here, so :reload actually checks gameplay.
 executable red-dune-dev
   import: shared
+  if os(windows)
+    buildable: False
   if !flag(development)
     buildable: False
   main-is: DevMain.hs
@@ -223,6 +273,8 @@ executable red-dune-dev
 -- Operational watcher is native Haskell; Python is a measurement oracle only.
 executable red-dune-devloop
   import: shared
+  if os(windows)
+    buildable: False
   if !flag(development)
     buildable: False
   main-is: DevLoopMain.hs

@@ -26,6 +26,7 @@
     "references/red-dune-live/src",
     "references/red-dune-live/app",
     "references/red-dune-live/test",
+    "references/red-dune-live/native",
     "tools/haskell"
   ],
   "preserved_source_roots": [

@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "platform": "Windows x64 / GHC 9.6.7 / h-raylib 5.6.0.0",
+  "scope": "Initial automated native acceptance record; subsequent owner play and overnight help follow-up are recorded separately below",
+  "campaign_build_checkpoint": "3cf7fe6004abe2225971f2070c272a375583499e",
+  "input": "Opt-in raw pointer/key replay through ordinary UI hit tests; real native GPU frames and real-time authoritative clock",
+  "owner_physical_mouse_keyboard_test": false,
+  "owner_enjoyment_acceptance": false,
+  "scenarios": [
+    {
+      "scenario": "settlement",
+      "elapsed_hours": 66,
+      "ending": "SettlementSecured",
+      "all_six_objectives": true,
+      "new_food_produced_g": 324000,
+      "new_food_eaten_g": 216000,
+      "consecutive_stable_hours": 38,
+      "gpu_capture_sha256": "b42d133ce8c3044dac9fccc59f9ed598dc57faee51c53542c3a792a3f5320932",
+      "observation_sha256": "c14bc332afabd31cb8ccdccb9ded09208da7b6b93976e558f44e46e86167d051"
+    },
+    {
+      "scenario": "recovery",
+      "elapsed_hours": 42,
+      "ending": "SettlementSecured",
+      "all_six_objectives": true,
+      "new_food_produced_g": 234000,
+      "new_food_eaten_g": 150000,
+      "consecutive_stable_hours": 19,
+      "gpu_capture_sha256": "66f793b638e28524e94071ccc550f8f6b3b43f3fbb401978a7b89e7df971b933",
+      "observation_sha256": "2ca4e45a0a992c48886f72f8289fe277284aca9e245bc7653fd8b5a6664abd24"
+    }
+  ],
+  "native_store_acceptance": {
+    "result": "PASS",
+    "cases": [
+      "commissioning grants neither inventory nor time",
+      "paused fresh authority and immutable branch restore",
+      "exact flushed readback",
+      "200-tick physical continuation: stock, provenance, jobs, ledger and residents",
+      "stale preview rejection",
+      "process lock contention",
+      "path traversal rejected",
+      "ancestor directory identity pinned",
+      "corrupt saves skipped without hiding healthy history",
+      "latest healthy startup and all history pages",
+      "numeric save sequence ordering",
+      "Japanese save directory"
+    ]
+  },
+  "visual_qa": {
+    "resolutions": [
+      [
+        1440,
+        940
+      ],
+      [
+        1280,
+        880
+      ]
+    ],
+    "observed": [
+      "Japanese welcome, introduction and campaign conclusions",
+      "three-shift water, food and service crews",
+      "real warehouse construction and physical stock receipt",
+      "food delivery disabled, re-enabled and buffer raised to 78 kg",
+      "save preview/confirm followed by paused restart",
+      "complete facility palette and save-library paging",
+      "all warehouse stock pages, including pieces and medicine doses",
+      "authoritative day clock, crop progress and repair state"
+    ],
+    "artifact_policy": "GPU PNGs, replay inputs and full world observations remain in the local task scratch directory; no owner saves are published"
+  },
+  "source_sha256": {
+    "references/red-dune-live/native/Main.hs": "a617e31c97bff912045b4a1ec8ebbddecac2aa8a2b704af18154f48daaa54e51",
+    "references/red-dune-live/native/RedDune/Native/Font.hs": "53b4403d6de33802729d41a901549ff02cc43d2d6bab24f3772ea87e80c62dd6",
+    "references/red-dune-live/native/RedDune/Native/Play.hs": "0eff7e3ebcc7109322463968dd896a1f5a42409b64404a828d219a035d92f783",
+    "references/red-dune-live/native/RedDune/Native/Store.hs": "f2fc79515493d7ac9bd3cbcabe71c0b53cca44caf1dbdaaa83b9f4ed77ac6827",
+    "references/red-dune-live/native/RedDune/Native/View.hs": "77c2e2e86212bd6d1eda4d89e474b1783ad04d8d4e7b3b8195a9d66b1fb40124",
+    "references/red-dune-live/native/cbits/store.c": "8543b5a6a5d60b9854f8a77c8733a688cdd471fbf43f1970a5f97fef21dfd92a",
+    "references/red-dune-live/test/NativeTests.hs": "cceeb7a74e6d07de5f0ca0bb175f84eaaa425c68ccb93d2d226543c7fda9ee1b"
+  },
+  "performance": {
+    "basis": "One actual settlement continuation at 8x on this machine",
+    "elapsed_ticks_from": 28800,
+    "elapsed_ticks_to": 60856,
+    "wall_seconds": 200,
+    "claim": "Observed continuation only, not a historical or cross-machine performance guarantee"
+  },
+  "packaged_app_acceptance": {
+    "result": "PASS",
+    "installed_binary_sha256": "16c6dbfc27504fc9bd0e0e08d7a18e011b36a3a69ec4d567c19761714386ef80",
+    "launch_exit_code": 0,
+    "gpu_capture_sha256": "5030d6ccb3b6538d38b474569fdc758cd14a2ed4236f4f2234ecc6e849dbd686",
+    "details": [
+      "launch from permanent app directory with no compiler or browser process",
+      "Japanese introduction and authored procedural icon",
+      "OS DLL imports only; Haskell and raylib DLLs are not required",
+      "dependency notices for 26 resolved packages",
+      "owner default store is separate from Linux and QA stores"
+    ]
+  },
+  "study_2026_10_07": {
+    "scope": "Automated native trial at the recorded build; subsequent owner play is recorded in owner_feedback",
+    "native_trial_rule_pack": "Unmodified default rules, no shortened building or recipe times",
+    "initial_trial_checkpoint": "5c9c20d8b4eb7169c71bc0f1bd6c140b6a3dd881",
+    "initial_trial_speed": 4,
+    "window_elapsed_seconds": {
+      "selected_site_response": 0.3582245,
+      "first_physical_shipment_delivery": 4.9969781,
+      "first_cooked_food_arrival_and_local_meal": 134.413854
+    },
+    "timing_claim": "One observed real-time trial, not a cross-machine performance guarantee",
+    "dining_plan_preview": {
+      "tile": [
+        60,
+        68
+      ],
+      "rotation": "R180",
+      "new_road_tiles": 3,
+      "stone_cost_g": 46000,
+      "metal_cost_g": 40000,
+      "uncommitted_before_confirmation": true,
+      "gpu_sha256": "9642465de0cfb0fe80bf732d57fafb6bec283237a0070522e70fbb029b2637a9"
+    },
+    "decorated_resume": {
+      "result": "PASS",
+      "preview_then_confirm": true,
+      "resumed_paused": true,
+      "retained_pieces": 6,
+      "retained_places_sha256": "97036a2aa5c9b271a30b20779584103c0a74dc2e30028fe364dbcec7fa805172",
+      "actual_local_eaters": 4,
+      "planned_users": 6,
+      "local_food_g": 4316,
+      "gpu_sha256": "c8f99757524201ceb944b37e5e8c88c53f51fe7e23d21b9d45795274fa1d7f74",
+      "observed_resolutions": [
+        [
+          1440,
+          940
+        ],
+        [
+          1280,
+          880
+        ]
+      ]
+    },
+    "domain_acceptance": {
+      "result": "PASS",
+      "test_suites": [
+        "live-dining",
+        "live-boundary",
+        "live-legacy",
+        "live-construction",
+        "live-native"
+      ],
+      "accelerated_domain_case_scope": "Dining construction/meal integration tests shorten build and recipe times; native trial above does not",
+      "cases": [
+        "real kitchen shipment and FEFO consumption",
+        "exact stock and nutrition ledger loss",
+        "busy or empty dining falls back to base ration",
+        "duplicate pantry owner normalization",
+        "paid road admission and scenery protection",
+        "strict RDLIVE1 migration",
+        "RDLIVE2 queued plans, meal records and 80-tick restore continuation"
+      ]
+    },
+    "limits": [
+      "One dining place; no relocation or cancellation after confirmation",
+      "No resident commute simulation or production bonus from decorative pieces",
+      "Owner input and enjoyment were pending when these automated captures were made; subsequent feedback is recorded separately"
+    ],
+    "packaged_trial": {
+      "installed_binary_sha256": "717a783f179ddbd8e1d81b2d3115d8e77273cc4ff79663408000a744e3e9252e",
+      "launch_exit_code": 0,
+      "matches_built_binary": true,
+      "separate_trial_save": true,
+      "owner_trial_save_not_seeded_by_replay": true,
+      "original_binary_unchanged": true,
+      "gpu_sha256": "e6f5b6861b428f4429bd4cb1d020d0930bb875f93bdee69fecfb1c97b24d33b5"
+    },
+    "source_sha256_lf": {
+      "references/red-dune-live/native/Main.hs": "be416589b7e7d174d0bdc72504458db2e838969afe16e0fe31f9389aba14e40b",
+      "references/red-dune-live/native/RedDune/Native/Play.hs": "525c75fe531bbe97d0499f05a5249441264ab0602b51747c67bf525807facb2c",
+      "references/red-dune-live/native/RedDune/Native/View.hs": "cbc30a3aa92db58980e7ebeb7ff87c2bc4b7fc9d3932fc08872cf1dbbfe6325f",
+      "references/red-dune-live/src/RedDune/Game.hs": "16e4b3f01c57824a3b1a456820b7baca1f0eecaabd05ee644f3c7beae5368d1f"
+    }
+  },
+  "owner_feedback": {
+    "basis": "Owner feedback supplied with the delegated follow-up request",
+    "played_trial_binary_sha256": "717a783f179ddbd8e1d81b2d3115d8e77273cc4ff79663408000a744e3e9252e",
+    "physical_owner_play_reported": true,
+    "positive_owner_enjoyment_reported": true,
+    "followup": "Clear Japanese explanations, contextual help and optional guidance",
+    "overnight_help_owner_trial": "Pending at the automated checkpoint; subsequent morning trial reported positive on 2026-10-08 (see morning_trial_2026_10_08)",
+    "morning_trial_2026_10_08": {
+      "basis": "Owner report supplied in the main-integration delegation",
+      "reported_time_jst": "2026-10-08 09:45 JST",
+      "reported_time_utc": "2026-10-08 00:45 UTC",
+      "latest_native_app_play_reported": true,
+      "positive_owner_enjoyment_reported": true,
+      "owner_quote": "めっちゃいいです",
+      "scope": "Positive assessment of this reported trial; not a long-term evaluation or general proof of enjoyment"
+    }
+  },
+  "help_2026_10_08": {
+    "initial_checkpoint": "59f1a47af57a0f2268c20fcc129de05f7924519c",
+    "scope": "Actual Windows native GPU rendering and ordinary UI hit-test replay; synthetic input",
+    "rules_and_world_codec_changes": false,
+    "chapters": 7,
+    "resolutions": [
+      [
+        1440,
+        940
+      ],
+      [
+        1280,
+        880
+      ]
+    ],
+    "exact_game_state_help_comparisons": 75,
+    "all_exact_game_states_equal": true,
+    "retained_contexts": [
+      "selected facility and tab",
+      "camera",
+      "road first endpoint",
+      "rotated decorative placement",
+      "save library page",
+      "welcome and load preview",
+      "dining location, rotation and cost preview"
+    ],
+    "time": {
+      "active_help_open_and_held_tick": 7217,
+      "opening_and_closing_frames_suspend_tick_debt": true,
+      "first_ordinary_capture_after_close_tick": 7223,
+      "catch_up_after_help": false,
+      "default_focus_loss_pause": "Retained; opt-in replay bypasses automatic focus pausing"
+    },
+    "preferences": {
+      "format": "Separate bounded ASCII ui-preferences.rdui; not part of RDLIVE2",
+      "seen_and_off_persist_after_restart": true,
+      "existing_load_does_not_repeat_starter_prompts": true,
+      "repeat_is_explicit_and_condition_driven": true,
+      "all_chapters_accessible_while_guides_off": true,
+      "invalid_preferences_do_not_hide_healthy_world_saves": true,
+      "stale_ui_pending_write_does_not_block_recovery": true
+    },
+    "production_stop_and_resume": {
+      "custom_water_delivery_target_ml": 240000,
+      "stop_resume_preserves_rosters_routes_stock_and_jobs": true,
+      "stopped_current_job_id": 78,
+      "stopped_current_job_completed": true,
+      "one_real_batch_water_ml": 60000,
+      "no_next_production_job_started": true,
+      "current_work_progress_remains_visible": true
+    },
+    "observed_japanese_explanations": [
+      "automatic staffing and time start at well, farm and kitchen",
+      "delivery amounts include resource units",
+      "replenishment band and usable source stock",
+      "stop repetition and remove three-shift crew are separate actions",
+      "latest meal count and two assigned users per shift",
+      "scenery placement, rotation and removal without production bonuses",
+      "save library, autosave waiting and immutable paused restore",
+      "construction queue wait failure"
+    ],
+    "test_suites": {
+      "live-help": "PASS",
+      "live-native": "PASS"
+    },
+    "portable_help_suite_in_linux_smoke": true,
+    "installed_package": {
+      "folder": "Red Dune Help 2026-10-08",
+      "binary_sha256": "5fa19159326d15aa23a40740fe282ec03ec040dc4bb3212aa73e5851b2dd5d08",
+      "launch_exit_code": 0,
+      "existing_trial_entry_and_save_argument_preserved": true,
+      "owner_original_files_unchanged": 21,
+      "original_and_preceding_trial_executables_unchanged": true,
+      "no_process_killed": true,
+      "save_while_help_open_preserves_world": true,
+      "load_preview_and_paused_resume_from_copied_owner_world": true
+    },
+    "gpu_sha256": {
+      "saving_at_minimum_window": "4220a085da871a58b326ea3bdb058144335dd9e33e5a888cc75c43aff7b2d6e4",
+      "stopped_job_progress": "29d6b4867be2e419513d7b59ea8da502ca20103b9fb753fc82adb454a7717e4c",
+      "final_packaged_help": "efb31d5f440b8161fe5cfd4ca1f35a3e08ea2eea920be1af6bf618eafa933f04"
+    },
+    "source_sha256_lf": {
+      "references/red-dune-live/native/Main.hs": "bdf6daa37a04a879f1339a0148c1dde1b449cd0168fc6085c0206fe81ef1c7b4",
+      "references/red-dune-live/native/RedDune/Native/Help.hs": "43d93ab4cb3fbcdae5fa688ebfc07a77ef491b8a78116b992c8468a3ddbca3e9",
+      "references/red-dune-live/native/RedDune/Native/Play.hs": "ae66b681720ff8ec116d4fa9154af2c723a2f3b7917bb52f212acf87cbcc2c66",
+      "references/red-dune-live/native/RedDune/Native/Store.hs": "2f0bd946d63556958209253bf84f3926265eec46b467d2d6c382023658ee2f9f",
+      "references/red-dune-live/native/RedDune/Native/View.hs": "6c3f3cb1f9baa93c892f8046562ca47044f19b3147a47a306c32e697b8a52eea",
+      "references/red-dune-live/native/cbits/store.c": "bda0e3c07872e09e6475a5476088ded270b43e617335c65c312c664a31b0778f",
+      "references/red-dune-live/test/NativeHelpTests.hs": "34b12cba78dfe622bac0208e077d047c3e7c8140d1183f639904ffe12bb08f27",
+      "references/red-dune-live/test/NativeTests.hs": "ecb44a5850ccd008c69ced4c18d9e2508ea8e93ba7680c319aaad802e78f60cf"
+    },
+    "artifact_policy": "Screens, raw input replays, preference files and owner save copies remain local; no new screenshot egress",
+    "owner_trial": "Pending at this automated checkpoint; subsequently resolved by the reported positive owner trial on 2026-10-08 at 09:45 JST"
+  },
+  "farm_start_copy_fix": {
+    "parent_checkpoint": "19f0aa8abb66e6c00738c36b7d6609a6c4372e50",
+    "scope": "Two Japanese explanations corrected to match existing StartSite farm behavior; no game rule changes",
+    "farm_start_text": "農場の担当と水の配送を準備します。",
+    "actual_native_gpu_replay": {
+      "input": "Synthetic pointer/key input through ordinary UI hit tests, separate fresh QA store",
+      "resolution": [
+        1440,
+        940
+      ],
+      "farm_panel_and_water_food_help_visible": true,
+      "added_delivery_ids": [
+        "farm-biomass",
+        "farm-water"
+      ],
+      "kitchen_crops_added": false,
+      "exact_game_state_help_comparisons": 2,
+      "all_exact_game_states_equal": true,
+      "gpu_sha256": {
+        "farm-start": "b9a14db4976eacf31cad20b41ef808f7e623daeb4a5d0c37da1a9bb38a7431c8",
+        "farm-help": "262feaf9821e0ed4e0ed79f677ea0fa48efb6178b1b9b1996082432e6a4072b8"
+      }
+    },
+    "validation": {
+      "pinned_ormolu": "PASS",
+      "live-help": "PASS",
+      "native_build": "PASS",
+      "installed_launch_exit_code": 0
+    },
+    "installed_package": {
+      "folder": "Red Dune Help 2026-10-08",
+      "binary_sha256": "a56a914ec6d290e171dd332a3f056504f725286ff995af2980932b47f2c2d215",
+      "fresh_build_matches_installed": true,
+      "existing_trial_entry_and_save_argument_preserved": true,
+      "owner_original_files_unchanged": 21,
+      "no_process_killed": true
+    },
+    "source_sha256_lf": {
+      "references/red-dune-live/native/RedDune/Native/Help.hs": "13c18d17169c8b6efc98a63e678bf0aa32cb5cf1fe0da08d0f6474e87d44642a",
+      "references/red-dune-live/native/RedDune/Native/View.hs": "53ee54aff48965c33a3f917267c914e619a05bc9feadebdea528907355c0a4f0"
+    },
+    "owner_trial": "Pending at this automated checkpoint; subsequent positive owner trial of the latest native app reported on 2026-10-08 at 09:45 JST",
+    "artifact_policy": "Screens and raw replay remain local; no screenshot egress"
+  }
+}
