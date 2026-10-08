@@ -16,7 +16,7 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (foldM, forM_, void, when)
-import Data.List (find, isInfixOf, sortOn)
+import Data.List (find, foldl', isInfixOf, sortOn)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
 import Data.Word (Word64)
@@ -135,6 +135,14 @@ newScreen game dialog =
     }
 
 data WorldCue = WorldCue {cueX :: !Float, cueY :: !Float, cueLabel :: !String, cueLife :: !Float, cueColor :: !Color}
+
+data WorldLabel = WorldLabel
+  { worldLabelPriority :: !Int,
+    worldLabelBounds :: !Rectangle,
+    worldLabelTitle :: !String,
+    worldLabelTitleWidth :: !Float,
+    worldLabelStatus :: !(Maybe (String, Color))
+  }
 
 fadeCues :: Double -> [WorldCue] -> [WorldCue]
 fadeCues dt = filter ((> 0) . cueLife) . map (\cue -> cue {cueLife = cueLife cue - realToFrac dt})
@@ -385,6 +393,53 @@ drawColony font width height time mouse screen failure = do
           drawWorksite width height camera (fromInteger x) (fromInteger y) 3 3 0
           let Vector2 sx sy = p (fromInteger x + 1.5) (fromInteger y + 1.5)
           txt font "食事の場（予定）" (sx - 90) (sy - 74) 23 ink
+      let buildingLabel placement = case S.placementShape placement of
+            S.BuildingShape name (S.Tile x y) rotation -> do
+              let ident = S.placementId placement
+                  selected = screenSelected screen == Just ident
+                  pointed = hovered == Just (SelectSite ident)
+              if not (selected || pointed || name `elem` ["hand_pump", "farm", "kitchen", "pantry"])
+                then pure Nothing
+                else do
+                  let (fw, fh) = maybe (3, 3) buildingFootprint (M.lookup name (contentBuildings (worldContent world)))
+                      (bw, bh) = if rotation `elem` [S.R90, S.R270] then (fromInteger fh, fromInteger fw) else (fromInteger fw, fromInteger fh)
+                      px = fromInteger x
+                      py = fromInteger y
+                      Vector2 centerX centerY = p (px + bw / 2) (py + bh / 2)
+                      cx = centerX + (if name == "farm" then -42 else if name == "kitchen" then 38 else 0)
+                      cy = centerY + (if name == "farm" then -22 else if name == "kitchen" then 8 else 0)
+                      title = if M.member (S.Tile x y) (gameDiningPlaces game) then "食事の場" else siteName name
+                      elevation = if name `elem` ["farm", "solar"] then 9 else scale * 2.2
+                      status = siteStatus game ident
+                      showStatus = selected || pointed || name == "hand_pump"
+                      caption = statusTitle status
+                  Vector2 titleWidth _ <- measureLabel font title 23
+                  Vector2 captionWidth _ <- measureLabel font caption 20
+                  let labelWidth = max titleWidth (if showStatus then captionWidth else 0) + 28
+                      lx = max 8 (min (visibleWidth - labelWidth - 8) (cx - labelWidth / 2))
+                      ly = cy - elevation - if showStatus then 78 else 42
+                      bounds = Rectangle lx ly labelWidth (if showStatus then 65 else 37)
+                      priority = if selected then 0 else if pointed then 1 else 2
+                      statusLine = if showStatus then Just (caption, moodColor (statusMood status)) else Nothing
+                  pure $ if cx >= 0 && cx <= visibleWidth && cy >= 100 && cy <= fromIntegral height - 114
+                    then Just (WorldLabel priority bounds title titleWidth statusLine)
+                    else Nothing
+            _ -> pure Nothing
+      candidates <- mapM buildingLabel placements
+      let overlaps (Rectangle ax ay aw ah) (Rectangle bx by bw bh) = ax < bx + bw && bx < ax + aw && ay < by + bh && by < ay + ah
+          keep labels label
+            | any (overlaps (worldLabelBounds label) . worldLabelBounds) labels = labels
+            | otherwise = label : labels
+          visibleLabels = reverse (foldl' keep [] (sortOn worldLabelPriority [label | Just label <- candidates]))
+          drawWorldLabel label = do
+            let Rectangle lx ly labelWidth labelHeight = worldLabelBounds label
+            card lx ly labelWidth labelHeight (Color 255 249 233 244)
+            txt font (worldLabelTitle label) (lx + (labelWidth - worldLabelTitleWidth label) / 2) (ly + 5) 23 ink
+            case worldLabelStatus label of
+              Nothing -> pure ()
+              Just (caption, color) -> do
+                drawCircleV (Vector2 (lx + 12) (ly + 47)) 4 color
+                txt font caption (lx + 23) (ly + 36) 20 color
       let drawBuilding placement = case S.placementShape placement of
             S.RoadShape (S.Tile x y) -> when (S.placementStage placement /= S.Built) $ tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (Color 246 193 81 180)
             S.BuildingShape name (S.Tile x y) rotation -> do
@@ -407,36 +462,15 @@ drawColony font width height time mouse screen failure = do
               if S.placementStage placement /= S.Built
                 then drawWorksite width height camera px py bw bh progress
                 else drawFacility width height camera clock night (if M.member (S.Tile x y) (gameDiningPlaces game) then "dining" else name) px py bw bh running progress stock
-              when (selected && S.placementStage placement /= S.Built && name `elem` ["mine", "quarry"]) $ case S.placementGeometry (worldContent world) placement of
-                Right (_, Just portGeometry) -> do
-                  let connector@(S.Tile cx cy) = S.roadConnector portGeometry
-                      Vector2 ex ey = p (fromInteger cx + 0.5) (fromInteger cy + 0.5)
+              when selected $ case worksiteRoadConnector game ident of
+                Just connector@(S.Tile cx cy) -> do
+                  let Vector2 ex ey = p (fromInteger cx + 0.5) (fromInteger cy + 0.5)
                       connected = Set.member connector (S.spatialRoads space)
                       caption = if connected then "道路につながる" else "ここへ道路"
                   tileQuad width height camera (fromInteger cx) (fromInteger cy) 1 1 0 (Color 85 174 118 145)
                   card (ex + 10) (ey - 19) 128 34 panel
                   txt font caption (ex + 19) (ey - 15) 18 ink
-                _ -> pure ()
-              when (selected || pointed || name `elem` ["hand_pump", "farm", "kitchen", "pantry"]) $ do
-                let Vector2 centerX centerY = p (px + bw / 2) (py + bh / 2)
-                    cx = centerX + (if name == "farm" then -42 else if name == "kitchen" then 38 else 0)
-                    cy = centerY + (if name == "farm" then -22 else if name == "kitchen" then 8 else 0)
-                    title = if M.member (S.Tile x y) (gameDiningPlaces game) then "食事の場" else siteName name
-                    size = 23
-                    elevation = if name `elem` ["farm", "solar"] then 9 else scale * 2.2
-                    showStatus = selected || pointed || name == "hand_pump"
-                    caption = statusTitle status
-                Vector2 titleWidth _ <- measureLabel font title size
-                Vector2 captionWidth _ <- measureLabel font caption 20
-                let labelWidth = max titleWidth (if showStatus then captionWidth else 0) + 28
-                    lx = max 8 (min (visibleWidth - labelWidth - 8) (cx - labelWidth / 2))
-                    ly = cy - elevation - if showStatus then 78 else 42
-                when (cx >= 0 && cx <= visibleWidth && cy >= 100 && cy <= fromIntegral height - 114) $ do
-                  card lx ly labelWidth (if showStatus then 65 else 37) (Color 255 249 233 244)
-                  txt font title (lx + (labelWidth - titleWidth) / 2) (ly + 5) size ink
-                  when showStatus $ do
-                    drawCircleV (Vector2 (lx + 12) (ly + 47)) 4 (moodColor (statusMood status))
-                    txt font caption (lx + 23) (ly + 36) 20 (moodColor (statusMood status))
+                Nothing -> pure ()
       let drawResident (n, person, resident, (px, py, working, eating)) = do
             let bob = if working || eating && worldMode world == Active then 0.8 * sin (clock * 5 + fromIntegral n) else 0
                 Vector2 u v = p px py
@@ -479,6 +513,7 @@ drawColony font width height time mouse screen failure = do
               ++ [(sceneDepth camera px py, drawResident person) | (person@(_, _, _, (px, py, _, _))) <- residents]
               ++ [(sceneDepth camera x y, drawVehicle vehicle) | vehicle <- M.elems (transportVehicles (worldTransport world)), let (x, y) = vehicleXY (transportTopology (worldTransport world)) (vehiclePosition vehicle)]
       mapM_ snd (sortOn fst scene)
+      mapM_ drawWorldLabel visibleLabels
       case screenBuild screen of
         Nothing -> pure ()
         Just name | visibleWorld -> do
