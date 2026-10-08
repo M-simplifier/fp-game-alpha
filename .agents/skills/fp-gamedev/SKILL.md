@@ -6,6 +6,8 @@ description: Implement, extend or review pure functional Haskell games, includin
 Read [the shared core](../../../docs/architecture.md) and select only the relevant
 [technical practice](../../../docs/practice/README.md). Use `$haskell-excellence`
 for Haskell implementation decisions and `$new-game` for a new brief/workspace.
+Use [game-experience](../game-experience/SKILL.md) when changing player choices,
+feedback, UI/help or Japanese copy, selecting only the relevant reference.
 
 Give this game its own types and rules. Keep authoritative transitions pure and
 external effects explicit. Host input, clocks, resources and rendering interpret

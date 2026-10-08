@@ -118,6 +118,7 @@ abstract decisions; it is not a human-fun guarantee or a renderer benchmark.
 
 - `$new-game`: brief and platform to a new game designed around the shared core
 - `$fp-gamedev`: implement and refine this game’s rules and runtime boundaries
+- [`$game-experience`](.agents/skills/game-experience/SKILL.md): design player experience and progression, or improve UI/help and Japanese copy from play feedback
 - `$haskell-excellence`: types, errors, effects, resources, evaluation and verification
 - `$game-platform`: host preparation, build, assets and distribution
 - `$play-game`: actual player decisions through the current headless adapter
@@ -125,6 +126,12 @@ abstract decisions; it is not a human-fun guarantee or a renderer benchmark.
 
 The [technical knowledge index](docs/practice/README.md) is the canonical guide;
 these entries route to the relevant knowledge without making every task read it all.
+
+The [experience design](docs/game-experience/design.md) and
+[UI/Japanese guide](docs/game-experience/ui-and-japanese.md) preserve the reusable
+judgments from the 7 October Red Dune study. Read the
+[sources and evidence limits](docs/game-experience/sources.md) when evaluating a
+claim; the positive owner trial does not establish long-term or universal appeal.
 
 ## A game authored from its own brief
 
