@@ -41,6 +41,7 @@ main = do
   check "quarry beside sand is constructible" (case plan "quarry" 92 108 Space.R0 of Right _ -> True; _ -> False)
   check "mine entrance cannot cross the ore region" (case plan "mine" 12 20 Space.R180 of Left reason -> "SourceConflict" `isInfixOf` reason; _ -> False)
   check "mine away from ore is rejected" (case plan "mine" 40 40 Space.R0 of Left reason -> "NoCompatibleSource" `isInfixOf` reason; _ -> False)
+  check "clear road still queues every stage" (case decide (RoadPath (Space.Tile 40 40) (Space.Tile 42 40)) village of Right planned -> length (gameBuildQueue planned) == 3; Left _ -> False)
   check "road crossing an aquifer fails before any plan is queued" (case decide (RoadPath (Space.Tile 58 53) (Space.Tile 67 51)) village of Left reason -> "SourceConflict" `isInfixOf` reason && null (gameBuildQueue village); Right _ -> False)
   setup <- foldM (\game dept -> must (decide (Commission dept) game)) original [WaterWorks, FoodWorks, ServiceWorks]
   check "commissioning does not create resources" (invLots (worldInventory (gameWorld original)) == invLots (worldInventory (gameWorld setup)))

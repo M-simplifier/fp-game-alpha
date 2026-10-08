@@ -513,6 +513,8 @@ decisionFailure game decision failure = case decision of
   Plan (Space.BuildingShape name _ _)
     | Just explanation <- placementExplanation name failure -> explanation
   RoadPath _ _
+    | Just explanation <- placementExplanation "road" failure -> explanation
+  RoadPath _ _
     | failure == "Road plan must be at most 64 tiles and wait for the current queue" ->
         if null (gameBuildQueue game) then "道路は1回に64マスまで計画できます。もっと近い終点を選んでください。" else friendlyFailure "Wait for the current construction queue"
   _ -> friendlyFailure failure

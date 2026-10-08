@@ -217,6 +217,8 @@ sourceColor resource = case resource of
 placementExplanation :: String -> String -> Maybe String
 placementExplanation prototype failure
   | "NoCompatibleSource" `isInfixOf` failure = Just (if prototype == "mine" then "鉱石の区画に、建物の辺を重ねず接してください。" else if prototype == "quarry" then "石材か砂の区画に、建物の辺を重ねず接してください。" else "必要な資源の区画に、建物の辺を重ねず接してください。")
+  | prototype == "road" && "SourceConflict" `isInfixOf` failure = Just "資源の区画には道路を通せません。区画の外を通るように終点を選び直してください。"
+  | prototype == "road" && any (`isInfixOf` failure) ["FootprintConflict", "RoadConflict", "PortConflict"] = Just "道が施設や入口と重なります。通れる場所へ終点を選び直してください。"
   | "SourceConflict" `isInfixOf` failure = Just "資源の区画に建物・道路・入口を重ねられません。Rで入口の向きも確認してください。"
   | "FootprintConflict" `isInfixOf` failure || "RoadConflict" `isInfixOf` failure || "PortConflict" `isInfixOf` failure = Just "建物・道路・入口と重なっています。空いた場所へ動かすかRで向きを変えてください。"
   | "SourceDepleted" `isInfixOf` failure = Just "この区画の資源は枯渇しています。別の区画を探してください。"
@@ -956,10 +958,17 @@ wrapMeasured font content x top width size color = go content top
     pitch = size * 1.45 + 4
     go [] y = pure y
     go remaining y = do
-      count <- longestFitting remaining 1 (length remaining)
+      fitting <- longestFitting remaining 1 (length remaining)
+      let count = safeBreak remaining fitting
       let lineText = take count remaining
       txt font lineText x y size color
       go (drop count remaining) (y + pitch)
+    safeBreak remaining count
+      | count > 1,
+        count < length remaining,
+        remaining !! count `elem` "、。，．！？・）】』」ぁぃぅぇぉっゃゅょー" || remaining !! (count - 1) `elem` "（【『「" =
+          safeBreak remaining (count - 1)
+      | otherwise = count
     longestFitting remaining low high
       | low >= high = pure low
       | otherwise = do
