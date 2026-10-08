@@ -17,7 +17,7 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (unless)
-import Data.List (find, intercalate, nub)
+import Data.List (find, intercalate, isInfixOf, nub)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as S
 import RedDune.Campaign
@@ -229,7 +229,16 @@ rosterCount game ident = case worldM1 (gameWorld game) of
 
 siteStatus :: GameState -> EntityId -> SiteStatus
 siteStatus game ident
-  | Just job <- construction = SiteStatus (if C.constructionPhase job == C.ConstructionRunning then MoodBusy else MoodWaiting) (if C.constructionPhase job == C.ConstructionRunning then "建てています" else "建設を待っています") (case C.constructionBlocked job of Just MissingStock -> "建材の到着待ち"; Just _ -> "班・道路・建材を確認"; Nothing -> "建設班が現場を受け持ちます") (Just (fromInteger (C.constructionProgress job) / fromInteger (max 1 (C.constructionRequired (C.constructionSnapshot job)))))
+  | Just job <- construction =
+      let waitingWorkers = case C.constructionBlocked job of Just (InvalidReference reason) -> "WaitingWorkers" `isInfixOf` reason; _ -> False
+          crew = C.constructionCrewRequired (C.constructionSnapshot job)
+          title = if C.constructionPhase job == C.ConstructionRunning then "建てています" else if waitingWorkers then "建設班を待っています" else "建設を待っています"
+          detail = case C.constructionBlocked job of
+            Just MissingStock -> "建材の到着待ち。倉庫の在庫、道路、運転手を確認してください。"
+            Just _ | waitingWorkers -> "建設班" ++ show crew ++ "人が必要です。ほかの工事が終わるか、班の配置を見直してください。"
+            Just _ -> "班・道路・建材を確認"
+            Nothing -> "建設班が現場を受け持ちます"
+       in SiteStatus (if C.constructionPhase job == C.ConstructionRunning then MoodBusy else MoodWaiting) title detail (Just (fromInteger (C.constructionProgress job) / fromInteger (max 1 (C.constructionRequired (C.constructionSnapshot job)))))
   | facilityStopped (worldMaintenance world) ident = SiteStatus MoodTrouble "修理が必要" (siteReport game ident) Nothing
   | name == "pantry" =
       if rosterCount game ident == 0

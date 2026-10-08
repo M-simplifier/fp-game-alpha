@@ -2,8 +2,11 @@
 
 module Main where
 
+import Colony.M1State (m1Space)
+import Colony.S01Fixture (s01FixtureAt)
 import Colony.Space qualified as Space
 import Colony.Types
+import Colony.Units (Resource (Ore), zeroQty)
 import Colony.World
 import Control.Exception (IOException, try)
 import Control.Monad (foldM, replicateM_, unless)
@@ -17,6 +20,7 @@ import RedDune.GameSave
 import RedDune.Native.Help qualified as Help
 import RedDune.Native.Play
 import RedDune.Native.Store qualified as Store
+import RedDune.Policies qualified as Policies
 import System.Directory
 import System.Environment
 import System.FilePath
@@ -41,8 +45,36 @@ main = do
   check "quarry beside sand is constructible" (case plan "quarry" 92 108 Space.R0 of Right _ -> True; _ -> False)
   check "mine entrance cannot cross the ore region" (case plan "mine" 12 20 Space.R180 of Left reason -> "SourceConflict" `isInfixOf` reason; _ -> False)
   check "mine away from ore is rejected" (case plan "mine" 40 40 Space.R0 of Left reason -> "NoCompatibleSource" `isInfixOf` reason; _ -> False)
+  villageState <- maybe (ioError (userError "village map missing")) pure (worldM1 (gameWorld village))
+  oreSource <- case [source | source <- M.elems (Space.spatialSources (m1Space villageState)), Space.sourceRegionResource source == Ore] of
+    source : _ -> pure source
+    [] -> ioError (userError "ore source missing")
+  let oreId = Space.sourceRegionId oreSource
+      inventory = worldInventory (gameWorld village)
+      depletedInventory = inventory {invDeposits = M.adjust (\deposit -> deposit {depositQty = zeroQty}) oreId (invDeposits inventory)}
+      depletedVillage = village {gameWorld = (gameWorld village) {worldInventory = depletedInventory}}
+  check "adjacent exhausted ore reports depletion, not missing source" (case decide (Plan (Space.BuildingShape "mine" (Space.Tile 12 20) Space.R0)) depletedVillage of Left reason -> "SourceDepleted" `isInfixOf` reason; Right _ -> False)
   check "clear road still queues every stage" (case decide (RoadPath (Space.Tile 40 40) (Space.Tile 42 40)) village of Right planned -> length (gameBuildQueue planned) == 3; Left _ -> False)
   check "road crossing an aquifer fails before any plan is queued" (case decide (RoadPath (Space.Tile 58 53) (Space.Tile 67 51)) village of Left reason -> "SourceConflict" `isInfixOf` reason && null (gameBuildQueue village); Right _ -> False)
+  let sourceRoads = Set.fromList ([Space.Tile x 53 | x <- [13 .. 58]] ++ [Space.Tile 13 y | y <- [24 .. 53]])
+      sourceFixture = s01FixtureAt "red-dune-live-1" "native-resource-delivery" villageLayouts (Set.union villageRoads sourceRoads)
+  sourceGame <- must (startGameWith sourceFixture "settlement" defaultPack)
+  sourceService <- must (decide (Commission ServiceWorks) sourceGame)
+  sourcePlan <- must (decide (Plan (Space.BuildingShape "mine" (Space.Tile 12 20) Space.R0)) sourceService)
+  plannedState <- maybe (ioError (userError "planned map missing")) pure (worldM1 (gameWorld sourcePlan))
+  mineId <- case [Space.placementId placement | placement <- M.elems (Space.spatialPlacements (m1Space plannedState)), Space.BuildingShape name _ _ <- [Space.placementShape placement], name == "mine"] of
+    ident : _ -> pure ident
+    [] -> ioError (userError "mine plan missing")
+  sourceWater <- must (decide (Commission WaterWorks) sourcePlan)
+  sourceActive <- must (decide ToggleTime sourceWater)
+  let waitForMine remaining game
+        | M.member mineId (worldSites (gameWorld game)) = pure game
+        | remaining <= 0 = ioError (userError "mine was not built through delivery and construction")
+        | otherwise = must (advanceGame 1200 game) >>= waitForMine (remaining - 1)
+  sourceBuilt <- waitForMine (12 :: Int) sourceActive
+  sourceWorking <- must (decide (StartSite mineId) sourceBuilt)
+  sourceHarvested <- must (advanceGame 1200 sourceWorking)
+  check "real mine produces physical ore after road delivery, crews, and a production batch" (Policies.physical (gameWorld sourceHarvested) (Owner MachineOutput mineId) Ore > 0)
   setup <- foldM (\game dept -> must (decide (Commission dept) game)) original [WaterWorks, FoodWorks, ServiceWorks]
   check "commissioning does not create resources" (invLots (worldInventory (gameWorld original)) == invLots (worldInventory (gameWorld setup)))
   check "commissioning does not advance time" (simTick (gameWorld original) == simTick (gameWorld setup))
@@ -116,4 +148,4 @@ main = do
     name <- Store.saveGame store saved
     preview <- Store.previewCheckpoint store name
     check "Unicode save directory" (Store.previewGame preview == saved)
-  putStrLn "PASS native: source-adjacent extraction and road rejection, physical commissioning, paused activation, exact readback, immutable branch restore, stale-preview rejection, locking, traversal, directory pinning, restart"
+  putStrLn "PASS native: source placement/depletion, road rejection, physical mine delivery/construction/ore output, commissioning, paused activation, exact readback, immutable branch restore, stale-preview rejection, locking, traversal, directory pinning, restart"

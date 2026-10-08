@@ -342,15 +342,26 @@
   },
   "resource_ui_fix_2026_10_08": {
     "qa_gap": "Earlier construction tests supplied known valid ore and stone coordinates and rosters; native QA exercised the palette but did not try discovering, rotating, and placing extractors through the rendered UI.",
-    "change": "Visible source regions and focus controls, authoritative placement preview, entire-road admission before queuing, height-aware stock paging and measured crew text, and source-aware facility status.",
+    "change": "Visible source regions with remaining/depleted quantities and focus controls; accurate extractor, road, dining and detail previews; route-wide road admission; measured help, crew and inspector text; explicit road connector and construction logistics guidance; cached preview admission on an unchanged game/tile.",
     "replay": "Actual Windows native GPU frames and ordinary hit tests with synthetic pointer/key input; each case used a fresh QA store, never the owner save.",
-    "resolutions": [[1280, 880], [1440, 940]],
+    "resolutions": [
+      [
+        1280,
+        880
+      ],
+      [
+        1440,
+        940
+      ]
+    ],
     "observed": [
-      "Mine beside ore accepted at R0; R180 entrance through ore rejected with Japanese feedback",
-      "Quarry beside stone and beside sand each accepted as a construction worksite",
-      "Aquifer-crossing road preview shown red, rejected, and left the construction queue empty",
-      "Crew explanation and warehouse quantities fit at minimum window; all four warehouse stocks fit at 1440x940",
-      "Construction help opens and closes with exactly equal paused game observations"
+      "Mine beside ore accepted at R0; R180 entrance through ore rejected with Japanese feedback at 1280x880 and 1440x940",
+      "Quarry beside stone and sand each accepted as a construction worksite; planned extractor retains a visible road connector",
+      "Aquifer-crossing road and bench on a transport road are red/rejected without mutating the plan or places",
+      "Dining placement preview agrees with a valid confirmation; source stock and depletion have distinct placement reasons",
+      "Real material delivery, 2-person construction, facility staffing, and a mine production batch yielded 40 kg of physical ore in a connected fixture without injected stock or labor",
+      "Long help paragraphs, construction details, crew explanation, and warehouse quantities fit without overlaps at 1280x880 and 1440x940",
+      "Installed package preview/confirm resumed a separate copy of the owner 24-hour, 40-resident save paused; original 68 save files retained their hashes"
     ],
     "gpu_sha256": {
       "crew_1280": "8dd5ba1998fd956c14d9787b45d8d0bf9b60c97f8005bb627cd73a360592f65d",
@@ -360,21 +371,31 @@
       "stone_worksite": "e817acf57d494f6501935c87aa457a590862c3f3a578d86ad96e0d5d5f09c419",
       "sand_worksite": "c6399d258990ab38bc3149bf96be0218970630af60e17171416b45b91a381f97",
       "road_crosses_aquifer": "7862872beddb6edaeca422a60a974c0c0e614f339a44681b28003e1b68b03b5a",
-      "building_help": "eac141c27a4abe3c66cae322828b3b13a49224fb615888435d6cf1698bcf10aa"
+      "building_help": "eac141c27a4abe3c66cae322828b3b13a49224fb615888435d6cf1698bcf10aa",
+      "final_mine_valid_1280": "20d52b7338da3ebe332b213ce487d8fdfa8640cb4fec72a5eb8b1c8143b9f437",
+      "final_mine_invalid_1280": "d74a3d1721d256dc63dba0d53cbf40c5f2577e2fd5665c42750869ae78ee4984",
+      "final_mine_inspector_1280": "14ce13484c822c47f99ff72212b3f31b588447018e0a5377e190b84d153588e3",
+      "final_help_dining_1280": "dff50833cb44b998c93e7dbbb622cd9e8af475b928690a4a47b3ec0af15bc84e",
+      "final_people_1440": "5b2092d213c526491c1eaf7bb408fecfc60366ee1ee9580e3cb8e8c6123122cd",
+      "final_mine_inspector_1440": "f356a72c5281372fe9ebc94907ce35529cb933c289a7fc7c194a82504ae99288",
+      "final_long_road_preview": "4981821aa0be5ba85710fd6abe7dd90597d67d5bfb620d9085122b155347db11",
+      "final_installed_resume": "38664473b3c07ed7756f9361aa65b46773bba6b978c09da05dac5f92af147d42"
     },
-    "native_test": "live-native PASS: ore, stone, sand, invalid mine orientation, incompatible location, valid clear road, aquifer-crossing road, and existing save/restore safeguards",
-    "package_sha256": "7a84d364cc320ae64407e855b7bd5858f9f8cfd684992b2063fd417606969d21",
+    "native_test": "live-native PASS: source placement and depleted auto-source reason, full physical mine delivery/construction/ore output, road rejection, and exact save/restore safeguards; live-construction and live-help PASS",
+    "package_sha256": "8b98ba35a4dcd56493bf461387411c9d07cd8793202f8049e27b4a7ace6a7986",
     "installed_package": {
-      "folder": "Red Dune Resource 2026-10-08",
+      "folder": "Red Dune Resource Final 2026-10-08",
       "binary_matches_qa": true,
       "existing_desktop_shortcut_and_save_argument_preserved": true,
       "previous_app_preserved": true,
       "processes_killed": 0,
       "original_owner_save_files_unchanged": 68,
       "preview_confirm_resume_from_separate_copy": "24-hour settlement, 40 residents, paused, Windows native exit 0",
-      "copied_save_resume_gpu_sha256": "68902a69a03c5cdabb28c82d1e29104edc4ee626e7d2e92070e9f9d11e94f204"
+      "copied_save_resume_gpu_sha256": "38664473b3c07ed7756f9361aa65b46773bba6b978c09da05dac5f92af147d42"
     },
-    "owner_trial_of_this_fix": "Pending; earlier positive trial belongs to the preceding native build.",
-    "artifact_policy": "Screens and raw replay remain local; no screenshot egress"
+    "owner_trial_of_this_fix": "Pending; AI validation does not establish owner enjoyment.",
+    "artifact_policy": "Screens and raw replay remain local; no screenshot egress",
+    "preview_performance_observed": "Windows hidden native GPU replay at 1280x880: unchanged ~50-tile road hover measured 34.3 ms/frame before cache and 16.7 ms/frame in the final package; isolated replay measurement, not a general performance guarantee.",
+    "prior_package_sha256": "7a84d364cc320ae64407e855b7bd5858f9f8cfd684992b2063fd417606969d21"
   }
 }

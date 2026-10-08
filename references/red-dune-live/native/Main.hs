@@ -45,7 +45,7 @@ import Text.Read (readMaybe)
 
 data Options = Options {optionStore :: !FilePath, optionQa :: !(Maybe FilePath), optionFrames :: !(Maybe Int), optionPack :: !(Maybe FilePath), optionNew :: !(Maybe String), optionHidden :: !Bool}
 
-data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool, appNewPack :: !ContentPack, appQaMilestones :: !(M.Map String Double)}
+data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool, appNewPack :: !ContentPack, appQaMilestones :: !(M.Map String Double), appPreview :: !(Maybe (PreviewKey, Maybe String))}
 
 main :: IO ()
 main =
@@ -87,7 +87,7 @@ main =
         fontFile <- findFont
         fontBytes <- BS.readFile fontFile >>= either (ioError . userError) pure . fontFace
         bracket (loadNativeFont fontBytes glyphs) unloadNativeFont $ \font -> do
-          loop root options store font (App screen 0 (gameRevision game) 0 0 0 False started pack M.empty)
+          loop root options store font (App screen 0 (gameRevision game) 0 0 0 False started pack M.empty Nothing)
     `catch` ( \(errorValue :: IOException) -> do
                 temp <- getTemporaryDirectory
                 writeFile (temp </> "red-dune-startup-error.txt") (show errorValue)
@@ -145,8 +145,13 @@ loop root options store font previous = do
     _ -> pure ()
   let oldScreen = appScreen previous
       guidedScreen = if appStarted previous && isPlainScreen oldScreen then oldScreen {screenHelpUi = Help.refreshHint (hintForScreen oldScreen) (screenHelpUi oldScreen)} else oldScreen
-      guided = previous {appScreen = guidedScreen}
-  buttons <- drawing (drawView font width height time usedMouse guidedScreen)
+      preview = case previewKeyAt width height usedMouse guidedScreen of
+        Nothing -> Nothing
+        Just key -> case appPreview previous of
+          Just cached@(oldKey, _) | oldKey == key -> Just cached
+          _ -> Just (key, previewFailureAt (screenGame guidedScreen) key)
+      guided = previous {appScreen = guidedScreen, appPreview = preview}
+  buttons <- drawing (drawView font width height time usedMouse guidedScreen (maybe Nothing snd preview))
   let click = nativeClick || qaClick /= Nothing
       command = if click then buttonCommand <$> find (inside usedMouse . buttonRect) (reverse buttons) else Nothing
   keyCommand <- keyboard guidedScreen
@@ -182,7 +187,9 @@ loop root options store font previous = do
               commandForPlace = if prototype == "dining" then PlaceDining tile (screenBuildRotation cameraScreen) else if prototype == "detail-erase" then Choose (RemoveDetail tile) else maybe (Choose (Plan shape)) (\kind -> Choose (PlaceDetail kind tile (screenBuildRotation cameraScreen))) detail
           if prototype == "road"
             then case screenRoadStart cameraScreen of
-              Nothing -> pure operated {appScreen = cameraScreen {screenRoadStart = Just tile, screenNotice = "道路の終点を選んでください。Escで取り消せます。"}}
+              Nothing -> case decide (RoadPath tile tile) (screenGame cameraScreen) of
+                Left failure -> pure operated {appScreen = cameraScreen {screenNotice = decisionFailure (screenGame cameraScreen) (RoadPath tile tile) failure}}
+                Right _ -> pure operated {appScreen = cameraScreen {screenRoadStart = Just tile, screenNotice = "道路の終点を選んでください。Escで取り消せます。"}}
               Just from -> perform store operated {appScreen = cameraScreen {screenRoadStart = Nothing}} (Choose (RoadPath from tile))
             else perform store operated {appScreen = cameraScreen} commandForPlace
         Nothing -> pure operated {appScreen = cameraScreen {screenSelected = placementAt (screenGame cameraScreen) (unproject width height (screenCamera cameraScreen) usedMouse), screenTab = ColonyTab}}
@@ -203,7 +210,9 @@ loop root options store font previous = do
   case (optionQa options, captureName) of
     (Just folder, Just name) | takeFileName name == name && takeExtension name == ".png" -> do
       createDirectoryIfMissing True folder
-      _ <- drawing (drawView font width height time usedMouse (appScreen saved))
+      let capturePreview = previewKeyAt width height usedMouse (appScreen saved)
+          captureFailure = maybe Nothing (previewFailureAt (screenGame (appScreen saved))) capturePreview
+      _ <- drawing (drawView font width height time usedMouse (appScreen saved) captureFailure)
       captureFrame (folder </> name)
       writeFile (folder </> replaceExtension name "json") (encodeJSON (observeGame (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "dining.txt") (show (diningStatuses (screenGame (appScreen saved))))
@@ -499,6 +508,7 @@ decisionMessage decision = case decision of
   Commission FoodWorks -> "農場と厨房の班を配置しました。作物が育ち、食事になり、運ばれていきます。"
   Commission ServiceWorks -> "建設と保守の予備班を準備しました。修復を優先して作業します。"
   ReserveWarehouse -> "予備倉庫と道路を計画しました。物資と班がそろうと工事が進みます。"
+  Plan (Space.BuildingShape name _ _) | name `elem` ["mine", "quarry"] -> "建設計画を置きました。入口まで道をつなぎ、建材と建設班を確保してください。"
   Plan _ -> "建設計画を置きました。完成には材料・配送・建設班が必要です。"
   CancelPlan _ -> "計画を取り消しました。返却可能な物資は通常の経路で戻ります。"
   ToggleDelivery _ -> "配送方針を変更しました。運搬中の荷はそのまま進みます。"

@@ -278,8 +278,10 @@ selectSource content inventory state prototype footprint requested
   | otherwise = case requested of
       Just ident -> checkSource True ident >> pure (Just ident)
       Nothing -> case [ident | ident <- M.keys (spatialSources state), Right () <- [checkSource True ident]] of
-        [] -> Left NoCompatibleSource
         ident : _ -> Right (Just ident)
+        [] -> case [ident | ident <- M.keys (spatialSources state), Right () <- [checkSource False ident]] of
+          depleted : _ -> Left (SourceDepleted depleted)
+          [] -> Left NoCompatibleSource
   where
     requirements = sourceRequirements content prototype
     checkSource needStock ident = validateBinding content inventory state requirements footprint needStock ident
