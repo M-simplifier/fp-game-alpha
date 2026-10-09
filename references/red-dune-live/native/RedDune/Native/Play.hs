@@ -94,6 +94,21 @@ commands bodies game = do
   where
     accepted receipt = case receiptOutcome receipt of Applied _ -> True; _ -> False
 
+-- Building construction deliveries use the actual external road connector.
+-- A completed or cancelled site has no construction entrance to mark.
+worksiteRoadConnector :: GameState -> EntityId -> Maybe Space.Tile
+worksiteRoadConnector game ident = do
+  let world = gameWorld game
+  state <- worldM1 world
+  placement <- M.lookup ident (Space.spatialPlacements (m1Space state))
+  case (Space.placementShape placement, Space.placementStage placement) of
+    (Space.BuildingShape {}, stage) | stage /= Space.Built -> pure ()
+    _ -> Nothing
+  let openSite job = C.constructionSiteId job == ident && not (C.constructionTerminal job)
+  unless (any openSite (M.elems (C.constructionJobs (m1Construction state)))) Nothing
+  (_, port) <- either (const Nothing) Just (Space.placementGeometry (worldContent world) placement)
+  Space.roadConnector <$> port
+
 decide :: Decision -> GameState -> Either String GameState
 decide decision game = case decision of
   ToggleTime -> act [("op", if worldMode world == Active then "pause" else "resume")] game
