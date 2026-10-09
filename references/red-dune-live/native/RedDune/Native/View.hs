@@ -341,6 +341,7 @@ drawColony font width height time mouse screen failure = do
       SimTick tick = simTick world
       clock = if worldMode world == Active && Help.helpTopic (screenHelpUi screen) == Nothing then realToFrac time else fromIntegral tick / 20
       night = max 0 (min 1 ((cos (fromIntegral (tick `mod` 28800) * pi / 14400) + 0.15) * 0.85)) :: Float
+      buildSources = maybe [] (sourcesFor game) (screenBuild screen)
       placements = maybe [] (sortOn (depth camera) . M.elems . S.spatialPlacements . m1Space) (worldM1 world)
       diningPlans = M.keys (gameDiningPlaces game) ++ case screenDialog screen of DiningPreview tile _ _ _ -> [tile]; _ -> []
       hotspots = [Button (placementRect width height camera world placement) "" (SelectSite (S.placementId placement)) False | placement <- placements, case S.placementShape placement of S.BuildingShape {} -> True; _ -> False]
@@ -378,13 +379,14 @@ drawColony font width height time mouse screen failure = do
           let Vector2 sx sy = p (px + fw / 2) (py + if S.sourceRegionKind source == "aquifer" then 0.5 else fh / 2)
           Vector2 labelWidth _ <- measureLabel font label 18
           let centeredX = max (labelWidth / 2 + 15) (min (visibleWidth - labelWidth / 2 - 15) sx)
+              priority = if any ((== S.sourceRegionId source) . S.sourceRegionId) buildSources then -1 else 3
               bounds = Rectangle (centeredX - labelWidth / 2 - 9) (sy - 15) (labelWidth + 18) 31
               drawLabel = do
                 card (centeredX - labelWidth / 2 - 9) (sy - 15) (labelWidth + 18) 31 panel
                 txt font label (centeredX - labelWidth / 2) (sy - 12) 18 (if depleted then copper else ink)
           pure $
             if sx >= 0 && sx <= visibleWidth && sy >= 115 && sy <= fromIntegral height - 145
-              then Just (WorldLabel 3 bounds drawLabel)
+              then Just (WorldLabel priority bounds drawLabel)
               else Nothing
       forM_ (Set.toAscList (S.spatialRoads space)) $ \(S.Tile x y) -> do
         tileQuad width height camera (fromInteger x - 0.08) (fromInteger y - 0.08) 1.16 1.16 0 (Color 126 99 76 255)
@@ -439,7 +441,8 @@ drawColony font width height time mouse screen failure = do
           keep labels label
             | any (overlaps (worldLabelBounds label) . worldLabelBounds) labels = labels
             | otherwise = label : labels
-          -- Resources share the overlay pass and yield to selected, hovered and ambient facilities.
+          -- Sources needed by the active build choice take priority, including after FocusSource.
+          -- Otherwise resources yield to selected, hovered and ambient facility labels.
           visibleLabels = reverse (foldl' keep [] (sortOn worldLabelPriority [label | Just label <- candidates ++ sourceLabels]))
       let drawBuilding placement = case S.placementShape placement of
             S.RoadShape (S.Tile x y) -> when (S.placementStage placement /= S.Built) $ tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (Color 246 193 81 180)
