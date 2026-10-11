@@ -15,7 +15,7 @@ import Colony.Types
 import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
-import Control.Monad (foldM, forM_, void, when)
+import Control.Monad (foldM, forM, forM_, void, when)
 import Data.List (find, foldl', isInfixOf, sortOn)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
@@ -139,9 +139,7 @@ data WorldCue = WorldCue {cueX :: !Float, cueY :: !Float, cueLabel :: !String, c
 data WorldLabel = WorldLabel
   { worldLabelPriority :: !Int,
     worldLabelBounds :: !Rectangle,
-    worldLabelTitle :: !String,
-    worldLabelTitleWidth :: !Float,
-    worldLabelStatus :: !(Maybe (String, Color))
+    drawWorldLabel :: IO ()
   }
 
 fadeCues :: Double -> [WorldCue] -> [WorldCue]
@@ -343,6 +341,7 @@ drawColony font width height time mouse screen failure = do
       SimTick tick = simTick world
       clock = if worldMode world == Active && Help.helpTopic (screenHelpUi screen) == Nothing then realToFrac time else fromIntegral tick / 20
       night = max 0 (min 1 ((cos (fromIntegral (tick `mod` 28800) * pi / 14400) + 0.15) * 0.85)) :: Float
+      buildSources = maybe [] (sourcesFor game) (screenBuild screen)
       placements = maybe [] (sortOn (depth camera) . M.elems . S.spatialPlacements . m1Space) (worldM1 world)
       diningPlans = M.keys (gameDiningPlaces game) ++ case screenDialog screen of DiningPreview tile _ _ _ -> [tile]; _ -> []
       hotspots = [Button (placementRect width height camera world placement) "" (SelectSite (S.placementId placement)) False | placement <- placements, case S.placementShape placement of S.BuildingShape {} -> True; _ -> False]
@@ -364,7 +363,7 @@ drawColony font width height time mouse screen failure = do
       forM_ (M.toAscList (S.mapTerrain (S.spatialMap space))) $ \(S.Tile x y, terrain) -> do
         when (terrain `elem` [S.Rock, S.Cliff, S.Salt]) $
           tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (if terrain == S.Salt then Color 236 224 193 255 else Color 141 109 87 255)
-      forM_ (M.elems (S.spatialSources space)) $ \source -> case S.sourceRegionBounds source of
+      sourceLabels <- forM (M.elems (S.spatialSources space)) $ \source -> case S.sourceRegionBounds source of
         S.Rect (S.Tile x y) w h -> do
           let px = fromInteger x
               py = fromInteger y
@@ -379,10 +378,16 @@ drawColony font width height time mouse screen failure = do
           forM_ (zip corners (tail corners ++ take 1 corners)) $ \(a, b) -> drawLineEx a b 2 (if depleted then Color 129 102 91 190 else Color red green blue 230)
           let Vector2 sx sy = p (px + fw / 2) (py + if S.sourceRegionKind source == "aquifer" then 0.5 else fh / 2)
           Vector2 labelWidth _ <- measureLabel font label 18
-          when (sx >= 0 && sx <= visibleWidth && sy >= 115 && sy <= fromIntegral height - 145) $ do
-            let centeredX = max (labelWidth / 2 + 15) (min (visibleWidth - labelWidth / 2 - 15) sx)
-            card (centeredX - labelWidth / 2 - 9) (sy - 15) (labelWidth + 18) 31 panel
-            txt font label (centeredX - labelWidth / 2) (sy - 12) 18 (if depleted then copper else ink)
+          let centeredX = max (labelWidth / 2 + 15) (min (visibleWidth - labelWidth / 2 - 15) sx)
+              priority = if any ((== S.sourceRegionId source) . S.sourceRegionId) buildSources then -1 else 3
+              bounds = Rectangle (centeredX - labelWidth / 2 - 9) (sy - 15) (labelWidth + 18) 31
+              drawLabel = do
+                card (centeredX - labelWidth / 2 - 9) (sy - 15) (labelWidth + 18) 31 panel
+                txt font label (centeredX - labelWidth / 2) (sy - 12) 18 (if depleted then copper else ink)
+          pure $
+            if sx >= 0 && sx <= visibleWidth && sy >= 115 && sy <= fromIntegral height - 145
+              then Just (WorldLabel priority bounds drawLabel)
+              else Nothing
       forM_ (Set.toAscList (S.spatialRoads space)) $ \(S.Tile x y) -> do
         tileQuad width height camera (fromInteger x - 0.08) (fromInteger y - 0.08) 1.16 1.16 0 (Color 126 99 76 255)
         tileQuad width height camera (fromInteger x + 0.07) (fromInteger y + 0.07) 0.86 0.86 1 (Color 216 189 145 255)
@@ -420,10 +425,15 @@ drawColony font width height time mouse screen failure = do
                       ly = cy - elevation - if showStatus then 78 else 42
                       bounds = Rectangle lx ly labelWidth (if showStatus then 65 else 37)
                       priority = if selected then 0 else if pointed then 1 else 2
-                      statusLine = if showStatus then Just (caption, moodColor (statusMood status)) else Nothing
+                      drawLabel = do
+                        card lx ly labelWidth (if showStatus then 65 else 37) (Color 255 249 233 244)
+                        txt font title (lx + (labelWidth - titleWidth) / 2) (ly + 5) 23 ink
+                        when showStatus $ do
+                          drawCircleV (Vector2 (lx + 12) (ly + 47)) 4 (moodColor (statusMood status))
+                          txt font caption (lx + 23) (ly + 36) 20 (moodColor (statusMood status))
                   pure $
                     if cx >= 0 && cx <= visibleWidth && cy >= 100 && cy <= fromIntegral height - 114
-                      then Just (WorldLabel priority bounds title titleWidth statusLine)
+                      then Just (WorldLabel priority bounds drawLabel)
                       else Nothing
             _ -> pure Nothing
       candidates <- mapM buildingLabel placements
@@ -431,16 +441,9 @@ drawColony font width height time mouse screen failure = do
           keep labels label
             | any (overlaps (worldLabelBounds label) . worldLabelBounds) labels = labels
             | otherwise = label : labels
-          visibleLabels = reverse (foldl' keep [] (sortOn worldLabelPriority [label | Just label <- candidates]))
-          drawWorldLabel label = do
-            let Rectangle lx ly labelWidth labelHeight = worldLabelBounds label
-            card lx ly labelWidth labelHeight (Color 255 249 233 244)
-            txt font (worldLabelTitle label) (lx + (labelWidth - worldLabelTitleWidth label) / 2) (ly + 5) 23 ink
-            case worldLabelStatus label of
-              Nothing -> pure ()
-              Just (caption, color) -> do
-                drawCircleV (Vector2 (lx + 12) (ly + 47)) 4 color
-                txt font caption (lx + 23) (ly + 36) 20 color
+          -- Sources needed by the active build choice take priority, including after FocusSource.
+          -- Otherwise resources yield to selected, hovered and ambient facility labels.
+          visibleLabels = reverse (foldl' keep [] (sortOn worldLabelPriority [label | Just label <- candidates ++ sourceLabels]))
       let drawBuilding placement = case S.placementShape placement of
             S.RoadShape (S.Tile x y) -> when (S.placementStage placement /= S.Built) $ tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (Color 246 193 81 180)
             S.BuildingShape name (S.Tile x y) rotation -> do
