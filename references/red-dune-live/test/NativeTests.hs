@@ -2,11 +2,14 @@
 
 module Main where
 
-import Colony.M1State (m1Space)
-import Colony.S01Fixture (s01FixtureAt)
+import Colony.Construction qualified as C
+import Colony.Content (contentRecipes, recipeInputs)
+import Colony.M1State (m1Construction, m1Space)
+import Colony.Maintenance (Facility (..), MaintenanceState (..), facilityStopped)
+import Colony.S01Fixture (s01Farm, s01FixtureAt, s01Pantry)
 import Colony.Space qualified as Space
 import Colony.Types
-import Colony.Units (Resource (Ore), zeroQty)
+import Colony.Units (Resource (Ore, Ration, Water), zeroQty)
 import Colony.World
 import Control.Exception (IOException, try)
 import Control.Monad (foldM, replicateM_, unless)
@@ -70,6 +73,45 @@ main = do
     ident : _ -> pure ident
     [] -> ioError (userError "mine plan missing")
   check "planned mine keeps its construction entrance" (case worksiteRoadConnector sourcePlan mineId of Just _ -> True; Nothing -> False)
+  plannedConstruction <- case worldM1 (gameWorld sourcePlan) >>= M.lookup mineId . C.constructionJobs . m1Construction of
+    Just job | not (C.constructionTerminal job) -> pure job
+    _ -> ioError (userError "planned mine construction missing")
+  let plannedWorld = gameWorld sourcePlan
+      plannedMaintenance = worldMaintenance plannedWorld
+      brokenMine = Facility mineId "mine" 0 0 1
+      repairOverlap =
+        sourcePlan
+          { gameWorld =
+              plannedWorld
+                { worldMaintenance =
+                    plannedMaintenance
+                      { maintenanceFacilities = M.insert mineId brokenMine (maintenanceFacilities plannedMaintenance)
+                      }
+                }
+          }
+  check "priority fixture has both construction and a stopped facility" (facilityStopped (worldMaintenance (gameWorld repairOverlap)) mineId && C.constructionSiteId plannedConstruction == mineId)
+  check "construction diagnosis wins over an overlapping repair diagnosis" (siteStatus repairOverlap mineId == siteStatus sourcePlan mineId)
+
+  let pantryOwner = s01Pantry (gameDescriptor village)
+      pantryId = case pantryOwner of Owner _ ident -> ident
+      noPantrySupplies = withoutOwnerStock pantryOwner village
+      pantryHasNoSupplies = all (<= 0) [Policies.physical (gameWorld noPantrySupplies) pantryOwner Water, Policies.physical (gameWorld noPantrySupplies) pantryOwner Ration]
+  check "pantry priority fixture has no delivered water or ration" pantryHasNoSupplies
+  check "pantry crew absence wins over missing supplies" (rosterCount noPantrySupplies pantryId == 0 && statusTitle (siteStatus noPantrySupplies pantryId) == "配給する人がいません")
+  staffedPantry <- must (decide (Commission WaterWorks) village)
+  let staffedPantryWithoutSupplies = withoutOwnerStock pantryOwner staffedPantry
+  check "pantry reports missing supplies after a crew is assigned" (rosterCount staffedPantryWithoutSupplies pantryId > 0 && statusTitle (siteStatus staffedPantryWithoutSupplies pantryId) == "届く物資を待っています")
+
+  let farmId = s01Farm (gameDescriptor village)
+  staffedFarm <- must (decide (StartSite farmId) village)
+  farmSite <- maybe (ioError (userError "farm site missing")) pure (M.lookup farmId (worldSites (gameWorld staffedFarm)))
+  stoppedFarm <- must (decide (ToggleProduction farmId) staffedFarm)
+  let noFarmInputs = withoutOwnerStock (siteInput farmSite) stoppedFarm
+      farmInputsMissing = case M.lookup (siteRecipe farmSite) (contentRecipes (worldContent (gameWorld noFarmInputs))) of
+        Nothing -> False
+        Just recipe -> any (\(resource, required) -> Policies.physical (gameWorld noFarmInputs) (siteInput farmSite) resource < required) (M.toAscList (recipeInputs recipe))
+  check "disabled-production fixture has assigned workers and missing materials" (rosterCount noFarmInputs farmId > 0 && farmInputsMissing)
+  check "disabled production takes priority over crew and material shortages" (statusTitle (siteStatus noFarmInputs farmId) == "次の生産は停止中")
   sourceWater <- must (decide (Commission WaterWorks) sourcePlan)
   sourceActive <- must (decide ToggleTime sourceWater)
   let waitForMine remaining game
@@ -155,3 +197,15 @@ main = do
     preview <- Store.previewCheckpoint store name
     check "Unicode save directory" (Store.previewGame preview == saved)
   putStrLn "PASS native: source placement/depletion, road rejection, physical mine delivery/construction/ore output, commissioning, paused activation, exact readback, immutable branch restore, stale-preview rejection, locking, traversal, directory pinning, restart"
+
+withoutOwnerStock :: Owner -> GameState -> GameState
+withoutOwnerStock owner game =
+  let world = gameWorld game
+      inventory = worldInventory world
+   in game
+        { gameWorld =
+            world
+              { worldInventory =
+                  inventory {invLots = M.filter ((/= owner) . lotOwner) (invLots inventory)}
+              }
+        }

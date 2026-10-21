@@ -130,8 +130,7 @@ loop root options store font previous = do
   focused <- isWindowFocused
   qa <- readQa options (appQaRead previous)
   let (qaCount, qaLine) = qa
-      qaClick = case words qaLine of ["click", x, y] -> Vector2 <$> readMaybe x <*> readMaybe y; _ -> Nothing
-      qaPoint = case words qaLine of ["point", x, y] -> Vector2 <$> readMaybe x <*> readMaybe y; ["capture", _, x, y] -> Vector2 <$> readMaybe x <*> readMaybe y; _ -> qaClick
+      qaPoint = qaPointer qaLine
       usedMouse = maybe mouse id qaPoint
   case words qaLine of
     ["window", w, h]
@@ -145,26 +144,15 @@ loop root options store font previous = do
     _ -> pure ()
   let oldScreen = appScreen previous
       guidedScreen = if appStarted previous && isPlainScreen oldScreen then oldScreen {screenHelpUi = Help.refreshHint (hintForScreen oldScreen) (screenHelpUi oldScreen)} else oldScreen
-      preview = case previewKeyAt width height usedMouse guidedScreen of
-        Nothing -> Nothing
-        Just key -> case appPreview previous of
-          Just cached@(oldKey, _) | oldKey == key -> Just cached
-          _ -> Just (key, previewFailureAt (screenGame guidedScreen) key)
+      preview = previewForPointer width height usedMouse guidedScreen (appPreview previous)
       guided = previous {appScreen = guidedScreen, appPreview = preview}
   buttons <- drawing (drawView font width height time usedMouse guidedScreen (maybe Nothing snd preview))
-  let click = nativeClick || qaClick /= Nothing
-      command = if click then buttonCommand <$> find (inside usedMouse . buttonRect) (reverse buttons) else Nothing
+  let click = nativeClick || qaClick qaLine /= Nothing
+      command = buttonCommandAt click usedMouse buttons
   keyCommand <- keyboard guidedScreen
-  let rawQaKey = case words qaLine of
-        ["key", "space"] -> Just (Choose ToggleTime)
-        ["key", "save"] -> Just SaveNow
-        ["key", "escape"] -> Just CloseDialog
-        ["key", "quit"] -> Just QuitGame
-        ["key", "help"] -> Just (toggleHelp guidedScreen)
-        ["key", "rotate"] | canRotateBuild guidedScreen -> Just RotateBuilding
-        _ -> Nothing
-      qaKey = if isPlainScreen guidedScreen || maybe False (\key -> overlayCommand key || key == SaveNow && isNoDialog (screenDialog guidedScreen)) rawQaKey then rawQaKey else Nothing
-      requested = firstJust [command, keyCommand, qaKey]
+  let replayKeyCommand = qaKeyCommand guidedScreen qaLine
+      -- Button hit testing, keyboard input, and replay keys retain this priority.
+      requested = firstJust [command, keyCommand, replayKeyCommand]
       stamped = guided {appQaRead = qaCount, appFrames = appFrames previous + 1}
   operated <- maybe (pure stamped) (perform store stamped) requested
   case (optionQa options, requested) of
@@ -206,7 +194,7 @@ loop root options store font previous = do
   preferred <- persistPreferences store (screenHelpUi oldScreen) advanced
   checkpointed <- autoSave store preferred
   saved <- recordMilestones options time checkpointed
-  let captureName = case words qaLine of ["capture", name] -> Just name; ["capture", name, _, _] | qaPoint /= Nothing -> Just name; _ -> Nothing
+  let captureName = qaCaptureName qaLine qaPoint
   case (optionQa options, captureName) of
     (Just folder, Just name) | takeFileName name == name && takeExtension name == ".png" -> do
       createDirectoryIfMissing True folder
@@ -257,6 +245,52 @@ firstJust :: [Maybe a] -> Maybe a
 firstJust [] = Nothing
 firstJust (Just value : _) = Just value
 firstJust (_ : rest) = firstJust rest
+
+qaClick :: String -> Maybe Vector2
+qaClick eventText = case words eventText of
+  ["click", x, y] -> Vector2 <$> readMaybe x <*> readMaybe y
+  _ -> Nothing
+
+qaPointer :: String -> Maybe Vector2
+qaPointer eventText = case words eventText of
+  ["point", x, y] -> Vector2 <$> readMaybe x <*> readMaybe y
+  ["capture", _, x, y] -> Vector2 <$> readMaybe x <*> readMaybe y
+  _ -> qaClick eventText
+
+qaCaptureName :: String -> Maybe Vector2 -> Maybe String
+qaCaptureName eventText pointer = case words eventText of
+  ["capture", name] -> Just name
+  ["capture", name, _, _] | pointer /= Nothing -> Just name
+  _ -> Nothing
+
+buttonCommandAt :: Bool -> Vector2 -> [Button] -> Maybe UiCommand
+buttonCommandAt clicked pointer buttons
+  | clicked = buttonCommand <$> find (inside pointer . buttonRect) (reverse buttons)
+  | otherwise = Nothing
+
+qaKeyCommand :: Screen -> String -> Maybe UiCommand
+qaKeyCommand screen eventText
+  | isPlainScreen screen || maybe False allowedDuringOverlay rawCommand = rawCommand
+  | otherwise = Nothing
+  where
+    rawCommand = case words eventText of
+      ["key", "space"] -> Just (Choose ToggleTime)
+      ["key", "save"] -> Just SaveNow
+      ["key", "escape"] -> Just CloseDialog
+      ["key", "quit"] -> Just QuitGame
+      ["key", "help"] -> Just (toggleHelp screen)
+      ["key", "rotate"] | canRotateBuild screen -> Just RotateBuilding
+      _ -> Nothing
+
+    allowedDuringOverlay command =
+      overlayCommand command || command == SaveNow && isNoDialog (screenDialog screen)
+
+previewForPointer :: Int -> Int -> Vector2 -> Screen -> Maybe (PreviewKey, Maybe String) -> Maybe (PreviewKey, Maybe String)
+previewForPointer width height pointer screen cached = case previewKeyAt width height pointer screen of
+  Nothing -> Nothing
+  Just key -> case cached of
+    Just previous@(oldKey, _) | oldKey == key -> Just previous
+    _ -> Just (key, previewFailureAt (screenGame screen) key)
 
 isNoDialog :: Dialog -> Bool
 isNoDialog NoDialog = True

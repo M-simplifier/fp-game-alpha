@@ -243,53 +243,91 @@ rosterCount game ident = case worldM1 (gameWorld game) of
   Just state -> minimum [length (M.findWithDefault [] (W.OperateFacility ident, shift) (W.workforceRosters (m1Workforce state))) | shift <- [0 .. 2]]
 
 siteStatus :: GameState -> EntityId -> SiteStatus
-siteStatus game ident
-  | Just job <- construction =
-      let waitingWorkers = case C.constructionBlocked job of Just (InvalidReference reason) -> "WaitingWorkers" `isInfixOf` reason; _ -> False
-          crew = C.constructionCrewRequired (C.constructionSnapshot job)
-          title = if C.constructionPhase job == C.ConstructionRunning then "建てています" else if waitingWorkers then "建設班を待っています" else "建設を待っています"
-          detail = case C.constructionBlocked job of
-            Just MissingStock -> "建材の到着待ち。倉庫の在庫、道路、運転手を確認してください。"
-            Just _ | waitingWorkers -> "建設班" ++ show crew ++ "人が必要です。ほかの工事が終わるか、班の配置を見直してください。"
-            Just _ -> "班・道路・建材を確認"
-            Nothing -> "建設班が現場を受け持ちます"
-       in SiteStatus (if C.constructionPhase job == C.ConstructionRunning then MoodBusy else MoodWaiting) title detail (Just (fromInteger (C.constructionProgress job) / fromInteger (max 1 (C.constructionRequired (C.constructionSnapshot job)))))
-  | facilityStopped (worldMaintenance world) ident = SiteStatus MoodTrouble "修理が必要" (siteReport game ident) Nothing
-  | name == "pantry" =
-      if rosterCount game ident == 0
-        then SiteStatus MoodWaiting "配給する人がいません" "班を配置すると、届いた水と食事を配ります" Nothing
-        else
-          if physical world (Owner Pantry ident) Water <= 0 || physical world (Owner Pantry ident) Ration <= 0
-            then SiteStatus MoodTrouble "届く物資を待っています" "水と食料の配送を確認" Nothing
-            else SiteStatus MoodReady "水と食事を配っています" "届いた備蓄が40人の生活を支えています" Nothing
-  | Just site <- M.lookup ident (worldSites world) =
-      case activeJob of
-        Just job | siteEnabled site && jobPhase job == Running -> SiteStatus MoodBusy (if name `elem` ["farm", "greenhouse"] then "作物を育てています" else if name == "kitchen" then "食事を作っています" else "作業中") "班が作業しています" (Just (fromInteger (jobProgress job) / fromInteger (max 1 (jobRequired job))))
-        _ ->
-          if ident `notElem` productionSites (gamePolicies game) || not (siteEnabled site)
-            then
-              if rosterCount game ident > 0 && siteEnabled site
-                then SiteStatus MoodQuiet "次の生産は停止中" "担当と配送は残ります" Nothing
-                else SiteStatus MoodQuiet "作業を始められます" "班と配送を整えて、連続して作ります" Nothing
-            else
-              if rosterCount game ident == 0
-                then SiteStatus MoodWaiting "作業する人がいません" "空いている班を配置してください" Nothing
-                else case missingNatural site of
-                  (resource, remainingNatural, required) : _ -> SiteStatus MoodTrouble (resourceName resource ++ "の区画が不足") ("残り " ++ resourceAmount resource remainingNatural ++ " / 次の作業に " ++ resourceAmount resource required) Nothing
-                  [] -> case missingInputs site of
-                    [] | any (\resource -> physical world (siteOutput site) resource > 0) allResources -> SiteStatus MoodReady "できた物資を出荷待ち" "積荷が届いて初めて、次の場所で使えます" Nothing
-                    [] -> SiteStatus MoodWaiting "次の作業を待っています" (siteReport game ident) Nothing
-                    missing -> SiteStatus MoodWaiting (resourceName (fst (head missing)) ++ "の到着待ち") (intercalate " / " [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- missing]) Nothing
-  | name == "housing" = SiteStatus MoodReady "休める家" "この家に割り当てられた住人の寝床です" Nothing
-  | name == "solar" = SiteStatus MoodReady "太陽光の発電設備" "日が出ている間に電力を生みます" Nothing
-  | name == "battery" = SiteStatus MoodReady "蓄電設備" "発電した電力を蓄えて使います" Nothing
-  | otherwise = SiteStatus MoodReady "備蓄の場所" "運ばれてきた物資をここに置きます" Nothing
+siteStatus game ident =
+  firstStatus
+    [ constructionStatus <$> construction,
+      repairStatus,
+      pantryStatus,
+      activeSiteStatus =<< M.lookup ident (worldSites world)
+    ]
   where
     world = gameWorld game
     placement = worldM1 world >>= M.lookup ident . Space.spatialPlacements . m1Space
     name = case Space.placementShape <$> placement of Just (Space.BuildingShape prototype _ _) -> prototype; _ -> "road"
     construction = worldM1 world >>= find (\job -> C.constructionSiteId job == ident && not (C.constructionTerminal job)) . M.elems . C.constructionJobs . m1Construction
     activeJob = find (\job -> M.lookup (jobId job) (worldJobSites world) == Just ident && not (terminal job)) (M.elems (worldJobs world))
+
+    firstStatus [] = staticSiteStatus
+    firstStatus (Just status : _) = status
+    firstStatus (Nothing : rest) = firstStatus rest
+
+    constructionStatus job =
+      let waitingWorkers = case C.constructionBlocked job of Just (InvalidReference reason) -> "WaitingWorkers" `isInfixOf` reason; _ -> False
+          crew = C.constructionCrewRequired (C.constructionSnapshot job)
+          running = C.constructionPhase job == C.ConstructionRunning
+          title = if running then "建てています" else if waitingWorkers then "建設班を待っています" else "建設を待っています"
+          detail = case C.constructionBlocked job of
+            Just MissingStock -> "建材の到着待ち。倉庫の在庫、道路、運転手を確認してください。"
+            Just _ | waitingWorkers -> "建設班" ++ show crew ++ "人が必要です。ほかの工事が終わるか、班の配置を見直してください。"
+            Just _ -> "班・道路・建材を確認"
+            Nothing -> "建設班が現場を受け持ちます"
+          mood = if running then MoodBusy else MoodWaiting
+          required = max 1 (C.constructionRequired (C.constructionSnapshot job))
+          progress = fromInteger (C.constructionProgress job) / fromInteger required
+       in SiteStatus mood title detail (Just progress)
+
+    repairStatus
+      | facilityStopped (worldMaintenance world) ident = Just (SiteStatus MoodTrouble "修理が必要" (siteReport game ident) Nothing)
+      | otherwise = Nothing
+
+    pantryStatus
+      | name /= "pantry" = Nothing
+      | rosterCount game ident == 0 = Just (SiteStatus MoodWaiting "配給する人がいません" "班を配置すると、届いた水と食事を配ります" Nothing)
+      | physical world (Owner Pantry ident) Water <= 0 || physical world (Owner Pantry ident) Ration <= 0 =
+          Just (SiteStatus MoodTrouble "届く物資を待っています" "水と食料の配送を確認" Nothing)
+      | otherwise = Just (SiteStatus MoodReady "水と食事を配っています" "届いた備蓄が40人の生活を支えています" Nothing)
+
+    activeSiteStatus site = case activeJob of
+      Just job
+        | siteEnabled site && jobPhase job == Running ->
+            Just
+              ( SiteStatus
+                  MoodBusy
+                  (if name `elem` ["farm", "greenhouse"] then "作物を育てています" else if name == "kitchen" then "食事を作っています" else "作業中")
+                  "班が作業しています"
+                  (Just (fromInteger (jobProgress job) / fromInteger (max 1 (jobRequired job))))
+              )
+      _
+        | ident `notElem` productionSites (gamePolicies game) || not (siteEnabled site) ->
+            Just
+              ( if rosterCount game ident > 0 && siteEnabled site
+                  then SiteStatus MoodQuiet "次の生産は停止中" "担当と配送は残ります" Nothing
+                  else SiteStatus MoodQuiet "作業を始められます" "班と配送を整えて、連続して作ります" Nothing
+              )
+        | rosterCount game ident == 0 -> Just (SiteStatus MoodWaiting "作業する人がいません" "空いている班を配置してください" Nothing)
+        | otherwise -> Just (productionStatus site)
+
+    productionStatus site = case missingNatural site of
+      (resource, remainingNatural, required) : _ ->
+        SiteStatus MoodTrouble (resourceName resource ++ "の区画が不足") ("残り " ++ resourceAmount resource remainingNatural ++ " / 次の作業に " ++ resourceAmount resource required) Nothing
+      [] -> case missingInputs site of
+        []
+          | any (\resource -> physical world (siteOutput site) resource > 0) allResources ->
+              SiteStatus MoodReady "できた物資を出荷待ち" "積荷が届いて初めて、次の場所で使えます" Nothing
+          | otherwise -> SiteStatus MoodWaiting "次の作業を待っています" (siteReport game ident) Nothing
+        firstMissing : allMissing ->
+          SiteStatus
+            MoodWaiting
+            (resourceName (fst firstMissing) ++ "の到着待ち")
+            (intercalate " / " [resourceName resource ++ " " ++ resourceAmount resource amount | (resource, amount) <- firstMissing : allMissing])
+            Nothing
+
+    staticSiteStatus
+      | name == "housing" = SiteStatus MoodReady "休める家" "この家に割り当てられた住人の寝床です" Nothing
+      | name == "solar" = SiteStatus MoodReady "太陽光の発電設備" "日が出ている間に電力を生みます" Nothing
+      | name == "battery" = SiteStatus MoodReady "蓄電設備" "発電した電力を蓄えて使います" Nothing
+      | otherwise = SiteStatus MoodReady "備蓄の場所" "運ばれてきた物資をここに置きます" Nothing
+
     missingInputs site = case M.lookup (siteRecipe site) (contentRecipes (worldContent world)) of
       Nothing -> []
       Just recipe -> [(resource, amount - physical world (siteInput site) resource) | (resource, amount) <- M.toAscList (recipeInputs recipe), physical world (siteInput site) resource < amount]
