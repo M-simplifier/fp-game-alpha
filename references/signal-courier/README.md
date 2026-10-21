@@ -30,6 +30,12 @@ license. No CDN, package install or sibling repository is needed at runtime.
 
 Use `.agents/skills/game-dev` for changes and `.agents/skills/learn-code` to
 understand the real code. See [experiment evidence and limits](docs/experiment.md).
+To follow one input directly, read `Command` and the private `Session` in
+`src/Signal/Game.hs`, then `advance` → `runTick` → `resolveMotion`. A raw fall
+is resolved before stamp collection and beacon delivery; `finishTick` applies
+the deadline last. `view` constructs the public `PlayerView`, and
+`src/Signal/View.hs` renders it. See the
+[before/after walkthrough](../../research/readability/game-rules-refactor.md#signal-courier-の一回の入力).
 Project-owned formatter: `python tools/formatter.py plan`, `install`, `check`,
 `write`, `check`. Editor-local external Ormolu can use the path printed by the
 helper; no editor settings were overwritten or claimed tested.
