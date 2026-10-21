@@ -56,7 +56,7 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "4b06bf7f096e554efb07911731aac3a0aea2d0f5a62d54a4761fbfae8d81a6ed"
+   "sha256_lf": "720c5c39770d0e1da5de0ec5a95cf0500539531a08b7e065a5f3a88a33e0b77a"
   },
   {
    "path": ".github/workflows/formal-research-contracts.yml",
@@ -64,7 +64,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "0eeb21c15425515467f6985a63b709c39c3d278e1d0d89ed3dd2a593f71ff54a"
+   "sha256_lf": "637ce301ba360dc00d8ca039160c68cf697d7afa0b449631a40c3f453e3abce3"
   },
   {
    "path": ".github/workflows/red-dune-live.yml",
