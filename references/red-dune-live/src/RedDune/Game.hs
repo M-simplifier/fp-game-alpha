@@ -72,7 +72,20 @@ startGameWith fixture scenarioIdValue pack = do
       participant = Participant OperatorRole (Epoch (worldAuthority original) 1)
       world = original {worldInventory = inventory, worldParticipants = M.insert 2 participant (worldParticipants original), worldM1 = fmap (\s -> s {m1Scenario = "red-dune-live-1"}) (worldM1 original)}
       ready = if scenarioStartsBroken scenario then breakKitchen d world else world
-      game = GameState ready d pack Nothing (initialCampaign scenario ready) emptyPolicies 1 [] [] M.empty M.empty
+      game =
+        GameState
+          { gameWorld = ready,
+            gameDescriptor = d,
+            gamePack = pack,
+            gameStagedPack = Nothing,
+            gameCampaign = initialCampaign scenario ready,
+            gamePolicies = emptyPolicies,
+            gameRevision = 1,
+            gameBuildQueue = [],
+            gameNotices = [],
+            gamePlaces = M.empty,
+            gameDiningPlaces = M.empty
+          }
   validateGame game
   pure game
   where
@@ -351,10 +364,24 @@ applyAction value game = do
   op <- getString "op" fields
   case op of
     "state" -> pure (game, obj [("status", str "observed")])
-    "preview" -> do body <- J.field "command" fields; result <- previewGame body game; pure (game, result)
+    "preview" -> do
+      body <- J.field "command" fields
+      result <- previewGame body game
+      pure (game, result)
     "pause" -> managed PauseWorld
-    "resume" -> do unless (campaignEnding (gameCampaign game) == Ongoing) (Left "Campaign ended; restart or restore to play"); managed ResumeWorld
-    "command" -> do
+    "resume" -> do
+      unless (campaignEnding (gameCampaign game) == Ongoing) (Left "Campaign ended; restart or restore to play")
+      managed ResumeWorld
+    "command" -> commitRequestedCommand fields
+    "configure" -> configurePolicies fields
+    "expand" -> queueExpansion fields
+    "policy" -> updateDeliveryPolicy fields
+    "stagePack" -> stagePack fields
+    _ -> Left ("Unknown game operation: " ++ op)
+  where
+    -- Decode/admit before committing. Only an exact ID/body retry can ignore a
+    -- stale boundary; revision increment and validation remain shared in finish.
+    commitRequestedCommand fields = do
       command <- commandFromRequest (gameWorld game) fields
       expected <- getWord "boundary" fields
       let w = gameWorld game
@@ -362,7 +389,7 @@ applyAction value game = do
       unless (BoundarySeq expected == boundarySeq w || retried) (Left "Stale intent: boundary changed; preview again")
       (next, out) <- boundary False [command] [] w
       finish game {gameWorld = next} (receiptResult out)
-    "configure" -> do
+    configurePolicies fields = do
       preset <- getString "preset" fields
       case preset of
         "off" -> finish game {gamePolicies = emptyPolicies} (ok "Automation stopped")
@@ -372,13 +399,13 @@ applyAction value game = do
           unless (all applied (outputReceipts out)) (Left "Cannot configure staffing while workers belong to other targets; release their assignments first")
           finish game {gameWorld = w, gamePolicies = survivalPolicies d} (ok "Survival policies and three-shift crews configured")
         _ -> Left "Unknown preset"
-    "expand" -> do
+    queueExpansion fields = do
       unless (null (gameBuildQueue game)) (Left "Expansion is already queued")
       prototype <- getString "prototype" fields
       unless (prototype == "warehouse") (Left "Guided expansion supports warehouse; use placePlan for free placement")
       let queue = map (\x -> Space.RoadShape (Space.Tile x 64)) [55, 54 .. 51] ++ [Space.BuildingShape "warehouse" (Space.Tile 50 60) Space.R0]
       finish game {gameBuildQueue = queue} (ok "Reserve warehouse route queued; materials and crew must physically finish each stage")
-    "policy" -> do
+    updateDeliveryPolicy fields = do
       key <- getString "id" fields
       enabled <- J.field "enabled" fields >>= J.boolean
       target <- getQuantity "target" fields
@@ -387,7 +414,7 @@ applyAction value game = do
       unless (any ((== key) . policyId) (deliveryPolicies p)) (Left "Unknown policy ID")
       let updated = p {deliveryPolicies = map (\r -> if policyId r == key then r {policyEnabled = enabled, policyTarget = target, policyBatch = batch} else r) (deliveryPolicies p)}
       finish game {gamePolicies = updated} (ok "Policy updated")
-    "stagePack" -> do
+    stagePack fields = do
       expected <- getWord "expectedRevision" fields
       let latest = maybe (gamePack game) id (gameStagedPack game)
       unless (expected == packRevision latest) (Left "Stale pack revision; current staged pack retained")
@@ -395,10 +422,10 @@ applyAction value game = do
       candidate <- decodePack (encodeJSON packValue)
       unless (packRevision candidate > packRevision latest) (Left "Pack revision must increase")
       finish game {gameStagedPack = Just candidate} (ok "Pack staged atomically; this session remains pinned")
-    _ -> Left ("Unknown game operation: " ++ op)
-  where
     ok message = obj [("status", str "accepted"), ("message", str message)]
-    managed event = do (w, out) <- boundary False [] [event] (gameWorld game); finish game {gameWorld = w} (receiptResult out)
+    managed event = do
+      (w, out) <- boundary False [] [event] (gameWorld game)
+      finish game {gameWorld = w} (receiptResult out)
     finish candidate result = do
       unless (gameRevision game < maxBound) (Left "Live revision exhausted")
       let next = candidate {gameRevision = gameRevision game + 1}

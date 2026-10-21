@@ -282,7 +282,10 @@ tryInventory :: InventoryTx a -> InventoryTx (Either Failure a)
 tryInventory action = do
   before <- get
   case runStateT action before of
-    Left err -> case err of InvariantViolation _ -> throwTx err; CounterOverflow -> throwTx err; _ -> pure (Left err)
+    Left err -> case err of
+      InvariantViolation _ -> throwTx err
+      CounterOverflow -> throwTx err
+      _ -> pure (Left err)
     Right (result, after) -> put after >> pure (Right result)
 
 phaseTransportPaths :: SimTick -> TransportState -> Either Failure TransportState
@@ -361,21 +364,25 @@ assignReadyWithFuelPolicy waitForPhysicalRefuel pickups homeReturnBounds tick re
   sourceNode <- port (requestSource request) state
   inventory <- get
   let colony = storageColony <$> M.lookup (requestSource request) (invStorage inventory)
-      eligible =
-        [ v
-        | v <- M.elems (transportVehicles state),
-          vehicleJob v == Nothing,
-          vehiclePosition v == AtRoadNode sourceNode,
-          Just (vehicleColony v) == colony,
-          vehicleHasDriver v,
-          case M.lookup (vehicleId v) pickups of Just target -> target == requestId request; Nothing -> requestId request `notElem` M.elems pickups
-        ]
+      eligible = filter (eligibleAtSource sourceNode colony) (M.elems (transportVehicles state))
       ordered = case M.lookup (requestId request) (transportMatchCursors state) of
         Nothing -> eligible
         Just cursor -> let (after, before) = span ((<= cursor) . vehicleId) eligible in before ++ after
       budget = min 32 (512 - transportLastMatches state)
   tryVehicles budget ordered Nothing state
   where
+    eligibleAtSource sourceNode colony vehicle =
+      vehicleJob vehicle == Nothing
+        && vehiclePosition vehicle == AtRoadNode sourceNode
+        && Just (vehicleColony vehicle) == colony
+        && vehicleHasDriver vehicle
+        && pickupMatches vehicle
+    pickupMatches vehicle = case M.lookup (vehicleId vehicle) pickups of
+      Just target -> target == requestId request
+      Nothing -> requestId request `notElem` M.elems pickups
+
+    -- Failed attempts roll back inventory (including IDs/fuel/claims), but still
+    -- spend a matching attempt and advance the fairness cursor in TransportState.
     tryVehicles _ [] problem current = pure (setRequestBlock (requestId request) (maybe WaitingVehicle id problem) current)
     tryVehicles 0 _ problem current = pure (setRequestBlock (requestId request) (maybe WaitingVehicle id problem) current)
     tryVehicles remaining (vehicle : rest) problem current = do
@@ -390,15 +397,8 @@ assignReadyWithFuelPolicy waitForPhysicalRefuel pickups homeReturnBounds tick re
       inventory <- get
       let owner = vehicleOwner vehicle
           routeEdges = toInteger (length route) - 1
-          -- Full outward and reverse journey plus an exact 20 percent reserve.
           homeEdges = M.lookup (vehicleId vehicle) homeReturnBounds
-          fuelRequired =
-            if vehicleKind vehicle /= Truck
-              then 0
-              else
-                if waitForPhysicalRefuel
-                  then 120 * (2 * routeEdges + maybe 0 id homeEdges)
-                  else routeEdges * 240
+          fuelRequired = journeyFuel vehicle routeEdges homeEdges
           existingFuel = sum [qtyValue (lotQty lot) - lotReserved inventory (lotId lot) | lot <- M.elems (invLots inventory), lotOwner lot == owner, lotResource lot == Fuel]
           addedFuel = max 0 (fuelRequired - existingFuel)
           freeLoad = vehicleCapacity (vehicleKind vehicle) - heldWeight inventory owner - weightOf inventory Fuel addedFuel
@@ -414,12 +414,31 @@ assignReadyWithFuelPolicy waitForPhysicalRefuel pickups homeReturnBounds tick re
       ident <- freshId
       transferQuantityClaim (requestId request) ident childQuantity
       transferCapacityClaim (requestId request) ident (requestDestination request) (unitWeight * childQuantity)
-      let shipment = Shipment ident (DeliveryChild (requestId request)) (requestSource request) (Just (requestDestination request)) (requestResource request) childQuantity (vehicleId vehicle) ShipmentReserved [] Nothing
+      let shipment =
+            Shipment
+              { shipmentId = ident,
+                shipmentKind = DeliveryChild (requestId request),
+                shipmentSource = requestSource request,
+                shipmentDestination = Just (requestDestination request),
+                shipmentResource = requestResource request,
+                shipmentQuantity = childQuantity,
+                shipmentVehicle = vehicleId vehicle,
+                shipmentStatus = ShipmentReserved,
+                shipmentLots = [],
+                shipmentBlock = Nothing
+              }
           parent = request {requestRemaining = requestRemaining request - childQuantity, requestChildren = requestChildren request ++ [ident], requestBlock = Nothing, requestPathResult = if childQuantity == requestRemaining request then PathSearching else requestPathResult request}
           assigned = vehicle {vehicleJob = Just ident, vehicleRoute = drop 1 route, vehicleRouteRevision = topologyRevision (transportTopology state), vehiclePriority = requestPriority request, vehicleWaitingSince = tick, vehicleBlock = Nothing}
           staged = state {transportRequests = M.insert (requestId request) parent (transportRequests state), transportVehicles = M.insert (vehicleId vehicle) assigned (transportVehicles state), transportShipments = M.insert ident shipment (transportShipments state)}
       (_, loaded) <- loadShipment tick shipment staged
       pure (if requestRemaining parent == 0 then loaded {transportPaths = dropPath (requestId parent) (transportPaths loaded)} else loaded)
+
+    -- Fuel uses quantity units: 100 per edge plus an exact 20 percent reserve.
+    -- The live profile also budgets the physical route back to the garage.
+    journeyFuel vehicle routeEdges homeEdges
+      | vehicleKind vehicle /= Truck = 0
+      | waitForPhysicalRefuel = 120 * (2 * routeEdges + maybe 0 id homeEdges)
+      | otherwise = routeEdges * 240
 
 -- Cancellation is applied by P1 before this boundary's P4 arrivals. Shipped
 -- cargo moves to a new independent job, never to an inventory owner in place.
@@ -635,31 +654,25 @@ phaseTransportEnterWithFuelGate waitingFuel tx tick original = do
     ordered = map vehicleId (sortOn (\v -> (vehiclePriority v, vehicleWaitingSince v, vehicleId v)) [v | v <- M.elems (transportVehicles original), AtRoadNode _ <- [vehiclePosition v], not (null (vehicleRoute v)), True])
     enter state ident = do
       vehicle <- lookupVehicle ident state
+      let replace v = state {transportVehicles = M.insert ident v (transportVehicles state)}
+          recovering = any (\r -> recoveryVehicle r == ident && recoveryStatus r == RecoveryWorking) (M.elems (transportRecoveries state))
+          occupancy from to = length [() | other <- M.elems (transportVehicles state), Traversing a b _ _ <- [vehiclePosition other], a == from, b == to]
       case (vehiclePosition vehicle, vehicleRoute vehicle) of
-        (AtRoadNode from, to : rest) -> do
-          let replace v = state {transportVehicles = M.insert ident v (transportVehicles state)}
-              occupancy = length [() | other <- M.elems (transportVehicles state), Traversing a b _ _ <- [vehiclePosition other], a == from, b == to]
-          if any (\r -> recoveryVehicle r == ident && recoveryStatus r == RecoveryWorking) (M.elems (transportRecoveries state))
-            then pure state
-            else
-              if not (vehicleHasDriver vehicle)
-                then pure (replace vehicle {vehicleBlock = Just NoDriver})
-                else
-                  if S.member ident waitingFuel
-                    then pure (replace vehicle {vehicleBlock = Just WaitingFuel})
-                    else
-                      if vehicleRouteRevision vehicle /= topologyRevision (transportTopology state)
-                        then pure (replace vehicle {vehicleRoute = [], vehicleBlock = Just StaleRoute})
-                        else case openEdge (transportTopology state) from to of
-                          Nothing -> pure (replace vehicle {vehicleRoute = [], vehicleBlock = Just RemovedEdge})
-                          Just edge
-                            | occupancy >= 4 -> pure (replace vehicle {vehicleBlock = Just Congested})
-                            | otherwise -> do
-                                consumed <- tryInventory (when (vehicleKind vehicle == Truck) (consumeFreeDetailed tx FuelBurned (Just VehicleEdge) (vehicleJob vehicle) tick (vehicleOwner vehicle) Fuel 100))
-                                case consumed of
-                                  Left MissingStock -> pure (replace vehicle {vehicleBlock = Just WaitingFuel})
-                                  Left err -> throwTx err
-                                  Right () -> pure (replace vehicle {vehiclePosition = Traversing from to (roadCost edge) (topologyRevision (transportTopology state)), vehicleRoute = rest, vehicleBlock = Nothing})
+        (AtRoadNode from, to : rest)
+          | recovering -> pure state
+          | not (vehicleHasDriver vehicle) -> pure (replace vehicle {vehicleBlock = Just NoDriver})
+          | S.member ident waitingFuel -> pure (replace vehicle {vehicleBlock = Just WaitingFuel})
+          | vehicleRouteRevision vehicle /= topologyRevision (transportTopology state) -> pure (replace vehicle {vehicleRoute = [], vehicleBlock = Just StaleRoute})
+          | otherwise -> case openEdge (transportTopology state) from to of
+              Nothing -> pure (replace vehicle {vehicleRoute = [], vehicleBlock = Just RemovedEdge})
+              Just edge
+                | occupancy from to >= 4 -> pure (replace vehicle {vehicleBlock = Just Congested})
+                | otherwise -> do
+                    consumed <- tryInventory (when (vehicleKind vehicle == Truck) (consumeFreeDetailed tx FuelBurned (Just VehicleEdge) (vehicleJob vehicle) tick (vehicleOwner vehicle) Fuel 100))
+                    case consumed of
+                      Left MissingStock -> pure (replace vehicle {vehicleBlock = Just WaitingFuel})
+                      Left err -> throwTx err
+                      Right () -> pure (replace vehicle {vehiclePosition = Traversing from to (roadCost edge) (topologyRevision (transportTopology state)), vehicleRoute = rest, vehicleBlock = Nothing})
         _ -> pure state
 
 -- Called after Inventory.expireInventory in P2. A failed food delivery cannot

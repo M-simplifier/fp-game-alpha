@@ -152,7 +152,7 @@ stepNeedsForDining legacyFatigue freeResidents tx tick@(SimTick t) ns = do
       either throwTx pure (validateNeeds next current)
       pure (next, NeedResult waterDue waterServed foodDue foodServed evacuated)
   where
-    distribute (residents, meals, wd, ws, fd, fs) colony = do
+    distribute (residents, meals, waterDueSoFar, waterServedSoFar, foodDueSoFar, foodServedSoFar) colony = do
       inv <- get
       let members = [r | r <- M.elems residents, residentColony r == colony, residentStatus r `elem` [Living, Incapacitated]]
           offset = if null members then 0 else fromIntegral ((t `div` 20) `mod` fromIntegral (length members))
@@ -162,29 +162,38 @@ stepNeedsForDining legacyFatigue freeResidents tx tick@(SimTick t) ns = do
           owners = S.toAscList (S.fromList (M.findWithDefault [] colony (needsPantries ns)))
           diningOwners = S.fromList (M.elems (needsDiningPreferences ns))
           ordinaryOwners = filter (`S.notMember` diningOwners) owners
-          diningRequests owner = [(residentId r, dueFood r) | r <- ordered, residentStatus r == Living, S.member (residentId r) freeResidents, M.lookup (residentId r) (needsDiningPreferences ns) == Just owner]
-          local = M.unions [allocateFair (poolAvailable tick [owner] Ration inv) (diningRequests owner) | owner <- owners, S.member owner diningOwners]
-          water = allocateFair (poolAvailable tick owners Water inv) [(residentId r, dueWater r) | r <- ordered]
-          ordinary = allocateAfterServed (poolAvailable tick ordinaryOwners Ration inv) [(residentId r, dueFood r) | r <- ordered] local
-          food = M.unionWith (+) ordinary local
-          waterTaken = sum (M.elems water)
-          foodTaken = sum (M.elems food)
-          update r =
+          diningRequestsFor owner = [(residentId r, dueFood r) | r <- ordered, residentStatus r == Living, S.member (residentId r) freeResidents, M.lookup (residentId r) (needsDiningPreferences ns) == Just owner]
+          localServings = M.unions [allocateFair (poolAvailable tick [owner] Ration inv) (diningRequestsFor owner) | owner <- owners, S.member owner diningOwners]
+          waterRequests = [(residentId r, dueWater r) | r <- ordered]
+          waterServings = allocateFair (poolAvailable tick owners Water inv) waterRequests
+          ordinaryRequests = [(residentId r, dueFood r) | r <- ordered]
+          ordinaryServings = allocateAfterServed (poolAvailable tick ordinaryOwners Ration inv) ordinaryRequests localServings
+          foodServings = M.unionWith (+) ordinaryServings localServings
+          waterTaken = sum (M.elems waterServings)
+          foodTaken = sum (M.elems foodServings)
+          updateResident r =
             r
               { residentWaterRemainder = (residentWaterRemainder r + 6000 * 20) `mod` 28800,
                 residentFoodRemainder = (residentFoodRemainder r + 3000 * 20) `mod` 28800,
                 residentHourWaterDue = residentHourWaterDue r + dueWater r,
-                residentHourWaterServed = residentHourWaterServed r + M.findWithDefault 0 (residentId r) water,
+                residentHourWaterServed = residentHourWaterServed r + M.findWithDefault 0 (residentId r) waterServings,
                 residentHourFoodDue = residentHourFoodDue r + dueFood r,
-                residentHourFoodServed = residentHourFoodServed r + M.findWithDefault 0 (residentId r) food
+                residentHourFoodServed = residentHourFoodServed r + M.findWithDefault 0 (residentId r) foodServings
               }
+          consumeDiningServings recorded owner = do
+            served <- consumeServings tx tick [owner] [(ident, M.findWithDefault 0 ident localServings) | (ident, _) <- diningRequestsFor owner]
+            pure (M.union served recorded)
       consumePool tx tick owners Water waterTaken
       ordinaryMeals <-
         if M.null (needsDiningPreferences ns)
-          then consumePool tx tick ordinaryOwners Ration (sum (M.elems ordinary)) >> pure M.empty
-          else consumeServings tx tick ordinaryOwners [(residentId r, M.findWithDefault 0 (residentId r) ordinary) | r <- ordered]
-      localMeals <- foldM (\recorded owner -> do served <- consumeServings tx tick [owner] [(ident, M.findWithDefault 0 ident local) | (ident, _) <- diningRequests owner]; pure (M.union served recorded)) M.empty [owner | owner <- owners, S.member owner diningOwners]
-      pure (foldr (\r -> M.insert (residentId r) (update r)) residents members, M.union localMeals (M.union ordinaryMeals meals), wd + sum (map dueWater members), ws + waterTaken, fd + sum (map dueFood members), fs + foodTaken)
+          then consumePool tx tick ordinaryOwners Ration (sum (M.elems ordinaryServings)) >> pure M.empty
+          else consumeServings tx tick ordinaryOwners [(residentId r, M.findWithDefault 0 (residentId r) ordinaryServings) | r <- ordered]
+      localMeals <- foldM consumeDiningServings M.empty [owner | owner <- owners, S.member owner diningOwners]
+      let updatedResidents = foldr (\r -> M.insert (residentId r) (updateResident r)) residents members
+          updatedMealHistory = M.union localMeals (M.union ordinaryMeals meals)
+          updatedWaterDue = waterDueSoFar + sum (map dueWater members)
+          updatedFoodDue = foodDueSoFar + sum (map dueFood members)
+      pure (updatedResidents, updatedMealHistory, updatedWaterDue, waterServedSoFar + waterTaken, updatedFoodDue, foodServedSoFar + foodTaken)
 
 -- Base food fills people who received less local food first. Its water-filling
 -- budget counts existing servings, so local and fallback food cannot double a
