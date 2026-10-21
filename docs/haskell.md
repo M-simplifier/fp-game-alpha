@@ -36,6 +36,44 @@ validation. A small, clear pair does not need a new record or wrapper.
 
 Length and nesting are review signals, not universal line limits. A well-shaped pattern match may be clearer than a shorter point-free expression. Keep public signatures explicit and names consistent across code, UI, tests, and documentation.
 
+## Write readable rules from the first slice
+
+While implementing one real player interaction, make its decision visible in
+the source before extending the game around it. Ask where a reader would change
+one rule independently, and which state each calculation actually uses.
+
+- Name independently tunable meanings separately even when their numeric values
+  happen to match. Jump gravity, dash speed and flight speed do not become one
+  setting because each is currently `17`. Include the unit or time basis where
+  it would otherwise be ambiguous; a name is not a unit-safety guarantee.
+- Distinguish requested and resolved values, and name the previous, moved or
+  committed state when the choice matters. For a failed attempt, make clear what
+  rolls back and what remains spent. Do not blindly copy a whole state when only
+  a checkpoint or inventory transaction should be restored.
+- Put competing decisions in an inspectable order. If several failures or
+  effects can occur, a reader should see which wins and why. A helper should
+  expose a domain decision, meaningful result or boundary, not merely move the
+  same expression out of sight.
+- Pair wide construction with existing field names. Keep useful ADTs, pure
+  boundaries and hidden representations; readability does not require a new
+  framework, a record for every pair, or less capable types.
+
+Before continuing past that interaction, use its actual input and state to
+check that the source answers: what is admitted, what is decided, what changes,
+and what is observed? Then locate one plausible isolated adjustment without
+changing unrelated rules. Revise only the places that require reconstruction.
+This is part of implementation, not a mandatory separate report or model call.
+Existing simple rules may already satisfy it without another helper or comment.
+
+For a refactor, preserve the established ordering, arithmetic, public boundaries
+and independent comparisons. Choose checks that can expose a changed priority,
+rollback scope or output; formatting alone cannot. The
+[Afterlight, Red Dune and Signal Courier source case](https://github.com/M-simplifier/fp-game-alpha/blob/1f206643b16cf879e1271cea70feab12e22d00d1/research/readability/game-rules-refactor.md)
+illustrates this method and its observed behavior checks. It does not establish
+novice comprehension or better generation of a different game. If using a model
+as a reader, retain equal source context and factual questions; a subjective
+verdict or fluent explanation is not the acceptance test.
+
 ## Reading path for every reference game
 
 Its README identifies, in order:

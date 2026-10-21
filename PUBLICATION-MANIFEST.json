@@ -36,7 +36,7 @@
   },
   {
    "path": ".agents/skills/haskell-excellence/SKILL.md",
-   "sha256_lf": "5b8cf57afbd9e05e2fea9a1d1e2bff89b3e1737f60e70516095ab497fec605bf"
+   "sha256_lf": "66b5c1226b510413915b8d89f2bce7972247cf2cab7f465586e64eeb42496efd"
   },
   {
    "path": ".agents/skills/learn-code/SKILL.md",
@@ -44,7 +44,7 @@
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
-   "sha256_lf": "9163da4bb708b87aaabf2ae38ac55013d1cb2394bf5240d7eb9bb930fb3937c6"
+   "sha256_lf": "3dfcc5983b452f90358c3f2c5178bbee7a3ae24d606cd1c83f2771edcb8e1358"
   },
   {
    "path": ".agents/skills/play-game/SKILL.md",
@@ -180,7 +180,7 @@
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "ca201969e0f53239d0b10c950a2c7139696844f3370ee7322959bc5b9541e41d"
+   "sha256_lf": "74b4d6a3c0793c633de9ca24be1bf4bbe752038a49831063083776e6fb05fe97"
   },
   {
    "path": "docs/headless-play.md",
@@ -5440,7 +5440,7 @@
   },
   {
    "path": "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl",
-   "sha256_lf": "cc4a4477062ab347f7bb682629491fcd1b5bce2991386affc0946f3ca84d0b06"
+   "sha256_lf": "f29e4973544eeb109aec3fcac6a1ddc423bd824f6cc10f18c93071828680096a"
   },
   {
    "path": "templates/terminal-adventure/src/Game/Adapter.hs",

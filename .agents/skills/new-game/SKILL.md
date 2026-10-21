@@ -14,6 +14,10 @@ needed; [Haskell Design](../../../docs/haskell-design.md) supports independent g
 Reuse known decisions and ask only for missing game-changing requirements.
 
 Design this game's domain types, rules, observations and host from its brief.
+While writing the first playable rule, apply [readable rules from the first
+slice](../../../docs/haskell.md#write-readable-rules-from-the-first-slice).
+Make its state dependencies and independent tuning values visible before
+building more mechanics on it; do not defer that work to a cleanup pass.
 References teach techniques; they are not mandatory generation templates.
 The terminal scaffold is optional and must not substitute for another target.
 Use the [native tooling](../../../docs/native-tooling.md) for create-plan/create,

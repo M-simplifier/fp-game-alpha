@@ -8,6 +8,8 @@ types, errors, composition, effects and evaluation. For behavioral changes or
 reviews, select relevant checks from [verification and review](../../../docs/practice/haskell/verification-review.md).
 Use [readability guidance](../../../docs/haskell.md) for semantic names and
 cognitive load without discarding useful advanced abstractions.
+Apply its [first-slice check](../../../docs/haskell.md#write-readable-rules-from-the-first-slice)
+while authoring a new transition as well as when reviewing an existing one.
 
 Follow the current project's requirements, compiler and dependency versions.
 Choose techniques by the concrete mistake prevented or composition expressed.
