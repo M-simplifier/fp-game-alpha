@@ -23,44 +23,51 @@ advance input before
        in (settled, cues)
 
 movement :: Input -> World -> (World, [Cue])
-movement input w = (if dashStart then emit Dash feet changed else changed, [Jump | launch] <> [Dash | dashStart])
+movement input w = (if dashStarted then emit Dash feet changed else changed, [Jump | jumpLaunched] <> [Dash | dashStarted])
   where
     changed = w {worldPlayer = next}
     p = worldPlayer w
-    feet@(V3 x y z) = playerFeet p
+    feet = playerFeet p
+    cells = worldCells w
     yaw = playerYaw p + lookYaw input
     pitch = clamp (-1.45) 1.45 (playerPitch p + lookPitch input)
-    (f, r) = planarBasis yaw
-    desired = plus (scale (moveForward input) f) (scale (moveSide input) r)
-    desiredClamped = scale (1 / max 1 (magnitude desired)) desired
-    speed = if worldFlight w && playerMotion p == Flying then if sprintHeld input then 17 else 10 else if sprintHeld input then 7.8 else 5.0
-    target = scale speed desiredClamped
-    acceleration = if magnitude desired > 0 then 46 else 62
-    dashStart = dodgeEdge input && playerDashCooldown p == 0
-    dashTicks = if dashStart then 10 else max 0 (playerDashTicks p - 1)
-    dashDirection = if dashStart then if magnitude desired > 0 then unit desired else f else playerDashDirection p
-    velocity = if dashTicks > 0 then scale 17 dashDirection else approach (acceleration * fixedDt) (playerVelocity p) target
-    V3 vx _ vz = velocity
-    grounded = not (bodyClear (worldCells w) (plus feet (V3 0 (-0.055) 0)))
-    coyote = if grounded then 7 else max 0 (playerCoyote p - 1)
-    buffered = if jumpEdge input then 8 else max 0 (playerJumpBuffer p - 1)
+
+    -- Requested movement is camera-relative; diagonal input cannot add speed.
+    (forwardDirection, rightDirection) = planarBasis yaw
+    requestedDirection = plus (scale (moveForward input) forwardDirection) (scale (moveSide input) rightDirection)
+    clampedDirection = scale (1 / max 1 (magnitude requestedDirection)) requestedDirection
+    speed = movementSpeed (worldFlight w && playerMotion p == Flying) (sprintHeld input)
+    requestedVelocity = scale speed clampedDirection
+    acceleration = if magnitude requestedDirection > 0 then 46 else 62
+    dashStarted = dodgeEdge input && playerDashCooldown p == 0
+    dashTicks = if dashStarted then 10 else max 0 (playerDashTicks p - 1)
+    dashDirection
+      | not dashStarted = playerDashDirection p
+      | magnitude requestedDirection > 0 = unit requestedDirection
+      | otherwise = forwardDirection
+    velocity
+      | dashTicks > 0 = scale dashSpeed dashDirection
+      | otherwise = approach (acceleration * fixedDt) (playerVelocity p) requestedVelocity
+
+    -- Ground contact refreshes grace. A launch consumes both timers below.
+    grounded = not (bodyClear cells (plus feet (V3 0 (-0.055) 0)))
+    coyoteTicks = if grounded then groundedJumpGraceTicks else max 0 (playerCoyote p - 1)
+    bufferedJumpTicks = if jumpEdge input then jumpInputRetentionTicks else max 0 (playerJumpBuffer p - 1)
     flying = worldFlight w && (playerMotion p == Flying || jumpHeld input)
-    launch = not flying && coyote > 0 && buffered > 0
-    initialVy = case playerMotion p of Airborne v -> v; _ -> 0
-    vy = if launch then 8.7 else initialVy - (if jumpHeld input && initialVy > 0 then 17 else 25) * fixedDt
-    groundMove candidate current
-      | bodyClear cells candidate = candidate
-      | grounded && bodyClear cells (plus candidate (V3 0 1.02 0)) = plus candidate (V3 0 1.02 0)
-      | otherwise = current
-    cells = worldCells w
-    afterX = groundMove (V3 (x + vx * fixedDt) y z) feet
-    V3 xx yy _ = afterX
-    planar = groundMove (V3 xx yy (z + vz * fixedDt)) afterX
-    vertical = if flying then ((if jumpHeld input then 1 else 0) - (if descendHeld input then 1 else 0)) * speed * fixedDt else vy * fixedDt
-    finalFeet = moveVertical cells planar vertical
-    blockedVertical = abs (distance planar finalFeet - abs vertical) > 0.001
-    landed = vertical < 0 && blockedVertical
-    newMotion | flying = Flying | landed = Grounded | blockedVertical = Airborne 0 | otherwise = Airborne vy
+    jumpLaunched = not flying && coyoteTicks > 0 && bufferedJumpTicks > 0
+    verticalVelocity = jumpVelocity (jumpHeld input) jumpLaunched (playerMotion p)
+
+    -- Resolve X, then Z, then subdivided vertical movement. Order is gameplay.
+    planarFeet = movePlanar cells grounded feet velocity
+    verticalDistance = if flying then ((if jumpHeld input then 1 else 0) - (if descendHeld input then 1 else 0)) * speed * fixedDt else verticalVelocity * fixedDt
+    finalFeet = moveVertical cells planarFeet verticalDistance
+    blockedVertical = abs (distance planarFeet finalFeet - abs verticalDistance) > 0.001
+    landed = verticalDistance < 0 && blockedVertical
+    newMotion
+      | flying = Flying
+      | landed = Grounded
+      | blockedVertical = Airborne 0
+      | otherwise = Airborne verticalVelocity
     next =
       p
         { playerFeet = finalFeet,
@@ -69,15 +76,56 @@ movement input w = (if dashStart then emit Dash feet changed else changed, [Jump
           playerMotion = newMotion,
           playerSlot = maybe (playerSlot p) (clamp 0 (length hotbar - 1)) (slotEdge input),
           playerVelocity = velocity,
-          playerCoyote = if launch then 0 else coyote,
-          playerJumpBuffer = if launch then 0 else buffered,
+          playerCoyote = if jumpLaunched then 0 else coyoteTicks,
+          playerJumpBuffer = if jumpLaunched then 0 else bufferedJumpTicks,
           playerDashTicks = dashTicks,
-          playerDashCooldown = if dashStart then 65 else max 0 (playerDashCooldown p - 1),
+          playerDashCooldown = if dashStarted then 65 else max 0 (playerDashCooldown p - 1),
           playerDashDirection = dashDirection
         }
 
+-- Durations count fixed 60 Hz ticks; speeds and accelerations use world units.
+groundedJumpGraceTicks, jumpInputRetentionTicks :: Int
+groundedJumpGraceTicks = 7
+jumpInputRetentionTicks = 8
+
+initialJumpSpeed, heldJumpGravity, fallingGravity, dashSpeed, fastFlightSpeed :: Float
+initialJumpSpeed = 8.7
+heldJumpGravity = 17
+fallingGravity = 25
+dashSpeed = 17
+fastFlightSpeed = 17
+
+movementSpeed :: Bool -> Bool -> Float
+movementSpeed alreadyFlying sprinting
+  | alreadyFlying = if sprinting then fastFlightSpeed else 10
+  | otherwise = if sprinting then 7.8 else 5.0
+
+jumpVelocity :: Bool -> Bool -> Motion -> Float
+jumpVelocity holdingJump launched motion
+  | launched = initialJumpSpeed
+  | otherwise = previousVelocity - gravity * fixedDt
+  where
+    previousVelocity = case motion of
+      Airborne velocity -> velocity
+      _ -> 0
+    gravity = if holdingJump && previousVelocity > 0 then heldJumpGravity else fallingGravity
+
+movePlanar :: M.Map Cell Material -> Bool -> V3 -> V3 -> V3
+movePlanar cells grounded feet@(V3 x y z) (V3 vx _ vz) =
+  let afterX = tryStep (V3 (x + vx * fixedDt) y z) feet
+      V3 resolvedX resolvedY _ = afterX
+   in tryStep (V3 resolvedX resolvedY (z + vz * fixedDt)) afterX
+  where
+    tryStep candidate current
+      | bodyClear cells candidate = candidate
+      | grounded && bodyClear cells (plus candidate (V3 0 1.02 0)) = plus candidate (V3 0 1.02 0)
+      | otherwise = current
+
 approach :: Float -> V3 -> V3 -> V3
-approach amount current target = let delta = minus target current; n = magnitude delta in if n <= amount then target else plus current (scale (amount / n) delta)
+approach amount current target =
+  let delta = minus target current
+      remaining = magnitude delta
+   in if remaining <= amount then target else plus current (scale (amount / remaining) delta)
 
 moveVertical :: M.Map Cell Material -> V3 -> Float -> V3
 moveVertical cells feet delta = walk steps feet
@@ -147,9 +195,12 @@ place w = case raycast w 7 of
 interactNearby :: World -> (World, [Cue])
 interactNearby w = case nearby of
   [] -> (w, [])
-  ks -> let k = minimumBy (comparing (distance feet . kinPosition)) ks in interactKin k w
+  kin ->
+    let nearest = minimumBy (comparing (distance feet . kinPosition)) kin
+     in interactKin nearest w
   where
-    feet = playerFeet (worldPlayer w); nearby = filter ((< 4) . distance feet . kinPosition) (worldKin w)
+    feet = playerFeet (worldPlayer w)
+    nearby = filter ((< 4) . distance feet . kinPosition) (worldKin w)
 
 interactKin :: Kin -> World -> (World, [Cue])
 interactKin k w
@@ -176,7 +227,10 @@ interactKin k w
          in (emit Offering (kinPosition k) (announce (GiftAccepted g) next), [Offering])
   where
     inv = worldInventory w
-    pickGem = case [g | g <- kinGem k : filter (/= kinGem k) [Jade, Rose, Azure, Honey], M.findWithDefault 0 g (gems inv) > 0] of g : _ -> Just g; [] -> Nothing
+    -- Prefer this kin's favourite, then the remaining gems in hotbar order.
+    pickGem = case [g | g <- kinGem k : filter (/= kinGem k) [Jade, Rose, Azure, Honey], M.findWithDefault 0 g (gems inv) > 0] of
+      g : _ -> Just g
+      [] -> Nothing
 
 replaceKin :: Kin -> World -> World
 replaceKin k w = w {worldKin = map (\old -> if kinId old == kinId k then k else old) (worldKin w)}
@@ -218,7 +272,9 @@ lampNear w (V3 x y z) =
 attack :: Adversary -> World -> (World, [Cue])
 attack enemy w = (emit Strike (plus (adversaryPosition enemy) (V3 0 1 0)) w {worldAdversaries = survivors, worldCooldown = 18}, [Strike])
   where
-    damage = case playerMotion (worldPlayer w) of Airborne _ -> 2; _ -> 1
+    damage = case playerMotion (worldPlayer w) of
+      Airborne _ -> 2
+      _ -> 1
     hit a
       | adversaryId a == adversaryId enemy =
           let knocked = plus (adversaryPosition a) (scale 0.8 (unit (minus (adversaryPosition a) (playerFeet (worldPlayer w)))))
@@ -244,7 +300,8 @@ enemiesAdvance w
     damaged = if hits == 0 then w else emit Wound feet w {worldLife = max 0 (worldLife w - fromIntegral hits * 12)}
     stepEnemy a
       | adversaryWindup a > 0 =
-          let timer = adversaryWindup a - 1; hitNow = timer == 0 && distance feet pos < radius && not protected && playerDashTicks (worldPlayer w) == 0
+          let timer = adversaryWindup a - 1
+              hitNow = timer == 0 && distance feet pos < radius && not protected && playerDashTicks (worldPlayer w) == 0
            in (a {adversaryWindup = timer, adversaryCooldown = if timer == 0 then 100 else adversaryCooldown a}, if hitNow then 1 else 0)
       | d < radius - 0.1 && cool == 0 && not protected = (a {adversaryWindup = windup}, 0)
       | (d < 13 || worldChapter w == Nightfall) && d > radius - 0.8 && not protected =
@@ -289,7 +346,8 @@ settle w
       (emit Return (eye p) $ announce Returned w {worldJourney = GardenRenewed, worldChapter = Homecoming, worldLife = 100, worldPlayer = p {playerFeet = V3 0.5 7 46, playerMotion = Grounded, playerVelocity = V3 0 0 0, playerYaw = pi, playerPitch = 0.05, playerDashTicks = 0}}, [Return])
   | otherwise = (w, [])
   where
-    p = worldPlayer w; V3 x y z = playerFeet p
+    p = worldPlayer w
+    V3 x y z = playerFeet p
 
 emit :: Cue -> V3 -> World -> World
 emit cue origin w = w {worldBursts = take 24 (Burst origin cue (worldTick w) : worldBursts w)}

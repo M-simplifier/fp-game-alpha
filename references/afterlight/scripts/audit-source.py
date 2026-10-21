@@ -40,6 +40,27 @@ for name, record in optimizations.items():
         raise SystemExit("Unsafe test optimization path: " + name)
     if hashlib.sha256(path.read_bytes()).hexdigest() != record["current_sha256"]:
         raise SystemExit("Test optimization source changed: " + name)
+# Readability successors are separate from the formatting and test histories.
+# Each exact path names its baseline/formatted predecessor and current bytes.
+refactor = json.loads((ROOT / "docs/READABILITY-REFACTOR-MANIFEST.json").read_text(encoding="utf-8"))
+if refactor.get("schema") != 1 or refactor.get("kind") != "readability-refactor":
+    raise SystemExit("Invalid readability refactor provenance")
+refactor_rows = refactor["files"]
+refactors = {record["path"]: record for record in refactor_rows}
+allowed_refactors = {"src/Garden/Rules.hs", "src/Garden/Raycast.hs", "src/Garden/World.hs"}
+if len(refactors) != len(refactor_rows) or set(refactors) != allowed_refactors:
+    raise SystemExit("Unexpected readability refactor scope")
+for name, record in refactors.items():
+    predecessor = formats[name]["formatted_sha256"] if name in formats else original_hashes[name]
+    if record["previous_sha256"] != predecessor:
+        raise SystemExit("Readability refactor predecessor mismatch: " + name)
+    if not isinstance(record.get("reason"), str) or not record["reason"].strip():
+        raise SystemExit("Missing readability refactor reason: " + name)
+    path = ROOT / name
+    if path.is_symlink() or not path.resolve().is_relative_to(ROOT):
+        raise SystemExit("Unsafe readability refactor path: " + name)
+    if hashlib.sha256(path.read_bytes()).hexdigest() != record["current_sha256"]:
+        raise SystemExit("Readability refactor source changed: " + name)
 for name, record in formats.items():
     path = ROOT / name
     if not path.resolve().is_relative_to(ROOT) or "oracle" in path.parts or path.suffix != ".hs":
@@ -48,16 +69,18 @@ for name, record in formats.items():
         raise SystemExit("Formatting preimage differs from original: " + name)
     if record["baseline_sha256"] != original_hashes.get(name):
         raise SystemExit("Formatting baseline mismatch: " + name)
-    expected = optimizations[name]["current_sha256"] if name in optimizations else record["formatted_sha256"]
+    expected = (refactors[name]["current_sha256"] if name in refactors else
+                optimizations[name]["current_sha256"] if name in optimizations else record["formatted_sha256"])
     if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
         raise SystemExit("Formatted source changed since reviewed formatting: " + name)
 unchanged, rewritten = [], []
 for record in manifest["files"]:
     path = ROOT / record["path"]
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    if record["path"] in CHANGED or record["path"] in formats:
+    if record["path"] in CHANGED or record["path"] in formats or record["path"] in refactors:
         rewritten.append({"path": record["path"], "origin_sha256": record["sha256"], "current_sha256": digest,
-                          "reason": CHANGED.get(record["path"], "") + ("; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked" if record["path"] in formats else "")})
+                          "reason": CHANGED.get(record["path"], "") + ("; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked" if record["path"] in formats else "")
+                          + ("; readability refactor: " + refactors[record["path"]]["reason"] if record["path"] in refactors else "")})
     else:
         if digest != record["sha256"]:
             raise SystemExit(f"Unexpected original source change: {record['path']}")
@@ -82,6 +105,7 @@ matched = []
 result = {"schema": 1, "baseline": manifest["baseline"], "original_files": len(manifest["files"]),
           "unchanged_original_files": unchanged, "intentional_changes": rewritten,
           "reviewed_test_optimization": successor,
+          "readability_refactor": refactor,
           "oracle_modules_verified": len(manifest["oracle"]), "recovered_gallery_core_matched": matched,
           "gallery_comparison_status": "not_run: original private gallery is not a public dependency",
           "original_git_modes_verified": mode_count,

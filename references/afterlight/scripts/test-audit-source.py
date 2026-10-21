@@ -75,6 +75,54 @@ class AuditTests(unittest.TestCase):
         path.write_bytes(path.read_bytes() + b'\n')
         self.audit(False)
 
+    def mutate_refactor(self, change):
+        manifest = self.game / 'docs/READABILITY-REFACTOR-MANIFEST.json'
+        value = json.loads(manifest.read_text())
+        change(value)
+        manifest.write_text(json.dumps(value))
+
+    def test_refactor_bytes_locked(self):
+        for name in ['Rules', 'Raycast', 'World']:
+            with self.subTest(name=name):
+                path = self.game / f'src/Garden/{name}.hs'
+                before = path.read_bytes()
+                path.write_bytes(before + b'\n')
+                self.audit(False)
+                path.write_bytes(before)
+
+    def test_refactor_predecessor(self):
+        self.mutate_refactor(lambda v: v['files'][0].update(previous_sha256='0' * 64))
+        self.audit(False)
+
+    def test_refactor_duplicate(self):
+        self.mutate_refactor(lambda v: v['files'].append(v['files'][0]))
+        self.audit(False)
+
+    def test_refactor_scope_cannot_expand(self):
+        self.mutate_refactor(lambda v: v['files'].append({'path': 'src/Garden/Checkpoint.hs'}))
+        self.audit(False)
+
+    def test_refactor_cannot_exempt_oracle(self):
+        self.mutate_refactor(lambda v: v['files'][0].update(path='test/oracle/Original/Garden/Rules.hs'))
+        self.audit(False)
+
+    def test_refactor_cannot_traverse(self):
+        self.mutate_refactor(lambda v: v['files'][0].update(path='src/Garden/../Garden/Rules.hs'))
+        self.audit(False)
+
+    def test_refactor_requires_reason(self):
+        self.mutate_refactor(lambda v: v['files'][0].update(reason=''))
+        self.audit(False)
+
+    def test_refactor_requires_manifest(self):
+        (self.game / 'docs/READABILITY-REFACTOR-MANIFEST.json').unlink()
+        self.audit(False)
+
+    def test_refactor_does_not_unlock_other_source(self):
+        path = self.game / 'src/Garden/Checkpoint.hs'
+        path.write_bytes(path.read_bytes() + b'\n')
+        self.audit(False)
+
 
 if __name__ == '__main__':
     unittest.main()
