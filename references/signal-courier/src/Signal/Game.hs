@@ -85,7 +85,17 @@ data PlayerView = PlayerView
   deriving (Eq, Show)
 
 view :: Session -> PlayerView
-view s = PlayerView (positionX s) (positionY s) (grounded s) (delivered s) (ticks s) (falls s) (stamps s) (phase s)
+view s =
+  PlayerView
+    { courierX = positionX s,
+      courierY = positionY s,
+      onGround = grounded s,
+      parcelsDelivered = delivered s,
+      elapsedTicks = ticks s,
+      fallCount = falls s,
+      collectedStamps = stamps s,
+      status = phase s
+    }
 
 initial :: Session
 initial = Session 40 300 0 True 0 0 0 [] Delivering
@@ -101,44 +111,81 @@ advance Restart _ = (initial, [])
 advance Retry s = if phase s == Complete then (s, []) else (retry s, [Retried])
 advance (Tick direction jump) s
   | phase s /= Delivering = (s, [])
-  | otherwise =
-      finishTick $
-        let x = max 8 (min 1792 (positionX s + case direction of Still -> 0; West -> -4; East -> 4))
-            vy = if jump && grounded s then -12 else min 14 (velocityY s + 1)
-            rawY = positionY s + vy
-            landings =
-              [ surface p
-              | r <- rooms defaultLevel,
-                p <- platforms r,
-                x >= leftEdge p,
-                x <= rightEdge p,
-                vy >= 0,
-                positionY s <= surface p,
-                rawY >= surface p
-              ]
-            landed = not (null landings)
-            y = List.foldl' min rawY landings
-            next =
-              s
-                { positionX = x,
-                  positionY = y,
-                  velocityY = if landed then 0 else vy,
-                  grounded = landed,
-                  ticks = ticks s + 1
-                }
-            touched = [i | i <- [0 .. 2], abs (x - (i * 600 + 430)) <= 14, abs (y - 194) <= 18]
-            marked = next {stamps = filter (\i -> i `elem` stamps s || i `elem` touched) [0 .. 2]}
-            target = delivered s * 600 + 540
-         in if rawY > 380
-              then ((retry s) {ticks = ticks s + 1, falls = min 9999 (falls s + 1)}, [Fell])
-              else
-                if abs (x - target) <= 12 && abs (y - 300) <= 8
-                  then
-                    let count = delivered s + 1; won = count == 3
-                     in ( marked {delivered = count, phase = if won then Complete else Delivering},
-                          [Delivered count] ++ [Finished | won]
-                        )
-                  else (marked, [])
+  | otherwise = runTick direction jump s
+
+runTick :: Direction -> Bool -> Session -> (Session, [Event])
+runTick direction jump previous =
+  let (moved, rawY) = resolveMotion direction jump previous
+   in finishTick $
+        if rawY > 380
+          then recordFall previous
+          else deliverAtBeacon previous (collectStamps previous moved)
+
+-- Return the post-movement state alongside rawY, which determines falling
+-- before any landing surface clamps the player's height.
+resolveMotion :: Direction -> Bool -> Session -> (Session, Int)
+resolveMotion direction jump previous =
+  let x = max 8 (min 1792 (positionX previous + horizontalStep direction))
+      vy = if jump && grounded previous then -12 else min 14 (velocityY previous + 1)
+      rawY = positionY previous + vy
+      landings =
+        [ surface platform
+        | room <- rooms defaultLevel,
+          platform <- platforms room,
+          x >= leftEdge platform,
+          x <= rightEdge platform,
+          vy >= 0,
+          positionY previous <= surface platform,
+          rawY >= surface platform
+        ]
+      landed = not (null landings)
+      y = List.foldl' min rawY landings
+      moved =
+        previous
+          { positionX = x,
+            positionY = y,
+            velocityY = if landed then 0 else vy,
+            grounded = landed,
+            ticks = ticks previous + 1
+          }
+   in (moved, rawY)
+
+horizontalStep :: Direction -> Int
+horizontalStep Still = 0
+horizontalStep West = -4
+horizontalStep East = 4
+
+collectStamps :: Session -> Session -> Session
+collectStamps previous moved =
+  moved {stamps = filter (\index -> index `elem` stamps previous || index `elem` touched) [0 .. 2]}
+  where
+    touched =
+      [ index
+      | index <- [0 .. 2],
+        abs (positionX moved - (index * 600 + 430)) <= 14,
+        abs (positionY moved - 194) <= 18
+      ]
+
+recordFall :: Session -> (Session, [Event])
+recordFall previous =
+  ( (retry previous)
+      { ticks = ticks previous + 1,
+        falls = min 9999 (falls previous + 1)
+      },
+    [Fell]
+  )
+
+deliverAtBeacon :: Session -> Session -> (Session, [Event])
+deliverAtBeacon previous moved
+  | abs (positionX moved - target) <= 12 && abs (positionY moved - 300) <= 8 =
+      let count = delivered previous + 1
+          won = count == 3
+       in ( moved {delivered = count, phase = if won then Complete else Delivering},
+            [Delivered count] ++ [Finished | won]
+          )
+  | otherwise = (moved, [])
+  where
+    target = delivered previous * 600 + 540
 
 -- Execute the last playable tick first; a delivery on the deadline wins.
 finishTick :: (Session, [Event]) -> (Session, [Event])
