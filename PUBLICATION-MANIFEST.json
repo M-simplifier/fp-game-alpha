@@ -36,7 +36,7 @@
   },
   {
    "path": ".agents/skills/haskell-excellence/SKILL.md",
-   "sha256_lf": "5b8cf57afbd9e05e2fea9a1d1e2bff89b3e1737f60e70516095ab497fec605bf"
+   "sha256_lf": "66b5c1226b510413915b8d89f2bce7972247cf2cab7f465586e64eeb42496efd"
   },
   {
    "path": ".agents/skills/learn-code/SKILL.md",
@@ -44,7 +44,7 @@
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
-   "sha256_lf": "9163da4bb708b87aaabf2ae38ac55013d1cb2394bf5240d7eb9bb930fb3937c6"
+   "sha256_lf": "3dfcc5983b452f90358c3f2c5178bbee7a3ae24d606cd1c83f2771edcb8e1358"
   },
   {
    "path": ".agents/skills/play-game/SKILL.md",
@@ -56,7 +56,7 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "4b06bf7f096e554efb07911731aac3a0aea2d0f5a62d54a4761fbfae8d81a6ed"
+   "sha256_lf": "720c5c39770d0e1da5de0ec5a95cf0500539531a08b7e065a5f3a88a33e0b77a"
   },
   {
    "path": ".github/workflows/formal-research-contracts.yml",
@@ -64,7 +64,7 @@
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "0eeb21c15425515467f6985a63b709c39c3d278e1d0d89ed3dd2a593f71ff54a"
+   "sha256_lf": "637ce301ba360dc00d8ca039160c68cf697d7afa0b449631a40c3f453e3abce3"
   },
   {
    "path": ".github/workflows/red-dune-live.yml",
@@ -180,7 +180,7 @@
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "ca201969e0f53239d0b10c950a2c7139696844f3370ee7322959bc5b9541e41d"
+   "sha256_lf": "74b4d6a3c0793c633de9ca24be1bf4bbe752038a49831063083776e6fb05fe97"
   },
   {
    "path": "docs/headless-play.md",
@@ -864,7 +864,7 @@
   },
   {
    "path": "references/afterlight/README.md",
-   "sha256_lf": "5dc3616352d87825f9c814730eba8710beec220e7542947389cc4d1ecd3bd031"
+   "sha256_lf": "3aaca05e9d47e3bdcbebbf3d54c7b151d0554902decbdf8a5922df41f9a158aa"
   },
   {
    "path": "references/afterlight/THIRD-PARTY.md",
@@ -911,6 +911,10 @@
    "sha256_lf": "9a12d8068c391d6301fb1054a561b8f2bdfd21c9401a9a6eee70a1d19255467d"
   },
   {
+   "path": "references/afterlight/docs/READABILITY-REFACTOR-MANIFEST.json",
+   "sha256_lf": "33f94ad016b295ebfb1f0c0e18fa1b606796fc8afba3e73479fab1439812122d"
+  },
+  {
    "path": "references/afterlight/docs/TEST-OPTIMIZATION-MANIFEST.json",
    "sha256_lf": "9339f74b35918a920b4e11207a8961a35d812139bb2dac8eb2adddd4df15eb3a"
   },
@@ -936,7 +940,7 @@
   },
   {
    "path": "references/afterlight/docs/qa/SOURCE-AUDIT.json",
-   "sha256_lf": "71ae6b8f2cdf4d393af961a632d2227b9b01c20e28976d202ba24ea053b80951"
+   "sha256_lf": "8bbc59b07808afbc90100b92af8c7d9e0f54f8b601e86265541537361d8261cf"
   },
   {
    "path": "references/afterlight/docs/rendering.md",
@@ -976,7 +980,7 @@
   },
   {
    "path": "references/afterlight/scripts/audit-source.py",
-   "sha256_lf": "52345a30c2055eb98b6111a2b2d0d2a4380b3f388f63e9206a0983dc4e95a0e4"
+   "sha256_lf": "1a4940c62785c1a89726d5f6fe8e1d5d91279c576b239faaa9d70d3a94b48bd1"
   },
   {
    "path": "references/afterlight/scripts/check-core.py",
@@ -1008,7 +1012,7 @@
   },
   {
    "path": "references/afterlight/scripts/test-audit-source.py",
-   "sha256_lf": "31521f0978d22e70824d126ceb65a2465aae0c856083bb0f61be6ea3d976dcb4"
+   "sha256_lf": "3b92355001fd44614474e6dff362e0e9712a80c9e101b9fb2e796b5d29a42664"
   },
   {
    "path": "references/afterlight/scripts/test-check-core.py",
@@ -1056,7 +1060,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Raycast.hs",
-   "sha256_lf": "8c02185c7f6f6e0e43c4e4e650b205c75745a9ae68dde08c2bbd6fad466c4f0b"
+   "sha256_lf": "cf82a36f11ff560db0cc633015fb318f5c81698ffcd002b50b6f18b35d89f502"
   },
   {
    "path": "references/afterlight/src/Garden/Render/Chunk.hs",
@@ -1072,7 +1076,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Rules.hs",
-   "sha256_lf": "1c7456e51b1997a1f40701245e8bea4015a7418f359c93ace2f5fc0df21ac0d9"
+   "sha256_lf": "4a0f562f4e6dd2fec4b16cba002f39351e2ad735b9323b6cc7676bd739190248"
   },
   {
    "path": "references/afterlight/src/Garden/Session.hs",
@@ -1100,7 +1104,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/World.hs",
-   "sha256_lf": "dc9ead101cfa30a2e26f69aec76de149ee8c11963c10c008790e7894ea7a90d9"
+   "sha256_lf": "b4aec9af04d9f29e0f66c473175dbb46c0291dcb75cdbdd6a4b976e413530952"
   },
   {
    "path": "references/afterlight/test/Parity.hs",
@@ -1684,7 +1688,7 @@
   },
   {
    "path": "references/red-dune-live/README.md",
-   "sha256_lf": "f1ee6eea1644774a980bad735d1993883c89fcf3afa7a3cb2e2e967d9a754af2"
+   "sha256_lf": "655fa1a282284a06e033ed468763bb966b8db3914bda32e1a3c249f0e98d6794"
   },
   {
    "path": "references/red-dune-live/app/HostMain.hs",
@@ -1692,7 +1696,7 @@
   },
   {
    "path": "references/red-dune-live/app/RedDune/Host.hs",
-   "sha256_lf": "87e334efb6397d29fecc4ea9644587c8e7b6159b5f83d6e549b04d4eac423b69"
+   "sha256_lf": "6c5bafe28e33daacda1dcbea557a96f28895e7be729c022a151e7aa84e394af4"
   },
   {
    "path": "references/red-dune-live/core/Colony/Arena.hs",
@@ -1724,11 +1728,11 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Construction.hs",
-   "sha256_lf": "616cf2054f449aae462426941e2195f5049667c66bba3be2592730a6d5567266"
+   "sha256_lf": "8fea445e37e28c263a3e0aaa4ded0bd81df1ad8c1c8862774cd5abab3bd64a87"
   },
   {
    "path": "references/red-dune-live/core/Colony/Content.hs",
-   "sha256_lf": "fe87c39e8e5b288b5fd97d984759cd6af8b8fde1ecc37e0f3b333349d0be6642"
+   "sha256_lf": "a7613d0dfeb9dd455dce33170bad7405b9dd1fd34d7285f0284b5af2ce838bcc"
   },
   {
    "path": "references/red-dune-live/core/Colony/ContentCodec.hs",
@@ -1776,7 +1780,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/M1Scheduler.hs",
-   "sha256_lf": "18817f9c9cf912c6e24e61479a7ea11fbd762294e8469effd3d9371d703b8fbd"
+   "sha256_lf": "93a3a02bd8905c6822b906c6aa050dff376b0f68bbf573b6dc82d4827dfe2c4d"
   },
   {
    "path": "references/red-dune-live/core/Colony/M1State.hs",
@@ -1796,7 +1800,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Needs.hs",
-   "sha256_lf": "17a979252adea27955765eaf7a1fb219a952be7c8b46619fc7f002c09be03bdb"
+   "sha256_lf": "4d85218075fba9ce7af91fc13e9468844e9159c6f208c00750f2f2f44bc1f7b9"
   },
   {
    "path": "references/red-dune-live/core/Colony/Pickup.hs",
@@ -1808,7 +1812,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Presentation.hs",
-   "sha256_lf": "b78822c02a19751e2e1460bde4a848a3f1cc2f3ad4d67f977a23e8e2ea2e915d"
+   "sha256_lf": "35d55090019d3656318481342320ce2c7ae6a8a2d14d3e07445a1c97c385ca8d"
   },
   {
    "path": "references/red-dune-live/core/Colony/RNG.hs",
@@ -1832,7 +1836,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/SchedulerCore.hs",
-   "sha256_lf": "91cf3a648ba248e271f1a70289d208a5ac20f8c6353a5c653007a10b774a3ea2"
+   "sha256_lf": "9bcf5aff752127168f452af90331835a2d360dc56113d1d8fd66a279d6755bdc"
   },
   {
    "path": "references/red-dune-live/core/Colony/Session.hs",
@@ -1856,7 +1860,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Transport.hs",
-   "sha256_lf": "4c7b851f564c86a0b82eb0cbd7eac0104e2ef397c5db6d9d2bcf2e086aa384dc"
+   "sha256_lf": "09b9c78bf115bddf7e620c21907f2136a22accad3ad6f4695370bd01ceed1efd"
   },
   {
    "path": "references/red-dune-live/core/Colony/Types.hs",
@@ -1880,7 +1884,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/World.hs",
-   "sha256_lf": "6049a4a36fa6761332a165c1066a003c362e80af915a742d5640dfbd89113add"
+   "sha256_lf": "5d713d93546ff08ed1969db079c1d4941ec4811e268c30eb332bb75e48f1617f"
   },
   {
    "path": "references/red-dune-live/data/campaign-pack-v1.json",
@@ -1968,7 +1972,7 @@
   },
   {
    "path": "references/red-dune-live/native/Main.hs",
-   "sha256_lf": "52e6a7fe3685eff91e887c5b44b1e613e92a557056d318fe6b41034745461b22"
+   "sha256_lf": "79dc56ae571c1f85ed29626f007eb003384e3c15af3250e0cde4a4f9ef9e9589"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Font.hs",
@@ -1980,7 +1984,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Play.hs",
-   "sha256_lf": "33a1272e01c3afbe3524ad451dc514023c4b1b1c3aee9d7ee7ef854c4fc4e572"
+   "sha256_lf": "40fe8bff1542a5e5f1769ebb9b324b9806381ff55cb90a211af32837baa9f015"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Store.hs",
@@ -1988,7 +1992,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/View.hs",
-   "sha256_lf": "0cc8e9fa41eefa41c4d8261c2abe594542a212a7dbeb604f5f6ccfad08fb7511"
+   "sha256_lf": "0bbb0027965b55290d48b94d58c9cb69fa551b72a3c13cdc2d5f9b2ede1a5705"
   },
   {
    "path": "references/red-dune-live/native/assets/glyphs.txt",
@@ -2004,7 +2008,7 @@
   },
   {
    "path": "references/red-dune-live/src/RedDune/Campaign.hs",
-   "sha256_lf": "4bc696ff273aafa9ddd5f3f5568bd1e0e67b6970c21128f1cb5e5efb77290c78"
+   "sha256_lf": "8f98b88862b75ab84a5fd7283daeacd98cae504b296ff7b846356bd04b0bbf62"
   },
   {
    "path": "references/red-dune-live/src/RedDune/ContentPack.hs",
@@ -2012,7 +2016,7 @@
   },
   {
    "path": "references/red-dune-live/src/RedDune/Game.hs",
-   "sha256_lf": "16e4b3f01c57824a3b1a456820b7baca1f0eecaabd05ee644f3c7beae5368d1f"
+   "sha256_lf": "b2771aa9f81a6176aa343f2b71ae24be73217e78ef7e8b11dbf7bbfcc65fa425"
   },
   {
    "path": "references/red-dune-live/src/RedDune/GameSave.hs",
@@ -2064,7 +2068,7 @@
   },
   {
    "path": "references/red-dune-live/test/NativeTests.hs",
-   "sha256_lf": "bb502c29fa73296953af9ad755f0b248aef3d590ab13efb54bd83b9a7c7fd586"
+   "sha256_lf": "c93442644bee72f20ebdf50b87eddd405268bdbd43f5f176fcc6aa50d82ca642"
   },
   {
    "path": "references/red-dune-live/tools/bench_dev.py",
@@ -2964,7 +2968,7 @@
   },
   {
    "path": "references/signal-courier/README.md",
-   "sha256_lf": "0f77185cce245d5952cb02e7aca42276934ba6110a0dca3922f5e8d818b66350"
+   "sha256_lf": "ffd7fb0879a741eeb05ad688ce6186792980433aae45f0ed9426026afdbd7869"
   },
   {
    "path": "references/signal-courier/app/Browser.hs",
@@ -3008,7 +3012,7 @@
   },
   {
    "path": "references/signal-courier/src/Signal/Game.hs",
-   "sha256_lf": "11c138c1b6e5ac03def845d32ff2a894b2982ea9d8ed126b65e0a47c31d54105"
+   "sha256_lf": "1c68fd337fec72cfdf63a79b2f8acf1cb647d6c5afe7ed43f3c3ecaaaaa6a621"
   },
   {
    "path": "references/signal-courier/src/Signal/View.hs",
@@ -4751,6 +4755,10 @@
    "sha256_lf": "2589dd17c7a81189d99240ea0276319676edbf0e3d34c4ed7836cfe4ae3eee28"
   },
   {
+   "path": "research/readability/game-rules-refactor.md",
+   "sha256_lf": "e8c841e9510fb7c34f216a61bed2212b8f05040e63b27d987d60d248ffcae68c"
+  },
+  {
    "path": "research/readability/river-refactor.md",
    "sha256_lf": "ae439fd670d92771282b9eb630de66269b7f25ae9e7c9484b282d921093fd87a"
   },
@@ -5432,7 +5440,7 @@
   },
   {
    "path": "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl",
-   "sha256_lf": "cc4a4477062ab347f7bb682629491fcd1b5bce2991386affc0946f3ca84d0b06"
+   "sha256_lf": "f29e4973544eeb109aec3fcac6a1ddc423bd824f6cc10f18c93071828680096a"
   },
   {
    "path": "templates/terminal-adventure/src/Game/Adapter.hs",

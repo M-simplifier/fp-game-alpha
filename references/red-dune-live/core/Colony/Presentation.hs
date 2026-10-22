@@ -338,7 +338,7 @@ m1Projection world public =
       ("plans", arr (map plan (reverse (M.elems (C.constructionJobs (publicConstruction public)))))),
       ("workers", arr [worker i person adjunct | (i, person) <- M.toAscList (publicResidents public), Just adjunct <- [M.lookup i (W.workforceWorkers wf)]]),
       ("targets", arr [assignment target requirement | (target, requirement) <- M.toAscList catalog]),
-      ("buildOptions", arr [buildOption name shape | (name, shape) <- [(name, Space.BuildingShape name (Space.Tile 0 0) Space.R0) | name <- if worldRuleset world == "red-dune-live-1" then C.liveBuildablePrototypes else ["hand_pump"]] ++ [("road", Space.RoadShape (Space.Tile 0 0))]])
+      ("buildOptions", arr [buildOption name shape | (name, shape) <- buildShapes])
     ]
   where
     space = publicSpace public
@@ -348,6 +348,8 @@ m1Projection world public =
     activeShift = toInteger (tick `mod` 28800 `div` 9600)
     catalog = either (const M.empty) id (workTargetCatalog world)
     context = W.TickContext (simTick world) activeShift
+    buildable = if worldRuleset world == "red-dune-live-1" then C.liveBuildablePrototypes else ["hand_pump"]
+    buildShapes = [(name, Space.BuildingShape name (Space.Tile 0 0) Space.R0) | name <- buildable] ++ [("road", Space.RoadShape (Space.Tile 0 0))]
     placement p =
       obj
         ( shapeFields world (Space.placementShape p)
@@ -357,7 +359,17 @@ m1Projection world public =
                  ("port", either (const JNull) (maybeJ portGeometryJSON . snd) (Space.placementGeometry (worldContent world) p))
                ]
         )
-    source region = let Space.Rect (Space.Tile x y) w h = Space.sourceRegionBounds region in obj [("id", ident (Space.sourceRegionId region)), ("kind", str (Space.sourceRegionKind region)), ("resource", str (resourceKey (Space.sourceRegionResource region))), ("x", num x), ("y", num y), ("width", num w), ("height", num h)]
+    source region =
+      let Space.Rect (Space.Tile x y) sourceWidth sourceHeight = Space.sourceRegionBounds region
+       in obj
+            [ ("id", ident (Space.sourceRegionId region)),
+              ("kind", str (Space.sourceRegionKind region)),
+              ("resource", str (resourceKey (Space.sourceRegionResource region))),
+              ("x", num x),
+              ("y", num y),
+              ("width", num sourceWidth),
+              ("height", num sourceHeight)
+            ]
     cache tile record =
       let owner = Space.cacheOwner record; inventory = worldInventory world; Space.Tile x y = tile
        in obj
@@ -386,7 +398,7 @@ m1Projection world public =
                  ("escrow", ownerJSON (C.constructionEscrow job)),
                  ("source", maybeJ ident (C.constructionSource job)),
                  ("terminal", JBool (C.constructionTerminal job)),
-                 ("costs", arr [obj [("resource", str (resourceKey resource)), ("quantity", num quantity), ("physical", num (physical world (C.constructionInput job) resource)), ("unreceived", num (constructionIncoming (worldTransport world) (C.constructionInput job) resource)), ("cause", causeJSON world (C.constructionInput job) resource quantity)] | (resource, quantity) <- M.toAscList (C.constructionCost (C.constructionSnapshot job))])
+                 ("costs", arr [materialCost job resource quantity | (resource, quantity) <- M.toAscList (C.constructionCost (C.constructionSnapshot job))])
                ]
             ++ constructionCancellation world job
         )
@@ -400,9 +412,28 @@ m1Projection world public =
           ("bed", JBool (residentBed person)),
           ("status", num (residentStatus person)),
           ("role", maybeJ num (W.workerRole adjunct)),
-          ("target", maybeJ targetJSON (case [target | ((target, _), people) <- M.toAscList (W.workforceRosters wf), i `elem` people] of target : _ -> Just target; _ -> Nothing)),
+          ("target", maybeJ targetJSON (workerTarget i)),
           ("forcedRestUntil", maybeJ tickJSON (W.workerForcedRestUntil adjunct)),
-          ("skills", arr [obj [("skill", num skill), ("level", num (W.skillLevel progress)), ("xp", num (W.skillExperience progress)), ("effect", str (if skill == W.TransportSkill then "経験蓄積のみ。速度・容量・燃料bonus未実装" else "実work credit係数。配給serviceはXPなし"))] | (skill, progress) <- M.toAscList (W.workerSkills adjunct)])
+          ("skills", arr [skillProgress skill progress | (skill, progress) <- M.toAscList (W.workerSkills adjunct)])
+        ]
+    materialCost job resource quantity =
+      let owner = C.constructionInput job
+       in obj
+            [ ("resource", str (resourceKey resource)),
+              ("quantity", num quantity),
+              ("physical", num (physical world owner resource)),
+              ("unreceived", num (constructionIncoming (worldTransport world) owner resource)),
+              ("cause", causeJSON world owner resource quantity)
+            ]
+    workerTarget resident = case [target | ((target, _), people) <- M.toAscList (W.workforceRosters wf), resident `elem` people] of
+      target : _ -> Just target
+      _ -> Nothing
+    skillProgress skill progress =
+      obj
+        [ ("skill", num skill),
+          ("level", num (W.skillLevel progress)),
+          ("xp", num (W.skillExperience progress)),
+          ("effect", str (if skill == W.TransportSkill then "経験蓄積のみ。速度・容量・燃料bonus未実装" else "実work credit係数。配給serviceはXPなし"))
         ]
     assignment target requirement =
       obj
@@ -420,8 +451,26 @@ m1Projection world public =
           )
         ]
     buildOption name shape = case C.snapshotForRuleset (worldRuleset world) (worldContent world) shape of
-      Left reason -> obj [("prototype", str name), ("label", str name), ("costs", arr []), ("required", num (0 :: Integer)), ("crew", num (0 :: Integer)), ("enabled", JBool False), ("reason", num reason)]
-      Right snapshot -> obj [("prototype", str name), ("label", str (maybe "道路" buildingLabel (M.lookup name (contentBuildings (worldContent world))))), ("costs", resourceAmounts (M.toAscList (C.constructionCost snapshot))), ("required", num (C.constructionRequired snapshot)), ("crew", num (C.constructionCrewRequired snapshot)), ("enabled", JBool True), ("reason", JNull)]
+      Left reason ->
+        obj
+          [ ("prototype", str name),
+            ("label", str name),
+            ("costs", arr []),
+            ("required", num (0 :: Integer)),
+            ("crew", num (0 :: Integer)),
+            ("enabled", JBool False),
+            ("reason", num reason)
+          ]
+      Right snapshot ->
+        obj
+          [ ("prototype", str name),
+            ("label", str (maybe "道路" buildingLabel (M.lookup name (contentBuildings (worldContent world))))),
+            ("costs", resourceAmounts (M.toAscList (C.constructionCost snapshot))),
+            ("required", num (C.constructionRequired snapshot)),
+            ("crew", num (C.constructionCrewRequired snapshot)),
+            ("enabled", JBool True),
+            ("reason", JNull)
+          ]
 
 -- Successful private plan simulation supplies actual geometry and chosen source;
 -- no renderer needs to duplicate source-distance, dimensions or cost formulas.

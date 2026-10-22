@@ -437,13 +437,9 @@ drawColony font width height time mouse screen failure = do
                       else Nothing
             _ -> pure Nothing
       candidates <- mapM buildingLabel placements
-      let overlaps (Rectangle ax ay aw ah) (Rectangle bx by bw bh) = ax < bx + bw && bx < ax + aw && ay < by + bh && by < ay + ah
-          keep labels label
-            | any (overlaps (worldLabelBounds label) . worldLabelBounds) labels = labels
-            | otherwise = label : labels
-          -- Sources needed by the active build choice take priority, including after FocusSource.
-          -- Otherwise resources yield to selected, hovered and ambient facility labels.
-          visibleLabels = reverse (foldl' keep [] (sortOn worldLabelPriority [label | Just label <- candidates ++ sourceLabels]))
+      -- Sources needed by the active build choice take priority, including after FocusSource.
+      -- Otherwise resources yield to selected, hovered and ambient facility labels.
+      let visibleLabels = prioritizedWorldLabels (candidates ++ sourceLabels)
       let drawBuilding placement = case S.placementShape placement of
             S.RoadShape (S.Tile x y) -> when (S.placementStage placement /= S.Built) $ tileQuad width height camera (fromInteger x) (fromInteger y) 1 1 0 (Color 246 193 81 180)
             S.BuildingShape name (S.Tile x y) rotation -> do
@@ -581,6 +577,18 @@ drawColony font width height time mouse screen failure = do
   endScissorMode
   pure (if screenBuild screen == Nothing && visibleWorld then hotspots else [])
   where
+    -- Priority determines which label survives an overlap; reverse the
+    -- accepted set back to draw order after processing the highest priorities.
+    prioritizedWorldLabels candidates =
+      reverse (foldl' keep [] (sortOn worldLabelPriority [label | Just label <- candidates]))
+      where
+        keep accepted label
+          | any (overlaps (worldLabelBounds label) . worldLabelBounds) accepted = accepted
+          | otherwise = label : accepted
+
+        overlaps (Rectangle ax ay aw ah) (Rectangle bx by bw bh) =
+          ax < bx + bw && bx < ax + aw && ay < by + bh && by < ay + ah
+
     depth camera placement = case S.placementShape placement of
       S.BuildingShape _ (S.Tile x y) _ -> depthXY camera x y
       S.RoadShape (S.Tile x y) -> depthXY camera x y

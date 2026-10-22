@@ -375,111 +375,102 @@ workTargetCatalog w = case worldM1 w of
 
 validateM1WorldLinks :: World -> M1State -> Either Failure ()
 validateM1WorldLinks w state = do
-  let space = m1Space state
-      check b = unless b . Left . InvariantViolation
-      getPlacement ident = maybe (Left (InvariantViolation "operational entity lacks physical placement")) Right (M.lookup ident (Space.spatialPlacements space))
   nodes <- S.fromList <$> mapM nodeOf (S.toAscList (Space.spatialRoads space))
   validatePickups (worldInventory w) (worldTransport w) (simTick w) (m1Pickups state)
-  check (worldWeather w == Clear) "S01 M1 profile is Clear-only; full storm labour/health/transport rules are pending"
-  check (M.null (transportRecoveries (worldTransport w))) "M1 named rescue crew is unimplemented; fixed-crew recovery is legacy-only"
-  check (all (null . gridGenerators) (M.elems (worldPowerGrids w))) "M1 generator staffing is unimplemented; S01 uses solar/battery"
-  check
-    ( all
-        ( \job ->
-            Construction.constructionRuleVersion (Construction.constructionSnapshot job)
-              == if worldRuleset w == Construction.liveConstructionRuleset then 2 else 1
-        )
-        (M.elems (Construction.constructionJobs (m1Construction state)))
-    )
-    "construction rules snapshot is not authorized by world ruleset"
+  checkSupportedProfile
   validateM1PowerBindings w space
-  check (nodes == roadNodes (transportTopology (worldTransport w))) "road graph differs from spatial road layer"
-  ports <- spatialPorts space
-  check (ports == transportPorts (worldTransport w)) "transport ports differ from physical endpoints"
-  caches <- spatialRoadCaches space
-  check (caches == transportGroundCaches (worldTransport w)) "transport cache differs from unique spatial tile owner"
-  check (M.size (m1ColonyDepots state) <= 1) "M1 S01 slice supports one colony; founding is not implemented"
-  let workforce = m1Workforce state
-      SimTick now = simTick w
-      context = Workforce.TickContext (simTick w) (toInteger (now `mod` 28800 `div` 9600))
-  catalog <- workTargetCatalog w
-  reconciled <- either (Left . Workforce.workforceFailure) Right (Workforce.reconcileClaims context catalog (worldNeeds w) workforce)
-  check (reconciled == workforce) "committed workforce contains stale/ineligible claims"
+  checkSpatialTransport nodes
+  checkWorkforce
   mapM_
-    ( \target ->
-        check
-          ( case target of
-              Workforce.OperateFacility ident -> not (M.member ident (worldSites w)) || any (\job -> jobPhase job == Running && M.lookup (jobId job) (worldJobSites w) == Just ident) (M.elems (worldJobs w))
-              Workforce.ConstructSite ident -> maybe False ((== Construction.ConstructionRunning) . Construction.constructionPhase) (M.lookup ident (Construction.constructionJobs (m1Construction state)))
-              Workforce.MaintainJob ident -> maybe False ((== MaintenanceRunning) . maintenancePhase) (M.lookup ident (maintenanceJobs (worldMaintenance w)))
-              Workforce.DriveVehicle ident -> maybe False (vehicleHasLiveDuty state) (M.lookup ident (transportVehicles (worldTransport w)))
-          )
-          "worker claim lacks actual live duty"
-    )
-    (M.elems (Workforce.workforceClaims workforce))
-  mapM_
-    ( \job ->
-        mapM_
-          ( \resource -> do
-              let owner = Construction.constructionInput job
-                  incoming = incomingDeliveryQuantity (worldTransport w) owner resource
-                  physical = sum [qtyValue (lotQty lot) | lot <- M.elems (invLots (worldInventory w)), lotOwner lot == owner, lotResource lot == resource]
-                  cost = M.findWithDefault 0 resource (Construction.constructionCost (Construction.constructionSnapshot job))
-              check (physical + incoming <= cost) "construction physical/incoming material exceeds known cost"
-              check (Construction.constructionPhase job /= Construction.ConstructionRunning || incoming == 0) "running construction has incoming unescrowed material"
-          )
-          allResources
-    )
+    checkConstructionMaterials
     [job | job <- M.elems (Construction.constructionJobs (m1Construction state)), not (Construction.constructionTerminal job)]
-  mapM_
-    ( \site -> do
-        check (siteInput site == Owner MachineInput (siteId site) && siteOutput site == Owner MachineOutput (siteId site)) "M1 site endpoint aliases another physical entity"
-        placement <- getPlacement (siteId site)
-        recipe <- either (Left . InvalidReference) Right (lookupRecipe (worldContent w) (siteRecipe site))
-        building <- either (Left . InvalidReference) Right (lookupBuilding (worldContent w) (recipeBuilding recipe))
-        check (Space.placementStage placement == Space.Built) "production runs at an unfinished site"
-        check (siteWorkers site == buildingWorkers building) "M1 site nominal staffing differs from content"
-        check (case Space.placementShape placement of Space.BuildingShape name _ _ -> name == recipeBuilding recipe; _ -> False) "site recipe/physical prototype mismatch"
-        let expected = case Space.placementSource placement of
-              Nothing -> M.empty
-              Just source -> M.fromList [(kind, source) | kind <- M.keys (recipeNaturalSources recipe)]
-        check (siteNatural site == expected) "site implicit/extra source binding"
-    )
-    (M.elems (worldSites w))
-  mapM_
-    ( \vehicle -> do
-        check (M.member (vehicleColony vehicle) (m1ColonyDepots state)) "vehicle belongs to unknown M1 colony"
-        home <- maybe (Left (InvariantViolation "vehicle physical home absent")) Right (M.lookup (vehicleHome vehicle) (invStorage (worldInventory w)))
-        fuel <- maybe (Left (InvariantViolation "vehicle physical fuel source absent")) Right (M.lookup (vehicleFuelSource vehicle) (invStorage (worldInventory w)))
-        check (case vehicleHome vehicle of Owner Warehouse _ -> True; _ -> False) "M1 vehicle parking must be a permanent warehouse/depot endpoint"
-        cargo <- maybe (Left (InvariantViolation "vehicle cargo storage absent")) Right (M.lookup (vehicleOwner vehicle) (invStorage (worldInventory w)))
-        check (storageColony home == vehicleColony vehicle && storageColony fuel == vehicleColony vehicle && storageColony cargo == vehicleColony vehicle) "vehicle home/fuel/cargo colony mismatch"
-        check (storageResource cargo == Nothing) "vehicle cargo storage cannot exclude cargo/fuel resources"
-        check (storageResource fuel `elem` [Nothing, Just Fuel]) "vehicle fuel source excludes Fuel"
-        let homePort = M.lookup (vehicleHome vehicle) (transportPorts (worldTransport w))
-        check (homePort /= Nothing && homePort == M.lookup (vehicleFuelSource vehicle) (transportPorts (worldTransport w))) "vehicle fuel must be at physical home port"
-    )
-    (M.elems (transportVehicles (worldTransport w)))
+  mapM_ checkProductionSite (M.elems (worldSites w))
+  mapM_ checkVehicleHome (M.elems (transportVehicles (worldTransport w)))
   check (M.keysSet (worldJobSites w) == M.keysSet (worldJobs w)) "every recipe job requires exactly one physical site link"
-  mapM_
-    ( \(ident, job) -> do
-        siteIdValue <- maybe (Left TargetGone) Right (M.lookup ident (worldJobSites w))
-        site <- maybe (Left TargetGone) Right (M.lookup siteIdValue (worldSites w))
-        check (jobRecipe job == siteRecipe site && jobInput job == siteInput site && jobOutput job == siteOutput site && jobNaturalSources job == siteNatural site) "recipe job/source/endpoints differ from its physical facility"
-    )
-    (M.toList (worldJobs w))
+  mapM_ checkProductionJob (M.toList (worldJobs w))
   validateM1TransportLinks w
-  expectedLocations <- M.fromList . concat <$> mapM (ownerLocation space getPlacement) (M.keys (invStorage (worldInventory w)))
+  expectedLocations <- M.fromList . concat <$> mapM ownerLocation (M.keys (invStorage (worldInventory w)))
   check (expectedLocations == Space.spatialOwnerLocations space) "inventory endpoint locations differ from physical placement/cache/job geometry"
-  mapM_
-    ( \facility -> do
-        placement <- getPlacement (facilityId facility)
-        check (Space.placementStage placement == Space.Built) "maintenance targets unfinished placement"
-        check (case Space.placementShape placement of Space.BuildingShape name _ _ -> name == facilityBuilding facility; _ -> False) "maintenance/physical prototype mismatch"
-    )
-    (M.elems (maintenanceFacilities (worldMaintenance w)))
+  mapM_ checkMaintenancePlacement (M.elems (maintenanceFacilities (worldMaintenance w)))
   where
-    ownerLocation space getPlacement owner@(Owner kind ident) =
+    -- Keep these groups in admission order: the first failure is observable.
+    space = m1Space state
+    check b = unless b . Left . InvariantViolation
+    getPlacement ident = maybe (Left (InvariantViolation "operational entity lacks physical placement")) Right (M.lookup ident (Space.spatialPlacements space))
+    checkSupportedProfile = do
+      check (worldWeather w == Clear) "S01 M1 profile is Clear-only; full storm labour/health/transport rules are pending"
+      check (M.null (transportRecoveries (worldTransport w))) "M1 named rescue crew is unimplemented; fixed-crew recovery is legacy-only"
+      check (all (null . gridGenerators) (M.elems (worldPowerGrids w))) "M1 generator staffing is unimplemented; S01 uses solar/battery"
+      check
+        ( all
+            ( \job ->
+                Construction.constructionRuleVersion (Construction.constructionSnapshot job)
+                  == if worldRuleset w == Construction.liveConstructionRuleset then 2 else 1
+            )
+            (M.elems (Construction.constructionJobs (m1Construction state)))
+        )
+        "construction rules snapshot is not authorized by world ruleset"
+    checkSpatialTransport nodes = do
+      check (nodes == roadNodes (transportTopology (worldTransport w))) "road graph differs from spatial road layer"
+      ports <- spatialPorts space
+      check (ports == transportPorts (worldTransport w)) "transport ports differ from physical endpoints"
+      caches <- spatialRoadCaches space
+      check (caches == transportGroundCaches (worldTransport w)) "transport cache differs from unique spatial tile owner"
+      check (M.size (m1ColonyDepots state) <= 1) "M1 S01 slice supports one colony; founding is not implemented"
+    checkWorkforce = do
+      let workforce = m1Workforce state
+          SimTick now = simTick w
+          context = Workforce.TickContext (simTick w) (toInteger (now `mod` 28800 `div` 9600))
+      catalog <- workTargetCatalog w
+      reconciled <- either (Left . Workforce.workforceFailure) Right (Workforce.reconcileClaims context catalog (worldNeeds w) workforce)
+      check (reconciled == workforce) "committed workforce contains stale/ineligible claims"
+      mapM_ (\target -> check (hasLiveDuty target) "worker claim lacks actual live duty") (M.elems (Workforce.workforceClaims workforce))
+    hasLiveDuty target = case target of
+      Workforce.OperateFacility ident -> not (M.member ident (worldSites w)) || any (\job -> jobPhase job == Running && M.lookup (jobId job) (worldJobSites w) == Just ident) (M.elems (worldJobs w))
+      Workforce.ConstructSite ident -> maybe False ((== Construction.ConstructionRunning) . Construction.constructionPhase) (M.lookup ident (Construction.constructionJobs (m1Construction state)))
+      Workforce.MaintainJob ident -> maybe False ((== MaintenanceRunning) . maintenancePhase) (M.lookup ident (maintenanceJobs (worldMaintenance w)))
+      Workforce.DriveVehicle ident -> maybe False (vehicleHasLiveDuty state) (M.lookup ident (transportVehicles (worldTransport w)))
+    checkConstructionMaterials job = mapM_ checkResource allResources
+      where
+        checkResource resource = do
+          let owner = Construction.constructionInput job
+              incoming = incomingDeliveryQuantity (worldTransport w) owner resource
+              physical = sum [qtyValue (lotQty lot) | lot <- M.elems (invLots (worldInventory w)), lotOwner lot == owner, lotResource lot == resource]
+              cost = M.findWithDefault 0 resource (Construction.constructionCost (Construction.constructionSnapshot job))
+          check (physical + incoming <= cost) "construction physical/incoming material exceeds known cost"
+          check (Construction.constructionPhase job /= Construction.ConstructionRunning || incoming == 0) "running construction has incoming unescrowed material"
+    checkProductionSite site = do
+      check (siteInput site == Owner MachineInput (siteId site) && siteOutput site == Owner MachineOutput (siteId site)) "M1 site endpoint aliases another physical entity"
+      placement <- getPlacement (siteId site)
+      recipe <- either (Left . InvalidReference) Right (lookupRecipe (worldContent w) (siteRecipe site))
+      building <- either (Left . InvalidReference) Right (lookupBuilding (worldContent w) (recipeBuilding recipe))
+      check (Space.placementStage placement == Space.Built) "production runs at an unfinished site"
+      check (siteWorkers site == buildingWorkers building) "M1 site nominal staffing differs from content"
+      check (case Space.placementShape placement of Space.BuildingShape name _ _ -> name == recipeBuilding recipe; _ -> False) "site recipe/physical prototype mismatch"
+      let expected = case Space.placementSource placement of
+            Nothing -> M.empty
+            Just source -> M.fromList [(kind, source) | kind <- M.keys (recipeNaturalSources recipe)]
+      check (siteNatural site == expected) "site implicit/extra source binding"
+    checkVehicleHome vehicle = do
+      check (M.member (vehicleColony vehicle) (m1ColonyDepots state)) "vehicle belongs to unknown M1 colony"
+      home <- maybe (Left (InvariantViolation "vehicle physical home absent")) Right (M.lookup (vehicleHome vehicle) (invStorage (worldInventory w)))
+      fuel <- maybe (Left (InvariantViolation "vehicle physical fuel source absent")) Right (M.lookup (vehicleFuelSource vehicle) (invStorage (worldInventory w)))
+      check (case vehicleHome vehicle of Owner Warehouse _ -> True; _ -> False) "M1 vehicle parking must be a permanent warehouse/depot endpoint"
+      cargo <- maybe (Left (InvariantViolation "vehicle cargo storage absent")) Right (M.lookup (vehicleOwner vehicle) (invStorage (worldInventory w)))
+      check (storageColony home == vehicleColony vehicle && storageColony fuel == vehicleColony vehicle && storageColony cargo == vehicleColony vehicle) "vehicle home/fuel/cargo colony mismatch"
+      check (storageResource cargo == Nothing) "vehicle cargo storage cannot exclude cargo/fuel resources"
+      check (storageResource fuel `elem` [Nothing, Just Fuel]) "vehicle fuel source excludes Fuel"
+      let homePort = M.lookup (vehicleHome vehicle) (transportPorts (worldTransport w))
+      check (homePort /= Nothing && homePort == M.lookup (vehicleFuelSource vehicle) (transportPorts (worldTransport w))) "vehicle fuel must be at physical home port"
+    checkProductionJob (ident, job) = do
+      siteIdValue <- maybe (Left TargetGone) Right (M.lookup ident (worldJobSites w))
+      site <- maybe (Left TargetGone) Right (M.lookup siteIdValue (worldSites w))
+      check (jobRecipe job == siteRecipe site && jobInput job == siteInput site && jobOutput job == siteOutput site && jobNaturalSources job == siteNatural site) "recipe job/source/endpoints differ from its physical facility"
+    checkMaintenancePlacement facility = do
+      placement <- getPlacement (facilityId facility)
+      check (Space.placementStage placement == Space.Built) "maintenance targets unfinished placement"
+      check (case Space.placementShape placement of Space.BuildingShape name _ _ -> name == facilityBuilding facility; _ -> False) "maintenance/physical prototype mismatch"
+    ownerLocation owner@(Owner kind ident) =
       let fixed names = do
             placement <- getPlacement ident
             case Space.placementShape placement of

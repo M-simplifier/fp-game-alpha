@@ -23,14 +23,11 @@
     "runtime/Garden/Input.hs",
     "src/Garden/Islands.hs",
     "src/Garden/Photo.hs",
-    "src/Garden/Raycast.hs",
-    "src/Garden/Rules.hs",
     "src/Garden/Signal.hs",
     "src/Garden/Soundscape.hs",
     "src/Garden/Tour.hs",
     "src/Garden/Types.hs",
     "src/Garden/View.hs",
-    "src/Garden/World.hs",
     "tools/GardenAudio.hs",
     "tools/Observe-Garden.ps1",
     "tools/fixtures/garden-v3.txt",
@@ -77,6 +74,12 @@
       "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
     },
     {
+      "path": "src/Garden/Raycast.hs",
+      "origin_sha256": "8c02185c7f6f6e0e43c4e4e650b205c75745a9ae68dde08c2bbd6fad466c4f0b",
+      "current_sha256": "cf82a36f11ff560db0cc633015fb318f5c81698ffcd002b50b6f18b35d89f502",
+      "reason": "; readability refactor: Name nearest enemy selection and its stable distance tie; retain terrain occlusion and candidate traversal order."
+    },
+    {
       "path": "runtime/Garden/Render.hs",
       "origin_sha256": "b2a5bad6ec838db78c7ae3522e66d38bfd01c987175fc2792c8a1341aeb4af87",
       "current_sha256": "a7fedd1c90b155db9c0b90905750d54c16a94fe1a1500a7599c9eae6871bc253",
@@ -119,10 +122,22 @@
       "reason": "; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
     },
     {
+      "path": "src/Garden/Rules.hs",
+      "origin_sha256": "1c7456e51b1997a1f40701245e8bea4015a7418f359c93ace2f5fc0df21ac0d9",
+      "current_sha256": "4a0f562f4e6dd2fec4b16cba002f39351e2ad735b9323b6cc7676bd739190248",
+      "reason": "; readability refactor: Name jump grace, input retention and independent movement constants; separate requested motion from ordered collision resolution; expand gameplay decisions without changing arithmetic or cue order."
+    },
+    {
       "path": "runtime/Garden/Runtime.hs",
       "origin_sha256": "c3538af71b2028526171d51e850d42a545132ca8291019b35f9d92e670127784",
       "current_sha256": "b499fe04dc34e60627c4adbdfd773a88920c3dc47f47e9109e089a492392641e",
       "reason": "World/Clock/Pilot fold -> pure Garden.Session; Arena.play and complete observe; original effects retained; reviewed Ormolu 0.9.0.0 formatting, exact current hash locked"
+    },
+    {
+      "path": "src/Garden/World.hs",
+      "origin_sha256": "dc9ead101cfa30a2e26f69aec76de149ee8c11963c10c008790e7894ea7a90d9",
+      "current_sha256": "b4aec9af04d9f29e0f66c473175dbb46c0291dcb75cdbdd6a4b976e413530952",
+      "reason": "; readability refactor: Construct the initial player with its existing field names, preserving all state and authored landscape data."
     },
     {
       "path": "tools/GardenCheck.hs",
@@ -187,6 +202,31 @@
         "path": "afterlight-arena.cabal",
         "previous_formatted_sha256": null,
         "current_sha256": "60c104de34ea33cb7048e813e05015852cee34150e421baf96453e3fb614f70d"
+      }
+    ]
+  },
+  "readability_refactor": {
+    "schema": 1,
+    "kind": "readability-refactor",
+    "base_revision": "7fb546cb58cc79120b1061f06bea741c4f3e9ec3",
+    "files": [
+      {
+        "path": "src/Garden/Rules.hs",
+        "previous_sha256": "1c7456e51b1997a1f40701245e8bea4015a7418f359c93ace2f5fc0df21ac0d9",
+        "current_sha256": "4a0f562f4e6dd2fec4b16cba002f39351e2ad735b9323b6cc7676bd739190248",
+        "reason": "Name jump grace, input retention and independent movement constants; separate requested motion from ordered collision resolution; expand gameplay decisions without changing arithmetic or cue order."
+      },
+      {
+        "path": "src/Garden/Raycast.hs",
+        "previous_sha256": "8c02185c7f6f6e0e43c4e4e650b205c75745a9ae68dde08c2bbd6fad466c4f0b",
+        "current_sha256": "cf82a36f11ff560db0cc633015fb318f5c81698ffcd002b50b6f18b35d89f502",
+        "reason": "Name nearest enemy selection and its stable distance tie; retain terrain occlusion and candidate traversal order."
+      },
+      {
+        "path": "src/Garden/World.hs",
+        "previous_sha256": "dc9ead101cfa30a2e26f69aec76de149ee8c11963c10c008790e7894ea7a90d9",
+        "current_sha256": "b4aec9af04d9f29e0f66c473175dbb46c0291dcb75cdbdd6a4b976e413530952",
+        "reason": "Construct the initial player with its existing field names, preserving all state and authored landscape data."
       }
     ]
   },

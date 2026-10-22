@@ -29,7 +29,20 @@ initialWorld =
       worldJourney = Awakening
     }
   where
-    player = Player (V3 0.5 5 (-39.5)) 0 0.21 Grounded 0 (V3 0 0 0) 6 0 0 0 (V3 0 0 1)
+    player =
+      Player
+        { playerFeet = V3 0.5 5 (-39.5),
+          playerYaw = 0,
+          playerPitch = 0.21,
+          playerMotion = Grounded,
+          playerSlot = 0,
+          playerVelocity = V3 0 0 0,
+          playerCoyote = 6,
+          playerJumpBuffer = 0,
+          playerDashTicks = 0,
+          playerDashCooldown = 0,
+          playerDashDirection = V3 0 0 1
+        }
     kin = [Kin 0 (standing (-12) 1) Jade 0 False, Kin 1 (standing 24 22) Rose 0 False, Kin 2 (standing (-23) 39) Azure 0 False]
     enemies = [Adversary 0 (standing 31 2) 4 0 120 Wanderer, Adversary 1 (standing (-34) 26) 7 0 120 Custodian, Adversary 2 (standing 17 58) 3 0 120 Skitter]
     inventory = Inventory M.empty (M.fromList [(Pearl, 36), (Gold, 12), (Luminous, 8), (Moss, 16), (Leaves, 12), (Water, 8)]) 1

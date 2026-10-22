@@ -71,61 +71,61 @@ advanceCampaign :: S01Descriptor -> Policies -> World -> World -> CampaignState 
 advanceCampaign d policies before after c
   | campaignEnding c /= Ongoing || simTick before == simTick after = c
   | campaignImported c = c
-  | otherwise = next {campaignEnding = ending}
+  | otherwise = updatedCampaign {campaignEnding = ending}
   where
-    produced = sum [qtyValue (lotQty lot) | lot <- freshLots c after, lotBorn lot == simTick after]
-    living = max 0 (ledger Ration LivingConsumed after - ledger Ration LivingConsumed before)
-    otherLoss = any (\reason -> ledger Ration reason after /= ledger Ration reason before) [SpoilageInput, CancelledProcessLoss, RecipeInput, ConstructionConsumed, TradePaid]
-    depletion = max 0 (freshTotal c before + produced - freshTotal c after)
-    consumed = if otherLoss then 0 else min living depletion
-    lots = freshLots c after
-    transit = campaignFreshTransit c || any (\lot -> case lotOwner lot of Owner Vehicle _ -> True; _ -> False) lots
-    pantry = campaignFreshPantry c || consumed > 0 || any ((== s01Pantry d) . lotOwner) lots
+    freshFoodProduced = sum [qtyValue (lotQty lot) | lot <- freshLots c after, lotBorn lot == simTick after]
+    livingRationConsumed = max 0 (ledger Ration LivingConsumed after - ledger Ration LivingConsumed before)
+    otherRationLossOccurred = any (\reason -> ledger Ration reason after /= ledger Ration reason before) [SpoilageInput, CancelledProcessLoss, RecipeInput, ConstructionConsumed, TradePaid]
+    freshFoodDepleted = max 0 (freshTotal c before + freshFoodProduced - freshTotal c after)
+    freshFoodConsumed = if otherRationLossOccurred then 0 else min livingRationConsumed freshFoodDepleted
+    freshLotsAfterTick = freshLots c after
+    freshFoodReachedTransit = campaignFreshTransit c || any (\lot -> case lotOwner lot of Owner Vehicle _ -> True; _ -> False) freshLotsAfterTick
+    freshFoodReachedPantry = campaignFreshPantry c || freshFoodConsumed > 0 || any ((== s01Pantry d) . lotOwner) freshLotsAfterTick
     expanded =
       campaignExpanded c || case worldM1 after of
         Nothing -> False
         Just state ->
-          any
-            ( \job ->
-                C.constructionPhase job == C.ConstructionCompleted && case C.constructionShape job of
-                  -- Stored materials prove new capacity is physically reachable and used.
-                  _ ->
-                    let ident = C.constructionSiteId job
-                        storageUsed = any (\lot -> case lotOwner lot of Owner Warehouse n -> n == ident; Owner Pantry n -> n == ident; Owner Tank n -> n == ident; _ -> False) (M.elems (invLots (worldInventory after)))
-                        siteUsed = any (\j -> jobPhase j == Completed && M.lookup (jobId j) (worldJobSites after) == Just ident) (M.elems (worldJobs after))
-                     in storageUsed || siteUsed
-            )
-            (M.elems (C.constructionJobs (m1Construction state)))
-    recovered = campaignRecovered c || (campaignDisrupted c && any (\job -> maintenanceTarget job == s01Kitchen d && maintenanceKind job == BrokenRepair && maintenancePhase job == MaintenanceCompleted && maintenanceJobId job `notElem` campaignPriorRepairs c) (M.elems (maintenanceJobs (worldMaintenance after))))
-    freshConsumed = campaignFreshConsumed c + consumed
-    ready = campaignWaterExtracted c > 0 && campaignProduced c > 0 && transit && pantry && freshConsumed >= scenarioFreshFood (campaignScenario c) && expanded && recovered && policiesEnabled policies
+          any constructionUsesNewCapacity (M.elems (C.constructionJobs (m1Construction state)))
+    recovered = campaignRecovered c || (campaignDisrupted c && any isNewKitchenRepair (M.elems (maintenanceJobs (worldMaintenance after))))
+    freshFoodConsumedSoFar = campaignFreshConsumed c + freshFoodConsumed
+    campaignObjectivesSatisfied = campaignWaterExtracted c > 0 && campaignProduced c > 0 && freshFoodReachedTransit && freshFoodReachedPantry && freshFoodConsumedSoFar >= scenarioFreshFood (campaignScenario c) && expanded && recovered && policiesEnabled policies
     people = M.elems (needsResidents (worldNeeds after))
-    healthy = all (\p -> residentStatus p == Living && residentHealth p >= 950 && residentHourWaterDue p == residentHourWaterServed p && residentHourFoodDue p == residentHourFoodServed p) people
-    reserve = physical after (s01Pantry d) Water >= 20000 && physical after (s01Pantry d) Ration >= 10000
+    residentsHealthy = all residentMeetsHealthAndServiceThreshold people
+    pantryReserveReady = physical after (s01Pantry d) Water >= 20000 && physical after (s01Pantry d) Ration >= 10000
     SimTick now = simTick after
-    servedThisTick =
+    allNeedsServedThisTick =
       now `mod` 20 /= 0
         || all
           ( \(resource, daily, remainder) ->
               ledger resource LivingConsumed after - ledger resource LivingConsumed before >= sum [(remainder person + daily * 20) `div` 28800 | person <- M.elems (needsResidents (worldNeeds before)), residentStatus person `elem` [Living, Incapacitated]]
           )
           [(Water, 6000, residentWaterRemainder), (Ration, 3000, residentFoodRemainder)]
-    stable = if ready && healthy && reserve && servedThisTick then campaignStableTicks c + 1 else 0
-    next =
+    stableTicks = if campaignObjectivesSatisfied && residentsHealthy && pantryReserveReady && allNeedsServedThisTick then campaignStableTicks c + 1 else 0
+    updatedCampaign =
       c
-        { campaignProduced = campaignProduced c + produced,
-          campaignFreshTransit = transit,
-          campaignFreshPantry = pantry,
-          campaignFreshConsumed = freshConsumed,
+        { campaignProduced = campaignProduced c + freshFoodProduced,
+          campaignFreshTransit = freshFoodReachedTransit,
+          campaignFreshPantry = freshFoodReachedPantry,
+          campaignFreshConsumed = freshFoodConsumedSoFar,
           campaignWaterExtracted = campaignWaterExtracted c + max 0 (ledger Water Extraction after - ledger Water Extraction before),
           campaignExpanded = expanded,
           campaignRecovered = recovered,
-          campaignStableTicks = stable
+          campaignStableTicks = stableTicks
         }
     ending
       | null people || any ((/= Living) . residentStatus) people = ColonyLost "A settler became incapacitated. Restore an earlier checkpoint or restart and protect pantry supply before expanding."
-      | ready && stable >= scenarioStableHours (campaignScenario c) * 1200 && elapsedTicks after c >= scenarioHours (campaignScenario c) * 1200 = SettlementSecured
+      | campaignObjectivesSatisfied && stableTicks >= scenarioStableHours (campaignScenario c) * 1200 && elapsedTicks after c >= scenarioHours (campaignScenario c) * 1200 = SettlementSecured
       | otherwise = Ongoing
+    constructionUsesNewCapacity job =
+      C.constructionPhase job == C.ConstructionCompleted && case C.constructionShape job of
+        -- Stored materials prove new capacity is physically reachable and used.
+        _ ->
+          let ident = C.constructionSiteId job
+              storageUsed = any (\lot -> case lotOwner lot of Owner Warehouse n -> n == ident; Owner Pantry n -> n == ident; Owner Tank n -> n == ident; _ -> False) (M.elems (invLots (worldInventory after)))
+              siteUsed = any (\j -> jobPhase j == Completed && M.lookup (jobId j) (worldJobSites after) == Just ident) (M.elems (worldJobs after))
+           in storageUsed || siteUsed
+    isNewKitchenRepair job = maintenanceTarget job == s01Kitchen d && maintenanceKind job == BrokenRepair && maintenancePhase job == MaintenanceCompleted && maintenanceJobId job `notElem` campaignPriorRepairs c
+    residentMeetsHealthAndServiceThreshold resident = residentStatus resident == Living && residentHealth resident >= 950 && residentHourWaterDue resident == residentHourWaterServed resident && residentHourFoodDue resident == residentHourFoodServed resident
 
 campaignJSON :: World -> CampaignState -> J.JSON
 campaignJSON w c =

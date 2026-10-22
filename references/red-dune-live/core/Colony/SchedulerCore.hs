@@ -205,8 +205,12 @@ phaseExpiry tick (w, out) = do
   affected `seq` pure (w {simTick = tick, worldInventory = inv, worldJobs = nextJobs, worldTransport = transport}, out {outputEvents = outputEvents out ++ events})
 
 phaseStart :: SimTick -> Staged -> Checked Staged
-phaseStart tick initial = foldM start initial . zip [0 ..] . take (fromIntegral (256 - worldMaintenanceAttempts (fst initial) - transportLastAssignments (worldTransport (fst initial)))) . filter (\j -> not (terminal j) && jobPhase j /= Running) . M.elems . worldJobs . fst $ initial
+phaseStart tick initial = foldM start initial (zip [0 ..] candidates)
   where
+    world = fst initial
+    remainingAttempts = 256 - worldMaintenanceAttempts world - transportLastAssignments (worldTransport world)
+    waitingJobs = [job | job <- M.elems (worldJobs world), not (terminal job) && jobPhase job /= Running]
+    candidates = take (fromIntegral remainingAttempts) waitingJobs
     start (w, out) (ordinal, j) = case readySite w j of
       Left err -> pure (w {worldJobs = M.insert (jobId j) (j {jobBlocked = Just err}) (worldJobs w)}, out)
       Right _ -> case runInventory (startJob (worldContent w) tick j) (worldInventory w) of
@@ -237,9 +241,10 @@ readySite w j = do
   pure site
 
 phaseWork :: SimTick -> Staged -> Checked Staged
-phaseWork tick initial = foldM work initialWithOperating . zip [0 ..] . filter ((== Running) . jobPhase) . M.elems . worldJobs . fst $ initial
+phaseWork tick initial = foldM work initialWithOperating (zip [0 ..] runningJobs)
   where
     (starting, outputs) = initial
+    runningJobs = filter ((== Running) . jobPhase) (M.elems (worldJobs starting))
     operating = S.fromList [siteId site | job <- M.elems (worldJobs starting), jobPhase job == Running, Right site <- [readySite starting job], sitePowered starting site]
     initialWithOperating = (starting {worldOperatingFacilities = S.union operating (worldOperatingFacilities starting)}, outputs)
     work (w, out) (ordinal, j) = case readySite w j of

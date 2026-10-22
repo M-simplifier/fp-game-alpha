@@ -462,36 +462,67 @@ loadJSON h = case loadState h of
 
 snapshot :: String -> J.JSON -> Host -> J.JSON
 snapshot client result h =
-  let w = gameWorld (currentGame h); fields = case observeGame (currentGame h) of J.JObject f -> f; _ -> M.empty
-   in J.JObject $
-        M.union
-          ( M.fromList
-              [ ("result", result),
-                ( "shell",
-                  obj
-                    [ ("schema", str "red-dune-shell-0.5"),
-                      ("runtimeId", str (runtimeId h)),
-                      ("devRevision", maybe J.JNull str (devRevision h)),
-                      ("responseSerial", num (responseSerial h)),
-                      ("session", obj [("authority", str (worldAuthority w)), ("epochCounter", num (currentEpoch h)), ("world", num (worldId w)), ("branch", num (branchId w)), ("ruleset", str (worldRuleset w)), ("dirty", J.JBool (dirty h))]),
-                      ("catalog", obj [("status", str (catalogStatus h)), ("entries", arr (catalog h)), ("warnings", arr (map str (catalogWarnings h))), ("error", maybe J.JNull str (catalogError h))]),
-                      ("load", loadJSON h),
-                      ("warnings", arr (maybe [] (\x -> [str x]) (fault h)))
-                    ]
-                ),
-                ("save", obj [("current", saveStatus h), ("pending", J.JBool (saving h || savePending h))]),
-                ( "runtime",
-                  obj
-                    [ ("speed", num (speed h)),
-                      ("owner", str (case owner h of Nothing -> "none"; Just o | ownerClient o == client -> "mine"; _ -> "other")),
-                      ("leaseMs", str "4000"),
-                      ("workers", num (workers h)),
-                      ("fault", maybe J.JNull str (fault h))
-                    ]
-                )
-              ]
-          )
-          fields
+  let game = currentGame h
+      observedFields = case observeGame game of J.JObject fields -> fields; _ -> M.empty
+      hostFields =
+        M.fromList
+          [ ("result", result),
+            ("shell", shellSnapshot h game),
+            ("save", saveSnapshot h),
+            ("runtime", runtimeSnapshot client h)
+          ]
+   in J.JObject (M.union hostFields observedFields)
+
+shellSnapshot :: Host -> GameState -> J.JSON
+shellSnapshot h game =
+  obj
+    [ ("schema", str "red-dune-shell-0.5"),
+      ("runtimeId", str (runtimeId h)),
+      ("devRevision", maybe J.JNull str (devRevision h)),
+      ("responseSerial", num (responseSerial h)),
+      ("session", sessionSnapshot h game),
+      ("catalog", catalogSnapshot h),
+      ("load", loadJSON h),
+      ("warnings", arr (maybe [] (\message -> [str message]) (fault h)))
+    ]
+
+sessionSnapshot :: Host -> GameState -> J.JSON
+sessionSnapshot h game =
+  let world = gameWorld game
+   in obj
+        [ ("authority", str (worldAuthority world)),
+          ("epochCounter", num (currentEpoch h)),
+          ("world", num (worldId world)),
+          ("branch", num (branchId world)),
+          ("ruleset", str (worldRuleset world)),
+          ("dirty", J.JBool (dirty h))
+        ]
+
+catalogSnapshot :: Host -> J.JSON
+catalogSnapshot h =
+  obj
+    [ ("status", str (catalogStatus h)),
+      ("entries", arr (catalog h)),
+      ("warnings", arr (map str (catalogWarnings h))),
+      ("error", maybe J.JNull str (catalogError h))
+    ]
+
+saveSnapshot :: Host -> J.JSON
+saveSnapshot h =
+  obj
+    [ ("current", saveStatus h),
+      ("pending", J.JBool (saving h || savePending h))
+    ]
+
+runtimeSnapshot :: String -> Host -> J.JSON
+runtimeSnapshot client h =
+  obj
+    [ ("speed", num (speed h)),
+      ("owner", str (case owner h of Nothing -> "none"; Just current | ownerClient current == client -> "mine"; _ -> "other")),
+      ("leaseMs", str "4000"),
+      ("workers", num (workers h)),
+      ("fault", maybe J.JNull str (fault h))
+    ]
 
 ok :: String -> J.JSON
 ok status = obj [("status", str status)]

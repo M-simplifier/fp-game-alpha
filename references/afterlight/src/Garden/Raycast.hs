@@ -36,7 +36,14 @@ aimedEnemy w = pick Nothing (worldAdversaries w)
     pick best [] = best
     pick best (a : rest)
       | along > 0 && along < min 5.6 blockRange && perpendicular < 0.9 =
-          pick (case best of Nothing -> Just a; Just b -> if distance origin (adversaryPosition a) < distance origin (adversaryPosition b) then Just a else best) rest
+          pick (nearer best a) rest
       | otherwise = pick best rest
       where
-        v = minus (plus (adversaryPosition a) (V3 0 1 0)) origin; along = dot v dir; perpendicular = magnitude (minus v (scale along dir))
+        v = minus (plus (adversaryPosition a) (V3 0 1 0)) origin
+        along = dot v dir
+        perpendicular = magnitude (minus v (scale along dir))
+    -- Equal distances retain the earlier adversary, as does the original fold.
+    nearer Nothing candidate = Just candidate
+    nearer best@(Just previous) candidate
+      | distance origin (adversaryPosition candidate) < distance origin (adversaryPosition previous) = Just candidate
+      | otherwise = best

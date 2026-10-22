@@ -31,6 +31,9 @@ type Staged = (World, ColonyOutput, Duties)
 
 type Checked a = Base.Checked a
 
+-- The tag selects which authoritative subsystem owns the entity ID.
+data WorkKind = RecipeWork | ConstructionWork | MaintenanceWork deriving (Eq)
+
 fatal :: Phase -> Either Failure a -> Checked a
 fatal = Base.fatal
 
@@ -189,9 +192,9 @@ startPhase tick (world, out, duties) = do
   assigned <- fatal P5 (assignM1Transport tick (256 - worldMaintenanceAttempts fuelled) fuelled)
   after <- fatal P5 (reconcileM1Infrastructure assigned)
   let budget = 256 - worldMaintenanceAttempts after - transportLastAssignments (worldTransport after)
-      recipes = [(0 :: Int, jobId job) | job <- M.elems (worldJobs after), not (terminal job), jobPhase job /= Running]
+      recipes = [(RecipeWork, jobId job) | job <- M.elems (worldJobs after), not (terminal job), jobPhase job /= Running]
   state <- getM1 after
-  let construction = [(1, C.constructionSiteId job) | job <- M.elems (C.constructionJobs (m1Construction state)), not (C.constructionTerminal job), C.constructionPhase job /= C.ConstructionRunning]
+  let construction = [(ConstructionWork, C.constructionSiteId job) | job <- M.elems (C.constructionJobs (m1Construction state)), not (C.constructionTerminal job), C.constructionPhase job /= C.ConstructionRunning]
   foldM startOne (after, mo, md) (zip [0 ..] (take (fromIntegral budget) (recipes ++ construction)))
   where
     startMaintenanceOne (current, outputs, recorded) job = do
@@ -205,7 +208,7 @@ startPhase tick (world, out, duties) = do
           let result = attempted {worldMaintenance = next, worldInventory = inv}
            in pure (if maybe True ((/= MaintenanceRunning) . maintenancePhase) (M.lookup (maintenanceJobId job) (maintenanceJobs next)) then release (W.MaintainJob (maintenanceJobId job)) result else result, outputs, recorded)
     startOne (current, outputs, recorded) (ordinal, (kind, ident))
-      | kind == 0 = do
+      | kind == RecipeWork = do
           job <- maybe (Left (P5, TargetGone)) Right (M.lookup ident (worldJobs current))
           sid <- maybe (Left (P5, TargetGone)) Right (M.lookup ident (worldJobSites current))
           (claimed, crew) <- claim P5 tick (W.OperateFacility sid) current
@@ -242,12 +245,12 @@ workPhase tick initial@(world, _, _) = do
   state <- getM1 world
   let construction = [C.constructionSiteId job | job <- M.elems (C.constructionJobs (m1Construction state)), C.constructionPhase job == C.ConstructionRunning]
       maintenance = [maintenanceJobId job | job <- M.elems (maintenanceJobs (worldMaintenance world)), maintenancePhase job == MaintenanceRunning]
-      jobs = map ((,) 0) recipes ++ map ((,) 1) construction ++ map ((,) 2) maintenance
+      jobs = map (RecipeWork,) recipes ++ map (ConstructionWork,) construction ++ map (MaintenanceWork,) maintenance
   next <- foldM work initial (zip [0 ..] jobs)
   pure (next, fromIntegral (length jobs))
   where
-    work staged@(current, outputs, duties) (ordinal, (kind :: Int, ident))
-      | kind == 0 = do
+    work staged@(current, outputs, duties) (ordinal, (kind, ident))
+      | kind == RecipeWork = do
           job <- maybe (Left (P7, TargetGone)) Right (M.lookup ident (worldJobs current))
           sid <- maybe (Left (P7, TargetGone)) Right (M.lookup ident (worldJobSites current))
           (claimed, _) <- claim P7 tick (W.OperateFacility sid) current
@@ -267,7 +270,7 @@ workPhase tick initial@(world, _, _) = do
                 else do
                   (completed, inventory) <- fatal P7 (runInventory (completeJob (worldContent working) (Base.mkTx working P7 ordinal) tick advanced) (worldInventory working))
                   pure (release (W.OperateFacility sid) working {worldInventory = inventory, worldJobs = M.insert ident completed (worldJobs working)}, outputs {outputEvents = outputEvents outputs ++ [JobCompleted (EventId (Base.mkTx working P7 ordinal) 0) ident]}, recorded)
-      | kind == 1 = do
+      | kind == ConstructionWork = do
           state <- getM1 current
           job <- maybe (Left (P7, TargetGone)) Right (M.lookup ident (C.constructionJobs (m1Construction state)))
           (claimed, crew) <- claim P7 tick (W.ConstructSite ident) current
@@ -283,7 +286,7 @@ workPhase tick initial@(world, _, _) = do
               completed <- finishConstruction result advanced changed
               connected <- fatal P7 (reconcileM1Infrastructure completed)
               pure (connected, outputs {outputEvents = outputEvents outputs ++ [ConstructionCompleted (EventId (Base.mkTx current P7 ordinal) 0) ident]}, recorded)
-      | kind == 2 = do
+      | kind == MaintenanceWork = do
           job <- maybe (Left (P7, TargetGone)) Right (M.lookup ident (maintenanceJobs (worldMaintenance current)))
           (claimed, crew) <- claim P7 tick (W.MaintainJob ident) current
           amount <- credit P7 tick (W.MaintainJob ident) 100 claimed

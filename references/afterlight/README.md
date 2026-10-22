@@ -121,3 +121,13 @@ to its previous formatted hash; historical formatting and oracle records remain
 unchanged. The source audit checks that exact successor, and
 `python references/afterlight/scripts/test-audit-source.py` verifies its narrow
 scope and rejection of tampered test, runtime and oracle source.
+
+The movement readability revision is recorded separately in
+`docs/READABILITY-REFACTOR-MANIFEST.json`. Its three exact source paths name
+their predecessor and current hashes; the original baseline, oracle and
+formatting manifests remain intact. These sources were unchanged originals
+before the refactor, so their predecessors are baseline hashes. The audit also
+rejects extra paths, false predecessors, altered current bytes and missing
+reasons. In `Garden.Rules`, start with `movement`, then `jumpVelocity` and
+`movePlanar`: jump grace, buffered input, launch speed and X/Z/vertical collision
+order have distinct names, while `Motion` and `Journey` retain their meanings.

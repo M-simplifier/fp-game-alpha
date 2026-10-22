@@ -86,7 +86,9 @@ constructionFailure :: String -> Failure
 constructionFailure = InvalidReference . ("Construction: " ++)
 
 checkedRevision :: ConstructionJob -> InventoryTx Word64
-checkedRevision job = do require (constructionRevision job < maxBound) CounterOverflow; pure (constructionRevision job + 1)
+checkedRevision job = do
+  require (constructionRevision job < maxBound) CounterOverflow
+  pure (constructionRevision job + 1)
 
 snapshotFor :: Content -> Space.PlacementShape -> Either Failure ConstructionSnapshot
 snapshotFor content shape = do
@@ -237,7 +239,26 @@ placeConstructionForRuleset rules content tick colony shape priority selected sp
   location <- either (throwTx . Space.spaceFailure) pure (materialLocation content placed placement)
   withInput <- either (throwTx . Space.spaceFailure) pure (Space.registerOwnerLocation after input location placed)
   withEscrow <- either (throwTx . Space.spaceFailure) pure (Space.registerOwnerLocation after escrow location withInput)
-  pure (ConstructionJob job site shape colony input escrow snapshot ConstructionPlanned Nothing 0 0 1 priority tick origin (Space.placementSource placement), withEscrow)
+  let planned =
+        ConstructionJob
+          { constructionJobId = job,
+            constructionSiteId = site,
+            constructionShape = shape,
+            constructionColony = colony,
+            constructionInput = input,
+            constructionEscrow = escrow,
+            constructionSnapshot = snapshot,
+            constructionPhase = ConstructionPlanned,
+            constructionBlocked = Nothing,
+            constructionProgress = 0,
+            constructionTerminalCount = 0,
+            constructionRevision = 1,
+            constructionPriority = priority,
+            constructionReadySince = tick,
+            constructionOrigin = origin,
+            constructionSource = Space.placementSource placement
+          }
+  pure (planned, withEscrow)
 
 -- A building uses its external connector; an unfinished road receives from an
 -- existing adjacent road. Parent mirrors these endpoints into real Transport.
@@ -259,7 +280,10 @@ admitConstructionDelivery job resource quantity incoming inventory = do
 
 setConstructionWaiting :: Bool -> Failure -> ConstructionJob -> InventoryTx ConstructionJob
 setConstructionWaiting incoming reason job = do
-  let phase = if reason == MissingStock then if incoming then ConstructionMovingInputs else ConstructionWaitingInputs else ConstructionReady
+  let phase
+        | reason /= MissingStock = ConstructionReady
+        | incoming = ConstructionMovingInputs
+        | otherwise = ConstructionWaitingInputs
   if constructionPhase job == phase && constructionBlocked job == Just reason
     then pure job
     else do

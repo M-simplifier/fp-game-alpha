@@ -318,85 +318,103 @@ buildingPort b = let (w, h) = buildingFootprint b in ((w - 1) `div` 2, h - 1)
 
 validateContent :: Content -> Either String ()
 validateContent c = do
-  unless (contentVersion c == "1.0.0") (Left "Unsupported content spec_version")
-  unless (not (null (contentStatus c))) (Left "Empty content status")
-  positive "tick_hz" (contentTickHz c)
-  positive "game_seconds_per_tick" (contentGameSecondsPerTick c)
-  positive "ticks_per_game_day" (contentTicksPerDay c)
-  unless
-    (contentGameSecondsPerTick c * contentTicksPerDay c == 86400)
-    (Left "Game time constants do not describe a 24-hour day")
-  unless (contentQuantityMax c == quantityMax) (Left "quantity_max differs from checked Qty limit")
-  unless (M.keysSet (contentResources c) == S.fromList allResources) (Left "Exactly all 16 resources are required")
-  countIs "recipes" 18 (contentRecipes c)
-  countIs "buildings" 28 (contentBuildings c)
-  countIs "natural sources" 5 (contentNaturalSources c)
-  keysAre "techs" ["T1", "T2", "T3", "T4", "T5", "T6"] (contentTechs c)
-  keysAre "campaign" ["C0", "C1", "C2", "C3", "C4", "C5"] (contentCampaign c)
-  keyed "resource" resourceId (contentResources c)
-  keyed "recipe" recipeId (contentRecipes c)
-  keyed "building" buildingId (contentBuildings c)
-  keyed "natural source" naturalSourceId (contentNaturalSources c)
-  keyed "tech" techId (contentTechs c)
-  keyed "campaign" campaignId (contentCampaign c)
-  forM_ (M.elems (contentResources c)) $ \r -> context ("resource " ++ show (resourceId r)) $ do
-    nonempty "label" (resourceLabel r)
-    unless (resourceUnit r == unitFor (resourceId r)) (Left "Unit does not match resource identity")
-    positive "load_g_per_unit" (resourceLoad r)
-    mapM_ (positive "shelf_life_ticks") (resourceShelfLife r)
-    when
-      (resourceId r `notElem` [Crops, Ration] && resourceShelfLife r /= Nothing)
-      (Left "Only food resources may expire under v1 spoilage rules")
+  validateContentHeader
+  validateCatalogShape
+  validateCatalogKeys
+  validateResourceDefinitions
   validateNaturals c
   validateDependencies c
-  forM_ (M.elems (contentRecipes c)) $ \r -> context ("recipe " ++ recipeId r) $ do
-    identifier (recipeId r)
-    nonempty "label" (recipeLabel r)
-    _ <- lookupBuilding c (recipeBuilding r)
-    work "work_ticks" (recipeWorkTicks r)
-    checkResources c "inputs" (recipeInputs r)
-    checkResources c "outputs" (recipeOutputs r)
-    when (M.null (recipeOutputs r)) (Left "Recipe must have at least one output")
-    forM_ (M.toList (recipeNaturalSources r)) $ \(key, n) -> do
-      positive ("natural source quantity " ++ key) n
-      unless (M.member key (contentNaturalSources c)) (Left ("Unknown natural source " ++ key))
-    unless (M.null (recipeNaturalSources r)) $ do
-      unless (M.null (recipeInputs r)) (Left "Extraction recipe cannot also consume process inputs")
-      let extraction =
-            M.fromListWith
-              (+)
-              [ (naturalSourceResource source, n)
-              | (key, n) <- M.toList (recipeNaturalSources r),
-                Just source <- [M.lookup key (contentNaturalSources c)]
-              ]
-      unless (extraction == recipeOutputs r) (Left "Extraction output must exactly match declared natural source withdrawal")
-  forM_ (M.elems (contentBuildings c)) $ \b -> context ("building " ++ buildingId b) $ do
-    identifier (buildingId b)
-    nonempty "label" (buildingLabel b)
-    let (w, h) = buildingFootprint b
-        (px, py) = buildingPort b
-    range "footprint width" 1 512 w
-    range "footprint height" 1 512 h
-    unless (px >= 0 && px < w && py == h - 1) (Left "Building port is outside southern footprint boundary")
-    work "build_work_ticks" (buildingBuildWorkTicks b)
-    nonnegative "workers" (buildingWorkers b)
-    nonnegative "power_w" (buildingPower b)
-    checkResources c "cost" (buildingCost b)
-    when (M.null (buildingCost b)) (Left "Building cost must not be empty")
-    nonnegative "maintenance_period_ticks" (buildingMaintenancePeriod b)
-    nonnegative "maintenance_work_ticks" (buildingMaintenanceWorkTicks b)
-    nonnegative "maintenance_parts" (buildingMaintenanceParts b)
-    if buildingMaintenancePeriod b == 0
-      then
-        unless
-          (buildingMaintenanceWorkTicks b == 0 && buildingMaintenanceParts b == 0)
-          (Left "Maintenance-disabled building must have zero maintenance work and parts")
-      else do
-        work "maintenance_work_ticks" (buildingMaintenanceWorkTicks b)
-        positive "maintenance_parts" (buildingMaintenanceParts b)
-    unless (M.member (buildingUnlock b) deps) (Left ("Unknown unlock " ++ buildingUnlock b))
+  validateRecipes
+  validateBuildings
   where
     deps = M.union (M.map techRequires (contentTechs c)) (M.map campaignRequires (contentCampaign c))
+
+    validateContentHeader = do
+      unless (contentVersion c == "1.0.0") (Left "Unsupported content spec_version")
+      unless (not (null (contentStatus c))) (Left "Empty content status")
+      positive "tick_hz" (contentTickHz c)
+      positive "game_seconds_per_tick" (contentGameSecondsPerTick c)
+      positive "ticks_per_game_day" (contentTicksPerDay c)
+      unless
+        (contentGameSecondsPerTick c * contentTicksPerDay c == 86400)
+        (Left "Game time constants do not describe a 24-hour day")
+      unless (contentQuantityMax c == quantityMax) (Left "quantity_max differs from checked Qty limit")
+
+    validateCatalogShape = do
+      unless (M.keysSet (contentResources c) == S.fromList allResources) (Left "Exactly all 16 resources are required")
+      countIs "recipes" 18 (contentRecipes c)
+      countIs "buildings" 28 (contentBuildings c)
+      countIs "natural sources" 5 (contentNaturalSources c)
+      keysAre "techs" ["T1", "T2", "T3", "T4", "T5", "T6"] (contentTechs c)
+      keysAre "campaign" ["C0", "C1", "C2", "C3", "C4", "C5"] (contentCampaign c)
+
+    validateCatalogKeys = do
+      keyed "resource" resourceId (contentResources c)
+      keyed "recipe" recipeId (contentRecipes c)
+      keyed "building" buildingId (contentBuildings c)
+      keyed "natural source" naturalSourceId (contentNaturalSources c)
+      keyed "tech" techId (contentTechs c)
+      keyed "campaign" campaignId (contentCampaign c)
+
+    validateResourceDefinitions =
+      forM_ (M.elems (contentResources c)) $ \r -> context ("resource " ++ show (resourceId r)) $ do
+        nonempty "label" (resourceLabel r)
+        unless (resourceUnit r == unitFor (resourceId r)) (Left "Unit does not match resource identity")
+        positive "load_g_per_unit" (resourceLoad r)
+        mapM_ (positive "shelf_life_ticks") (resourceShelfLife r)
+        when
+          (resourceId r `notElem` [Crops, Ration] && resourceShelfLife r /= Nothing)
+          (Left "Only food resources may expire under v1 spoilage rules")
+
+    validateRecipes =
+      forM_ (M.elems (contentRecipes c)) $ \r -> context ("recipe " ++ recipeId r) $ do
+        identifier (recipeId r)
+        nonempty "label" (recipeLabel r)
+        _ <- lookupBuilding c (recipeBuilding r)
+        work "work_ticks" (recipeWorkTicks r)
+        checkResources c "inputs" (recipeInputs r)
+        checkResources c "outputs" (recipeOutputs r)
+        when (M.null (recipeOutputs r)) (Left "Recipe must have at least one output")
+        forM_ (M.toList (recipeNaturalSources r)) $ \(key, n) -> do
+          positive ("natural source quantity " ++ key) n
+          unless (M.member key (contentNaturalSources c)) (Left ("Unknown natural source " ++ key))
+        unless (M.null (recipeNaturalSources r)) $ do
+          unless (M.null (recipeInputs r)) (Left "Extraction recipe cannot also consume process inputs")
+          let extraction =
+                M.fromListWith
+                  (+)
+                  [ (naturalSourceResource source, n)
+                  | (key, n) <- M.toList (recipeNaturalSources r),
+                    Just source <- [M.lookup key (contentNaturalSources c)]
+                  ]
+          unless (extraction == recipeOutputs r) (Left "Extraction output must exactly match declared natural source withdrawal")
+
+    validateBuildings =
+      forM_ (M.elems (contentBuildings c)) $ \b -> context ("building " ++ buildingId b) $ do
+        identifier (buildingId b)
+        nonempty "label" (buildingLabel b)
+        let (w, h) = buildingFootprint b
+            (px, py) = buildingPort b
+        range "footprint width" 1 512 w
+        range "footprint height" 1 512 h
+        unless (px >= 0 && px < w && py == h - 1) (Left "Building port is outside southern footprint boundary")
+        work "build_work_ticks" (buildingBuildWorkTicks b)
+        nonnegative "workers" (buildingWorkers b)
+        nonnegative "power_w" (buildingPower b)
+        checkResources c "cost" (buildingCost b)
+        when (M.null (buildingCost b)) (Left "Building cost must not be empty")
+        nonnegative "maintenance_period_ticks" (buildingMaintenancePeriod b)
+        nonnegative "maintenance_work_ticks" (buildingMaintenanceWorkTicks b)
+        nonnegative "maintenance_parts" (buildingMaintenanceParts b)
+        if buildingMaintenancePeriod b == 0
+          then
+            unless
+              (buildingMaintenanceWorkTicks b == 0 && buildingMaintenanceParts b == 0)
+              (Left "Maintenance-disabled building must have zero maintenance work and parts")
+          else do
+            work "maintenance_work_ticks" (buildingMaintenanceWorkTicks b)
+            positive "maintenance_parts" (buildingMaintenanceParts b)
+        unless (M.member (buildingUnlock b) deps) (Left ("Unknown unlock " ++ buildingUnlock b))
 
 validateNaturals :: Content -> Either String ()
 validateNaturals c = do

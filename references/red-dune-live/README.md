@@ -143,6 +143,12 @@ forms remain the no-compilation tuning path.
 7. `app/RedDune/Host.hs`: one clock, ownership, HTTP, durable files and async adoption
 8. `ui/`: projection rendering, input envelopes and response/retry guards only
 
+For a source-grounded tour of movement, allocation, diagnostic priority and one
+platformer tick, see [the readability revision](../../research/readability/game-rules-refactor.md).
+In this game, `applyAction` names the request handlers, `validateM1WorldLinks`
+names the ordered admission checks, and `assignReadyWithFuelPolicy` keeps each
+inventory attempt separate from the matching counters that survive a retry.
+
 For example, a production click previews `OrderProduction` in Haskell, returns
 its full controller/epoch/sequence/boundary envelope, and commits that envelope
 through the same command decoder used by headless play. Inputs are reserved and
