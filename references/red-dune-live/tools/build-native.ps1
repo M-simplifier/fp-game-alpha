@@ -1,13 +1,15 @@
-param([string]$OutputDirectory)
+param([string]$OutputDirectory, [string]$BuildDirectory)
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 if (-not $OutputDirectory) { $OutputDirectory = Join-Path $repo '.build\red-dune-native' }
 $output = [System.IO.Path]::GetFullPath($OutputDirectory)
 Push-Location $repo
 try {
-    & cabal build --offline --project-file=cabal.project.red-dune-native exe:red-dune
+    $component = @('--project-file=cabal.project.red-dune-native')
+    if ($BuildDirectory) { $component += '--builddir=' + [System.IO.Path]::GetFullPath($BuildDirectory) }
+    & cabal build --offline @component exe:red-dune
     if ($LASTEXITCODE -ne 0) { throw 'Native build failed' }
-    $binary = (& cabal list-bin --project-file=cabal.project.red-dune-native exe:red-dune).Trim()
+    $binary = (& cabal list-bin @component exe:red-dune).Trim()
     if ($LASTEXITCODE -ne 0) { throw 'Cannot locate native executable' }
     New-Item -ItemType Directory -Force -Path (Join-Path $output 'assets') | Out-Null
     & python (Join-Path $PSScriptRoot 'native_icon.py') (Join-Path $output 'assets')
@@ -19,7 +21,9 @@ try {
     Copy-Item -LiteralPath (Join-Path $repo 'references\red-dune-live\LICENSE') -Destination (Join-Path $output 'LICENSE.RedDune.txt')
     Copy-Item -LiteralPath (Join-Path $repo 'references\red-dune-live\ASSETS.md') -Destination (Join-Path $output 'ASSETS.md')
     Copy-Item -LiteralPath (Join-Path $repo 'references\red-dune-live\docs\WINDOWS-PLAY.md') -Destination (Join-Path $output '遊び方.md')
-    & python (Join-Path $PSScriptRoot 'native_notices.py') (Join-Path $output 'THIRD-PARTY-NOTICES.txt')
+    $noticeArguments = @((Join-Path $output 'THIRD-PARTY-NOTICES.txt'))
+    if ($BuildDirectory) { $noticeArguments += @('--plan', (Join-Path ([System.IO.Path]::GetFullPath($BuildDirectory)) 'cache\plan.json')) }
+    & python (Join-Path $PSScriptRoot 'native_notices.py') @noticeArguments
     if ($LASTEXITCODE -ne 0) { throw 'Dependency notice collection failed' }
     Write-Output (Join-Path $output 'Red Dune.exe')
 } finally { Pop-Location }

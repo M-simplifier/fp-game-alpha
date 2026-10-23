@@ -2,6 +2,7 @@
 // Native HTTP acceptance, not browser rendering/input acceptance.
 const assert=require('node:assert/strict');
 const {spawn}=require('node:child_process');
+const checkFraming=require('./test_http_framing.cjs');
 const fs=require('node:fs');const os=require('node:os');const path=require('node:path');const net=require('node:net');const crypto=require('node:crypto');
 const binary=process.argv[2];if(!binary)throw new Error('Usage: node tools/test_http.cjs /absolute/path/to/red-dune-host');
 const cwd=path.resolve(__dirname,'..'),store=fs.mkdtempSync(path.join(os.tmpdir(),'red-dune-host-test-'));
@@ -66,6 +67,8 @@ async function main(){
  await action({op:'stagePackText',expectedRevision:'1',packText:sourcePack});assert.equal(state.result.status,'admissionRejected');assert.equal(state.pack.stagedRevision,largeRevision);
  await action({op:'restart',scenario:'recovery',discardUnsaved:true});assert.equal(state.result.status,'restarted');assert.equal(state.campaign.scenario,'recovery');assert.equal(state.view.mode,'Paused');assert.equal(state.pack.revision,largeRevision);assert.equal(state.pack.identity,stagedIdentity);assert.equal(state.pack.stagedIdentity,null);assert.equal(state.save.current.status,'saved');assert.ok(fs.existsSync(path.join(store,state.save.current.lastSuccess.id+'.rdg')),'restart durable before visible');
  const staticResponse=await fetch(base+'/');assert.equal(staticResponse.status,200);assert.match(await staticResponse.text(),/campaignTitle/);assert.match(staticResponse.headers.get('content-security-policy'),/frame-ancestors 'none'/);
+ const beforeFraming=await observe();await checkFraming(port,client);await observe();
+ assert.deepEqual([state.view.tick,state.view.boundary,state.view.branch,state.revision],[beforeFraming.view.tick,beforeFraming.view.boundary,beforeFraming.view.branch,beforeFraming.revision],'framing probes must leave the paused game unchanged');
  console.log('PASS: store process lock, complete construction menu, corrupt-checkpoint warnings, path rejection, native HTTP start/observe, exclusive lease, origin/Host/bounds, exact command retry, policies, construction queue, ticker/pause, durable save, preview/cancel, fresh-branch activation, stale-session rejection, lease expiry, recovery restart, asset delivery');
  console.log('NOT RUN: actual browser rendering, keyboard and pointer acceptance');
 }

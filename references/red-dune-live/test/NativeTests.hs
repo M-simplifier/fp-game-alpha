@@ -11,7 +11,7 @@ import Colony.Space qualified as Space
 import Colony.Types
 import Colony.Units (Resource (Ore, Ration, Water), zeroQty)
 import Colony.World
-import Control.Exception (IOException, try)
+import Control.Exception (IOException, bracket, try)
 import Control.Monad (foldM, replicateM_, unless)
 import Data.ByteString qualified as BS
 import Data.List (isInfixOf)
@@ -27,6 +27,7 @@ import RedDune.Policies qualified as Policies
 import System.Directory
 import System.Environment
 import System.FilePath
+import System.IO (hClose, openTempFile)
 
 must :: Either String a -> IO a
 must = either (ioError . userError) pure
@@ -37,7 +38,20 @@ check label ok = unless ok (ioError (userError label))
 main :: IO ()
 main = do
   args <- getArgs
-  root <- case args of [path] -> makeAbsolute path; _ -> ioError (userError "Pass a fresh test directory")
+  case args of
+    [] -> bracket freshRoot removePathForcibly runTests
+    [path] -> makeAbsolute path >>= runTests
+    _ -> ioError (userError "Pass at most one fresh test directory")
+  where
+    freshRoot = do
+      temporary <- getTemporaryDirectory
+      (path, handle) <- openTempFile temporary "red-dune-native-test-"
+      hClose handle
+      removeFile path
+      pure path
+
+runTests :: FilePath -> IO ()
+runTests root = do
   exists <- doesPathExist root
   check "test directory must be fresh" (not exists)
   original <- must (startGame "settlement" defaultPack)
@@ -129,15 +143,23 @@ main = do
   active <- must (decide ToggleTime setup)
   played <- must (advanceGame 1200 active)
   Store.withStore root $ \store -> do
+    check "public root query names the pinned writer directory" (Store.storeRoot store == root)
     collision <- try (Store.withStore root (const (pure ()))) :: IO (Either IOException ())
     check "exclusive process lock" (case collision of Left _ -> True; _ -> False)
     activated <- Store.activateGame store played
     check "fresh paused authority" (worldAuthority (gameWorld activated) /= worldAuthority (gameWorld played) && worldMode (gameWorld activated) == Paused)
     first <- Store.saveGame store activated
     preview <- Store.previewCheckpoint store first
-    check "exact preview" (Store.previewGame preview == activated)
+    check "exact preview queries bind name and decoded game" (Store.previewName preview == first && Store.previewGame preview == activated)
     restored <- Store.confirmCheckpoint store preview
     check "fresh branch on confirmation" (branchId (gameWorld restored) > branchId (gameWorld activated))
+    check "confirmed snapshot retains selected tick, campaign and pinned content" (simTick (gameWorld restored) == simTick (gameWorld activated) && gameCampaign restored == gameCampaign activated && gamePack restored == gamePack activated && gamePolicies restored == gamePolicies activated)
+    confirmedCatalog <- Store.checkpoints store
+    confirmedName <- case confirmedCatalog of
+      checkpoint : _ | Store.checkpointBranch checkpoint == branchId (gameWorld restored) -> pure (Store.checkpointName checkpoint)
+      _ -> ioError (userError "confirmed branch is missing from its native catalog")
+    confirmedBytes <- BS.readFile (root </> confirmedName)
+    check "confirmed result is the actual committed game" (decodeGame confirmedBytes == Right restored)
     source <- BS.readFile (root </> first)
     check "source survives confirmation" (decodeGame source == Right activated)
     a <- must (decide ToggleTime activated) >>= must . advanceGame 200

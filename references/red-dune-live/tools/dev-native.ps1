@@ -1,6 +1,7 @@
 param(
     [ValidateSet('settlement', 'recovery')][string]$Scenario = 'settlement',
     [string]$ContentPack,
+    [string]$BuildDirectory,
     [string]$QaDirectory,
     [ValidateRange(0, 2147483647)][int]$Frames = 0,
     [switch]$Hidden
@@ -22,7 +23,9 @@ $running = Get-Process -Name 'Red Dune' -ErrorAction SilentlyContinue | Where-Ob
 if ($running) { throw 'Close the previous development window, save your edit, then run this command again.' }
 
 $buildTime = [System.Diagnostics.Stopwatch]::StartNew()
-& (Join-Path $PSScriptRoot 'build-native.ps1') -OutputDirectory $app
+$build = @{OutputDirectory = $app}
+if ($BuildDirectory) { $build.BuildDirectory = $BuildDirectory }
+& (Join-Path $PSScriptRoot 'build-native.ps1') @build
 $buildTime.Stop()
 Write-Host ('Build and package: {0:F3} s' -f $buildTime.Elapsed.TotalSeconds)
 Write-Host "Development saves: $store"

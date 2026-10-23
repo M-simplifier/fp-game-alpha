@@ -6,7 +6,7 @@
 module RedDune.Host (HostConfig (..), runHost, runHostLifecycleTests) where
 
 import Colony.JSON qualified as J
-import Colony.Presentation (arr, encodeJSON, num, obj, str)
+import Colony.Presentation (arr, num, obj, str)
 import Colony.World (CoreMode (..), branchId, worldAuthority, worldId, worldMode, worldRuleset)
 import Control.Concurrent (ThreadId, forkIOWithUnmask, killThread, myThreadId, threadDelay)
 import Control.Concurrent.MVar
@@ -16,7 +16,7 @@ import Control.Exception
 import Control.Monad (forM_, forever, unless, void, when)
 import Data.ByteString qualified as B
 import Data.ByteString.Char8 qualified as C
-import Data.Char (isAlphaNum, toLower)
+import Data.Char (isAlphaNum)
 import Data.IORef
 import Data.List (isSuffixOf, nubBy, sort)
 import Data.Map.Strict qualified as M
@@ -32,6 +32,7 @@ import Network.Socket.ByteString qualified as N
 import RedDune.ContentPack (ContentPack, defaultPack)
 import RedDune.Game
 import RedDune.GameSave
+import RedDune.Host.Http (HttpRequest (..), failure, jsonBytes, readHttp, writeResponse)
 import System.Directory
 import System.Environment (lookupEnv, setEnv, unsetEnv)
 import System.FilePath ((</>))
@@ -678,56 +679,11 @@ dispatch env path fields h
 
 -- Deliberately narrow HTTP/1.1: one bounded request per connection, no chunked
 -- bodies, no proxy headers, no remote bind, exact static asset allowlist.
-data HttpRequest = HttpRequest !String !String !(M.Map String String) !B.ByteString
-
 serve :: Env -> Socket -> IO ()
 serve env conn = do
   incoming <- timeout 5000000 (readHttp conn)
   (status, mime, payload) <- maybe (pure (failure 408 "Request timeout")) (route env) incoming
-  void $ timeout 5000000 $ N.sendAll conn (C.pack ("HTTP/1.1 " ++ show status ++ " " ++ reason status ++ "\r\nContent-Type: " ++ mime ++ "\r\nContent-Length: " ++ show (B.length payload) ++ "\r\nConnection: close\r\nCache-Control: no-store\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'\r\n\r\n") <> payload)
-  where
-    reason 200 = "OK"; reason 400 = "Bad Request"; reason 403 = "Forbidden"; reason 404 = "Not Found"; reason 408 = "Request Timeout"; reason _ = "Service Unavailable"
-
-jsonBytes :: J.JSON -> B.ByteString
-jsonBytes = T.encodeUtf8 . T.pack . encodeJSON
-
-readHttp :: Socket -> IO (Either String HttpRequest)
-readHttp conn = headers B.empty
-  where
-    headers bytes
-      | B.length bytes > 8192 = pure (Left "Headers exceed 8 KiB")
-      | otherwise = case C.breakSubstring "\r\n\r\n" bytes of
-          (_, rest) | B.null rest -> do chunk <- N.recv conn 4096; if B.null chunk then pure (Left "Incomplete request") else headers (bytes <> chunk)
-          (headBytes, rest) -> case parseHead headBytes of
-            Left err -> pure (Left err)
-            Right (method, path, fields, len) -> do
-              payload <- body len (B.drop 4 rest)
-              pure (HttpRequest method path fields <$> payload)
-    body len bytes
-      | B.length bytes > len = pure (Left "Trailing/pipelined request bytes are unsupported")
-      | B.length bytes == len = pure (Right bytes)
-      | otherwise = do chunk <- N.recv conn (min 4096 (len - B.length bytes)); if B.null chunk then pure (Left "Incomplete body") else body len (bytes <> chunk)
-
-parseHead :: B.ByteString -> Either String (String, String, M.Map String String, Int)
-parseHead bytes = case map (filter (/= '\r') . C.unpack) (C.lines bytes) of
-  first : rows -> do
-    (method, path) <- case words first of [m, p, "HTTP/1.1"] | m `elem` ["GET", "POST"] -> Right (m, p); _ -> Left "Only GET/POST HTTP/1.1 are supported"
-    unless (length rows <= 40 && all (\c -> fromEnum c >= 32 && fromEnum c < 127) (concat rows)) (Left "Invalid headers")
-    pairs <- mapM header rows
-    let fields = M.fromList pairs
-    unless (M.size fields == length pairs) (Left "Duplicate headers are unsupported")
-    when (M.member "transfer-encoding" fields || M.member "expect" fields) (Left "Chunking/Expect are unsupported")
-    len <- case M.lookup "content-length" fields of
-      Nothing | method == "GET" -> Right 0
-      Just raw | not (null raw) && length raw <= 5 && all (`elem` ['0' .. '9']) raw -> maybe (Left "Invalid length") Right (readMaybe raw :: Maybe Int)
-      _ -> Left "Content-Length required"
-    unless (len <= 65536 && (method /= "GET" || len == 0)) (Left "Body outside bounds")
-    pure (method, path, fields, len)
-  _ -> Left "Empty request"
-  where
-    header line = case break (== ':') line of
-      (key, ':' : value) | not (null key) && all (\c -> isAlphaNum c || c == '-') key -> Right (map toLower key, dropWhile (== ' ') value)
-      _ -> Left "Malformed header"
+  void $ timeout 5000000 $ writeResponse conn status mime payload
 
 route :: Env -> Either String HttpRequest -> IO (Int, String, B.ByteString)
 route _ (Left err) = pure (failure 400 err)
@@ -756,9 +712,6 @@ route env (Right (HttpRequest method path headers bytes))
           client = M.findWithDefault bodyClient "x-red-dune-client" headers
       result <- attemptIO (request env client path body)
       pure (either (failure 503) (\value -> (200, "application/json; charset=utf-8", jsonBytes value)) result)
-
-failure :: Int -> String -> (Int, String, B.ByteString)
-failure status message = (status, "application/json; charset=utf-8", jsonBytes (obj [("error", str message)]))
 
 -- Deterministic native concurrency checks. IO barriers exist only in this direct
 -- test entrypoint; no request, environment variable or player input can set one.
