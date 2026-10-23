@@ -40,7 +40,7 @@
   },
   {
    "path": ".agents/skills/learn-code/SKILL.md",
-   "sha256_lf": "cd147933d1bde3812055d965e2c30dce77dbc791256eda3b7fef297d1e311904"
+   "sha256_lf": "1e15fdad047499acbb8a3db10e1b875d28bdf9c1a0d3f33e11fa1d17e7a11208"
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
@@ -88,7 +88,7 @@
   },
   {
    "path": "README.md",
-   "sha256_lf": "09cb6bc2667f63616aae701a91bf6f2368b9daed5e3deefad0a1ac72755f6e91"
+   "sha256_lf": "e5fda31f88648c0b5043bc5e5367f9a06f421c8e0d8f736fa3bd142d1756414a"
   },
   {
    "path": "cabal.project",
@@ -108,7 +108,7 @@
   },
   {
    "path": "docs/acceptance.md",
-   "sha256_lf": "9eded643ee48a0a31ee203289e263bad054926573fe6a58e9fcb25e9d3618eeb"
+   "sha256_lf": "b1d7e9d40a5201844a9286f29ae3d7d94ad7975216879780e3ddbddba8d60f03"
   },
   {
    "path": "docs/architecture.md",
@@ -180,7 +180,7 @@
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "74b4d6a3c0793c633de9ca24be1bf4bbe752038a49831063083776e6fb05fe97"
+   "sha256_lf": "4ed2f3782f3c5e54fa35cacbd0176d55516141c423ed8c9f0fa57df2bf96833d"
   },
   {
    "path": "docs/headless-play.md",
@@ -188,11 +188,11 @@
   },
   {
    "path": "docs/learn-code-station.ja.md",
-   "sha256_lf": "e3748c8a51ea9df0f2ece61774aef5537babeede461920069d098b188741d7d6"
+   "sha256_lf": "7a78a9a1932b0985183b9ca104de8ee1a5e3116536fd71207bbdefd57d3235bc"
   },
   {
    "path": "docs/learn-code.md",
-   "sha256_lf": "7c13b6b2f8468937fdab17b8aed0d0c999827f5f1815054dbe40859377343644"
+   "sha256_lf": "5b45cc4d1c0e12fefd318a1c95ae83f9418472de45a0d0311375da0b7b8c666e"
   },
   {
    "path": "docs/native-tooling.md",
@@ -824,7 +824,7 @@
   },
   {
    "path": "libraries/game-arena/test/Laws.hs",
-   "sha256_lf": "05005934d41e516d91d40eada89f2016e6b9dd99ac4fdbc994997671f386cda8"
+   "sha256_lf": "1abdc26df6667cf6355b8bd2b7a58af4e5acd276b98cd8d4f5cae59062d8df2c"
   },
   {
    "path": "libraries/game-transition/LICENSE",
@@ -840,7 +840,7 @@
   },
   {
    "path": "libraries/game-transition/test/Laws.hs",
-   "sha256_lf": "390f00b442cf68cdb5fa14c32b101fefaff2d042f41bef94681f1e655e91d9b5"
+   "sha256_lf": "9ec80a32d615a5f882ac248011ae474f63418d2acca4191efaba472205021c0b"
   },
   {
    "path": "publication/formal-upstream-links.json",
@@ -852,7 +852,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "614cdf3bd1b9f845fe0d5872bd17016c73626893d931f7775a8f6c897e554aa6"
+   "sha256_lf": "512a4410072efa09711491a06f70c7dfc8dbda77a77f7e44ee8d37ce852ec67f"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -1400,7 +1400,7 @@
   },
   {
    "path": "references/garden/garden.cabal",
-   "sha256_lf": "374cc792ba213af77174c786f3b31e6650cc412ae4d1dfab7727c1ec663d4e19"
+   "sha256_lf": "76e4a6c50dc17c538ba0f14b787a8bfc70416bfc50d3b6f403b96a76fbf9f245"
   },
   {
    "path": "references/garden/src/Garden/Adapter.hs",
@@ -1432,7 +1432,11 @@
   },
   {
    "path": "references/garden/test/Laws.hs",
-   "sha256_lf": "68893f45a2d35b6a654761a7f70b0f46f370fd43fd8be43deac0b1686961ace2"
+   "sha256_lf": "021cc57941f6d4357f560f9767cd51759ad239df94e1532e1a15a31c10837145"
+  },
+  {
+   "path": "references/garden/test/SimulationChecks.hs",
+   "sha256_lf": "cb3362a6e5b58db12a18c3f5f677e6feeaa3ab4d61546313d27f703fea707be1"
   },
   {
    "path": "references/lantern/LICENSE",
@@ -1452,11 +1456,11 @@
   },
   {
    "path": "references/lantern/src/Lantern.hs",
-   "sha256_lf": "fa2ae17a26161af1addfc545547b6f11b2ca5c11dad0e0f4fd3f93a74fad2aa3"
+   "sha256_lf": "6fddbe9dbe34df8976800a7e26efdbf96ab3c8dba0aa6fd68a015e53d2a74661"
   },
   {
    "path": "references/lantern/test/Laws.hs",
-   "sha256_lf": "8d1ce0f297bbca5a428b3528c37a6844c216c0f2eba1bac55876b9762606d92f"
+   "sha256_lf": "a430194fe92fcd9e3ced32169a93a8eac333b069d596ffa4dfa547b8106d5a91"
   },
   {
    "path": "references/lantern/test/RejectWorldUpdate.hs",
@@ -1488,7 +1492,7 @@
   },
   {
    "path": "references/paper-circuit/README.md",
-   "sha256_lf": "8c80a6275da41623e741eaa8fa5338b02adbff50916a237f35d9188e085cf9af"
+   "sha256_lf": "8cf29671cfc30426f886753be35cba9e0ad772ec47d2ac20acd92d8d7051f631"
   },
   {
    "path": "references/paper-circuit/app/Browser.hs",
@@ -1544,7 +1548,7 @@
   },
   {
    "path": "references/paper-circuit/test/Tuning.hs",
-   "sha256_lf": "ad8c2111e4cc18ffa13359d5b80b2729ec67918bf064a5b4b777790e70e581a9"
+   "sha256_lf": "77e087eb0452cfd61263c06292851db5f2f2cb8a2198b263e3ac29cc6c338bc8"
   },
   {
    "path": "references/paper-circuit/test/api-rejections/ForgeCatalog.hs",
@@ -1736,11 +1740,15 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Codec.hs",
-   "sha256_lf": "fd8fa7412b51839c555ffcaafb995041c50bdffd2f02e77afd888b05765c9ff3"
+   "sha256_lf": "5ec44a1aa22e2b3d7e735a11ef47eb8a342d7bd6699244f43b76f18dd4b9a7d1"
   },
   {
    "path": "references/red-dune-live/core/Colony/Codec/CBOR.hs",
    "sha256_lf": "68f8e2b08388854beefc987d35d454b929bef176431113f1b2502d3b1ba39c42"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Codec/Instances.hs",
+   "sha256_lf": "a119f3c7c93ac448a498fef1f7f460cfd5b1f05004ff245a0aac7defa93b50ae"
   },
   {
    "path": "references/red-dune-live/core/Colony/Codec/SHA256.hs",
@@ -1856,7 +1864,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Save.hs",
-   "sha256_lf": "be55646ff2bcf791bc1391e4853247d1f3969761dfe19a76d68b79d01319a7df"
+   "sha256_lf": "fed5af0eda908f2abbc9f7f93df618c168cd54f145c51a7947020a60bcd57541"
   },
   {
    "path": "references/red-dune-live/core/Colony/Scheduler.hs",
@@ -1868,7 +1876,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Session.hs",
-   "sha256_lf": "ac492fd27714428cb5d49fa460fcc78dea418b0e722904ccd62af4a54d1afc88"
+   "sha256_lf": "ff77b13a4eb6187754ef813bb03ee25e217a06fd53c4d8b21179309969f3c13d"
   },
   {
    "path": "references/red-dune-live/core/Colony/SessionTrace.hs",
@@ -1888,7 +1896,15 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Transport.hs",
-   "sha256_lf": "09b9c78bf115bddf7e620c21907f2136a22accad3ad6f4695370bd01ceed1efd"
+   "sha256_lf": "3f8312a7371fb28fb8ac535de3a584defd4af0254a990e33ffacdb018e803faf"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Transport/Dispatch.hs",
+   "sha256_lf": "fa38855104116c6cc841c24459b1f2ae917abe0656ecfa1951a63543d25d6195"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Transport/State.hs",
+   "sha256_lf": "19930c1e048e6d224c59e7f5c21019b526bf9834e4a6c820b3fca82d80d936d2"
   },
   {
    "path": "references/red-dune-live/core/Colony/Types.hs",
@@ -1908,7 +1924,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Workforce.hs",
-   "sha256_lf": "1997b61f30b66f10e67eaf62b11f26d33a1a3471201dedeb941e378773d188a0"
+   "sha256_lf": "99f5c4dab9b8bc21e4ca7ec2454bf9078c453b9556cef3b9bb1b3bf91e761bb0"
   },
   {
    "path": "references/red-dune-live/core/Colony/World.hs",
@@ -2032,7 +2048,7 @@
   },
   {
    "path": "references/red-dune-live/red-dune-live.cabal",
-   "sha256_lf": "6d0d473e41c3dc8f9ceaf76e9eb13a70904f163dd79465a0f520a0d4e88a65e7"
+   "sha256_lf": "dfa4bb1c6ea589f631217bf4f0214a2186de65585c55991b13dd16bf563b89b7"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Campaign.hs",
@@ -2057,6 +2073,18 @@
   {
    "path": "references/red-dune-live/src/RedDune/Protocol.hs",
    "sha256_lf": "280eba7ef9d5352ff251e76abb11ad4985cab33fbefece1c867173274ef8ef26"
+  },
+  {
+   "path": "references/red-dune-live/test/Core/SessionTests.hs",
+   "sha256_lf": "cc117237b1d0a49470bf13e80bd1e6475277b890aaa0e358dcceec61a05138e0"
+  },
+  {
+   "path": "references/red-dune-live/test/Core/SnapshotTests.hs",
+   "sha256_lf": "75ad1dd53a7624510f24e9e2c10f34624ec736237aab7fa54faf7ff59c6e3da9"
+  },
+  {
+   "path": "references/red-dune-live/test/CoreBoundaryTests.hs",
+   "sha256_lf": "be7558af8d9569d25608e1ab786f0557da5ee0fc84e5a7e186cafdabba073a15"
   },
   {
    "path": "references/red-dune-live/test/HostLifecycleTests.hs",
@@ -2091,12 +2119,40 @@
    "sha256_lf": "10f755eb8137d4a24018450c73b239f434bce18b33a067d1978ea3c132b8edf0"
   },
   {
+   "path": "references/red-dune-live/test/Logistics/InventoryTests.hs",
+   "sha256_lf": "7d5058dbddfb4a7b433233deaf9ac29bc377f39734b46af4524d475b3591d894"
+  },
+  {
+   "path": "references/red-dune-live/test/Logistics/MaintenanceTests.hs",
+   "sha256_lf": "cb743ef7361902f81ca000feeb54b5993cd253178a93a21e944f75044fd27ca2"
+  },
+  {
+   "path": "references/red-dune-live/test/Logistics/TransportTests.hs",
+   "sha256_lf": "71a65841587364f5e30639b9d53d4f41081f14ac436b538d83d4e13303532db4"
+  },
+  {
+   "path": "references/red-dune-live/test/Logistics/WorkforceTests.hs",
+   "sha256_lf": "727923b6e75e81f083f2bdef0de7c6ca1d4e8bc1e2da51e7e1744bdac662bd8f"
+  },
+  {
+   "path": "references/red-dune-live/test/LogisticsTests.hs",
+   "sha256_lf": "02a4b7d3e6698b9ef16cb1160edeb55dfe1e1d18cbe0568765d3dbfde59d19b8"
+  },
+  {
    "path": "references/red-dune-live/test/NativeHelpTests.hs",
    "sha256_lf": "34b12cba78dfe622bac0208e077d047c3e7c8140d1183f639904ffe12bb08f27"
   },
   {
    "path": "references/red-dune-live/test/NativeTests.hs",
    "sha256_lf": "c93442644bee72f20ebdf50b87eddd405268bdbd43f5f176fcc6aa50d82ca642"
+  },
+  {
+   "path": "references/red-dune-live/test/check_core_api.py",
+   "sha256_lf": "332fba1b82c35cd76afeea1773a2b9186116fc68c7e66231e41df46eb3e620c7"
+  },
+  {
+   "path": "references/red-dune-live/test/check_workforce_api.py",
+   "sha256_lf": "c58b21004311e485a44d78b621584abf1039238d1eb1a139d9d9b6b901e3e1d0"
   },
   {
    "path": "references/red-dune-live/tools/bench_dev.py",
@@ -2108,7 +2164,7 @@
   },
   {
    "path": "references/red-dune-live/tools/check.sh",
-   "sha256_lf": "8c0dbce2333b4602baecc94dedb0891dcdeeffa44ff56ebd46c8a5f919ee063d"
+   "sha256_lf": "d87255ba99d5861484b1e4ab00d7bf2d218f1fcad523582f9f134fd5207b6beb"
   },
   {
    "path": "references/red-dune-live/tools/dev-native.ps1",
@@ -2172,7 +2228,7 @@
   },
   {
    "path": "references/red-dune/FOUNDATION-MANIFEST.json",
-   "sha256_lf": "6c2b1e6d50d6b434fb4ee7bd5f5b603865384c33b772d1ef673234359cce9341"
+   "sha256_lf": "5ad0f3d0c538ccb30cbe978667483c06d58567f684b335a1c109b00141e03781"
   },
   {
    "path": "references/red-dune/FOUNDATION-TESTED2487-MANIFEST.json",
@@ -2184,11 +2240,11 @@
   },
   {
    "path": "references/red-dune/PROVENANCE.md",
-   "sha256_lf": "32f1bba159b1cd4a612bbd834ceb8a59c64ac808020ccaf906d57455e391c7e7"
+   "sha256_lf": "7eb21b43994d69ec568a50cdfc31e54994b7e2b612d22e7aebf078740aa21e69"
   },
   {
    "path": "references/red-dune/README.md",
-   "sha256_lf": "da07d0daa0370bebf3aab1f85ba48124b85149401f7b879c1733b688ad889bd1"
+   "sha256_lf": "5733ed51eda24f49d7f4350425b2b41e41c2c1b1b7a7c37a405b4e55e2238eeb"
   },
   {
    "path": "references/red-dune/RESTORE-MANIFEST.json",
@@ -2940,11 +2996,11 @@
   },
   {
    "path": "references/river/README.md",
-   "sha256_lf": "fd9350e379395f43a4d033d755e195c6a32661f73b355443eace278f2df66279"
+   "sha256_lf": "46150b22c99b26b38d6f3a062a70d2ed5c7d2cf34852195e85203545df388df2"
   },
   {
    "path": "references/river/river.cabal",
-   "sha256_lf": "f4d7076a10cfa9b671a67a153f2ab2a615255c64aa3628ecac0d1e529a346fef"
+   "sha256_lf": "6c8323f0f5f3407a4fcb355d4d36e4b5729b914b6a619d46320e782f3c47c6ae"
   },
   {
    "path": "references/river/src/Life/Adapter.hs",
@@ -2956,19 +3012,63 @@
   },
   {
    "path": "references/river/src/Life/Domain.hs",
-   "sha256_lf": "148d63f9cf5434aeea08311c2f9058f7a751136326acf29ea3edf7f2ae7a5c6c"
+   "sha256_lf": "1e391e44e3d02acad1b750b80336914df08e120d46f2b23e503df410ec7703e4"
+  },
+  {
+   "path": "references/river/src/Life/Internal/Core.hs",
+   "sha256_lf": "80779a774c6452f18635f17859ca40bb7d1347ac45f05b0b310d50f694c9ba27"
+  },
+  {
+   "path": "references/river/src/Life/Internal/Journey.hs",
+   "sha256_lf": "6cc6fad55b953c307f6fc72c89d754a5e64083b4f653f58e0873bbf2b1ce918b"
+  },
+  {
+   "path": "references/river/src/Life/Internal/Presentation.hs",
+   "sha256_lf": "1b9631da491ee1d6ca986bd2f93e91e9b0f11182ed120bee47b529982ed16902"
+  },
+  {
+   "path": "references/river/src/Life/Internal/Snapshot.hs",
+   "sha256_lf": "921b4fe9333c0a91dd09214b3afb84746f324a984b49f1bcc3f571df3226f009"
   },
   {
    "path": "references/river/test/Laws.hs",
-   "sha256_lf": "ff5f838022186368d26624aff6377928127839e1c2500549acaf571400b8315b"
+   "sha256_lf": "ebdf03a7f35f3df54b3f09259e0fea29d033bae99565634eb3e33ad17e13c1de"
   },
   {
    "path": "references/river/test/ReadRiver.hs",
-   "sha256_lf": "589b506448e3750771f3101a9a30a2f4c60106a932bbad8a19a86e6feb188bdd"
+   "sha256_lf": "bef553300f35f3aae3667665ee31ed9c89f473ab33b591643d51efbf16c8cd9f"
+  },
+  {
+   "path": "references/river/test/RejectRiverConstructor.hs",
+   "sha256_lf": "b970628d229f4139465efcc05601074ddd96faf024bd7f5846e674d5ecda69ce"
+  },
+  {
+   "path": "references/river/test/RejectRiverInternal.hs",
+   "sha256_lf": "3d7e9d60e2710a10453f7bf94ea28df0db1e4a8f950273143168ffe90e07e524"
+  },
+  {
+   "path": "references/river/test/RejectRiverPrivateField.hs",
+   "sha256_lf": "bf605b52d4c5c76a6ba81ea4dcbc685ffd7602ff6d58133a5902c524800f49b1"
+  },
+  {
+   "path": "references/river/test/RejectRiverRead.hs",
+   "sha256_lf": "94b0febdc9401eaa5d4112ea42ba9287ad0904d1c5b62ffd2c611b70ce656b3a"
   },
   {
    "path": "references/river/test/RejectRiverUpdate.hs",
    "sha256_lf": "c23be9384b0c1180eafb3091941602c8f58d5a9bffca827121ef71658d4c1a91"
+  },
+  {
+   "path": "references/river/test/River/Gameplay.hs",
+   "sha256_lf": "4442338237efca43a08409de70bbffae00c1aaa2aa71863f6906cf6dacf2c340"
+  },
+  {
+   "path": "references/river/test/River/Protocol.hs",
+   "sha256_lf": "e91a49b3ea8b60aded52669a5a1474dba1bbc76497cd248e5f7d26f23fe3f579"
+  },
+  {
+   "path": "references/river/test/River/Snapshot.hs",
+   "sha256_lf": "85135756aa3a17a49e3242f9cb8b9717aa0fcb5db95b31dc8cb3dd0ea0c185c8"
   },
   {
    "path": "references/signal-courier/.agents/skills/game-dev/SKILL.md",
@@ -3108,7 +3208,7 @@
   },
   {
    "path": "references/signal-courier/web/controls.test.mjs",
-   "sha256_lf": "3189f187cf2ef862a457863661d9018e1733b796b6baf0f672152a1ea4e9f480"
+   "sha256_lf": "0529a16294d8fc3321f981d78a24eececfa7f11928efec25aa51201d131c71c2"
   },
   {
    "path": "references/signal-courier/web/engine.mjs",
@@ -3172,7 +3272,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "ed16d905495b408500adf2867c33f9d4563891a41754fc7698df26910226082b"
+   "sha256_lf": "0b81231bdce2a8edbdc6744fbe28d70ca23dc871fc515515a03dbfa0a41566ec"
   },
   {
    "path": "references/station/app/HeadlessMain.hs",
@@ -3192,7 +3292,7 @@
   },
   {
    "path": "references/station/test/Laws.hs",
-   "sha256_lf": "ae02f3497670c5eba201def3bb531849556e0be2488906efba7797f06da964f0"
+   "sha256_lf": "15420dfc74fe472032b204b7cf2252f7f92e138f67d54071d2ee681436cdfbb1"
   },
   {
    "path": "references/station/test/ReadGame.hs",
@@ -3240,7 +3340,7 @@
   },
   {
    "path": "references/tapline/test/Laws.hs",
-   "sha256_lf": "478efef9fedb2396cdc59dadef0611e88761d0f490637bcd41ae3ce4bca63452"
+   "sha256_lf": "7cfaf50b61310e30e35f3aad51f2754900e8ee907b8910d70c2667683c542353"
   },
   {
    "path": "research/haskell-tooling/README.md",
@@ -5412,7 +5512,15 @@
   },
   {
    "path": "site/index.html",
-   "sha256_lf": "f9d9a6e7bc26f903b95662204b99ebd349b2b29b89fd746bf3a6cb14f4b0ed2c"
+   "sha256_lf": "95e2fb7c446123f9c245964036a8e006f54a65dadaa44bad9e5de79654f2ff18"
+  },
+  {
+   "path": "site/learn.css",
+   "sha256_lf": "9d518ebb7e29827e4ab0493fe6f261f1d2a03b350b9e053bc3d7905021e78f24"
+  },
+  {
+   "path": "site/learn.html",
+   "sha256_lf": "c7ec07d77d880bfd594799edea0edac7f5e3c0257f0601d0f43a2e3d4bd98e10"
   },
   {
    "path": "site/site.js",
@@ -5540,7 +5648,7 @@
   },
   {
    "path": "tools/check_site.py",
-   "sha256_lf": "60a86bd9ec2db6abcbcd7b888d6cc185ccc51a0099f321cd3d9acb6c252889ca"
+   "sha256_lf": "df4c006930519b51ee7306fec17737c177fe35061954a11b7eaec094721482e1"
   },
   {
    "path": "tools/docs_lint.py",
@@ -5680,7 +5788,7 @@
   },
   {
    "path": "tools/test_river_api.py",
-   "sha256_lf": "5216d08f4e0bf881cf304249943afb23ecfd341e485ecd716134fe4efe457cba"
+   "sha256_lf": "7b5d81955c185a16a78fae3af9f978818b6dd6f277a533181211d05144d7a59a"
   },
   {
    "path": "tools/test_station_api.py",

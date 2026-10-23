@@ -5,7 +5,7 @@ build-type: Simple
 synopsis: Playable long-session Red Dune colony survival campaign
 license: MIT
 license-file: LICENSE
-extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md, ui/*.html, ui/*.css, ui/*.js, tools/*.cjs, tools/*.sh, tools/*.py, tools/*.ps1, native/assets/*.txt, evidence/*.json, evidence/*.txt
+extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md, ui/*.html, ui/*.css, ui/*.js, tools/*.cjs, tools/*.sh, tools/*.py, tools/*.ps1, test/*.py, native/assets/*.txt, evidence/*.json, evidence/*.txt
 
 common shared
   default-language: GHC2021
@@ -28,6 +28,10 @@ library colony-core
     exposed-modules: Colony.CheckpointLibrary, Colony.Save, Colony.SessionTrace, Colony.UIShell
   ghc-options: -O2
   hs-source-dirs: core
+  other-modules:
+    Colony.Codec.Instances
+    Colony.Transport.State
+    Colony.Transport.Dispatch
   exposed-modules:
     Colony.Arena
     Colony.Codec.CBOR
@@ -167,6 +171,30 @@ test-suite live-boundary
   type: exitcode-stdio-1.0
   main-is: LiveBoundaryTests.hs
   hs-source-dirs: test
+  build-depends: red-dune-live
+
+test-suite live-logistics
+  import: shared
+  ghc-options: -O2
+  type: exitcode-stdio-1.0
+  main-is: LogisticsTests.hs
+  hs-source-dirs: test
+  other-modules:
+    Logistics.InventoryTests
+    Logistics.TransportTests
+    Logistics.MaintenanceTests
+    Logistics.WorkforceTests
+  build-depends: red-dune-live
+
+test-suite live-core-boundary
+  import: shared
+  ghc-options: -O2
+  type: exitcode-stdio-1.0
+  main-is: CoreBoundaryTests.hs
+  hs-source-dirs: test
+  other-modules: Core.SessionTests
+  if !os(windows)
+    other-modules: Core.SnapshotTests
   build-depends: red-dune-live
 
 executable red-dune-tick-bench

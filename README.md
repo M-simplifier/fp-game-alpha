@@ -1,158 +1,72 @@
 # fp-game-alpha
 
-[日本語の紹介ページ — 壊れないゲーム開発](https://m-simplifier.github.io/fp-game-alpha/)
+[日本語の紹介ページ](https://m-simplifier.github.io/fp-game-alpha/) · [配達を一件、コードで追う](https://m-simplifier.github.io/fp-game-alpha/learn.html)
 
+A Haskell foundation for making your own game with AI. Give the AI a game brief,
+invoke `$new-game`, and build a playable slice around a small pure core.
+Haskell experience is optional; the AI should prepare the host and explain the
+code when you want to understand it.
 
-A Haskell foundation for AI-driven, pure functional game development. Clone it,
-invoke `$new-game`, and give the AI your game brief and platform requirements.
-The intended workflow designs a new game around the small shared core, prepares
-its host, implements a playable slice, and continues from play feedback.
-References are learning material, not mandatory game templates.
+The long-term work is a pure functional game engine shaped by different real
+games. This alpha shares usable tools, examples and research along the way.
+Read [the purpose](docs/purpose.md) for that distinction.
 
-The long-term aim is a pure functional game engine whose design and APIs are
-refined through different real games. This alpha shares the useful parts now;
-see [the research direction and what the alpha provides](docs/purpose.md).
+## Start with your game
 
-See [the development workflow](docs/new-game.md). It separates the intended
-experience from the platform checks already completed; the foundation is still
-alpha and does not establish that every target or generated game is correct.
+Clone this repository and open it in an AI environment that can read files,
+edit code and run commands. Tell it what the player should experience and where
+the game should run, then invoke [new-game](.agents/skills/new-game/SKILL.md).
+If the environment does not recognize skill names, give it that file directly.
 
-## Haskell development tooling
+The [creation guide](docs/new-game.md) covers the brief, first playable slice
+and continued development. References are examples to learn from; a new game
+gets its own design. The [platform guide](docs/platforms.md) distinguishes
+available source from checks completed on a real host.
 
-The native `fp-game` executable is the authoritative path for `create-plan`,
-`create`, `doctor`, `build`, `test`, `check` and `run`. Bootstrap it once, then
-run the local binary directly. Generated games carry its source and can continue
-after relocation without Python for these commands. See
-[native setup and its evidence boundaries](docs/native-tooling.md).
-Python is only needed for separate tools such as compiler inspection, formatting
-and headless player journals. This tooling does not restrict `$new-game` to the
-terminal starter or establish acceptance for every game and host.
+An optional terminal starter is also available through the native `fp-game`
+tool. Follow [setup and bootstrap](docs/native-tooling.md); generated games
+carry their tool source and can continue outside this checkout.
 
-## Optional terminal starter
+## Understand and improve it
 
-This command path is one maintained example, not a restriction on `$new-game`.
+- [A delivery, read through code](https://m-simplifier.github.io/fp-game-alpha/learn.html): a Japanese beginner lesson using Station's actual types, decisions and state changes.
+- [learn-code](docs/learn-code.md): ask the AI about one operation in your own current game.
+- [Design boundaries](docs/architecture.md) and [readable Haskell](docs/haskell.md): choose responsibilities, representations and useful checks.
+- [Technical practice](docs/practice/README.md): deeper guidance selected for the problem at hand.
+- [Headless play](docs/headless-play.md): let an AI make real choices and inspect the consequences.
+- [Editor support](docs/editors.md): optional compiler-backed source inspection; it is not required to start.
 
-With GHC 9.6.7 and Cabal 3.12.1.0 installed, follow
-[the bootstrap guide](docs/native-tooling.md) once. From the clone on Linux/macOS:
+## Examples to explore
 
-```sh
-.build/tools/fp-game doctor
-.build/tools/fp-game create-plan my-game "../My Game"
-.build/tools/fp-game create my-game "../My Game"
-.build/tools/fp-game build --project "../My Game"
-.build/tools/fp-game test --project "../My Game"
-.build/tools/fp-game run --project "../My Game"
-```
+| Example | A useful question to investigate |
+| --- | --- |
+| [Station Dispatch](references/station/README.md) | How do a resource cost and a stale turn affect a delivery? |
+| [Lantern](references/lantern/README.md) | What can a finite puzzle establish about every reachable state? |
+| [Garden](references/garden/README.md) and [Tapline](references/tapline/README.md) | How do ordered input and time enter a pure transition? |
+| [River Home](references/river/README.md) | How do daily rules, saves and a multi-day journey fit together? |
+| [Paper Circuit](references/paper-circuit/README.md) | How can a new puzzle add an undo operation without inheriting another game's design? |
+| [Signal Courier](references/signal-courier/README.md) | How do fixed ticks, checkpoints and platformer movement interact? |
+| [Garden of Afterlight](references/afterlight/README.md) | How does a pure game connect to a 3D renderer and audio? |
+| [Red Dune live](references/red-dune-live/README.md) | Who owns stock, work, delivery and durable saves in a continuing colony? |
 
-On Windows use `./.build/tools/fp-game.exe` and the guide's explicit compiler
-profile, selecting the tool and game compilers separately. To continue from the
-game directory without the clone, bootstrap its copied tool source once and use
-its own local executable.
+These examples have different host and verification boundaries; each entry
+links to its own run instructions. [Research reproduction](docs/research-reproduction.md)
+covers optional formal-method experiments. The [archived Red Dune](references/red-dune/README.md)
+and frozen comparison sources retain their original role as evidence.
 
-This optional starter is a native terminal adventure, with real rules,
-view, validated saves and a Machine/Arena adapter. Add your actual mechanic
-after generation; the starter is no longer required. Kernel versions/source
-hashes are pinned locally. Standard Cabal works, and your game's license is
-your decision. See [start and continue a game](docs/new-game.md).
+## Contribute and verify
 
-The CLI keeps config/cache/output in `.build/`; this profile needs only packages
-bundled with GHC. The separate `tools/inspect_haskell.py` owns `inspect` and
-`context`, using Python plus GHC/GHCi on PATH. The editor wrappers use native
-doctor/check and that inspection tool; saved-source results are compiler-backed.
-See [setup](docs/setup.md), [editors](docs/editors.md),
-[Haskell style](docs/haskell.md), [architecture and laws](docs/architecture.md),
-[review findings and prevention](docs/failure-prevention.md),
-[guarantees and limits](docs/guarantees.md),
-[acceptance contract](docs/acceptance.md), [milestones](docs/roadmap.md), and
-[publication manifest](PUBLICATION-MANIFEST.md).
+Use the checks for the boundary you change, plus the repository's required CI.
+[Acceptance](docs/acceptance.md) states what a public path must establish;
+[verification records](docs/verification.md) preserve the conditions of earlier
+runs. Passing a finite test does not establish every game or host.
 
-This is an alpha. A finite test or historical verification result is scoped
-evidence, not a proof that every game, host or platform works. The repository
-retains the [MIT license](LICENSE) and all selected upstream notices.
+The implementation is the source of truth. Keep names, types and responsibilities
+readable. Documentation should teach a useful idea, explain a design reason or
+record an external constraint; avoid parallel catalogs of what the code already says.
+The public Station lesson intentionally teaches from source excerpts, checked
+against the implementation in CI.
 
-The first additional reference is the [Lantern finite puzzle](references/lantern/README.md).
-The [Tapline pure-core reference](references/tapline/README.md) exercises
-ordered input, active time and six complete rounds through Step and Arena.
-The [Garden pure-core reference](references/garden/README.md) connects
-deterministic world updates to event and clock-frame adapters.
-The [River Home pure-core reference](references/river/README.md) covers a
-multi-day village journey, fixed ticks, validated saves and Step/Arena agreement.
-The [Station Dispatch pure-core reference](references/station/README.md) covers
-all six orders and three endings with an opaque turn token; JSON save and
-asynchronous UI acceptance remain pending.
-The [quantity source lab](research/quantity/README.md) has a GHC-only route
-for real type rejections and runtime-oracle checks; LiquidHaskell checking
-is a separate, pinned opt-in route with its own evidence and limits.
-Recovered [formal-method research](docs/research-reproduction.md) adds optional,
-isolated checker routes for the real quantity modules, cancellation arithmetic,
-and asynchronous save lifecycle. Start with the question and its stated limits;
-install only the prover needed for that experiment.
-
-The [complete Afterlight source](references/afterlight/README.md) is an optional
-package with the original renderer/audio and browser hosts, a pinned dependency
-check route, and a frozen gameplay oracle. Host execution and binary
-redistribution are separate acceptance stages.
-
-[Red Dune: A Settlement That Lasts](references/red-dune-live/README.md) is the
-active colony campaign: physical production and delivery, three-shift staffing,
-construction, recovery and durable checkpoints, with a local Haskell HTTP host
-and browser command room. See [the live source/check route](docs/red-dune-live.md)
-for Linux build/play instructions and separate short, long-campaign and browser
-gates. Native host/protocol evidence does not establish real-browser acceptance;
-keyboard, pointer, layout and a human playthrough remain unverified.
-
-The [archived Red Dune colony simulation source](references/red-dune/README.md) is an
-optional, in-progress Linux/GHC 9.6 reference with exact-restored compatibility
-fixtures. Start with its [source reading and check route](docs/red-dune.md);
-full game checks on the earlier core and bounded formatted-core checks are
-reported separately. It is not a campaign release or a new-game template.
-
-## Play through an AI-facing interface
-
-[Headless gameplay](docs/headless-play.md) lets an AI make actual Station choices
-through the Haskell Arena, inspect consequences, and produce a replayable player
-journal. Use `$play-game` or `python tools/play.py --help`. The pilot evaluates
-abstract decisions; it is not a human-fun guarantee or a renderer benchmark.
-
-## Purpose-specific skills
-
-- `$new-game`: brief and platform to a new game designed around the shared core
-- `$fp-gamedev`: implement and refine this game’s rules and runtime boundaries
-- [`$game-experience`](.agents/skills/game-experience/SKILL.md): design player experience and progression, or improve UI/help and Japanese copy from play feedback
-- `$haskell-excellence`: types, errors, effects, resources, evaluation and verification
-- `$game-platform`: host preparation, build, assets and distribution
-- `$play-game`: actual player decisions through the current headless adapter
-- `$learn-code`: understand your actual game's Haskell types and behavior, with no prior Haskell knowledge required
-
-The [technical knowledge index](docs/practice/README.md) is the canonical guide;
-these entries route to the relevant knowledge without making every task read it all.
-
-The [experience design](docs/game-experience/design.md) and
-[UI/Japanese guide](docs/game-experience/ui-and-japanese.md) preserve the reusable
-judgments from the 7 October Red Dune study. Read the
-[sources and evidence limits](docs/game-experience/sources.md) when evaluating a
-claim; the positive owner trial does not establish long-term or universal appeal.
-
-## A game authored from its own brief
-
-[Paper Circuit](references/paper-circuit/README.md) is a new 2D browser puzzle
-whose Haskell core and SVG presentation were written from scratch. Only the
-small shared core is reused. Native and real-Wasm/Node checks pass; actual
-browser UI acceptance remains unverified. This example is not a required
-template for new games.
-
-[Signal Courier](docs/signal-courier.md) adds an independent fixed-tick 2D
-platformer: three lantern deliveries, checkpoints and optional rooftops. Native
-and actual Wasm traces verify direct and all-stamp wins; browser/device
-play remains unverified. Read the [DX report](references/signal-courier/docs/experiment.md)
-for reused code, knowledge, tests and prevention lessons.
-
-### Read types and design
-
-[Learn from your game's code](docs/learn-code.md) with a chosen action, its real
-types and a small prediction or optional change. The skill works with independent
-games as well as the references; it does not require an editor installation.
-
-[Haskell Design](docs/haskell-design.md) restores the original native map/outline/show
-reader, optional trusted inference, and VSCode/Neovim adapter sources. Start with
-the haskell-editor-setup skill; current-platform checks and remaining UI limits are explicit.
+Published files retain [provenance and license records](PUBLICATION-MANIFEST.md).
+This repository uses the [MIT license](LICENSE) with selected upstream notices.
+The license for a separately authored game is its author's decision.

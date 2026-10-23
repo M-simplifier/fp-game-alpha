@@ -2,6 +2,13 @@
 
 The reference games teach by being worth reading. Keep advanced types where they express a real distinction, and give that distinction a name the reader can connect to the game.
 
+Make source the first explanation: names identify the domain, types distinguish
+roles, and a transition shows admission, decisions and committed results. Do
+not restate declarations or control flow in comments and parallel documents.
+Keep comments for a reason, an external assumption or a non-obvious invariant.
+Author a tutorial only for a specific human learning purpose, using the current
+code and a concrete example; check quoted source against the implementation.
+
 ## Semantic names without imaginary guarantees
 
 - Use a `type` alias to name a recurring meaning or simplify a distracting signature. It is the same underlying type and adds no type safety or validation.
