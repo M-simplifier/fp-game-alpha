@@ -24,7 +24,8 @@ module Lantern
 where
 
 import Data.Bits (clearBit, testBit)
-import Data.List (nub)
+import Data.List (foldl', nub)
+import Data.Maybe (isJust)
 import Game.Arena
 import Game.Transition
 
@@ -124,34 +125,38 @@ wellFormed b s =
 allMoves :: Board -> [Move]
 allMoves b = [Move i d | i <- [0 .. length (carts b) - 1], d <- [-1, 1]]
 
-replaceAt :: Int -> a -> [a] -> [a]
-replaceAt i a xs = take i xs ++ [a] ++ drop (i + 1) xs
-
 legal :: Board -> World -> Move -> Bool
-legal b s (Move i d) =
-  wellFormed b s
-    && remaining s /= 0
-    && i >= 0
-    && i < length (carts b)
-    && d `elem` [-1, 1]
-    && wellFormed b shifted
+legal board world action = isJust (shiftedWorld board world action)
+
+shiftedWorld :: Board -> World -> Move -> Maybe World
+shiftedWorld board world (Move index distance)
+  | not (wellFormed board world) || remaining world == 0 = Nothing
+  | distance `notElem` [-1, 1] = Nothing
+  | otherwise = do
+      moved <- shiftPosition index (positions world)
+      let shifted = world {worldPositions = moved}
+      if wellFormed board shifted then Just shifted else Nothing
   where
-    shifted = s {worldPositions = replaceAt i ((positions s !! i) + d) (positions s)}
+    shiftPosition _ [] = Nothing
+    shiftPosition i (position : rest)
+      | i < 0 = Nothing
+      | i == 0 = Just (position + distance : rest)
+      | otherwise = (position :) <$> shiftPosition (i - 1) rest
 
 -- | The only collision/departure implementation. Invalid moves preserve state
 -- and emit no rows; 'admit' rejects the same moves before the rule runs.
 advance :: Board -> Move -> World -> (World, Departed)
-advance b action@(Move i d) s
-  | not (legal b s action) = (s, Departed [])
-  | otherwise = (shifted {worldRemaining = foldl clearBit (remaining s) departing}, Departed [fishRows b !! j | j <- departing])
-  where
-    shifted = s {worldPositions = replaceAt i ((positions s !! i) + d) (positions s)}
-    departing =
-      [ j
-      | (j, row) <- zip [0 ..] (fishRows b),
-        testBit (remaining s) j,
-        all ((/= row) . snd) (occupied b shifted)
-      ]
+advance board action world = case shiftedWorld board world action of
+  Nothing -> (world, Departed [])
+  Just shifted ->
+    let departing =
+          [ (index, row)
+          | (index, row) <- zip [0 ..] (fishRows board),
+            testBit (remaining world) index,
+            all ((/= row) . snd) (occupied board shifted)
+          ]
+        remainingFish = foldl' (\mask (index, _) -> clearBit mask index) (remaining world) departing
+     in (shifted {worldRemaining = remainingFish}, Departed (map snd departing))
 
 instance Machine Lantern where
   type State Lantern = World

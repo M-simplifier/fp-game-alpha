@@ -11,6 +11,7 @@ import Garden.Session qualified as Session
 import Garden.Simulation qualified as Simulation
 import Garden.View qualified as View
 import Garden.World qualified as World
+import SimulationChecks qualified
 import System.Exit (exitFailure)
 
 check :: String -> Bool -> IO ()
@@ -42,6 +43,7 @@ frameArenaReplay inputs start = foldl' advance (Right (start, [])) inputs
 
 main :: IO ()
 main = do
+  mapM_ (uncurry check) SimulationChecks.checks
   let seed = World.seedFromText "alpha-garden"
       start = Session.newSession seed
       seedWorld = Session.sessionWorld start

@@ -49,7 +49,8 @@
     "kind": "refactored-author-supplied-technical-source",
     "origin": "fixtures/lantern/src/Lantern.hs",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
-    "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689"
+    "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689",
+    "transformation": "Preserved checked construction and the public API; legal and advance now share one checked shifted-world candidate. Replaced guarded partial list indexing with total position traversal and retained departing row identities alongside their mask indices."
   },
   "research/quantity/fixture/Colony/Units.hs": {
     "kind": "selected-author-supplied-proof-source",
@@ -1924,8 +1925,10 @@
     "kind": "authored-public-reference-packaging",
     "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
     "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
-    "transfer_sha256": "6c2b1e6d50d6b434fb4ee7bd5f5b603865384c33b772d1ef673234359cce9341",
-    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+    "transfer_sha256": "5ad0f3d0c538ccb30cbe978667483c06d58567f684b335a1c109b00141e03781",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "original_transfer_sha256": "6c2b1e6d50d6b434fb4ee7bd5f5b603865384c33b772d1ef673234359cce9341",
+    "amendment": "2026-10-23: reviewed law-test-only foundation repin; original game inputs and historical check records preserved."
   },
   "references/red-dune/FOUNDATION-TESTED2487-MANIFEST.json": {
     "kind": "authored-public-reference-packaging",
@@ -1945,15 +1948,19 @@
     "kind": "authored-public-reference-packaging",
     "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
     "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
-    "transfer_sha256": "32f1bba159b1cd4a612bbd834ceb8a59c64ac808020ccaf906d57455e391c7e7",
-    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+    "transfer_sha256": "7eb21b43994d69ec568a50cdfc31e54994b7e2b612d22e7aebf078740aa21e69",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "original_transfer_sha256": "32f1bba159b1cd4a612bbd834ceb8a59c64ac808020ccaf906d57455e391c7e7",
+    "amendment": "2026-10-23: reviewed law-test-only foundation repin; original game inputs and historical check records preserved."
   },
   "references/red-dune/README.md": {
     "kind": "authored-public-reference-packaging",
     "archive_sha256": "07737dae742b86542046525e6f15f189a9d7c71ea0682af8a78a830f40b49968",
     "selection_manifest_sha256": "cbc89e3ebf906b80d02036700986cffaac0cda01ecd6768aecf3b6666dec8009",
-    "transfer_sha256": "da07d0daa0370bebf3aab1f85ba48124b85149401f7b879c1733b688ad889bd1",
-    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md"
+    "transfer_sha256": "5733ed51eda24f49d7f4350425b2b41e41c2c1b1b7a7c37a405b4e55e2238eeb",
+    "license_basis": "Owner-authorized MIT public-release grant; original package declared NONE; see references/red-dune/PROVENANCE.md",
+    "original_transfer_sha256": "da07d0daa0370bebf3aab1f85ba48124b85149401f7b879c1733b688ad889bd1",
+    "amendment": "2026-10-23: reviewed law-test-only foundation repin; original game inputs and historical check records preserved."
   },
   "references/red-dune/RESTORE-MANIFEST.json": {
     "kind": "authored-public-reference-packaging",
