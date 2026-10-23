@@ -49,7 +49,8 @@
     "kind": "refactored-author-supplied-technical-source",
     "origin": "fixtures/lantern/src/Lantern.hs",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
-    "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689"
+    "source_sha256_lf": "7f9509680f3ad5eea73c78e44ea1c7db8c763bc4377d1682c439623e6229f689",
+    "transformation": "Preserved checked construction and the public API; legal and advance now share one checked shifted-world candidate. Replaced guarded partial list indexing with total position traversal and retained departing row identities alongside their mask indices."
   },
   "research/quantity/fixture/Colony/Units.hs": {
     "kind": "selected-author-supplied-proof-source",

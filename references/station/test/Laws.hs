@@ -138,6 +138,31 @@ main = do
           (same, [Refused (Domain.StaleTurn _ received)]) ->
             same == next && received == firstTurn
           _ -> False
+  check "resource refusal retains all history and energy precedes tickets" $
+    case playTrace [Domain.Express, Domain.Local, Domain.Express, Domain.Local, Domain.Express] start of
+      Left _ -> False
+      Right path -> case (reverse path, Domain.currentTurn start) of
+        (strained : _, Just firstTurn) -> case Domain.currentTurn strained of
+          Nothing -> False
+          Just turn ->
+            Domain.stats strained == Domain.Stats 0 0 19
+              && Domain.step turn Domain.Express strained == Left (Domain.InsufficientEnergy 3 0)
+              && runStep stationStep (Dispatch turn Domain.Express) strained == (strained, [Refused (Domain.InsufficientEnergy 3 0)])
+              && Domain.step firstTurn Domain.Express strained == Left (Domain.StaleTurn turn firstTurn)
+              && case Domain.step turn Domain.Defer strained of
+                Left _ -> False
+                Right terminal -> Domain.step firstTurn Domain.Express terminal == Left Domain.GameFinished
+        _ -> False
+  check "ticket refusal follows successful energy admission" $
+    case playTrace [Domain.Express, Domain.Express, Domain.Defer, Domain.Defer, Domain.Express] start of
+      Left _ -> False
+      Right path -> case reverse path of
+        strained : _ -> case Domain.currentTurn strained of
+          Nothing -> False
+          Just turn ->
+            Domain.stats strained == Domain.Stats 3 0 16
+              && Domain.step turn Domain.Express strained == Left (Domain.InsufficientTickets 1 0)
+        _ -> False
   check "the view contains only projections, including available choices" $
     let view = observe StationArena LocalClerk start
      in viewTurn view == Domain.currentTurn start
