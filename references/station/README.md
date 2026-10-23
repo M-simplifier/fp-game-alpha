@@ -7,17 +7,17 @@ score selects one of three endings. Start with `initialGame`, read
 delivery leaves 7 energy, 3 tickets and 1 delivered feeling. Reusing that
 same turn token is a `StaleTurn` error and does not advance state.
 
-Read `Station.Domain` in this order: the opaque `TurnId` and `GameState`;
-`Stats` and six `Order` values; `choiceCost`/`choices` as the visible decision
-table; `step` as the only authoritative transition; then `ending` and the
-read-only projections. `Stats` is an ordinary public record used for
+The [beginner lesson](../../site/learn.html) follows this delivery through the
+actual types, rule and caller. For changes, start at
+[Station.Domain](src/Station/Domain.hs). `Stats` is a public record used for
 presentation. Constructing or updating a `Stats` value cannot update a
 `GameState`; no public game rule accepts arbitrary `Stats` as authority.
 `TurnId`'s constructor is private, but a previously visible token can still
 be replayed. `step` checks the current token and available resources at each
 attempt. A private constructor alone is not a freshness proof.
 
-`Station.Adapter` wraps the original rule in `Step` and `Machine`. A
+[Station.Adapter](src/Station/Adapter.hs) wraps the original rule in `Step` and
+`Machine`. A
 `Dispatch` pairs a turn token and choice as one input. On a domain error,
 `stationStep` preserves the old state and emits `Refused`; on success it
 emits `Accepted` with resulting resources. `StationArena` requires one
@@ -32,18 +32,17 @@ then `respond` in [HeadlessMain](app/HeadlessMain.hs). The
 complete player action and records the refactor's before/after checks.
 
 Run `.build/tools/fp-game test` from the foundation root and
-`python tools/test_station_api.py` for outside-client compilation. The finite
-test enumerates every reachable state/history under the six fixed orders and
-three choices: 864 states, 969 attempted choices and 541 terminal states.
-It checks the three ending counts, a separately calculated winning resource
-trace, resource/history invariants, every displayed choice against `step`,
-direct Step/Arena equivalence, stale replay, and a deleted-rule mutation.
+`python tools/test_station_api.py` for outside-client compilation. The
+[finite test](test/Laws.hs) enumerates reachable histories under the six fixed
+orders and three choices, comparing visible choices and adapters with the rule.
+It also uses an independently calculated winning resource trace and deliberate
+rule mutation.
 GHC compiles a read-only client and rejects both an external `GameState`
 record update and a forged `TurnId` constructor for the intended reasons.
 These are results for this fixed finite game and GHC 9.6.7, not a theorem for
 arbitrary game changes or a measured user-experience result.
 
-This increment publishes only the complete clock-free domain rule core.
+The published game includes the clock-free domain core and headless host.
 The original strict JSON save and asynchronous storage/UI modules are
 **pending**: their `aeson` dependency is absent from the maintained offline
 first-user profile, and those paths have not been rebuilt and reviewed in a

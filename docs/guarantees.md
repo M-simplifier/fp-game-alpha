@@ -1,15 +1,14 @@
-# Guarantees and their boundaries
+# Research results and their boundaries
 
 This alpha separates a small pure Haskell transition core from games, platform adapters, and research examples. Purity makes state transitions easier to inspect and replay. It does not establish termination, bounded memory, overflow safety, storage durability, cross-platform determinism, or a correct user interface.
 
-The historical results below were recorded on 3–4 October 2026 and apply to
-the named source versions and toolchains. Original sources and optional isolated
-public runners are now included. New reruns are identified separately; neither
-source recovery nor a toolchain build counts as a checker pass. The
-[historical evidence summary](evidence/historical-guarantees.json) separates
-curated past results from new runs. The
-[reproduction guide](research-reproduction.md) gives current and planned
-entrypoints and opt-in toolchain boundaries; the [reference catalog](research-references.md) supplies primary
+This guide explains what the experiments establish, where their assumptions
+enter, and how a misleading green result can arise. The
+[historical record](evidence/historical-guarantees.json) contains the 3–4 October
+2026 result maps, counts and tool versions; it is not a run of this checkout.
+Separate public reruns are linked below. Source recovery and a toolchain build
+do not count as checker passes. Use the [reproduction guide](research-reproduction.md)
+for execution and the [reference catalog](research-references.md) for primary
 material.
 
 ## Reading a result
@@ -25,18 +24,17 @@ A rejected mutant is useful evidence that a check detects that particular defect
 
 ## Quantity contracts on a real Haskell module
 
-**Recorded result:** LiquidHaskell reported SAFE with 25 constraints for six selected binders from the frozen colony 0.6 `Colony.Units` module. Six deliberately broken implementations were UNSAFE. The original Haskell source bytes, types, imports, roles, instances, and function bodies were retained, with refinement comments appended.
+LiquidHaskell reported SAFE for selected binders from the frozen colony 0.6
+`Colony.Units` module and rejected deliberately broken implementations. The
+annotation-only copy retains the Haskell source bytes, types, imports, roles,
+instances and function bodies, adding refinement comments. The
+[quantity checker record](../research/quantity/lh-checker/README.md#recorded-new-linux-run)
+separates its 2026-10-05 pinned rerun from the historical experiment.
 
-**Selected source-only result:** `research/quantity/check.py check` passed
-locally with GHC 9.6.7 on Windows: eight intended type errors, two positive
-compilations, and 631,024 finite oracle rows on each of the frozen and
-annotation-only modules. It does not rerun the LiquidHaskell checker or its
-six mutants. Those now have a separate [recovered checker route](../research/quantity/lh-checker/README.md). The source-only result is recorded separately in
-[Windows quantity evidence](evidence/quantity-windows.json); cross-OS CI is
-tracked in the verification record.
-
-**Current checker status:** see the [quantity checker record](../research/quantity/lh-checker/README.md#recorded-new-linux-run).
-It records the 2026-10-05 pinned rerun separately from historical counts.
+The [source-only Windows record](evidence/quantity-windows.json) instead covers
+GHC client compilation and finite runtime comparison of the original and
+annotated modules. It ran neither LiquidHaskell nor Z3. These are complementary
+checks of different obligations, not interchangeable ways to obtain a proof.
 
 The selected binders are `quantityMax`, `mkQty`, `qtyValue`, `zeroQty`, `addQty`, and `subQty`. Let `M = 9,000,000,000,000`.
 
@@ -50,22 +48,28 @@ This is selected-binder checking, not a whole-module or whole-game proof. The un
 
 The implementation stores Int64 but checks bounds before conversion and performs addition/subtraction through Integer. The proof still trusts GHC, LiquidHaskell 0.9.6.3.1, liquidhaskell-boot 0.9.6.3, liquid-fixpoint 0.9.6.3, imported arithmetic/conversion specifications, the translation to SMT, and Z3 4.15.1. In particular, the generic imported conversion assumptions are not a proof of arbitrary out-of-range machine-integer casts.
 
-Separate evidence:
+The historical record also separates an independent arbitrary-precision Python
+oracle, outside-client compilation, integer/bitvector queries and solver-stream
+replay. Runtime rows can repeat inputs across test classes. The unsafe
+cast-before-check design produced a SAT witness: checking a narrowed value is
+not the same as checking the original integer.
 
-- 631,024 runtime rows matched an independent arbitrary-precision Python oracle, with zero mismatches; the annotated and original versions produced identical output on those same rows
-- Eight negative compilation examples rejected cross-unit operations, inappropriate coercions, or access to the hidden constructor
-- Eight independent integer/bitvector queries returned UNSAT; an intentionally unsafe cast-before-check design produced a SAT witness
-- Fourteen complete solver streams were replayed, matching 350 responses
-
-The runtime counts include repeated inputs from different test classes. Static unit protection relies on both a nominal role and a hidden constructor; a synthetic example with an exposed constructor demonstrated why the nominal role alone is insufficient. Unsafe operations, unverified callers, deserialization, and dynamic `Resource`/`Qty StockUnit` correspondence are outside this result.
+Static unit protection relies on both a nominal role and a hidden constructor;
+an exposed-constructor example demonstrates why the role alone is insufficient.
+Unsafe operations, unverified callers, deserialization, and dynamic
+`Resource`/`Qty StockUnit` correspondence are outside this result.
 
 ## LiquidHaskell arithmetic and a failed division contract
 
-**Current diagnostic status:** see the [LiquidHaskell run record](../research/liquidhaskell/README.md#recorded-new-linux-run).
-The pinned diagnostic was reproduced on 2026-10-05; the strict division
-soundness gate still fails. A successful reproduction is not restored soundness.
+The [LiquidHaskell run record](../research/liquidhaskell/README.md#recorded-new-linux-run)
+records a 2026-10-05 reproduction of the pinned diagnostic; its strict division
+soundness gate fails. A successful reproduction is not restored soundness.
 
-The smaller Integer-only `Contracts.hs` example was SAFE with 23 constraints on GHC 9.6.3 / LiquidHaskell 0.9.6.3.1 / Z3 4.15.1. Incorrect addition, unjustified nonnegative subtraction, always-failing checked addition, a call with an impossible precondition, a partial pattern match, and nondecreasing recursion were rejected. An impossible input precondition itself was SAFE, illustrating vacuous truth.
+The smaller Integer-only `Contracts.hs` example was SAFE on GHC 9.6.3 /
+LiquidHaskell 0.9.6.3.1 / Z3 4.15.1. Arithmetic, partiality and termination
+mutants were rejected. Calling a function with an impossible precondition was
+also rejected, but the impossible input precondition itself was SAFE. That
+distinction illustrates vacuous truth: no admissible input can refute it.
 
 **The division diagnostic failed its intended soundness test.** Under the satisfiable input condition `x == 0`, a deliberately false postcondition claimed that `x div 2 == 99`. The pinned checker accepted it as SAFE; ordinary Haskell execution returned 0. Generated constraints and complete solver traffic showed contradictory imported division premises. Nonzero-dividend and no-division controls were rejected.
 
@@ -75,31 +79,41 @@ Source inspection on 4 October 2026 found a zero-boundary contradiction still pr
 
 ## Cancellation arithmetic with SBV
 
-**Current runner status and receipt:** [SBV cancellation](../research/sbv-cancellation/README.md).
-The recovered source, general-result gate and finite bridge have their own
-public execution record, distinct from the historical result below.
-
-**Recorded result:** four general SInteger queries and two separately bounded queries returned UNSAT with SBV 10.12 / GHC 9.6.6 / Z3 4.15.1. Three negative controls returned SAT. No query in the recorded final run returned unknown.
+The historical SBV 10.12 / GHC 9.6.6 / Z3 4.15.1 experiment returned UNSAT for
+its general `SInteger` and separately bounded queries, and SAT for the negative
+controls, with no unknown result in that run. The recovered
+[SBV cancellation runner](../research/sbv-cancellation/README.md) has its own
+public execution record and finite bridge.
 
 For nonnegative total Q, positive required progress R, and `0 <= p <= R`, define `L = floor(Q*p/R)` and `refund = Q-L`. The general queries establish bounds, conservation, monotonicity in p, and equality of the aggregate formula for eight nonnegative slots whose sum is Q. The eight-slot result is an algebraic equality for fixed arity, not induction over arbitrary lists and not proof that the application groups resources correctly. Conservation is also an identity following from the refund definition.
 
 The legacy per-lot formula has a concrete counterexample: eight lots of one unit at half progress lose zero under per-lot flooring but four under aggregate flooring. Removing `p <= R` allows negative refund. A separate Word64 example demonstrates overflow in multiplication; mathematical-integer results do not certify Word64 arithmetic.
 
-The actual frozen 0.4 helper matched 36,400 concrete symbolic evaluations. A direct-source replay exercised 1,412 cancellation transactions with 127,011 assertions. These cover a directed finite fixture suite, including all 128 positive ordered compositions of Parts8 at 11 progress boundaries, plus four baselines. Metal partitions rotate through three selected patterns rather than their full Cartesian product.
+Comparison with the actual frozen 0.4 helper and direct-source transaction
+replay connect the model to selected executions. The directed fixtures cover
+all positive ordered compositions of Parts8 at 11 selected progress boundaries,
+plus baseline cases. Metal partitions rotate through three selected patterns
+rather than their full Cartesian product. The result counts belong to the
+historical record; this fixture domain is the limit on the comparison.
 
 The transaction tests supply progress directly and ample return capacity. They do not establish scheduler timing, arbitrary capacity/placement feasibility, general FEFO correctness, all rulesets, save correctness, or universal refinement of the Haskell implementation. Solver, compiler, SBV, translation, and the stated model/source mapping remain trusted.
 
 ## Save lifecycle with TLA+ and Haskell traces
 
-**Current runner status and receipt:** [save lifecycle](../research/save-lifecycle/README.md).
-Its isolated public runner owns the new finite model/trace execution record,
-separately from the historical result below.
-
-**Recorded result:** TLC 2.19 from release v1.7.4 exhaustively explored a fixed model with two epochs, two fresh request IDs per epoch, at most one edit per epoch, and one active request per epoch. Safety exploration completed with 79,227 distinct states, 583,932 generated states, and no queued states remaining.
+TLC 2.19 from release v1.7.4 completed safety exploration of a fixed model with
+two epochs, two fresh request IDs per epoch, at most one edit per epoch, and one
+active request per epoch. These bounds define the explored universe. The
+[save lifecycle runner](../research/save-lifecycle/README.md) has a separate
+public finite-model and trace receipt.
 
 The invariants cover stale success/saved status, successful persistence, duplicate success acceptance, snapshot revision matching, active-request correspondence, and state domains. Three weakened protocol models produce stale-callback, duplicate-success, and success-before-persist counterexamples.
 
-The Haskell laboratory caller imports the frozen 0.2 save API and uses real file save/load operations. The three model counterexamples matched all 13 observed state fields in the corresponding mutant replay. Eight normal Haskell traces, 78 states in total, were accepted by the model's existing Init/Next relation; three mutant traces were rejected. These are finite trace correspondence results, not a refinement proof for every execution.
+The Haskell laboratory caller imports the frozen 0.2 save API and uses real file
+save/load operations. The model counterexamples matched every observed state
+field in the corresponding mutant replay. Selected normal Haskell traces were
+accepted by the model's existing Init/Next relation; the mutant traces were
+rejected. This establishes finite trace correspondence, not refinement for
+every execution.
 
 Liveness passed under per-request weak fairness for eventual storage outcome and callback delivery. Removing fairness produced the expected liveness counterexample. The claim is eventual settlement to success or failure, not successful saving or a response-time bound.
 
@@ -109,7 +123,12 @@ This experiment uses one serialized caller and isolated storage directories per 
 
 ## Bend and Haskell comparison
 
-Bend 2.0.35 generated sequential JavaScript that matched a Haskell reference on 4,907 complete final-world traces and 17 balanced-tree map/reduce sizes. Rerun and split/resume checks agreed. Three authored laws were accepted by the ordinary Bend checker; five deliberately invalid type/ownership/law/termination examples were rejected. These are finite differential tests and ordinary-checker observations, not end-to-end compiler verification or performance measurements.
+Bend 2.0.35 generated sequential JavaScript that matched a Haskell reference on
+the historical record's finite final-world traces and balanced-tree map/reduce
+sizes. Rerun and split/resume checks agreed. The ordinary Bend checker accepted
+authored laws and rejected deliberately invalid type, ownership, law and
+termination examples. These are finite differential tests and ordinary-checker
+observations, not end-to-end compiler verification or performance measurements.
 
 - BendTT kernel verdict: blocked because the required Lean v4.34.0 was absent
 - Native CPU execution: not completed; Clang was absent and the fallback GCC build rejected Clang-specific syntax
