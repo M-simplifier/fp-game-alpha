@@ -38,6 +38,7 @@ import Garden.Render
 import Garden.Render.Resources
 import Garden.Render.Settings
 import Garden.Rules
+import Garden.Runtime.Control qualified as Control
 import Garden.Session
 import Garden.Signal
 import Garden.Tour qualified as Tour
@@ -393,17 +394,20 @@ stepFrame (Session resources audio (LightSignal handle glow) timingRef limit sho
           restart = KeyR `elem` pressed
           photoToggle = KeyF6 `elem` pressed
           wasPhoto = isJust (hostPhoto host)
-          photoExit = wasPhoto && (photoToggle || esc)
-          photoEnter = not wasPhoto && photoToggle
-          capture = KeyF12 `elem` pressed || wasPhoto && enter && not photoExit
       when f11 toggleBorderlessWindowed
 #if !defined(wasm32_HOST_ARCH)
       when (KeyF4 `elem` pressed) $ modifyIORef' (resourceQuality resources) (preset . nextQuality . renderQuality)
 #endif
       focused <- isWindowFocused
-      let paused = if wasPhoto || photoEnter then hostPaused host else if control == Interactive && not focused && tour == Nothing && limit == Nothing then True else if esc then not (hostPaused host) else hostPaused host
-          startingPhoto = if photoExit then Nothing else if photoEnter then Just (beginPhoto (eye (worldPlayer w)) (forward (worldPlayer w))) else hostPhoto host
-          frozen = paused || isJust startingPhoto || photoExit
+      let plan = Control.planFrame (Control.FrameContext control focused (hostPaused host) wasPhoto (tour == Nothing && limit == Nothing)) (Control.FrameKeys esc photoToggle enter (KeyF12 `elem` pressed))
+          paused = Control.pausedAfter plan
+          photoEnter = Control.photoTransition plan == Control.EnterPhoto
+          capture = Control.captureRequested plan
+          startingPhoto = case Control.photoTransition plan of
+            Control.LeavePhoto -> Nothing
+            Control.EnterPhoto -> Just (beginPhoto (eye (worldPlayer w)) (forward (worldPlayer w)))
+            Control.KeepPhoto -> hostPhoto host
+          frozen = Control.audioPaused plan
       portrait <- case startingPhoto of
         Nothing -> pure Nothing
         Just p | photoEnter -> pure (Just p)
@@ -429,9 +433,9 @@ stepFrame (Session resources audio (LightSignal handle glow) timingRef limit sho
                 hostPhotoMessage = if photoEnter then Nothing else hostPhotoMessage host
               }
       applyPointer control pointer (wantsPointer control focused paused (isJust portrait))
-      observed <- if control == ObserveOnly || frozen || esc then pure idleInput else pollInput (hostInvert updatedHost) (playerSlot (worldPlayer w)) pressed
+      observed <- if Control.acceptsGameInput plan then pollInput (hostInvert updatedHost) (playerSlot (worldPlayer w)) pressed else pure idleInput
       let driver = if tour == Just "islands" then IslandDriver else if isJust tour then StoryDriver else HumanDriver
-          boundary = FrameBoundary (now - previousTime) (if frozen || esc then Frozen else Advancing) driver
+          boundary = FrameBoundary (now - previousTime) (Control.simulationMode plan) driver
       (nextSimulation, FrameEffects batches) <-
         either (ioError . userError . ("Afterlight frame rejected: " <>) . show) pure $
           Arena.play AfterlightSession boundary (frameChoices observed (restart && not wasPhoto)) simulation
@@ -483,7 +487,7 @@ stepFrame (Session resources audio (LightSignal handle glow) timingRef limit sho
       when ((isJust limit || isJust tour) && frame < 60000) $ modifyIORef' timingRef (Timing frame (sceneTime view) ((afterSim - now) * 1000) ((afterMesh - afterSim) * 1000) ((afterAudio - afterMesh) * 1000) ((afterWorld - afterAudio) * 1000) ((afterUI - afterWorld) * 1000) ((afterPresent - afterUI) * 1000) ((afterPresent - now) * 1000) :)
       let continuedHost = updatedHost {hostSaved = status, hostRecordUntil = recordUntil, hostPhotoMessage = photoMessage, hostPhotoUntil = if capture then now + 4 else hostPhotoUntil updatedHost}
           continue nextHost = Just (FrameState nextSimulation nextHost (frame + 1) now)
-      if paused && enter && not wasPhoto && not photoEnter
+      if Control.saveAndExit plan
         then do
           success <- saveCurrent nextWorld
           pure (if success then Nothing else continue (updatedHost {hostSaved = Just False, hostRecordUntil = now + 3}))

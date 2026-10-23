@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tarfile
 import urllib.request
 
@@ -93,13 +94,22 @@ def main():
     versions = {name: subprocess.check_output([name, '--numeric-version'], text=True).strip()
                 for name in ('ghc', 'cabal')}
     command = ['cabal', f'--config-file={config}', 'test', 'afterlight-arena:original-checks',
-               'afterlight-arena:parity', f'--project-file={project}', f'--builddir={build / "dist"}', '--offline']
+               'afterlight-arena:parity', 'afterlight-arena:frame-boundaries',
+               f'--project-file={project}', f'--builddir={build / "dist"}', '--offline']
     result = subprocess.run(command, cwd=FOUNDATION, check=False)
+    api_exit = None
+    if result.returncode == 0:
+        api = subprocess.run([sys.executable, str(GAME / 'scripts/test-session-api.py'),
+                              f'--config-file={config}', f'--project-file={project}',
+                              f'--builddir={build / "dist"}'], cwd=FOUNDATION, check=False)
+        api_exit = api.returncode
+    exit_code = result.returncode or api_exit or 0
     report = {'schema': 1, 'versions': versions, 'dependencies': inputs,
-              'exit_code': result.returncode, 'scope': 'complete pure core, original checks and parity oracle',
+              'exit_code': exit_code, 'public_session_api_exit': api_exit,
+              'scope': 'complete pure core, original checks, parity oracle, host frame decisions and public session API',
               'native_graphics': 'not_run', 'browser': 'not_run'}
     (build / 'result.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
-    raise SystemExit(result.returncode)
+    raise SystemExit(exit_code)
 
 if __name__ == '__main__':
     main()
