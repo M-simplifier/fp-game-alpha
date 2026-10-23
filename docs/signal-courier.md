@@ -1,48 +1,35 @@
 # Signal Courier: an independent platformer brief
 
-[Game source and commands](../references/signal-courier/README.md) ·
+[Play, build and read the game](../references/signal-courier/README.md) ·
 [Specification](../references/signal-courier/GAME-SPEC.md) ·
-[Detailed DX evidence](../references/signal-courier/docs/experiment.md)
+[Recorded experiment](../references/signal-courier/docs/experiment.md)
 
-Three connected night-city rooms, lantern parcel handoffs, checkpoints and
-optional rooftop stamps. Keyboard and touch host controls are implemented.
-Physics and authoritative state use fixed integer ticks in a new Haskell domain;
-SVG is a projection. No Afterlight gameplay or assets were copied.
+Deliver lantern parcels across three connected night-city rooms, using
+checkpoints and optional rooftop routes. The new Haskell domain owns physics
+and authoritative state at fixed integer ticks; SVG is a projection. Keyboard
+and touch controls are implemented. No Afterlight gameplay or assets were
+copied.
 
-The shared transition/arena packages and lightweight Wasm plumbing were reused.
-The reference vendors pinned core copies intentionally so its own Cabal project
-and scripts remain independent of a sibling checkout. It is not added to the
-root Cabal project, avoiding duplicate package identities. Root formatting
-covers only its src/app/test files, never the vendored core or WASI shim.
+The game deliberately vendors pinned transition/arena libraries so its Cabal
+project and scripts work independently of the foundation. It is excluded from
+the root Cabal project to avoid duplicate package identities. Source and runtime
+provenance retain their hashes and licenses; vendored core and the WASI shim are
+outside this game's authored-source formatting scope.
 
-## Evidence boundaries
+## What the experiment shows
 
-Native and actual Wasm/Node execution verify a direct winning route (422 ticks)
-and an all-stamp route (605 ticks), both with zero falls. The final playable tick
-can win at tick 10,800; following inputs cannot advance a terminal session.
-Bounded invariant enumeration, replay, checkpoint recovery, opaque API compiler
-rejection and input ownership checks complement those concrete traces.
+The recorded native and actual Wasm/Node runs follow a direct winning route and
+an all-stamp route. They also check the final playable deadline, replay,
+checkpoint recovery and invalid input. Their exact traces, tool versions and
+finite coverage belong to the experiment record, not an assertion that a new
+checkout has just passed.
 
-Linux CI runs the native game, negative API and pure JavaScript input tests.
-This does not install a Wasm compiler or establish browser/device acceptance.
-The documented Wasm build and runtime were run locally with the existing
-GHC-Wasm 9.14.1.20260330 toolchain. Browser visuals, DOM input and device feel
-remain unverified; localhost restrictions were respected rather than bypassed.
+Linux CI's native/API/JavaScript checks do not install a Wasm compiler or drive
+a browser. The recorded local Wasm execution is separate evidence. Browser
+visuals, DOM input, accessibility and device feel need actual host checks; Node
+execution cannot supply them. General platformer solvability and fun remain
+outside the claim.
 
-The source includes small, explicitly reviewed game-dev and learn-code skills
-for continuing this game. They contain public development guidance only.
-General platformer solvability and fun are not proved by this experiment.
-
-## Publication integration
-
-The publication policy allowlists the two skill files by exact path; there is
-no general `.agents` exception. Core and WASI provenance retain source hashes
-and licenses. The [compact publication manifest](../PUBLICATION-MANIFEST.md)
-references that canonical metadata without repeating it for each file. The
-inventory and all ordinary source receive the same 512 KiB limit and pattern scan.
-
-The official landing page is unchanged in this integration. A future card,
-subject to its writing owner's review, could describe: “Signal Courier: a new
-2D Haskell platformer with lantern deliveries, checkpoints and optional rooftop
-routes. Native and actual Wasm winning traces checked; browser/device input
-acceptance pending.” README and documentation provide discovery meanwhile.
+Use the game's local continuation and learn-code skills to change or explain
+one real interaction. The README points to the rule order and current commands;
+there is no second gameplay implementation in the JavaScript host.

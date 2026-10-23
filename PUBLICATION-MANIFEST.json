@@ -112,7 +112,7 @@
   },
   {
    "path": "docs/architecture.md",
-   "sha256_lf": "73315b669752cb2261e0a263dc97f8286ad3e1049c2dd8cd9025fa115dc00a17"
+   "sha256_lf": "6a52ce40b448e4d3d324491f8e69e9b3d8e7d3c7ca0f1c6c42bc7e282a1a550a"
   },
   {
    "path": "docs/editors.md",
@@ -172,7 +172,7 @@
   },
   {
    "path": "docs/guarantees.md",
-   "sha256_lf": "ea7db841beff661b770a36dcf221dee956faa2e6700c9dd183f301e9e5a97a72"
+   "sha256_lf": "430b01ff8224d05251e6d79000e8e4440be566a09efa0eaf1b9bef7c57de4ab3"
   },
   {
    "path": "docs/haskell-design.md",
@@ -180,7 +180,7 @@
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "4ed2f3782f3c5e54fa35cacbd0176d55516141c423ed8c9f0fa57df2bf96833d"
+   "sha256_lf": "fbb1853aa7e09e1ab2153272accf2e353daebad0ab3e14ef826ce664edb409c7"
   },
   {
    "path": "docs/headless-play.md",
@@ -272,11 +272,11 @@
   },
   {
    "path": "docs/red-dune-live.md",
-   "sha256_lf": "bd207a6a70ba667382555eba59ab68aaea71c188b263249258fc7a65dc20a625"
+   "sha256_lf": "1628c3238961847d722aa31dcb6a63ae7148c6985ce661047a6744432478285c"
   },
   {
    "path": "docs/red-dune.md",
-   "sha256_lf": "3fb7e4a741276157777616b8c4d9783096c82775e76a96cde0ed9e2deb781310"
+   "sha256_lf": "7df555fcbe673d571cea6aa1da07c2f0918b03dd582d5b47ddd9a606c2a159de"
   },
   {
    "path": "docs/research-ci-cache.md",
@@ -304,7 +304,7 @@
   },
   {
    "path": "docs/signal-courier.md",
-   "sha256_lf": "45ae3b134f60cd3ae797b70a41659391ebb5ec8cfbb083b4287169e1eb0e3fa8"
+   "sha256_lf": "21015fc43c613aa9beb01e6cf4e9d84344a8a3b51ac41dd3352fccc0f17f8d67"
   },
   {
    "path": "docs/support/routes.json",
@@ -320,7 +320,7 @@
   },
   {
    "path": "docs/verification.md",
-   "sha256_lf": "8eca2549725a4ad117b5db939725b4e7d105a0cc6a08d5b554f1a92b6a59e184"
+   "sha256_lf": "9598627a5920f3fb9b7f15ab1c1f53e6e5a0f6893e22f3d2a5c1b56190398658"
   },
   {
    "path": "editors/fixtures/portable-game/.gitignore",
@@ -852,7 +852,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "ebba4b2f3c2169b156228bc97ef3828a0f83d0035b52645cdd7c2f6be629c79f"
+   "sha256_lf": "ddb5d3a238d7abd0afd71214499752661845a30ed0df4d48a2646816c645affa"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -1396,7 +1396,7 @@
   },
   {
    "path": "references/garden/README.md",
-   "sha256_lf": "cf0147ecdb2dee6aca0299d86852ea812850e8658d65a0cc797837d8066b8119"
+   "sha256_lf": "ae87410a8c69f4c66e6fdc07a6bb5fdf8bc2f948ef5961f90dd2e1367d2647bc"
   },
   {
    "path": "references/garden/garden.cabal",
@@ -2996,7 +2996,7 @@
   },
   {
    "path": "references/river/README.md",
-   "sha256_lf": "46150b22c99b26b38d6f3a062a70d2ed5c7d2cf34852195e85203545df388df2"
+   "sha256_lf": "51bc7aacb2a148344b80927b07df5eca8d3e4afae1b1d204dbdb529f01dd6b6b"
   },
   {
    "path": "references/river/river.cabal",
@@ -3272,7 +3272,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "0b81231bdce2a8edbdc6744fbe28d70ca23dc871fc515515a03dbfa0a41566ec"
+   "sha256_lf": "598ade40290bb8667b9ff6cad4d9011a6afa34d36c9892936e2d4eb9a258ef56"
   },
   {
    "path": "references/station/app/HeadlessMain.hs",

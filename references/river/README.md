@@ -8,21 +8,17 @@ near a plot and `Interact` to plant or water it. The authored scenarios in
 `scenarioGame` reach days one to three and the shared dinner through real
 commands, not by constructing private game state.
 
-`Life.Domain` is the public facade. In `Life.Internal.Core`, follow `Game`
-and its read-only projections, `advance` for the command decision,
-`interactionTarget` for the shared prompt/action target, and `sleep` for the
-overnight update. `Life.Internal.Snapshot` owns the version-one save grammar
-and restoration; `Presentation` owns display projections; `Journey` constructs
-scenarios through legal commands. These implementation modules are hidden by
-the Cabal library. `Game`'s constructor and update fields stay private to
-package consumers. A `Cell` is merely an input/view coordinate: build and
-movement rules validate it. `Life.Adapter` places the unchanged `advance`
-behind `Step`/`Machine` and an `Arena`. Admission separates `MovementTick`
+Start at the public [Life.Domain](src/Life/Domain.hs) facade and follow `advance`
+into the [rules](src/Life/Internal/Core.hs). The Cabal library hides the internal
+modules, `Game` constructor and update fields from package consumers. A `Cell`
+is merely an input/view coordinate: build and movement rules validate it.
+[Life.Adapter](src/Life/Adapter.hs) places the same rule behind `Step`/`Machine`
+and an `Arena`. Admission separates `MovementTick`
 from `InteractionBoundary`; a no-input movement boundary means `Tick 0 0`.
 An invalid build is admitted and resolved as an in-world no-op with a notice,
 because the domain rule, rather than the protocol adapter, owns construction.
 
-In `sleep`, follow `closingDay` → `wateredTonight` → `afterNight` →
+In the rules' `sleep`, follow `closingDay` → `wateredTonight` → `afterNight` →
 `nextMorning`. The closing day's rain waters exposed plots before growth;
 wood drying and the factual night report use that same day's weather and roofs.
 After growth consumes the plots' water, the next morning's rain may water them
@@ -42,8 +38,9 @@ not saved authority.
 the rest as microsecond debt. The host must apply exactly that many `Tick`
 commands; scheduling alone does not advance the game. The clock and game
 state are separate so pause/control policy remains a host responsibility.
-The snapshot codec has a 65,536-code-point cap, version and field validation,
-then reconstructs `Game`; it does not deserialize a public `Game` constructor.
+The [snapshot codec](src/Life/Internal/Snapshot.hs) has a 65,536-code-point cap,
+version and field validation, then reconstructs `Game`; it does not deserialize
+a public `Game` constructor.
 Save round-trip and continuation checks cover selected scenarios. There is no
 automatic migration, crash-durable storage, or guarantee for arbitrary future
 game changes.
@@ -54,15 +51,11 @@ profile and compiles outside clients against its package interface. It checks
 public reads and requires GHC to reject record updates, constructor use,
 `Read Game` and imports of the hidden state module for their intended reasons.
 `Cell` remains publicly constructible, so callers may submit an out-of-range
-coordinate; the domain validates its use. The public game test
-checks the authored journey, weather/crop/wood differences, overnight report,
-save rejection and continuation, direct Step/Arena agreement, protocol
-rejection, finite invariant-preserving prefixes, extreme tick saturation,
-clock debt, and a deleted-rule mutation. The original author suite included
-QuickCheck properties; those dependencies are outside this offline alpha
-profile, so its 350-case runs are historical and **not** claimed here. These
-finite tests do not prove every command sequence, player experience, native or
-Web renderer, or device performance.
+coordinate; the domain validates its use. The [game checks](test/Laws.hs) route
+to authored journeys, save continuation and protocol comparisons. The original
+author suite's QuickCheck dependencies are outside this offline alpha profile;
+its historical runs are **not** claimed here. Finite tests do not prove every
+command sequence, player experience, renderer or device performance.
 
 The original `Life.Domain` and `Life.Clock` and per-title MIT notice were
 selected from the author's technical snapshot
