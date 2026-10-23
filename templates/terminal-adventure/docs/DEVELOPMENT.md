@@ -20,18 +20,19 @@ editor helpers have their own prerequisites in the linked guides.
 
 ## Read and change one interaction
 
-1. `Game.Model`: vocabulary, projections and validated state
-2. `Game.Rules.advance`: the authoritative whole-turn decision
-3. `Game.View` and `Game.Adapter`: presentation and protocol adaptation
-4. `Game.Save`: versioned codec; `app/Main.hs`: input, config and IO
-5. `test/Spec.hs`: playthrough, invariant, failure and save checks
-
 For the next mechanic, name the observable requirement in `GAME-SPEC.md`.
+Start with [the turn rule](../src/Game/Rules.hs) and its
+[behavior checks](../test/Spec.hs), then follow the types and callers that change.
 Change the relevant state, rules, feedback and tests together. For example, a
 key-and-locked-exit feature needs both refusal without the key and success with
 it, plus save/load of ownership. Keep the exit rule out of the renderer.
 Run the affected tests and a real playthrough; update the smoke trace if the
 winning route changes. Small changes do not require every optional tool or guide.
+
+Make the first version of a rule clear about which state it reads and what a
+refusal retains. Check feedback as well as the new state: a blocked move consumes
+one turn, while a finished game retains the whole world. Keep codec rejection
+cases separate from rule cases so a failed check points at the relevant boundary.
 
 Use the [kernel contract](architecture.md), [readability guide](haskell.md),
 [prevention lessons](failure-prevention.md) and [technical guide index](TECHNICAL-GUIDES.md)
