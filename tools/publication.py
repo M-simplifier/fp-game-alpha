@@ -196,7 +196,13 @@ def gate(report_path):
             print(f"FAIL {row['path']}: " + ', '.join(issue['rule'] for issue in row['checks']))
     for problem in problems:
         print(json.dumps(problem))
-    print(f"export gate: {report['status']} ({len(inspection)} files; report {report_path.relative_to(ROOT)})")
+    # --report is a caller-selected output path, including relative paths and
+    # files outside the source tree. Its display must not change the verdict.
+    try:
+        displayed_report = report_path.relative_to(ROOT)
+    except ValueError:
+        displayed_report = report_path
+    print(f"export gate: {report['status']} ({len(inspection)} files; report {displayed_report})")
     return 0 if ok else 1
 
 

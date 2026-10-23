@@ -54,6 +54,11 @@ mv rules.tmp rules.txt
 
 `check.py` writes the actual integration transcript to ignored `.build/host-check.log`; generated logs and executables are not distributed. There is no browser UI, screenshot, Wasm test, cross-platform test or Paper Circuit law-suite claim.
 
+Compiler exits and host observations are checked even under Python `-O`.
+`python -m unittest discover -s . -p 'test_*.py' -v` exercises the wrapper with
+deliberately failed compiler output and invalid transcripts; those simulated
+results are refusal tests, separate from the actual Haskell run above.
+
 ## Repeatable benchmark
 
 ```sh
@@ -62,6 +67,11 @@ python bench.py
 ```
 
 The harness copies source into a fresh temporary directory, deletes that scratch directory on completion, and never edits the deliverable source files or a repository; it replaces its own measurement outputs. It atomically saves each edit, then starts the clock. Seven samples alternate budget 6/7. Every measured changed-run result checks the exact expected changed budget after a **new session and one accepted rightward input**, forcing the whole rendered board string through stdout. Data revisions differ, but board position/moves/outcome are equivalent. GHCi is an existing process using bytecode; native timing includes compiler invocation, compilation/linking and a new process; data timing uses an existing compiled host. This compares user workflows with different costs, not equal compiler operations.
+
+Run the benchmark without Python `-O`; it rejects optimization before creating
+artifacts because its observation assertions are part of the measurement.
+Running it replaces `measurements.json`; preserve the included historical
+record before intentionally recording a new experiment.
 
 Post-format integration rerun on a Linux executor, GHC 9.6.7, `-O0 -Wall -Werror`. The pinned repository Ormolu 0.9.0.0 changed source layout; tests and all timings below were rerun against the distributed source hashes in `measurements.json`:
 

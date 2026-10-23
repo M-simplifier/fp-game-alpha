@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Isolated scratch copies only. GHC supplied via GHC env or existing default."""
-import datetime, hashlib, json, os, platform, queue, shutil, statistics, subprocess, tempfile, threading, time
+import datetime, hashlib, json, os, platform, queue, shutil, statistics, subprocess, sys, tempfile, threading, time
 from pathlib import Path
+if sys.flags.optimize:
+    raise RuntimeError('Run without Python optimization; benchmark observations require assertions')
 ROOT = Path(__file__).resolve().parent
 GHC = os.environ.get('GHC', 'ghc')
 N = int(os.environ.get('SAMPLES', '7'))

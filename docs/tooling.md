@@ -46,6 +46,9 @@ output without shell expansion.
 The saved-source profile covers `.hs` files and explicitly declared local
 source directories, with packages shipped with GHC. It does not reconstruct
 every arbitrary Cabal component, language pragma or external dependency.
+In `fp-game.json`, `source_dirs` must be an array of path strings. Invalid
+configuration shapes return the same error envelope as other inspection errors
+when `--json` is selected.
 Compiler work can evaluate Template Haskell: use the same workspace trust
 decision as a normal build. These tools do not inspect unsaved buffers.
 
