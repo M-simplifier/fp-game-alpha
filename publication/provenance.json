@@ -263,7 +263,35 @@
     "origin": "gallery/functional-arcade/src/Life/Domain.hs",
     "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
     "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
-    "transformation": "Added domain-rule and save-boundary Haddock; applied pinned Ormolu layout and named private Game field construction and overnight state dependencies. Scoped baseline comparisons found no rule or codec output differences; the local current-main integration comparison against c44f31a is recorded separately in research/readability/river-refactor.md."
+    "transformation": "Retains the original public API as a facade over hidden Core, Snapshot, Presentation and Journey implementation modules. Earlier transformations added domain-rule and save-boundary Haddock, pinned Ormolu layout, named private Game fields and overnight state dependencies; their comparison against c44f31a remains recorded in research/readability/river-refactor.md."
+  },
+  "references/river/src/Life/Internal/Core.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Life/Domain.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
+    "transformation": "Split the domain state, read-only queries, geometry, target selection and pure transitions from the refactored Life.Domain. Shared build-site and overnight drying policies with snapshot validation; retained game rules, messages and effect order. The module is hidden by the library."
+  },
+  "references/river/src/Life/Internal/Snapshot.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Life/Domain.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
+    "transformation": "Split the private version-one raw save types, codec and validators from the refactored Life.Domain. Named RawSave construction fields and reused one reconstructed candidate for validation and restoration while retaining the save grammar and ordered diagnostics. The module is hidden by the library."
+  },
+  "references/river/src/Life/Internal/Presentation.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Life/Domain.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
+    "transformation": "Moved interaction prompts, clock text, task progress, journal and factual night-report projections unchanged from the refactored Life.Domain; target selection remains shared with the command rules. The module is hidden by the library."
+  },
+  "references/river/src/Life/Internal/Journey.hs": {
+    "kind": "refactored-author-supplied-technical-source",
+    "origin": "gallery/functional-arcade/src/Life/Domain.hs",
+    "snapshot": "5335bb14f9ca644fbdc62a00be892f33ad590ba6",
+    "source_sha256_lf": "3e08cc381f0d5d4982516b8d872c1b28eedb77136f4e06e71ffaef87393096ac",
+    "transformation": "Moved breadth-first route traversal and authored scenarios unchanged from the refactored Life.Domain. Both still use legal commands rather than direct state construction. The module is hidden by the library."
   },
   "references/river/src/Life/Clock.hs": {
     "kind": "selected-author-supplied-technical-source",
