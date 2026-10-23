@@ -46,13 +46,34 @@ import System.Directory (listDirectory, makeAbsolute)
 import System.FilePath (dropExtension, splitDirectories, takeExtension)
 import Text.Read (readMaybe)
 
-data Store = Store {storeRoot :: !FilePath, storeHandle :: !(Ptr ()), storeFactory :: !AuthorityFactory}
+data Store = Store !FilePath !(Ptr ()) !AuthorityFactory
+
+-- Enumeration and native writes must describe the same pinned directory.
+storeRoot :: Store -> FilePath
+storeRoot (Store root _ _) = root
+
+storeHandle :: Store -> Ptr ()
+storeHandle (Store _ handle _) = handle
+
+storeFactory :: Store -> AuthorityFactory
+storeFactory (Store _ _ factory) = factory
 
 data Checkpoint = Checkpoint {checkpointName :: !String, checkpointBranch :: !Word64, checkpointSequence :: !Word64, checkpointHour :: !Integer, checkpointScenario :: !String} deriving (Eq, Show)
 
 data Catalog = Catalog {catalogEntries :: ![Checkpoint], catalogUnreadable :: !Int, catalogTotal :: !Int} deriving (Eq, Show)
 
-data Preview = Preview {previewName :: !String, previewBytes :: !BS.ByteString, previewGame :: !GameState}
+data Preview = Preview !String !BS.ByteString !GameState
+
+-- Confirmation rechecks these bytes before activating their exact decoded game.
+-- Ordinary queries cannot replace one part of this captured value.
+previewName :: Preview -> String
+previewName (Preview name _ _) = name
+
+previewBytes :: Preview -> BS.ByteString
+previewBytes (Preview _ bytes _) = bytes
+
+previewGame :: Preview -> GameState
+previewGame (Preview _ _ game) = game
 
 foreign import ccall unsafe "rd_store_open" openStore :: CWString -> IO (Ptr ())
 

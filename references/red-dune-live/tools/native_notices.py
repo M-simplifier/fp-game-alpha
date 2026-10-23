@@ -17,8 +17,9 @@ def command(*arguments):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--plan', type=Path, default=ROOT / 'dist-newstyle/cache/plan.json')
     arguments = parser.parse_args()
-    plan = json.loads((ROOT / 'dist-newstyle/cache/plan.json').read_text())
+    plan = json.loads(arguments.plan.read_text(encoding='utf-8'))
     units = {unit['id']: unit for unit in plan['install-plan']}
     root = next(unit for unit in units.values()
                 if unit['pkg-name'] == 'red-dune-live'

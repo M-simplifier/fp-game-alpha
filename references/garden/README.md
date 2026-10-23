@@ -30,12 +30,12 @@ the world fingerprint is diagnostic and **not** a collision-free identity.
 The screen-input adapter checks bounds before subtracting its pixel origin,
 including extreme `Int` coordinates.
 
-Run `.build/tools/fp-game test` from the foundation root. The regression
-checks deterministic seed/reset, event Step/Arena agreement, scheduler
-Step/Arena agreement, the five-tick cap and debt, pause/resume
-edges, pixel bounds, a dropped-tick mutation, and a counterexample to splitting
-one frame across a control edge. These are finite traces and local invariants,
-not a proof of every world state, renderer, save path, or device performance.
+Run `.build/tools/fp-game test` from the foundation root. The
+[boundary checks](test/Laws.hs) include a counterexample to splitting a frame
+across a control edge; the [simulation checks](test/SimulationChecks.hs) assert
+explicit water-transfer, growth and editing outcomes. These are finite
+traces and local invariants, not a proof of every world state, renderer, save
+path or device performance.
 
 The six original source modules and per-title MIT notice were selected from
 the author's gallery snapshot `5335bb14f9ca644fbdc62a00be892f33ad590ba6`.

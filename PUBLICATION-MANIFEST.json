@@ -44,7 +44,7 @@
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
-   "sha256_lf": "3dfcc5983b452f90358c3f2c5178bbee7a3ae24d606cd1c83f2771edcb8e1358"
+   "sha256_lf": "2f03d631bf1c1a43467bb7fc668676cc24ec3380e5707ea80d4f5cebc1306d25"
   },
   {
    "path": ".agents/skills/play-game/SKILL.md",
@@ -68,7 +68,7 @@
   },
   {
    "path": ".github/workflows/red-dune-live.yml",
-   "sha256_lf": "54a29a6e6583dba89567672cccd9ab74af5ad0ab191656d9843aa321700c96ea"
+   "sha256_lf": "6fb83af9db579eb276c4acbcc6b5e8f3a9f4d4b728ba4b8378cf30e23180e58e"
   },
   {
    "path": ".gitignore",
@@ -112,11 +112,11 @@
   },
   {
    "path": "docs/architecture.md",
-   "sha256_lf": "73315b669752cb2261e0a263dc97f8286ad3e1049c2dd8cd9025fa115dc00a17"
+   "sha256_lf": "6a52ce40b448e4d3d324491f8e69e9b3d8e7d3c7ca0f1c6c42bc7e282a1a550a"
   },
   {
    "path": "docs/editors.md",
-   "sha256_lf": "5375cdb490ae88d6c85a4188356f9838ddaaf07fd47fe5fa8de7025d8d33bfd6"
+   "sha256_lf": "a5e26c4fa10193be5faceefaa63021bc8aa253170dfe1cd7a0c710e20dbb720a"
   },
   {
    "path": "docs/evidence/formal-research-linux-20261005.json",
@@ -172,15 +172,15 @@
   },
   {
    "path": "docs/guarantees.md",
-   "sha256_lf": "ea7db841beff661b770a36dcf221dee956faa2e6700c9dd183f301e9e5a97a72"
+   "sha256_lf": "430b01ff8224d05251e6d79000e8e4440be566a09efa0eaf1b9bef7c57de4ab3"
   },
   {
    "path": "docs/haskell-design.md",
-   "sha256_lf": "684ee9f7aad7ee7ceffab88e3d9061482f002be1ac024838fe955b9aeeb112b0"
+   "sha256_lf": "a246e36ba0eb2017d8652a2807e11e97abfd75803b6d5b8029c6c0fbd2f23820"
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "4ed2f3782f3c5e54fa35cacbd0176d55516141c423ed8c9f0fa57df2bf96833d"
+   "sha256_lf": "fbb1853aa7e09e1ab2153272accf2e353daebad0ab3e14ef826ce664edb409c7"
   },
   {
    "path": "docs/headless-play.md",
@@ -200,7 +200,7 @@
   },
   {
    "path": "docs/new-game.md",
-   "sha256_lf": "0a14e6c15185b77923872748470b58393db040e7f35bd509c732c391e985fd3d"
+   "sha256_lf": "f357128971ac73f5d40b9237a21a9216e5d1706232903436d3294967f4e9175a"
   },
   {
    "path": "docs/platforms.md",
@@ -272,11 +272,11 @@
   },
   {
    "path": "docs/red-dune-live.md",
-   "sha256_lf": "bd207a6a70ba667382555eba59ab68aaea71c188b263249258fc7a65dc20a625"
+   "sha256_lf": "1628c3238961847d722aa31dcb6a63ae7148c6985ce661047a6744432478285c"
   },
   {
    "path": "docs/red-dune.md",
-   "sha256_lf": "3fb7e4a741276157777616b8c4d9783096c82775e76a96cde0ed9e2deb781310"
+   "sha256_lf": "7df555fcbe673d571cea6aa1da07c2f0918b03dd582d5b47ddd9a606c2a159de"
   },
   {
    "path": "docs/research-ci-cache.md",
@@ -300,11 +300,11 @@
   },
   {
    "path": "docs/setup.md",
-   "sha256_lf": "9b9f07e6b61e23b1107bc3a7733b9bd48c9b3dae4f379d8ae2f6de4f0fba8e35"
+   "sha256_lf": "cc6fed59661b9198e64f5a87d37eb4441d561e9af2030e0fa8224ecaba4755fe"
   },
   {
    "path": "docs/signal-courier.md",
-   "sha256_lf": "45ae3b134f60cd3ae797b70a41659391ebb5ec8cfbb083b4287169e1eb0e3fa8"
+   "sha256_lf": "21015fc43c613aa9beb01e6cf4e9d84344a8a3b51ac41dd3352fccc0f17f8d67"
   },
   {
    "path": "docs/support/routes.json",
@@ -312,7 +312,7 @@
   },
   {
    "path": "docs/terminal-starter.md",
-   "sha256_lf": "e3d224e3ea44b2533cd4f12d279ee2d21224b1e89530f03fcf68955698f8b4e7"
+   "sha256_lf": "ebc32f731028c77df5d460db690fccf63a296963277c4be3f8924ce780f0a336"
   },
   {
    "path": "docs/tooling.md",
@@ -320,7 +320,7 @@
   },
   {
    "path": "docs/verification.md",
-   "sha256_lf": "8eca2549725a4ad117b5db939725b4e7d105a0cc6a08d5b554f1a92b6a59e184"
+   "sha256_lf": "9598627a5920f3fb9b7f15ab1c1f53e6e5a0f6893e22f3d2a5c1b56190398658"
   },
   {
    "path": "editors/fixtures/portable-game/.gitignore",
@@ -372,11 +372,11 @@
   },
   {
    "path": "editors/haskell-design/PORTING.md",
-   "sha256_lf": "50dedc35dee47f218b325163e0d29a16372a94668d2497643b00a6630e7a0b54"
+   "sha256_lf": "77afd6af2d7dc85105f4f66149d9a74602e49e6ea902e112aa4986a5ee4359f5"
   },
   {
    "path": "editors/haskell-design/README.md",
-   "sha256_lf": "797f1ce4e4bf1f7f5b8b1864c04b16ba1bfd3efcf92d4a9a8b258cf8d0b31cdd"
+   "sha256_lf": "8ca7b889b396d5d6a0b38b8b7429bba4e540f63db5fec1fab526ce99e5ac6571"
   },
   {
    "path": "editors/haskell-design/THIRD_PARTY_NOTICES.md",
@@ -388,23 +388,19 @@
   },
   {
    "path": "editors/haskell-design/docs/automatic-design.md",
-   "sha256_lf": "ddffe5a05e7acfce836e657193c70d653be82c7cd9e5ef3edf8a224727a98ef0"
+   "sha256_lf": "6dec5ff1d28474590ec7b111f210d9363da17f4267f66965e591e125b8c01ef1"
   },
   {
    "path": "editors/haskell-design/docs/benchmarks/windows-0.6.0.json",
    "sha256_lf": "f805202da86475dc10088ee82a6093a9bd01f9396e921b3515b221aa7b79f90a"
   },
   {
-   "path": "editors/haskell-design/docs/implementation.md",
-   "sha256_lf": "effb2711a0586bb13616b0df6e65f62bf5809774eb33078c88b418bb6cfbdfcb"
-  },
-  {
    "path": "editors/haskell-design/docs/native.md",
-   "sha256_lf": "291265810cea6af25cea71edfee907e3454fed77bfb368db2b45847386387884"
+   "sha256_lf": "293699282e04fa57b2e260d319ae8902c55c61e0c44bcb05e1923e8e9d23e0b6"
   },
   {
    "path": "editors/haskell-design/docs/reader.md",
-   "sha256_lf": "d63b3ff679fc8ceea2d9ebb23721d14ef88f7940ca44c3d7e360aab30a7ec15e"
+   "sha256_lf": "1b48f26c9923f487e455d52b4ce9918f8376a632bd7b8f1292babef0aa104e9f"
   },
   {
    "path": "editors/haskell-design/docs/verification.md",
@@ -608,7 +604,7 @@
   },
   {
    "path": "editors/haskell-design/package.json",
-   "sha256_lf": "3507a6b6d0de36b3ff2fc98cd0c7b101909304e5cc1da58ef8b0b07281bc7ac8"
+   "sha256_lf": "b0acd17da8719c3d987b2ba43c802df004c7cfa65b5fd72c0816e75c3372b292"
   },
   {
    "path": "editors/haskell-design/plugin/haskell-design.lua",
@@ -624,7 +620,7 @@
   },
   {
    "path": "editors/haskell-design/scripts/build.mjs",
-   "sha256_lf": "ba710f154746c57b65ef1830e5e33a8bf5e412ab508ccc54d1270a3f1eb24c26"
+   "sha256_lf": "a5d7ddef6209a963e583b5a64aac53a4b1acb9c4ddd972e55a353f475c07d475"
   },
   {
    "path": "editors/haskell-design/scripts/native-notices.mjs",
@@ -664,7 +660,7 @@
   },
   {
    "path": "editors/haskell-design/src/auditScope.ts",
-   "sha256_lf": "d1fed8af5f27c4e13a9ee4a3c062eb5f50dac340543a0ed281a1b418d802724d"
+   "sha256_lf": "5495d9ab142c8c02adb38102df4dbf5de8b17752155c473dd808dfcc5dc8d5cf"
   },
   {
    "path": "editors/haskell-design/src/cli.ts",
@@ -672,7 +668,7 @@
   },
   {
    "path": "editors/haskell-design/src/compiler.ts",
-   "sha256_lf": "f8ea5e7b31a572a4193ef5c282fb7fe5bd4de0ae501ea47f5c5758a2498c334c"
+   "sha256_lf": "a76ce979fcacf1de18de3260bea8141f148baa3dd30ec165d1be2690a730daf9"
   },
   {
    "path": "editors/haskell-design/src/extension.ts",
@@ -716,7 +712,11 @@
   },
   {
    "path": "editors/haskell-design/tests/audit.test.ts",
-   "sha256_lf": "132e6ff1bfbdc293206d97167822b0fd908d3abc0f0bf7fc0d19562f0bb239b3"
+   "sha256_lf": "24772321a9af192c23dc96b94099861896eb631a1782f836e8124070ce53413e"
+  },
+  {
+   "path": "editors/haskell-design/tests/compiler.test.ts",
+   "sha256_lf": "8b1c35c055993254e5960cb4843ad53b2b2469b8539cb4b729f03e6cf54f4048"
   },
   {
    "path": "editors/haskell-design/tests/core.test.ts",
@@ -852,7 +852,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "512a4410072efa09711491a06f70c7dfc8dbda77a77f7e44ee8d37ce852ec67f"
+   "sha256_lf": "f9c607f1483f7bc202931a5b666d8790f82d2dbd608673b0944f6c890ced722f"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -1396,7 +1396,7 @@
   },
   {
    "path": "references/garden/README.md",
-   "sha256_lf": "cf0147ecdb2dee6aca0299d86852ea812850e8658d65a0cc797837d8066b8119"
+   "sha256_lf": "ae87410a8c69f4c66e6fdc07a6bb5fdf8bc2f948ef5961f90dd2e1367d2647bc"
   },
   {
    "path": "references/garden/garden.cabal",
@@ -1720,7 +1720,7 @@
   },
   {
    "path": "references/red-dune-live/README.md",
-   "sha256_lf": "655fa1a282284a06e033ed468763bb966b8db3914bda32e1a3c249f0e98d6794"
+   "sha256_lf": "a5d0749b2e29e4385d3d45ea3d80289a8b21365e3de8666c39104ea205b21531"
   },
   {
    "path": "references/red-dune-live/app/HostMain.hs",
@@ -1728,7 +1728,11 @@
   },
   {
    "path": "references/red-dune-live/app/RedDune/Host.hs",
-   "sha256_lf": "6c5bafe28e33daacda1dcbea557a96f28895e7be729c022a151e7aa84e394af4"
+   "sha256_lf": "8159f82b7027f6b48f0492f4b77295225fe4703ed3c1ba21ead3e776038e7f55"
+  },
+  {
+   "path": "references/red-dune-live/app/RedDune/Host/Http.hs",
+   "sha256_lf": "bd50ee550adb75d5cfddd55beb1c0c13f6ec5f6e2aa53ed231e5e07bd611f6fc"
   },
   {
    "path": "references/red-dune-live/core/Colony/Arena.hs",
@@ -2032,7 +2036,7 @@
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/Store.hs",
-   "sha256_lf": "2f0bd946d63556958209253bf84f3926265eec46b467d2d6c382023658ee2f9f"
+   "sha256_lf": "dba04c7793e3ecbbec959e0fdf034760161edf06232c6f4a7b304a5dd8187465"
   },
   {
    "path": "references/red-dune-live/native/RedDune/Native/View.hs",
@@ -2048,7 +2052,7 @@
   },
   {
    "path": "references/red-dune-live/red-dune-live.cabal",
-   "sha256_lf": "dfa4bb1c6ea589f631217bf4f0214a2186de65585c55991b13dd16bf563b89b7"
+   "sha256_lf": "203d2cd6fa3c2f414cf18aff29bd2d291a8e0937d116fbe0a5e48863f82057b5"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Campaign.hs",
@@ -2144,11 +2148,15 @@
   },
   {
    "path": "references/red-dune-live/test/NativeTests.hs",
-   "sha256_lf": "c93442644bee72f20ebdf50b87eddd405268bdbd43f5f176fcc6aa50d82ca642"
+   "sha256_lf": "1bf0eef4a5578e460bc28c5f4f2a3efff4d8925fe654ff782eff6e4c2f5cda30"
   },
   {
    "path": "references/red-dune-live/test/check_core_api.py",
    "sha256_lf": "332fba1b82c35cd76afeea1773a2b9186116fc68c7e66231e41df46eb3e620c7"
+  },
+  {
+   "path": "references/red-dune-live/test/check_native_api.py",
+   "sha256_lf": "1e12859068124083e3bd27e773b493d648f2fc6f2419155ccbbab10b4a446b54"
   },
   {
    "path": "references/red-dune-live/test/check_workforce_api.py",
@@ -2160,7 +2168,7 @@
   },
   {
    "path": "references/red-dune-live/tools/build-native.ps1",
-   "sha256_lf": "35f7e2bee96de9beabd58164d36a965d7ddaabf835218951a0332712af074a11"
+   "sha256_lf": "4821b644e8ff486bdd1b06b978413ad3f20229a0373ecce0b13386a3e24f0e86"
   },
   {
    "path": "references/red-dune-live/tools/check.sh",
@@ -2168,7 +2176,7 @@
   },
   {
    "path": "references/red-dune-live/tools/dev-native.ps1",
-   "sha256_lf": "596023bab804a7128e28a6217123a35f02e1ccd0b5c4d1131a57319cf49dacd1"
+   "sha256_lf": "43664d02a0e3f44d3b3c51bd188f58b3344e3044d77da58fa381bc877c3ce8d6"
   },
   {
    "path": "references/red-dune-live/tools/dev.sh",
@@ -2180,7 +2188,7 @@
   },
   {
    "path": "references/red-dune-live/tools/native_notices.py",
-   "sha256_lf": "c4567887db76ca5f6606ecad05516d2aa49fd8ed6b0bee6a98ca1ed1e5ab648b"
+   "sha256_lf": "bd054c49847a11b1d94529e33c040ce57a7358a41ff7d1c2e55f21fd5d276c64"
   },
   {
    "path": "references/red-dune-live/tools/test_browser_protocol.cjs",
@@ -2196,7 +2204,11 @@
   },
   {
    "path": "references/red-dune-live/tools/test_http.cjs",
-   "sha256_lf": "8ed666268e6df887a1606ad6f74f5e13a77216c6da7753d38f95ba6fd23edf6b"
+   "sha256_lf": "e544f6d859f27631899402e1915510c0fe30297a026458ab0cfb122452ea2f1f"
+  },
+  {
+   "path": "references/red-dune-live/tools/test_http_framing.cjs",
+   "sha256_lf": "d313b433f0dcb80433b8e15d575d5feec1384c565e06f9a56f080bc77c06d11f"
   },
   {
    "path": "references/red-dune-live/ui/app.js",
@@ -2996,7 +3008,7 @@
   },
   {
    "path": "references/river/README.md",
-   "sha256_lf": "46150b22c99b26b38d6f3a062a70d2ed5c7d2cf34852195e85203545df388df2"
+   "sha256_lf": "51bc7aacb2a148344b80927b07df5eca8d3e4afae1b1d204dbdb529f01dd6b6b"
   },
   {
    "path": "references/river/river.cabal",
@@ -3272,7 +3284,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "0b81231bdce2a8edbdc6744fbe28d70ca23dc871fc515515a03dbfa0a41566ec"
+   "sha256_lf": "598ade40290bb8667b9ff6cad4d9011a6afa34d36c9892936e2d4eb9a258ef56"
   },
   {
    "path": "references/station/app/HeadlessMain.hs",
@@ -5560,7 +5572,7 @@
   },
   {
    "path": "templates/terminal-adventure/docs/DEVELOPMENT.md",
-   "sha256_lf": "6bf78a53a45bbfa4d0a3ced73e50451c4e56932f3b2860f04a582b7e7f8f75a9"
+   "sha256_lf": "c5deeb330c6f98ce80ac3c45c263cc1c53b542fa5ccb0279d8017df7e6180123"
   },
   {
    "path": "templates/terminal-adventure/docs/TECHNICAL-GUIDES.md",
@@ -5596,7 +5608,7 @@
   },
   {
    "path": "templates/terminal-adventure/src/Game/Save.hs",
-   "sha256_lf": "5ff176e7196a5465046a5c8e1e2f8af193d84cd0fa1e9b5fe1d3563fe7fa700f"
+   "sha256_lf": "f29a352c870ba9f6358de088f920cca050273c7bcd29b5877d74dda5d0083600"
   },
   {
    "path": "templates/terminal-adventure/src/Game/View.hs",
@@ -5604,11 +5616,11 @@
   },
   {
    "path": "templates/terminal-adventure/test/Spec.hs",
-   "sha256_lf": "43640cec9798345d6e7d946458eec736b6d78b9db4dff55a184e80d424dafc6e"
+   "sha256_lf": "e6cb4ec678a7a65b91c9a531c7eb5774fbb68e01383422914717327b5a2d9e29"
   },
   {
    "path": "tools/acceptance/features.py",
-   "sha256_lf": "14da4e30d7d0615585fbc575761d89e6b58babb36d72431e93ab473b0448ae49"
+   "sha256_lf": "8ba09f9e0d704239f9c4e25bf3e69ddc1b6a316922c0c420853eaaaa0b0ca190"
   },
   {
    "path": "tools/acceptance/fixtures/python_cli/README.md",

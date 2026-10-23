@@ -135,6 +135,20 @@ test('Cabal defaults are per component and do not recursively include unrelated 
   assert.deepEqual((await auditScope(root)).files.map(f => path.relative(root, f).split(path.sep).join('/')), ['App/Helper.hs', 'Main.hs', 'src/A.hs']);
 });
 
+test('conditional source directories and common imports retain the implicit component root', async () => {
+  const root = await fs.mkdtemp(path.join(repo, '.test-output/audit-conditional-'));
+  await fs.mkdir(path.join(root, 'web'));
+  for (const file of ['Main.hs', 'web/Main.hs', 'Unowned.hs']) await fs.writeFile(path.join(root, file), '');
+  const cabal = path.join(root, 'demo.cabal');
+  const files = async () => (await auditScope(root)).files.map(f => path.relative(root, f).split(path.sep).join('/'));
+  await fs.writeFile(cabal, 'name: demo\nexecutable demo\n  main-is: Main.hs\n  if flag(browser)\n    hs-source-dirs: web\n');
+  assert.deepEqual(await files(), ['Main.hs', 'web/Main.hs']);
+  await fs.writeFile(cabal, 'name: demo\ncommon browser\n  hs-source-dirs: web\nexecutable demo\n  main-is: Main.hs\n  if flag(browser)\n    import: browser\n');
+  assert.deepEqual(await files(), ['Main.hs', 'web/Main.hs']);
+  await fs.writeFile(cabal, 'name: demo\ncommon browser\n  hs-source-dirs: web\nexecutable demo\n  import: browser\n  main-is: Main.hs\n');
+  assert.deepEqual(await files(), ['web/Main.hs'], 'an unconditional imported source root replaces the default');
+});
+
 test('active audit consumes invalidation without a trailing debounce scan', async t => {
   t.mock.timers.enable({ apis: ['setTimeout'] });
   const audit = new ProjectAudit({} as Projector, 'unused', { root: repo, trusted: false });

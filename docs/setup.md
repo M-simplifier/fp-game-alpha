@@ -45,39 +45,23 @@ settings. Do not rewrite PATH or overwrite `cabal.project.local`. That ignored,
 machine-local profile is excluded from generated source and must be deliberately
 recreated after relocation.
 
-The native CLI/terminal-workspace profile passed actual Linux, Windows and macOS
-CI at `be1208af`; this remains experimental, bounded evidence. The native guide
-links the exact jobs and scope limits. It is not verification of this checkout
-or of every new game, editor or host.
+## What a successful command establishes
 
-## What doctor and builds establish
+Doctor checks the selected compiler and prerequisites; `ready-to-try` is not a
+build result. Build and test the checkout you are using. Game builds use isolated
+`.build/` state with repositories disabled for the baseline profile. Bootstrap
+uses separate pinned tool dependencies and needs an explicit initial download
+or a populated cache.
 
-Doctor resolves the game's compiler through Cabal's bounded `cabal path` query,
-honoring project selection and custom wrappers. It reports the selected path and
-version, missing tools and baseline comparison. `ready-to-try` means detection
-and selection succeeded; only an actual build/test establishes this checkout.
-`--json` is available on captured commands. Failures return nonzero.
+Doctor and saved-source `check` honor the compiler selected by Cabal, including
+custom wrappers. Selection failures stop without a PATH fallback. Cabal's
+offline mode is not a network sandbox; inspect and trust custom project imports.
+See [the native guide](native-tooling.md) for compiler profiles, failure diagnosis
+and the exact scope of recorded platform results.
 
-Build/test use Cabal configuration, cache, store and output inside `.build/`,
-with package repositories disabled for the baseline game profile. They work
-without fetching Hackage metadata, even with an empty global Cabal cache.
-The project's ordinary `build.config` route remains usable where supplied.
-Tool bootstrap has a separate dependency acquisition/cache contract; do not
-mistake a warm tool build for clean-machine setup.
-
-Doctor and saved-source `check` use the same project-selected compiler rather
-than guessing from PATH. Selection errors stop the command with no fallback.
-With Cabal present, doctor creates guarded temporary configuration/cache state
-under `.build`, removes that query state afterward, and performs no game build.
-The query has a fixed 20-second timeout. With no Cabal on PATH, doctor creates
-no state; an explicit compiler does not require an ambient `ghc` alias. The
-shipped local profile needs no network access. Cabal's package-offline mode is
-not a network sandbox: inspect and trust custom remote project imports, whose
-side effects remain Cabal's responsibility.
-
-Read [the type and arena guide](architecture.md) after the first tests. Native
-graphics, browser, server and mobile toolchains require separate acceptance
-and are tracked in [the milestones](roadmap.md).
+After the first tests, read [the type and arena guide](architecture.md) when
+changing the kernel. Other hosts have separate requirements in
+[the platform records](platforms.md).
 
 ## Optional compiler inspection and formatting
 
@@ -94,5 +78,3 @@ use the command that launches Python 3 (`python` or `py -3`).
 
 Use the [pinned project-local formatter](formatting.md) for explicit setup,
 non-writing checks, owned-source formatting and external HLS integration.
-Run `python tools/formatter.py plan`, then `install` when permitted;
-`check` never downloads and `write` never targets vendored source.

@@ -24,14 +24,28 @@ references/red-dune-live/tools/build-native.ps1
 & '.build/red-dune-native/Red Dune.exe'
 ```
 
+If Windows and WSL builds share this checkout, pass
+`-BuildDirectory .build/red-dune-native-cache` to keep the Windows Cabal plan and
+artifacts separate from the Linux `dist-newstyle/` directory. Packaging reads
+dependency notices from that same plan. The native development launcher accepts
+the same `-BuildDirectory` option; use `--builddir` with that directory for the
+Cabal checks below too.
+
 The folder is a local runnable package, including glyph selection, play
 instructions and dependency notices. The native store uses Windows exclusive
 locking, pinned non-reparse directories, flushed exact readback and immutable
 write-through commits. Loading verifies the selected bytes again and starts a
 new paused branch. `RED_DUNE_NATIVE_STORE` and `--store` select a separate store.
 
-`test:live-native` checks Windows saves, corruption handling, lock contention,
-Unicode paths and physical continuation. Opt-in `--qa-dir` replays raw pointer
+The Windows consumer checks use a fresh temporary store by default:
+
+```powershell
+cabal test --project-file=cabal.project.red-dune-native --enable-tests live-native --test-show-details=direct
+cabal exec --project-file=cabal.project.red-dune-native -- python references/red-dune-live/test/check_native_api.py
+```
+
+These check saves, corruption handling, lock contention, Unicode paths, physical
+continuation and the public store/preview query boundary. Opt-in `--qa-dir` replays raw pointer
 coordinates through the ordinary button hit tests and captures native GPU frames;
 it does not establish owner input or enjoyment acceptance.
 
@@ -140,14 +154,12 @@ forms remain the no-compilation tuning path.
 4. `src/RedDune/Campaign.hs`: evidence from committed physical transitions and endings
 5. `core/Colony/Scheduler.hs`, `Arena.hs`: the underlying world boundary and receipts
 6. `src/RedDune/GameSave.hs`: complete framed checkpoint encoding/validation
-7. `app/RedDune/Host.hs`: one clock, ownership, HTTP, durable files and async adoption
+7. `app/RedDune/Host.hs`: one clock, ownership, durable files and async adoption;
+   `app/RedDune/Host/Http.hs` handles bounded HTTP framing
 8. `ui/`: projection rendering, input envelopes and response/retry guards only
 
 For a source-grounded tour of movement, allocation, diagnostic priority and one
 platformer tick, see [the readability revision](../../research/readability/game-rules-refactor.md).
-In this game, `applyAction` names the request handlers, `validateM1WorldLinks`
-names the ordered admission checks, and `assignReadyWithFuelPolicy` keeps each
-inventory attempt separate from the matching counters that survive a retry.
 
 For example, a production click previews `OrderProduction` in Haskell, returns
 its full controller/epoch/sequence/boundary envelope, and commits that envelope

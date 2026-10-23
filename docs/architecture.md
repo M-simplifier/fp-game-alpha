@@ -1,7 +1,6 @@
 # Pure game boundaries and arenas
 
-The stable alpha module names are `Game.Transition`, `Game.Arena` and
-`Game.Arena.Finite`. Packages are `game-transition` and `game-arena`.
+The `game-transition` and `game-arena` libraries compose a game's own rules.
 The explicit record and associated-type APIs use the same transition.
 
 ## Reading the types
@@ -19,7 +18,7 @@ counter = Step $ \increment state -> (state + increment, [increment])
 `Machine witness` names game-specific associated `State`, `Input` and `Output`
 types. `machine witness` returns its `Step`. A witness is necessary because
 associated type families need not be injective: two games can share a state
-type without sharing rules. `stepMachine` simply runs that dictionary.
+type without sharing rules.
 
 `Transition state output` fixes inputs and composes state updates. Its
 semigroup runs the left transition first, then the right, appending outputs
@@ -35,13 +34,15 @@ If `replay step xs s = (middle, first)` and
 `replay step ys middle = (final, second)`, then
 `replay step (xs ++ ys) s = (final, first <> second)`.
 `trace` records every complete boundary; its final state and concatenated
-outputs agree with `replay`. Tests exercise 341 small traces and their cuts.
+outputs agree with `replay`. The [transition laws](https://github.com/M-simplifier/fp-game-alpha/blob/010cc8c5783eaa9b35285378e7c74335b0710b9f/libraries/game-transition/test/Laws.hs)
+exercise these equations and chronological output.
 
 These equations do not permit splitting the commands inside a frame,
 deduplicating repeated taps, permuting input, or moving elapsed time across a
 pause control. Haskell permits bottom and unsafe IO, so the types alone do
 not prove termination, determinism under hidden IO, bounded memory or speed.
-`firstDivergence` checks supplied traces using the game's `Eq` instances.
+Comparing supplied traces can expose a disagreement, but agreement depends on
+the game's equality and the inputs actually exercised.
 
 ## Admission, observation and play
 
@@ -49,8 +50,8 @@ not prove termination, determinism under hidden IO, bounded memory or speed.
 command belongs inside an ordered action batch. Empty submissions can describe
 an environment-only boundary; the game decides whether to admit it.
 
-`Arena` adds `Agent`, `Action`, externally recorded `Context`, participant
-`View`, and `Rejection`. Its data flow is:
+An arena distinguishes a participant's action from externally recorded context,
+then admits that protocol input to the original rules. Its data flow is:
 
 ```text
 context + joint actions + current state
@@ -69,8 +70,8 @@ context + joint actions + current state
 The contract is `play m c j s = fmap (\i -> stepMachine m i s) (admit m c j s)`.
 Admission compiles a protocol into the original kernel input; it must not
 implement another game ruleset. A valid attempt can lose or fail in-world.
-`attempt` retains the old state explicitly on rejection. `admittedCandidates`
-filters a supplied finite set and makes no completeness claim.
+Rejected admission retains the old state. Enumerating admitted candidates from
+a supplied finite set does not establish that every possible action was tried.
 
 `Policy view action` receives observation history and previous own choices.
 The API does not pass authoritative hidden state, another participant's current

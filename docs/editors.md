@@ -103,5 +103,3 @@ adapters; they are not actual editor/compiler or live-HLS acceptance.
 
 Use the [pinned project-local formatter](formatting.md) for explicit setup,
 non-writing checks, owned-source formatting and external HLS integration.
-Run `python tools/formatter.py plan`, then `install` when permitted;
-`check` never downloads and `write` never targets vendored source.

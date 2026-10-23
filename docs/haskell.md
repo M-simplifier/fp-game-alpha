@@ -81,18 +81,16 @@ novice comprehension or better generation of a different game. If using a model
 as a reader, retain equal source context and factual questions; a subjective
 verdict or fluent explanation is not the acceptance test.
 
-## Reading path for every reference game
+## Help a reader enter the game
 
-Its README identifies, in order:
+A README should let someone run the game and find the source for one observable
+action. Keep setup constraints, controls, compatibility and useful design
+rationale there; let the code describe its declarations. A reader should not
+need an editor extension, an LLM or private background context.
 
-1. The player goal, controls, and an observable first interaction
-2. Domain vocabulary and the smallest state/input/output boundary
-3. Rule entrypoint and one complete transition explained in game terms
-4. Admission/observation boundaries, if used
-5. Shell, renderer, clock, and persistence responsibilities
-6. How to run, test, and change one small rule
-
-A source-code reader should not need the editor extension, an LLM, or private background context.
+For a guided first reading, [learn-code](learn-code.md) connects one player action
+to its types, rule decision and caller. Its Station lesson is a deliberate
+beginner example, not a required chapter layout for every game.
 
 ## Review the changed path
 
@@ -109,21 +107,11 @@ data and incompatible asset licenses still need correction before release.
 
 ## Reusable readability lessons
 
-Concrete lessons from Paper Circuit's readability revision:
-
-- Positional state fields and a Boolean carrying a domain alternative made the
-  Undo rule hard to read. Named current/previous positions and Available/Spent
-  expose the decision. Use this when names distinguish real roles; do not wrap
-  every primitive or replace an already clear local pair mechanically.
-- An Undo snapshot contains the board and move budget, while one-use availability
-  lives outside it. Choose snapshot contents from the game's actual undo rules;
-  copying the entire world could restore a permission this game should spend.
-- The public dispatcher names restart, undo and rotation. Each helper keeps its
-  guard, lookup, state update and reported outcome in an inspectable order.
-  Preserve useful type classes and composition; avoid one-use helper mazes.
-- Record which observations and boundary cases stayed equivalent, and which
-  diagnostic representations changed. Formatting or a reviewer score alone is
-  not behavioral evidence or proof that beginners understand the result.
+Paper Circuit's Undo snapshot contains the board and move budget, while one-use
+availability lives outside it. Copying the whole world could restore a permission
+the game should spend. Choose snapshot contents from the actual rollback rule;
+names for current/previous positions and Available/Spent help expose that choice.
+This is a reason to name distinct roles, not to wrap every primitive.
 
 When a refactor needs explanation, identify the reading difficulty, why the
 change helps, its behavior checks and any tradeoff. Add guidance only for a
