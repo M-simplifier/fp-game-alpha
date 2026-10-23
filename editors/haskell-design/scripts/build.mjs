@@ -10,6 +10,7 @@ entries['tests/portable.test'] = 'tests/portable.test.ts';
 entries.read = 'src/read-cli.ts';
 entries['tests/reader.test'] = 'tests/reader.test.ts';
 entries['tests/native.test'] = 'tests/native.test.ts';
+entries['tests/compiler.test'] = 'tests/compiler.test.ts';
 await build({ entryPoints: Object.fromEntries(Object.entries(entries).filter(([,file]) => existsSync(file))), bundle: true, platform: 'node', format: 'cjs', target: 'node20', outdir: 'dist', outExtension: { '.js': '.cjs' }, external: ['vscode'], sourcemap: true });
 // Remove old parser assets when updating an existing checkout.
 for (const name of ['tree-sitter.wasm', 'tree-sitter-haskell.wasm']) await rm(`dist/${name}`, { force: true });

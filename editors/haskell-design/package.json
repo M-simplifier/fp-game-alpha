@@ -160,7 +160,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "tsc --noEmit",
-    "test": "npm run build && node --test dist/tests/core.test.cjs dist/tests/audit.test.cjs dist/tests/reader.test.cjs dist/tests/native.test.cjs",
+    "test": "npm run build && node --test dist/tests/core.test.cjs dist/tests/audit.test.cjs dist/tests/reader.test.cjs dist/tests/native.test.cjs dist/tests/compiler.test.cjs",
     "test:lua": "node scripts/test-lua.mjs",
     "test:neovim": "node scripts/test-neovim.mjs",
     "test:vscode": "node scripts/test-vscode.mjs",
@@ -179,7 +179,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/M-simplifier/garden-of-afterlight.git",
+    "url": "https://github.com/M-simplifier/fp-game-alpha.git",
     "directory": "editors/haskell-design"
   }
 }
