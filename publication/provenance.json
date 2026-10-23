@@ -7404,5 +7404,12 @@
     "origin": "tools/scaffold.py",
     "commit": "23239482865ef3a81db3b15b653882182f8eca74",
     "source_sha256_lf": "e0e4ea92b1fa7d80535f30ceb1f0e75de20c754e5c7b101d42f4078522e196b9"
+  },
+  "references/red-dune-live/app/RedDune/Host/Http.hs": {
+    "kind": "active-extraction-of-authored-live-source",
+    "origin": "references/red-dune-live/app/RedDune/Host.hs",
+    "source_commit": "ec3300f6498c49671c7189fcc9afab11f471342d",
+    "source_sha256_lf": "6c5bafe28e33daacda1dcbea557a96f28895e7be729c022a151e7aa84e394af4",
+    "scope": "HTTP wire parser and response writer extracted from the live host; header framing budget repaired without changing routing or game admission."
   }
 }
