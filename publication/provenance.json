@@ -43,7 +43,8 @@
     "kind": "author-supplied-public-doc-candidate",
     "archive_sha256": "508743127268b9907d801527848a0b148d8ee45b4757832b91c8a2671272a02d",
     "origin": "docs/reference/readability.md",
-    "source_sha256_lf": "2ece4af9a50732ed2bef90520645804795c2d94061e85f6bf3e17b1f18df848b"
+    "source_sha256_lf": "2ece4af9a50732ed2bef90520645804795c2d94061e85f6bf3e17b1f18df848b",
+    "transformation": "Adapted as reference and generated-game guidance with source-first explanation, public-boundary checks and targeted rule review; replaces a mandatory README inventory with a deliberate learning route and consolidates Paper Circuit Undo snapshot rationale."
   },
   "references/lantern/src/Lantern.hs": {
     "kind": "refactored-author-supplied-technical-source",
@@ -162,7 +163,8 @@
     "kind": "author-supplied-curated-historical-research",
     "origin": "GUARANTEES.md",
     "source_sha256": "4f2b79c2e7731b7fd983950636f631b7929ce322321303fe19482ed8f4df4195",
-    "archive_sha256": "00f43a81132b1ba0bae2a7116e780ccc9a158207903ca6e9eccedde6e91d6585"
+    "archive_sha256": "00f43a81132b1ba0bae2a7116e780ccc9a158207903ca6e9eccedde6e91d6585",
+    "transformation": "Adapted as a scoped research-result reading guide: preserves quantified contracts, trusted assumptions, failed division diagnostics, counterexamples and source/model limits; routes duplicated result/count inventories to the unchanged historical receipts and separately identified public reruns."
   },
   "docs/research-references.md": {
     "kind": "author-supplied-curated-historical-research",
@@ -1319,7 +1321,8 @@
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/README.md",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "ffdf14a6f415691309c28b84fefa61c162a5e99b00069d47ad1f5f74cd620505"
+    "source_sha256_lf": "ffdf14a6f415691309c28b84fefa61c162a5e99b00069d47ad1f5f74cd620505",
+    "transformation": "Replace duplicated setup, command and implementation inventories with a concise package entrance and runnable bundled examples; preserve upstream attribution and link the canonical setup and semantic contracts."
   },
   "editors/haskell-design/THIRD_PARTY_NOTICES.md": {
     "kind": "adapted-public-MIT-source",
@@ -1337,7 +1340,8 @@
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/automatic-design.md",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "ddffe5a05e7acfce836e657193c70d653be82c7cd9e5ef3edf8a224727a98ef0"
+    "source_sha256_lf": "ddffe5a05e7acfce836e657193c70d653be82c7cd9e5ef3edf8a224727a98ef0",
+    "transformation": "Remove obsolete private delivery instructions and implementation inventory; retain classification limits, source-buffer/Undo rationale and failure recovery contracts."
   },
   "editors/haskell-design/docs/benchmarks/windows-0.6.0.json": {
     "kind": "adapted-public-MIT-source",
@@ -1345,23 +1349,19 @@
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
     "source_sha256_lf": "f805202da86475dc10088ee82a6093a9bd01f9396e921b3515b221aa7b79f90a"
   },
-  "editors/haskell-design/docs/implementation.md": {
-    "kind": "adapted-public-MIT-source",
-    "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/implementation.md",
-    "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "effb2711a0586bb13616b0df6e65f62bf5809774eb33078c88b418bb6cfbdfcb"
-  },
   "editors/haskell-design/docs/native.md": {
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/native.md",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "1df4ff29f5e06824b1f846168742b38c50124e68e2d3036949a235d6c6b7b3f0"
+    "source_sha256_lf": "1df4ff29f5e06824b1f846168742b38c50124e68e2d3036949a235d6c6b7b3f0",
+    "transformation": "Replace mechanical source inventory with the syntax/typecheck separation rationale; preserve original Windows benchmark data and distinguish historical evidence from current port results."
   },
   "editors/haskell-design/docs/reader.md": {
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/docs/reader.md",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "d63b3ff679fc8ceea2d9ebb23721d14ef88f7940ca44c3d7e360aab30a7ec15e"
+    "source_sha256_lf": "d63b3ff679fc8ceea2d9ebb23721d14ef88f7940ca44c3d7e360aab30a7ec15e",
+    "transformation": "Use bundled portable examples for current commands, route setup to the public alpha guide, and preserve the original Afterlight read-volume evidence with explicit historical scope."
   },
   "editors/haskell-design/docs/verification.md": {
     "kind": "adapted-public-MIT-source",
@@ -1661,7 +1661,8 @@
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/package.json",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "ae2f963b5fec0673f24eae27a6f314571ece44e0477459345a2bb0b9e0f4cff4"
+    "source_sha256_lf": "ae2f963b5fec0673f24eae27a6f314571ece44e0477459345a2bb0b9e0f4cff4",
+    "transformation": "Run helper recovery regressions with the package test command and identify the maintained fp-game-alpha repository."
   },
   "editors/haskell-design/plugin/haskell-design.lua": {
     "kind": "adapted-public-MIT-source",
@@ -1685,7 +1686,8 @@
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/scripts/build.mjs",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "ba710f154746c57b65ef1830e5e33a8bf5e412ab508ccc54d1270a3f1eb24c26"
+    "source_sha256_lf": "ba710f154746c57b65ef1830e5e33a8bf5e412ab508ccc54d1270a3f1eb24c26",
+    "transformation": "Bundle the helper cache recovery test as part of the existing editor test build."
   },
   "editors/haskell-design/scripts/native-notices.mjs": {
     "kind": "adapted-public-MIT-source",
@@ -1739,7 +1741,8 @@
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/auditScope.ts",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "d1fed8af5f27c4e13a9ee4a3c062eb5f50dac340543a0ed281a1b418d802724d"
+    "source_sha256_lf": "d1fed8af5f27c4e13a9ee4a3c062eb5f50dac340543a0ed281a1b418d802724d",
+    "transformation": "Track unconditional fields and common imports separately so conditional source directories retain Cabal default root modules without recursively including unrelated examples."
   },
   "editors/haskell-design/src/cli.ts": {
     "kind": "adapted-public-MIT-source",
@@ -1751,7 +1754,8 @@
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/src/compiler.ts",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "e20d7e2ecc152b38993dfbb292103ffff6c111858ae9b363d6d1c72dc4a24f26"
+    "source_sha256_lf": "e20d7e2ecc152b38993dfbb292103ffff6c111858ae9b363d6d1c72dc4a24f26",
+    "transformation": "Remove the lifetime promise cache keyed only by helper path so batches reselect the existing content/compiler-keyed disk helper and recover after failed builds."
   },
   "editors/haskell-design/src/extension.ts": {
     "kind": "adapted-public-MIT-source",
@@ -1817,7 +1821,8 @@
     "kind": "adapted-public-MIT-source",
     "origin": "https://github.com/M-simplifier/garden-of-afterlight/blob/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/editors/haskell-design/tests/audit.test.ts",
     "snapshot": "6367b56e3ff2042199667f2a5bfa50695f4aaf2f",
-    "source_sha256_lf": "e5fc1779620a216884e5ec983eee022e76f828658dee71f115d7ff83d381151b"
+    "source_sha256_lf": "e5fc1779620a216884e5ec983eee022e76f828658dee71f115d7ff83d381151b",
+    "transformation": "Add regressions for direct and common-import conditional source directories, plus the unconditional-import counterexample."
   },
   "editors/haskell-design/tests/core.test.ts": {
     "kind": "adapted-public-MIT-source",

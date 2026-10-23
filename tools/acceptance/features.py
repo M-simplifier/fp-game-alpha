@@ -62,12 +62,13 @@ collectKey world events
     edit.replace(save, '(restoreWorld x y turn finished)', '(restoreWorld x y turn held finished)')
     edit.replace('test/Spec.hs', 'FP-GAME-SAVE 1 99 0 0 False', 'FP-GAME-SAVE 2 99 0 0 False False')
     edit.replace('test/Spec.hs', 'FP-GAME-SAVE 1 0 0 -1 False', 'FP-GAME-SAVE 2 0 0 -1 False False')
-    edit.replace('test/Spec.hs', '  putStrLn "game-tests:', '''  let locked = walk [Move East, Move East, Move South]
+    edit.replace('test/Spec.hs', '  putStrLn "game-tests:', '''  let final = walk smokeCommands
+      locked = walk [Move East, Move East, Move South]
       (blocked, blockedEvents) = advance UseExit locked
       (withKey, keyEvents) = advance (Move South) initial
   assert "exit remains locked without collectible" (not (isWon blocked) && blockedEvents == [ExitLocked])
-  assert "key is visible before collection" ("K " `contains` render initial)
-  assert "collection changes state, events and rendering" (hasKey withKey && PickedUpKey `elem` keyEvents && not ("K " `contains` render withKey))
+  assert "key is visible before collection" ("K " `isInfixOf` render initial)
+  assert "collection changes state, events and rendering" (hasKey withKey && PickedUpKey `elem` keyEvents && not ("K " `isInfixOf` render withKey))
   assert "key enables exit" (hasKey final && isWon final)
   assert "version 1 requires an explicit migration" (decodeWorld "FP-GAME-SAVE 1 0 0 0 False" == Left UnsupportedFormat)
   assert "invalid won-without-key is rejected" (isLeft (decodeWorld "FP-GAME-SAVE 2 2 1 4 False True"))
@@ -116,7 +117,7 @@ def add_stamina(project):
   assert "stamina blocks further movement" (stamina tired == 0 && position tired == position stillTired && exhaustedEvents == [Exhausted])
   assert "rest permits the next move" (stamina recovered == 1 && coordinates (position moved) == (2,0))
   assert "rest cannot overfill stamina" (stamina (fst (advance Rest initial)) == maxStamina)
-  assert "second mechanic remains visible" ("Stamina 0" `contains` render tired)
+  assert "second mechanic remains visible" ("Stamina 0" `isInfixOf` render tired)
   assert "save rejects out-of-range stamina" (isLeft (decodeWorld "FP-GAME-SAVE 3 0 0 0 99 False False"))
   assert "version 2 migration is deliberate" (decodeWorld "FP-GAME-SAVE 2 0 0 0 False False" == Left UnsupportedFormat)
   putStrLn "game-tests:''')

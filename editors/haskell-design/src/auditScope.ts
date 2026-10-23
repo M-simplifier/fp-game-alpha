@@ -25,15 +25,16 @@ export async function scopeDirectorySignature(scope: AuditScope, dir: string): P
 // limited to declared modules and entry points, so docs and negative examples
 // beside the package never become sources merely because one component omits it.
 function cabalSources(text: string, dir: string): { roots: string[]; files: string[] } {
-  type Stanza = { kind: string; name: string; fields: Map<string, string[]> };
+  type Stanza = { kind: string; name: string; fields: Map<string, string[]>; base: Map<string, string[]>; indent?: number };
   const stanzas: Stanza[] = [];
   let current: Stanza | undefined;
   const lines = text.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]!.replace(/--.*/, '');
     const header = /^(library|executable|test-suite|benchmark|foreign-library|common)\b\s*(.*?)\s*$/i.exec(line);
-    if (header) { current = { kind: header[1]!.toLowerCase(), name: header[2]!, fields: new Map() }; stanzas.push(current); continue; }
+    if (header) { current = { kind: header[1]!.toLowerCase(), name: header[2]!, fields: new Map(), base: new Map() }; stanzas.push(current); continue; }
     if (/^\S/.test(line)) current = undefined;
+    if (current && line.trim()) current.indent ??= line.match(/^[ \t]*/)![0].length;
     const field = /^([ \t]+)([\w-]+)[ \t]*:[ \t]*(.*)$/.exec(line);
     if (!current || !field) continue;
     const values = [field[3]!];
@@ -45,22 +46,27 @@ function cabalSources(text: string, dir: string): { roots: string[]; files: stri
       values.push(next); i++;
     }
     const name = field[2]!.toLowerCase();
-    current.fields.set(name, [...(current.fields.get(name) ?? []), ...[...values.join(' ').matchAll(/"([^"]+)"|([^\s,]+)/g)].map(m => m[1] ?? m[2]!)]);
+    const tokens = [...values.join(' ').matchAll(/"([^"]+)"|([^\s,]+)/g)].map(m => m[1] ?? m[2]!);
+    current.fields.set(name, [...(current.fields.get(name) ?? []), ...tokens]);
+    if (field[1]!.length === current.indent) current.base.set(name, [...(current.base.get(name) ?? []), ...tokens]);
   }
-  const expanded = (stanza: Stanza, visited = new Set<Stanza>()): Map<string, string[]> => {
+  const expanded = (stanza: Stanza, baseOnly = false, visited = new Set<Stanza>()): Map<string, string[]> => {
     if (visited.has(stanza)) return new Map();
     visited.add(stanza);
-    const fields = new Map(stanza.fields);
+    const fields = new Map(baseOnly ? stanza.base : stanza.fields);
     for (const name of fields.get('import') ?? []) {
       const common = stanzas.find(s => s.kind === 'common' && s.name === name);
-      if (common) for (const [key, values] of expanded(common, visited)) fields.set(key, [...(fields.get(key) ?? []), ...values]);
+      if (common) for (const [key, values] of expanded(common, baseOnly, visited)) fields.set(key, [...(fields.get(key) ?? []), ...values]);
     }
     return fields;
   };
   const roots = new Set<string>(), files = new Set<string>();
   for (const stanza of stanzas.filter(s => s.kind !== 'common')) {
     const fields = expanded(stanza), generated = new Set(fields.get('autogen-modules') ?? []);
-    for (const value of fields.get('hs-source-dirs') ?? ['.']) {
+    // Conditional directories do not replace the implicit "." in branches
+    // where they are absent. Only unconditional fields/imports replace it.
+    const implicitRoot = !(expanded(stanza, true).get('hs-source-dirs')?.length);
+    for (const value of [...(fields.get('hs-source-dirs') ?? []), ...(implicitRoot ? ['.'] : [])]) {
       const source = path.resolve(dir, value);
       if (source !== dir) { roots.add(source); continue; }
       for (const name of [...(fields.get('exposed-modules') ?? []), ...(fields.get('other-modules') ?? []), ...(fields.get('test-module') ?? [])]) {

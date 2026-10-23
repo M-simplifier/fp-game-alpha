@@ -6,31 +6,24 @@ Haskell Designの読み取りコマンドにプロジェクトの場所を渡す
 
 ## まず使う
 
-Afterlightのルートから実行します。0.6.0から読み取りコマンドはHaskell製の実行ファイルになりました。
-ビルド済みならNode.jsもGHCも不要です。HLS、エディタ、ゲームのアセットも必要ありません。
-Windowsでは以下の実行ファイル名に `.exe` を付けます。
+ビルド済みツールのディレクトリから、同梱例を読めます。Windowsでは実行ファイル名に `.exe` を付けます。
+単体の構文読み取りにNode.js、GHC、HLS、エディタは不要です。
 
 ```sh
-# ファイルと名前空間の対応を見る
-editors/haskell-design/dist/haskell-design map --root .
-
-# 全体の型とデータ定義を読む
-editors/haskell-design/dist/haskell-design outline --root .
-
-# 名前空間を絞って読む。Garden.Render.* も含む
-editors/haskell-design/dist/haskell-design outline --root . --module Garden.Render
-
-# 指定した関数の型署名と実装だけを読む
-editors/haskell-design/dist/haskell-design show --root . --module Garden.Change --symbol apply
+dist/haskell-design map --root examples
+dist/haskell-design outline --root examples --module Domain.Order
+dist/haskell-design show --root examples --module Domain.Order --symbol confirm
 ```
 
-最後のコマンドで得られる実装は、次のまとまりです。元ファイルと行番号も付きます。
+別のゲームを読むときは、`--root` にそのゲームの場所を渡します。最後のコマンドは、例えば次の実装を返します。
+元ファイルと行番号も付きます。
 
 ```haskell
-apply :: Change -> Map Cell Material -> Map Cell Material
-apply (Change change) garden = M.foldlWithKey' write garden change
-  where
-    write cells cell = maybe (M.delete cell cells) (\material -> M.insert cell material cells)
+confirm :: Order -> Either ConfirmError Order
+confirm order = case status order of
+  Draft -> Right order { status = Confirmed }
+  Confirmed -> Left AlreadyConfirmed
+  Cancelled -> Left AlreadyCancelled
 ```
 
 `show` は複数の節、ガード、`where` を一緒に取得します。
@@ -38,21 +31,10 @@ apply (Change change) garden = M.foldlWithKey' write garden change
 メソッドを指定するとクラス・インスタンスの候補を区別し、`--file` と `--line` で選べます。
 演算子も `--symbol '%%'` のように指定できます。
 
-実行ファイルがない場合は、一度ビルドします。Node.js 22以降、GHC 9.6.7、Cabal、Cコンパイラ、
-`tar` と `strip` が必要です。WindowsのGHCup版では同梱のLLVM stripを使います。
-GHCがPATHにない場合は、`HASKELL_DESIGN_GHC` に絶対パスを設定してください。
-
-```sh
-cd editors/haskell-design
-npm ci --ignore-scripts
-npm run build
-```
-
-別プロジェクトにも使えます。コマンドの場所はツールの配布先、`--root` は**読みたいプロジェクト**です。
-VSIXとNeovim配布アーカイブにも同じネイティブ実行ファイルを同梱しています。
-使うOS・CPUに合う配布物を選び、実行ファイルと `dist/native-notices.txt` を一緒に保持してください。
-型推論を使う場合は、同じ配置の `compiler/Main.hs` も必要です。
-以前の `node dist/read.cjs ...` も互換入口として残っており、同じ実行ファイルを呼びます。
+ビルドとエディタ導入は[セットアップガイド](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md)を参照してください。
+再配布時は `dist/native-notices.txt` を実行ファイルと一緒に保持します。
+型推論には、同じ配置の `compiler/Main.hs` も必要です。
+以前の `node dist/read.cjs ...` は同じ実行ファイルを呼ぶ互換入口として残っています。
 
 ## AIが読む順序
 
@@ -83,8 +65,8 @@ JSONが必要なら `--json` を付けます。上限はJSON内の `text` に適
   行番号は宣言または型署名の開始行です。`show --module` は完全一致です。
 
 ```sh
-editors/haskell-design/dist/haskell-design outline --root . --file src/Garden/Rules.hs --docs
-editors/haskell-design/dist/haskell-design show --root . --file tools/GardenCheck.hs --symbol main
+dist/haskell-design outline --root examples --file Domain/Order.hs --docs
+dist/haskell-design show --root examples --file OrderSpec.hs --symbol prop_confirmTwice
 ```
 
 保存済みの `.hs` が対象で、非公開関数も含みます。`Cabal-syntax` で `.cabal` を読み、
@@ -111,15 +93,15 @@ CPPの条件を解決せず、解析できた宣言だけを載せます。
 選び、信頼したプロジェクトでGHCによる推論を追加できます。
 
 ```sh
-editors/haskell-design/dist/haskell-design outline --root . --file src/Example.hs --infer --trusted
+dist/haskell-design outline --root examples --file Domain/Order.hs --infer --trusted
 ```
 
 GHC 9.6.xと、そのプロジェクト用の `.haskell-design.json` による依存・拡張設定が必要です。
 `--ghc` と `--cache-dir` も指定できます。型推論が失敗した場合は警告が残ります。
 通常の一覧は型検査を行わず、書かれた署名を表示します。
-セットアップは同梱の [haskell-editor-setup](https://github.com/M-simplifier/garden-of-afterlight/blob/main/.agents/skills/haskell-editor-setup/SKILL.md) を使えます。
+設定方法は[セットアップガイド](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md)にあります。
 
-## Afterlightでの削減量
+## 移植元Afterlightで測った読取量
 
 ゲームのCabalが参照する31ファイル・379宣言を対象に、`o200k_base`
 （js-tiktoken 1.0.21）で比較しました。全文はファイルをパス順に改行でつなぎ、
@@ -137,7 +119,4 @@ CPPを含む `Runtime.hs` とTHを含む `BrowserMain.hs` の2ファイルには
 これは同じコードに対する読取量の比較で、特定モデルの課金トークン数や開発精度の改善率ではありません。
 必要な実装を追加で読んだ分のトークンは別にかかります。
 
-検証: 読取コマンド、ネイティブ実行、共用解析器・型推論・監視の回帰検査を実行。
-演算子、型族、GADT、パターン、複数節、共通署名、同名メソッド、続きを読む際の整合性を確認しています。
-
-Haskellへの移行理由、構成、起動時間の比較は[ネイティブ解析器](native.md)にまとめています。
+Haskellへの移行理由と起動時間の比較は[ネイティブ解析器](native.md)にあります。

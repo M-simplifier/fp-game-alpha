@@ -1,180 +1,49 @@
-# Verification record
+# Find and read verification evidence
 
-The dated results below preserve the commands and implementations that actually
-ran. Historical Python CLI/workspace/editor checks do not certify the current
-entrypoints. Use [native tooling](native-tooling.md) for today's operational
-commands and its exact native CI revisions, and [tooling](tooling.md) for the
-separate inspect/context helper. Evidence for an earlier revision is not a new
-verification run of this checkout.
+A result belongs to the source revision, inputs, toolchain and environment that
+actually ran. A configured workflow, recovered source or successful tool build
+is not a passing execution of the game or checker.
 
-## Independent game development on Windows
+## Check the current checkout
 
-`python tools/test_workspace.py` passed locally on Windows x86_64 with
-Python 3.14.2, GHC 9.6.7 and Cabal 3.12.1.0. It generated outside the starter
-in a path with spaces, checked dry-run/non-overwrite/independent licensing,
-built/tested/ran via ordinary Cabal, then edited state/rules/view/save/tests
-to add a key and locked exit. Real input verified the blocked and unlocked
-branches plus save/load. It copied only the game, excluding build caches,
-into a separate directory, rebuilt and ran it, queried types via its own CLI,
-then added bounded stamina and a rest command without regeneration.
-Tests/runtime verified exhaustion, recovery and deliberate save-version rejection.
+Use [native tooling](native-tooling.md) for bootstrap, build/test commands and
+its required CI contract; use [tooling](tooling.md) for saved-source inspection
+and [editor setup](editors.md) for actual editor consumers. The
+[core workflow runs](https://github.com/M-simplifier/fp-game-alpha/actions/workflows/ci.yml)
+and [native-tooling runs](https://github.com/M-simplifier/fp-game-alpha/actions/workflows/native-tooling.yml)
+show results for exact commits. Inspect those results before claiming a platform
+pass; one job does not certify another host or optional research toolchain.
 
-The compact record is [Windows development evidence](evidence/windows-development.json).
-This is gameplay/extension acceptance for that small terminal route, not an
-enjoyment evaluation, a graphical route, or a proof for arbitrary extensions.
-The [first-user CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37175110782)
-passed the same development check on Windows, Linux and macOS.
+The [transition laws](../libraries/game-transition/test/Laws.hs),
+[arena laws](../libraries/game-arena/test/Laws.hs) and each reference's tests
+are the maintained behavior checks. Start from the affected game's README for
+its build, API and host checks rather than copying a historical command here.
+The [acceptance criteria](acceptance.md) distinguish generated-game continuation,
+editor integration and actual player experience. For formal experiments, use
+[research reproduction](research-reproduction.md) and read their
+[assumptions and failure cases](guarantees.md).
 
-Windows LLVM ar initially failed under space-containing paths. The project
-sets `ar-options: --rsp-quoting=posix` only on Windows. Cabal's
-`--disable-response-files` alone did not fix that archiver failure.
+## Dated records
 
-## Saved-source queries and editors
+These receipts retain earlier observations. They are not new runs of this
+checkout, and the commands embedded in them may describe retired entrypoints.
 
-The compiler regression covers leading line/block comments containing fake
-module declarations, a valid empty module export list, a real binding's type,
-missing binding rejection and a genuine Bool/Integer error. Module/import
-context comes from GHCi, not a source regex. Query/compiler failures return
-nonzero even if GHCi exits zero.
+| Record | What it records |
+| --- | --- |
+| [Windows development](evidence/windows-development.json) | Generated terminal game, feature edits, save/load and independent relocation |
+| [VSCode](evidence/vscode-windows.json) and [Neovim](evidence/neovim-windows.json) | The tested Windows saved-source query/diagnostic paths |
+| [Native tooling on Linux](evidence/native-tooling-linux.json) and [CI](evidence/native-tooling-ci.json) | Native command and consumer executions at their recorded revisions |
+| [Windows quantity](evidence/quantity-windows.json) | Finite runtime/oracle comparison and GHC API checks; no LiquidHaskell or Z3 run |
+| [Historical research](evidence/historical-guarantees.json) | Curated 3–4 October 2026 checker, model and counterexample results |
+| [Linux research integration](evidence/formal-research-linux-20261005.json) | Separate 5 October 2026 public-runner results |
 
-Windows VSCode 1.127.0 passed an actual extension-host test: module/type queries,
-an intentional compiler error, and Problems diagnostics. Neovim 0.12.4 passed
-an actual headless process test with the same queries/error and quickfix output.
-The compact records are [VSCode](evidence/vscode-windows.json) and
-[Neovim](evidence/neovim-windows.json). A live HLS hover/diagnostic test is a
-separate target; no success is yet claimed. macOS editor/gameplay hardware has
-not been tested. These editor tests used isolated fixture/profile directories.
-The additional local Neovim/HLS process test timed out at its 450-second
-process bound. It establishes no live hover/diagnostic result; the ordinary
-saved-source Neovim contract passed independently.
+The [original chronological verification record](https://github.com/M-simplifier/fp-game-alpha/blob/06923e727c0229eb36daeba6bab789ca32333406/docs/verification.md)
+preserves the earlier per-game runs, CI links, commands and failures. In
+particular, an unsuccessful HLS probe supplies no hover/diagnostic success, and
+finite pure-core traces supply no graphical or device-performance result.
 
-## Kernel bootstrap
-
-Local compiler: Windows x86_64, GHC 9.6.7, Cabal 3.12.1.0. Both libraries
-compile with `-Wall -Wcompat -Werror`. Transition laws pass 341 small traces,
-all whole-input partitions, chronological output, identities and a deliberate
-output mutation. Arena laws pass admission/joint control, rejection state,
-hidden observations and a state-peeking mutation, finite predecessors,
-deadlock distinctions and 128 subset-pair monotonicity probes.
-
-The publication gate records one row per selected source file in
-`.build/export-report.json`. That report includes the manifest digest and
-bounded scan results; raw local logs and absolute machine paths are excluded
-from the public source. Documentation links pass the local linter.
-
-A clean local clone with an empty Cabal home exposed secure-repository
-bootstrap even with `--offline`. The CLI now supplies an isolated repository-free
-configuration and writes outputs/cache under `.build/`. This path is the
-first-user build/test contract; installing a compiler still requires explicit
-toolchain setup.
-
-The initial [CI run at 235162f](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543)
-passed kernel/CLI/source/doc checks on Windows, Linux and macOS. It predates
-the independent workspace and editor additions. The CI workflow repeats checks from
-GitHub checkouts on Linux, Windows and macOS. A configured job is not a passing
-job: consult its actual result before making a platform claim. Graphical,
-browser, server deployment and mobile performance are outside this bootstrap
-verification scope.
-
-## Lantern reference
-
-The Lantern source in `references/lantern/` compiles with
-`-Wall -Wcompat -Werror` and its law test passes locally on Windows with the
-above GHC/Cabal versions. It checks board-construction rejection, the
-original rule through `Step` and `Arena`, invalid admission, and closure plus
-forced reachability of one explicit four-state graph. This is a finite example
-for one board, not an SMT result or a guarantee for arbitrary boards. The
-[Lantern CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37176394511)
-passed on Windows, Linux and macOS.
-
-A later API review found that exported record selectors allowed outside state
-updates despite a hidden constructor; an actual GHC client compiled and a
-malformed-state move raised a list-index exception. It also found `Int`
-coordinate overflow in board validation. The repaired API uses private record
-fields plus ordinary projections, binds a world to its board, validates the
-original state before indexing, and compares coordinates without addition.
-Local GHC now rejects the external record-update fixture for the intended
-reason and accepts the projection client. Tests reject `maxBound`/`minBound`
-coordinates and a state from another board. The
-[correction CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37177560148)
-passed on Windows, Linux and macOS.
-
-## Quantity source-only checks
-
-The selected frozen `Colony.Units` source and annotation-only copy match
-their recorded SHA-256 values. On local Windows GHC 9.6.7,
-`python research/quantity/check.py check` passed eight intended GHC type
-rejections, two positive compilations, and 631,024 oracle inputs against
-both modules with identical outputs. The compact
-[source-only record](evidence/quantity-windows.json) contains the case map,
-category counts and output hashes. A deliberately missing compiler makes
-`doctor` fail; a GHC error must match the named type/constructor diagnostic.
-This historical run is finite source-only validation; it did not run
-LiquidHaskell or Z3. Later checker executions and their limits are recorded by
-the [quantity checker](../research/quantity/lh-checker/README.md) and the other
-[research routes](research-reproduction.md).
-The [source-only CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37178075499)
-passed on Windows, Linux and macOS, including independent game development
-acceptance on each checkout.
-
-## Tapline reference
-
-The selected Tapline core compiles with `-Wall -Wcompat -Werror` on local
-Windows GHC 9.6.7. Its test plays all six winning rounds and compares direct,
-Step and Arena execution. It checks the exact deadline, ordered repeated
-taps, reset as an indivisible batch barrier, focus-loss pause, pure render
-projection, and a deduplication mutation that diverges at frame two.
-`python tools/fp_game.py test` passed with the existing kernels and Lantern.
-This verifies the selected pure core and small trace suite; graphical host and
-device performance remain outside this reference. The
-[Tapline CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37178602184)
-passed on Windows, Linux and macOS; a public branch fresh clone also passed
-the source, docs and Cabal test checks locally.
-
-## Garden reference
-
-The selected Garden core compiles under `-Wall -Wcompat -Werror` on local
-Windows GHC 9.6.7. Its law test checks a deterministic seeded world and reset,
-opaque coordinate bounds, event Step/Arena equivalence, frame-clock
-Step/Arena equivalence, five ticks per frame with retained debt, pause/resume
-debt clearing, extreme pixel rejection, a dropped-tick mutation and a
-counterexample to splitting a frame at a control edge. The game updates and
-clock remain pure; no graphical host or device-performance result is claimed.
-The [Garden CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37179671700)
-passed on Windows, Linux and macOS. A fresh public branch clone on Windows
-also passed the source gate, docs links, full Cabal suite and independent
-generated-game development acceptance.
-
-## River Home reference
-
-On local Windows GHC 9.6.7/Cabal 3.12.1.0, the selected original domain and
-clock and the new adapter compile with `-Wall -Wcompat -Werror`. The finite
-test follows the authored day-one/day-two/day-three/dinner journey, checks
-weather and sheltered crop/wood differences, snapshot round-trip/rejection
-and next-command equivalence, direct Step/Arena results, boundary rejection,
-finite command-prefix invariants, tick saturation, clock debt and a deleted
-rule mutation. The original QuickCheck suite and a graphical host are not
-part of this run. The
-[River CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37180747216)
-passed on Windows, Linux and macOS. A fresh public branch clone on Windows
-also passed the source gate, docs links, full Cabal suite and independent
-generated-game development acceptance. A subsequent public-API test compiles
-read-only River projections and rejects outside `Game` record update for the
-record-selector diagnostic. `Cell` is intentionally constructible input and
-gets checked by the domain, rather than this compiler fixture.
-
-## Station Dispatch pure core
-
-The local Windows GHC 9.6.7/Cabal 3.12.1.0 suite compiles the selected domain
-and adapter with `-Wall -Wcompat -Werror`. It enumerates all 864 states,
-969 attempted choices and 541 terminal histories of the fixed six-order
-game, checking ending distribution, resource/history invariants, visible
-option agreement, Step/Arena behavior, stale replay and a rule-deletion
-mutation. A separate GHC outside-client fixture compiles projections and
-rejects GameState update and TurnId construction for their intended reasons.
-The original JSON save, asynchronous UI/storage and browser host are outside
-this increment. The
-[Station CI run](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37181698800)
-passed on Windows, Linux and macOS. A fresh public branch clone on Windows
-also passed the source gate, docs links, external API compilation, full Cabal
-suite and independent generated-game development acceptance.
+Reusable causes and repairs live in [failure prevention](failure-prevention.md):
+constructor/update loopholes, numeric overflow, compiler-backed module queries,
+portable source selection and process ownership. The current setup recipes live
+with their tools. Keep a new run's logs and source identities separate from
+these historical records; never update an old receipt to imply it just passed.

@@ -48,12 +48,35 @@ data FrameAction = FrameAction
   deriving (Eq, Show)
 
 data Simulation = Simulation
-  { simulationWorld :: Garden.World,
+  { currentWorld :: Garden.World,
     simulationClock :: Clock,
     previousTickEye :: Garden.V3,
-    simulationPilot :: Tour.Pilot
+    currentPilot :: Tour.Pilot
   }
-  deriving (Eq, Show)
+  deriving (Eq)
+
+-- These are queries, not record labels: changing the world or pilot alone
+-- would retain an unrelated clock and interpolation history.
+simulationWorld :: Simulation -> Garden.World
+simulationWorld = currentWorld
+
+simulationPilot :: Simulation -> Tour.Pilot
+simulationPilot = currentPilot
+
+-- Preserve the existing diagnostic vocabulary and precedence despite keeping
+-- the actual fields private. Show is an observation, never a reconstruction.
+instance Show Simulation where
+  showsPrec precedence (Simulation world clock prior pilot) =
+    showParen (precedence > 10) $
+      showString "Simulation {simulationWorld = "
+        . shows world
+        . showString ", simulationClock = "
+        . shows clock
+        . showString ", previousTickEye = "
+        . shows prior
+        . showString ", simulationPilot = "
+        . shows pilot
+        . showChar '}'
 
 -- 各tickの空cueも保持する。Yampaの時刻はcueの有無に関係なく進む。
 newtype FrameEffects = FrameEffects {tickCues :: [[Garden.Cue]]}
@@ -92,7 +115,8 @@ instance Arena AfterlightSession where
   type Rejection AfterlightSession = FrameRejection
   admit _ context choices _
     | isNaN dt || isInfinite dt = Left NonFiniteElapsed
-    -- The original floor :: Double -> Int has a machine-range precondition.
+    -- Keep the elapsed-input contract independently of the scheduler's
+    -- bounded conversion: accumulated debt may exceed one admitted frame.
     | dt > fromIntegral (maxBound :: Int) / 120 = Left TooLargeElapsed
     | otherwise = case submissions choices of
         [] -> Right (AcceptedFrame context (FrameAction Garden.idleInput False))
@@ -128,11 +152,11 @@ advanceFrame (AcceptedFrame boundary action) state =
             (after, cues) = stepMachine Afterlight resolved before
             updated =
               current
-                { simulationWorld = after,
-                  simulationPilot = pilot,
+                { currentWorld = after,
+                  currentPilot = pilot,
                   previousTickEye = Garden.eye (Garden.worldPlayer before)
                 }
          in (updated, cues : batches)
-      seeded = state {simulationWorld = world, simulationClock = clock}
+      seeded = state {currentWorld = world, simulationClock = clock}
       (next, reversed) = foldl' step (seeded, []) inputs
    in (next, FrameEffects (reverse reversed))

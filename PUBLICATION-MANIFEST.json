@@ -44,7 +44,7 @@
   },
   {
    "path": ".agents/skills/new-game/SKILL.md",
-   "sha256_lf": "3dfcc5983b452f90358c3f2c5178bbee7a3ae24d606cd1c83f2771edcb8e1358"
+   "sha256_lf": "2f03d631bf1c1a43467bb7fc668676cc24ec3380e5707ea80d4f5cebc1306d25"
   },
   {
    "path": ".agents/skills/play-game/SKILL.md",
@@ -112,11 +112,11 @@
   },
   {
    "path": "docs/architecture.md",
-   "sha256_lf": "73315b669752cb2261e0a263dc97f8286ad3e1049c2dd8cd9025fa115dc00a17"
+   "sha256_lf": "6a52ce40b448e4d3d324491f8e69e9b3d8e7d3c7ca0f1c6c42bc7e282a1a550a"
   },
   {
    "path": "docs/editors.md",
-   "sha256_lf": "5375cdb490ae88d6c85a4188356f9838ddaaf07fd47fe5fa8de7025d8d33bfd6"
+   "sha256_lf": "a5e26c4fa10193be5faceefaa63021bc8aa253170dfe1cd7a0c710e20dbb720a"
   },
   {
    "path": "docs/evidence/formal-research-linux-20261005.json",
@@ -172,15 +172,15 @@
   },
   {
    "path": "docs/guarantees.md",
-   "sha256_lf": "ea7db841beff661b770a36dcf221dee956faa2e6700c9dd183f301e9e5a97a72"
+   "sha256_lf": "430b01ff8224d05251e6d79000e8e4440be566a09efa0eaf1b9bef7c57de4ab3"
   },
   {
    "path": "docs/haskell-design.md",
-   "sha256_lf": "684ee9f7aad7ee7ceffab88e3d9061482f002be1ac024838fe955b9aeeb112b0"
+   "sha256_lf": "a246e36ba0eb2017d8652a2807e11e97abfd75803b6d5b8029c6c0fbd2f23820"
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "4ed2f3782f3c5e54fa35cacbd0176d55516141c423ed8c9f0fa57df2bf96833d"
+   "sha256_lf": "fbb1853aa7e09e1ab2153272accf2e353daebad0ab3e14ef826ce664edb409c7"
   },
   {
    "path": "docs/headless-play.md",
@@ -200,7 +200,7 @@
   },
   {
    "path": "docs/new-game.md",
-   "sha256_lf": "0a14e6c15185b77923872748470b58393db040e7f35bd509c732c391e985fd3d"
+   "sha256_lf": "f357128971ac73f5d40b9237a21a9216e5d1706232903436d3294967f4e9175a"
   },
   {
    "path": "docs/platforms.md",
@@ -272,11 +272,11 @@
   },
   {
    "path": "docs/red-dune-live.md",
-   "sha256_lf": "bd207a6a70ba667382555eba59ab68aaea71c188b263249258fc7a65dc20a625"
+   "sha256_lf": "1628c3238961847d722aa31dcb6a63ae7148c6985ce661047a6744432478285c"
   },
   {
    "path": "docs/red-dune.md",
-   "sha256_lf": "3fb7e4a741276157777616b8c4d9783096c82775e76a96cde0ed9e2deb781310"
+   "sha256_lf": "7df555fcbe673d571cea6aa1da07c2f0918b03dd582d5b47ddd9a606c2a159de"
   },
   {
    "path": "docs/research-ci-cache.md",
@@ -300,11 +300,11 @@
   },
   {
    "path": "docs/setup.md",
-   "sha256_lf": "9b9f07e6b61e23b1107bc3a7733b9bd48c9b3dae4f379d8ae2f6de4f0fba8e35"
+   "sha256_lf": "cc6fed59661b9198e64f5a87d37eb4441d561e9af2030e0fa8224ecaba4755fe"
   },
   {
    "path": "docs/signal-courier.md",
-   "sha256_lf": "45ae3b134f60cd3ae797b70a41659391ebb5ec8cfbb083b4287169e1eb0e3fa8"
+   "sha256_lf": "21015fc43c613aa9beb01e6cf4e9d84344a8a3b51ac41dd3352fccc0f17f8d67"
   },
   {
    "path": "docs/support/routes.json",
@@ -312,7 +312,7 @@
   },
   {
    "path": "docs/terminal-starter.md",
-   "sha256_lf": "e3d224e3ea44b2533cd4f12d279ee2d21224b1e89530f03fcf68955698f8b4e7"
+   "sha256_lf": "ebc32f731028c77df5d460db690fccf63a296963277c4be3f8924ce780f0a336"
   },
   {
    "path": "docs/tooling.md",
@@ -320,7 +320,7 @@
   },
   {
    "path": "docs/verification.md",
-   "sha256_lf": "8eca2549725a4ad117b5db939725b4e7d105a0cc6a08d5b554f1a92b6a59e184"
+   "sha256_lf": "9598627a5920f3fb9b7f15ab1c1f53e6e5a0f6893e22f3d2a5c1b56190398658"
   },
   {
    "path": "editors/fixtures/portable-game/.gitignore",
@@ -372,11 +372,11 @@
   },
   {
    "path": "editors/haskell-design/PORTING.md",
-   "sha256_lf": "50dedc35dee47f218b325163e0d29a16372a94668d2497643b00a6630e7a0b54"
+   "sha256_lf": "77afd6af2d7dc85105f4f66149d9a74602e49e6ea902e112aa4986a5ee4359f5"
   },
   {
    "path": "editors/haskell-design/README.md",
-   "sha256_lf": "797f1ce4e4bf1f7f5b8b1864c04b16ba1bfd3efcf92d4a9a8b258cf8d0b31cdd"
+   "sha256_lf": "8ca7b889b396d5d6a0b38b8b7429bba4e540f63db5fec1fab526ce99e5ac6571"
   },
   {
    "path": "editors/haskell-design/THIRD_PARTY_NOTICES.md",
@@ -388,23 +388,19 @@
   },
   {
    "path": "editors/haskell-design/docs/automatic-design.md",
-   "sha256_lf": "ddffe5a05e7acfce836e657193c70d653be82c7cd9e5ef3edf8a224727a98ef0"
+   "sha256_lf": "6dec5ff1d28474590ec7b111f210d9363da17f4267f66965e591e125b8c01ef1"
   },
   {
    "path": "editors/haskell-design/docs/benchmarks/windows-0.6.0.json",
    "sha256_lf": "f805202da86475dc10088ee82a6093a9bd01f9396e921b3515b221aa7b79f90a"
   },
   {
-   "path": "editors/haskell-design/docs/implementation.md",
-   "sha256_lf": "effb2711a0586bb13616b0df6e65f62bf5809774eb33078c88b418bb6cfbdfcb"
-  },
-  {
    "path": "editors/haskell-design/docs/native.md",
-   "sha256_lf": "291265810cea6af25cea71edfee907e3454fed77bfb368db2b45847386387884"
+   "sha256_lf": "293699282e04fa57b2e260d319ae8902c55c61e0c44bcb05e1923e8e9d23e0b6"
   },
   {
    "path": "editors/haskell-design/docs/reader.md",
-   "sha256_lf": "d63b3ff679fc8ceea2d9ebb23721d14ef88f7940ca44c3d7e360aab30a7ec15e"
+   "sha256_lf": "1b48f26c9923f487e455d52b4ce9918f8376a632bd7b8f1292babef0aa104e9f"
   },
   {
    "path": "editors/haskell-design/docs/verification.md",
@@ -608,7 +604,7 @@
   },
   {
    "path": "editors/haskell-design/package.json",
-   "sha256_lf": "3507a6b6d0de36b3ff2fc98cd0c7b101909304e5cc1da58ef8b0b07281bc7ac8"
+   "sha256_lf": "b0acd17da8719c3d987b2ba43c802df004c7cfa65b5fd72c0816e75c3372b292"
   },
   {
    "path": "editors/haskell-design/plugin/haskell-design.lua",
@@ -624,7 +620,7 @@
   },
   {
    "path": "editors/haskell-design/scripts/build.mjs",
-   "sha256_lf": "ba710f154746c57b65ef1830e5e33a8bf5e412ab508ccc54d1270a3f1eb24c26"
+   "sha256_lf": "a5d7ddef6209a963e583b5a64aac53a4b1acb9c4ddd972e55a353f475c07d475"
   },
   {
    "path": "editors/haskell-design/scripts/native-notices.mjs",
@@ -664,7 +660,7 @@
   },
   {
    "path": "editors/haskell-design/src/auditScope.ts",
-   "sha256_lf": "d1fed8af5f27c4e13a9ee4a3c062eb5f50dac340543a0ed281a1b418d802724d"
+   "sha256_lf": "5495d9ab142c8c02adb38102df4dbf5de8b17752155c473dd808dfcc5dc8d5cf"
   },
   {
    "path": "editors/haskell-design/src/cli.ts",
@@ -672,7 +668,7 @@
   },
   {
    "path": "editors/haskell-design/src/compiler.ts",
-   "sha256_lf": "f8ea5e7b31a572a4193ef5c282fb7fe5bd4de0ae501ea47f5c5758a2498c334c"
+   "sha256_lf": "a76ce979fcacf1de18de3260bea8141f148baa3dd30ec165d1be2690a730daf9"
   },
   {
    "path": "editors/haskell-design/src/extension.ts",
@@ -716,7 +712,11 @@
   },
   {
    "path": "editors/haskell-design/tests/audit.test.ts",
-   "sha256_lf": "132e6ff1bfbdc293206d97167822b0fd908d3abc0f0bf7fc0d19562f0bb239b3"
+   "sha256_lf": "24772321a9af192c23dc96b94099861896eb631a1782f836e8124070ce53413e"
+  },
+  {
+   "path": "editors/haskell-design/tests/compiler.test.ts",
+   "sha256_lf": "8b1c35c055993254e5960cb4843ad53b2b2469b8539cb4b729f03e6cf54f4048"
   },
   {
    "path": "editors/haskell-design/tests/core.test.ts",
@@ -852,7 +852,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "f96d6aca35d44f605a2b605de151d64cdab0e4edc4751ad7a992c89e4e1a4549"
+   "sha256_lf": "f9c607f1483f7bc202931a5b666d8790f82d2dbd608673b0944f6c890ced722f"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -864,7 +864,7 @@
   },
   {
    "path": "references/afterlight/README.md",
-   "sha256_lf": "3aaca05e9d47e3bdcbebbf3d54c7b151d0554902decbdf8a5922df41f9a158aa"
+   "sha256_lf": "df75d5aee92a852268ed3988df5f9df0868756cfa3690cb6b41fd7a403056c14"
   },
   {
    "path": "references/afterlight/THIRD-PARTY.md",
@@ -872,7 +872,7 @@
   },
   {
    "path": "references/afterlight/afterlight-arena.cabal",
-   "sha256_lf": "60c104de34ea33cb7048e813e05015852cee34150e421baf96453e3fb614f70d"
+   "sha256_lf": "752144a70149d12a9b1c10965ac6abd14a3cb6fd368251cd68b98841bb66a3a7"
   },
   {
    "path": "references/afterlight/assets/shaders/bloom.fs",
@@ -911,6 +911,10 @@
    "sha256_lf": "9a12d8068c391d6301fb1054a561b8f2bdfd21c9401a9a6eee70a1d19255467d"
   },
   {
+   "path": "references/afterlight/docs/FRAME-BOUNDARY-MANIFEST.json",
+   "sha256_lf": "ec09fc7841d67aaf4747631fd07a386d0d9ce5bdd2dfc346b30fcd4c0cffd90d"
+  },
+  {
    "path": "references/afterlight/docs/READABILITY-REFACTOR-MANIFEST.json",
    "sha256_lf": "33f94ad016b295ebfb1f0c0e18fa1b606796fc8afba3e73479fab1439812122d"
   },
@@ -940,7 +944,7 @@
   },
   {
    "path": "references/afterlight/docs/qa/SOURCE-AUDIT.json",
-   "sha256_lf": "8bbc59b07808afbc90100b92af8c7d9e0f54f8b601e86265541537361d8261cf"
+   "sha256_lf": "933bd687409c1e3d4544d941001aee0fce9e5395bea791c371d78550826867af"
   },
   {
    "path": "references/afterlight/docs/rendering.md",
@@ -976,19 +980,23 @@
   },
   {
    "path": "references/afterlight/runtime/Garden/Runtime.hs",
-   "sha256_lf": "b499fe04dc34e60627c4adbdfd773a88920c3dc47f47e9109e089a492392641e"
+   "sha256_lf": "98ccb24fccbb7180ac7d8b6942833c7e90c96ff16d6e7e3bf3a8394b7a9ca21e"
+  },
+  {
+   "path": "references/afterlight/runtime/Garden/Runtime/Control.hs",
+   "sha256_lf": "355141f030bc242b5a5b9379896675ac7f4a1dcf993d2c702aa310983207c22a"
   },
   {
    "path": "references/afterlight/scripts/audit-source.py",
-   "sha256_lf": "1a4940c62785c1a89726d5f6fe8e1d5d91279c576b239faaa9d70d3a94b48bd1"
+   "sha256_lf": "fe0a46c8c62fe728dae42f67d24c1de5d0a2c36863049090841ca2674a195155"
   },
   {
    "path": "references/afterlight/scripts/check-core.py",
-   "sha256_lf": "57c28d25cb355a1a2be76dd0a4ee1597e3ad331b0197ac1dd265dd040f4c3856"
+   "sha256_lf": "c100305ee719d29e367b3efea9c7d18160f188d945da3a8ca006606e4fd1bffb"
   },
   {
    "path": "references/afterlight/scripts/check-cpp-format.py",
-   "sha256_lf": "a102224d272690b20967f7d2ec8b14d2c7259829dd3fbb164d57eef054316433"
+   "sha256_lf": "60d6afb5125635c8cca0c77dcdc7d369b8c7c14de723a23330f42ace960903f9"
   },
   {
    "path": "references/afterlight/scripts/contact-sheet.ps1",
@@ -1012,15 +1020,19 @@
   },
   {
    "path": "references/afterlight/scripts/test-audit-source.py",
-   "sha256_lf": "3b92355001fd44614474e6dff362e0e9712a80c9e101b9fb2e796b5d29a42664"
+   "sha256_lf": "5763e03d87aa2276fcf97c99419bfb3f8acdd28960c119d8e2162d973a02ad29"
   },
   {
    "path": "references/afterlight/scripts/test-check-core.py",
-   "sha256_lf": "f66ca58b6903a6240a75a7bcdf3f64549df4b0f3eeeb5768fb9dac53674f389e"
+   "sha256_lf": "2b6df3417cc9e0018bdf52595e6c782bc23ee88851cb4b7df0ddee0e204534db"
   },
   {
    "path": "references/afterlight/scripts/test-cpp-format.py",
-   "sha256_lf": "1cfbb1fba093e0e54cc83a58136ad694f38e672a8974bd0877610e7d248ed825"
+   "sha256_lf": "fd983600c63a08bf7d6900feb7cf757a5dfa8b2f7abaced6704461443aba3b7d"
+  },
+  {
+   "path": "references/afterlight/scripts/test-session-api.py",
+   "sha256_lf": "2d5abab429a319c3bc501a280476c0f29c74628162aea7e1acdf29a5a74b774c"
   },
   {
    "path": "references/afterlight/src/Garden/Arena.hs",
@@ -1040,7 +1052,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Clock.hs",
-   "sha256_lf": "7631bb20a6c2501200e6d18bf1d9a59f540f7a09a455c216a6fc99270e2ffd22"
+   "sha256_lf": "1b1d274780130cfec392a79f6b0bfa3674008128ad8a6deaead8373d8cee34bb"
   },
   {
    "path": "references/afterlight/src/Garden/Host/Control.hs",
@@ -1080,7 +1092,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Session.hs",
-   "sha256_lf": "8b72256b538d47ec172265df853333f164cb57a856e761a0de13717bfab3ec97"
+   "sha256_lf": "b79455b0f7425052ada1232900bc5b2ac8f069bcf6d91f3a489c7996455ce7b7"
   },
   {
    "path": "references/afterlight/src/Garden/Signal.hs",
@@ -1107,12 +1119,28 @@
    "sha256_lf": "b4aec9af04d9f29e0f66c473175dbb46c0291dcb75cdbdd6a4b976e413530952"
   },
   {
+   "path": "references/afterlight/test/FrameBoundaries.hs",
+   "sha256_lf": "e0b237ab51f2296cb4b01c406b87514eae6cbfe1c86ee9c5977ae56e6b9ffb52"
+  },
+  {
    "path": "references/afterlight/test/Parity.hs",
    "sha256_lf": "d00db2a503b821eb374b321b0045443f92fd694be0de9ca946e5dafe1f8128f7"
   },
   {
    "path": "references/afterlight/test/TerrainEquality.hs",
    "sha256_lf": "a65dd3da71ce4a542d6b47d5f9e934fd540752e1a9d12be214929eb3b98ca884"
+  },
+  {
+   "path": "references/afterlight/test/api/PilotUpdate.hs",
+   "sha256_lf": "a3897ea842a00cbfd9087f4c161c9cdc73ab403479fc03439e4fc03260f8904b"
+  },
+  {
+   "path": "references/afterlight/test/api/SessionRead.hs",
+   "sha256_lf": "c3c98b5001bce20f222135872eae1c925f0f94c96603110e855a0317d68a8b58"
+  },
+  {
+   "path": "references/afterlight/test/api/WorldUpdate.hs",
+   "sha256_lf": "55286ee9443d4e7c61a999aeeedbe6299b90b4ee46ced6b84fe32e8c7092f080"
   },
   {
    "path": "references/afterlight/test/oracle/Original/Garden/Change.hs",
@@ -1368,7 +1396,7 @@
   },
   {
    "path": "references/garden/README.md",
-   "sha256_lf": "cf0147ecdb2dee6aca0299d86852ea812850e8658d65a0cc797837d8066b8119"
+   "sha256_lf": "ae87410a8c69f4c66e6fdc07a6bb5fdf8bc2f948ef5961f90dd2e1367d2647bc"
   },
   {
    "path": "references/garden/garden.cabal",
@@ -2980,7 +3008,7 @@
   },
   {
    "path": "references/river/README.md",
-   "sha256_lf": "46150b22c99b26b38d6f3a062a70d2ed5c7d2cf34852195e85203545df388df2"
+   "sha256_lf": "51bc7aacb2a148344b80927b07df5eca8d3e4afae1b1d204dbdb529f01dd6b6b"
   },
   {
    "path": "references/river/river.cabal",
@@ -3256,7 +3284,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "0b81231bdce2a8edbdc6744fbe28d70ca23dc871fc515515a03dbfa0a41566ec"
+   "sha256_lf": "598ade40290bb8667b9ff6cad4d9011a6afa34d36c9892936e2d4eb9a258ef56"
   },
   {
    "path": "references/station/app/HeadlessMain.hs",
@@ -5544,7 +5572,7 @@
   },
   {
    "path": "templates/terminal-adventure/docs/DEVELOPMENT.md",
-   "sha256_lf": "6bf78a53a45bbfa4d0a3ced73e50451c4e56932f3b2860f04a582b7e7f8f75a9"
+   "sha256_lf": "c5deeb330c6f98ce80ac3c45c263cc1c53b542fa5ccb0279d8017df7e6180123"
   },
   {
    "path": "templates/terminal-adventure/docs/TECHNICAL-GUIDES.md",
@@ -5580,7 +5608,7 @@
   },
   {
    "path": "templates/terminal-adventure/src/Game/Save.hs",
-   "sha256_lf": "5ff176e7196a5465046a5c8e1e2f8af193d84cd0fa1e9b5fe1d3563fe7fa700f"
+   "sha256_lf": "f29a352c870ba9f6358de088f920cca050273c7bcd29b5877d74dda5d0083600"
   },
   {
    "path": "templates/terminal-adventure/src/Game/View.hs",
@@ -5588,11 +5616,11 @@
   },
   {
    "path": "templates/terminal-adventure/test/Spec.hs",
-   "sha256_lf": "43640cec9798345d6e7d946458eec736b6d78b9db4dff55a184e80d424dafc6e"
+   "sha256_lf": "e6cb4ec678a7a65b91c9a531c7eb5774fbb68e01383422914717327b5a2d9e29"
   },
   {
    "path": "tools/acceptance/features.py",
-   "sha256_lf": "14da4e30d7d0615585fbc575761d89e6b58babb36d72431e93ab473b0448ae49"
+   "sha256_lf": "8ba09f9e0d704239f9c4e25bf3e69ddc1b6a316922c0c420853eaaaa0b0ca190"
   },
   {
    "path": "tools/acceptance/fixtures/python_cli/README.md",
