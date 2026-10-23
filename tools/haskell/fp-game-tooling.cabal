@@ -38,6 +38,10 @@ library
     FpGame.Path
     FpGame.Process
     FpGame.Result
+  other-modules:
+    FpGame.Create.Distribution
+    FpGame.Create.Filesystem
+    FpGame.Create.Options
 
 executable fp-game
   import: defaults

@@ -5548,7 +5548,7 @@
   },
   {
    "path": "tools/haskell/fp-game-tooling.cabal",
-   "sha256_lf": "bd093c09bf8dd870c0bf3c706f8165e8f1d9e41678f4876c0bf217d3f75e541d"
+   "sha256_lf": "932fb4d317a0919046ece0e5d29aa5ed86f08a17071a843d95918c809395b6bd"
   },
   {
    "path": "tools/haskell/src/FpGame/CLI.hs",
@@ -5568,7 +5568,19 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Create.hs",
-   "sha256_lf": "8142c09cd0c5d9ebb4ee2f56e96ec071d7267f9937d3cc3a2b81b897e2c4b3df"
+   "sha256_lf": "f7327196ee4e4dafe3f828f1a1f9f03dce12cfe946b349e164cc132927b93942"
+  },
+  {
+   "path": "tools/haskell/src/FpGame/Create/Distribution.hs",
+   "sha256_lf": "7c8407754d34abb330e6837cdef5e2f84fcda60aaa4a899f84b9fcfbd9e2006c"
+  },
+  {
+   "path": "tools/haskell/src/FpGame/Create/Filesystem.hs",
+   "sha256_lf": "cc47376d86ca37a95969f4a51ffef999974f9171f92580a4edc72e8edbf453fd"
+  },
+  {
+   "path": "tools/haskell/src/FpGame/Create/Options.hs",
+   "sha256_lf": "01d8533829cf027a17f77cb55cfc2d9c6a93467470b4f524b563782b5dcf1628"
   },
   {
    "path": "tools/haskell/src/FpGame/Error.hs",
@@ -5588,7 +5600,7 @@
   },
   {
    "path": "tools/haskell/test/CreateSpec.hs",
-   "sha256_lf": "c9c763cabb5fe8d4e0f9ae9faf249a2dcec57f079f96ff41799cf835d334e465"
+   "sha256_lf": "847736b201b64ab7c17eadf1d7d90a74801cbe3764981bf280bd6eb9b457b60f"
   },
   {
    "path": "tools/haskell/test/Main.hs",
