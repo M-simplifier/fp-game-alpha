@@ -7,9 +7,10 @@ project=cabal.project.red-dune-live
 case "${1:-help}" in
   smoke)
     # These explicit targets deliberately exclude live-campaign and the benchmark.
-    cabal build --project-file="$project" exe:red-dune-live test:live-boundary test:live-construction test:live-host-lifecycle test:live-tile-order test:live-legacy test:live-help test:live-logistics
-    cabal test --project-file="$project" live-boundary live-construction live-host-lifecycle live-tile-order live-legacy live-help live-logistics --test-show-details=direct
+    cabal build --project-file="$project" exe:red-dune-live test:live-boundary test:live-construction test:live-host-lifecycle test:live-tile-order test:live-legacy test:live-help test:live-logistics test:live-core-boundary
+    cabal test --project-file="$project" live-boundary live-construction live-host-lifecycle live-tile-order live-legacy live-help live-logistics live-core-boundary --test-show-details=direct
     python3 references/red-dune-live/test/check_workforce_api.py
+    cabal exec --project-file="$project" -- python3 references/red-dune-live/test/check_core_api.py
     binary=$(cabal list-bin --project-file="$project" exe:red-dune-live)
     cd references/red-dune-live
     node tools/test_browser_protocol.cjs
