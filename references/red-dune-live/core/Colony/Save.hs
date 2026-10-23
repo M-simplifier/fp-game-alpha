@@ -125,14 +125,40 @@ finishSave ticket queue
   | Just manual <- queueManual queue = (True, queue {queueActive = Just manual, queueManual = Nothing})
   | otherwise = (True, queue {queueActive = queueAutosave queue, queueAutosave = Nothing})
 
-data CapturedSnapshot = CapturedSnapshot
-  { capturedTicket :: !SaveTicket,
-    capturedMeta :: !CheckpointMeta,
-    capturedTick :: !SimTick,
-    capturedStateHash :: !BS.ByteString,
-    capturedBytes :: !BS.ByteString
-  }
-  deriving (Eq, Show)
+data CapturedSnapshot = CapturedSnapshot !SaveTicket !CheckpointMeta !SimTick !BS.ByteString !BS.ByteString
+  deriving (Eq)
+
+-- Query functions keep the receipt metadata bound to the captured bytes.
+-- Exporting record labels would allow a caller to rewrite that metadata.
+capturedTicket :: CapturedSnapshot -> SaveTicket
+capturedTicket (CapturedSnapshot ticket _ _ _ _) = ticket
+
+capturedMeta :: CapturedSnapshot -> CheckpointMeta
+capturedMeta (CapturedSnapshot _ meta _ _ _) = meta
+
+capturedTick :: CapturedSnapshot -> SimTick
+capturedTick (CapturedSnapshot _ _ tick _ _) = tick
+
+capturedStateHash :: CapturedSnapshot -> BS.ByteString
+capturedStateHash (CapturedSnapshot _ _ _ digest _) = digest
+
+capturedBytes :: CapturedSnapshot -> BS.ByteString
+capturedBytes (CapturedSnapshot _ _ _ _ bytes) = bytes
+
+instance Show CapturedSnapshot where
+  showsPrec precedence (CapturedSnapshot ticket meta tick digest bytes) =
+    showParen (precedence > 10) $
+      showString "CapturedSnapshot {capturedTicket = "
+        . shows ticket
+        . showString ", capturedMeta = "
+        . shows meta
+        . showString ", capturedTick = "
+        . shows tick
+        . showString ", capturedStateHash = "
+        . shows digest
+        . showString ", capturedBytes = "
+        . shows bytes
+        . showString "}"
 
 -- Call at the P10 boundary. This forces authoritative state to NF and captures
 -- strict canonical bytes, so no mutable or lazily evolving world is retained.

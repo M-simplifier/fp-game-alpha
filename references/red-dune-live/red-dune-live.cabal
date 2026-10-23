@@ -29,6 +29,7 @@ library colony-core
   ghc-options: -O2
   hs-source-dirs: core
   other-modules:
+    Colony.Codec.Instances
     Colony.Transport.State
     Colony.Transport.Dispatch
   exposed-modules:
@@ -183,6 +184,17 @@ test-suite live-logistics
     Logistics.TransportTests
     Logistics.MaintenanceTests
     Logistics.WorkforceTests
+  build-depends: red-dune-live
+
+test-suite live-core-boundary
+  import: shared
+  ghc-options: -O2
+  type: exitcode-stdio-1.0
+  main-is: CoreBoundaryTests.hs
+  hs-source-dirs: test
+  other-modules: Core.SessionTests
+  if !os(windows)
+    other-modules: Core.SnapshotTests
   build-depends: red-dune-live
 
 executable red-dune-tick-bench

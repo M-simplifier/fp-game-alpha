@@ -3995,6 +3995,13 @@
     "source_sha256_lf": "76f477ae09a423cee113c52dd5ded0aa6f996a1031f7a4ea37e9ff3f8e5ec171",
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
+  "references/red-dune-live/core/Colony/Codec/Instances.hs": {
+    "kind": "active-derivative-of-preserved-public-source",
+    "origin": "references/red-dune/src/Colony/Codec.hs",
+    "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
+    "source_sha256_lf": "76f477ae09a423cee113c52dd5ded0aa6f996a1031f7a4ea37e9ff3f8e5ec171",
+    "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
+  },
   "references/red-dune-live/core/Colony/CombinedFixture.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/CombinedFixture.hs",
@@ -4234,6 +4241,20 @@
     "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
   },
   "references/red-dune-live/core/Colony/Transport.hs": {
+    "kind": "active-derivative-of-preserved-public-source",
+    "origin": "references/red-dune/src/Colony/Transport.hs",
+    "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
+    "source_sha256_lf": "cd0feea2f7a52f989e85a9bb78392def5d6a77a2ad2e973ecaf35ce2af660453",
+    "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
+  },
+  "references/red-dune-live/core/Colony/Transport/State.hs": {
+    "kind": "active-derivative-of-preserved-public-source",
+    "origin": "references/red-dune/src/Colony/Transport.hs",
+    "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
+    "source_sha256_lf": "cd0feea2f7a52f989e85a9bb78392def5d6a77a2ad2e973ecaf35ce2af660453",
+    "license_basis": "Retained MIT notice; see references/red-dune-live/PROVENANCE.md"
+  },
+  "references/red-dune-live/core/Colony/Transport/Dispatch.hs": {
     "kind": "active-derivative-of-preserved-public-source",
     "origin": "references/red-dune/src/Colony/Transport.hs",
     "source_commit": "e2b57188b7f092eb9f840f451ac48586f47617d9",
