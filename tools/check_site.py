@@ -1,5 +1,6 @@
 """Check the static page's links and recorded Haskell evidence, without a browser."""
 
+from html import unescape
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -37,7 +38,7 @@ class Page(HTMLParser):
             self.errors.append("brief controls must not serialize into a native form submission")
 
 
-def check_links(page):
+def check_links(page, page_path=SITE / "index.html"):
     for tag, attribute, target, relation in page.links:
         parsed = urlsplit(target)
         if parsed.scheme:
@@ -56,11 +57,33 @@ def check_links(page):
             page.errors.append(f"protocol-relative dependency: {target}")
             continue
         path = unquote(parsed.path)
-        local = (SITE / (path or "index.html")).resolve()
+        local = (page_path.parent / path).resolve() if path else page_path.resolve()
         if not local.is_relative_to(SITE) or not local.is_file():
             page.errors.append(f"missing or escaping local file: {target}")
-        if not path and parsed.fragment and unquote(parsed.fragment) not in page.ids:
-            page.errors.append(f"missing page anchor: {target}")
+        elif parsed.fragment and local.suffix == ".html":
+            target_page = page
+            if local != page_path.resolve():
+                target_page = Page()
+                target_page.feed(local.read_text(encoding="utf-8"))
+            if unquote(parsed.fragment) not in target_page.ids:
+                page.errors.append(f"missing page anchor: {target}")
+
+
+def check_lesson_sources(document):
+    declarations = {
+        "choice": ("Domain", "data Choice ="),
+        "applyCost": ("Domain", "applyCost ::"),
+        "step": ("Domain", "step ::"),
+        "stationStep": ("Adapter", "stationStep ::"),
+    }
+    blocks = re.findall(r"<!-- source:(\w+) -->(.*?)<!-- /source:\1 -->", document, re.S)
+    assert sorted(name for name, _ in blocks) == sorted(declarations), "missing, duplicate or unknown lesson source block"
+    for name, excerpt in blocks:
+        module, start = declarations[name]
+        source = (ROOT / "references/station/src/Station" / (module + ".hs")).read_text(encoding="utf-8")
+        declaration = re.search(r"^" + re.escape(start) + r".*?(?=\n\n|\Z)", source, re.M | re.S)
+        assert declaration is not None, f"missing source declaration: {name}"
+        assert unescape(excerpt) == declaration[0], f"lesson/source mismatch: {name}"
 
 
 def check_trace():
@@ -85,17 +108,24 @@ def check_trace():
 
 
 def main():
-    page = Page()
-    page.feed((SITE / "index.html").read_text(encoding="utf-8"))
-    check_links(page)
+    errors = []
+    links = 0
+    pages = sorted(SITE.rglob("*.html"))
+    for path in pages:
+        page = Page()
+        page.feed(path.read_text(encoding="utf-8"))
+        check_links(page, path)
+        errors.extend(f"{path.relative_to(SITE)}: {error}" for error in page.errors)
+        links += len(page.links)
     try:
         check_trace()
+        check_lesson_sources((SITE / "learn.html").read_text(encoding="utf-8"))
     except (AssertionError, KeyError, ValueError, OSError) as error:
-        page.errors.append(f"Station record: {error}")
-    for error in page.errors:
+        errors.append(f"Station evidence: {error}")
+    for error in errors:
         print(error)
-    print(f"public site: {'FAIL' if page.errors else 'PASS'} ({len(page.links)} links/assets; pinned Station record)")
-    return 1 if page.errors else 0
+    print(f"public site: {'FAIL' if errors else 'PASS'} ({len(pages)} pages; {links} links/assets; Station record and lesson sources)")
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":
