@@ -1860,7 +1860,15 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Transport.hs",
-   "sha256_lf": "09b9c78bf115bddf7e620c21907f2136a22accad3ad6f4695370bd01ceed1efd"
+   "sha256_lf": "3f8312a7371fb28fb8ac535de3a584defd4af0254a990e33ffacdb018e803faf"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Transport/Dispatch.hs",
+   "sha256_lf": "fa38855104116c6cc841c24459b1f2ae917abe0656ecfa1951a63543d25d6195"
+  },
+  {
+   "path": "references/red-dune-live/core/Colony/Transport/State.hs",
+   "sha256_lf": "19930c1e048e6d224c59e7f5c21019b526bf9834e4a6c820b3fca82d80d936d2"
   },
   {
    "path": "references/red-dune-live/core/Colony/Types.hs",
@@ -1880,7 +1888,7 @@
   },
   {
    "path": "references/red-dune-live/core/Colony/Workforce.hs",
-   "sha256_lf": "1997b61f30b66f10e67eaf62b11f26d33a1a3471201dedeb941e378773d188a0"
+   "sha256_lf": "99f5c4dab9b8bc21e4ca7ec2454bf9078c453b9556cef3b9bb1b3bf91e761bb0"
   },
   {
    "path": "references/red-dune-live/core/Colony/World.hs",
@@ -2004,7 +2012,7 @@
   },
   {
    "path": "references/red-dune-live/red-dune-live.cabal",
-   "sha256_lf": "6d0d473e41c3dc8f9ceaf76e9eb13a70904f163dd79465a0f520a0d4e88a65e7"
+   "sha256_lf": "f2ddfd412ec4ffb81e3176dbf1ff268cf2ff0eadf9f00f96cb18e3970bae7190"
   },
   {
    "path": "references/red-dune-live/src/RedDune/Campaign.hs",
@@ -2063,12 +2071,36 @@
    "sha256_lf": "10f755eb8137d4a24018450c73b239f434bce18b33a067d1978ea3c132b8edf0"
   },
   {
+   "path": "references/red-dune-live/test/Logistics/InventoryTests.hs",
+   "sha256_lf": "7d5058dbddfb4a7b433233deaf9ac29bc377f39734b46af4524d475b3591d894"
+  },
+  {
+   "path": "references/red-dune-live/test/Logistics/MaintenanceTests.hs",
+   "sha256_lf": "cb743ef7361902f81ca000feeb54b5993cd253178a93a21e944f75044fd27ca2"
+  },
+  {
+   "path": "references/red-dune-live/test/Logistics/TransportTests.hs",
+   "sha256_lf": "71a65841587364f5e30639b9d53d4f41081f14ac436b538d83d4e13303532db4"
+  },
+  {
+   "path": "references/red-dune-live/test/Logistics/WorkforceTests.hs",
+   "sha256_lf": "727923b6e75e81f083f2bdef0de7c6ca1d4e8bc1e2da51e7e1744bdac662bd8f"
+  },
+  {
+   "path": "references/red-dune-live/test/LogisticsTests.hs",
+   "sha256_lf": "02a4b7d3e6698b9ef16cb1160edeb55dfe1e1d18cbe0568765d3dbfde59d19b8"
+  },
+  {
    "path": "references/red-dune-live/test/NativeHelpTests.hs",
    "sha256_lf": "34b12cba78dfe622bac0208e077d047c3e7c8140d1183f639904ffe12bb08f27"
   },
   {
    "path": "references/red-dune-live/test/NativeTests.hs",
    "sha256_lf": "c93442644bee72f20ebdf50b87eddd405268bdbd43f5f176fcc6aa50d82ca642"
+  },
+  {
+   "path": "references/red-dune-live/test/check_workforce_api.py",
+   "sha256_lf": "c58b21004311e485a44d78b621584abf1039238d1eb1a139d9d9b6b901e3e1d0"
   },
   {
    "path": "references/red-dune-live/tools/bench_dev.py",
@@ -2080,7 +2112,7 @@
   },
   {
    "path": "references/red-dune-live/tools/check.sh",
-   "sha256_lf": "8c0dbce2333b4602baecc94dedb0891dcdeeffa44ff56ebd46c8a5f919ee063d"
+   "sha256_lf": "8df54054919249b2bda6859e1bebfdc9f7c80d2d9b7865e289bb658c9fdb4f59"
   },
   {
    "path": "references/red-dune-live/tools/dev-native.ps1",

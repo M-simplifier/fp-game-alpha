@@ -52,7 +52,7 @@ where
 
 import Colony.Needs (NeedsState (..), Resident (..), ResidentStatus (..))
 import Colony.Types (EntityId, Failure (..), SimTick (..))
-import Control.DeepSeq (NFData)
+import Control.DeepSeq (NFData (..))
 import Control.Monad (foldM, forM_, unless, when)
 import Data.List (sort)
 import Data.Map.Strict qualified as M
@@ -124,14 +124,45 @@ data CrewView = CrewView
 -- Constructor hidden: only phase capture with live claims creates evidence.
 -- The strict snapshot survives a same-tick terminal release; it is a transient
 -- phase product, not stored separately as a second assignment authority.
-data DutyEvidence = DutyEvidence
-  { dutyTick :: !SimTick,
-    dutyTarget :: !WorkTarget,
-    dutyRequirement :: !TargetRequirement,
-    dutyCrew :: ![EntityId],
-    dutyCredit :: !(Maybe Integer)
-  }
-  deriving (Eq, Show, Generic, NFData)
+data DutyEvidence = DutyEvidence !SimTick !WorkTarget !TargetRequirement ![EntityId] !(Maybe Integer)
+  deriving (Eq)
+
+-- Ordinary queries preserve opacity: exported record labels would permit
+-- record updates, and Generic.to would permit unchecked evidence construction.
+dutyTick :: DutyEvidence -> SimTick
+dutyTick (DutyEvidence tick _ _ _ _) = tick
+
+dutyTarget :: DutyEvidence -> WorkTarget
+dutyTarget (DutyEvidence _ target _ _ _) = target
+
+dutyRequirement :: DutyEvidence -> TargetRequirement
+dutyRequirement (DutyEvidence _ _ requirement _ _) = requirement
+
+dutyCrew :: DutyEvidence -> [EntityId]
+dutyCrew (DutyEvidence _ _ _ crew _) = crew
+
+dutyCredit :: DutyEvidence -> Maybe Integer
+dutyCredit (DutyEvidence _ _ _ _ credit) = credit
+
+instance NFData DutyEvidence where
+  rnf (DutyEvidence tick target requirement crew credit) =
+    rnf tick `seq` rnf target `seq` rnf requirement `seq` rnf crew `seq` rnf credit
+
+-- Keep the existing diagnostic text even though the representation is private.
+instance Show DutyEvidence where
+  showsPrec precedence (DutyEvidence tick target requirement crew credit) =
+    showParen (precedence > 10) $
+      showString "DutyEvidence {dutyTick = "
+        . shows tick
+        . showString ", dutyTarget = "
+        . shows target
+        . showString ", dutyRequirement = "
+        . shows requirement
+        . showString ", dutyCrew = "
+        . shows crew
+        . showString ", dutyCredit = "
+        . shows credit
+        . showString "}"
 
 -- A required explicit profile policy, not an assertion that 1.0.1 resolved XP.
 data ExperiencePolicy = PositiveCreditElapsedTick
@@ -498,7 +529,8 @@ recordDuty evidence recorded = case M.lookup (dutyTarget evidence) recorded of
     case credit of
       Just _ -> checkInvariant (count ids == targetRequiredPeople (dutyRequirement evidence)) "merged credited duty exceeds required crew"
       Nothing -> pure ()
-    pure (M.insert (dutyTarget evidence) (evidence {dutyCrew = ids, dutyCredit = credit}) recorded)
+    let merged = DutyEvidence (dutyTick evidence) (dutyTarget evidence) (dutyRequirement evidence) ids credit
+    pure (M.insert (dutyTarget evidence) merged recorded)
 
 -- One elapsed tick per call, consuming captured real phase evidence even if
 -- P7 completed the target and released its claims. Held duty has no XP. A
