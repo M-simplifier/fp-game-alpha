@@ -51,6 +51,9 @@ def main():
     print(run([str(tests)]), end='')
     with tempfile.TemporaryDirectory(prefix='host-check-', dir=ROOT) as temporary:
         folder = Path(temporary)
+        # The prototype's input grammar is `load FILE` with one whitespace-free
+        # token. Only its private fixture basename must enter that protocol.
+        relative = folder.relative_to(ROOT)
         fixtures = [
             ('valid', 'revision 1 moveBudget 5'),
             ('invalid', 'revision 2 moveBudget 99'),
@@ -62,11 +65,11 @@ def main():
         ]
         for name, data in fixtures:
             (folder / name).write_text(data)
-        commands = ['r', f'load {folder}/valid', 'restart', 'new', *(['r'] * 5)]
+        commands = ['r', f'load {relative}/valid', 'restart', 'new', *(['r'] * 5)]
         for name in ['invalid', 'partial', 'huge', 'missing', 'valid',
                      'overflow', 'negative-overflow']:
-            commands.append(f'load {folder}/{name}')
-        commands += [f'load {folder}/win', 'new', *(['r'] * 6), 'r', 'quit']
+            commands.append(f'load {relative}/{name}')
+        commands += [f'load {relative}/win', 'new', *(['r'] * 6), 'r', 'quit']
         log = run([str(game)], input='\n'.join(commands) + '\n')
         verify_host_log(log)
         (ROOT / '.build/host-check.log').write_text(log)

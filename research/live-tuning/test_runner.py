@@ -1,10 +1,13 @@
 """Failure-boundary tests; simulated tool output is never gameplay evidence."""
 import importlib.util
+import contextlib
+import io
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent
 spec = importlib.util.spec_from_file_location('tuning_check', ROOT / 'check.py')
@@ -13,6 +16,22 @@ spec.loader.exec_module(runner)
 
 
 class RunnerTests(unittest.TestCase):
+    def test_load_protocol_does_not_receive_spaces_from_the_repository_path(self):
+        with tempfile.TemporaryDirectory(prefix='tuning caller with spaces ') as temporary:
+            root = Path(temporary)
+            def observe(command, **kwargs):
+                if 'input' in kwargs:
+                    self.assertEqual(Path(command[0]).parent, root / '.build')
+                    for line in kwargs['input'].splitlines():
+                        if line.startswith('load '):
+                            self.assertEqual(len(line.split()), 2, line)
+                            self.assertFalse(Path(line.split()[1]).is_absolute())
+                    raise RuntimeError('load protocol inspected')
+                return subprocess.CompletedProcess(command, 0, '')
+            with patch.object(runner, 'ROOT', root), patch.object(runner.subprocess, 'run', side_effect=observe), \
+                    contextlib.redirect_stdout(io.StringIO()), self.assertRaisesRegex(RuntimeError, 'load protocol inspected'):
+                runner.main()
+
     def test_bad_tool_and_host_output_fail_even_with_optimization(self):
         with tempfile.TemporaryDirectory() as temporary:
             script = Path(temporary) / 'check.py'
