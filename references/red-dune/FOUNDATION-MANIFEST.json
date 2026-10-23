@@ -23,8 +23,8 @@
     },
     {
       "path": "libraries/game-arena/test/Laws.hs",
-      "sha256": "05005934d41e516d91d40eada89f2016e6b9dd99ac4fdbc994997671f386cda8",
-      "bytes": 5603
+      "sha256": "1abdc26df6667cf6355b8bd2b7a58af4e5acd276b98cd8d4f5cae59062d8df2c",
+      "bytes": 7007
     },
     {
       "path": "libraries/game-transition/LICENSE",
@@ -43,8 +43,8 @@
     },
     {
       "path": "libraries/game-transition/test/Laws.hs",
-      "sha256": "390f00b442cf68cdb5fa14c32b101fefaff2d042f41bef94681f1e655e91d9b5",
-      "bytes": 2007
+      "sha256": "9ec80a32d615a5f882ac248011ae474f63418d2acca4191efaba472205021c0b",
+      "bytes": 2538
     }
   ]
 }
