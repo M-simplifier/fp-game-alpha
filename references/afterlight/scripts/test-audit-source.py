@@ -15,7 +15,10 @@ class AuditTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.game = Path(self.temp.name) / 'references/afterlight'
-        shutil.copytree(GAME, self.game)
+        # Generated native/browser artifacts are not audit inputs. Keeping them
+        # out also avoids copying fonts, WAVs, saves and npm caches per mutation.
+        shutil.copytree(GAME, self.game, ignore=shutil.ignore_patterns(
+            '.runtime', 'dist-newstyle', 'node_modules', '__pycache__', 'fonts', 'garden-audio'))
         self.manifest = self.game / 'docs/TEST-OPTIMIZATION-MANIFEST.json'
 
     def audit(self, success):
@@ -121,6 +124,66 @@ class AuditTests(unittest.TestCase):
     def test_refactor_does_not_unlock_other_source(self):
         path = self.game / 'src/Garden/Checkpoint.hs'
         path.write_bytes(path.read_bytes() + b'\n')
+        self.audit(False)
+
+    def mutate_frames(self, change):
+        manifest = self.game / 'docs/FRAME-BOUNDARY-MANIFEST.json'
+        value = json.loads(manifest.read_text())
+        change(value)
+        manifest.write_text(json.dumps(value))
+
+    def test_frame_bytes_locked(self):
+        manifest = json.loads((self.game / 'docs/FRAME-BOUNDARY-MANIFEST.json').read_text())
+        for record in manifest['files']:
+            with self.subTest(name=record['path']):
+                path = self.game / record['path']
+                before = path.read_bytes()
+                path.write_bytes(before + b'\n')
+                self.audit(False)
+                path.write_bytes(before)
+
+    def test_frame_predecessor(self):
+        self.mutate_frames(lambda v: v['files'][0].update(previous_sha256='0' * 64))
+        self.audit(False)
+
+    def test_frame_duplicate(self):
+        self.mutate_frames(lambda v: v['files'].append(v['files'][0]))
+        self.audit(False)
+
+    def test_frame_scope_cannot_expand(self):
+        self.mutate_frames(lambda v: v['files'].append({'path': 'src/Garden/Checkpoint.hs'}))
+        self.audit(False)
+
+    def test_frame_cannot_exempt_oracle(self):
+        self.mutate_frames(lambda v: v['files'][0].update(path='test/oracle/Original/Garden/Clock.hs'))
+        self.audit(False)
+
+    def test_frame_cannot_traverse(self):
+        self.mutate_frames(lambda v: v['files'][0].update(path='src/Garden/../Garden/Clock.hs'))
+        self.audit(False)
+
+    def test_frame_requires_reason(self):
+        self.mutate_frames(lambda v: v['files'][0].update(reason=''))
+        self.audit(False)
+
+    def test_frame_requires_manifest(self):
+        (self.game / 'docs/FRAME-BOUNDARY-MANIFEST.json').unlink()
+        self.audit(False)
+
+    def test_frame_cpp_predecessor(self):
+        self.mutate_frames(lambda v: v['cpp_normalized_comparison'][0].update(previous_sha256='0' * 64))
+        self.audit(False)
+
+    def test_frame_cpp_scope(self):
+        self.mutate_frames(lambda v: v['cpp_normalized_comparison'][0].update(path='runtime/Garden/Render.hs'))
+        self.audit(False)
+
+    def test_frame_cpp_duplicate(self):
+        self.mutate_frames(lambda v: v['cpp_normalized_comparison'].append(v['cpp_normalized_comparison'][0]))
+        self.audit(False)
+
+    def test_frame_cpp_digest(self):
+        self.mutate_frames(lambda v: v['cpp_normalized_comparison'][0].update(current_sha256='not-a-digest'))
         self.audit(False)
 
 

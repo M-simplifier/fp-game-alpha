@@ -16,7 +16,9 @@ schedule :: Double -> Input -> Clock -> ([Input], Clock)
 schedule dt observation (Clock debt pending) =
   let accumulated = debt + max 0 dt
       combined = merge pending observation
-      count = min 8 (floor (accumulated * 60))
+      -- Debt can exceed Int even when every individual frame was admitted.
+      -- Bound the tick quantity before narrowing it, not after an overflow.
+      count = floor (min 8 (accumulated * 60))
    in if count == 0
         then ([], Clock accumulated combined)
         else

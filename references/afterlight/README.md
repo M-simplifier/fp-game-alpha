@@ -28,13 +28,15 @@ This explicit download option fetches five version- and SHA-256-pinned Hackage
 source archives into `.build/afterlight-core/archives`. It does not install a
 compiler or change global configuration. Later runs can omit `--download`.
 An offline archive directory can instead be supplied using `--archives DIR`.
-The test route builds the complete pure game and the original QuickCheck and
-parity suites, not a newly invented toy model. Dependency tests are not enabled.
+The test route builds the complete pure game, the original QuickCheck and parity
+suites, and `frame-boundaries`. It also compiles public-package clients: ordinary
+session reads/transitions must work, while direct world/pilot record updates
+must fail. Dependency tests and raylib are not enabled.
 
-The local Linux GHC 9.6.6/Cabal 3.16.1.0 check passed both suites, including
-5,580 frames / 9,067 ticks of original parity; see
-[the scoped record](docs/qa/PUBLIC-CORE-CHECK.json). Public CI on the maintained
-GHC 9.6.7 toolchain is a separate pending check.
+The archived Linux GHC 9.6.6/Cabal 3.16.1.0 check covered the two original suites,
+including 5,580 frames / 9,067 ticks of original parity; see
+[the scoped record](docs/qa/PUBLIC-CORE-CHECK.json). It predates the additional
+frame-boundary and public-client checks.
 
 Native graphical and browser execution are separate routes. Passing these
 checks does not verify GPU output, OS input, sound playback or browser behavior.
@@ -109,10 +111,12 @@ both native and Wasm branches, rejects disagreement in shared text, and compares
 both complete preprocessed modules with the reviewed canonical hashes before
 writing anything. It refuses to relock semantic drift as formatting.
 
-All six native/Wasm module projections remain identical to public pre-format
-commit `2487f7b` after safe normalization; the follow-on formatting also preserves
-the reviewed post-formatter baseline. This does not establish native GPU or
-browser execution.
+The historical format manifest retains all six native/Wasm module projections
+from public pre-format commit `2487f7b`. The current Runtime projections have
+explicit successors in `docs/FRAME-BOUNDARY-MANIFEST.json`; the four renderer
+projections still match the historical hashes. The formatter checks that chain
+without rewriting its history. This does not establish native GPU or browser
+execution.
 
 The long parity route's reviewed, test-only terrain equality optimization is
 recorded in [the bounded measurements](../../docs/research-iteration-latency.md).
@@ -131,3 +135,13 @@ rejects extra paths, false predecessors, altered current bytes and missing
 reasons. In `Garden.Rules`, start with `movement`, then `jumpVelocity` and
 `movePlanar`: jump grace, buffered input, launch speed and X/Z/vertical collision
 order have distinct names, while `Motion` and `Journey` retain their meanings.
+
+`docs/FRAME-BOUNDARY-MANIFEST.json` records the frame-boundary revision separately.
+`Garden.Runtime.Control` owns simultaneous pause/photo/capture/save-exit decisions;
+the host retains polling and effect order. The tests cover all 512 combinations
+and authored priority cases. The clock caps its Double tick quantity before Int
+conversion, so repeated admitted extreme durations cannot overflow the eight-tick
+batch limit. The elapsed-input rejection boundary is unchanged. `Simulation`
+retains the same read functions and Show/Eq observations, with private fields:
+use `beginSimulation` to reconstruct a world coherently instead of updating only
+its world or pilot while retaining an unrelated clock and interpolation history.

@@ -32,6 +32,8 @@ MARKER = r'^[ \t]*-- AFTERLIGHT_CPP_BOUNDARY_(\d+)\n'
 PREAMBLE = 'module CPPFormatting where\n\n'
 OLD_NOTE = '-- CPP splits this declaration; retain both host branches verbatim.\n'
 NOTE = '-- CPP branches are formatted by scripts/check-cpp-format.py.\n'
+FRAME_MANIFEST = 'docs/FRAME-BOUNDARY-MANIFEST.json'
+RUNTIME = 'runtime/Garden/Runtime.hs'
 
 
 def sha(text):
@@ -107,12 +109,39 @@ def canonical(source, wasm, executable):
 def checked_targets(root):
     """Validate the whole write plan before reading or changing any target."""
     paths = {}
-    for name in [*DECLARATIONS, 'docs/FORMAT-MANIFEST.json']:
+    names = [*DECLARATIONS, 'docs/FORMAT-MANIFEST.json']
+    if (root / FRAME_MANIFEST).exists():
+        names.append(FRAME_MANIFEST)
+    for name in names:
         path = formatter.local_path(root, name)
         if not path.is_file() or path.stat().st_nlink != 1:
             raise ValueError('Refusing a missing, non-file, or hardlinked target: ' + name)
         paths[name] = path
     return paths
+
+
+def reviewed_comparisons(manifest, revision):
+    """Only Runtime's two reviewed projections may succeed the format record."""
+    expected = [dict(row) for row in manifest['cpp_normalized_comparison']]
+    if revision is None:
+        return expected
+    if revision.get('schema') != 1 or revision.get('kind') != 'reviewed-frame-boundaries':
+        raise ValueError('Invalid frame boundary CPP provenance')
+    rows = revision['cpp_normalized_comparison']
+    if len(rows) != 2 or {row['configuration'] for row in rows} != {'native', 'wasm'}:
+        raise ValueError('Unexpected frame boundary CPP scope')
+    for row in rows:
+        if row['path'] != RUNTIME or not re.fullmatch('[a-f0-9]{64}', row['current_sha256']):
+            raise ValueError('Unexpected frame boundary CPP path or digest')
+        previous = next(item for item in expected if item['path'] == RUNTIME and item['configuration'] == row['configuration'])
+        if row['previous_sha256'] != previous['normalized_preprocessed_sha256']:
+            raise ValueError('Frame boundary CPP predecessor mismatch')
+        previous['normalized_preprocessed_sha256'] = row['current_sha256']
+    runtime_rows = [row for row in revision['files'] if row['path'] == RUNTIME]
+    predecessor = next(row['formatted_sha256'] for row in manifest['files'] if row['path'] == RUNTIME)
+    if len(runtime_rows) != 1 or runtime_rows[0]['previous_sha256'] != predecessor:
+        raise ValueError('Frame boundary Runtime predecessor mismatch')
+    return expected
 
 
 def main():
@@ -123,6 +152,9 @@ def main():
     targets = checked_targets(ROOT)
     manifest_path = targets['docs/FORMAT-MANIFEST.json']
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    revision_path = targets.get(FRAME_MANIFEST)
+    revision = json.loads(revision_path.read_text(encoding='utf-8')) if revision_path else None
+    reviewed = reviewed_comparisons(manifest, revision)
     outputs, comparisons = {}, []
     for name, declarations in DECLARATIONS.items():
         source = targets[name].read_text(encoding='utf-8')
@@ -140,19 +172,27 @@ def main():
         outputs[name] = candidate
         if not args.write and source != candidate:
             raise ValueError('CPP formatting drift: ' + name + '; run this script with --write')
-    if manifest['cpp_normalized_comparison'] != comparisons:
+    if reviewed != comparisons:
         raise ValueError('CPP canonical source differs from reviewed manifest; refusing to relock semantic drift')
     if args.write:
         targets = checked_targets(ROOT)
         for name, source in outputs.items():
             targets[name].write_text(source, encoding='utf-8', newline='\n')
-        for row in manifest['files']:
-            if row['path'] in outputs:
-                row['formatted_sha256'] = sha(outputs[row['path']])
-        manifest['branch_formatted_cpp_declarations'] = DECLARATIONS
-        manifest.pop('verbatim_cpp_declarations', None)
-        manifest['cpp_normalized_comparison'] = comparisons
-        manifest_path.write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8', newline='\n')
+        if revision is not None:
+            # Historical formatting evidence stays byte-for-byte unchanged.
+            # Canonical equality above permits only presentation changes here.
+            for row in revision['files']:
+                if row['path'] == RUNTIME:
+                    row['current_sha256'] = sha(outputs[RUNTIME])
+            revision_path.write_text(json.dumps(revision, indent=2) + '\n', encoding='utf-8', newline='\n')
+        else:
+            for row in manifest['files']:
+                if row['path'] in outputs:
+                    row['formatted_sha256'] = sha(outputs[row['path']])
+            manifest['branch_formatted_cpp_declarations'] = DECLARATIONS
+            manifest.pop('verbatim_cpp_declarations', None)
+            manifest['cpp_normalized_comparison'] = comparisons
+            manifest_path.write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8', newline='\n')
     else:
         if manifest.get('branch_formatted_cpp_declarations') != DECLARATIONS:
             raise ValueError('CPP declaration manifest differs')
