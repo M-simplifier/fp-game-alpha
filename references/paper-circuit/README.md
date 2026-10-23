@@ -84,7 +84,7 @@ The source core's MIT notices remain under vendor/.
 ## Evidence and unfinished acceptance
 
 - Current readability revision: native transition/history/terminal regressions,
-  three opaque-API rejection checks and 304 direct/Arena comparisons passed with
+  [opaque-API rejection checks](test/check-opaque-api.sh) and 304 direct/Arena comparisons passed with
   GHC9.6.7. Historical evidence is retained in CHECKS.json
 - Haskell Wasm: built with GHC9.14.1.20260330
 - Real Wasm in Node with the browser WASI shim: input/refusal, independent

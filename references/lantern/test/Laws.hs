@@ -45,6 +45,36 @@ main = do
   check "one fish departs" (remaining finished == 0 && departure == Departed [2])
   check "post-win stability" (advance board win finished == (finished, mempty))
   check "bad index does not crash" (advance board (Move (-1) 1) start == (start, mempty))
+  check "all invalid indices and distances preserve the entire state" $
+    all
+      (\move -> not (legal board start move) && advance board move start == (start, mempty))
+      [Move minBound 1, Move maxBound (-1), Move 1 1, Move 0 0, Move 0 minBound, Move 0 maxBound]
+  blocked <- case mkBoard [Cart V 2 2, Cart H 0 2] [1, 2] [2] of
+    Left problem -> print problem >> exitFailure
+    Right valid -> pure valid
+  check "collision refusal retains both carts and the fish mask" $
+    let blockedStart = initial blocked
+     in advance blocked (Move 0 (-1)) blockedStart == (blockedStart, mempty)
+          && not (legal blocked blockedStart (Move 0 (-1)))
+  twoFish <- case mkBoard [Cart V 2 2] [1] [2, 1] of
+    Left problem -> print problem >> exitFailure
+    Right valid -> pure valid
+  let (firstDeparture, firstRows) = advance twoFish (Move 0 (-1)) (initial twoFish)
+      (returned, returnedRows) = advance twoFish (Move 0 1) firstDeparture
+      (bothGone, lastRows) = advance twoFish (Move 0 1) returned
+  check "departures keep fish identities across a return move" $
+    remaining firstDeparture == 2
+      && firstRows == Departed [2]
+      && returnedRows == mempty
+      && remaining returned == 2
+      && lastRows == Departed [1]
+      && remaining bothGone == 0
+      && positions bothGone == [2]
+  check "board failures keep their established priority" $
+    mkBoard [Cart H 0 99] [] [] == Left CartPositionCountMismatch
+      && mkBoard [Cart H 0 99] [0] [] == Left (InvalidCart 0)
+      && mkBoard [Cart H 0 2, Cart V 0 2] [0, 0] [] == Left InvalidFishRows
+      && mkBoard [Cart H 0 2, Cart V 0 2] [0, 0] [5] == Left InitialCollision
   check "Arena executes the original rule" (play witness () (singleton () win) start == Right (finished, departure))
   check "invalid move is rejected before rule" $
     attempt witness () (singleton () (Move 0 99)) start

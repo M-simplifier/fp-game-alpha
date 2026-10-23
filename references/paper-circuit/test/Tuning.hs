@@ -41,6 +41,30 @@ main = do
       updated = required (stage "revision 2 moveBudget 7 inletRotation 3" initialCatalog)
   check "new session adopts" (movesLeft (start updated) == 7 && tiles (start updated) /= tiles initial)
   check "live world pinned" (movesLeft oldWorld == 17 && fst (step Restart oldWorld) == initial)
-  let invalid = ["", "revision 0 moveBudget 7 inletRotation 3", "revision 2 moveBudget 18 inletRotation 1", "revision 1 moveBudget 18 inletRotation 1", "revision 3 moveBudget 2 inletRotation 3", "revision 3 moveBudget 18446744073709551634 inletRotation 1", "revision 3 moveBudget 18 inletRotation 4294967297", "revision 1000000001 moveBudget 18 inletRotation 1", "revision 3 moveBudget 18.0 inletRotation 1", "revision 3 moveBudget 18 inletRotation 1 trailing", replicate 129 ' ']
-  mapM_ (\raw -> check "invalid admission retains catalog" (either (const updated) id (stage raw updated) == updated)) invalid
+  let invalid =
+        [ ("", InvalidRecord),
+          ("revision 0 moveBudget 7 inletRotation 3", InvalidRevision),
+          ("revision 2 moveBudget 18 inletRotation 1", StaleRevision),
+          ("revision 1 moveBudget 18 inletRotation 1", StaleRevision),
+          ("revision 3 moveBudget 2 inletRotation 3", InvalidLevel WitnessFailed),
+          ("revision 3 moveBudget 18446744073709551634 inletRotation 1", InvalidLevel BudgetRange),
+          ("revision 3 moveBudget 18 inletRotation 4294967297", InvalidLevel RotationRange),
+          ("revision 1000000001 moveBudget 18 inletRotation 1", InvalidRevision),
+          ("revision 3 moveBudget 18.0 inletRotation 1", InvalidRecord),
+          ("revision 3 moveBudget 18 inletRotation 1 trailing", InvalidRecord),
+          (replicate 129 ' ', TooLong),
+          ("revision 0 moveBudget 0 inletRotation 9", InvalidRevision),
+          ("revision 2 moveBudget 0 inletRotation 9", StaleRevision),
+          ("revision 2 moveBudget no inletRotation 1", InvalidRecord),
+          ("revision 3 moveBudget 0 inletRotation 9", InvalidLevel BudgetRange),
+          ("revision +3 moveBudget 18 inletRotation 1", InvalidRecord),
+          ("moveBudget 18 revision 3 inletRotation 1", InvalidRecord),
+          ("revision 3 moveBudget 18 inletRotation 1\NUL", InvalidRecord)
+        ]
+  mapM_ (\(raw, expected) -> check ("exact staging refusal: " ++ show raw) (stage raw updated == Left expected)) invalid
+  let record = "revision 3 moveBudget 18 inletRotation 1"
+      atLimit = replicate (128 - length record) ' ' ++ record
+  check "record limit is inclusive" (fmap revision (stage atLimit updated) == Right 3 && stage (atLimit ++ " ") updated == Left TooLong)
+  check "decimal leading zeroes retain their existing grammar" $
+    fmap revision (stage "revision 0003 moveBudget 018 inletRotation 01" updated) == Right 3
   putStrLn "PASS: native level bounds, witnesses, pinned reset/undo, staging and default parity"

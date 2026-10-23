@@ -41,5 +41,13 @@ main = do
   assert "mutated output is detected at boundary zero" $
     fmap boundaryIndex (firstDivergence counter bad [1, 2] 0) == Just 0
   assert "same step does not diverge" (firstDivergence counter counter [1, 2] 0 == Nothing)
+  assert "trace keeps the state on each side of every boundary" $
+    trace counter [2, -1, 3] 7
+      == [Observation 7 2 9 [2], Observation 9 (-1) 8 [-1], Observation 8 3 11 [3]]
+  let lateStateFault = Step $ \increment state ->
+        (state + increment + if increment == 0 then 1 else 0, [increment])
+  assert "later state-only divergence retains the exact first mismatching observations" $
+    firstDivergence counter lateStateFault [1, 2, 0, 3] 0
+      == Just (Divergence 2 (Observation 3 0 3 [0]) (Observation 3 0 4 [0]))
   assert "empty replay" (replay counter [] 7 == (7, []))
   putStrLn "transition-laws: PASS (341 traces, chronological output, identities, partitions, mutation)"

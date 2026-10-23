@@ -67,6 +67,28 @@ main = do
           start
   check "exact deadline settles before same-frame taps" $
     map Game.outcome (Game.results expired) == [Game.Expired]
+  check "deadline refusal leaves no matched-key or discarded-batch effect" $
+    snd (Game.replay [frameAt 0 [Input.TogglePause], frameAt Game.roundBudget [Input.Tap Input.J, Input.Tap Input.K]] start)
+      == [Game.BeganRound 1, Game.EndedRound (Game.Result 1 Game.Expired 7000000)]
+  let (overshot, elapsedEffects) = Game.replay [frameAt 0 [Input.TogglePause], frameAt 100000000 []] start
+      expiries = [Game.Result number Game.Expired (7000000 + toInteger (number - 1) * 7900000) | number <- [1 .. 6]]
+  check "one long frame settles each old round at its scheduled deadline" $
+    Game.phase overshot == Game.Complete
+      && Game.activeMicros overshot == 47400000
+      && Game.results overshot == expiries
+      && elapsedEffects
+        == Game.BeganRound 1 : concat [[Game.EndedRound result] ++ [Game.BeganRound (Game.resultRound result + 1) | Game.resultRound result < 6] | result <- expiries]
+  check "reset consumes the rest of its batch without starting a round" $
+    let (reset, emitted) = Game.frame (frameAt 0 [Input.Reset, Input.TogglePause, Input.Tap Input.J]) start
+     in Game.phase reset == Game.Ready
+          && Game.activeMicros reset == 0
+          && null (Game.results reset)
+          && emitted == [Game.Restarted 1, Game.BatchDiscarded 2]
+  let (_, anchored) = Clock.observe False (Clock.stamp 200) (Clock.anchor (Clock.stamp 100))
+      (regressed, unchangedClock) = Clock.observe True (Clock.stamp 150) anchored
+      (later, _) = Clock.observe True (Clock.stamp 250) unchangedClock
+  check "resting and regressed wall readings cannot become later active debt" $
+    regressed == 0 && later == 50 && Clock.micros (Clock.stamp (-1)) == 0
   let wholeReset = [frameAt 0 [Input.Reset, Input.TogglePause, Input.Tap Input.J, Input.Tap Input.K]]
       splitReset = [frameAt 0 [Input.Reset], frameAt 0 [Input.TogglePause, Input.Tap Input.J, Input.Tap Input.K]]
   check "reset makes splitting inside a frame a non-law" $
