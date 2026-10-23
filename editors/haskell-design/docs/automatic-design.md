@@ -1,4 +1,4 @@
-# Open a project and read its design
+# Editor and IO classification contracts
 
 The viewer helps people understand types, data models and the placement of IO without reading implementations. IO/Pure are navigation hints derived from GHC types, not purity certificates.
 
@@ -8,9 +8,19 @@ Discover source directories from Cabal (including ordinary tests and benchmarks)
 
 One background index owns discovery, source snapshots, reusable GHC evidence and folder aggregation. Both editor integrations consume that index; file-decoration callbacks only look up results. Cache valid designs across sessions, validate source/configuration/compiler inputs before reuse, and invalidate only modules whose recorded dependencies changed. Coalesce edits, bound compiler work, and publish results only for the snapshot checked. First-time analysis is automatic and non-blocking; show pending rather than guessing Pure. Unsupported/failed analysis is the only unavailable state (—); pending uses … . Polymorphism, unresolved abstract effects and Safe Haskell policy do not create an unavailable state.
 
-The current delivery is local: update both installed editors and exercise the actual ID prototype and the normal mini.files mapping. Use trusted-workspace execution in VS Code and configured trusted roots in Neovim; install this project's grant as part of the already authorized setup, without enabling arbitrary projects globally. Preserve source edits, Undo, explicit source mode and normal file-manager operations.
+Source remains the only editable truth. Switching views must preserve unsaved
+edits and Undo. VS Code can revert a shared dirty document when an alternate
+tab closes, so both tabs remain until saving. Neovim retains the source buffer
+behind its read-only view; a late parse must not steal focus or reopen a view
+the user explicitly left. File-manager integrations use `source_path()` rather
+than handing a virtual design-buffer name to the filesystem.
 
-Acceptance: opening the project alone starts indexing; navigating the normal explorer finds IO from the root; no manual verify/open-design/tree command is needed. Warm reopening performs no GHC typechecking or source parsing for unchanged inputs. An unrelated file or excluded generated source causes no audit work. Relevant source/configuration changes cannot leave stale Pure. Measure cold/warm startup and incremental work, test ordinary excluded folders and real mini.files alongside both editor hosts, then review and install the exact artifact.
+Use workspace trust in VS Code and individually trusted roots in Neovim.
+Syntax browsing needs no compiler execution. A missing compiler, failed build,
+unsupported dependency or watcher failure must not retain a verified Pure badge.
+Test source/configuration changes, discarded and hidden dirty buffers, folder
+aggregation and recovery in the chosen editor. A warm cache result does not
+establish that a different editor or host preserves those behaviors.
 
 ## IO classification
 

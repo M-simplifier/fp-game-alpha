@@ -19,8 +19,10 @@ The alpha baseline requires:
    calls these same backends and does not claim an empty command succeeded.
 4. Reference refactors preserve existing behavior and regression evidence.
    Explain data flow and boundary-sensitive counterexamples for learners.
-5. Documents are canonical. Skills route to them; local links and skill
-   contracts are checked in CI.
+5. Implementation is the source of truth. Keep a small set of deliberate human
+   guides for learning, design reasons and external constraints; do not maintain
+   duplicate API or behavior inventories in prose. Skills route to the relevant
+   guidance. Check links and synchronize quoted production code in CI.
 6. Export inspection rejects credentials, personal absolute paths, internal
    instructions, undeclared repository links, unknown/binary assets and files
    missing a license or provenance record. Record each file's result.

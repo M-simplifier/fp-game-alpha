@@ -8,11 +8,14 @@ near a plot and `Interact` to plant or water it. The authored scenarios in
 `scenarioGame` reach days one to three and the shared dinner through real
 commands, not by constructing private game state.
 
-Read `Life.Domain` in this order: `Game` and its read-only projections;
-`advance` for the command decision; `interactionTarget` for the common
-prompt/action target; `sleep` for the overnight crop/wood/weather update; then
-`encodeGame`/`decodeGame` for persistence. `Game`'s constructor and update
-fields are private. A `Cell` is merely an input/view coordinate: build and
+`Life.Domain` is the public facade. In `Life.Internal.Core`, follow `Game`
+and its read-only projections, `advance` for the command decision,
+`interactionTarget` for the shared prompt/action target, and `sleep` for the
+overnight update. `Life.Internal.Snapshot` owns the version-one save grammar
+and restoration; `Presentation` owns display projections; `Journey` constructs
+scenarios through legal commands. These implementation modules are hidden by
+the Cabal library. `Game`'s constructor and update fields stay private to
+package consumers. A `Cell` is merely an input/view coordinate: build and
 movement rules validate it. `Life.Adapter` places the unchanged `advance`
 behind `Step`/`Machine` and an `Arena`. Admission separates `MovementTick`
 from `InteractionBoundary`; a no-input movement boundary means `Tick 0 0`.
@@ -46,8 +49,10 @@ automatic migration, crash-durable storage, or guarantee for arbitrary future
 game changes.
 
 Run `.build/tools/fp-game test` and `python tools/test_river_api.py` at the
-foundation root. The latter compiles an outside reader, then requires GHC to
-reject an attempted `Game` record update for the record-selector reason.
+foundation root. The latter builds the library with the same offline Cabal
+profile and compiles outside clients against its package interface. It checks
+public reads and requires GHC to reject record updates, constructor use,
+`Read Game` and imports of the hidden state module for their intended reasons.
 `Cell` remains publicly constructible, so callers may submit an out-of-range
 coordinate; the domain validates its use. The public game test
 checks the authored journey, weather/crop/wood differences, overnight report,

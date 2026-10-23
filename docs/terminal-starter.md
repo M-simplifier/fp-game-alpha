@@ -14,10 +14,9 @@ foundation/template MIT notices remain separate.
 
 ## Executable path
 
-The maintained terminal template provides
-one complete turn/input/view loop, an explicit Machine/Arena adapter, validated
-versioned saves, config, regressions and independent build/CI. Its acceptance
-record applies to this example's development route.
+The template starts with a room, movement and an exit. Its commands and save/load
+already work, so the next change can be a real mechanic. The recorded acceptance
+applies to this example's development route.
 
 First follow [native bootstrap](native-tooling.md) once in the clone. Then,
 from that clone on Linux/macOS:

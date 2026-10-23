@@ -71,7 +71,18 @@ data SessionError
 
 data AuthorityFactory = AuthorityFactory (IO BS.ByteString) (MVar (S.Set String))
 
-data Session = Session {sessionAuthority :: !String, sessionEpoch :: !Epoch, serialCell :: !(MVar Word64)}
+data Session = Session !String !Epoch !(MVar Word64)
+
+-- The authority/epoch belong to this exact counter. Public record updates could
+-- attach another issuer's epoch and emit duplicate request identities.
+sessionAuthority :: Session -> String
+sessionAuthority (Session authority _ _) = authority
+
+sessionEpoch :: Session -> Epoch
+sessionEpoch (Session _ epoch _) = epoch
+
+serialCell :: Session -> MVar Word64
+serialCell (Session _ _ cell) = cell
 
 data RequestToken = RequestToken !Epoch !Word64 deriving (Eq, Ord, Show)
 

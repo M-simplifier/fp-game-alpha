@@ -22,4 +22,5 @@ test-suite garden-laws
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: Laws.hs
+  other-modules: SimulationChecks
   build-depends: base, garden-reference, game-transition, game-arena

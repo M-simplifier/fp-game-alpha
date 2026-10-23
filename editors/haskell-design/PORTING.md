@@ -7,6 +7,8 @@ Adaptations:
 - Linux optional GHC inference helpers link dynamically to the selected GHC 9.6.x installation. Both helper cache keys include the link mode. This helper already requires that compiler at runtime; shared GHC libraries must remain available. Missing libraries produce unavailable inference, never a verified result. The standalone syntax reader remains separate.
 - Include unix 2.8.6.0 notice for the Linux compiler package closure; sources.json records the fetched license SHA256 (the URL is the license itself).
 - Package smoke tests select Game.Transition.replay instead of an Afterlight-only function.
+- Editor batches use the same content/compiler-keyed helper cache as manual verification. A failed helper build can recover, and changed helper source is reselected without restarting the editor.
+- Editor source discovery retains a component's implicit root when `hs-source-dirs` or a common-stanza import occurs only in a conditional branch, matching the native reader's existing contract.
 
 Current verification, 2026-10-04: Linux x64 GHC 9.6.7, Cabal 3.16.1.0, Node 24.19.0. Native build, TypeScript check, and all 58 npm tests passed. Tests exercise actual native parsing, explicit trusted inference, cache invalidation, relocated Unicode sources, and no-compiler-PATH syntax reading. Paper Circuit map/show also passed. These are not live editor UI tests. macOS and current Windows builds/editor hosts have not been rerun for this port; upstream historical evidence is not new alpha evidence.
 

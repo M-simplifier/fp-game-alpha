@@ -8,7 +8,6 @@ import { projectCompilerOptions } from './projectConfig';
 
 export interface CompilerOptions { root: string; ghcPath?: string; ghcOptions?: string[]; cacheDir?: string; timeoutMs?: number }
 const building = new Map<string, Promise<string>>();
-const helpers = new Map<string, Promise<{ binary: string; libdir: string }>>();
 
 async function helper(sourcePath: string, options: CompilerOptions): Promise<{ binary: string; libdir: string }> {
   const ghc = options.ghcPath ?? 'ghc';
@@ -81,10 +80,10 @@ async function runBatch(files: string[], sources: Map<string, string>, helperSou
   if (!files.length) return result;
   const project = await projectCompilerOptions(options.root, files[0]!);
   const ghc = project.ghcPath ?? options.ghcPath ?? 'ghc';
-  const key = JSON.stringify([ghc, helperSource, options.cacheDir]);
-  let ready = helpers.get(key);
-  if (!ready) { ready = helper(helperSource, { ...options, ghcPath: ghc }); helpers.set(key, ready); }
-  const { binary, libdir } = await ready;
+  // helper owns the content/compiler-keyed disk cache and concurrent builds.
+  // Caching its promise by path here retained failed builds and old source for
+  // the editor's lifetime, even after the audit invalidated that input.
+  const { binary, libdir } = await helper(helperSource, { ...options, ghcPath: ghc });
   const include = [options.root, ...['src', 'app', 'test', 'tests'].map(p => path.join(options.root, p))].map(p => '-i' + p);
   const run = async (batch: string[]): Promise<void> => {
     try {

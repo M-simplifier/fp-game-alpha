@@ -21,7 +21,7 @@ encodeWorld world =
 
 decodeWorld :: String -> Either SaveError World
 decodeWorld input
-  | length input > 4096 = Left SaveTooLarge
+  | length (take 4097 input) > 4096 = Left SaveTooLarge
   | otherwise = case words input of
       ["FP-GAME-SAVE", "1", column, row, turns, won] -> do
         x <- parse SavedColumn column
