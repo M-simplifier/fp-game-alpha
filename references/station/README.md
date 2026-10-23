@@ -54,8 +54,8 @@ The domain source and per-title MIT notice were selected from the author's
 technical snapshot `5335bb14f9ca644fbdc62a00be892f33ad590ba6` with
 original digests in the publication manifest. This edition adds the
 Step/Arena adapter, finite tests, API compiler fixtures and reading path. It
-does not include private Git history, artwork, a host or the unfinished save
-and UI files.
+includes the headless host. It does not include private Git history, artwork,
+a graphical host or the unfinished save and UI files.
 
 For this command, [bootstrap the native CLI](../../docs/native-tooling.md) once
 from the foundation root. On Windows use `./.build/tools/fp-game.exe test`;

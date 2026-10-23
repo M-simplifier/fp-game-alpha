@@ -852,7 +852,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "bfc7e4fab130c69b6e782682219bb1423077e7646eace7d2ab2f0a0f78edab72"
+   "sha256_lf": "1023be41b89c4bd9d7db7adf3b19a2f3dde1450893575e97199873098dec7e9f"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -1464,7 +1464,7 @@
   },
   {
    "path": "references/paper-circuit/README.md",
-   "sha256_lf": "8c80a6275da41623e741eaa8fa5338b02adbff50916a237f35d9188e085cf9af"
+   "sha256_lf": "8cf29671cfc30426f886753be35cba9e0ad772ec47d2ac20acd92d8d7051f631"
   },
   {
    "path": "references/paper-circuit/app/Browser.hs",
@@ -2148,7 +2148,7 @@
   },
   {
    "path": "references/red-dune/FOUNDATION-MANIFEST.json",
-   "sha256_lf": "6c2b1e6d50d6b434fb4ee7bd5f5b603865384c33b772d1ef673234359cce9341"
+   "sha256_lf": "5ad0f3d0c538ccb30cbe978667483c06d58567f684b335a1c109b00141e03781"
   },
   {
    "path": "references/red-dune/FOUNDATION-TESTED2487-MANIFEST.json",
@@ -2160,11 +2160,11 @@
   },
   {
    "path": "references/red-dune/PROVENANCE.md",
-   "sha256_lf": "32f1bba159b1cd4a612bbd834ceb8a59c64ac808020ccaf906d57455e391c7e7"
+   "sha256_lf": "7eb21b43994d69ec568a50cdfc31e54994b7e2b612d22e7aebf078740aa21e69"
   },
   {
    "path": "references/red-dune/README.md",
-   "sha256_lf": "da07d0daa0370bebf3aab1f85ba48124b85149401f7b879c1733b688ad889bd1"
+   "sha256_lf": "5733ed51eda24f49d7f4350425b2b41e41c2c1b1b7a7c37a405b4e55e2238eeb"
   },
   {
    "path": "references/red-dune/RESTORE-MANIFEST.json",
@@ -3192,7 +3192,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "ed16d905495b408500adf2867c33f9d4563891a41754fc7698df26910226082b"
+   "sha256_lf": "0b81231bdce2a8edbdc6744fbe28d70ca23dc871fc515515a03dbfa0a41566ec"
   },
   {
    "path": "references/station/app/HeadlessMain.hs",
