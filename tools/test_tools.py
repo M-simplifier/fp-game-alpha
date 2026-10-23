@@ -307,7 +307,7 @@ class CompilerContract(unittest.TestCase):
 
     def test_empty_and_declared_source_directories_remain_valid(self):
         with tempfile.TemporaryDirectory() as directory:
-            project = Path(directory)
+            project = Path(directory).resolve()
             (project / 'src').mkdir()
             for names, expected in [([], []), (['missing'], []), (['src'], [project / 'src'])]:
                 (project / 'fp-game.json').write_text(json.dumps({'source_dirs': names}))
