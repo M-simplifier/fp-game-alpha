@@ -864,7 +864,7 @@
   },
   {
    "path": "references/afterlight/README.md",
-   "sha256_lf": "3aaca05e9d47e3bdcbebbf3d54c7b151d0554902decbdf8a5922df41f9a158aa"
+   "sha256_lf": "df75d5aee92a852268ed3988df5f9df0868756cfa3690cb6b41fd7a403056c14"
   },
   {
    "path": "references/afterlight/THIRD-PARTY.md",
@@ -872,7 +872,7 @@
   },
   {
    "path": "references/afterlight/afterlight-arena.cabal",
-   "sha256_lf": "60c104de34ea33cb7048e813e05015852cee34150e421baf96453e3fb614f70d"
+   "sha256_lf": "752144a70149d12a9b1c10965ac6abd14a3cb6fd368251cd68b98841bb66a3a7"
   },
   {
    "path": "references/afterlight/assets/shaders/bloom.fs",
@@ -911,6 +911,10 @@
    "sha256_lf": "9a12d8068c391d6301fb1054a561b8f2bdfd21c9401a9a6eee70a1d19255467d"
   },
   {
+   "path": "references/afterlight/docs/FRAME-BOUNDARY-MANIFEST.json",
+   "sha256_lf": "ec09fc7841d67aaf4747631fd07a386d0d9ce5bdd2dfc346b30fcd4c0cffd90d"
+  },
+  {
    "path": "references/afterlight/docs/READABILITY-REFACTOR-MANIFEST.json",
    "sha256_lf": "33f94ad016b295ebfb1f0c0e18fa1b606796fc8afba3e73479fab1439812122d"
   },
@@ -940,7 +944,7 @@
   },
   {
    "path": "references/afterlight/docs/qa/SOURCE-AUDIT.json",
-   "sha256_lf": "8bbc59b07808afbc90100b92af8c7d9e0f54f8b601e86265541537361d8261cf"
+   "sha256_lf": "933bd687409c1e3d4544d941001aee0fce9e5395bea791c371d78550826867af"
   },
   {
    "path": "references/afterlight/docs/rendering.md",
@@ -976,19 +980,23 @@
   },
   {
    "path": "references/afterlight/runtime/Garden/Runtime.hs",
-   "sha256_lf": "b499fe04dc34e60627c4adbdfd773a88920c3dc47f47e9109e089a492392641e"
+   "sha256_lf": "98ccb24fccbb7180ac7d8b6942833c7e90c96ff16d6e7e3bf3a8394b7a9ca21e"
+  },
+  {
+   "path": "references/afterlight/runtime/Garden/Runtime/Control.hs",
+   "sha256_lf": "355141f030bc242b5a5b9379896675ac7f4a1dcf993d2c702aa310983207c22a"
   },
   {
    "path": "references/afterlight/scripts/audit-source.py",
-   "sha256_lf": "1a4940c62785c1a89726d5f6fe8e1d5d91279c576b239faaa9d70d3a94b48bd1"
+   "sha256_lf": "fe0a46c8c62fe728dae42f67d24c1de5d0a2c36863049090841ca2674a195155"
   },
   {
    "path": "references/afterlight/scripts/check-core.py",
-   "sha256_lf": "57c28d25cb355a1a2be76dd0a4ee1597e3ad331b0197ac1dd265dd040f4c3856"
+   "sha256_lf": "c100305ee719d29e367b3efea9c7d18160f188d945da3a8ca006606e4fd1bffb"
   },
   {
    "path": "references/afterlight/scripts/check-cpp-format.py",
-   "sha256_lf": "a102224d272690b20967f7d2ec8b14d2c7259829dd3fbb164d57eef054316433"
+   "sha256_lf": "60d6afb5125635c8cca0c77dcdc7d369b8c7c14de723a23330f42ace960903f9"
   },
   {
    "path": "references/afterlight/scripts/contact-sheet.ps1",
@@ -1012,15 +1020,19 @@
   },
   {
    "path": "references/afterlight/scripts/test-audit-source.py",
-   "sha256_lf": "3b92355001fd44614474e6dff362e0e9712a80c9e101b9fb2e796b5d29a42664"
+   "sha256_lf": "5763e03d87aa2276fcf97c99419bfb3f8acdd28960c119d8e2162d973a02ad29"
   },
   {
    "path": "references/afterlight/scripts/test-check-core.py",
-   "sha256_lf": "f66ca58b6903a6240a75a7bcdf3f64549df4b0f3eeeb5768fb9dac53674f389e"
+   "sha256_lf": "2b6df3417cc9e0018bdf52595e6c782bc23ee88851cb4b7df0ddee0e204534db"
   },
   {
    "path": "references/afterlight/scripts/test-cpp-format.py",
-   "sha256_lf": "1cfbb1fba093e0e54cc83a58136ad694f38e672a8974bd0877610e7d248ed825"
+   "sha256_lf": "fd983600c63a08bf7d6900feb7cf757a5dfa8b2f7abaced6704461443aba3b7d"
+  },
+  {
+   "path": "references/afterlight/scripts/test-session-api.py",
+   "sha256_lf": "2d5abab429a319c3bc501a280476c0f29c74628162aea7e1acdf29a5a74b774c"
   },
   {
    "path": "references/afterlight/src/Garden/Arena.hs",
@@ -1040,7 +1052,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Clock.hs",
-   "sha256_lf": "7631bb20a6c2501200e6d18bf1d9a59f540f7a09a455c216a6fc99270e2ffd22"
+   "sha256_lf": "1b1d274780130cfec392a79f6b0bfa3674008128ad8a6deaead8373d8cee34bb"
   },
   {
    "path": "references/afterlight/src/Garden/Host/Control.hs",
@@ -1080,7 +1092,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Session.hs",
-   "sha256_lf": "8b72256b538d47ec172265df853333f164cb57a856e761a0de13717bfab3ec97"
+   "sha256_lf": "b79455b0f7425052ada1232900bc5b2ac8f069bcf6d91f3a489c7996455ce7b7"
   },
   {
    "path": "references/afterlight/src/Garden/Signal.hs",
@@ -1107,12 +1119,28 @@
    "sha256_lf": "b4aec9af04d9f29e0f66c473175dbb46c0291dcb75cdbdd6a4b976e413530952"
   },
   {
+   "path": "references/afterlight/test/FrameBoundaries.hs",
+   "sha256_lf": "e0b237ab51f2296cb4b01c406b87514eae6cbfe1c86ee9c5977ae56e6b9ffb52"
+  },
+  {
    "path": "references/afterlight/test/Parity.hs",
    "sha256_lf": "d00db2a503b821eb374b321b0045443f92fd694be0de9ca946e5dafe1f8128f7"
   },
   {
    "path": "references/afterlight/test/TerrainEquality.hs",
    "sha256_lf": "a65dd3da71ce4a542d6b47d5f9e934fd540752e1a9d12be214929eb3b98ca884"
+  },
+  {
+   "path": "references/afterlight/test/api/PilotUpdate.hs",
+   "sha256_lf": "a3897ea842a00cbfd9087f4c161c9cdc73ab403479fc03439e4fc03260f8904b"
+  },
+  {
+   "path": "references/afterlight/test/api/SessionRead.hs",
+   "sha256_lf": "c3c98b5001bce20f222135872eae1c925f0f94c96603110e855a0317d68a8b58"
+  },
+  {
+   "path": "references/afterlight/test/api/WorldUpdate.hs",
+   "sha256_lf": "55286ee9443d4e7c61a999aeeedbe6299b90b4ee46ced6b84fe32e8c7092f080"
   },
   {
    "path": "references/afterlight/test/oracle/Original/Garden/Change.hs",
@@ -3244,7 +3272,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "a9cb2336a373bb7f569c4d6b98fc9781e1114d52e76f2ac264a84dba10d3cb34"
+   "sha256_lf": "598ade40290bb8667b9ff6cad4d9011a6afa34d36c9892936e2d4eb9a258ef56"
   },
   {
    "path": "references/station/app/HeadlessMain.hs",

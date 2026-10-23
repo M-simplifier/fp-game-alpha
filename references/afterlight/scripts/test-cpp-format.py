@@ -1,5 +1,6 @@
 """Fail-closed boundary and reproducibility tests; uses the pinned formatter."""
 import importlib.util
+import hashlib
 import json
 import os
 import tempfile
@@ -121,6 +122,77 @@ class CPPFormatting(unittest.TestCase):
                          cpp_format.canonical(changed, False, executable))
         self.assertNotEqual(cpp_format.canonical(formatted, True, executable),
                             cpp_format.canonical(changed, True, executable))
+
+    def test_runtime_successor_does_not_rewrite_format_history(self):
+        executable = cpp_format.formatter.verified(cpp_format.FOUNDATION)
+        original = '{- ORMOLU_DISABLE -}\nf :: IO Int\nf = do\n#if defined(wasm32_HOST_ARCH)\n  let x = 1\n#else\n  let x = 2\n#endif\n  pure x\n\n{- ORMOLU_ENABLE -}\n'
+        revised = original.replace('let x = 1', 'let x=3')
+        name = cpp_format.RUNTIME
+        historical = [dict(path=name, configuration='wasm' if wasm else 'native',
+                           normalized_preprocessed_sha256=cpp_format.sha(cpp_format.canonical(original, wasm, executable)),
+                           same=True) for wasm in (False, True)]
+        revisions = [dict(path=name, configuration=row['configuration'],
+                          previous_sha256=row['normalized_preprocessed_sha256'],
+                          current_sha256=cpp_format.sha(cpp_format.canonical(revised, row['configuration'] == 'wasm', executable)))
+                     for row in historical]
+        predecessor = hashlib.sha256(original.encode()).hexdigest()
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            path = root / name
+            path.parent.mkdir(parents=True)
+            path.write_text(revised)
+            (root / 'docs').mkdir()
+            format_path = root / 'docs/FORMAT-MANIFEST.json'
+            format_path.write_text(json.dumps(dict(files=[dict(path=name, formatted_sha256=predecessor)],
+                                                   cpp_normalized_comparison=historical)))
+            revision_path = root / cpp_format.FRAME_MANIFEST
+            revision_path.write_text(json.dumps(dict(schema=1, kind='reviewed-frame-boundaries',
+                                                     files=[dict(path=name, previous_sha256=predecessor, current_sha256='0' * 64)],
+                                                     cpp_normalized_comparison=revisions)))
+            before = format_path.read_bytes()
+            with patch.object(cpp_format, 'ROOT', root), patch.object(cpp_format, 'DECLARATIONS', {name: ['f']}), \
+                    patch.object(cpp_format.sys, 'argv', ['check-cpp-format.py', '--write']):
+                cpp_format.main()
+            self.assertEqual(format_path.read_bytes(), before)
+            self.assertIn('let x = 3', path.read_text())
+            current = json.loads(revision_path.read_text())['files'][0]['current_sha256']
+            self.assertEqual(current, hashlib.sha256(path.read_bytes()).hexdigest())
+            # A new token change cannot be relocked by --write.
+            changed = path.read_text().replace('let x = 3', 'let x = 4')
+            path.write_text(changed)
+            before_revision = revision_path.read_bytes()
+            with patch.object(cpp_format, 'ROOT', root), patch.object(cpp_format, 'DECLARATIONS', {name: ['f']}), \
+                    patch.object(cpp_format.sys, 'argv', ['check-cpp-format.py', '--write']), \
+                    self.assertRaisesRegex(ValueError, 'refusing to relock semantic drift'):
+                cpp_format.main()
+            self.assertEqual(path.read_text(), changed)
+            self.assertEqual(format_path.read_bytes(), before)
+            self.assertEqual(revision_path.read_bytes(), before_revision)
+
+    def test_runtime_successor_rejects_changed_scope_and_predecessor(self):
+        manifest = dict(files=[dict(path=cpp_format.RUNTIME, formatted_sha256='1' * 64)],
+                        cpp_normalized_comparison=[dict(path=cpp_format.RUNTIME, configuration=c,
+                                                       normalized_preprocessed_sha256='2' * 64, same=True)
+                                                   for c in ('native', 'wasm')])
+        revision = dict(schema=1, kind='reviewed-frame-boundaries',
+                        files=[dict(path=cpp_format.RUNTIME, previous_sha256='1' * 64)],
+                        cpp_normalized_comparison=[dict(path=cpp_format.RUNTIME, configuration=c,
+                                                       previous_sha256='2' * 64, current_sha256='3' * 64)
+                                                   for c in ('native', 'wasm')])
+        mutations = [
+            lambda v: v.update(kind='generic-exemption'),
+            lambda v: v['files'][0].update(previous_sha256='4' * 64),
+            lambda v: v['files'].append(dict(v['files'][0])),
+            lambda v: v['cpp_normalized_comparison'][0].update(previous_sha256='4' * 64),
+            lambda v: v['cpp_normalized_comparison'][0].update(path='runtime/Garden/Render.hs'),
+            lambda v: v['cpp_normalized_comparison'][0].update(current_sha256='bad'),
+            lambda v: v['cpp_normalized_comparison'].append(dict(v['cpp_normalized_comparison'][0])),
+        ]
+        for mutate in mutations:
+            value = json.loads(json.dumps(revision))
+            mutate(value)
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                cpp_format.reviewed_comparisons(manifest, value)
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ score selects one of three endings. Start with `initialGame`, read
 delivery leaves 7 energy, 3 tickets and 1 delivered feeling. Reusing that
 same turn token is a `StaleTurn` error and does not advance state.
 
-The [beginner lesson](../../site/learn.html) follows this delivery through the
+The [beginner lesson](https://m-simplifier.github.io/fp-game-alpha/learn.html) follows this delivery through the
 actual types, rule and caller. For changes, start at
 [Station.Domain](src/Station/Domain.hs). `Stats` is a public record used for
 presentation. Constructing or updating a `Stats` value cannot update a
@@ -17,8 +17,7 @@ be replayed. `step` checks the current token and available resources at each
 attempt. A private constructor alone is not a freshness proof.
 
 [Station.Adapter](src/Station/Adapter.hs) wraps the original rule in `Step` and
-`Machine`. A
-`Dispatch` pairs a turn token and choice as one input. On a domain error,
+`Machine`. A `Dispatch` pairs a turn token and choice as one input. On a domain error,
 `stationStep` preserves the old state and emits `Refused`; on success it
 emits `Accepted` with resulting resources. `StationArena` requires one
 `LocalClerk` submission and projects a disposable `StationView`. An empty
