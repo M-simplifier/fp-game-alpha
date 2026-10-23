@@ -213,12 +213,15 @@ Haskell guide that broke when copied into an independent generated game.
 That link was removed; River's README still links to this report. The final
 check covers both foundation documents and the generated-game copy.
 
-The [runner](compare_river.py) retrieves five source modules from the fixed
-public baseline with `git show` and compiles the same
+The current [runner](compare_river.py) retrieves the fixed public baseline's
+Haskell sources under River, game-transition and game-arena's source roots,
+including any private modules introduced by that revision, and compiles the same
 [consumer](RiverProbe.hs) against them and current working sources. It uses
 only Git, GHC and Python's standard library, writes temporary build artifacts
 under ignored `.build/river-readability/`, and removes those artifacts on exit.
 The baseline supplies expected output; the refactor does not regenerate an oracle.
+The historical runs above needed five modules; the current selection follows
+the baseline's Git tree so later module splits remain comparable.
 
 The finite comparison covers five initial/authored scenes, 42 individual
 commands per scene, successful/repeated construction and removal traces,

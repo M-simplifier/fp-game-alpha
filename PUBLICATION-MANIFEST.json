@@ -56,7 +56,7 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "720c5c39770d0e1da5de0ec5a95cf0500539531a08b7e065a5f3a88a33e0b77a"
+   "sha256_lf": "6591df7f76cb9a92a94cbf8f3735750c5c0441bb30a9cafd2626828e10b31a11"
   },
   {
    "path": ".github/workflows/formal-research-contracts.yml",
@@ -316,7 +316,7 @@
   },
   {
    "path": "docs/tooling.md",
-   "sha256_lf": "46ddae904775be262a6d7fd4967ad5a63e80a559d68c961d998affa48f758adb"
+   "sha256_lf": "f15a43084cf20c1e9bc153aadca9172feb6f0a4e1226ac0ea7bb62eebe6a8222"
   },
   {
    "path": "docs/verification.md",
@@ -4648,7 +4648,7 @@
   },
   {
    "path": "research/live-tuning/README.md",
-   "sha256_lf": "e4e89bd51d8065eade6d383b33efab9fc6e1a8234feeecf4a08f597974aea1ea"
+   "sha256_lf": "141ddce0fd2d47932aaa8b47da761d6df9f74317e7ea4b64652a0e3b31408e06"
   },
   {
    "path": "research/live-tuning/Tests.hs",
@@ -4656,11 +4656,11 @@
   },
   {
    "path": "research/live-tuning/bench.py",
-   "sha256_lf": "2853b8e998196cd1c167647f5ab3ed7f6913ca40fb9d94668321715fa9a5bbfd"
+   "sha256_lf": "d3b093d4a41456c7e0cec0cc231a27ad67710f54da4f612a7446642ebb9505d4"
   },
   {
    "path": "research/live-tuning/check.py",
-   "sha256_lf": "8b0ed2b4818fc37f966bf42a81b8df21129bb0a96248a0b0d16f2071d2be033e"
+   "sha256_lf": "228c77f4baf3c06c1ea861b35cf5bcf17dc4d8fbd0d0f13aef4e3850bac9f862"
   },
   {
    "path": "research/live-tuning/measurements.json",
@@ -4669,6 +4669,10 @@
   {
    "path": "research/live-tuning/rules.txt",
    "sha256_lf": "1d6e9ec2ee71e8b35843ee5f9948eef96994c3a4b86c30395d8838aa47dc8eef"
+  },
+  {
+   "path": "research/live-tuning/test_runner.py",
+   "sha256_lf": "2b3456f231cdab66e66b8f92384d3bb4261daa481d2dafd5652299eb7b30c46a"
   },
   {
    "path": "research/public-page/README.ja.md",
@@ -4888,7 +4892,7 @@
   },
   {
    "path": "research/readability/compare_river.py",
-   "sha256_lf": "d6eeda4a9b9c77bac5593000e9231a16ba0dd9fceb0815b91c8f9be73d2fecc1"
+   "sha256_lf": "66fc7cf45e5abcd1c9231907ba79a2f43c25445daa81f9677adedc6a8a857fac"
   },
   {
    "path": "research/readability/compare_station.py",
@@ -4900,11 +4904,15 @@
   },
   {
    "path": "research/readability/river-refactor.md",
-   "sha256_lf": "ae439fd670d92771282b9eb630de66269b7f25ae9e7c9484b282d921093fd87a"
+   "sha256_lf": "1fe8c516c9376af45db705ff15f91dcc9b42275fdc4ae96292f5b1fab6e7a3b3"
   },
   {
    "path": "research/readability/station-refactor.md",
    "sha256_lf": "b5644afba4741052f25ac58589962250711fa81cada0becc103d5db916d43c3a"
+  },
+  {
+   "path": "research/readability/test_compare_river.py",
+   "sha256_lf": "f1fd17b228b90a64df99fafaa61d416ab1d622bd0992c1578019b987cd04759f"
   },
   {
    "path": "research/save-lifecycle/README.ja.md",
@@ -5760,7 +5768,7 @@
   },
   {
    "path": "tools/inspect_haskell.py",
-   "sha256_lf": "b6464cfb323a4d67a23b206f73a3e453d0b056456f392de4db97d74be8c235e0"
+   "sha256_lf": "0ddcff51962b32204fc0a9998d5a45a2149ad9490b6515e444c24b0ea4e2e9bd"
   },
   {
    "path": "tools/play.py",
@@ -5768,7 +5776,7 @@
   },
   {
    "path": "tools/publication.py",
-   "sha256_lf": "65ac025af72260ade1ca9c6f8edd680dad8188d9aabd62aaeec0cdd70906bb77"
+   "sha256_lf": "3bffabb0e25cd82680a636e3bb585eb76cba38e8cd85c7b4b2d2a0cc5546e7fd"
   },
   {
    "path": "tools/test_editors.py",
@@ -5808,7 +5816,7 @@
   },
   {
    "path": "tools/test_tools.py",
-   "sha256_lf": "4b1326a2a17f2befee6b1f7eb69511cb5a2fa0fe7e304b5623897a2910d05080"
+   "sha256_lf": "deb6fe7fed557ae9ad84138b5037a80c8fcf529cb986aaa3ff4324031b13ddde"
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",

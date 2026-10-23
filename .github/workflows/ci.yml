@@ -90,7 +90,10 @@ jobs:
       - if: runner.os == 'Linux'
         name: Check bounded live-tuning semantics (no performance gate)
         timeout-minutes: 2
-        run: python research/live-tuning/check.py
+        run: |
+          python -m unittest discover -s research/readability -p 'test_*.py' -v
+          python -m unittest discover -s research/live-tuning -p 'test_*.py' -v
+          python research/live-tuning/check.py
 
   native-tooling:
     # One native dependency bootstrap per OS; its moved generated-doc,

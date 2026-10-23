@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import tempfile
 import subprocess
+import shutil
+import sys
 from unittest.mock import patch
 
 import unittest
@@ -109,6 +111,33 @@ class PublicationGate(unittest.TestCase):
         result, report, _ = self.inspect()
         self.assertEqual(result, 1)
         self.assertEqual(report['problems'][0]['stale'], ['source.txt'])
+
+    def test_cli_report_paths_preserve_the_actual_verdict(self):
+        script = self.root / 'tools/publication.py'
+        script.parent.mkdir()
+        shutil.copyfile(publication.__file__, script)
+        self.snapshot()
+        with tempfile.TemporaryDirectory(prefix='external-report-') as external:
+            for name in ['.build/relative report.json',
+                         str(self.root / '.build/absolute report.json'),
+                         str(Path(external) / 'outside source.json')]:
+                for changed in [False, True]:
+                    with self.subTest(report=name, changed=changed):
+                        (self.root / 'source.txt').write_text(
+                            'Changed source\n' if changed else 'Selected legacy source\n')
+                        result = subprocess.run([sys.executable, str(script), 'check', '--report', name],
+                                                cwd=self.root, capture_output=True, text=True)
+                        report = json.loads((self.root / name).read_text())
+                        self.assertEqual(result.returncode, int(changed), result.stderr)
+                        self.assertEqual(report['status'], 'FAIL' if changed else 'PASS')
+                        self.assertIn('export gate: ' + report['status'], result.stdout)
+                        self.assertEqual(result.stderr, '')
+
+    def test_unwritable_report_does_not_claim_a_pass(self):
+        destination = self.root / '.build/report.json'
+        destination.mkdir(parents=True)
+        with self.assertRaises(OSError), contextlib.redirect_stdout(io.StringIO()):
+            publication.gate(destination)
 
     def test_source_hash_tampering_and_lf_normalization(self):
         (self.root / 'source.txt').write_bytes(b'Selected legacy source\r\n')
@@ -258,6 +287,35 @@ class PublicationGate(unittest.TestCase):
 
 
 class CompilerContract(unittest.TestCase):
+    def test_malformed_source_config_is_a_json_diagnostic(self):
+        with tempfile.TemporaryDirectory(prefix='inspect-config-') as directory:
+            project = Path(directory)
+            (project / 'Tiny.hs').write_text('module Tiny where\ntwice = (2 :: Integer)\n')
+            for value in [None, [], 7, {'source_dirs': None}, {'source_dirs': 'src'},
+                          {'source_dirs': {'src': True}}, {'source_dirs': [1]},
+                          {'source_dirs': [None]}, {'source_dirs': [['src']]}]:
+                with self.subTest(value=value):
+                    (project / 'fp-game.json').write_text(json.dumps(value))
+                    result = subprocess.run([sys.executable, inspect_haskell.__file__, 'inspect',
+                                             '--project', str(project), 'Tiny.hs', '--json'],
+                                            capture_output=True, text=True, encoding='utf-8')
+                    diagnostic = json.loads(result.stdout)
+                    self.assertEqual(result.returncode, 1)
+                    self.assertEqual(diagnostic['status'], 'error')
+                    self.assertIn('fp-game.json', diagnostic['stderr'])
+                    self.assertEqual(result.stderr, '')
+
+    def test_empty_and_declared_source_directories_remain_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory).resolve()
+            (project / 'src').mkdir()
+            for names, expected in [([], []), (['missing'], []), (['src'], [project / 'src'])]:
+                (project / 'fp-game.json').write_text(json.dumps({'source_dirs': names}))
+                self.assertEqual(inspect_haskell.source_dirs(project), expected)
+            (project / 'fp-game.json').write_text(json.dumps({'source_dirs': ['../outside']}))
+            with self.assertRaisesRegex(ValueError, 'remain inside'):
+                inspect_haskell.source_dirs(project)
+
     def test_module_type_missing_symbol_and_invalid_source(self):
         state = inspect_haskell.ROOT / '.build'
         state.mkdir(exist_ok=True)

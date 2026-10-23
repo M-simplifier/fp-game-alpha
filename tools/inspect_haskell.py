@@ -30,7 +30,12 @@ def execute(command, project, timeout=180, input_text=None):
 def source_dirs(project):
     config = project / 'fp-game.json'
     if config.exists():
-        names = json.loads(config.read_text(encoding='utf-8'))['source_dirs']
+        value = json.loads(config.read_text(encoding='utf-8'))
+        if not isinstance(value, dict):
+            raise ValueError('fp-game.json must be a JSON object.')
+        names = value['source_dirs']
+        if not isinstance(names, list) or any(not isinstance(name, str) for name in names):
+            raise ValueError('fp-game.json source_dirs must be an array of strings.')
     else:
         names = ['libraries/game-transition/src', 'libraries/game-arena/src',
                  'references/lantern/src', 'references/garden/src',

@@ -1,7 +1,8 @@
 """Compare the same River consumer against a public baseline and current sources.
 
-Requires the repository's existing GHC and Git. Builds only the five imported
-modules and the probe, using a temporary directory under ignored .build/.
+Requires the repository's existing GHC and Git. Fetches the baseline's Haskell
+sources from the three owned source roots, then builds the probe's imports
+using a temporary directory under ignored .build/.
 The baseline supplies the expected bytes; no new golden expectations are made.
 """
 
@@ -16,13 +17,6 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
 PROBE = ROOT / 'research/readability/RiverProbe.hs'
-SOURCES = [
-    'references/river/src/Life/Domain.hs',
-    'references/river/src/Life/Clock.hs',
-    'references/river/src/Life/Adapter.hs',
-    'libraries/game-transition/src/Game/Transition.hs',
-    'libraries/game-arena/src/Game/Arena.hs',
-]
 SOURCE_ROOTS = [
     'references/river/src', 'libraries/game-transition/src',
     'libraries/game-arena/src',
@@ -47,6 +41,21 @@ def compile_probe(ghc, sources, output):
     return binary
 
 
+def copy_baseline(revision, destination):
+    # Module boundaries may change between revisions. Let the selected Git tree
+    # supply its own private imports rather than maintaining a second module map.
+    names = run(['git', 'ls-tree', '-r', '--name-only', '-z', revision, '--',
+                 *SOURCE_ROOTS]).decode('utf-8').split('\0')
+    sources = sorted(name for name in names if name.endswith('.hs'))
+    if not sources:
+        raise RuntimeError('Baseline has no Haskell sources in the comparison roots')
+    for name in sources:
+        path = destination / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(run(['git', 'show', revision + ':' + name]))
+    return sources
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('baseline', help='public Git commit/ref; history is never changed')
@@ -60,10 +69,7 @@ def main():
     with tempfile.TemporaryDirectory(dir=state) as temporary:
         work = Path(temporary)
         original = work / 'baseline'
-        for name in SOURCES:
-            path = original / name
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(run(['git', 'show', baseline + ':' + name]))
+        copy_baseline(baseline, original)
         before = run([str(compile_probe(ghc, original, work / 'before'))])
         after = run([str(compile_probe(ghc, ROOT, work / 'after'))])
     if before != after:
