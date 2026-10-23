@@ -44,8 +44,7 @@ jobs:
       - name: Check Windows physical play and immutable saves
         shell: pwsh
         run: |
-          $binary = (cabal list-bin --project-file=cabal.project.red-dune-native test:live-native --enable-tests).Trim()
-          & $binary (Join-Path $env:RUNNER_TEMP ('red-dune-' + [guid]::NewGuid()))
+          cabal test --project-file=cabal.project.red-dune-native --enable-tests live-native --test-show-details=direct
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cabal exec --project-file=cabal.project.red-dune-native -- python references/red-dune-live/test/check_native_api.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

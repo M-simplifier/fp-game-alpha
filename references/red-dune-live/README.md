@@ -40,7 +40,7 @@ new paused branch. `RED_DUNE_NATIVE_STORE` and `--store` select a separate store
 The Windows consumer checks use a fresh temporary store by default:
 
 ```powershell
-cabal test --project-file=cabal.project.red-dune-native live-native --test-show-details=direct
+cabal test --project-file=cabal.project.red-dune-native --enable-tests live-native --test-show-details=direct
 cabal exec --project-file=cabal.project.red-dune-native -- python references/red-dune-live/test/check_native_api.py
 ```
 

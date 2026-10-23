@@ -68,7 +68,7 @@
   },
   {
    "path": ".github/workflows/red-dune-live.yml",
-   "sha256_lf": "539de157ad033dc32f1e612174048184a3653b22e9f6bbc56d76f79d9fbf529d"
+   "sha256_lf": "6fb83af9db579eb276c4acbcc6b5e8f3a9f4d4b728ba4b8378cf30e23180e58e"
   },
   {
    "path": ".gitignore",
@@ -1692,7 +1692,7 @@
   },
   {
    "path": "references/red-dune-live/README.md",
-   "sha256_lf": "63b557a82e7c11f6ecc06808b2445cb3de84f931e4abf958102c871a4654ba7b"
+   "sha256_lf": "a5d0749b2e29e4385d3d45ea3d80289a8b21365e3de8666c39104ea205b21531"
   },
   {
    "path": "references/red-dune-live/app/HostMain.hs",
