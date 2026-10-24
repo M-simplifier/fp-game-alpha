@@ -1,7 +1,7 @@
 # Continue Paper Circuit
 
 Start with [the game brief](../GAME-SPEC.md), [commands and limits](../README.md)
-and [recorded checks](../CHECKS.json). This directory is an independent game:
+and [current verification](../../../CURRENT-VERIFICATION.md). This directory is an independent game:
 its vendored core and Cabal project do not require the parent foundation clone.
 Do not regenerate it to make a feature change.
 

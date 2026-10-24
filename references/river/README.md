@@ -63,7 +63,7 @@ selected from the author's technical snapshot
 records original digests; only explanatory Haddock was added to the domain
 rules in the initial selection. This edition also uses pinned formatting,
 named private `Game` field construction and explicit overnight state values;
-the [readability report](../../research/readability/river-refactor.md) records
+the [readability report](../../docs/learn-code.md) records
 the behavior comparison and its limits. It adds the named-view adapter,
 executable focused checks and a reading path. It includes no private Git
 history, binary, artwork, font, or graphical host.

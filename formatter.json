@@ -16,23 +16,17 @@
     "editors/haskell-design/native/app",
     "editors/haskell-design/native/src",
     "editors/haskell-design/compiler",
-    "research/live-tuning",
     "references/signal-courier/src",
     "references/signal-courier/app",
     "references/signal-courier/test",
-    "references/red-dune-live/core",
-    "references/red-dune-live/devloop",
-    "references/red-dune-live/dev",
-    "references/red-dune-live/src",
-    "references/red-dune-live/app",
-    "references/red-dune-live/test",
-    "references/red-dune-live/native",
+    "references/red-dune/core",
+    "references/red-dune/devloop",
+    "references/red-dune/dev",
+    "references/red-dune/src",
+    "references/red-dune/app",
+    "references/red-dune/test",
+    "references/red-dune/native",
     "tools/haskell"
   ],
-  "preserved_source_roots": [
-    {
-      "path": "references/red-dune",
-      "reason": "Exact historical payload, deliberately outside source_roots; see docs/red-dune.md. Not Ormolu-normalized or readability-qualified."
-    }
-  ]
+  "preserved_source_roots": []
 }

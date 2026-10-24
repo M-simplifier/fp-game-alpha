@@ -65,7 +65,7 @@ AIへ渡す設計手順の価値を、自分の企画に結び付けやすい。
 | 前の手番の再送で次の依頼を進めない | [Station入力処理](../../references/station/app/HeadlessMain.hs)、[Domain](../../references/station/src/Station/Domain.hs)、[公開用実行記録](../../site/evidence/station-trace.json) | 記録の拒否は入力プロトコルの照合。Domainの古いTurnId拒否は別の検査。全UIの二重操作や保存競合を保証しない |
 | 失敗した操作では旧状態を保つ | [Station Adapter](../../references/station/src/Station/Adapter.hs) | 純粋コアの状態と、ホストが行う描画・保存の成功を区別する |
 | 外から状態を直接書き換えさせない | [Lantern](../../references/lantern/src/Lantern.hs)、[外部利用者のコンパイル検査](../../tools/test_lantern_api.py) | 正常な利用がコンパイルできた後、意図した診断で負例が拒否されることを確認する。内部コードやunsafe操作の全般まで証明しない |
-| 異なる資源の量を型で区別する | [Quantity](../quantity/README.md) | 型の区別、値の範囲、有限検査、過去のLiquidHaskell検査は別々の根拠 |
+| 異なる資源の量を型で区別する | [Quantity](../../tools/quantity/README.md) | 型の区別、値の範囲、有限検査、過去のLiquidHaskell検査は別々の根拠 |
 | 作った後も作品を変更する | [Paper Circuit](../../references/paper-circuit/README.md)のUndo追加と読みやすさ改善 | 実ブラウザの操作確認が未完了であることを作品紹介の近くに表示 |
 | 純粋なルールを実際の画面と音へつなぐ | [Afterlightの日本語ガイド](https://m-simplifier.github.io/garden-of-afterlight/guide/) | 別作品の画面だけで、新作導入経路の受入れや全端末対応を示したことにしない |
 

@@ -41,6 +41,6 @@ GHCによる型推論とIO表示は、信頼したプロジェクトでGHC 9.6.x
 `Pure` は対応範囲でIOが見つからなかったという表示です。純粋性の証明や依存ライブラリ内部の監査ではありません。
 [表示・キャッシュ・IO判定の契約](docs/automatic-design.md)に、未保存の編集や解析失敗時の扱いを記載しています。
 
-[移植元と公開alphaの検証範囲](PORTING.md)、[旧版の検証記録](docs/verification.md)、
+[移植元と公開alphaの検証範囲](PORTING.md)、[current verification](../../CURRENT-VERIFICATION.md)、
 [ネイティブ化の理由と測定](docs/native.md)はそれぞれ分けて記録しています。
 元のMIT表記と[依存物の通知](THIRD_PARTY_NOTICES.md)を保持してください。

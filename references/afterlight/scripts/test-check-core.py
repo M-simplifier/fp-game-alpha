@@ -49,7 +49,7 @@ class CacheBoundary(unittest.TestCase):
         if calls:
             command = run.call_args_list[0].args[0]
             self.assertEqual([arg for arg in command if arg.startswith('afterlight-arena:')],
-                             ['afterlight-arena:original-checks', 'afterlight-arena:parity',
+                             ['afterlight-arena:laws',
                               'afterlight-arena:frame-boundaries'])
         if calls == 2:
             self.assertIn('test-session-api.py', run.call_args_list[1].args[0][1])

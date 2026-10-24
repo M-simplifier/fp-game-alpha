@@ -1,6 +1,6 @@
 -- Interactive source development only; release acceptance uses the original
--- cabal.project.red-dune-live with every production component still -O2.
-import: cabal.project.red-dune-live
+-- cabal.project.red-dune with every production component still -O2.
+import: cabal.project.red-dune
 
 tests: False
 package red-dune-live

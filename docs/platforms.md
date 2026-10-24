@@ -30,7 +30,7 @@ toolchain or claim an empty operation succeeded.
 
 ## Red Dune local browser command room
 
-[Red Dune live](red-dune-live.md) has a Linux GHC 9.6 native HTTP host and a thin
+[Red Dune](red-dune.md) has a Linux GHC 9.6 native HTTP host and a thin
 HTML/CSS/SVG/JavaScript view. It is **not** a Wasm build or a deployed web service.
 The native process owns the clock, all game transitions and durable files; the
 browser displays projections and sends commands. Native HTTP/protocol/lifecycle

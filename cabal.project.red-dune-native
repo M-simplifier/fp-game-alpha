@@ -1,7 +1,7 @@
 packages:
   libraries/game-transition
   libraries/game-arena
-  references/red-dune-live
+  references/red-dune
 
 tests: False
 constraints: h-raylib ==5.6.0.0

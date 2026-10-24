@@ -51,14 +51,7 @@ jobs:
       - run: python tools/docs_lint.py --foundation-only
       - run: node editors/vscode/test/adapter-contract.js
       - run: python tools/test_tools.py
-      - run: python tools/acceptance/test_frozen_oracle.py
       - run: python tools/test_formatter.py
-      - if: runner.os == 'Linux'
-        name: Check optional Red Dune source preservation (no game/platform qualification)
-        run: |
-          python references/red-dune/tools/test_restore.py
-          python references/red-dune/tools/check.py verify
-          python tools/test_red_dune.py
       - run: python tools/formatter.py install
       - run: python tools/formatter.py check
       - if: runner.os == 'Linux'
@@ -86,14 +79,7 @@ jobs:
           bash references/signal-courier/test-native.sh
           bash references/signal-courier/test/check-opaque-api.sh
           node references/signal-courier/web/controls.test.mjs
-      - run: python research/quantity/check.py check
-      - if: runner.os == 'Linux'
-        name: Check bounded live-tuning semantics (no performance gate)
-        timeout-minutes: 2
-        run: |
-          python -m unittest discover -s research/readability -p 'test_*.py' -v
-          python -m unittest discover -s research/live-tuning -p 'test_*.py' -v
-          python research/live-tuning/check.py
+      - run: python tools/quantity/check.py check
 
   native-tooling:
     # One native dependency bootstrap per OS; its moved generated-doc,
@@ -114,8 +100,6 @@ jobs:
           cabal-version: '3.12.1.0'
           cabal-update: false
       - run: python references/afterlight/scripts/test-check-core.py
-      - run: python references/afterlight/scripts/test-audit-source.py
-      - run: python references/afterlight/scripts/audit-source.py
       - run: python references/afterlight/scripts/check-core.py --download
 
   haskell-design-linux:

@@ -8,11 +8,10 @@ author: M-simplifier
 maintainer: M-simplifier
 synopsis: Complete Afterlight hosts over L game-transition and game-arena
 description: The pinned original game, renderer, audio and photo hosts with
-             a pure frame session, complete observation and parity regressions.
+             a pure frame session, complete observation and state invariants.
 category: Game
 extra-source-files:
     README.md, THIRD-PARTY.md, licenses/h-raylib-LICENSE, docs/*.md, docs/*.json, docs/qa/*.json,
-    docs/baseline/cabal.project, docs/baseline/*.cabal, docs/baseline/*.txt,
     tools/fixtures/garden-v3.txt, tools/*.ps1, test/api/*.hs, assets/shaders/*.vs, assets/shaders/*.fs,
     scripts/*.py, scripts/*.ps1, web/*.md, web/*.sh, web/*.py, web/*.c,
     web/*.vs, web/*.nix, web/flake.lock, web/wasm-link, web/cabal.project.template,
@@ -102,31 +101,13 @@ executable afterlight-browser
         "-optl-Wl,--export=hs_init,--export=startup,--export=mainLoop,--export=shouldClose,--export=teardown,--export=loadingStage,--export=loadingDone,--export=loadingTotal,--export=isReady,--export=preview,--export=setActive,--export=setQuality,--export=setRenderOption,--export=free,--export=__heap_base,--export=__global_base,--export=__data_end,--export=__stack_pointer,--import-memory,--global-base=134217728,--initial-memory=167772160,--max-memory=1073741824"
     build-depends: base, afterlight-arena:runtime, h-raylib >=5.5 && <5.7
 
-test-suite original-checks
+test-suite laws
     import: checked
     type: exitcode-stdio-1.0
     hs-source-dirs: tools
     main-is: GardenCheck.hs
     ghc-options: -O2
     build-depends: base, afterlight-arena, bytestring, containers, Yampa, QuickCheck ==2.15.0.1
-
-test-suite parity
-    import: checked
-    type: exitcode-stdio-1.0
-    hs-source-dirs: test, test/oracle
-    main-is: Parity.hs
-    ghc-options: -O2
-    other-modules:
-        TerrainEquality,
-        Original.Garden.World, Original.Garden.Change, Original.Garden.Checkpoint.Legacy,
-        Original.Garden.Checkpoint, Original.Garden.Clock, Original.Garden.Islands,
-        Original.Garden.Rules, Original.Garden.Raycast, Original.Garden.View,
-        Original.Garden.Mesh, Original.Garden.Tour, Original.Garden.Photo,
-        Original.Garden.Soundscape, Original.Garden.Render.Invalidation,
-        Original.Garden.Render.Chunk, Original.Garden.Render.Settings,
-        Original.Garden.Host.Control, Original.Garden.Signal
-    build-depends: base, afterlight-arena, game-transition, game-arena,
-        containers, bytestring, Yampa, QuickCheck ==2.15.0.1
 
 test-suite frame-boundaries
     import: checked

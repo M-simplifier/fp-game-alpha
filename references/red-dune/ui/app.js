@@ -2,6 +2,15 @@
 // Thin view + command adapter. No simulation, pathfinding, economy, RNG or
 // authoritative entity creation lives here. IDs/quantities remain strings.
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+// Opt-in source identity; HTTP readiness is not browser acceptance evidence.
+const development=window.location.hash==='#dev';
+function devStatus(message){
+  if(!development)return;
+  let panel=document.querySelector('#devStatus');
+  if(!panel){panel=document.createElement('p');panel.id='devStatus';panel.setAttribute('role','status');document.body.prepend(panel);}
+  panel.textContent=message;
+}
+
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const fmt=x=>{if(x===null||x===undefined)return '—';try{return BigInt(x).toLocaleString('ja-JP');}catch{return String(x??'—');}};
 const labels={water:'清水',ration:'レーション',crops:'作物',fuel:'燃料',parts:'部品'};
@@ -11,33 +20,30 @@ const phases={Planned:'◇ 計画受理',WaitingInputs:'△ 入力待ち',Runnin
 let state=null, tab='production', selected={kind:'colony',id:null}, pending=null, busy=false, pollBusy=false;
 let camera={x:0,y:0,z:1,r:0},cameraHistory=[],localJournal=[],lastFocus=null, formDraft={};
 let renderOpsKey='', sessionGeneration=0, intentGeneration=0, pendingGeneration=null;
-let responseRuntime=null, responseSerial=-1n;
+let responseRuntime=null;
 let pendingCommand=null, pendingGhost=null, m1Draft={build:{},assignment:{}};
-const retiredRuntimes=new Set();
 const loadUI={entry:null,action:null,starting:false,unresolvedStart:false,startTicket:null,confirming:false,cancelling:false,closeRequested:false,error:'',previewKey:null,renderKey:null,catalogKey:null,lastFocus:null};
-class StaleResponse extends Error {}
+const {StaleResponse,ResponseGate,RequestJournal}=RedDuneProtocol;
+const responseGate=new ResponseGate();
+const clientId=crypto.randomUUID();
+const requestJournal=new RequestJournal(clientId);
+let claimBusy=false,heartbeatBusy=false,policyEditGeneration=null,restartGeneration=null;
 function sessionIdentity(data){const s=data?.shell?.session;return s?JSON.stringify([data.shell.runtimeId,s.authority,s.epochCounter,s.world,s.branch]):null;}
 function activeLoad(){return ['reading','preview','activating','cancelling'].includes(state?.shell?.load.status);}
 function resetSessionUI(){
-  sessionGeneration++;intentGeneration++;pending=null;pendingGeneration=null;pendingCommand=null;pendingGhost=null;busy=false;formDraft={};m1Draft={build:{},assignment:{}};selected={kind:'colony',id:null};renderOpsKey='';
+  requestJournal.switched();sessionGeneration++;intentGeneration++;pending=null;pendingGeneration=null;pendingCommand=null;pendingGhost=null;busy=false;formDraft={};m1Draft={build:{},assignment:{}};selected={kind:'colony',id:null};renderOpsKey='';
   if($('#intent').open)$('#intent').close();
+  for(const id of ['#policyDialog','#restartDialog'])if($(id).open)$(id).close();
+  policyEditGeneration=null;restartGeneration=null;$('#packFile').value='';$('#packStatus').textContent='';
   loadUI.entry=null;loadUI.action=null;loadUI.starting=false;loadUI.unresolvedStart=false;loadUI.startTicket=null;loadUI.confirming=false;loadUI.cancelling=false;loadUI.error='';loadUI.previewKey=null;loadUI.renderKey=null;loadUI.catalogKey=null;
   $('#discardUnsaved').checked=false;
 }
 function acceptResponse(data,requestRuntime,isObservation){
+  responseGate.accept(data,requestRuntime,isObservation);
   const shell=data.shell;
-  if(!data.view||shell?.schema!=='red-dune-shell-0.5'||typeof shell.runtimeId!=='string'||!shell.runtimeId||typeof shell.responseSerial!=='string'||!/^\d+$/.test(shell.responseSerial))throw new Error('Session protocol 0.5の応答を確認できません。操作を再送しないでください');
-  if(!shell.session||!shell.catalog||!shell.load||!Array.isArray(shell.catalog.entries)||shell.session.world!==data.view.world||shell.session.branch!==data.view.branch)throw new Error('Sessionと公開viewのidentityを確認できません。以前の表示を保持します');
   if(data.view.m1!==null&&data.view.m1!==undefined)validateM1Projection(data.view.m1);
-  const serial=BigInt(shell.responseSerial);
-  if(retiredRuntimes.has(shell.runtimeId))throw new StaleResponse('以前のruntimeの応答を破棄');
-  if(responseRuntime!==null&&shell.runtimeId!==responseRuntime){
-    if(!isObservation||requestRuntime!==responseRuntime)throw new StaleResponse('runtime切替前に開始した応答を破棄');
-    retiredRuntimes.add(responseRuntime);responseSerial=-1n;
-  }
-  if(shell.runtimeId===responseRuntime&&serial<=responseSerial)throw new StaleResponse('より新しい権威stateを受信済み');
   const switched=state!==null&&sessionIdentity(state)!==sessionIdentity(data);
-  responseRuntime=shell.runtimeId;responseSerial=serial;
+  responseRuntime=shell.runtimeId;
   if(switched)resetSessionUI();
   state=data;
   if(pending){
@@ -46,14 +52,40 @@ function acceptResponse(data,requestRuntime,isObservation){
     const staleOwner=pendingCommand?.kind==='deliver'&&[pendingCommand.source,pendingCommand.destination].some(id=>cacheGone(id,data.view));
     if(pending.boundary!==data.view.boundary||staleRevision||staleOwner){pending=null;pendingGeneration=null;pendingCommand=null;pendingGhost=null;intentGeneration++;$('#confirmIntent').disabled=true;$('#intentStatus').textContent=(staleOwner?'配送対象cacheが回収済み/撤去されました（gone）。対象':staleRevision?'建設計画のrevision':'境界')+'が変わったため、この意図は失効しました。閉じて新しく確認してください';}
   }
-  render();reconcileLoad();
+  render();reconcileLoad();devStatus(data.shell.devRevision?`DEV: checked ${data.shell.devRevision.slice(0,12)} · ${data.view.mode} · source reloadは新しいcampaignです`:'DEV: source revision未確認');
 }
 async function api(request,path='/api/command'){
   const requestRuntime=responseRuntime;
-  const resp=await fetch(path,{method:request?'POST':'GET',headers:request?{'Content-Type':'application/json'}:{},body:request?JSON.stringify(request):undefined});
-  const data=await resp.json();if(!resp.ok||data.error)throw new Error(data.error||`HTTP ${resp.status}`);
-  try{acceptResponse(data,requestRuntime,!request);}catch(error){if(error instanceof StaleResponse)error.response=data;throw error;}return data;
+  if(request&&(!state||state.runtime.owner!=='mine'))throw new Error('このタブは閲覧中です。「操作権を取得」を選んでください');
+  const record=request?requestJournal.prepare(request,state.shell,path):null;
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+  try{
+    const resp=await fetch(path,{method:request?'POST':'GET',headers:{'X-Red-Dune-Client':clientId,...(request?{'Content-Type':'application/json'}:{})},body:record?.encoded,signal:controller.signal});
+    const data=await resp.json();if(!resp.ok||data.error)throw new Error(data.error||`HTTP ${resp.status}`);
+    if(record)requestJournal.resolved(record);
+    try{acceptResponse(data,requestRuntime,!request);}catch(error){if(error instanceof StaleResponse){error.response=data;if(record)return data;}throw error;}
+    renderRecovery();return data;
+  }catch(error){
+    if(record&&!(error instanceof StaleResponse)){requestJournal.uncertain(record);renderRecovery();}
+    throw error;
+  }finally{clearTimeout(timer);}
 }
+async function ownership(path){
+  const requestRuntime=responseRuntime;
+  const response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json','X-Red-Dune-Client':clientId},body:JSON.stringify({clientId}),signal:AbortSignal.timeout(6000)});
+  const data=await response.json();if(!response.ok||data.error)throw new Error(data.error||`HTTP ${response.status}`);
+  acceptResponse(data,requestRuntime,false);return data;
+}
+async function claimControl(){if(claimBusy||document.hidden)return;claimBusy=true;try{const d=await ownership('/api/claim');if(d.result.reason)note(d.result.reason,'failed');}catch(error){reportError(error);}finally{claimBusy=false;}}
+function renderRecovery(){
+  const pending=requestJournal.pending;
+  $('#retryRequest').hidden=!pending;
+  $('#retryRequest').textContent=pending?'応答不明の操作を同じIDで照会・再送':'';
+  $('#claimControl').hidden=state?.runtime.owner==='mine';
+  $('#recoveryMessage').textContent=pending?'前の指示の結果は未確認です。新しい指示を止めています。同じ指示IDで安全に結果を確認できます':state?.runtime.fault?'ホスト障害で停止中。保存済みの進行は保持されています':state?.runtime.owner==='other'?'別のタブが操作しています。このタブは閲覧専用です':state?.runtime.owner==='none'?'操作権なし。時間は停止しています':activeLoad()?'保存の読込みを継続中です。「保存・枝の読込」で確認または取消してください':'接続が4秒以上途切れると、ホストは自動で時間を止めます';
+}
+$('#retryRequest').addEventListener('click',async()=>{const pending=requestJournal.pending;if(!pending)return;try{const data=await api(pending.request,pending.path);note(data.result.reason||'同じ指示IDの結果: '+data.result.status,data.result.reason?'failed':'accepted');if($('#intent').open)$('#intent').close();}catch(error){reportError(error);}renderRecovery();});
+$('#claimControl').addEventListener('click',claimControl);
 function refusal(data){return data.result.reason||data.result.status;}
 function reportError(error){if(!(error instanceof StaleResponse))note(error.message,'failed');}
 function note(text,status='intent'){localJournal.unshift({text,status,tick:state?.view.tick||'0'});localJournal=localJournal.slice(0,20);renderJournal();}
@@ -70,7 +102,8 @@ function render(){
   $('#clock').replaceChildren(el('strong',`DAY ${day} · ${String(hours).padStart(2,'0')}:${String(mins).padStart(2,'0')}  ${v.mode==='Paused'?'Ⅱ 停止中':'▶ 進行中'}`),el('span',`tick ${fmt(v.tick)} · boundary ${fmt(v.boundary)}`));
   $('#pause').textContent=v.mode==='Paused'?'▶ 再開':'Ⅱ 一時停止';
   $$('[data-speed]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.speed===state.runtime?.speed?'true':'false'));
-  $('#connection').textContent=`● 権威state接続 · controller ${v.controller} · 20 Hz / 最大4逐次tick`;
+  $('#connection').textContent=`● Haskell live · ${state.runtime.owner==='mine'?'操作中':'閲覧'} · 20 Hz / ${state.runtime.speed}×`;
+  renderRecovery();renderCampaign();
   $('#sessionState').textContent=`現在: World ${state.shell.session.world} / 枝 ${state.shell.session.branch} / ${state.shell.session.ruleset}${state.shell.session.dirty?' · 未保存の進行あり':''}`;
   renderScenario();renderSave();renderLibrary();renderCritical();renderMap();renderColonies();renderWork();renderInspector();renderJournal();
   const key=JSON.stringify([tab,v.sites.map(s=>[s.id,s.enabled]),v.owners.map(o=>[o.id,o.node]),v.m1?[v.m1.buildOptions,v.m1.workers,v.m1.targets,v.m1.activeShift]:null]);
@@ -92,7 +125,7 @@ function renderScenario(){
   if(!m&&['construction','workers'].includes(tab)){tab='production';renderOpsKey='';$$('[data-tab]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab===tab)));}
   $('#legacyGuide').hidden=!!m;$('#mapSelectionHelp').hidden=!m;
   $('#scenarioIntro').textContent=m?`${m.scenario} · 現在勤務shift ${m.activeShift} · 信用 ${fmt(m.credit)}。建設計画、材料の実輸送、住民配属をつなぎます`:'北端の配給所には備蓄がありません。生産 → 現物輸送 → 配給をつなぎます';
-  $('#scopeSummary').textContent=m?'S01-short: 手汲みポンプ・道路の計画/施工/取消、住民配属、有限GroundCacheを接続。研究・契約・co-opは未実装。Transport技能の速度/容量/燃料bonusは未実装。配給所サービスは技能XPを付与しません':'固定の設備作業員・運転手・保全crew。住民配属、建設、研究、契約、co-opは未実装';
+  $('#scopeSummary').textContent=m?'建設・材料輸送・住民配属・生産・保全が同じHaskell世界で動きます。政策は通常の指示を実行し、物資を生成しません。研究・交易・co-opは含みません':'固定の設備作業員・運転手・保全crew。住民配属、建設、研究、契約、co-opは未実装';
   $('#mapProfile').textContent=m?`${m.scenario} / D0 ${m.map.width} × ${m.map.height} TILES`:'31 ROAD NODES / FOUR SETTLEMENTS';
   $('#mapLegend').textContent=m?'緑 完工 / 黄破線 計画 / 茶 施工 / ◆ cache / 青破線 未送信':'◇ 配給所　▰ 設備　● 車両';
   $('#map').setAttribute('viewBox',m?'0 0 1000 700':'0 0 1000 470');
@@ -109,7 +142,7 @@ function renderConstructionForm(box){
   box.append(el('p','ここでの入力は未送信。位置・費用・crew条件はHaskellのpreviewで確認します','meta'));
   const prototype=makeField(form,'buildPrototype','建設するもの',m.buildOptions.map(o=>[o.prototype,o.label+(o.enabled?'':' · '+(o.reason||'利用不可'))]),draft.prototype||m.buildOptions[0]?.prototype||'hand_pump');
   const colony=makeField(form,'buildColony','所属拠点',state.view.colonies.map(c=>[c.id,c.label]),draft.colony||state.view.colonies[0]?.id);
-  const x=makeField(form,'buildX','D0 X tile（0基点）',null,draft.x||'62'),y=makeField(form,'buildY','D0 Y tile（0基点）',null,draft.y||'60');
+  const x=makeField(form,'buildX','D0 X tile（0基点）',null,draft.x||'66'),y=makeField(form,'buildY','D0 Y tile（0基点）',null,draft.y||'60');
   const rotation=makeField(form,'buildRotation','回転',[['R0','R0'],['R90','R90'],['R180','R180'],['R270','R270']],draft.rotation||'R0');
   const priority=makeField(form,'buildPriority','優先度',[['0','0 emergency'],['1','1 essential'],['2','2 normal'],['3','3 discretionary']],draft.priority||'2');
   const source=makeField(form,'buildSource','自然源（backendで適合を検証）',[['','指定なし'],...m.map.sources.map(s=>[s.id,`${s.kind} #${s.id} · ${resource(s.resource)} (${s.x},${s.y})`])],draft.source||'');
@@ -197,11 +230,11 @@ function renderGhostConfirmation(box,p){
 }
 
 function renderSave(){
- const s=state.save.current,success=s.lastSuccess,status={neverSaved:'○ 未保存',captured:'◇ snapshot捕捉済み（まだ保存済みではありません）',writing:'↻ native書込・durability検証中',saved:'✓ native保存成功',failed:'! 保存失敗'}[s.status]||s.status;
- const line=`${status}${s.capturedTick!==null&&s.capturedTick!==undefined?' · 今回捕捉tick '+fmt(s.capturedTick):''}${success?' · 最終成功tick '+fmt(success.tick)+' / 世代 '+success.sequence+' / '+(success.wallUnixSeconds?new Date(Number(success.wallUnixSeconds)*1000).toLocaleTimeString('ja-JP'):''):' · 成功世代なし'}${state.save.pending?' · 次要求待機中':''}`;
- const n=$('#saveState');n.textContent=line;n.className=s.status==='failed'?'error':'';
+ const s=state.save.current,success=s.lastSuccess;
+ const status={neverSaved:'○ 未保存',writing:'↻ チェックポイントを書込み・耐久性検証中',saved:'✓ チェックポイント保存成功',failed:'! 保存失敗'}[s.status]||s.status;
+ const n=$('#saveState');n.textContent=`${status}${success?' · tick '+fmt(success.tick)+' · 保存revision '+success.sequence:''}${state.shell.session.dirty?' · 現在の進行には未保存の変更あり':''}${state.save.pending?' · 保存要求を処理中':''}`;
+ n.className=s.status==='failed'?'error':'';
  if(s.error){n.append(document.createTextNode(' · '+s.error));n.append(button('保存を再試行',()=>sendSave()));}
- if(success&&success.revision!==state.view.revision)n.append(document.createTextNode(` · 現在tickとの差 ${fmt(BigInt(state.view.tick)-BigInt(success.tick))} / revision差 ${fmt(BigInt(state.view.revision)-BigInt(success.revision||'0'))}（現在全体の保存済み表示ではありません）`));
 }
 function renderCritical(){const crisis=state.view.colonies.filter(c=>c.needs.some(n=>n.critical));const box=$('#critical');box.replaceChildren();if(crisis.length){box.append(el('strong',`△ ${crisis.map(c=>c.label).join('・')}の生活在庫が6時間未満`),el('span','在庫があるだけでは届きません。配送先は配給所を指定し、実際の到着を確かめてください'));}else box.append(el('strong','✓ 全拠点に基準需要6時間以上の生活在庫'),el('span','表示は現在人口に基づく目安。消費・輸送の確定値は各拠点へ'));}
 function renderColonies(){const target=$('#colonies');target.replaceChildren();state.view.colonies.forEach(c=>{const card=el('article',undefined,'colony-card'+(c.needs.some(n=>n.critical)?' critical-card':''));const title=el('div',undefined,'card-title');title.append(el('h3',c.label),el('span',`${c.residents}人 · 健康${fmt(c.health)}/1000`));card.append(title);c.needs.forEach(n=>{const row=el('div',undefined,'stock-row');row.append(el('span',`${n.resource==='water'?'◈':'◒'} ${resource(n.resource)}`),el('span',`${fmt(n.available)} ${units(n.resource)} / ${n.remainingHours===null?'需要なし':n.remainingHours+'時間'}`,n.critical?'danger':''));card.append(row);});card.append(el('p','残時間 = 現人口の基準日需要で算出（実績平均は未実装）','meta'),button('なぜ？ 在庫・輸送・生産を確認',()=>select('colony',c.id),'why-button'));target.append(card);});}
@@ -259,7 +292,7 @@ function renderMap(){if(!state)return;const g=$('#map-content');g.replaceChildre
  v.sites.forEach(s=>{if(!s.node)return;const[x,y]=coord(s.node),cy=y-68,group=svg('g',{'aria-label':s.label+'の設備詳細'});group.append(svg('line',{x1:x,y1:y,x2:x,y2:cy+18,stroke:'#897149','stroke-width':4}));if(s.recipe==='hand_water'){group.append(svg('path',{d:`M${x-23},${cy-25} v45 a23,9 0 0 0 46,0 v-45`,fill:'#477a8c',stroke:'#304f5a','stroke-width':2}),svg('ellipse',{cx:x,cy:cy-25,rx:23,ry:9,fill:'#b9d1c8',stroke:'#304f5a','stroke-width':2}),svg('path',{d:`M${x+24},${cy} h18 v20`,fill:'none',stroke:'#344c50','stroke-width':6}));}else if(s.recipe==='grow'){group.append(svg('path',{d:`M${x-50},${cy+3} l47,-28 57,28 -48,28z`,fill:'#566b3d',stroke:'#3f502e','stroke-width':2}));for(let i=0;i<6;i++)group.append(svg('path',{d:`M${x-36+i*8},${cy+3-i*4} l41,23`,stroke:'#b4ba70','stroke-width':4}));}else{group.append(svg('path',{d:`M${x-37},${cy-6} l36,-21 42,21 -39,22z`,fill:'#9a6854',stroke:'#624637','stroke-width':2}),svg('path',{d:`M${x-37},${cy-6} v32 l39,22 39,-24 v-30 l-39,22z`,fill:'#c2ac85',stroke:'#624637','stroke-width':2}),svg('path',{d:`M${x+17},${cy-21} v-26 h12 v32`,fill:'#66726b',stroke:'#414b47','stroke-width':2}));}group.append(svg('text',{x,y:cy-52,'text-anchor':'middle'},s.label),svg('text',{x,y:cy+57,'text-anchor':'middle',class:'small'},v.jobs.some(j=>j.site===s.id&&j.phase==='Running')?'▶ 稼働中':!s.enabled?'Ⅱ 停止':'◇ 指示・材料を待機'));hit('site',s.id,group);g.append(group);});
  v.vehicles.forEach((car,i)=>{const p=car.position,a=coord(p.from),b=coord(p.to),fraction=p.type==='edge'?1-Number(p.remaining)/Math.max(1,Number(p.cost)):0,x=a[0]+(b[0]-a[0])*fraction,y=a[1]+(b[1]-a[1])*fraction-7-i%2*12,group=svg('g',{'aria-label':'輸送車 '+car.id+' '+(car.cargo.length?'積載中':'空荷')});group.append(svg('rect',{x:x-11,y:y-8,width:22,height:13,rx:3,fill:car.cargo.length?'#e9cf6c':'#e8e4cb',stroke:'#30443e','stroke-width':2}),svg('circle',{cx:x-6,cy:y+7,r:3,fill:'#30443e'}),svg('circle',{cx:x+6,cy:y+7,r:3,fill:'#30443e'}),svg('text',{x,y:y-15,'text-anchor':'middle',class:'small'},'#'+car.id));hit('vehicle',car.id,group);g.append(group);});
 }
-async function preview(command){if(busy||!state||activeLoad()||loadUI.starting||loadUI.unresolvedStart)return;if(command.kind==='deliver'&&[command.source,command.destination].some(id=>cacheGone(id))){note('! 配送対象cacheは回収済み/撤去されました（gone）。対象を選び直してください','failed');return;}const generation=sessionGeneration,intent=++intentGeneration,operation=Symbol('intent');busy=operation;lastFocus=document.activeElement;note('◇ 未送信の意図: '+command.kind);try{const data=await api({op:'preview',command});if(generation!==sessionGeneration||intent!==intentGeneration)return;if(data.result.status!=='intentPreview'){note('! 拒否: '+(data.result.reason||data.result.status),'failed');return;}pending=data.result.envelope;pendingGeneration=generation;pendingCommand=command;pendingGhost=data.result.previewPlan||null;const box=$('#intentBody');box.replaceChildren();box.append(el('pre',humanCommand(command)),el('p',data.result.costNotice));data.result.predictedReceipts.forEach(r=>box.append(el('p','この境界での予測: '+r.outcome,r.status==='failed'?'danger':'good')));if(command.kind==='cancelPlan'){const plan=state.view.m1?.plans.find(p=>p.id===command.site);if(plan)renderPlanCancellation(box,plan);}
+async function preview(command){if(busy||!state||activeLoad()||loadUI.starting||loadUI.unresolvedStart)return;if(command.kind==='deliver'&&[command.source,command.destination].some(id=>cacheGone(id))){note('! 配送対象cacheは回収済み/撤去されました（gone）。対象を選び直してください','failed');return;}const generation=sessionGeneration,intent=++intentGeneration,operation=Symbol('intent');busy=operation;lastFocus=document.activeElement;note('◇ 未送信の意図: '+command.kind);try{const data=await api({op:'preview',command});if(generation!==sessionGeneration||intent!==intentGeneration)return;if(data.result.status!=='intentPreview'){note('! 拒否: '+(data.result.reason||data.result.status),'failed');return;}pending=data.result.envelope;pendingGeneration=generation;pendingCommand=command;pendingGhost=data.result.previewPlan||null;const box=$('#intentBody');box.replaceChildren();box.append(el('pre',humanCommand(command)),el('p',data.result.costNotice||'確認中は時間が停止します。取消は巻き戻しではなく、実物の損失や返送を伴うことがあります'));data.result.predictedReceipts.forEach(r=>box.append(el('p','この境界での予測: '+r.outcome,r.status==='failed'?'danger':'good')));if(command.kind==='cancelPlan'){const plan=state.view.m1?.plans.find(p=>p.id===command.site);if(plan)renderPlanCancellation(box,plan);}
 if(pendingGhost)renderGhostConfirmation(box,pendingGhost);
 if(command.kind==='assignWorkers')box.append(el('p','全名簿を置換する指示です。空リストはこの対象・shiftの配属解除。勤務shift自体は変わらず、別対象からの引き抜きはできません'));
 if(command.kind==='cancelProduction'){const job=state.view.jobs.find(j=>j.id===command.job);box.append(el('p',job.cancelAllowed?'確定previewの取消工程損失: '+(job.cancelLoss.length?job.cancelLoss.map(l=>resource(l.resource)+' '+fmt(l.quantity)).join(' / '):'0'):'取消不可: '+job.cancelFailure,'danger'));if(job.cancelAllowed&&job.cancelReturn.length)box.append(el('p','現物返還: '+job.cancelReturn.map(l=>resource(l.resource)+' '+fmt(l.quantity)).join(' / ')));}if(command.kind==='cancelMaintenance'){const m=state.view.maintenance.find(x=>x.id===command.job);box.append(el('p',m.cancelAllowed?`この停止境界の保全取消: 損失 ${fmt(m.cancelLoss)}個 / 現物返還 ${fmt(m.cancelReturn)}個 / 予約解除 ${fmt(m.cancelReservationRelease)}個`:'取消不可: '+m.cancelFailure,'danger'));}box.append(el('p',`controller ${pending.controller} / sequence ${pending.sequence} / boundary ${pending.boundary}`,'meta'));$('#intentStatus').textContent='未送信。受理後も完成や到着までは時間がかかります';$('#confirmIntent').disabled=false;$('#intent').showModal();renderMap();}catch(e){if(generation===sessionGeneration&&!(e instanceof StaleResponse))note('応答未確認: '+e.message,'failed');}finally{if(busy===operation)busy=false;}}
@@ -280,9 +313,9 @@ $('#pause').addEventListener('click',async()=>{if(!state)return;try{const d=awai
 $$('[data-speed]').forEach(b=>b.addEventListener('click',()=>api({speed:b.dataset.speed},'/api/speed').catch(reportError)));
 $$('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
 function setTab(value){tab=!state?.view.m1&&['construction','workers'].includes(value)?'production':value;$$('[data-tab]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tab===tab?'true':'false'));renderOpsKey='';if(state)render();}
-async function sendSave(testFailure=false){const generation=sessionGeneration;try{const data=await api({op:'save',testFailure});if(generation!==sessionGeneration)return;if(data.result.reason||/rejected|busy/i.test(data.result.status)){note('! 保存要求: '+refusal(data),'failed');return;}note(testFailure?'◇ 保存故障試験を要求。実worldは維持':'◇ snapshot要求。durability成功を待ちます');}catch(e){if(generation===sessionGeneration)reportError(e);}}
+async function sendSave(){const generation=sessionGeneration;try{const data=await api({op:'save'});if(generation!==sessionGeneration)return;if(data.result.reason||/rejected|busy/i.test(data.result.status)){note('! 保存要求: '+refusal(data),'failed');return;}note('◇ snapshot要求。durability成功を待ちます');}catch(e){if(generation===sessionGeneration)reportError(e);}}
 $('#save').addEventListener('click',()=>sendSave());
-$('#scope').addEventListener('click',()=>{const box=$('#infoBody');box.replaceChildren();state.view.scope.forEach(s=>box.append(el('p',s)));box.append(el('p','Space 一時停止 / 1・2・3 速度 / L 配送 / N 不足原因 / B 建設（S01） / WASD 視点移動 / Q E 回転 / F 全域 / Esc 未送信tool取消 → 選択解除 → このmenu。視点を戻す操作だけがlocal undoです。'),el('p','完全remap、gamepad、音、全端末accessibility認証は未実装。100/150/200%とkeyboard focusをこの検証UIで確認します。'),button('保存失敗を実注入（QA）',async()=>{$('#information').close();await sendSave(true);}));$('#information').showModal();});
+$('#scope').addEventListener('click',()=>{const box=$('#infoBody');box.replaceChildren();[state.campaign.brief,'建設・配属・実物輸送・保全・政策と目標判定はHaskellが実行します。JavaScriptは表示と入力だけです。','保存はホスト上の完全なcampaignチェックポイントです。研究・交易・co-opは含みません。'].forEach(s=>box.append(el('p',s)));box.append(el('p','Space 一時停止 / 1・2・3 速度 / L 配送 / N 不足原因 / B 建設（S01） / WASD 視点移動 / Q E 回転 / F 全域 / Esc 未送信tool取消 → 選択解除 → このmenu。視点を戻す操作だけがlocal undoです。'),el('p','完全remap、gamepad、音、全端末accessibility認証は未実装。100/150/200%とkeyboard focusをこの検証UIで確認します。'));$('#information').showModal();});
 function cameraChange(next){cameraHistory.push({...camera});cameraHistory=cameraHistory.slice(-40);camera={...camera,...next};renderMap();}
 $('#zoomIn').onclick=()=>cameraChange({z:Math.min(2.5,camera.z+.2)});$('#zoomOut').onclick=()=>cameraChange({z:Math.max(.5,camera.z-.2)});$('#cameraReset').onclick=()=>cameraChange({x:0,y:0,z:1,r:0});$('#cameraUndo').onclick=()=>{if(cameraHistory.length){camera=cameraHistory.pop();renderMap();}};
 $('#scale').onchange=e=>{document.documentElement.style.fontSize=14*Number(e.target.value)/100+'px';document.body.classList.remove('scale-100','scale-150','scale-200');document.body.classList.add('scale-'+e.target.value);};
@@ -301,7 +334,7 @@ function renderLibrary(){
   $('#librarySaveState').textContent=(session.dirty?'未保存の進行あり。':'未保存進行フラグなし。')+' '+$('#saveState').textContent;
   $('#librarySave').disabled=['activating','cancelling'].includes(load.status)||loadUI.confirming;
   $('#refreshLibrary').disabled=catalog.status==='loading'||locked;
-  $('#includeCompatibility').disabled=locked||catalog.status==='loading';
+  $('#includeCompatibility').disabled=true;
   $('#catalogStatus').textContent=`保存一覧: ${catalog.status}${catalog.error?' · '+catalog.error:''}${catalog.warnings?.length?' · '+catalog.warnings.join(' / '):''}`;
   const catalogKey=JSON.stringify([catalog.entries,loadUI.entry,locked]);
   if(catalogKey!==loadUI.catalogKey){
@@ -337,7 +370,7 @@ function renderLibrary(){
 }
 function discardGameplayIntent(){intentGeneration++;pending=null;pendingGeneration=null;pendingCommand=null;pendingGhost=null;renderMap();if($('#intent').open)$('#intent').close();}
 function chooseEntry(id){if(activeLoad()||loadUI.starting)return;loadUI.entry=id;loadUI.action=null;loadUI.error='';renderLibrary();}
-async function refreshLibrary(){if(!state||activeLoad()||loadUI.starting)return;loadUI.error='';try{const d=await api({op:'library',includeCompatibility:$('#includeCompatibility').checked});if(d.result.status!=='catalogRequested')loadUI.error=refusal(d);}catch(e){if(!(e instanceof StaleResponse))loadUI.error=e.message;}renderLibrary();}
+async function refreshLibrary(){if(!state||activeLoad()||loadUI.starting)return;loadUI.error='';try{const d=await api({op:'library'});if(d.result.status!=='catalogRequested')loadUI.error=refusal(d);}catch(e){if(!(e instanceof StaleResponse))loadUI.error=e.message;}renderLibrary();}
 async function startLoad(){
   if(!state||activeLoad()||loadUI.starting||loadUI.unresolvedStart||loadUI.closeRequested)return;
   const entry=state.shell.catalog.entries.find(e=>e.id===loadUI.entry);
@@ -388,9 +421,37 @@ $('#cancelLoad').addEventListener('click',cancelLoad);
 $('#discardUnsaved').addEventListener('change',renderLibrary);
 $('#librarySave').addEventListener('click',()=>sendSave());
 
-async function poll(){if(pollBusy)return;pollBusy=true;try{await api(null,'/api/state');}catch(e){if(!(e instanceof StaleResponse))$('#connection').textContent='! 接続未確認: '+e.message+' · 成功・切替は未確認';}finally{pollBusy=false;}}
-poll();setInterval(poll,300);
+async function poll(){if(pollBusy)return;pollBusy=true;try{await api(null,'/api/state');}catch(e){if(!(e instanceof StaleResponse)){$('#connection').textContent='! 接続未確認: '+e.message+' · 成功・切替は未確認';devStatus('DEV: host確認待ち。反映中・コンパイル失敗・停止の詳細は開発ターミナルで確認してください');}}finally{pollBusy=false;}}
+async function firstConnect(){await poll();if(state?.runtime.owner==='none')await claimControl();}
+firstConnect();setInterval(()=>{if(!document.hidden)poll();},400);
+setInterval(async()=>{if(document.hidden||heartbeatBusy||state?.runtime.owner!=='mine')return;heartbeatBusy=true;try{await ownership('/api/heartbeat');}catch(error){if(!(error instanceof StaleResponse)){$('#connection').textContent='接続未確認。4秒の操作権期限で自動停止します';}}finally{heartbeatBusy=false;}},1000);
+function pauseOnHide(){if(state?.runtime.owner==='mine')navigator.sendBeacon('/api/release',new Blob([JSON.stringify({clientId})],{type:'application/json'}));}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseOnHide();else poll();});window.addEventListener('pagehide',pauseOnHide);
+function renderCampaign(){
+  const c=state.campaign;if(!c)return;
+  $('#campaignTitle').textContent=c.title;
+  $('#campaignBrief').textContent=c.brief;
+  $('#campaignTime').textContent=`${c.elapsedHours} / ${c.requiredHours} game hours · ${c.scenario}`;
+  $('#objectives').replaceChildren(...c.objectives.map(o=>{const row=el('li',undefined,o.complete?'complete':'');row.append(el('strong',(o.complete?'✓ ':'○ ')+o.title),el('span',o.progress));return row;}));
+  const ended=c.ending!=='Ongoing';$('#campaignEnding').hidden=!ended;$('#campaignEnding').textContent=ended?(c.ending==='SettlementSecured'?'SETTLEMENT SECURED · 住民と新しい補給網が安定しました。保存して別のシナリオへ進めます':c.ending):'';
+  $('#enablePolicies').disabled=state.runtime.owner!=='mine'||ended;
+  $('#disablePolicies').disabled=state.runtime.owner!=='mine'||ended;
+  const pack=state.pack;$('#packIdentity').textContent=pack?`${pack.title} · revision ${pack.revision} · identity ${pack.identity}${pack.stagedRevision?' · 次回 '+pack.stagedTitle+' · revision '+pack.stagedRevision+' · identity '+pack.stagedIdentity:''}`:'';
+  const policies=state.policies;
+  const box=$('#policySummary');box.replaceChildren();
+  if(policies){box.append(el('p',policies.enabled?'生活維持の政策: 実行中':'生活維持の政策: 停止'));
+    policies.deliveries.forEach(p=>{const row=el('div',undefined,'policy-row');row.append(el('strong',p.id+' · '+resource(p.resource)),el('p',`${ownerLabel(p.destination)} · 在庫 ${fmt(p.available)} / 輸送中 ${fmt(p.incoming)} / 目標 ${fmt(p.target)} · ${p.reason||p.status||'Haskellが実行条件を評価'}`));const enabled=button(p.enabled?'停止':'有効にする',()=>campaignAction({op:'policy',id:p.id,enabled:!p.enabled,target:p.target,batch:p.batch}));enabled.id='policy-toggle-'+p.id;const edit=button('量を調整',()=>editPolicy(p));edit.id='policy-edit-'+p.id;row.append(enabled,edit);box.append(row);});
+  }
+  $('#expansionStatus').textContent=state.buildQueue?.length?`順番に施工中: ${state.buildQueue.length}段階待ち。材料輸送と配属が必要です`:state.notices?.join(' / ')||'西側の倉庫と接続道路を、実際の建設計画として順番に作ります';
+  $('#expandWarehouse').disabled=!policies?.enabled||!!state.buildQueue?.length||ended||state.runtime.owner!=='mine';
+}
+async function campaignAction(action){const generation=sessionGeneration;try{const d=await api(action);if(generation===sessionGeneration)note(d.result.reason||d.result.message||d.result.status,d.result.reason?'failed':'accepted');}catch(error){if(generation===sessionGeneration)reportError(error);}}
+$('#enablePolicies').addEventListener('click',()=>campaignAction({op:'configure',preset:'survival'}));
+$('#expandWarehouse').addEventListener('click',()=>campaignAction({op:'expand',prototype:'warehouse'}));
+$('#disablePolicies').addEventListener('click',()=>campaignAction({op:'configure',preset:'off'}));
+$('#openRestart').addEventListener('click',()=>{restartGeneration=sessionGeneration;$('#restartDiscard').checked=false;$('#restartDialog').showModal();});
+$('#confirmRestart').addEventListener('click',async()=>{if(restartGeneration!==sessionGeneration)return;if(state.shell.session.dirty&&!$('#restartDiscard').checked){$('#restartStatus').textContent='未保存の進行を破棄することを確認してください';return;}try{const d=await api({op:'restart',scenario:$('#scenarioChoice').value,discardUnsaved:$('#restartDiscard').checked});if(d.result.status==='restarted')$('#restartDialog').close();else $('#restartStatus').textContent=refusal(d);}catch(error){$('#restartStatus').textContent=error.message;}});
+$('#stagePack').addEventListener('click',async()=>{const generation=sessionGeneration,expectedRevision=state.pack.stagedRevision||state.pack.revision;try{const file=$('#packFile').files[0];if(!file)throw new Error('pack JSONを選んでください');if(file.size>60000)throw new Error('ブラウザからのpackは60 KiB以内です。大きいpackはRED_DUNE_PACKで起動してください');const packText=await file.text();if(generation!==sessionGeneration)return;const d=await api({op:'stagePackText',expectedRevision,packText});if(generation===sessionGeneration)$('#packStatus').textContent=d.result.reason||d.result.message||d.result.status;}catch(error){if(generation===sessionGeneration)$('#packStatus').textContent=error.message;}});
 
-// Local single-session UI pauses on hidden/page-exit when browser delivery is possible.
-function pauseOnHide(){if(state?.view.mode==='Active')navigator.sendBeacon('/api/command',new Blob([JSON.stringify({op:'pause'})],{type:'application/json'}));}
-document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseOnHide();});window.addEventListener('pagehide',pauseOnHide);
+function editPolicy(policy){policyEditGeneration=sessionGeneration;$('#policyId').value=policy.id;$('#policyEnabled').checked=policy.enabled;$('#policyTarget').value=policy.target;$('#policyBatch').value=policy.batch;$('#policyEditTitle').textContent='政策を調整: '+policy.id;$('#policyEditStatus').textContent='';$('#policyDialog').showModal();}
+$('#confirmPolicy').addEventListener('click',async()=>{if(policyEditGeneration!==sessionGeneration)return;const generation=sessionGeneration;try{const d=await api({op:'policy',id:$('#policyId').value,enabled:$('#policyEnabled').checked,target:$('#policyTarget').value,batch:$('#policyBatch').value});if(generation!==sessionGeneration)return;if(d.result.status==='accepted')$('#policyDialog').close();else $('#policyEditStatus').textContent=refusal(d);}catch(error){if(generation===sessionGeneration)$('#policyEditStatus').textContent=error.message;}});

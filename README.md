@@ -47,12 +47,10 @@ carry their tool source and can continue outside this checkout.
 | [Paper Circuit](references/paper-circuit/README.md) | How can a new puzzle add an undo operation without inheriting another game's design? |
 | [Signal Courier](references/signal-courier/README.md) | How do fixed ticks, checkpoints and platformer movement interact? |
 | [Garden of Afterlight](references/afterlight/README.md) | How does a pure game connect to a 3D renderer and audio? |
-| [Red Dune live](references/red-dune-live/README.md) | Who owns stock, work, delivery and durable saves in a continuing colony? |
+| [Red Dune](references/red-dune/README.md) | Who owns stock, work, delivery and durable saves in a continuing colony? |
 
 These examples have different host and verification boundaries; each entry
-links to its own run instructions. [Research reproduction](docs/research-reproduction.md)
-covers optional formal-method experiments. The [archived Red Dune](references/red-dune/README.md)
-and frozen comparison sources retain their original role as evidence.
+links to its own run instructions. Each example has current run instructions and tests for its own boundary.
 
 ## Contribute and verify
 

@@ -37,6 +37,6 @@ license review, not a proof that arbitrary content is safe to publish.
 All selected files, including the compact root inventory, have the same 512 KiB
 size ceiling and text/credential/license checks. Unknown manifest schemas,
 malformed or duplicate entries, noncanonical paths and symlinks fail closed.
-The [live Red Dune provenance](references/red-dune-live/PROVENANCE.md) identifies
+The [live Red Dune provenance](references/red-dune/PROVENANCE.md) identifies
 its archived source base. Runtime saves, build outputs, downloaded dependencies
 and third-party art/audio/font bundles are not part of the live distribution.

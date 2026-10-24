@@ -31,3 +31,11 @@ Native terminal build/run, native graphics, Web build/browser execution,
 server deployment, mobile devices and performance are separate acceptance
 claims. Mark each completed, experimental or blocked with concrete evidence.
 Publish incremental milestones without describing the entire program as done.
+
+## Keep the current implementation
+
+A migration may compare the old implementation once to establish the intended
+change. After that comparison, keep the current implementation, its specification
+and invariant tests, and any necessary small input/output fixtures. Retire old
+whole implementations and their comparison scaffolding to Git history; do not
+keep them permanently merely because an old test imports them.

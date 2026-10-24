@@ -67,8 +67,8 @@ PR41は未merge。以下はPR41の事例であり、今回の変更対象は文�
 遊びへ変更した。配置を認めるだけでなく、選んだ場の実在庫と実利用まで
 つないだ点が、この設計仮説を試す範囲だった。
 
-固定headの[技術証拠](https://github.com/M-simplifier/fp-game-alpha/blob/c0c91abbdf46503739195e1dc630db39d32b6d98/references/red-dune-live/evidence/native-windows.json)
-と[HELP本文](https://github.com/M-simplifier/fp-game-alpha/blob/c0c91abbdf46503739195e1dc630db39d32b6d98/references/red-dune-live/native/RedDune/Native/Help.hs)
+固定headの[技術証拠](https://github.com/M-simplifier/fp-game-alpha/blob/c0c91abbdf46503739195e1dc630db39d32b6d98/references/red-dune/evidence/native-windows.json)
+と[HELP本文](https://github.com/M-simplifier/fp-game-alpha/blob/c0c91abbdf46503739195e1dc630db39d32b6d98/references/red-dune/native/RedDune/Native/Help.hs)
 を読んだ。次は前担当の検査記録であり、今回ゲームを再実行した結果ではない。
 
 - 通常のUI経路を使う合成入力で、建設・配送・既存住民の実食と装飾の保存／再開を確認。短縮したドメイン試験と、標準規則の実機試行を分けて記録している。

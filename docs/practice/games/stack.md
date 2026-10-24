@@ -20,7 +20,7 @@
 編集したコードと起動する版を合わせやすい。開発用アプリとセーブを常設版から分け、
 ビルド失敗時は起動しない。外部データは既存の検証形式を使い、新しいゲームへ反映する。
 まず変更なし・内容編集・コード編集・失敗と再試行を実際に測り、必要な場合に追加の
-高速化を検討する。[Red DuneのWindows実例](../../../references/red-dune-live/docs/DEVELOPMENT.md#windows-native-editing)
+高速化を検討する。[Red DuneのWindows実例](../../../references/red-dune/docs/DEVELOPMENT.md#windows-native-editing)
 はこの方法の一例であり、別のゲームに同じ構成や所要時間を要求するものではない。
 
 Afterlight公開版の既知の基準はGHC 9.6.7 / GHC2021。

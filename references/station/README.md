@@ -27,7 +27,7 @@ duplicate the game's cost rules.
 
 For the headless player transport, read `parseCommand`, `dispatchVisibleTurn`,
 then `respond` in [HeadlessMain](app/HeadlessMain.hs). The
-[readability pilot](../../research/readability/station-refactor.md) follows a
+[readability pilot](../../docs/learn-code.md) follows a
 complete player action and records the refactor's before/after checks.
 
 Run `.build/tools/fp-game test` from the foundation root and

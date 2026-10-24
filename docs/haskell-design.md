@@ -253,7 +253,7 @@ requires HLS-provided source locations. On Windows, leave cross-module HLS renam
 disabled until the installed version has demonstrated complete edits.
 
 The [porting record](../editors/haskell-design/PORTING.md) distinguishes
-public-alpha checks from the [upstream historical record](../editors/haskell-design/docs/verification.md).
+public-alpha checks from the [upstream historical record](../CURRENT-VERIFICATION.md).
 A CLI/package pass does not establish editor interaction or HLS integration on
 another host. Record the exact tool revision, compiler, editor/profile, components
 and commands actually checked in the game's continuation guide.

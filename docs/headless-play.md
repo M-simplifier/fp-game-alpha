@@ -227,19 +227,3 @@ See also [the local architecture](architecture.md) and
 [Station's reference documentation](../references/station/README.md).
 
 ## Checked evidence and current limits
-
-[One actual source-informed AI episode](../research/headless/README.md) records
-six decisions and a later replay after transport validation fixes. This is not
-a blind trial or a speed benchmark. The local end-to-end contract suite checks
-visibility, narrative, idempotency, stale and oversized turns, affordability,
-terminal behavior, source/replay drift, locking and journal budgets.
-
-Run `python tools/test_play.py` to exercise the actual Haskell process. CI includes
-it on Windows, macOS and Linux; inspect the current run before claiming a platform
-passed. `refusal_kind` separates `protocol`, `domain`, and `none` in packets.
-The report keeps protocol mistakes distinct from in-game affordability refusals.
-
-The player bridge is currently Station-specific. A common Arena already supplies
-the shared semantic boundary, but every new game still needs an intentional
-observation/command projection. The skill does not pretend that arbitrary new
-projects automatically have a working headless adapter.

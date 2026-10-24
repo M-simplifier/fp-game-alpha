@@ -1,4 +1,4 @@
-"""Check the complete pure core and original parity oracle with pinned inputs.
+"""Check the current pure core and public session API with pinned inputs.
 
 Default is offline. --download explicitly fetches only five hash-pinned Hackage
 source archives into this checkout's ignored build directory. No global config,
@@ -93,8 +93,7 @@ def main():
                       + '\nremote-repo-cache: ' + (build / 'package-cache').as_posix() + '\n', encoding='utf-8')
     versions = {name: subprocess.check_output([name, '--numeric-version'], text=True).strip()
                 for name in ('ghc', 'cabal')}
-    command = ['cabal', f'--config-file={config}', 'test', 'afterlight-arena:original-checks',
-               'afterlight-arena:parity', 'afterlight-arena:frame-boundaries',
+    command = ['cabal', f'--config-file={config}', 'test', 'afterlight-arena:laws', 'afterlight-arena:frame-boundaries',
                f'--project-file={project}', f'--builddir={build / "dist"}', '--offline']
     result = subprocess.run(command, cwd=FOUNDATION, check=False)
     api_exit = None
@@ -106,7 +105,7 @@ def main():
     exit_code = result.returncode or api_exit or 0
     report = {'schema': 1, 'versions': versions, 'dependencies': inputs,
               'exit_code': exit_code, 'public_session_api_exit': api_exit,
-              'scope': 'complete pure core, original checks, parity oracle, host frame decisions and public session API',
+              'scope': 'complete pure core, state laws, host frame decisions and public session API',
               'native_graphics': 'not_run', 'browser': 'not_run'}
     (build / 'result.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     raise SystemExit(exit_code)

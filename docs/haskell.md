@@ -15,7 +15,7 @@ code and a concrete example; check quoted source against the implementation.
 - Use a `newtype` when accidental interchange is a real risk. A `newtype Health = Health Int` separates a type; it does not establish a nonnegative bound.
 - Use a private constructor and checked construction when an invariant must hold. Review all construction paths and exported operations, including parsers, derived instances, lenses, and coercion/role exposure where relevant.
 - A hidden record constructor is insufficient if an exported selector still permits record update. Compile an outside-client rejection fixture for an API that promises read-only access; export ordinary projection functions when update fields must stay private.
-- When decoding external numeric text into a bounded type, parse as unbounded `Integer`, validate the original value against the domain bounds, then narrow to `Int`. `readMaybe :: String -> Maybe Int` can wrap a huge literal before a later range check. Keep positive/negative overflow and state-preservation regressions; the foundation’s `research/live-tuning` experiment records the discovered bug and repair. Pure functions and private constructors alone did not prevent it.
+- When decoding external numeric text into a bounded type, parse as unbounded `Integer`, validate the original value against the domain bounds, then narrow to `Int`. `readMaybe :: String -> Maybe Int` can wrap a huge literal before a later range check. Keep positive/negative overflow and state-preservation regressions; current numeric-boundary tests must reject these inputs without changing state. Pure functions and private constructors alone did not prevent it.
 - Validate bounds before overflow-sensitive arithmetic. For a checked width `size <= limit`, test `position <= limit - size` rather than trusting `position + size <= limit` on bounded `Int`. Test extreme machine values at external input boundaries.
 - Use sum types for meaningful alternatives and GADTs, associated types, indexed states, or refinements when they prevent a concrete mistake or clarify a protocol. Explain the obligation they enforce and their limits.
 - Keep units and authority visible: elapsed time versus a timestamp, requested movement versus resolved movement, player action versus external completion.
@@ -75,7 +75,7 @@ Existing simple rules may already satisfy it without another helper or comment.
 For a refactor, preserve the established ordering, arithmetic, public boundaries
 and independent comparisons. Choose checks that can expose a changed priority,
 rollback scope or output; formatting alone cannot. The
-[Afterlight, Red Dune and Signal Courier source case](https://github.com/M-simplifier/fp-game-alpha/blob/1f206643b16cf879e1271cea70feab12e22d00d1/research/readability/game-rules-refactor.md)
+[current verification](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/verification.md)
 illustrates this method and its observed behavior checks. It does not establish
 novice comprehension or better generation of a different game. If using a model
 as a reader, retain equal source context and factual questions; a subjective
