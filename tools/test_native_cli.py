@@ -319,7 +319,7 @@ def cancellation(binary, project):
     started, late, release = 'timeout-started', 'timeout-late', 'timeout-release'
     source = slow_source(project, 'Slow.hs', started, late, release)
     began = time.monotonic()
-    # Windows GHC9.6.7 was observed entering healthy TH at4.656s. This deadline
+    # Windows GHC9.14.1 was observed entering healthy TH at4.656s. This deadline
     # provides startup headroom; the closed gate, not a fixed sleep, prevents exit.
     try:
         result = cli(binary, 'real-ghc-timeout', 'check', project,

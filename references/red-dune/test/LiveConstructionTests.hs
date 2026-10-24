@@ -79,7 +79,7 @@ fixture name = do
         _ -> [S.Tile px y | y <- [py .. 49]] ++ [S.Tile x 49 | x <- [px .. 56]]
       roads = Set.fromList roadTiles
       spatial = (m1Space state) {S.spatialRoads = Set.union roads (S.spatialRoads (m1Space state))}
-      homeless = head (M.keys (needsResidents (worldNeeds original)))
+      homeless = fixtureFirst (M.keys (needsResidents (worldNeeds original)))
       needs = if name == "housing" then (worldNeeds original) {needsResidents = M.adjust (\r -> r {residentBed = False}) homeless (needsResidents (worldNeeds original))} else worldNeeds original
       beds = if name == "housing" then M.delete homeless (m1Beds state) else m1Beds state
       altered = original {worldContent = content, worldRuleset = C.liveConstructionRuleset, worldNeeds = needs, worldM1 = Just state {m1Space = spatial, m1Beds = beds}}
@@ -161,7 +161,7 @@ liveConstructionTests = do
       "solar" -> do
         assert "solar is an actual device" (ident `elem` concatMap (map solarId . gridSolar) (M.elems (worldPowerGrids finished)))
         assert "solar maintenance physical colony" (maintenanceTargetColony finished ident == Just colony)
-        must "solar local maintenance source accepted" (validateMaintenanceOwners finished ident (head (s01Warehouses descriptor)) (head (s01Warehouses descriptor)))
+        must "solar local maintenance source accepted" (validateMaintenanceOwners finished ident (fixtureFirst (s01Warehouses descriptor)) (fixtureFirst (s01Warehouses descriptor)))
       "battery" -> assert "new battery has no free energy" (any (\b -> batteryId b == ident && batteryStoredJ b == 0) (concatMap gridBatteries (M.elems (worldPowerGrids finished))))
       "housing" -> do
         assert "housing creates an actual built footprint" (maybe False ((== S.Built) . S.placementStage) (M.lookup ident (S.spatialPlacements (m1Space (m1 finished)))))
@@ -267,3 +267,7 @@ stagingDecodeTests = do
 
 main :: IO ()
 main = liveConstructionTests
+
+fixtureFirst :: [a] -> a
+fixtureFirst (first : _) = first
+fixtureFirst [] = error "authored test fixture unexpectedly empty"

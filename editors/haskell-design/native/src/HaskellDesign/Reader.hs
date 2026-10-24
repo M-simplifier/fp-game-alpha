@@ -298,7 +298,7 @@ helpText =
       "Filters: --file PATH, --module NAMESPACE, --symbol NAME, --line NUMBER",
       "Scope:   --include DIR (repeatable), --exclude DIR (repeatable), --max-files NUMBER",
       "Output:  --max-chars NUMBER (default 16000), --offset NUMBER --snapshot HASH, --json",
-      "Details: --docs, --context, --infer --trusted (GHC 9.6.x; outline with file/exact module), --ghc PATH, --cache-dir PATH",
+      "Details: --docs, --context, --infer --trusted (GHC 9.14.x; outline with file/exact module), --ghc PATH, --cache-dir PATH",
       "The syntax view needs neither Node nor GHC. Read NEXT cursors and warnings before claiming whole-project coverage. No source is modified."
     ]
 

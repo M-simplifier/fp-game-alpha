@@ -32,15 +32,15 @@ runTests = do
   expect "path prefixes are not containment" $ not (inside "/project" "/project-other")
   expect "nested paths are contained" $ inside "/project" "/project/src"
   expect "Cabal compiler query preserves explicit Unicode wrapper spelling" $
-    compilerQuery "{\"compiler\":{\"flavour\":\"ghc\",\"id\":\"ghc-9.6.7\",\"path\":\"./日本語 compiler\"}}"
-      == Right (Compiler "./日本語 compiler" "ghc-9.6.7")
+    compilerQuery "{\"compiler\":{\"flavour\":\"ghc\",\"id\":\"ghc-9.14.1\",\"path\":\"./日本語 compiler\"}}"
+      == Right (Compiler "./日本語 compiler" "ghc-9.14.1")
   forM_
     [ "{}",
       "{\"compiler\":null}",
-      "{\"compiler\":{\"flavour\":\"ghc\",\"id\":\"ghc-9.6.7\",\"path\":\"\"}}",
+      "{\"compiler\":{\"flavour\":\"ghc\",\"id\":\"ghc-9.14.1\",\"path\":\"\"}}",
       "{\"compiler\":{\"flavour\":\"ghc\",\"id\":\"\",\"path\":\"ghc\"}}",
       "{\"compiler\":{\"flavour\":\"other\",\"id\":\"other\",\"path\":\"ghc\"}}",
-      "{\"compiler\":{\"flavour\":\"ghc\",\"id\":\"ghc-9.6.7\",\"path\":\"bad\\npath\"}}",
+      "{\"compiler\":{\"flavour\":\"ghc\",\"id\":\"ghc-9.14.1\",\"path\":\"bad\\npath\"}}",
       "Cabal prose before JSON\n{}"
     ]
     $ \query -> expect "Malformed compiler selection cannot fall back to PATH" $ case compilerQuery query of

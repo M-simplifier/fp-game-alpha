@@ -74,10 +74,7 @@ Existing simple rules may already satisfy it without another helper or comment.
 
 For a refactor, preserve the established ordering, arithmetic, public boundaries
 and independent comparisons. Choose checks that can expose a changed priority,
-rollback scope or output; formatting alone cannot. The
-[current verification](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/verification.md)
-illustrates this method and its observed behavior checks. It does not establish
-novice comprehension or better generation of a different game. If using a model
+rollback scope or output; formatting alone cannot. If using a model
 as a reader, retain equal source context and factual questions; a subjective
 verdict or fluent explanation is not the acceptance test.
 

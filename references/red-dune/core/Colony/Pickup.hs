@@ -87,7 +87,7 @@ validatePickups inventory transport tick pickups = do
                     originalOutward = reverse witness
                     paidEdges = returnEdges - remaining
                     fuel = sum [qtyValue (lotQty lot) | lot <- M.elems (invLots inventory), lotOwner lot == vehicleOwner vehicle, lotResource lot == Fuel]
-                check (not (null witness) && length witness <= 262144 && head witness == source && last witness == home) "pickup return witness endpoints/length"
+                check (case witness of { [] -> False; first : _ -> length witness <= 262144 && first == source && last witness == home }) "pickup return witness endpoints/length"
                 check (all (\(a, b) -> openEdge (transportTopology transport) a b /= Nothing) (zip witness (drop 1 witness))) "pickup return witness has no current-generation road edge"
                 check (returnEdges == pickupReturnToHomeEdges claim && pickupFuelRouteEdges claim == 2 * (returnEdges + cargoEdges)) "pickup numerical certificate differs from actual road witnesses"
                 check (unpaidSuffix `isSuffixOf` originalOutward && paidEdges >= 0) "pickup remaining route differs from certified outward path"

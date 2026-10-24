@@ -530,11 +530,6 @@
       "prefix": ".github/workflows/native-tooling.yml",
       "license": "LICENSE",
       "maturity": "experimental"
-    },
-    {
-      "prefix": "CURRENT-VERIFICATION.md",
-      "license": "LICENSE",
-      "maturity": "experimental"
     }
   ]
 }

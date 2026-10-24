@@ -140,14 +140,14 @@ def main():
     report(platform=platform.platform(), python=sys.version,
            encoding_environment={key: os.environ.get(key) for key in ('GHC_CHARENC', 'LANG', 'LC_ALL')})
     ghc, cabal = shutil.which('ghc'), shutil.which('cabal')
-    versioned_ghc_pkg = shutil.which('ghc-pkg-9.6.7')
+    versioned_ghc_pkg = shutil.which('ghc-pkg-9.14.1')
     ghc_pkg = versioned_ghc_pkg or shutil.which('ghc-pkg')
     report(tools={'ghc': ghc, 'cabal': cabal, 'ghc-pkg': ghc_pkg},
            ghc_pkg_lookup='versioned PATH entry' if versioned_ghc_pkg else 'unversioned PATH fallback; exact version required')
     if not all((ghc, cabal, ghc_pkg)):
         report(status='fail', error='Missing pinned tools')
         return 1
-    for tool, version in ((ghc, '9.6.7'), (cabal, '3.12.1.0'), (ghc_pkg, '9.6.7')):
+    for tool, version in ((ghc, '9.14.1'), (cabal, '3.18.2.0'), (ghc_pkg, '9.14.1')):
         result = run('version', [tool, '--version' if tool == ghc_pkg else '--numeric-version'], ROOT)
         actual = result.get('stdout', '').strip().split()
         report(label='pinned-version', required=True, tool=tool, expected=version,
@@ -168,27 +168,27 @@ def main():
                bytes_hex=shim_bytes.hex() if shim_bytes else None)
         ghcup = shutil.which('ghcup')
         if ghcup:
-            location = run('ghcup-whereis', [ghcup, 'whereis', 'ghc', '9.6.7'], ROOT, required=False)
+            location = run('ghcup-whereis', [ghcup, 'whereis', 'ghc', '9.14.1'], ROOT, required=False)
             if location['exit_code'] == 0:
                 compiler = Path(location['stdout'].strip())
-                candidates = [compiler.parent / name for name in ('ghc-pkg-9.6.7.exe', 'ghc-pkg.exe')]
+                candidates = [compiler.parent / name for name in ('ghc-pkg-9.14.1.exe', 'ghc-pkg.exe')]
                 report(label='real-compiler-files', compiler=str(compiler), exists=compiler.is_file(),
                        package_managers={str(path): path.is_file() for path in candidates})
                 if compiler.is_file():
                     version = run('real-compiler-version', [compiler, '--numeric-version'], ROOT, required=False)
-                    versioned_compiler = compiler.parent / 'ghc-9.6.7.exe'
+                    versioned_compiler = compiler.parent / 'ghc-9.14.1.exe'
                     if versioned_compiler.is_file():
                         selected = run('versioned-compiler-version', [versioned_compiler, '--numeric-version'], ROOT, required=False)
-                        if selected['exit_code'] == 0 and selected.get('stdout', '').strip() == '9.6.7':
+                        if selected['exit_code'] == 0 and selected.get('stdout', '').strip() == '9.14.1':
                             real_ghc = versioned_compiler
                     if candidates[-1].is_file():
                         alias = run('unversioned-ghc-pkg-version', [candidates[-1], '--version'], ROOT, required=False)
-                        if alias['exit_code'] == 0 and alias.get('stdout', '').strip().endswith(' 9.6.7'):
+                        if alias['exit_code'] == 0 and alias.get('stdout', '').strip().endswith(' 9.14.1'):
                             alias_ghc_pkg = candidates[-1]
                     candidate = next((path for path in candidates if path.is_file()), None)
-                    if candidate and version.get('stdout', '').strip() == '9.6.7':
+                    if candidate and version.get('stdout', '').strip() == '9.14.1':
                         version = run('real-ghc-pkg-version', [candidate, '--version'], ROOT, required=False)
-                        if version['exit_code'] == 0 and version.get('stdout', '').strip().endswith(' 9.6.7'):
+                        if version['exit_code'] == 0 and version.get('stdout', '').strip().endswith(' 9.14.1'):
                             real_ghc_pkg = candidate
                             run('real-ghc-pkg-rts', [candidate, '+RTS', '--info'], ROOT, required=False)
         else:
@@ -280,7 +280,7 @@ def main():
                 result = run(route, command, project, required=required)
                 binaries = list((state / 'dist').rglob('path-probe.exe' if os.name == 'nt' else 'path-probe'))
                 binaries = [path for path in binaries if path.is_file()]
-                package_db_exists = (state / 'dist/packagedb/ghc-9.6.7/package.cache').is_file()
+                package_db_exists = (state / 'dist/packagedb/ghc-9.14.1/package.cache').is_file()
                 report(label=route + '-files', required=required,
                        exit_code=0 if binaries and package_db_exists and config.read_bytes() == contents.encode('utf-8') else 1,
                        executable_paths=list(map(str, binaries)),

@@ -247,7 +247,7 @@ validateTopology topology queue = do
           else Right ()
         case pathResult search of
           PathFound nodes cost -> do
-            check (not (null nodes) && head nodes == pathSource search && last nodes == pathDestination search) "Invalid path result endpoints"
+            check (case nodes of { [] -> False; first : _ -> first == pathSource search && last nodes == pathDestination search }) "Invalid path result endpoints"
             check (all (\(a, b) -> nodeDistance a b == 1) (zip nodes (drop 1 nodes))) "Nonlocal path result"
             check (cost >= 0 && cost <= quantityMax && M.lookup (pathDestination search) (pathCosts search) == Just cost) "Invalid path result cost"
             if pathRevision search == topologyRevision topology

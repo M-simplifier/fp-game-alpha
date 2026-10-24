@@ -6,7 +6,7 @@ build-type: Simple
 library
   hs-source-dirs: engine
   exposed-modules: Lantern.Types, Lantern.Rules
-  build-depends: base >=4.18 && <4.19, containers
+  build-depends: base >=4.22 && <4.23, containers
   default-language: GHC2021
 
 executable courier

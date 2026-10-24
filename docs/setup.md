@@ -5,7 +5,7 @@ Start with [native tooling](native-tooling.md) for the pre-GHC checks, explicit
 one-time bootstrap and compiler-selection details. No command silently installs
 a compiler or downloads tool dependencies.
 
-The verified baseline is GHC 9.6.7 and Cabal 3.12.1.0. This pins the project's
+The verified baseline is GHC 9.14.1 and Cabal 3.18.2.0. This pins the project's
 tested profile, not the latest or recommended upstream release. Git is needed
 to clone and run publication checks. Python is not required for native planning,
 creation, doctor, build, test, check or run. Separate inspection, formatter,

@@ -28,7 +28,8 @@ export async function nativeNotices(root, cabal, plan) {
     if (name === 'haskell-design') continue;
     const label = `${name}-${version}`;
     const local = path.join(root, 'native/licenses', label);
-    const files = await licenses(unit.type === 'pre-existing' ? local : path.join(store, plan['compiler-id'], id, 'share/doc'));
+    const retained = await licenses(local);
+    const files = retained.length ? retained : await licenses(path.join(store, plan['compiler-id'], id, 'share/doc'));
     if (!files.length) throw new Error(`License files missing for ${label}. Add its upstream notices to native/licenses/${label} before distributing this build.`);
     packages.push(label);
     for (const file of files) parts.push(`## ${label} / ${path.basename(file)}\n\n${await readFile(file, 'utf8')}`);

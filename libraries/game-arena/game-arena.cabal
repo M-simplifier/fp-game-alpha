@@ -19,7 +19,7 @@ library
   import: checked
   hs-source-dirs: src
   exposed-modules: Game.Arena, Game.Arena.Finite
-  build-depends: base >=4.18 && <5, game-transition >=0.1 && <0.2
+  build-depends: base >=4.22 && <4.23, game-transition >=0.1 && <0.2
 
 test-suite arena-laws
   import: checked

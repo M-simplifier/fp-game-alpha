@@ -9,6 +9,6 @@ recovery scenarios. Objectives require new production, delivery, consumption,
 construction and repair through ordinary commands and ticks. Finite smoke
 checks do not establish the 66-hour/42-hour endings, performance or human play.
 
-Use the [current verification record](../../../CURRENT-VERIFICATION.md) for
+Use the [current verification record](../../../docs/verification.md) for
 actual executions of the maintained toolchain. Past per-hour traces and one-off
 CPU/allocation records are available in Git history; they are not current gates.

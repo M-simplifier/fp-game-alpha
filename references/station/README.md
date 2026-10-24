@@ -38,7 +38,7 @@ It also uses an independently calculated winning resource trace and deliberate
 rule mutation.
 GHC compiles a read-only client and rejects both an external `GameState`
 record update and a forged `TurnId` constructor for the intended reasons.
-These are results for this fixed finite game and GHC 9.6.7, not a theorem for
+These are results for this fixed finite game and GHC 9.14.1, not a theorem for
 arbitrary game changes or a measured user-experience result.
 
 The published game includes the clock-free domain core and headless host.

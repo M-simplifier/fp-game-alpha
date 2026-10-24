@@ -11,7 +11,7 @@ case "${1:-help}" in
     cabal test --project-file="$project" live-boundary live-construction live-host-lifecycle live-tile-order live-legacy live-help live-logistics live-core-boundary --test-show-details=direct
     python3 references/red-dune/test/check_workforce_api.py
     cabal exec --project-file="$project" -- python3 references/red-dune/test/check_core_api.py
-    binary=$(cabal list-bin --project-file="$project" exe:red-dune)
+    binary=$(cabal list-bin --project-file="$project" exe:red-dune-http)
     cd references/red-dune
     node tools/test_browser_protocol.cjs
     node tools/test_http.cjs "$binary"
@@ -22,15 +22,15 @@ case "${1:-help}" in
     cabal test --project-file="$project" live-campaign --test-show-details=direct --test-options=recovery
     ;;
   play)
-    cabal build --project-file="$project" exe:red-dune
-    binary=$(cabal list-bin --project-file="$project" exe:red-dune)
+    cabal build --project-file="$project" exe:red-dune-http
+    binary=$(cabal list-bin --project-file="$project" exe:red-dune-http)
     cd references/red-dune
     shift
     exec "$binary" "$@"
     ;;
   help|--help|-h)
     printf '%s\n' 'Usage: bash references/red-dune/tools/check.sh {smoke|campaign|play [--port NUMBER]}'
-    printf '%s\n' 'Requires Linux, GHC 9.6.x, Cabal; smoke also needs Node 20+. Run cabal update once before the first build.'
+    printf '%s\n' 'Requires Linux, GHC 9.14.x, Cabal; smoke also needs Node 20+. Run cabal update once before the first build.'
     ;;
   *)
     printf '%s\n' 'Unknown action; choose smoke, campaign or play.' >&2

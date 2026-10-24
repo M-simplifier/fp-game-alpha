@@ -1,7 +1,7 @@
 -- | Game-specific laws, independent of the window, clock and renderer.
 module Garden.Simulation (Effect (..), stepWorld, nearby, supported) where
 
-import Data.List (find, foldl', sortOn)
+import Data.List (find, sortOn)
 import Data.Maybe (mapMaybe)
 import Data.Set qualified as Set
 import Garden.World

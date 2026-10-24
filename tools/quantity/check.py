@@ -19,7 +19,7 @@ import oracle
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT.parents[1] / ".build" / "quantity"
-TESTED_GHC = "9.6.7"
+TESTED_GHC = "9.14.1"
 NEGATIVE = {
     "RejectConstructorImport": ("Qty", "does not export"),
     "RejectCrossAdd": ("Qty", "WaterTag", "OreTag", "Couldn't match"),
@@ -53,13 +53,9 @@ def tool(name, flag):
 
 def doctor():
     ghc, version = tool("ghc", "--numeric-version")
-    liquid, liquid_version = tool("liquid", "--version")
-    z3, z3_version = tool("z3", "--version")
     report = {"ghc": version, "tested_ghc": TESTED_GHC,
               "source_only_checks_ready": version == TESTED_GHC,
-              "liquidhaskell": liquid_version if liquid else None,
-              "z3": z3_version if z3 else None,
-              "liquidhaskell_result": "not_run"}
+              "source": "references/red-dune/core/Colony/Units.hs"}
     print(json.dumps(report, indent=2))
     return ghc if version == TESTED_GHC else None
 
@@ -142,13 +138,12 @@ def check(ghc):
     if code != 0:
         raise RuntimeError("Current Units runner failed to compile; inspect .build/quantity/logs")
     output_hash = verify_output("current", executable, requests, expected)
-    report = {"status": "PASS", "scope": "finite GHC type checks and runtime oracle; no LiquidHaskell proof",
+    report = {"status": "PASS", "scope": "current GHC type checks and finite runtime integer oracle",
               "ghc": TESTED_GHC, "source_sha256": digest(source),
               "vectors": sum(counts.values()), "categories": dict(counts),
-              "static_cases": cases, "output_sha256": output_hash,
-              "liquidhaskell_result": "not_run"}
+              "static_cases": cases, "output_sha256": output_hash}
     (OUT / "result.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
-    print("quantity source-only checks: PASS (8 expected type rejections, 631024 current-source oracle rows; LiquidHaskell not run)")
+    print("quantity source-only checks: PASS (8 expected type rejections, 631024 current-source oracle rows)")
 
 
 def main():
@@ -157,7 +152,7 @@ def main():
     action = parser.parse_args().action
     ghc = doctor()
     if ghc is None:
-        raise RuntimeError("GHC 9.6.7 is required for this validated source-only route")
+        raise RuntimeError("GHC 9.14.1 is required for this validated source-only route")
     if action == "check":
         check(ghc)
 

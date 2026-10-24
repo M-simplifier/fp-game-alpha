@@ -153,7 +153,7 @@ main = do
   (pump, withPump) <- plan descriptor (S.BuildingShape "hand_pump" (S.Tile 64 60) S.R0) staffed
   (road, planned) <- plan descriptor (S.RoadShape (S.Tile 61 64)) withPump
   let builders = take 2 (drop 11 (s01ShiftResidents descriptor M.! 0))
-      home = head (s01Warehouses descriptor)
+      home = fixtureFirst (s01Warehouses descriptor)
   supplied <- accept False [AssignWorkers (W.ConstructSite road) 0 builders, RequestDelivery home (Owner MachineInput road) Stone 2000 2, OrderProduction (s01Pump descriptor)] [ResumeWorld] planned
   carrying <- untilBound "real loaded shipment" 500 (any ((== ShipmentCarrying) . shipmentStatus) . M.elems . transportShipments . worldTransport) supplied
   check "active production exists in archived save" (any ((== Running) . jobPhase) (M.elems (worldJobs carrying)))
@@ -173,3 +173,7 @@ main = do
   check "real imported completion still earns no campaign progress" (gameCampaign finished == gameCampaign imported)
   otherProfiles
   putStrLn "PASS: archived schemas 3/4; exact S01 import with production, loaded transport, running road, planned hand pump, source-byte integrity, live save/reload/resume and seven readable-but-rejected profiles"
+
+fixtureFirst :: [a] -> a
+fixtureFirst (first : _) = first
+fixtureFirst [] = error "authored test fixture unexpectedly empty"

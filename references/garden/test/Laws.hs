@@ -1,7 +1,6 @@
 module Main (main) where
 
 import Control.Monad (unless)
-import Data.List (foldl')
 import Game.Arena (Attempt (..), attempt, nobody, observe, play)
 import Game.Transition (Divergence (..), Step (..), firstDivergence, replay)
 import Garden.Adapter

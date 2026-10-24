@@ -1,6 +1,6 @@
 # Fast, checked Red Dune development
 
-GHC 9.6.7, Cabal 3.12.1.0. These workflows play the real Red Dune campaign.
+GHC 9.14.1, Cabal 3.18.2.0. These workflows play the real Red Dune campaign.
 The Windows command below builds and opens the native app. The remaining
 GHCi/HTTP workflow is Linux-specific.
 The operational supervisor, game rules, validation and HTTP host are Haskell.
@@ -114,7 +114,7 @@ worktree. The checked evidence and exact measured scope are in
 
 ## Why this split
 
-[GHC 9.6.7 documents mixed compiled and interpreted modules](https://downloads.haskell.org/ghc/9.6.7/docs/users_guide/ghci.html#loading-compiled-code).
+[GHC 9.14.1 documents mixed compiled and interpreted modules](https://downloads.haskell.org/ghc/9.14.1/docs/users_guide/ghci.html#loading-compiled-code).
 The compiled dependency closure must stay compiled. [Cabal 3.12's component REPL](https://cabal.readthedocs.io/en/3.12/cabal-commands.html#cabal-repl)
 provides the actual package database, language extensions, dependencies and source
 roots; the launcher does not maintain a second hand-written GHC configuration.

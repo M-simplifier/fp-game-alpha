@@ -162,7 +162,7 @@ s01FixtureAt rules mapName layouts initialRoads content = do
             (Space.emptySpatial (Space.MapSpec mapName 1 (Space.Rect (Space.Tile 0 0) 128 128) (Space.Tile 192 224) M.empty))
               { Space.spatialSources = M.fromList sources
               }
-          aquifer = fst (head sources)
+      aquifer <- fst <$> single "first natural source" (take 1 sources)
       space <- foldM (seedBuilding colony aquifer) initial layouts
       let placements = M.elems (Space.spatialPlacements space)
           named name = [Space.placementId p | p <- placements, case Space.placementShape p of Space.BuildingShape n _ _ -> name == n; _ -> False]

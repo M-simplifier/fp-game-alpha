@@ -19,7 +19,7 @@ GHC and Cabal are already required to compile a game. Compiling this tool also
 requires its pinned external dependencies once. There are no published native
 binary releases in this route. Installing GHC/Cabal is a separate, explicit
 step using the [official GHCup guide](https://www.haskell.org/ghcup/install/).
-The verified baseline is GHC 9.6.7 / Cabal 3.12.1.0. Source compilation requires
+The verified baseline is GHC 9.14.1 / Cabal 3.18.2.0. Source compilation requires
 GHC 9.6 or newer APIs; other compiler versions and dependency resolutions remain
 unverified. The resulting binary uses Cabal's project-selected game compiler
 and the Cabal executable on PATH. It does not silently change the game compiler
@@ -70,9 +70,9 @@ Do not describe an already-warm dependency cache as a clean-machine setup test.
 ## Windows: explicitly select the installed compiler
 
 The verified Windows profile explicitly selects an installed compiler to
-avoid a known launcher boundary. It never automatically replaces a compiler. In the pinned GHC 9.6.7 installation, the
+avoid a known launcher boundary. It never automatically replaces a compiler. In the pinned GHC 9.14.1 installation, the
 unversioned C launcher aliases corrupted Japanese arguments. The same
-installation's `ghc-9.6.7.exe` passed the bounded actual library and executable
+installation's `ghc-9.14.1.exe` passed the bounded actual library and executable
 Japanese-path builds in the [Windows compiler-path probe](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1).
 The declared profile subsequently passed the complete native CLI/game-development
 suite on [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675) at `be1208af`, alongside Linux and macOS. It remains an
@@ -84,7 +84,7 @@ following path is an example, not a discovered installation location:
 
 ```powershell
 # From the foundation or generated game root; use your actual installed path.
-$compiler = 'C:/ghcup/ghc/9.6.7/bin/ghc-9.6.7.exe'
+$compiler = 'C:/ghcup/ghc/9.14.1/bin/ghc-9.14.1.exe'
 if (-not (Test-Path -LiteralPath $compiler -PathType Leaf)) { throw 'Choose an installed compiler.' }
 & $compiler --numeric-version
 if ($LASTEXITCODE -ne 0) { throw 'The selected compiler probe failed.' }
@@ -110,11 +110,11 @@ For a project with no local profile, create `cabal.project.local` in that game
 root with a raw, forward-slash absolute path:
 
 ```cabal
-with-compiler: C:/ghcup/ghc/9.6.7/bin/ghc-9.6.7.exe
+with-compiler: C:/ghcup/ghc/9.14.1/bin/ghc-9.14.1.exe
 ```
 
 `with-compiler` consumes the whole field as a path, including spaces. Do not
-add JSON or shell quote characters: Cabal 3.12.1.0 treats those as literal parts
+add JSON or shell quote characters: Cabal 3.18.2.0 treats those as literal parts
 of the executable name. The chosen path must not contain a newline.
 
 This PowerShell example writes that one setting as UTF-8 and refuses an existing

@@ -18,7 +18,7 @@ This skill is a small routing entry, not a separate setup specification.
   game components, including relevant tests; a sample fixture is not completion.
   Use the bundled generic `scripts/configure-cabal.mjs` only when its single-package
   Cabal assumptions fit. Review proposals before applying and merge conflicts safely.
-- Keep GHC inference explicitly trusted and optional. It supports GHC 9.6.x;
+- Keep GHC inference explicitly trusted and optional. It supports GHC 9.14.x;
   do not change an existing game's compiler merely to satisfy the analyzer.
   Preserve HLS and syntax browsing when inference is unsupported.
 - Reuse installed toolchains and cached dependencies, bound build concurrency and

@@ -18,7 +18,7 @@ getString k o = J.field k o >>= J.string
 getWord :: String -> M.Map String J.JSON -> Either String Word64
 getWord k o = do
   value <- getString k o
-  if null value || length value > 20 || any (\c -> c < '0' || c > '9') value || length value > 1 && head value == '0'
+  if null value || length value > 20 || any (\c -> c < '0' || c > '9') value || length value > 1 && take 1 value == "0"
     then Left ("Invalid canonical decimal: " ++ k)
     else case (readMaybe value :: Maybe Integer) of
       Just n | n >= 0 && n <= toInteger (maxBound :: Word64) -> Right (fromInteger n)

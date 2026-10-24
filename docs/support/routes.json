@@ -30,7 +30,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current-toolchain offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
@@ -63,7 +63,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current-toolchain offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
@@ -96,7 +96,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current-toolchain offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
@@ -117,7 +117,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
@@ -138,7 +138,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
@@ -233,7 +233,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Native and actual Wasm Node runtime checked; browser UI and touch devices not verified. GHC-Wasm required only for the optional local browser build, not bounded native CI."
     },
@@ -260,7 +260,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "GHC 9.6 native loopback host; bounded core/construction/save/lifecycle/HTTP and Node protocol checks. Full campaign is a separate explicit long gate. Real-browser rendering, keyboard/pointer, reload/layout and human play acceptance remain unverified; no Wasm or deployed service claim."
     },
@@ -285,7 +285,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
@@ -313,7 +313,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
@@ -338,7 +338,7 @@
         ]
       ],
       "evidence": [
-        "CURRENT-VERIFICATION.md"
+        "docs/verification.md"
       ],
       "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     }

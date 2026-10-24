@@ -447,7 +447,7 @@ cacheCandidates content state context = filter eligible $ sortOn (\t -> (manhatt
 cacheRoadPort :: SpatialState -> Tile -> Maybe Tile
 cacheRoadPort state tile = case sortOn tileIndex [road | road <- S.toList (spatialRoads state), manhattan tile road <= 1] of
   [] -> Nothing
-  roads -> if S.member tile (spatialRoads state) then Just tile else Just (head roads)
+  first : _ -> if S.member tile (spatialRoads state) then Just tile else Just first
 
 refreshCachePorts :: SpatialState -> SpatialState
 refreshCachePorts state = state {spatialOwnerLocations = foldr add (spatialOwnerLocations state) (M.toList (spatialCaches state))}

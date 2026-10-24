@@ -16,7 +16,7 @@ import Colony.Units
 import Colony.Workforce qualified as W
 import Colony.World
 import Control.Monad (foldM, forM, forM_, void, when)
-import Data.List (find, foldl', isInfixOf, sortOn)
+import Data.List (find, isInfixOf, sortOn)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
 import Data.Word (Word64)
@@ -375,7 +375,7 @@ drawColony font width height time mouse screen failure = do
               label = resourceName (S.sourceRegionResource source) ++ if depleted then " 枯渇" else " " ++ resourceAmount (S.sourceRegionResource source) remaining
               Color red green blue _ = sourceColor (S.sourceRegionResource source)
           tileQuad width height camera px py fw fh 0 (if depleted then Color 119 108 100 85 else sourceColor (S.sourceRegionResource source))
-          forM_ (zip corners (tail corners ++ take 1 corners)) $ \(a, b) -> drawLineEx a b 2 (if depleted then Color 129 102 91 190 else Color red green blue 230)
+          forM_ (zip corners (drop 1 corners ++ take 1 corners)) $ \(a, b) -> drawLineEx a b 2 (if depleted then Color 129 102 91 190 else Color red green blue 230)
           let Vector2 sx sy = p (px + fw / 2) (py + if S.sourceRegionKind source == "aquifer" then 0.5 else fh / 2)
           Vector2 labelWidth _ <- measureLabel font label 18
           let centeredX = max (labelWidth / 2 + 15) (min (visibleWidth - labelWidth / 2 - 15) sx)

@@ -1,6 +1,5 @@
 module Life.Internal.Journey (walkToCell, scenarioGame) where
 
-import Data.List (foldl')
 import Data.Sequence qualified as Seq
 import Data.Set qualified as Set
 import Life.Internal.Core

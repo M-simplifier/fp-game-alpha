@@ -1,7 +1,7 @@
 module Main (main) where
 
 import Control.Monad (unless)
-import Data.List (foldl', nub)
+import Data.List (nub)
 import Game.Arena (observe, play)
 import Game.Transition (Divergence (..), Step (..), firstDivergence, replay)
 import System.Exit (exitFailure)

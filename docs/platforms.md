@@ -47,7 +47,7 @@ terminal-workspace route** on Linux, Windows and macOS. At `be1208af`, all three
 typed package tests and independent game-development/relocation checks. The
 [route registry](support/routes.json) and native guide link each exact job.
 
-Windows uses GHC 9.6.7's same-installation versioned compiler through the
+Windows uses GHC 9.14.1's same-installation versioned compiler through the
 [explicit selection recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler).
 It selects bootstrap and game compilers separately, without changing global PATH
 or installing a different version. Existing project settings and wrappers remain

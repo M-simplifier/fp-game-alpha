@@ -13,7 +13,6 @@ module Garden.Session
   )
 where
 
-import Data.List (foldl')
 import Garden.Simulation
 import Garden.World
 

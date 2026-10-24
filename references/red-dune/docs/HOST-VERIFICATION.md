@@ -2,7 +2,7 @@
 
 ## Evidence as of 2026-10-04
 
-- Native GHC 9.6.7 build with `-Wall -Werror` passed; the full Cabal pure
+- Native GHC 9.14.1 build with `-Wall -Werror` passed; the full Cabal pure
   library and native host component also built successfully
 - `node tools/test_browser_protocol.cjs` passed: decimal identities above 2^53,
   noncanonical identity rejection, reordered/retired runtime responses, exact

@@ -10,7 +10,7 @@ extra-source-files: data/*.json, docs/*.md, PROVENANCE.md, README.md, ASSETS.md,
 common shared
   default-language: GHC2021
   ghc-options: -Wall -Werror
-  build-depends: base >=4.18 && <4.19, containers, array, bytestring, text, parsec, binary, deepseq, mtl, directory, filepath, game-arena >=0.1 && <0.2, game-transition >=0.1 && <0.2
+  build-depends: base >=4.22 && <4.23, containers, array, bytestring, text, parsec, binary, deepseq, mtl, directory, filepath, game-arena >=0.1 && <0.2, game-transition >=0.1 && <0.2
   if !os(windows)
     build-depends: unix
 
@@ -136,7 +136,7 @@ library
     Colony.Workforce,
     Colony.World
 
-executable red-dune
+executable red-dune-http
   import: shared
   if os(windows)
     buildable: False
@@ -218,7 +218,7 @@ executable red-dune
     RedDune.Native.Font
     RedDune.Native.Help
   c-sources: native/cbits/store.c
-  build-depends: red-dune, h-raylib >=5.5 && <5.7
+  build-depends: red-dune, h-raylib >=6.1.0.0 && <6.1.1
   ghc-options: -O2 -threaded -rtsopts -optl-mwindows
 
 test-suite live-native

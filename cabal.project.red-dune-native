@@ -4,7 +4,7 @@ packages:
   references/red-dune
 
 tests: False
-constraints: h-raylib ==5.6.0.0
+constraints: h-raylib ==6.1.0.0
 
 package h-raylib
   flags: +disable-lens +detect-platform

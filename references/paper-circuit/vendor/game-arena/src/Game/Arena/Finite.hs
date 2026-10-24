@@ -1,12 +1,20 @@
 -- | Optional finite, complete-information, turn-based analysis. This model is
 -- separate from executable 'Game.Arena.Arena': a clock is not implicitly fair.
 module Game.Arena.Finite
-  ( Controller (..), Node (..), FiniteArena, ArenaError (..), finiteArena, states
-  , controllablePredecessor, forceReach, continueWithin
-  ) where
+  ( Controller (..),
+    Node (..),
+    FiniteArena,
+    ArenaError (..),
+    finiteArena,
+    states,
+    controllablePredecessor,
+    forceReach,
+    continueWithin,
+  )
+where
 
 import Data.List.NonEmpty (NonEmpty)
-import qualified Data.List.NonEmpty as NE
+import Data.List.NonEmpty qualified as NE
 
 -- | Other participants and external choices are adversarial for a coalition
 -- query. This is a query assumption, not a statement about their intentions.
@@ -25,8 +33,10 @@ newtype FiniteArena state participant action = FiniteArena [(state, Node partici
 data ArenaError state = DuplicateState state | UnknownSuccessor state deriving (Eq, Show)
 
 -- | Validate closure and uniqueness while retaining row and edge order.
-finiteArena :: Eq state => [(state, Node participant action state)]
-            -> Either (ArenaError state) (FiniteArena state participant action)
+finiteArena ::
+  (Eq state) =>
+  [(state, Node participant action state)] ->
+  Either (ArenaError state) (FiniteArena state participant action)
 finiteArena rows = do
   distinct [] universe
   mapM_ checkNode (map snd rows)
@@ -50,35 +60,44 @@ states (FiniteArena rows) = map fst rows
 -- | Coalition-owned nodes need one target successor; other controllers need
 -- all successors in the target. 'Halted' is false, avoiding vacuous deadlock
 -- guarantees from @all []@.
-controllablePredecessor :: (Eq state, Eq participant)
-                        => [participant] -> [state] -> FiniteArena state participant action -> [state]
+controllablePredecessor ::
+  (Eq state, Eq participant) =>
+  [participant] -> [state] -> FiniteArena state participant action -> [state]
 controllablePredecessor coalition target (FiniteArena rows) =
   [state | (state, node) <- rows, succeeds node]
   where
     succeeds Halted = False
     succeeds (Choice controller edges) =
       let outcomes = map ((`elem` target) . snd) (NE.toList edges)
-      in case controller of
-        Participant participant | participant `elem` coalition -> or outcomes
-        _ -> and outcomes
+       in case controller of
+            Participant participant | participant `elem` coalition -> or outcomes
+            _ -> and outcomes
 
 -- | Least fixed point of @target union CPre@. The coalition can force eventual
 -- target membership against all other choices. Halted targets already satisfy
 -- reachability. Targets outside the graph are ignored.
-forceReach :: (Eq state, Eq participant)
-           => [participant] -> [state] -> FiniteArena state participant action -> [state]
+forceReach ::
+  (Eq state, Eq participant) =>
+  [participant] -> [state] -> FiniteArena state participant action -> [state]
 forceReach coalition target arena = fixed []
   where
-    step current = [state | state <- states arena,
-                    state `elem` target || state `elem` controllablePredecessor coalition current arena]
+    step current =
+      [ state
+      | state <- states arena,
+        state `elem` target || state `elem` controllablePredecessor coalition current arena
+      ]
     fixed current = let next = step current in if next == current then current else fixed next
 
 -- | Greatest fixed point of @safe intersection CPre@. This means continuing
 -- forever within the safe set, so even a safe halted node fails this query.
-continueWithin :: (Eq state, Eq participant)
-               => [participant] -> [state] -> FiniteArena state participant action -> [state]
+continueWithin ::
+  (Eq state, Eq participant) =>
+  [participant] -> [state] -> FiniteArena state participant action -> [state]
 continueWithin coalition safe arena = fixed (states arena)
   where
-    step current = [state | state <- states arena,
-                    state `elem` safe && state `elem` controllablePredecessor coalition current arena]
+    step current =
+      [ state
+      | state <- states arena,
+        state `elem` safe && state `elem` controllablePredecessor coalition current arena
+      ]
     fixed current = let next = step current in if next == current then current else fixed next

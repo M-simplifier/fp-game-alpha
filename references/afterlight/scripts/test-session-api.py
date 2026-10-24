@@ -15,14 +15,14 @@ GAME = Path(__file__).resolve().parents[1]
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--config-file', type=Path, required=True)
+    parser.add_argument('--config-file', type=Path)
     parser.add_argument('--project-file', type=Path, required=True)
     parser.add_argument('--builddir', type=Path, required=True)
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
     build = args.builddir.resolve()
     output = args.output.resolve() if args.output else build.parent / 'session-api.json'
-    cabal = ['cabal', f'--config-file={args.config_file.resolve()}', 'exec',
+    cabal = ['cabal'] + ([f'--config-file={args.config_file.resolve()}'] if args.config_file else []) + ['exec',
              f'--project-file={args.project_file.resolve()}', f'--builddir={build}', '--offline', '--']
     rows = []
     with tempfile.TemporaryDirectory(prefix='session-api-', dir=build.parent) as folder:
@@ -38,11 +38,11 @@ def main():
             else:
                 command += ['-o', str(destination / 'session-read')]
             command.append(str(GAME / f'test/api/{name}.hs'))
-            compiled = subprocess.run(command, cwd=GAME.parents[1], capture_output=True, text=True,
+            compiled = subprocess.run(command, cwd=GAME, capture_output=True, text=True,
                                       encoding='utf-8', errors='replace', timeout=90)
             diagnostics = compiled.stdout + compiled.stderr
             if field:
-                passed = compiled.returncode != 0 and field in diagnostics and 'is not a record selector' in diagnostics
+                passed = compiled.returncode != 0 and field in diagnostics and ('is not a record selector' in diagnostics or 'Not in scope: record field' in diagnostics)
                 rows.append(dict(client=name, compile_exit=compiled.returncode, passed=passed,
                                  expected='query is not a record selector', diagnostics=diagnostics))
             else:

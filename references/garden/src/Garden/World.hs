@@ -32,7 +32,6 @@ where
 import Data.Bits (shiftR, xor)
 import Data.Char (ord)
 import Data.IntMap.Strict qualified as IM
-import Data.List (foldl')
 import Data.Word (Word32)
 import Numeric (showHex)
 

@@ -15,7 +15,7 @@ the same Haskell rules, content and framed game codec as the Linux host. It
 needs an installed Japanese Windows system font; no font files are shipped.
 See [native play controls and saves](docs/WINDOWS-PLAY.md).
 
-With GHC 9.6.7, Cabal 3.x, Python 3 and the official `h-raylib-5.6.0.0` sources
+With GHC 9.14.1, Cabal 3.x, Python 3 and the official `h-raylib-5.6.0.0` sources
 available in Cabal's cache, build from the repository root:
 
 ```powershell
@@ -50,7 +50,7 @@ it does not establish owner input or enjoyment acceptance.
 
 ## Linux browser play
 
-Linux, GHC 9.6.x (base 4.18), Cabal 3.x. The host adds the official
+Linux, GHC 9.14.x (base 4.22), Cabal 3.x. The host adds the official
 `network-3.1.4.0` package to the two local foundation libraries. No Python runtime
 or JavaScript gameplay engine is used. Node 20+ is optional for host/protocol tests.
 

@@ -15,7 +15,7 @@ library
   import: checked
   hs-source-dirs: src
   exposed-modules: Garden.World, Garden.Simulation, Garden.Session, Garden.Clock, Garden.View, Garden.Input, Garden.Adapter
-  build-depends: base >=4.18 && <5, containers, game-transition ==0.1.0.0, game-arena ==0.1.0.0
+  build-depends: base >=4.22 && <4.23, containers, game-transition ==0.1.0.0, game-arena ==0.1.0.0
 
 test-suite garden-laws
   import: checked

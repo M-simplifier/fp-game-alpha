@@ -15,7 +15,7 @@ where
 
 import Control.Monad (when)
 import Data.Char (chr, digitToInt, ord)
-import Data.List (foldl', group, sort)
+import Data.List (group, sort)
 import Data.Map.Strict qualified as M
 import Text.Parsec hiding (string)
 import Text.Parsec qualified as P

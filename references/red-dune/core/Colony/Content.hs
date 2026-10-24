@@ -298,7 +298,7 @@ resourceVector name obj = do
 
 uniqueMap :: (Ord key, Show key) => String -> (a -> key) -> [a] -> Either String (M.Map key a)
 uniqueMap label key xs = do
-  let duplicates = [head g | g <- group (sort (map key xs)), length g > 1]
+  let duplicates = [first | first : _ : _ <- group (sort (map key xs))]
   unless (null duplicates) (Left ("Duplicate " ++ label ++ " IDs: " ++ show duplicates))
   pure (M.fromList [(key x, x) | x <- xs])
 
