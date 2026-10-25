@@ -96,7 +96,7 @@ CPPの条件を解決せず、解析できた宣言だけを載せます。
 dist/haskell-design outline --root examples --file Domain/Order.hs --infer --trusted
 ```
 
-GHC 9.6.xと、そのプロジェクト用の `.haskell-design.json` による依存・拡張設定が必要です。
+GHC 9.14.xと、そのプロジェクト用の `.haskell-design.json` による依存・拡張設定が必要です。
 `--ghc` と `--cache-dir` も指定できます。型推論が失敗した場合は警告が残ります。
 通常の一覧は型検査を行わず、書かれた署名を表示します。
 設定方法は[セットアップガイド](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md)にあります。

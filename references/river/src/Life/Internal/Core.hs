@@ -67,7 +67,7 @@ module Life.Internal.Core
   )
 where
 
-import Data.List (foldl', sortOn)
+import Data.List (sortOn)
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Set (Set)

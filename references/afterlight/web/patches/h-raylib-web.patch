@@ -1,3 +1,22 @@
+--- a/h-raylib.cabal
++++ b/h-raylib.cabal
+@@ -1,6 +1,7 @@
+ cabal-version:      2.4
+ name:               h-raylib
+ version:            6.1.0.0
++x-revision: 1
+ synopsis:           Raylib bindings for Haskell
+ category:           graphics
+ description:
+@@ -261,7 +262,7 @@
+     , base              >=4.0      && <4.23
+     , bytestring        >=0.11.0   && <0.13
+     , containers        >=0.6.0    && <0.9
+-    , template-haskell  >=2.16.0.0 && <2.24
++    , template-haskell  >=2.16.0.0 && <2.25
+     , text              >=2.0      && <2.2
+ 
+ 
 --- a/src/Raylib/Types/Core.hs
 +++ b/src/Raylib/Types/Core.hs
 @@ -3,6 +3,14 @@
@@ -5,8 +24,8 @@
  {-# LANGUAGE FlexibleInstances #-}
  {-# LANGUAGE CPP #-}
 +
-+-- wasm32 C layouts are measured against the bundled raylib.h.
-+-- The native branch preserves the upstream layout. Checked by Afterlight web/checks/abi.c.
++-- wasm32 layout measured from the bundled raylib.h; abi.c checks the C side.
++-- Keep the upstream native branch intact.
 +#if defined(wasm32_HOST_ARCH)
 +#define RAYLIB_ABI(native, wasm) wasm
 +#else
@@ -15,16 +34,27 @@
  
  -- | Bindings for types used in all raylib modules
  module Raylib.Types.Core
-@@ -1130,7 +1138,7 @@
+@@ -1129,8 +1137,8 @@
    deriving (Eq, Show, Read)
  
  instance Storable FilePathList where
 -  sizeOf _ = 16
-+  sizeOf _ = RAYLIB_ABI(16, 12)
-   alignment _ = 4
+-  alignment _ = 8
++  sizeOf _ = RAYLIB_ABI(16, 8)
++  alignment _ = RAYLIB_ABI(8, 4)
    peek _p = do
-     capacity <- fromIntegral <$> peek (p'filePathList'capacity _p)
-@@ -1201,8 +1209,8 @@
+     count <- fromIntegral <$> peek (p'filePathList'count _p)
+     pathsPtr <- peek (p'filePathList'paths _p)
+@@ -1148,7 +1156,7 @@
+ 
+ -- array (filePathList'count)
+ p'filePathList'paths :: Ptr FilePathList -> Ptr (Ptr CString)
+-p'filePathList'paths = (`plusPtr` 8)
++p'filePathList'paths = (`plusPtr` RAYLIB_ABI(8, 4))
+ 
+ instance Freeable FilePathList where
+   rlFreeDependents val ptr = do
+@@ -1195,8 +1203,8 @@
    deriving (Eq, Show, Read)
  
  instance Storable AutomationEventList where
@@ -41,8 +71,8 @@
 +{-# LANGUAGE CPP #-}
  {-# LANGUAGE DeriveAnyClass #-}
 +
-+-- wasm32 C layouts are measured against the bundled raylib.h.
-+-- The native branch preserves the upstream layout. Checked by Afterlight web/checks/abi.c.
++-- wasm32 layout measured from the bundled raylib.h; abi.c checks the C side.
++-- Keep the upstream native branch intact.
 +#if defined(wasm32_HOST_ARCH)
 +#define RAYLIB_ABI(native, wasm) wasm
 +#else
@@ -150,8 +180,8 @@
  {-# LANGUAGE DeriveAnyClass #-}
  {-# LANGUAGE PatternSynonyms #-}
 +
-+-- wasm32 C layouts are measured against the bundled raylib.h.
-+-- The native branch preserves the upstream layout. Checked by Afterlight web/checks/abi.c.
++-- wasm32 layout measured from the bundled raylib.h; abi.c checks the C side.
++-- Keep the upstream native branch intact.
 +#if defined(wasm32_HOST_ARCH)
 +#define RAYLIB_ABI(native, wasm) wasm
 +#else
@@ -160,18 +190,18 @@
  
  -- | Bindings for types used mainly in @rmodels@
  module Raylib.Types.Core.Models
-@@ -354,8 +363,8 @@
+@@ -355,8 +364,8 @@
    deriving (Eq, Show, Read)
  
  instance Storable Mesh where
 -  sizeOf _ = 120
 -  alignment _ = 8
-+  sizeOf _ = RAYLIB_ABI(120, 68)
++  sizeOf _ = RAYLIB_ABI(120, 64)
 +  alignment _ = RAYLIB_ABI(8, 4)
    peek _p = do
      vertexCount <- fromIntegral <$> peek (p'mesh'vertexCount _p)
      triangleCount <- fromIntegral <$> peek (p'mesh'triangleCount _p)
-@@ -417,57 +426,57 @@
+@@ -416,53 +425,53 @@
  
  -- maybe array (mesh'vertexCount)
  p'mesh'texcoords :: Ptr Mesh -> Ptr (Ptr Vector2)
@@ -203,47 +233,42 @@
 -p'mesh'indices = (`plusPtr` 56)
 +p'mesh'indices = (`plusPtr` RAYLIB_ABI(56, 32))
  
+ p'mesh'boneCount :: Ptr Mesh -> Ptr CInt
+-p'mesh'boneCount = (`plusPtr` 64)
++p'mesh'boneCount = (`plusPtr` RAYLIB_ABI(64, 36))
+ 
+ -- maybe array (4 * mesh'vertexCount)
+ p'mesh'boneIndices :: Ptr Mesh -> Ptr (Ptr CUChar)
+-p'mesh'boneIndices = (`plusPtr` 72)
++p'mesh'boneIndices = (`plusPtr` RAYLIB_ABI(72, 40))
+ 
+ -- maybe array (4 * mesh'vertexCount)
+ p'mesh'boneWeights :: Ptr Mesh -> Ptr (Ptr CFloat)
+-p'mesh'boneWeights = (`plusPtr` 80)
++p'mesh'boneWeights = (`plusPtr` RAYLIB_ABI(80, 44))
+ 
  -- maybe array (mesh'vertexCount)
  p'mesh'animVertices :: Ptr Mesh -> Ptr (Ptr Vector3)
--p'mesh'animVertices = (`plusPtr` 64)
-+p'mesh'animVertices = (`plusPtr` RAYLIB_ABI(64, 36))
+-p'mesh'animVertices = (`plusPtr` 88)
++p'mesh'animVertices = (`plusPtr` RAYLIB_ABI(88, 48))
  
  -- maybe array (mesh'vertexCount)
  p'mesh'animNormals :: Ptr Mesh -> Ptr (Ptr Vector3)
--p'mesh'animNormals = (`plusPtr` 72)
-+p'mesh'animNormals = (`plusPtr` RAYLIB_ABI(72, 40))
- 
- -- maybe array (mesh'boneCount)
- p'mesh'boneIds :: Ptr Mesh -> Ptr (Ptr CUChar)
--p'mesh'boneIds = (`plusPtr` 80)
-+p'mesh'boneIds = (`plusPtr` RAYLIB_ABI(80, 44))
- 
- -- maybe array (mesh'boneCount)
- p'mesh'boneWeights :: Ptr Mesh -> Ptr (Ptr CFloat)
--p'mesh'boneWeights = (`plusPtr` 88)
-+p'mesh'boneWeights = (`plusPtr` RAYLIB_ABI(88, 48))
- 
- -- maybe array (mesh'boneCount)
- p'mesh'boneMatrices :: Ptr Mesh -> Ptr (Ptr Matrix)
--p'mesh'boneMatrices = (`plusPtr` 96)
-+p'mesh'boneMatrices = (`plusPtr` RAYLIB_ABI(96, 52))
- 
- p'mesh'boneCount :: Ptr Mesh -> Ptr CInt
--p'mesh'boneCount = (`plusPtr` 104)
-+p'mesh'boneCount = (`plusPtr` RAYLIB_ABI(104, 56))
+-p'mesh'animNormals = (`plusPtr` 96)
++p'mesh'animNormals = (`plusPtr` RAYLIB_ABI(96, 52))
  
  p'mesh'vaoId :: Ptr Mesh -> Ptr CUInt
--p'mesh'vaoId = (`plusPtr` 108)
-+p'mesh'vaoId = (`plusPtr` RAYLIB_ABI(108, 60))
+-p'mesh'vaoId = (`plusPtr` 104)
++p'mesh'vaoId = (`plusPtr` RAYLIB_ABI(104, 56))
  
  -- maybe array (9)
  p'mesh'vboId :: Ptr Mesh -> Ptr (Ptr CUInt)
 -p'mesh'vboId = (`plusPtr` 112)
-+p'mesh'vboId = (`plusPtr` RAYLIB_ABI(112, 64))
++p'mesh'vboId = (`plusPtr` RAYLIB_ABI(112, 60))
  
  instance Freeable Mesh where
    rlFreeDependents _ ptr = do
-@@ -503,8 +512,8 @@
+@@ -498,8 +507,8 @@
    deriving (Eq, Show, Read)
  
  instance Storable Shader where
@@ -254,7 +279,7 @@
    peek _p = do
      sId <- fromIntegral <$> peek (p'shader'id _p)
      locs <- map fromIntegral <$> (peekArray 32 =<< peek (p'shader'locs _p))
-@@ -526,7 +535,7 @@
+@@ -521,7 +530,7 @@
  
  -- array (32)
  p'shader'locs :: Ptr Shader -> Ptr (Ptr CInt)
@@ -263,7 +288,7 @@
  
  instance Freeable Shader where
    rlFreeDependents _ ptr = do
-@@ -574,8 +583,8 @@
+@@ -569,8 +578,8 @@
    deriving (Eq, Show, Read)
  
  instance Storable Material where
@@ -274,7 +299,7 @@
    peek _p = do
      shader <- peek (p'material'shader _p)
      maps <- peekMaybeArray 12 =<< peek (p'material'maps _p)
-@@ -613,11 +622,11 @@
+@@ -608,11 +617,11 @@
  
  -- maybe array (12)
  p'material'maps :: Ptr Material -> Ptr (Ptr MaterialMap)
@@ -288,16 +313,43 @@
  
  instance Freeable Material where
    rlFreeDependents val ptr = do
-@@ -691,7 +700,7 @@
+@@ -684,8 +693,8 @@
+   deriving (Eq, Show, Read)
+ 
+ instance Storable ModelSkeleton where
+-  sizeOf _ = 24
+-  alignment _ = 8
++  sizeOf _ = RAYLIB_ABI(24, 12)
++  alignment _ = RAYLIB_ABI(8, 4)
+   peek _p = do
+     boneCount <- fromIntegral <$> peek (p'modelSkeleton'boneCount _p)
+     bones <- peekArray boneCount =<< peek (p'modelSkeleton'bones _p)
+@@ -702,11 +711,11 @@
+ 
+ -- array (modelSkeleton'boneCount)
+ p'modelSkeleton'bones :: Ptr ModelSkeleton -> Ptr (Ptr BoneInfo)
+-p'modelSkeleton'bones = (`plusPtr` 8)
++p'modelSkeleton'bones = (`plusPtr` RAYLIB_ABI(8, 4))
+ 
+ -- array (modelSkeleton'boneCount)
+ p'modelSkeleton'bindPose :: Ptr ModelSkeleton -> Ptr (Ptr Transform)
+-p'modelSkeleton'bindPose = (`plusPtr` 16)
++p'modelSkeleton'bindPose = (`plusPtr` RAYLIB_ABI(16, 8))
+ 
+ instance Freeable ModelSkeleton where
+   rlFreeDependents _ ptr = do
+@@ -725,8 +734,8 @@
    deriving (Eq, Show, Read)
  
  instance Storable Model where
--  sizeOf _ = 120
-+  sizeOf _ = RAYLIB_ABI(120, 96)
-   alignment _ = 4
+-  sizeOf _ = 136
+-  alignment _ = 8
++  sizeOf _ = RAYLIB_ABI(136, 104)
++  alignment _ = RAYLIB_ABI(8, 4)
    peek _p = do
      transform <- peek (p'model'transform _p)
-@@ -739,22 +748,22 @@
+     meshCount <- fromIntegral <$> peek (p'model'meshCount _p)
+@@ -774,22 +783,22 @@
  
  -- array (model'materialCount)
  p'model'materials :: Ptr Model -> Ptr (Ptr Material)
@@ -309,60 +361,52 @@
 -p'model'meshMaterial = (`plusPtr` 88)
 +p'model'meshMaterial = (`plusPtr` RAYLIB_ABI(88, 80))
  
- p'model'boneCount :: Ptr Model -> Ptr CInt
--p'model'boneCount = (`plusPtr` 96)
-+p'model'boneCount = (`plusPtr` RAYLIB_ABI(96, 84))
+ p'model'skeleton :: Ptr Model -> Ptr ModelSkeleton
+-p'model'skeleton = (`plusPtr` 96)
++p'model'skeleton = (`plusPtr` RAYLIB_ABI(96, 84))
  
- -- maybe array (model'boneCount)
- p'model'bones :: Ptr Model -> Ptr (Ptr BoneInfo)
--p'model'bones = (`plusPtr` 104)
-+p'model'bones = (`plusPtr` RAYLIB_ABI(104, 88))
+ -- maybe array (modelSkeleton'boneCount . model'skeleton)
+ p'model'currentPose :: Ptr Model -> Ptr (Ptr Transform)
+-p'model'currentPose = (`plusPtr` 120)
++p'model'currentPose = (`plusPtr` RAYLIB_ABI(120, 96))
  
- -- maybe array (model'boneCount)
- p'model'bindPose :: Ptr Model -> Ptr (Ptr Transform)
--p'model'bindPose = (`plusPtr` 112)
-+p'model'bindPose = (`plusPtr` RAYLIB_ABI(112, 92))
+ -- maybe array (modelSkeleton'boneCount . model'skeleton)
+ p'model'boneMatrices :: Ptr Model -> Ptr (Ptr Matrix)
+-p'model'boneMatrices = (`plusPtr` 128)
++p'model'boneMatrices = (`plusPtr` RAYLIB_ABI(128, 100))
  
  instance Freeable Model where
    rlFreeDependents val ptr = do
-@@ -774,7 +783,7 @@
+@@ -809,8 +818,8 @@
    deriving (Eq, Show, Read)
  
  instance Storable ModelAnimation where
--  sizeOf _ = 56
-+  sizeOf _ = RAYLIB_ABI(56, 48)
-   alignment _ = 4
+-  sizeOf _ = 48
+-  alignment _ = 8
++  sizeOf _ = RAYLIB_ABI(48, 44)
++  alignment _ = RAYLIB_ABI(8, 4)
    peek _p = do
+     name <- peekCString (p'modelAnimation'name _p)
      boneCount <- fromIntegral <$> peek (p'modelAnimation'boneCount _p)
-@@ -805,11 +814,11 @@
- 
- -- array 2d (rows: modelAnimation'frameCount, cols: modelAnimation'boneCount)
- p'modelAnimation'framePoses :: Ptr ModelAnimation -> Ptr (Ptr (Ptr Transform))
--p'modelAnimation'framePoses = (`plusPtr` 16)
-+p'modelAnimation'framePoses = (`plusPtr` RAYLIB_ABI(16, 12))
- 
- -- static string (32)
- p'modelAnimation'name :: Ptr ModelAnimation -> Ptr CChar
--p'modelAnimation'name = (`plusPtr` 24)
-+p'modelAnimation'name = (`plusPtr` RAYLIB_ABI(24, 16))
- 
- instance Freeable ModelAnimation where
-   rlFreeDependents val ptr = do
 --- a/src/Raylib/Types/Core/Text.hs
 +++ b/src/Raylib/Types/Core/Text.hs
-@@ -1,3 +1,12 @@
+@@ -1,7 +1,16 @@
 +{-# LANGUAGE CPP #-}
-+-- wasm32 C layouts are measured against the bundled raylib.h.
-+-- The native branch preserves the upstream layout. Checked by Afterlight web/checks/abi.c.
+ -- | Bindings for types used in @rtext@
+ module Raylib.Types.Core.Text
+   ( -- * Enumerations
+     FontType (..),
++
++-- wasm32 layout measured from the bundled raylib.h; abi.c checks the C side.
++-- Keep the upstream native branch intact.
 +#if defined(wasm32_HOST_ARCH)
 +#define RAYLIB_ABI(native, wasm) wasm
 +#else
 +#define RAYLIB_ABI(native, wasm) native
 +#endif
-+
- -- | Bindings for types used in @rtext@
- module Raylib.Types.Core.Text
-   ( -- * Enumerations
+ 
+     -- * Structures
+     GlyphInfo (..),
 @@ -58,7 +67,7 @@
    deriving (Eq, Show, Read)
  
@@ -396,8 +440,8 @@
 +{-# LANGUAGE CPP #-}
  {-# LANGUAGE DeriveAnyClass #-}
 +
-+-- wasm32 C layouts are measured against the bundled raylib.h.
-+-- The native branch preserves the upstream layout. Checked by Afterlight web/checks/abi.c.
++-- wasm32 layout measured from the bundled raylib.h; abi.c checks the C side.
++-- Keep the upstream native branch intact.
 +#if defined(wasm32_HOST_ARCH)
 +#define RAYLIB_ABI(native, wasm) wasm
 +#else
@@ -436,31 +480,3 @@
  
  instance Freeable Image where
    rlFreeDependents _ ptr = do
---- a/raylib/src/platforms/rcore_web.c
-+++ b/raylib/src/platforms/rcore_web.c
-@@ -1480,8 +1480,8 @@
- // GLFW3: Called on windows get/lose focus
- static void WindowFocusCallback(GLFWwindow *window, int focused)
- {
--    if (focused) FLAG_SET(CORE.Window.flags, FLAG_WINDOW_UNFOCUSED);   // The window was focused
--    else FLAG_CLEAR(CORE.Window.flags, FLAG_WINDOW_UNFOCUSED);           // The window lost focus
-+    if (focused) FLAG_CLEAR(CORE.Window.flags, FLAG_WINDOW_UNFOCUSED); // The window was focused
-+    else FLAG_SET(CORE.Window.flags, FLAG_WINDOW_UNFOCUSED);          // The window lost focus
- }
- 
- // GLFW3: Called on file-drop over the window
---- a/raylib/src/rlgl.h
-+++ b/raylib/src/rlgl.h
-@@ -3433,6 +3433,12 @@
-     }
- #endif
- 
-+#if defined(GRAPHICS_API_OPENGL_ES3)
-+    // WebGL 2 / ES 3 require a sized depth texture format paired with its
-+    // component type. The WebGL 1 unsized path is not valid here.
-+    glInternalFormat = GL_DEPTH_COMPONENT24;
-+#endif
-+
-     if (!useRenderBuffer && RLGL.ExtSupported.texDepth)
-     {
-         glGenTextures(1, &id);

@@ -1,0 +1,3 @@
+packages: .
+active-repositories: :none
+write-ghc-environment-files: never

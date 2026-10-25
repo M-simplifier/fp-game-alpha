@@ -159,9 +159,8 @@ prepareModel window shader geometry = mask_ $ do
             mesh'indices = Nothing,
             mesh'animVertices = Nothing,
             mesh'animNormals = Nothing,
-            mesh'boneIds = Nothing,
+            mesh'boneIndices = Nothing,
             mesh'boneWeights = Nothing,
-            mesh'boneMatrices = Nothing,
             mesh'boneCount = 0,
             mesh'vaoId = 0,
             mesh'vboId = Nothing
@@ -176,9 +175,9 @@ prepareModel window shader geometry = mask_ $ do
               model'meshes = [uploaded],
               model'materials = [material {material'shader = shader}],
               model'meshMaterial = [0],
-              model'boneCount = 0,
-              model'bones = Nothing,
-              model'bindPose = Nothing
+              model'skeleton = ModelSkeleton 0 [] [],
+              model'currentPose = Nothing,
+              model'boneMatrices = Nothing
             }
     bracketOnError malloc free $ \ptr -> do
       poke ptr styled

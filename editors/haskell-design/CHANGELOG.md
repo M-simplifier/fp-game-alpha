@@ -4,7 +4,7 @@
 - Native `haskell-design map|outline|show`; syntax reading needs neither Node nor GHC at runtime. `read.cjs` remains a compatibility launcher.
 - Real Cabal syntax parsing, root-package scope, bounded whole-declaration pages and explicit trusted GHC inference. Source and cursor contracts remain in force.
 - OS/CPU-specific packages bundle the executable and dependency notices. Source builds now need GHC/Cabal and a C toolchain; Neovim still uses Node for its editor adapter.
-- Build, setup skill, portability guidance and measured Windows comparisons updated for the shared native core. See `docs/native.md`.
+- The shared native core serves CLI and editor readers. See `docs/native.md` for its build and runtime boundaries.
 - Offline definition navigation follows the editor's project scope and refuses ambiguous names, so a game type cannot jump into an unrelated bundled example.
 
 # 0.5.0

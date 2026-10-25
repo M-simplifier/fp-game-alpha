@@ -29,7 +29,9 @@ runCommand options = do
               Captured -> Just (fromMaybe 180 (timeoutSeconds options))
               Interactive -> timeoutSeconds options
          in execute root (ProcessRequest executable arguments deadline capture)
-      cabal action targets extra capture = withCabal root action targets $ \executable arguments -> executeHere executable (arguments ++ extra) capture
+      cabal action targets extra capture = withCabal root action targets $ \executable arguments ->
+        let deadline = if capture == Captured then Just (fromMaybe 180 (timeoutSeconds options)) else timeoutSeconds options
+         in executeCabal root (ProcessRequest executable (arguments ++ extra) deadline capture)
   case selectedCommand options of
     Doctor -> doctor root
     Build -> cabal "build" ["all"] [] Captured
@@ -73,7 +75,7 @@ doctor root = do
     Just _ -> Just <$> selectedCompiler root
     Nothing -> pure Nothing
   let chosenGhc = maybe ambientGhc (Just . compilerExecutable) compiler
-  observations <- forM [("ghc", chosenGhc, "9.6.7"), ("cabal", ambientCabal, "3.12.1.0")] $ \(name, executable, baseline) -> do
+  observations <- forM [("ghc", chosenGhc, "9.14.1"), ("cabal", ambientCabal, "3.18.2.0")] $ \(name, executable, baseline) -> do
     version <- case executable of
       Nothing -> pure Nothing
       Just path -> do

@@ -50,6 +50,11 @@ async function main() {
     fs.mkdirSync(path.dirname(localBinary), { recursive: true });
     fs.copyFileSync(binary, localBinary);
     fs.chmodSync(localBinary, fs.statSync(binary).mode);
+    if (process.platform === 'win32') {
+      const helper = path.join(path.dirname(binary), 'fp-game-console.exe');
+      assert(fs.statSync(helper).isFile(), 'Bootstrap the complete Windows tooling directory');
+      fs.copyFileSync(helper, path.join(path.dirname(localBinary), 'fp-game-console.exe'));
+    }
     const inspector = path.join(root, 'tools', 'inspect_haskell.py');
     assert(fs.statSync(inspector).isFile());
     assert(!fs.existsSync(path.join(root, 'tools', 'fp_game.py')), 'Generated project must not retain the competing Python CLI');

@@ -19,7 +19,7 @@ Windowsでは実行ファイル名に `.exe` を付ける。
 ツールディレクトリへ用意してよい。個人のdotfilesは使わない。
 
 ソース配布の `editors/haskell-design/` で `npm ci --ignore-scripts` と `npm run build` を一度実行する。
-ビルドにはNode.js 22以降、GHC 9.6.7、Cabal、Cコンパイラ、tar、stripが必要。
+ビルドにはNode.js 22以降、GHC 9.14.1、Cabal、Cコンパイラ、tar、stripが必要。
 `HASKELL_DESIGN_GHC` でツールをビルドするGHCを指定できる。ゲーム側のGHCは変更しない。
 配布物は実行するOS・CPUに合わせる。ビルド済みCLIの通常の一覧にはNodeもGHCもゲームのビルドも不要。
 実行ファイルには `dist/native-notices.txt`、型推論を使う場合は `compiler/` も添える。
@@ -62,7 +62,7 @@ Windowsでは実行ファイル名に `.exe` を付ける。
   `END` があっても警告は残る。未保存のエディタ内容は対象外。
 - 型の推論が必要なら、信頼済みの対象ファイルに限って
   `outline --file engine/Game/Rules.hs --infer --trusted` を使える。
-  GHC 9.6.xと対象ゲームの依存設定が必要。通常の読取のためにGHCを変更しない。
+  GHC 9.14.xと対象ゲームの依存設定が必要。通常の読取のためにGHCを変更しない。
 
 詳細と出力例は公開配布の
 [読取コマンドの説明](https://github.com/M-simplifier/garden-of-afterlight/blob/main/editors/haskell-design/docs/reader.md)

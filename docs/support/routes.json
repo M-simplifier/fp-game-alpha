@@ -5,7 +5,7 @@
       "id": "windows-kernel-cabal",
       "host": "windows",
       "target": "headless",
-      "status": "supported",
+      "status": "experimental",
       "implementation_paths": [
         "libraries",
         "cabal.project",
@@ -30,15 +30,15 @@
         ]
       ],
       "evidence": [
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
+        "docs/verification.md"
       ],
-      "scope": "GHC 9.6.7/Cabal 3.12.1.0 offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
+      "scope": "Current-toolchain offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
     {
       "id": "macos-kernel-cabal",
       "host": "macos",
       "target": "headless",
-      "status": "supported",
+      "status": "experimental",
       "implementation_paths": [
         "libraries",
         "cabal.project",
@@ -63,15 +63,15 @@
         ]
       ],
       "evidence": [
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
+        "docs/verification.md"
       ],
-      "scope": "GHC 9.6.7/Cabal 3.12.1.0 offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
+      "scope": "Current-toolchain offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
     {
       "id": "linux-kernel-cabal",
       "host": "linux",
       "target": "headless",
-      "status": "supported",
+      "status": "experimental",
       "implementation_paths": [
         "libraries",
         "cabal.project",
@@ -96,9 +96,9 @@
         ]
       ],
       "evidence": [
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37171188543"
+        "docs/verification.md"
       ],
-      "scope": "GHC 9.6.7/Cabal 3.12.1.0 offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
+      "scope": "Current-toolchain offline kernel build and tests through ordinary Cabal; no CLI, editor, host or arbitrary-game acceptance claim. Prior CI evidence used the same Cabal actions via the retired dispatcher; the direct route requires current CI."
     },
     {
       "id": "windows-vscode",
@@ -117,9 +117,9 @@
         ]
       ],
       "evidence": [
-        "docs/evidence/vscode-windows.json"
+        "docs/verification.md"
       ],
-      "scope": "Saved-source editor adapter: native doctor/check, Python specialist inspect/context. Historical Windows evidence covers the earlier Python-only adapter; changed native routing requires current actual editor-process qualification. Live HLS remains separate."
+      "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
     {
       "id": "windows-neovim",
@@ -138,9 +138,9 @@
         ]
       ],
       "evidence": [
-        "docs/evidence/neovim-windows.json"
+        "docs/verification.md"
       ],
-      "scope": "Saved-source editor adapter: native doctor/check, Python specialist inspect/context. Historical Windows evidence covers the earlier Python-only adapter; changed native routing requires current actual editor-process qualification. Live HLS remains separate."
+      "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
     {
       "id": "macos-vscode",
@@ -233,8 +233,7 @@
         ]
       ],
       "evidence": [
-        "references/signal-courier/CHECKS.json",
-        "references/signal-courier/docs/experiment.md"
+        "docs/verification.md"
       ],
       "scope": "Native and actual Wasm Node runtime checked; browser UI and touch devices not verified. GHC-Wasm required only for the optional local browser build, not bounded native CI."
     },
@@ -245,130 +244,25 @@
       "rendering": "html-css-svg",
       "status": "experimental",
       "implementation_paths": [
-        "references/red-dune-live",
-        "cabal.project.red-dune-live"
+        "references/red-dune",
+        "cabal.project.red-dune"
       ],
       "commands": [
         [
           "bash",
-          "references/red-dune-live/tools/check.sh",
+          "references/red-dune/tools/check.sh",
           "smoke"
         ],
         [
           "bash",
-          "references/red-dune-live/tools/check.sh",
+          "references/red-dune/tools/check.sh",
           "play"
         ]
       ],
       "evidence": [
-        "references/red-dune-live/docs/HOST-VERIFICATION.md",
-        "references/red-dune-live/docs/ACCEPTANCE.md",
-        "docs/red-dune-live.md"
+        "docs/verification.md"
       ],
-      "scope": "GHC 9.6 native loopback host; bounded core/construction/save/lifecycle/HTTP and Node protocol checks. Full campaign is a separate explicit long gate. Real-browser rendering, keyboard/pointer, reload/layout and human play acceptance remain unverified; no Wasm or deployed service claim."
-    },
-    {
-      "id": "research-sbv-cancellation",
-      "host": "linux",
-      "target": "optional-formal-research",
-      "status": "experimental",
-      "implementation_paths": [
-        "research/sbv-cancellation"
-      ],
-      "commands": [
-        [
-          "python",
-          "research/sbv-cancellation/run.py",
-          "self-test"
-        ],
-        [
-          "python",
-          "research/sbv-cancellation/run.py",
-          "check",
-          "--run-dir",
-          ".build/sbv-check-1"
-        ]
-      ],
-      "evidence": [
-        "research/sbv-cancellation/evidence/public-validation.json"
-      ],
-      "scope": "GHC9.6.7/Cabal3.12.1.0/SBV10.12/Z3 4.15.1: six SInteger UNSAT queries, three SAT controls, same-solver replay, finite bridge to frozen0.4 source. Not universal Haskell refinement or whole-game guarantee. Opt-in; each run directory must be fresh."
-    },
-    {
-      "id": "research-save-lifecycle",
-      "host": "linux",
-      "target": "optional-formal-research",
-      "status": "experimental",
-      "implementation_paths": [
-        "research/save-lifecycle"
-      ],
-      "commands": [
-        [
-          "sh",
-          "research/save-lifecycle/scripts/reproduce.sh",
-          "self-test"
-        ],
-        [
-          "sh",
-          "research/save-lifecycle/scripts/reproduce.sh",
-          "check"
-        ]
-      ],
-      "evidence": [
-        "research/save-lifecycle/evidence/public-validation.json"
-      ],
-      "scope": "GHC9.6.7/Java21/TLC2.19: finite model safety/fair-liveness and13-field frozen0.2 Haskell trace bridge with negative controls. Fresh RUN_DIR required; not all-instance refinement, shared-writer/crash safety or timing guarantee."
-    },
-    {
-      "id": "research-liquidhaskell-diagnostic",
-      "host": "linux",
-      "target": "optional-formal-research",
-      "status": "experimental",
-      "implementation_paths": [
-        "research/liquidhaskell"
-      ],
-      "commands": [
-        [
-          "python",
-          "research/liquidhaskell/check.py",
-          "verify-sources"
-        ],
-        [
-          "python",
-          "research/liquidhaskell/check.py",
-          "check",
-          "--require-sound-div"
-        ]
-      ],
-      "evidence": [
-        "research/liquidhaskell/evidence/linux-20261005.json"
-      ],
-      "scope": "Exact GHC9.6.3/LH0.9.6.3.1/Z3 4.15.1 diagnostic and finite runtime bridge. All12observations reproduced, but known false division acceptance leaves soundness gate failed and strict command exits1. Requires prepared/built fresh RUN_DIR; not a soundness or whole-game guarantee."
-    },
-    {
-      "id": "research-quantity-liquidhaskell",
-      "host": "linux",
-      "target": "optional-formal-research",
-      "status": "experimental",
-      "implementation_paths": [
-        "research/quantity/lh-checker"
-      ],
-      "commands": [
-        [
-          "python",
-          "research/quantity/lh-checker/check.py",
-          "source-check"
-        ],
-        [
-          "python",
-          "research/quantity/lh-checker/check.py",
-          "check"
-        ]
-      ],
-      "evidence": [
-        "research/quantity/lh-checker/evidence/linux-20261005.json"
-      ],
-      "scope": "Exact GHC9.6.3/LH0.9.6.3.1/Z3 4.15.1 selected-binder SAFE25, six UNSAFE mutants,7streams/175same-solver responses and9integer/bitvector models. Requires prepared LH_RUN_DIR; GHC9.6.7 runtime oracle is separate. No full-module, verifier or whole-game soundness claim."
+      "scope": "GHC 9.14.1 native loopback host; bounded core/construction/save/lifecycle/HTTP and Node protocol checks. Full campaign is a separate explicit long gate. Real-browser rendering, keyboard/pointer, reload/layout and human play acceptance remain unverified; no Wasm or deployed service claim."
     },
     {
       "id": "linux-native-haskell-tooling",
@@ -391,11 +285,9 @@
         ]
       ],
       "evidence": [
-        "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295460",
-        "docs/evidence/native-tooling-linux.json"
+        "docs/verification.md"
       ],
-      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks. This is the standard operational path; default-route cleanup and changed generated/editor callers require their own current checks, not inheritance of the historical result."
+      "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
     {
       "id": "windows-native-haskell-tooling",
@@ -421,10 +313,9 @@
         ]
       ],
       "evidence": [
-        "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675"
+        "docs/verification.md"
       ],
-      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (358 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Requires the explicit same-installation versioned Windows compiler profile; replace <verified-compiler-path> with the installed path accepted by the native guide/preflight. No global PATH changes or automatic wrapper bypass. This is the standard operational path; default-route cleanup and changed generated/editor callers require their own current checks, not inheritance of the historical result."
+      "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     },
     {
       "id": "macos-native-haskell-tooling",
@@ -447,10 +338,9 @@
         ]
       ],
       "evidence": [
-        "docs/evidence/native-tooling-ci.json",
-        "https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295554"
+        "docs/verification.md"
       ],
-      "scope": "Experimental GHC 9.6.7/Cabal 3.12.1.0 developer CLI and optional terminal-workspace profile; actual bootstrap, native units and integration passed at be1208af3a475b094964dd04b7fcdb4335deef51 (424 records). Japanese/space paths, gameplay edits, source-only relocation and native rebuild, scripted terminal play and gated compiler cleanup. No physical-editor, graphical-host or arbitrary-game acceptance claim. Includes real POSIX terminal job-control checks. This is the standard operational path; default-route cleanup and changed generated/editor callers require their own current checks, not inheritance of the historical result."
+      "scope": "Current source route; host qualification is recorded separately. No inherited historical result qualifies a changed toolchain."
     }
   ]
 }

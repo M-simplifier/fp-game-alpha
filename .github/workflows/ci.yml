@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.13.0'
       - run: python3 tools/check_site.py
       - run: node --check site/site.js
       - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -30,9 +33,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.13.0'
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
-          python-version: '3.12'
+          python-version: '3.14.2'
       - name: Align macOS compiler, linker and SDK
         if: runner.os == 'macOS'
         run: |
@@ -44,21 +50,14 @@ jobs:
           xcrun --sdk macosx --show-sdk-path
       - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d # v2
         with:
-          ghc-version: '9.6.7'
-          cabal-version: '3.12.1.0'
+          ghc-version: '9.14.1'
+          cabal-version: '3.18.2.0'
           cabal-update: false
       - run: python tools/publication.py check
       - run: python tools/docs_lint.py --foundation-only
       - run: node editors/vscode/test/adapter-contract.js
       - run: python tools/test_tools.py
-      - run: python tools/acceptance/test_frozen_oracle.py
       - run: python tools/test_formatter.py
-      - if: runner.os == 'Linux'
-        name: Check optional Red Dune source preservation (no game/platform qualification)
-        run: |
-          python references/red-dune/tools/test_restore.py
-          python references/red-dune/tools/check.py verify
-          python tools/test_red_dune.py
       - run: python tools/formatter.py install
       - run: python tools/formatter.py check
       - if: runner.os == 'Linux'
@@ -86,14 +85,7 @@ jobs:
           bash references/signal-courier/test-native.sh
           bash references/signal-courier/test/check-opaque-api.sh
           node references/signal-courier/web/controls.test.mjs
-      - run: python research/quantity/check.py check
-      - if: runner.os == 'Linux'
-        name: Check bounded live-tuning semantics (no performance gate)
-        timeout-minutes: 2
-        run: |
-          python -m unittest discover -s research/readability -p 'test_*.py' -v
-          python -m unittest discover -s research/live-tuning -p 'test_*.py' -v
-          python research/live-tuning/check.py
+      - run: python tools/quantity/check.py check
 
   native-tooling:
     # One native dependency bootstrap per OS; its moved generated-doc,
@@ -105,17 +97,17 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.13.0'
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
-          python-version: '3.12'
+          python-version: '3.14.2'
       - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '9.6.7'
-          cabal-version: '3.12.1.0'
+          ghc-version: '9.14.1'
+          cabal-version: '3.18.2.0'
           cabal-update: false
-      - run: python references/afterlight/scripts/test-check-core.py
-      - run: python references/afterlight/scripts/test-audit-source.py
-      - run: python references/afterlight/scripts/audit-source.py
       - run: python references/afterlight/scripts/check-core.py --download
 
   haskell-design-linux:
@@ -126,11 +118,14 @@ jobs:
         working-directory: editors/haskell-design
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.13.0'
       - id: haskell
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '9.6.7'
-          cabal-version: '3.12.1.0'
+          ghc-version: '9.14.1'
+          cabal-version: '3.18.2.0'
       - name: Identify editor dependency cache environment
         id: cache-environment
         shell: bash

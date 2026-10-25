@@ -47,19 +47,15 @@ carry their tool source and can continue outside this checkout.
 | [Paper Circuit](references/paper-circuit/README.md) | How can a new puzzle add an undo operation without inheriting another game's design? |
 | [Signal Courier](references/signal-courier/README.md) | How do fixed ticks, checkpoints and platformer movement interact? |
 | [Garden of Afterlight](references/afterlight/README.md) | How does a pure game connect to a 3D renderer and audio? |
-| [Red Dune live](references/red-dune-live/README.md) | Who owns stock, work, delivery and durable saves in a continuing colony? |
+| [Red Dune](references/red-dune/README.md) | Who owns stock, work, delivery and durable saves in a continuing colony? |
 
-These examples have different host and verification boundaries; each entry
-links to its own run instructions. [Research reproduction](docs/research-reproduction.md)
-covers optional formal-method experiments. The [archived Red Dune](references/red-dune/README.md)
-and frozen comparison sources retain their original role as evidence.
+Each example links to its current run instructions and checks for that boundary.
 
 ## Contribute and verify
 
 Use the checks for the boundary you change, plus the repository's required CI.
 [Acceptance](docs/acceptance.md) states what a public path must establish;
-[verification records](docs/verification.md) preserve the conditions of earlier
-runs. Passing a finite test does not establish every game or host.
+[verification guide](docs/verification.md) gives current consumer checks and their limits. Passing a finite test does not establish every game or host.
 
 The implementation is the source of truth. Keep names, types and responsibilities
 readable. Documentation should teach a useful idea, explain a design reason or

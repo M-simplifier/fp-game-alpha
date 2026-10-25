@@ -38,7 +38,7 @@ and confirmation scripts are not inherited as universal instructions.
 - Optional colony simulation, ordered boundaries and restored save fixtures:
   [archived Red Dune source route](../red-dune.md)
 - Active long-session colony campaign, physical policies and a local command room:
-  [Red Dune live source and check route](../red-dune-live.md)
+  [Red Dune source and check route](../red-dune.md)
 
 ## What this restoration does and does not establish
 

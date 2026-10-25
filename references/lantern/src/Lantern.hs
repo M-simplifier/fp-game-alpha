@@ -24,7 +24,7 @@ module Lantern
 where
 
 import Data.Bits (clearBit, testBit)
-import Data.List (foldl', nub)
+import Data.List (nub)
 import Data.Maybe (isJust)
 import Game.Arena
 import Game.Transition

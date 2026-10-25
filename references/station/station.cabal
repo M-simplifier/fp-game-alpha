@@ -15,7 +15,7 @@ library
   import: checked
   hs-source-dirs: src
   exposed-modules: Station.Domain, Station.Adapter
-  build-depends: base >=4.18 && <5, text,
+  build-depends: base >=4.22 && <4.23, text,
                  game-transition ==0.1.0.0, game-arena ==0.1.0.0
 
 test-suite station-laws

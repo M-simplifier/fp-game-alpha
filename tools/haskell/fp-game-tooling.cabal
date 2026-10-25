@@ -10,7 +10,7 @@ common defaults
   default-language: GHC2021
   ghc-options: -Wall -Werror
   build-depends:
-    base >=4.18 && <5,
+    base >=4.22 && <4.23,
     aeson ==2.2.5.0,
     bytestring,
     containers,

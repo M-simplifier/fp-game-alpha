@@ -1,7 +1,6 @@
 module Garden.Checkpoint (encode, decode, CheckpointError (..)) where
 
 import Data.Bits (xor)
-import Data.List (foldl')
 import Data.Map.Strict qualified as M
 import Data.Word (Word64)
 import Garden.Change qualified as Change

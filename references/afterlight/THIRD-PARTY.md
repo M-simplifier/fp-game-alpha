@@ -1,7 +1,7 @@
 # Source and downstream distribution notices
 
 Original game code is covered by `LICENSE`. The patch
-`web/patches/h-raylib-web.patch` includes context from h-raylib 5.6.0.0;
+`web/patches/h-raylib-web.patch` includes context from h-raylib 6.1.0.0;
 retain `licenses/h-raylib-LICENSE` with that patch. Its upstream source archive
 and integrity hash are pinned in `web/build.sh`.
 

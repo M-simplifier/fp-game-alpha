@@ -27,7 +27,7 @@ duplicate the game's cost rules.
 
 For the headless player transport, read `parseCommand`, `dispatchVisibleTurn`,
 then `respond` in [HeadlessMain](app/HeadlessMain.hs). The
-[readability pilot](../../research/readability/station-refactor.md) follows a
+[readability pilot](../../docs/learn-code.md) follows a
 complete player action and records the refactor's before/after checks.
 
 Run `.build/tools/fp-game test` from the foundation root and
@@ -38,7 +38,7 @@ It also uses an independently calculated winning resource trace and deliberate
 rule mutation.
 GHC compiles a read-only client and rejects both an external `GameState`
 record update and a forged `TurnId` constructor for the intended reasons.
-These are results for this fixed finite game and GHC 9.6.7, not a theorem for
+These are results for this fixed finite game and GHC 9.14.1, not a theorem for
 arbitrary game changes or a measured user-experience result.
 
 The published game includes the clock-free domain core and headless host.

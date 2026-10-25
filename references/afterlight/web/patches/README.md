@@ -1,31 +1,15 @@
 # Upstream patch
 
-`h-raylib-web.patch` modifies h-raylib 5.6.0.0's wasm32 structure layout and
-its bundled raylib web focus callback, and the GLES 3 depth-texture format. It is a local modification, not an
-upstream h-raylib or raylib release.
+`h-raylib-web.patch` adapts h-raylib 6.1.0.0's structure layouts for wasm32.
+The native branch preserves upstream values. `checks/abi.c` checks the matching
+C sizes, alignments and field offsets with the actual Emscripten compiler.
+The bundled raylib C source is unchanged.
 
 The Haskell binding is by Anut and contributors, under Apache-2.0;
-see [the retained license](LICENSE-h-raylib.txt) and
-[the exact source package](https://hackage.haskell.org/package/h-raylib-5.6.0.0).
+see [the retained license](LICENSE-h-raylib.txt) and the
+[exact source package](https://hackage.haskell.org/package/h-raylib-6.1.0.0).
+This patch is a local modification, not an upstream release.
 
-The raylib changes retain the following notice from `rcore_web.c`:
-
-Copyright (c) 2013-2026 Ramon Santamaria (@raysan5) and contributors
-
-This software is provided "as-is", without any express or implied warranty. In no event
-will the authors be held liable for any damages arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose, including commercial
-applications, and to alter it and redistribute it freely, subject to the following restrictions:
-
-1. The origin of this software must not be misrepresented; you must not claim that you
-   wrote the original software. If you use this software in a product, an acknowledgment
-   in the product documentation would be appreciated but is not required.
-2. Altered source versions must be plainly marked as such, and must not be misrepresented
-   as being the original software.
-3. This notice may not be removed or altered from any source distribution.
-
-The `rlgl.h` change uses `GL_DEPTH_COMPONENT24` with `GL_UNSIGNED_INT` in
-GLES 3 / WebGL 2. The older unsized WebGL 1 path caused incomplete framebuffers
-when the renderer began sampling scene depth. The desktop path is unchanged.
-Both the scene depth and depth-only shadow targets were exercised in WebGL 2.
+The metadata hunk is the publisher's [Hackage revision 1](https://hackage.haskell.org/package/h-raylib-6.1.0.0/revision/1.cabal)
+(SHA256 `341c48bea1990d790b58d9a7e3ba0532d9d6a2a98160ebaf156a8856d506edc4`), which supports Template Haskell 2.24.
+It is applied alongside the ABI changes to the original source archive.

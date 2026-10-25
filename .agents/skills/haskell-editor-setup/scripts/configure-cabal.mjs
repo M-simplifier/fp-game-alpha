@@ -51,7 +51,7 @@ async function main() {
   await access(path.join(root, relative(recipe.cabalFile)));
   let ghc = await executable(options.ghc ?? 'ghc');
   const version = run(ghc, ['--numeric-version']);
-  if (!/^9\.6\./.test(version)) throw new Error(`The analyzer supports GHC 9.6.x; found ${version}. Keep the project's compiler and use declaration view + HLS, or discuss compatibility before changing it.`);
+  if (!/^9\.6\./.test(version)) throw new Error(`The analyzer supports GHC 9.14.x; found ${version}. Keep the project's compiler and use declaration view + HLS, or discuss compatibility before changing it.`);
   const installed = path.resolve(run(ghc, ['--print-libdir']), '../bin', process.platform === 'win32' ? 'ghc.exe' : 'ghc');
   if (await exists(installed) && run(installed, ['--numeric-version']) === version) ghc = installed;
   const cabal = await executable(options.cabal ?? 'cabal');

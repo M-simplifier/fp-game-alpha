@@ -10,7 +10,7 @@ library
   ghc-options: -Wall -Werror
   hs-source-dirs: src
   exposed-modules: Signal.Game, Signal.View
-  build-depends: base >=4.18 && <5, game-transition, game-arena
+  build-depends: base >=4.22 && <4.23, game-transition, game-arena
 test-suite laws
   type: exitcode-stdio-1.0
   default-language: GHC2021

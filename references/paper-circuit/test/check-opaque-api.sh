@@ -16,10 +16,10 @@ for name in ForgeCell ForgeWorld UpdateWorld ForgeLevel ForgeCatalog; do
     exit 1
   fi
   case "$name" in
-    ForgeCell) expected='(Data constructor not in scope: Cell|Illegal term-level use.*Cell)' ;;
-    ForgeWorld) expected='(Data constructor not in scope: World|Illegal term-level use.*World)' ;;
-    ForgeLevel) expected='(Data constructor not in scope: Level|Illegal term-level use.*Level)' ;;
-    ForgeCatalog) expected='(Data constructor not in scope: Catalog|Illegal term-level use.*Catalog)' ;;
+    ForgeCell) expected='(Data constructor (not in scope|out of scope): .*Cell|Illegal term-level use.*Cell)' ;;
+    ForgeWorld) expected='(Data constructor (not in scope|out of scope): .*World|Illegal term-level use.*World)' ;;
+    ForgeLevel) expected='(Data constructor (not in scope|out of scope): .*Level|Illegal term-level use.*Level)' ;;
+    ForgeCatalog) expected='(Data constructor (not in scope|out of scope): .*Catalog|Illegal term-level use.*Catalog)' ;;
     UpdateWorld) expected='Not in scope:.*previousPosition' ;;
   esac
   grep -Eq "$expected" ".build/api/$name.log" || { cat ".build/api/$name.log"; exit 1; }

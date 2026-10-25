@@ -33,7 +33,7 @@ for native doctor/check and the separate Python inspect/context commands.
 A built syntax reader needs **neither Node nor GHC at runtime**. It is still an
 OS/CPU-specific executable, subject to the host's normal system-library requirements.
 Keep its `native-notices.txt` with the executable when redistributing it.
-Building from this source requires Node.js 22+, npm, GHC 9.6.7, Cabal, a C toolchain,
+Building from this source requires Node.js 22+, npm, GHC 9.14.1, Cabal, a C toolchain,
 `tar` and `strip` (the Windows GHCup build uses its bundled LLVM strip).
 Reuse compatible installations and the committed lockfiles.
 
@@ -49,7 +49,7 @@ npm test
 
 Set `HASKELL_DESIGN_GHC` and, if needed, `HASKELL_DESIGN_CABAL` to explicit tool paths
 before building when the defaults differ. Do not switch the game's compiler just
-because the reader build uses GHC 9.6.7. The build downloads pinned Tree-sitter
+because the reader build uses GHC 9.14.1. The build downloads pinned Tree-sitter
 sources and builds native dependencies; allow for network access and disk space.
 Use a local Cabal jobs limit on constrained machines, reuse caches, and avoid
 concurrent native builds in the same checkout. Start with syntax reading if the
@@ -134,7 +134,7 @@ root; avoid duplicate clients. Installing this viewer does not configure HLS for
 
 ## Optional trusted GHC inference and project wiring
 
-Inference is an explicit extra step and supports **GHC 9.6.x**, with the target
+Inference is an explicit extra step and supports **GHC 9.14.x**, with the target
 game's dependencies, extensions and component options. For example:
 
 ```sh
@@ -253,7 +253,7 @@ requires HLS-provided source locations. On Windows, leave cross-module HLS renam
 disabled until the installed version has demonstrated complete edits.
 
 The [porting record](../editors/haskell-design/PORTING.md) distinguishes
-public-alpha checks from the [upstream historical record](../editors/haskell-design/docs/verification.md).
+public-alpha checks from the [upstream historical record](verification.md).
 A CLI/package pass does not establish editor interaction or HLS integration on
 another host. Record the exact tool revision, compiler, editor/profile, components
 and commands actually checked in the game's continuation guide.

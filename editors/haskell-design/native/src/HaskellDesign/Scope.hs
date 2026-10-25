@@ -119,9 +119,9 @@ packageSources file = do
     Nothing -> pure ([], [], ["Cannot parse Cabal file " <> T.pack file <> "; use explicit --include directories."])
     Just package -> do
       let library c = component (map libBuildInfo (toList c)) (concatMap exposedModules (toList c)) []
-          exe c = component (map buildInfo (toList c)) [] (map modulePath (toList c))
-          test c = component (map testBuildInfo (toList c)) [m | x <- toList c, TestSuiteLibV09 _ m <- [testInterface x]] [p | x <- toList c, TestSuiteExeV10 _ p <- [testInterface x]]
-          bench c = component (map benchmarkBuildInfo (toList c)) [] [p | x <- toList c, BenchmarkExeV10 _ p <- [benchmarkInterface x]]
+          exe c = component (map buildInfo (toList c)) [] (map (getSymbolicPath . modulePath) (toList c))
+          test c = component (map testBuildInfo (toList c)) [m | x <- toList c, TestSuiteLibV09 _ m <- [testInterface x]] [getSymbolicPath p | x <- toList c, TestSuiteExeV10 _ p <- [testInterface x]]
+          bench c = component (map benchmarkBuildInfo (toList c)) [] [getSymbolicPath p | x <- toList c, BenchmarkExeV10 _ p <- [benchmarkInterface x]]
           foreignLib c = component (map foreignLibBuildInfo (toList c)) [] []
           pairs =
             map library (maybeToList (condLibrary package) ++ map snd (condSubLibraries package))

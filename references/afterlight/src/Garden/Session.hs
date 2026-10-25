@@ -22,7 +22,6 @@ module Garden.Session
   )
 where
 
-import Data.List (foldl')
 import Game.Arena
 import Game.Transition
 import Garden.Arena

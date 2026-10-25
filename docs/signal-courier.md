@@ -2,7 +2,7 @@
 
 [Play, build and read the game](../references/signal-courier/README.md) ·
 [Specification](../references/signal-courier/GAME-SPEC.md) ·
-[Recorded experiment](../references/signal-courier/docs/experiment.md)
+[Recorded experiment](verification.md)
 
 Deliver lantern parcels across three connected night-city rooms, using
 checkpoints and optional rooftop routes. The new Haskell domain owns physics

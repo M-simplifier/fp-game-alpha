@@ -1,49 +1,62 @@
-# Find and read verification evidence
+# Current verification
 
-A result belongs to the source revision, inputs, toolchain and environment that
-actually ran. A configured workflow, recovered source or successful tool build
-is not a passing execution of the game or checker.
+Run checks after changing the code, dependency graph or toolchain. A build,
+a finite test, graphical startup and human play are different observations.
+The native baseline is GHC 9.14.1 / Cabal 3.18.2.0, Node 24.13.0 and Python
+3.14.2. A project's compiler selection still governs its own build.
 
-## Check the current checkout
+## Source and shared libraries
 
-Use [native tooling](native-tooling.md) for bootstrap, build/test commands and
-its required CI contract; use [tooling](tooling.md) for saved-source inspection
-and [editor setup](editors.md) for actual editor consumers. The
-[core workflow runs](https://github.com/M-simplifier/fp-game-alpha/actions/workflows/ci.yml)
-and [native-tooling runs](https://github.com/M-simplifier/fp-game-alpha/actions/workflows/native-tooling.yml)
-show results for exact commits. Inspect those results before claiming a platform
-pass; one job does not certify another host or optional research toolchain.
+From the repository root:
 
-The [transition laws](../libraries/game-transition/test/Laws.hs),
-[arena laws](../libraries/game-arena/test/Laws.hs) and each reference's tests
-are the maintained behavior checks. Start from the affected game's README for
-its build, API and host checks rather than copying a historical command here.
-The [acceptance criteria](acceptance.md) distinguish generated-game continuation,
-editor integration and actual player experience. For formal experiments, use
-[research reproduction](research-reproduction.md) and read their
-[assumptions and failure cases](guarantees.md).
+```sh
+python tools/publication.py check
+python tools/docs_lint.py --foundation-only
+python tools/formatter.py check
+cabal --config-file=templates/terminal-adventure/build.config build all --offline --builddir=.build/dist
+cabal --config-file=templates/terminal-adventure/build.config test all --offline --builddir=.build/dist --test-show-details=direct
+python tools/test_lantern_api.py
+python tools/test_river_api.py
+python tools/test_station_api.py
+python tools/test_play.py
+python tools/quantity/check.py check
+```
 
-## Dated records
+Linux also runs `references/afterlight/scripts/check-cpp-format.py` and
+`test-cpp-format.py`. Expected compiler failures count only when the positive
+client compiles and the diagnostic rejects the intended API operation.
 
-These receipts retain earlier observations. They are not new runs of this
-checkout, and the commands embedded in them may describe retired entrypoints.
+## Check the consumer being changed
 
-| Record | What it records |
+| Consumer | Commands and boundaries |
 | --- | --- |
-| [Windows development](evidence/windows-development.json) | Generated terminal game, feature edits, save/load and independent relocation |
-| [VSCode](evidence/vscode-windows.json) and [Neovim](evidence/neovim-windows.json) | The tested Windows saved-source query/diagnostic paths |
-| [Native tooling on Linux](evidence/native-tooling-linux.json) and [CI](evidence/native-tooling-ci.json) | Native command and consumer executions at their recorded revisions |
-| [Windows quantity](evidence/quantity-windows.json) | Finite runtime/oracle comparison and GHC API checks; no LiquidHaskell or Z3 run |
-| [Historical research](evidence/historical-guarantees.json) | Curated 3–4 October 2026 checker, model and counterexample results |
-| [Linux research integration](evidence/formal-research-linux-20261005.json) | Separate 5 October 2026 public-runner results |
+| Native developer CLI | [Bootstrap and independent generation/relocation](native-tooling.md); `cabal test all --project-dir=tools/haskell`; `tools/test_native_cli.py`, `tools/test_workspace.py`, rendered `tools/docs_lint.py`, formatter integration and editor adapter checks |
+| Windows UTF8 process boundary | `python tools/test_windows_toolchain_paths.py`: fresh Unicode library/executable, unchanged caller console code pages, split UTF8 scalars and closed downstream output; the native integration also checks timeout and descendant cleanup |
+| Haskell Design | In `editors/haskell-design`: `npm ci`, `npm run check`, `npm run build`, `npm test`; package, relocated inference, actual Lua and headless Neovim scripts are listed in its `package.json` |
+| Afterlight | [Native assets, laws and hosts](../references/afterlight/README.md); [Web build, C ABI, host and asset/HTTP checks](../references/afterlight/web/README.md) |
+| Red Dune | [Bounded suites and explicit campaign commands](../references/red-dune/docs/ACCEPTANCE.md), [native distribution](../references/red-dune/README.md) and [HTTP/protocol contract](../references/red-dune/docs/HOST-VERIFICATION.md) |
+| Standalone games | [Paper Circuit](../references/paper-circuit/README.md) and [Signal Courier](../references/signal-courier/README.md): native laws/private APIs, actual Wasm execution in Node and host input tests |
 
-The [original chronological verification record](https://github.com/M-simplifier/fp-game-alpha/blob/06923e727c0229eb36daeba6bab789ca32333406/docs/verification.md)
-preserves the earlier per-game runs, CI links, commands and failures. In
-particular, an unsuccessful HLS probe supplies no hover/diagnostic success, and
-finite pure-core traces supply no graphical or device-performance result.
+The Web build uses the locked official SDK's GHC-Wasm 9.14.1.20260731 /
+base 4.22.1 and matching Cabal 3.14.2, with Node 24. Its host/target unit
+identities require that driver pair; native Cabal 3.18.2 is not substituted.
 
-Reusable causes and repairs live in [failure prevention](failure-prevention.md):
-constructor/update loopholes, numeric overflow, compiler-backed module queries,
-portable source selection and process ownership. The current setup recipes live
-with their tools. Keep a new run's logs and source identities separate from
-these historical records; never update an old receipt to imply it just passed.
+## Exercised scope
+
+The current modernization checks cover Windows shared-library/API tests,
+independent Unicode CLI generation and relocation, editor inference/packages,
+native h-raylib 6.1 builds and bounded Red Dune/Afterlight GPU startup and resource
+shutdown. Linux covers shared libraries and intended API rejections, independent
+CLI generation/relocation, all 64 editor behavior checks, Red Dune's native
+lifecycle, actual loopback HTTP and checked GHCi reload/recovery, and both
+standalone games. The
+locked Web SDK builds Afterlight and both standalone games; the latter execute
+their actual Wasm through the browser shim in Node. Linux-scoped Node is 24.21.0.
+
+Windows file-symlink and locked-directory test branches require their stated
+host capability; skipped cases do not count as passes. OS watcher checks use
+standard temporary storage; Linux watching of a Windows mount through WSL is
+not qualified. macOS CI, installed
+VS Code UI, actual browser input/rendering, human play/listening, long campaigns
+and renewed performance measurements are not qualified by these checks.
+Compiled game distribution still requires its actual runtime/dependency notices.

@@ -1,14 +1,14 @@
 {-# LANGUAGE LambdaCase #-}
 
--- This helper uses the GHC 9.6 API. It typechecks and desugars; it never runs main.
+-- This helper uses the GHC 9.14 API. It typechecks and desugars; it never runs main.
 module Main where
 
 import Control.Exception (SomeException, displayException, try)
-import Control.Monad (forM, unless, when)
+import Control.Monad (forM, forM_, unless, when)
 import Control.Monad.IO.Class
 import Data.Char (ord)
 import Data.Data (Data, cast, gmapQ)
-import Data.List (find, nub)
+import Data.List (nub)
 import Data.Maybe (catMaybes)
 import GHC hiding (exprType)
 import GHC.Builtin.Names (ioTyConName)
@@ -24,20 +24,16 @@ import GHC.Core.TyCon
 import GHC.Core.Type
 import GHC.Core.Utils (exprType)
 import GHC.Driver.Env (hscEPS, hsc_logger)
-import GHC.Driver.Flags
 import GHC.Driver.Ppr (showSDoc)
 import GHC.Driver.Session
 import GHC.LanguageExtensions.Type qualified as LangExt
 import GHC.Tc.Types (tcg_fam_inst_env)
 import GHC.Types.Basic (Origin (..))
-import GHC.Types.Id (isImplicitId)
 import GHC.Types.Name hiding (varName)
 import GHC.Types.Var
 import GHC.Unit.External (eps_fam_inst_env)
-import GHC.Unit.Module.Graph
 import GHC.Unit.Module.ModGuts
 import GHC.Utils.Outputable (ppr)
-import Language.Haskell.Syntax.Basic (Role (..))
 import Numeric (showHex)
 import System.Directory (canonicalizePath)
 import System.Environment (getArgs)
@@ -113,7 +109,7 @@ typedIds node = case cast node of
 generatedBindings :: (Data a) => a -> [Name]
 generatedBindings node = case (cast node :: Maybe (HsBind GhcTc)) of
   Just FunBind {fun_id = L _ ident, fun_matches = MG {mg_ext = ext}}
-    | mg_origin ext == Generated -> [varName ident]
+    | Generated {} <- mg_origin ext -> [varName ident]
   Just (XHsBindsLR AbsBinds {abs_exports = exports, abs_binds = binds}) ->
     let names = generatedBindings binds
      in names ++ [varName (abe_poly e) | e <- exports, varName (abe_mono e) `elem` names]
@@ -179,7 +175,7 @@ analyse libdir files options = runGhc (Just libdir) $ do
     $ liftIO
     $ fail "エラーを実行時まで延期する設定があるため、型情報を解析できません。"
   -- An ANN pragma can evaluate code even without TemplateHaskell enabled.
-  forM (mgModSummaries graph) $ \summary -> do
+  forM_ (mgModSummaries graph) $ \summary -> do
     parsed <- parseModule summary
     let annotation (L _ AnnD {}) = True
         annotation _ = False
@@ -236,7 +232,7 @@ analyse libdir files options = runGhc (Just libdir) $ do
             )
         reachable seen s
           | ms_mod s `elem` seen = []
-          | otherwise = s : concat [reachable (ms_mod s : seen) dep | dep <- mgModSummaries graph, moduleName (ms_mod dep) `elem` map (unLoc . snd) (ms_textual_imps s ++ ms_srcimps s)]
+          | otherwise = s : concat [reachable (ms_mod s : seen) dep | dep <- mgModSummaries graph, moduleName (ms_mod dep) `elem` ([unLoc name | (_, _, name) <- ms_textual_imps s] ++ map unLoc (ms_srcimps s))]
         dependencies = [f | s <- reachable [] summary, Just f <- [ml_hs_file (ms_location s)]]
     pure $ obj [("status", js (statusName overall)), ("signatures", arr signatures), ("evidence", arr reasons), ("dependencies", arr (map js dependencies))]
 
@@ -249,7 +245,9 @@ main = do
   let run libdir files options batch = do
         result <- try (analyse libdir files options) :: IO (Either SomeException [String])
         case result of
-          Right output -> putStrLn (if batch then arr output else head output)
+          Right output | batch -> putStrLn (arr output)
+          Right (first : _) -> putStrLn first
+          Right [] -> hPutStrLn stderr "GHC returned no analysis for the requested file" >> exitFailure
           Left err -> hPutStrLn stderr (displayException err) >> exitFailure
   case args of
     "--batch" : libdir : rest -> case break (== "--") rest of

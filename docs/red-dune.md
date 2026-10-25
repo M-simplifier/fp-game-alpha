@@ -1,67 +1,49 @@
-# Red Dune: optional colony source reference
+# Red Dune: play, change and assess the evidence
 
-[Red Dune 0.6](../references/red-dune/README.md) preserves selected source for an
-in-progress colony simulation: production, reservations, maintenance, transport,
-saves and migration. Choose a relevant technique after the human's game brief
-and AI design work; this archive is not a required architecture or template.
-For the active survival game, use [Red Dune live](red-dune-live.md).
+[Red Dune: A Settlement That Lasts](../references/red-dune/README.md) is the
+active colony survival reference. Forty residents need real production,
+physical delivery, staffing, expansion and recovery.
 
-## Follow a production request
+## Play and change
 
-Follow `OrderProduction` from [Scheduler](../references/red-dune/src/Colony/Scheduler.hs)
-into [SchedulerCore](../references/red-dune/src/Colony/SchedulerCore.hs) and
-[Jobs](../references/red-dune/src/Colony/Jobs.hs). Inspect admission, inventory
-reservation, the receipt and resulting job phase before changing a rule. The
-[Arena adapter](../references/red-dune/src/Colony/Arena.hs) invokes that same
-transition rather than maintaining a second simulation. Compare a scenario in
-[M1Tests](../references/red-dune/test/M1Tests.hs) with focused
-[inventory checks](../references/red-dune/test/InventoryTests.hs); read their
-setup and assertions, not just test names.
+Use the game's current [Windows native instructions](../references/red-dune/README.md#windows-native-app)
+or [Linux browser instructions](../references/red-dune/README.md#linux-browser-play).
+Follow those instructions for requirements, commands, controls and save locations. The browser route
+uses a local native HTTP host, not Wasm or an Internet multiplayer server; open
+its printed loopback URL on the same machine.
 
-The terminal `demo` is synthetic evidence, not interactive play acceptance.
-The archive's `ui/` is source only and has no included HTTP bridge or accepted
-browser campaign.
+For source changes, start with the [reading path and tuning exercise](../references/red-dune/README.md#read-and-change-the-game)
+and [development loop](../references/red-dune/docs/DEVELOPMENT.md).
+Haskell owns committed world transitions, campaign evidence and saves. A host
+supplies time, input and durable effects; a UI counter or privileged material
+grant cannot stand in for real production and consumption.
 
-## Verify and restore safely
+## Choose checks for the change
 
-From the repository root, with Python 3:
+The [verification guide](verification.md) gives the current bounded checks.
+[Host boundaries](../references/red-dune/docs/HOST-VERIFICATION.md) explain the
+protocol, ownership, checkpoint and HTTP contracts those checks protect.
+An HTTP client or Node test does not exercise browser rendering, focus or device input.
 
-```sh
-python references/red-dune/tools/test_restore.py
-python references/red-dune/tools/check.py verify
-python tools/test_red_dune.py
-python references/red-dune/tools/check.py prepare --foundation .
-```
+[Campaign scenarios](../references/red-dune/docs/ACCEPTANCE.md) provide commands
+for the authored 66-game-hour settlement and 42-game-hour recovery scenarios,
+checkpoint continuations and performance measurements. Run the relevant cases
+when changing their rules; record the actual toolchain, inputs and observed
+results. These are CPU-running scenarios, not wall-clock waits. They are not
+part of the bounded CI default, and an available command is not a passed run.
 
-`prepare` verifies restored inputs and exact foundation pins, then creates an
-exclusive fresh work folder. It installs nothing and does not execute the game.
-For executable checks, use the explicit GHC/Cabal paths in the
-[archive README](../references/red-dune/README.md). The `unix` dependency and
-GHC 9.6/base 4.18 bound make this a Linux-oriented route; the root project
-excludes the optional package. Three-OS foundation CI is not Red Dune platform
-qualification.
+Actual interaction and human play require their own observations. Scripted
+endings and performance samples do not establish usability or enjoyment.
+Current source uses the [pinned formatter](formatting.md).
 
-[CHECK-SUMMARY](../references/red-dune/CHECK-SUMMARY.md) records full executable
-results on core commit `2487f7b` separately from bounded build/law results on
-formatted core `84a074f`. Ormolu equivalence connects those versions, but does
-not make the old full-game run an execution of new bytes. The later test-only
-foundation repin is identified in [provenance](../references/red-dune/PROVENANCE.md);
-it preserves the historical tested manifest rather than rewriting that receipt.
-HTTP/browser, the historical full fault/mutation suite, campaign and performance
-acceptance are outside those records.
+## Distribution boundary
 
-## Preservation and license
+The game retains its [MIT notice and source provenance](../references/red-dune/PROVENANCE.md)
+and [asset notices](../references/red-dune/ASSETS.md). Saves, caches,
+downloaded dependencies, benchmark dumps and compiled outputs are private build
+or runtime data, not selected source assets.
 
-The selected original game inputs remain unchanged; binary compatibility
-fixtures are canonical base64 text whose raw size and SHA-256 are verified on
-restoration. Public wrappers and compatibility pins are separately maintained.
-The manifests and provenance identify that boundary. No build outputs,
-toolchain assets or private Git history are included.
-
-The original package declared `NONE`; the included [MIT grant](../references/red-dune/LICENSE)
-is an owner-authorized public-release grant, not an inherited archive license.
-
-The dense historical Haskell is preserved outside the active formatter roots.
-Do not format it in place and invalidate its original manifests. A readability
-revision needs a separate working copy, explicit transformation provenance and
-behavior checks; the active continuation supplies that separate path.
+`cabal sdist` checks a source inventory; it is not a self-contained binary
+release. The build still uses local foundation libraries, and Hackage upload is
+not qualified. The game's host/package instructions describe runnable packages
+and their dependency and licensing requirements.

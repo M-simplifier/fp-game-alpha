@@ -22,7 +22,6 @@ module Tapline.Domain
   )
 where
 
-import Data.List (foldl')
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.List.NonEmpty qualified as NE
 import Tapline.Clock

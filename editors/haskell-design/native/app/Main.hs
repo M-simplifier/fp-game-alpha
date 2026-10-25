@@ -6,6 +6,7 @@ import Control.Exception (SomeException, displayException, try)
 import Data.Aeson
 import Data.Aeson.Types (parseEither)
 import Data.ByteString qualified as B
+import Data.ByteString.Char8 qualified as B8
 import Data.ByteString.Lazy qualified as L
 import Data.Text (Text)
 import Data.Text.Encoding qualified as E
@@ -46,7 +47,7 @@ main = do
   helper <- (\p -> takeDirectory p </> ".." </> "compiler" </> "Main.hs") <$> getExecutablePath
   let loop = do
         done <- hIsEOF stdin
-        if done then pure () else B.hGetLine stdin >>= respond helper >> loop
+        if done then pure () else B8.hGetLine stdin >>= respond helper >> loop
       run = case args of
         ["--serve"] -> loop
         ["--rpc"] -> B.getContents >>= respond helper

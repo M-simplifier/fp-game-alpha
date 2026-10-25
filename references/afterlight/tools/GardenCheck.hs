@@ -1,7 +1,6 @@
 module Main (main) where
 
 import Control.Monad (unless)
-import Data.List (foldl')
 import Data.Map.Strict qualified as M
 import Data.Set qualified as S
 import FRP.Yampa (embed)

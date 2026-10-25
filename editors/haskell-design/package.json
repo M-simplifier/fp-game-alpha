@@ -129,7 +129,7 @@
           "type": "string",
           "default": "ghc",
           "scope": "machine-overridable",
-          "description": "GHC executable used for verification. GHC 9.6.x is supported."
+          "description": "GHC executable used for verification. GHC 9.14.x is supported."
         },
         "haskellDesign.ghcOptions": {
           "scope": "resource",

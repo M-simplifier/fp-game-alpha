@@ -1,6 +1,5 @@
 module River.Protocol (checks) where
 
-import Data.List (foldl')
 import Game.Arena (Attempt (..), attempt, nobody, observe, play, singleton)
 import Game.Transition (Divergence (..), Step (..), firstDivergence, replay)
 import Life.Adapter

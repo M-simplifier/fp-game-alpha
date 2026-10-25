@@ -5,7 +5,7 @@ a small night city; jump the canals and collect optional rooftop stamps.
 
 ## Build and play
 
-With native GHC 9.6+ and GHC-Wasm on PATH:
+With native GHC 9.14.1 and GHC-Wasm 9.14.1.20260731 plus its matching WASI toolchain on PATH:
 
 ```sh
 ./test-native.sh
@@ -29,13 +29,13 @@ license. No CDN, package install or sibling repository is needed at runtime.
 ## Continue and learn
 
 Use `.agents/skills/game-dev` for changes and `.agents/skills/learn-code` to
-understand the real code. See [experiment evidence and limits](docs/experiment.md).
+understand the real code.
 To follow one input directly, read `Command` and the private `Session` in
 `src/Signal/Game.hs`, then `advance` → `runTick` → `resolveMotion`. A raw fall
 is resolved before stamp collection and beacon delivery; `finishTick` applies
 the deadline last. `view` constructs the public `PlayerView`, and
 `src/Signal/View.hs` renders it. See the
-[before/after walkthrough](../../research/readability/game-rules-refactor.md#signal-courier-の一回の入力).
+[current verification](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/verification.md).
 Project-owned formatter: `python tools/formatter.py plan`, `install`, `check`,
 `write`, `check`. Editor-local external Ormolu can use the path printed by the
 helper; no editor settings were overwritten or claimed tested.

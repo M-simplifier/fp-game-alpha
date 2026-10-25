@@ -261,7 +261,7 @@ paginate r result heading chunks = do
       context =
         if offset == 0 || maybe False (T.isPrefixOf "## ") (safeHead remaining)
           then ""
-          else maybe "" (\c -> let label = head (T.splitOn "\n" c) in (if utf16Length label > 180 then T.take 80 label <> " [context shortened]" else label) <> "\n") (find (T.isPrefixOf "## ") (reverse (take offset chunks)))
+          else maybe "" (\c -> let label = fst (T.breakOn "\n" c) in (if utf16Length label > 180 then T.take 80 label <> " [context shortened]" else label) <> "\n") (find (T.isPrefixOf "## ") (reverse (take offset chunks)))
       start = heading <> context
       reserve = 180
       fit (size, kept) chunk = if size + utf16Length chunk + 2 + reserve <= rMaxChars r then Just (size + utf16Length chunk + 2, chunk : kept) else Nothing
@@ -298,7 +298,7 @@ helpText =
       "Filters: --file PATH, --module NAMESPACE, --symbol NAME, --line NUMBER",
       "Scope:   --include DIR (repeatable), --exclude DIR (repeatable), --max-files NUMBER",
       "Output:  --max-chars NUMBER (default 16000), --offset NUMBER --snapshot HASH, --json",
-      "Details: --docs, --context, --infer --trusted (GHC 9.6.x; outline with file/exact module), --ghc PATH, --cache-dir PATH",
+      "Details: --docs, --context, --infer --trusted (GHC 9.14.x; outline with file/exact module), --ghc PATH, --cache-dir PATH",
       "The syntax view needs neither Node nor GHC. Read NEXT cursors and warnings before claiming whole-project coverage. No source is modified."
     ]
 

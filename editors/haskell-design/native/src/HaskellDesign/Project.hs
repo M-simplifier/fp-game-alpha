@@ -2,7 +2,7 @@ module HaskellDesign.Project (project, projectTree, sourceSymbols, symbolsTree, 
 
 import Data.Char (isAlphaNum, isLetter)
 import Data.Foldable (toList)
-import Data.List (find, foldl', nub)
+import Data.List (find, nub)
 import Data.Map.Strict qualified as M
 import Data.Maybe (fromMaybe, isNothing, maybeToList)
 import Data.Sequence qualified as S

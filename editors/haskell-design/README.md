@@ -37,10 +37,10 @@ require('haskell-design').setup()
 補完や未保存コードの診断は、対象プロジェクトに合うHLSで行います。
 このビューワーを入れるだけではHLSの設定は完了しません。
 
-GHCによる型推論とIO表示は、信頼したプロジェクトでGHC 9.6.xと依存設定を用意した場合に使えます。
+GHCによる型推論とIO表示は、信頼したプロジェクトでGHC 9.14.xと依存設定を用意した場合に使えます。
 `Pure` は対応範囲でIOが見つからなかったという表示です。純粋性の証明や依存ライブラリ内部の監査ではありません。
 [表示・キャッシュ・IO判定の契約](docs/automatic-design.md)に、未保存の編集や解析失敗時の扱いを記載しています。
 
-[移植元と公開alphaの検証範囲](PORTING.md)、[旧版の検証記録](docs/verification.md)、
-[ネイティブ化の理由と測定](docs/native.md)はそれぞれ分けて記録しています。
+[共有する解析器の仕組みとビルド](docs/native.md)、[移植元](PORTING.md)、
+[現在の検証手順](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/verification.md)を参照してください。
 元のMIT表記と[依存物の通知](THIRD_PARTY_NOTICES.md)を保持してください。

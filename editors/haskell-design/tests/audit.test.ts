@@ -2,6 +2,7 @@ import { before, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { tmpdir } from 'node:os';
 import { auditScope } from '../src/auditScope';
 import { ProjectAudit, AuditSnapshot } from '../src/audit';
 import { Projector } from '../src/projector';
@@ -75,7 +76,8 @@ const waitFor = async (condition: () => boolean, message: string, timeout = 1500
 };
 
 test('source directory additions/deletions are automatic, including an OS watcher failure', async () => {
-  const root = await fs.mkdtemp(path.join(repo, '.test-output/audit-topology-'));
+  // Exercise the host OS watcher on its own filesystem, not a mounted checkout.
+  const root = await fs.mkdtemp(path.join(tmpdir(), 'haskell-design-audit-topology-'));
   await fs.mkdir(path.join(root, 'src'));
   await fs.writeFile(path.join(root, 'demo.cabal'), 'name: demo\nlibrary\n  hs-source-dirs: src\n');
   await fs.writeFile(path.join(root, 'src/A.hs'), 'module A where\na :: Int\na = 1\n');

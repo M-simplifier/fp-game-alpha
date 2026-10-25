@@ -77,7 +77,7 @@ run root binary args seconds = do
 helper :: FilePath -> FilePath -> FilePath -> Maybe FilePath -> IO (FilePath, String)
 helper root ghc source cacheDir = do
   version <- T.strip <$> run root ghc ["--numeric-version"] 15
-  unless ("9.6." `T.isPrefixOf` version) $ failure ("GHC " ++ T.unpack version ++ ": verification supports GHC 9.6.x. Syntax reading remains available.")
+  unless ("9.14." `T.isPrefixOf` version) $ failure ("GHC " ++ T.unpack version ++ ": verification supports GHC 9.14.x. Syntax reading remains available.")
   libdir <- T.strip <$> run root ghc ["--print-libdir"] 15
   content <- readSource source
   base <- maybe (getXdgDirectory XdgCache "haskell-design") pure cacheDir

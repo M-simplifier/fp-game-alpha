@@ -19,7 +19,7 @@ library
   import: checked
   hs-source-dirs: src
   exposed-modules: Game.Transition
-  build-depends: base >=4.18 && <5
+  build-depends: base >=4.22 && <4.23
 
 test-suite transition-laws
   import: checked

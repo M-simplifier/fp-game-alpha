@@ -64,6 +64,10 @@ main :: IO ()
 main = do
   assert "joint rejects duplicate player" $
     joint [(Alice, True), (Alice, False)] == Left (DuplicateParticipant Alice)
+  assert "joint reports the first repeated participant without sorting" $
+    joint [(Alice, True), (Bob, False), (Bob, True), (Alice, False)] == Left (DuplicateParticipant Bob)
+  assert "joint retains participant submission order" $
+    fmap submissions (joint [(Bob, False), (Alice, True)]) == Right [(Bob, False), (Alice, True)]
   assert "empty joint represents environment-only boundary" (null (submissions (nobody :: Joint Player Bool)))
   assert "missing participant is not a move" (not (admitted Hidden () nobody False))
   assert "wrong guess is admitted and produces failure, not illegal input" $
@@ -82,6 +86,10 @@ main = do
   let both = joint [(Alice, True), (Bob, False)]
   assert "joint matching preserves simultaneous choice" $
     case both of Right j -> play Matching () j 0 == Right (1, False); Left _ -> False
+  assert "matching resolution follows participant identity rather than list order" $
+    case joint [(Bob, False), (Alice, True)] of
+      Right reversed -> play Matching () reversed 0 == Right (1, False)
+      Left _ -> False
   assert "incomplete joint cannot be resolved early" (not (admitted Matching () (singleton Alice True) 0))
   let graph controller =
         finiteArena [(0, Choice controller (('L', 1) :| [('R', 2)])), (1, Halted), (2, Halted)] ::
@@ -105,6 +113,23 @@ main = do
   assert "duplicate states rejected" $
     finiteArena [(0, Halted), (0, Halted)]
       == (Left (DuplicateState 0) :: Either (ArenaError Int) (FiniteArena Int Player Char))
+  assert "duplicate graph identity precedes unknown-edge rejection" $
+    finiteArena [(0, Choice External (('x', 99) :| [])), (0, Halted)]
+      == (Left (DuplicateState 0) :: Either (ArenaError Int) (FiniteArena Int Player Char))
+  let cyclic =
+        expectRight
+          ( finiteArena
+              [ (2, Halted),
+                (1, Choice External (("wait", 1) :| [])),
+                (0, Choice (Participant Alice) (("wait", 1) :| [("finish", 2)]))
+              ] ::
+              Either (ArenaError Int) (FiniteArena Int Player String)
+          )
+  assert "reach and infinite continuation distinguish an optional finish from a cycle" $
+    forceReach [Alice] [99, 2, 2] cyclic == [2, 0]
+      && forceReach [] [2] cyclic == [2]
+      && continueWithin [Alice] [0, 1] cyclic == [1, 0]
+      && continueWithin [] [0, 1] cyclic == [1]
   let subsets = powerset [0, 1, 2]
       subset a b = all (`elem` b) a
       monotone arena =

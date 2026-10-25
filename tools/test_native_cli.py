@@ -1,6 +1,6 @@
 """Independent native CLI acceptance, using real GHC/Cabal and editable games.
 
-Python is the test driver and legacy contract oracle, never the native runtime.
+Python drives current specification and real consumer checks, never the native runtime.
 All games live outside the checkout. Raw logs remain local under .build/.
 The public summary contains outcomes and hashes, not machine-specific paths.
 """
@@ -29,7 +29,7 @@ ENVIRONMENT = {'os': platform.system(), 'architecture': platform.machine()}
 
 def source_hashes():
     inputs = set()
-    for name in ['tools/haskell', 'templates/terminal-adventure',
+    for name in ['tools/haskell', 'tools/windows-console', 'templates/terminal-adventure',
                  'libraries/game-transition', 'libraries/game-arena']:
         for path in (ROOT / name).rglob('*'):
             if path.is_file() and not any(part in {'.build', 'dist-newstyle', '__pycache__', 'cabal.project.local'}
@@ -39,8 +39,6 @@ def source_hashes():
                  'tools/test_native_cli.py', 'tools/test_native_terminal.py',
                  'tools/test_windows_toolchain_paths.py',
                  'tools/acceptance/features.py', 'tools/inspect_haskell.py',
-                 'tools/acceptance/legacy_oracle.py', 'tools/acceptance/fixtures/python_cli/fp_game.py',
-                 'tools/acceptance/fixtures/python_cli/scaffold.py', 'tools/acceptance/fixtures/python_cli/provenance.json',
                  'tools/toolchains.json', 'tools/formatter.py', 'tools/formatter.lock.json',
                  'docs/native-tooling.md', 'docs/failure-prevention.md',
                  '.github/workflows/native-tooling.yml', 'formatter.json']:
@@ -202,7 +200,7 @@ def source_snapshot(destination):
     for name in ['libraries', 'templates', 'docs', 'tools', '.agents', 'editors']:
         shutil.copytree(ROOT / name, destination / name,
                         ignore=shutil.ignore_patterns('.build', 'dist-newstyle', '__pycache__',
-                                                     'node_modules', 'dist', 'vendor', '.runtime',
+                                                     'node_modules', 'dist', 'vendor', '.runtime', '.test-output',
                                                      '*.hi', '*.o', '*.exe', 'cabal.project.local'))
     shutil.copy2(ROOT / 'LICENSE', destination / 'LICENSE')
     # A genuine boot-package-only project for Cabal's authoritative path query.
@@ -321,7 +319,7 @@ def cancellation(binary, project):
     started, late, release = 'timeout-started', 'timeout-late', 'timeout-release'
     source = slow_source(project, 'Slow.hs', started, late, release)
     began = time.monotonic()
-    # Windows GHC9.6.7 was observed entering healthy TH at4.656s. This deadline
+    # Windows GHC9.14.1 was observed entering healthy TH at4.656s. This deadline
     # provides startup headroom; the closed gate, not a fixed sleep, prevents exit.
     try:
         result = cli(binary, 'real-ghc-timeout', 'check', project,
@@ -392,26 +390,6 @@ def same_path(left, right):
     return os.path.normcase(os.path.abspath(left)) == os.path.normcase(os.path.abspath(right))
 
 
-def legacy_adapter_source():
-    """Run the unchanged checker with explicit compiler selection and UTF-8 JSON."""
-    return ("import json,sys; from pathlib import Path; from unittest.mock import patch; "
-            "sys.stdout.reconfigure(encoding='utf-8', errors='replace'); "
-            "sys.path.insert(0,sys.argv[1]); import fp_game; "
-            "original=fp_game.shutil.which; "
-            "selected=lambda name,*a,**k: sys.argv[3] if name=='ghc' else original(name,*a,**k); "
-            "context=patch.object(fp_game.shutil,'which',selected); context.start(); "
-            "result=fp_game.check_file(Path(sys.argv[2]),'src/Unicode.hs'); "
-            "print(json.dumps(result,ensure_ascii=False)); sys.exit(result['exit_code'])")
-
-
-def legacy_adapter_encoding_check(project, compiler, cwd):
-    result = run('legacy-adapter-forced-cp1252',
-                 [sys.executable, '-c', legacy_adapter_source(), ROOT / 'tools/acceptance/fixtures/python_cli', project, compiler],
-                 cwd, env=dict(os.environ, PYTHONIOENCODING='cp1252'))
-    executed('legacy-adapter-forced-cp1252', result)
-    require('legacy-adapter-preserves-unicode-path',
-            same_path(result['command'][-1], project / 'src/Unicode.hs'))
-
 
 def acceptance(binary, trial, compiler=None):
     bootstrap_refusals(trial, compiler)
@@ -432,6 +410,10 @@ def acceptance(binary, trial, compiler=None):
     installed = trial / 'installed tooling 日本語' / binary.name
     installed.parent.mkdir()
     shutil.copy2(binary, installed)
+    if os.name == 'nt':
+        launcher = binary.with_name('fp-game-console.exe')
+        require('bootstrap-includes-private-windows-console', launcher.is_file())
+        shutil.copy2(launcher, installed.with_name(launcher.name))
     binary = installed
     game = trial / 'first independent game 日本語'
     args = ['acceptance-game', str(game), '--title', '独立したゲーム']
@@ -523,16 +505,6 @@ def acceptance(binary, trial, compiler=None):
     require('relative-create-planned-bytes', all(hashlib.sha256((relative_game / name).read_bytes()).hexdigest() == digest
             for name, digest in relative_plan['files'].items()))
     shutil.rmtree(relative_game)
-    legacy_plan = run('legacy-contract-plan', [sys.executable, ROOT / 'tools/acceptance/legacy_oracle.py',
-        'plan', *args, '--json'], unrelated)
-    require('legacy-plan-shape-compatible', set(legacy_plan) <= set(plan))
-    require('legacy-plan-metadata-compatible', all(plan[key] == legacy_plan[key]
-            for key in ['status', 'exit_code', 'destination', 'template', 'target',
-                        'rendering', 'game_license', 'mutates']))
-    shared_sources = [name for name in legacy_plan['files']
-                      if name.startswith(('src/', 'app/', 'test/', 'vendor/'))]
-    require('legacy-game-source-bytes-compatible', bool(shared_sources) and all(
-            plan['files'].get(name) == legacy_plan['files'][name] for name in shared_sources))
     require('generated-product-excludes-retired-python', not any(name in plan['files'] for name in ['tools/fp_game.py', 'tools/scaffold.py'])
             and not any(name.startswith('tools/acceptance/') for name in plan['files']))
     require('generated-product-retains-specialist-inspection', 'tools/inspect_haskell.py' in plan['files'])
@@ -644,18 +616,8 @@ def acceptance(binary, trial, compiler=None):
     good.write_bytes('-- 日本語\r\nmodule Unicode where\r\nvalue :: Integer\r\nvalue = 7\r\n'.encode())
     native = cli(binary, 'native-crlf-unicode-check', 'check', game, 'src/Unicode.hs')
     require('saved-check-uses-selected-compiler', same_path(native['command'][0], selected_compiler))
-    legacy_adapter_encoding_check(game, selected_compiler, unrelated)
-    if os.name == 'nt':
-        # Keep the real unchanged Python checker, changing only its explicit
-        # compiler lookup for this diagnostic comparison. PATH stays untouched.
-        adapter = legacy_adapter_source()
-        legacy = run('legacy-check-explicit-compiler-selection-adapter',
-                     [sys.executable, '-c', adapter, ROOT / 'tools/acceptance/fixtures/python_cli', game, selected_compiler], unrelated)
-    else:
-        legacy = run('legacy-contract-check', [sys.executable, ROOT / 'tools/acceptance/legacy_oracle.py',
-            'check', 'src/Unicode.hs', '--project', game, '--json'], unrelated)
-    require('legacy-execution-schema-compatible', set(native) == set(legacy))
-    require('legacy-compiler-flags-compatible', all(flag in native['command'] and flag in legacy['command']
+    executed('saved-check', native)
+    require('saved-check-compiler-flags', all(flag in native['command']
             for flag in ['-fno-code', '-fforce-recomp', '-XGHC2021', '-Wall', '-fdiagnostics-color=never']))
     good.write_text('module Unicode where\nvalue :: Integer\nvalue = True\n', encoding='utf-8')
     bad = cli(binary, 'native-real-compiler-error', 'check', game, 'src/Unicode.hs', expected=1)
@@ -780,7 +742,7 @@ def main():
             'scope': 'Real native CLI and optional terminal workspace development; no physical editor, graphical host or human play acceptance.',
             'environment': ENVIRONMENT,
             'binary_sha256': binary_hash,
-            'input_source_scope': 'Native package, bootstrap, harness, optional starter/core fixtures, legacy contract oracle, native/prevention guides, workflow and formatter selection; excludes local outputs and evidence reports.',
+            'input_source_scope': 'Native package, bootstrap, harness, optional starter/core fixtures, native/prevention guides, workflow and formatter selection; excludes local outputs and evidence reports.',
             'input_sha256_lf': input_hashes,
             'checks': RECORDS}, indent=2) + '\n', encoding='utf-8')
     print(f'native CLI integration: PASS ({len(RECORDS)} recorded checks on {platform.system()})')

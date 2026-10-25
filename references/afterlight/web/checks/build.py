@@ -11,7 +11,7 @@ import tempfile
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--archive", type=Path, help="h-raylib-5.6.0.0.tar.gz")
+parser.add_argument("--archive", type=Path, help="h-raylib-6.1.0.0.tar.gz")
 args = parser.parse_args()
 web = Path(__file__).resolve().parents[1]
 
@@ -39,17 +39,21 @@ with tempfile.TemporaryDirectory(prefix="afterlight-build-check-") as temporary:
         assert json.loads(result.stdout) == expected, (supplied, result.stdout)
     if args.archive:
         assert hashlib.sha256(args.archive.read_bytes()).hexdigest() == (
-            "09aec4df1f8974a90366bd78612839549e387643b20826a519bb4f1e831591aa"
+            "081199e097ebd510f0d4134122e72a623901d0903473e96e23c24bdfd104c3a5"
         )
         with tarfile.open(args.archive) as archive:
             # The hash authenticates this archive; also reject path escapes.
             for member in archive.getmembers():
                 assert (root / member.name).resolve().is_relative_to(root)
             archive.extractall(root, filter="data")
-        vendor = root / "h-raylib-5.6.0.0"
+        vendor = root / "h-raylib-6.1.0.0"
+        metadata = vendor / "h-raylib.cabal"
+        metadata.write_bytes(metadata.read_bytes().replace(b"\r\n", b"\n"))
         with (web / "patches/h-raylib-web.patch").open() as patch:
             subprocess.run(["patch", "--batch", "--fuzz=0", "-p1"], cwd=vendor,
                            stdin=patch, check=True, capture_output=True, text=True)
+        metadata.write_bytes(metadata.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+        assert hashlib.sha256(metadata.read_bytes()).hexdigest() == "341c48bea1990d790b58d9a7e3ba0532d9d6a2a98160ebaf156a8856d506edc4"
         subprocess.run(["emcc", "-std=c11", "-fsyntax-only", "-I", str(vendor / "raylib/src"),
                         str(web / "checks/abi.c")], check=True)
 

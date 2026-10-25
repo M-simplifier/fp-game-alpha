@@ -13,7 +13,7 @@ async function helper(sourcePath: string, options: CompilerOptions): Promise<{ b
   const ghc = options.ghcPath ?? 'ghc';
   const run = (args: string[]) => execute(ghc, args, { cwd: options.root, timeout: 15000, maxBuffer: 4_000_000 });
   const version = (await run(['--numeric-version'])).stdout.trim();
-  if (!/^9\.6\./.test(version)) throw new Error(`GHC ${version}: この版の確認機能はGHC 9.6.xに対応しています。設計の表示は利用できます。`);
+  if (!/^9\.14\./.test(version)) throw new Error(`GHC ${version}: この版の確認機能はGHC 9.14.xに対応しています。設計の表示は利用できます。`);
   const libdir = (await run(['--print-libdir'])).stdout.trim();
   // The optional helper already requires this compiler at runtime. On Linux,
   // avoid statically linking the entire GHC API for each fresh helper cache.

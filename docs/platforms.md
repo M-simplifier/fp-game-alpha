@@ -30,7 +30,7 @@ toolchain or claim an empty operation succeeded.
 
 ## Red Dune local browser command room
 
-[Red Dune live](red-dune-live.md) has a Linux GHC 9.6 native HTTP host and a thin
+[Red Dune](red-dune.md) has a Linux GHC 9.14.1 native HTTP host and a thin
 HTML/CSS/SVG/JavaScript view. It is **not** a Wasm build or a deployed web service.
 The native process owns the clock, all game transitions and durable files; the
 browser displays projections and sends commands. Native HTTP/protocol/lifecycle
@@ -42,20 +42,16 @@ or public deployment is part of this route. Windows/macOS host support is unclai
 ## Native developer tooling
 
 The [Haskell CLI](native-tooling.md) is the authoritative operational path.
-Its verification remains an **experimental developer CLI and optional
-terminal-workspace route** on Linux, Windows and macOS. At `be1208af`, all three actual CI jobs completed bootstrap,
-typed package tests and independent game-development/relocation checks. The
-[route registry](support/routes.json) and native guide link each exact job.
+The CLI and optional terminal workspace have explicit Linux, Windows and macOS
+CI routes. Use the [current verification guide](verification.md) for executed
+coverage; a declared CI route alone does not qualify a changed toolchain.
 
-Windows uses GHC 9.6.7's same-installation versioned compiler through the
+Windows uses GHC 9.14.1's same-installation versioned compiler through the
 [explicit selection recipe](native-tooling.md#windows-explicitly-select-the-installed-compiler).
 It selects bootstrap and game compilers separately, without changing global PATH
 or installing a different version. Existing project settings and wrappers remain
 authoritative; machine-local profiles are deliberately recreated after relocation.
-The unversioned launcher failure and earlier incomplete attempts remain historical
-evidence, not the current route status.
 
-This establishes the bounded CLI and scripted terminal-game profile, not a
-physical editor, graphical host or every game brief. Existing Python/core evidence
-retains its original scope. Optional terminal creation does not limit other hosts;
-implement and verify the requested game on its actual target.
+The bounded CLI and scripted terminal-game checks cover those consumers.
+Physical editors and graphical hosts require their own checks. Optional terminal
+creation does not limit other hosts; implement and verify a game on its actual target.
