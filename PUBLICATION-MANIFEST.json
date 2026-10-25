@@ -1052,7 +1052,7 @@
   },
   {
    "path": "references/afterlight/scripts/check-core.py",
-   "sha256_lf": "55f70f57f45e4e99bb50dae73c6d709cf65b19552afeaaa9343a495ff5415b88"
+   "sha256_lf": "5d2155004191022aa90bcc8b87d04e2814b41edbfcb828a69c3a661f2f845987"
   },
   {
    "path": "references/afterlight/scripts/check-cpp-format.py",

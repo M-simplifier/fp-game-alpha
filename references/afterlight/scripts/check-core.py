@@ -16,6 +16,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--download', action='store_true')
     args = parser.parse_args()
+    if args.download:
+        updated = subprocess.run(['cabal', 'update'], cwd=GAME, check=False)
+        if updated.returncode:
+            return updated.returncode
     build = FOUNDATION / '.build/afterlight-core/dist'
     command = ['cabal', 'test', 'afterlight-arena:laws',
                'afterlight-arena:frame-boundaries', f'--builddir={build}',
