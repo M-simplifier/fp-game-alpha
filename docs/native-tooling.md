@@ -331,10 +331,8 @@ first-use failures, their structural fixes and the tests that prevent recurrence
 
 ## Verification scope
 
-The current commands and required CI are described above. For exact historical
-revisions, job links, cache conditions and measured setup/startup costs, read the
-[pinned CI and measurement record](https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/native-tooling.md#verified-ci-and-local-measurements).
-Those observations are not a fresh run of this checkout or of a generated game.
+The commands above and the [current verification guide](verification.md) describe
+the required checks and their exercised scope.
 Tooling changes need their affected checks and current CI; a game's feature
 change needs its own tests and host play checks. Source-only relocation proves
 independent continuation, not a cold-machine install or a prebuilt distribution.
