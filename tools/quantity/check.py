@@ -1,4 +1,4 @@
-"""Run the source-only GHC checks; this does not invoke LiquidHaskell.
+"""Check current Units with GHC and the finite integer oracle.
 
 Outputs live in the ignored .build directory. Exit 0 requires the named
 compiler rejections, the independent Python oracle, against the current Colony.Units implementation.

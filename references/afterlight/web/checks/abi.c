@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include "raylib.h"
 
-/* Compile with the same Emscripten compiler and raylib.h as the browser host. */
+/* Same Emscripten target and raylib.h as the browser host. */
 _Static_assert(offsetof(Mesh, vertexCount) == 0, "Mesh.vertexCount");
 _Static_assert(offsetof(Mesh, triangleCount) == 4, "Mesh.triangleCount");
 _Static_assert(offsetof(Mesh, vertices) == 8, "Mesh.vertices");
@@ -11,15 +11,14 @@ _Static_assert(offsetof(Mesh, normals) == 20, "Mesh.normals");
 _Static_assert(offsetof(Mesh, tangents) == 24, "Mesh.tangents");
 _Static_assert(offsetof(Mesh, colors) == 28, "Mesh.colors");
 _Static_assert(offsetof(Mesh, indices) == 32, "Mesh.indices");
-_Static_assert(offsetof(Mesh, animVertices) == 36, "Mesh.animVertices");
-_Static_assert(offsetof(Mesh, animNormals) == 40, "Mesh.animNormals");
-_Static_assert(offsetof(Mesh, boneIds) == 44, "Mesh.boneIds");
-_Static_assert(offsetof(Mesh, boneWeights) == 48, "Mesh.boneWeights");
-_Static_assert(offsetof(Mesh, boneMatrices) == 52, "Mesh.boneMatrices");
-_Static_assert(offsetof(Mesh, boneCount) == 56, "Mesh.boneCount");
-_Static_assert(offsetof(Mesh, vaoId) == 60, "Mesh.vaoId");
-_Static_assert(offsetof(Mesh, vboId) == 64, "Mesh.vboId");
-_Static_assert(sizeof(Mesh) == 68, "sizeof(Mesh)");
+_Static_assert(offsetof(Mesh, boneCount) == 36, "Mesh.boneCount");
+_Static_assert(offsetof(Mesh, boneIndices) == 40, "Mesh.boneIndices");
+_Static_assert(offsetof(Mesh, boneWeights) == 44, "Mesh.boneWeights");
+_Static_assert(offsetof(Mesh, animVertices) == 48, "Mesh.animVertices");
+_Static_assert(offsetof(Mesh, animNormals) == 52, "Mesh.animNormals");
+_Static_assert(offsetof(Mesh, vaoId) == 56, "Mesh.vaoId");
+_Static_assert(offsetof(Mesh, vboId) == 60, "Mesh.vboId");
+_Static_assert(sizeof(Mesh) == 64, "sizeof(Mesh)");
 _Static_assert(_Alignof(Mesh) == 4, "alignof(Mesh)");
 
 _Static_assert(offsetof(Shader, id) == 0, "Shader.id");
@@ -50,24 +49,29 @@ _Static_assert(offsetof(BoneInfo, parent) == 32, "BoneInfo.parent");
 _Static_assert(sizeof(BoneInfo) == 36, "sizeof(BoneInfo)");
 _Static_assert(_Alignof(BoneInfo) == 4, "alignof(BoneInfo)");
 
+_Static_assert(offsetof(ModelSkeleton, boneCount) == 0, "ModelSkeleton.boneCount");
+_Static_assert(offsetof(ModelSkeleton, bones) == 4, "ModelSkeleton.bones");
+_Static_assert(offsetof(ModelSkeleton, bindPose) == 8, "ModelSkeleton.bindPose");
+_Static_assert(sizeof(ModelSkeleton) == 12, "sizeof(ModelSkeleton)");
+_Static_assert(_Alignof(ModelSkeleton) == 4, "alignof(ModelSkeleton)");
+
 _Static_assert(offsetof(Model, transform) == 0, "Model.transform");
 _Static_assert(offsetof(Model, meshCount) == 64, "Model.meshCount");
 _Static_assert(offsetof(Model, materialCount) == 68, "Model.materialCount");
 _Static_assert(offsetof(Model, meshes) == 72, "Model.meshes");
 _Static_assert(offsetof(Model, materials) == 76, "Model.materials");
 _Static_assert(offsetof(Model, meshMaterial) == 80, "Model.meshMaterial");
-_Static_assert(offsetof(Model, boneCount) == 84, "Model.boneCount");
-_Static_assert(offsetof(Model, bones) == 88, "Model.bones");
-_Static_assert(offsetof(Model, bindPose) == 92, "Model.bindPose");
-_Static_assert(sizeof(Model) == 96, "sizeof(Model)");
+_Static_assert(offsetof(Model, skeleton) == 84, "Model.skeleton");
+_Static_assert(offsetof(Model, currentPose) == 96, "Model.currentPose");
+_Static_assert(offsetof(Model, boneMatrices) == 100, "Model.boneMatrices");
+_Static_assert(sizeof(Model) == 104, "sizeof(Model)");
 _Static_assert(_Alignof(Model) == 4, "alignof(Model)");
 
-_Static_assert(offsetof(ModelAnimation, boneCount) == 0, "ModelAnimation.boneCount");
-_Static_assert(offsetof(ModelAnimation, frameCount) == 4, "ModelAnimation.frameCount");
-_Static_assert(offsetof(ModelAnimation, bones) == 8, "ModelAnimation.bones");
-_Static_assert(offsetof(ModelAnimation, framePoses) == 12, "ModelAnimation.framePoses");
-_Static_assert(offsetof(ModelAnimation, name) == 16, "ModelAnimation.name");
-_Static_assert(sizeof(ModelAnimation) == 48, "sizeof(ModelAnimation)");
+_Static_assert(offsetof(ModelAnimation, name) == 0, "ModelAnimation.name");
+_Static_assert(offsetof(ModelAnimation, boneCount) == 32, "ModelAnimation.boneCount");
+_Static_assert(offsetof(ModelAnimation, keyframeCount) == 36, "ModelAnimation.keyframeCount");
+_Static_assert(offsetof(ModelAnimation, keyframePoses) == 40, "ModelAnimation.keyframePoses");
+_Static_assert(sizeof(ModelAnimation) == 44, "sizeof(ModelAnimation)");
 _Static_assert(_Alignof(ModelAnimation) == 4, "alignof(ModelAnimation)");
 
 _Static_assert(offsetof(GlyphInfo, value) == 0, "GlyphInfo.value");
@@ -138,10 +142,9 @@ _Static_assert(offsetof(Music, ctxData) == 32, "Music.ctxData");
 _Static_assert(sizeof(Music) == 36, "sizeof(Music)");
 _Static_assert(_Alignof(Music) == 4, "alignof(Music)");
 
-_Static_assert(offsetof(FilePathList, capacity) == 0, "FilePathList.capacity");
-_Static_assert(offsetof(FilePathList, count) == 4, "FilePathList.count");
-_Static_assert(offsetof(FilePathList, paths) == 8, "FilePathList.paths");
-_Static_assert(sizeof(FilePathList) == 12, "sizeof(FilePathList)");
+_Static_assert(offsetof(FilePathList, count) == 0, "FilePathList.count");
+_Static_assert(offsetof(FilePathList, paths) == 4, "FilePathList.paths");
+_Static_assert(sizeof(FilePathList) == 8, "sizeof(FilePathList)");
 _Static_assert(_Alignof(FilePathList) == 4, "alignof(FilePathList)");
 
 _Static_assert(offsetof(AutomationEvent, frame) == 0, "AutomationEvent.frame");

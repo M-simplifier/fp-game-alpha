@@ -261,7 +261,7 @@ paginate r result heading chunks = do
       context =
         if offset == 0 || maybe False (T.isPrefixOf "## ") (safeHead remaining)
           then ""
-          else maybe "" (\c -> let label = head (T.splitOn "\n" c) in (if utf16Length label > 180 then T.take 80 label <> " [context shortened]" else label) <> "\n") (find (T.isPrefixOf "## ") (reverse (take offset chunks)))
+          else maybe "" (\c -> let label = fst (T.breakOn "\n" c) in (if utf16Length label > 180 then T.take 80 label <> " [context shortened]" else label) <> "\n") (find (T.isPrefixOf "## ") (reverse (take offset chunks)))
       start = heading <> context
       reserve = 180
       fit (size, kept) chunk = if size + utf16Length chunk + 2 + reserve <= rMaxChars r then Just (size + utf16Length chunk + 2, chunk : kept) else Nothing

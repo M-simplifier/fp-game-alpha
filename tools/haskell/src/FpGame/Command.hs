@@ -29,7 +29,9 @@ runCommand options = do
               Captured -> Just (fromMaybe 180 (timeoutSeconds options))
               Interactive -> timeoutSeconds options
          in execute root (ProcessRequest executable arguments deadline capture)
-      cabal action targets extra capture = withCabal root action targets $ \executable arguments -> executeHere executable (arguments ++ extra) capture
+      cabal action targets extra capture = withCabal root action targets $ \executable arguments ->
+        let deadline = if capture == Captured then Just (fromMaybe 180 (timeoutSeconds options)) else timeoutSeconds options
+         in executeCabal root (ProcessRequest executable (arguments ++ extra) deadline capture)
   case selectedCommand options of
     Doctor -> doctor root
     Build -> cabal "build" ["all"] [] Captured

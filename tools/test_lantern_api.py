@@ -39,7 +39,7 @@ def main():
         raise RuntimeError("Public projection/dependencies failed to compile")
     bad_code, diagnostic = compile_fixture(ghc, "RejectWorldUpdate")
     if (bad_code == 0 or "positions" not in diagnostic
-            or "is not a record selector" not in diagnostic or "error:" not in diagnostic):
+            or not any(message in diagnostic for message in ("is not a record selector", "Not in scope: record field")) or "error:" not in diagnostic):
         raise RuntimeError("External record update was not rejected as intended")
     print("lantern public API: PASS (projections compile; record update rejected)")
 

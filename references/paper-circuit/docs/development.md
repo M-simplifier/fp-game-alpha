@@ -55,7 +55,7 @@ copy only needed guides with their MIT notice and deliberately update links.
 
 ## Keep changes readable
 
-Use the README's first-turn reading path and `docs/readability-review.md` when
+Use the README's first-turn reading path and current rule/boundary checks when
 reviewing handwritten or AI-generated changes. Name new state by its game role,
 keep the public constructors/selectors intentionally opaque, and preserve the
 single pure rule implementation behind Machine/Arena. Add a rule regression

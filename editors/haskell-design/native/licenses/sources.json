@@ -1,222 +1,34 @@
 [
   {
-    "package": "Cabal-syntax-3.10.3.0",
-    "url": "https://hackage.haskell.org/package/Cabal-syntax-3.10.3.0/Cabal-syntax-3.10.3.0.tar.gz",
-    "sha256": "75d6a0aa9c00990a0d6e7720ac50c6954f6c942fa1be42c8add7f1c025f7e212",
-    "files": [
-      "Cabal-syntax-3.10.3.0/LICENSE"
-    ]
-  },
-  {
-    "package": "Win32-2.13.3.0",
-    "url": "https://hackage.haskell.org/package/Win32-2.13.3.0/Win32-2.13.3.0.tar.gz",
-    "sha256": "c4cfde8ab8f1812612f4e80b6ef1f11050963a21c982fbcfccbb1bf21ba1d5ef",
-    "files": [
-      "Win32-2.13.3.0/LICENSE"
-    ]
-  },
-  {
-    "package": "array-0.5.8.0",
-    "url": "https://hackage.haskell.org/package/array-0.5.8.0/array-0.5.8.0.tar.gz",
-    "sha256": "3a022dd6ac608d678f404db0b44fc9849c67dea19702eb3b82f358744f65e66b",
-    "files": [
-      "array-0.5.8.0/LICENSE"
-    ]
-  },
-  {
-    "package": "base-4.18.3.0",
-    "url": "https://hackage.haskell.org/package/base-4.18.3.0/base-4.18.3.0.tar.gz",
-    "sha256": "9e76ebd67ad69294f10f7af6e6a62685a5985266828910d42ea938f742472334",
-    "files": [
-      "base-4.18.3.0/LICENSE"
-    ]
-  },
-  {
-    "package": "binary-0.8.9.1",
-    "url": "https://hackage.haskell.org/package/binary-0.8.9.1/binary-0.8.9.1.tar.gz",
-    "sha256": "ac21ca63452dfc9b0bcab87c57699c531d87f7a9bcb6230ca46fba1b7faeebc0",
-    "files": [
-      "binary-0.8.9.1/LICENSE"
-    ]
-  },
-  {
-    "package": "bytestring-0.11.5.4",
-    "url": "https://hackage.haskell.org/package/bytestring-0.11.5.4/bytestring-0.11.5.4.tar.gz",
-    "sha256": "885be941ee06c80710267e11af04a816f039e9dab939f20e2e44f47b69016333",
-    "files": [
-      "bytestring-0.11.5.4/LICENSE"
-    ]
-  },
-  {
-    "package": "containers-0.6.7",
-    "url": "https://hackage.haskell.org/package/containers-0.6.7/containers-0.6.7.tar.gz",
-    "sha256": "8516effc5e88a6ce5e65e9efa2c64eee3d7540c081792c11ece2df4f0a25c874",
-    "files": [
-      "containers-0.6.7/LICENSE"
-    ]
-  },
-  {
-    "package": "deepseq-1.4.8.1",
-    "url": "https://hackage.haskell.org/package/deepseq-1.4.8.1/deepseq-1.4.8.1.tar.gz",
-    "sha256": "47859e431cc7db5d0ef14e013d37c0e65f93460f555b5b730d27a46ca2ac165d",
-    "files": [
-      "deepseq-1.4.8.1/LICENSE"
-    ]
-  },
-  {
-    "package": "directory-1.3.8.5",
-    "url": "https://hackage.haskell.org/package/directory-1.3.8.5/directory-1.3.8.5.tar.gz",
-    "sha256": "e864ed54ddfc6e15d2eb02c87f4be8edd7719e1f9cea13e0f86909400b6ea768",
-    "files": [
-      "directory-1.3.8.5/LICENSE"
-    ]
-  },
-  {
-    "package": "exceptions-0.10.7",
-    "url": "https://hackage.haskell.org/package/exceptions-0.10.7/exceptions-0.10.7.tar.gz",
-    "sha256": "9a42ade4c8b53d8da5350e8e0e2929f4ef128c4b8591b120656455310b546049",
-    "files": [
-      "exceptions-0.10.7/AUTHORS.markdown",
-      "exceptions-0.10.7/LICENSE"
-    ]
-  },
-  {
-    "package": "filepath-1.4.301.0",
-    "url": "https://hackage.haskell.org/package/filepath-1.4.301.0/filepath-1.4.301.0.tar.gz",
-    "sha256": "2532474c48f0753fe05c7ccb67c9b1b734b62fec3e1ceded9a8c5fc65fcef4da",
-    "files": [
-      "filepath-1.4.301.0/LICENSE"
-    ]
-  },
-  {
-    "package": "ghc-bignum-1.3",
-    "url": "https://hackage.haskell.org/package/ghc-bignum-1.3/ghc-bignum-1.3.tar.gz",
-    "sha256": "bf404b93040d47d30fd032f854f68eeb6c72c912fb4a20c41534611522d59061",
-    "files": [
-      "ghc-bignum-1.3/LICENSE"
-    ]
-  },
-  {
-    "package": "ghc-boot-th-9.6.7",
-    "url": "https://raw.githubusercontent.com/ghc/ghc/ghc-9.6.7-release/libraries/ghc-boot-th/LICENSE",
-    "sha256": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
-  },
-  {
-    "package": "ghc-prim-0.10.0",
-    "url": "https://hackage.haskell.org/package/ghc-prim-0.10.0/ghc-prim-0.10.0.tar.gz",
-    "sha256": "d8546134d36fb0d9316d8db5fbbaac96771254bac411c21d8544f9e8749b3ad9",
-    "files": [
-      "ghc-prim-0.10.0/LICENSE"
-    ]
-  },
-  {
-    "package": "mtl-2.3.1",
-    "url": "https://hackage.haskell.org/package/mtl-2.3.1/mtl-2.3.1.tar.gz",
-    "sha256": "2178f1cb60fe2a4cb780827a2bfbab01b56eed92f7f502dc728fecd9f56cdca7",
-    "files": [
-      "mtl-2.3.1/LICENSE"
-    ]
-  },
-  {
-    "package": "parsec-3.1.16.1",
-    "url": "https://hackage.haskell.org/package/parsec-3.1.16.1/parsec-3.1.16.1.tar.gz",
-    "sha256": "a41962e5d76ea68658876735b8d5b755e0eff336b079d0a2f439c364755d1246",
-    "files": [
-      "parsec-3.1.16.1/LICENSE"
-    ]
-  },
-  {
-    "package": "pretty-1.1.3.6",
-    "url": "https://hackage.haskell.org/package/pretty-1.1.3.6/pretty-1.1.3.6.tar.gz",
-    "sha256": "eb12cc23cbaf7d3f3e2a5e804e2e0ddb2a2d98d3ad456617d1b87fd3951d66e8",
-    "files": [
-      "pretty-1.1.3.6/LICENSE"
-    ]
-  },
-  {
-    "package": "process-1.6.19.0",
-    "url": "https://hackage.haskell.org/package/process-1.6.19.0/process-1.6.19.0.tar.gz",
-    "sha256": "b468355ab46966537eb171ed5593a0a1facc8d2eefc38659e43768f68f5dcb96",
-    "files": [
-      "process-1.6.19.0/LICENSE"
-    ]
-  },
-  {
-    "package": "rts-1.0.2",
-    "url": "https://raw.githubusercontent.com/ghc/ghc/ghc-9.6.7-release/LICENSE",
-    "sha256": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
-  },
-  {
-    "package": "stm-2.5.1.0",
-    "url": "https://hackage.haskell.org/package/stm-2.5.1.0/stm-2.5.1.0.tar.gz",
-    "sha256": "2b9ad0d1250f56d9dd716a77c4bde5fd1e989cda806765ba9b826f8c4b238885",
-    "files": [
-      "stm-2.5.1.0/LICENSE"
-    ]
-  },
-  {
-    "package": "template-haskell-2.20.0.0",
-    "url": "https://hackage.haskell.org/package/template-haskell-2.20.0.0/template-haskell-2.20.0.0.tar.gz",
-    "sha256": "e4be5d09ca9111389f2ac5f7f482b21469ddecd3bbfd71c8da718ddecd092817",
-    "files": [
-      "template-haskell-2.20.0.0/LICENSE"
-    ]
-  },
-  {
-    "package": "text-2.0.2",
-    "url": "https://hackage.haskell.org/package/text-2.0.2/text-2.0.2.tar.gz",
-    "sha256": "c735be650a898606ce9f2c8642bc6ac6123eea82871d5e90f92797801f59efad",
-    "files": [
-      "text-2.0.2/LICENSE",
-      "text-2.0.2/simdutf/LICENSE-APACHE",
-      "text-2.0.2/simdutf/LICENSE-MIT"
-    ]
-  },
-  {
-    "package": "time-1.12.2",
-    "url": "https://hackage.haskell.org/package/time-1.12.2/time-1.12.2.tar.gz",
-    "sha256": "dba0b047a230e823ce08007b4a6c2cd0a1e9e899c148b72019511c0b71ebaf1e",
-    "files": [
-      "time-1.12.2/LICENSE"
-    ]
-  },
-  {
-    "package": "transformers-0.6.1.0",
-    "url": "https://hackage.haskell.org/package/transformers-0.6.1.0/transformers-0.6.1.0.tar.gz",
-    "sha256": "e7abcbed7b59510db575cff30b75e0bb1b9672bdf981c393cc064c9bf9d9a4d8",
-    "files": [
-      "transformers-0.6.1.0/LICENSE"
-    ]
-  },
-  {
-    "package": "unix-2.8.4.0",
-    "url": "https://hackage.haskell.org/package/unix-2.8.4.0/unix-2.8.4.0.tar.gz",
-    "sha256": "3211fdbbe2b1ad8944a86838d38ebd0cf2636a4500fb4b5c0a964d8c63c58d55",
-    "files": [
-      "unix-2.8.4.0/LICENSE"
-    ]
-  },
-  {
-    "package": "unix-2.8.6.0",
-    "url": "https://hackage.haskell.org/package/unix-2.8.6.0/src/LICENSE",
-    "sha256": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23",
-    "files": [
-      "unix-2.8.6.0/LICENSE"
-    ]
-  },
-  {
     "package": "Cabal-syntax-3.16.0.0",
     "url": "https://hackage-content.haskell.org/package/Cabal-syntax-3.16.0.0.tar.gz",
     "sha256": "f45bd417052f4638787871957380365aab5cabfc7b110ec52df4e445c656809f",
     "files": [
-      "Cabal-syntax-3.16.0.0/LICENSE",
-      "Cabal-syntax-3.16.0.0/src/Distribution/License.hs",
-      "Cabal-syntax-3.16.0.0/src/Distribution/SPDX/License.hs",
-      "Cabal-syntax-3.16.0.0/src/Distribution/SPDX/LicenseExceptionId.hs",
-      "Cabal-syntax-3.16.0.0/src/Distribution/SPDX/LicenseExpression.hs",
-      "Cabal-syntax-3.16.0.0/src/Distribution/SPDX/LicenseId.hs",
-      "Cabal-syntax-3.16.0.0/src/Distribution/SPDX/LicenseListVersion.hs",
-      "Cabal-syntax-3.16.0.0/src/Distribution/SPDX/LicenseReference.hs"
+      "Cabal-syntax-3.16.0.0/LICENSE"
+    ]
+  },
+  {
+    "package": "OneTuple-0.4.3",
+    "url": "https://hackage-content.haskell.org/package/OneTuple-0.4.3.tar.gz",
+    "sha256": "643d1f48e63480ac6d03a8f0ab5976d66527c9b42b1fca81d1bf373d10099c6b",
+    "files": [
+      "OneTuple-0.4.3/LICENSE"
+    ]
+  },
+  {
+    "package": "QuickCheck-2.18.0.0",
+    "url": "https://hackage-content.haskell.org/package/QuickCheck-2.18.0.0.tar.gz",
+    "sha256": "fd8462ad3b1c3bb90465ec581356cf5214673c1015d73f28f2e7a3df179bbc55",
+    "files": [
+      "QuickCheck-2.18.0.0/LICENSE"
+    ]
+  },
+  {
+    "package": "StateVar-1.2.2",
+    "url": "https://hackage-content.haskell.org/package/StateVar-1.2.2.tar.gz",
+    "sha256": "5e4b39da395656a59827b0280508aafdc70335798b50e5d6fd52596026251825",
+    "files": [
+      "StateVar-1.2.2/LICENSE"
     ]
   },
   {
@@ -228,11 +40,51 @@
     ]
   },
   {
+    "package": "aeson-2.2.5.0",
+    "url": "https://hackage-content.haskell.org/package/aeson-2.2.5.0.tar.gz",
+    "sha256": "e22f9883adce9e02d77de6a1bba36f2f98d322c8a9fa3bc51596d31493d00ac5",
+    "files": [
+      "aeson-2.2.5.0/LICENSE"
+    ]
+  },
+  {
+    "package": "array-0.5.8.0",
+    "url": "https://hackage.haskell.org/package/array-0.5.8.0/array-0.5.8.0.tar.gz",
+    "sha256": "3a022dd6ac608d678f404db0b44fc9849c67dea19702eb3b82f358744f65e66b",
+    "files": [
+      "array-0.5.8.0/LICENSE"
+    ]
+  },
+  {
+    "package": "assoc-1.1.1",
+    "url": "https://hackage-content.haskell.org/package/assoc-1.1.1.tar.gz",
+    "sha256": "231149b7fef09f5dd95af51228615e3b296dbd0faadeca053e0644a4b13b0ff6",
+    "files": [
+      "assoc-1.1.1/LICENSE"
+    ]
+  },
+  {
     "package": "base-4.22.0.0",
     "url": "https://hackage-content.haskell.org/package/base-4.22.0.0.tar.gz",
     "sha256": "4f3ac5ee584ef852fd5214aaeaaf7dc5997d80eb91fc13e567d184f104ed8564",
     "files": [
       "base-4.22.0.0/LICENSE"
+    ]
+  },
+  {
+    "package": "base-orphans-0.9.4",
+    "url": "https://hackage-content.haskell.org/package/base-orphans-0.9.4.tar.gz",
+    "sha256": "08cc283a31350f7bd28b2a5d31af693ee337f2593d3e7222999b72dd4954c72b",
+    "files": [
+      "base-orphans-0.9.4/LICENSE"
+    ]
+  },
+  {
+    "package": "bifunctors-5.6.3",
+    "url": "https://hackage-content.haskell.org/package/bifunctors-5.6.3.tar.gz",
+    "sha256": "ad7a357f022f4c780c505040d73f1c06a4fd697b4a0bab6123bbd73b55d8115c",
+    "files": [
+      "bifunctors-5.6.3/LICENSE"
     ]
   },
   {
@@ -252,11 +104,51 @@
     ]
   },
   {
+    "package": "character-ps-0.1",
+    "url": "https://hackage-content.haskell.org/package/character-ps-0.1.tar.gz",
+    "sha256": "22de71fde38b236d3e9168a832b5e1e75d1fb4f4028667bdf747b3b4c8c1529c",
+    "files": [
+      "character-ps-0.1/LICENSE"
+    ]
+  },
+  {
+    "package": "comonad-5.0.10",
+    "url": "https://hackage-content.haskell.org/package/comonad-5.0.10.tar.gz",
+    "sha256": "e9739df2bf5944958062a4ea73bde3bf35c0879cee0944edf7f05bebf993f9c1",
+    "files": [
+      "comonad-5.0.10/LICENSE"
+    ]
+  },
+  {
     "package": "containers-0.8",
     "url": "https://hackage-content.haskell.org/package/containers-0.8.tar.gz",
     "sha256": "b1c1127ff57b6f844d0b30cea54a62c01ca146a49ed4953485be1af389a94bd8",
     "files": [
       "containers-0.8/LICENSE"
+    ]
+  },
+  {
+    "package": "contravariant-1.5.6",
+    "url": "https://hackage-content.haskell.org/package/contravariant-1.5.6.tar.gz",
+    "sha256": "65f3260354ee5fd1f2c7ffc54cff99d22b794c254f053734979ad37820e6efe3",
+    "files": [
+      "contravariant-1.5.6/LICENSE"
+    ]
+  },
+  {
+    "package": "cryptohash-sha256-0.11.102.1",
+    "url": "https://hackage-content.haskell.org/package/cryptohash-sha256-0.11.102.1.tar.gz",
+    "sha256": "73a7dc7163871a80837495039a099967b11f5c4fe70a118277842f7a713c6bf6",
+    "files": [
+      "cryptohash-sha256-0.11.102.1/LICENSE"
+    ]
+  },
+  {
+    "package": "data-fix-0.3.4",
+    "url": "https://hackage-content.haskell.org/package/data-fix-0.3.4.tar.gz",
+    "sha256": "8df052d18c047ab9e9200536a8799b5af3997ebecbbb091a7384b6be8416ab37",
+    "files": [
+      "data-fix-0.3.4/LICENSE"
     ]
   },
   {
@@ -273,6 +165,22 @@
     "sha256": "80e74f1f9cd8f88f70e230b2b40e965057cca1b66fbe151011c442d0ba73e5f7",
     "files": [
       "directory-1.3.10.0/LICENSE"
+    ]
+  },
+  {
+    "package": "distributive-0.6.3",
+    "url": "https://hackage-content.haskell.org/package/distributive-0.6.3.tar.gz",
+    "sha256": "aeeb028a23db9f9b073e24a6bd766b79b9d58c2b407b06bf33296c27e9264baa",
+    "files": [
+      "distributive-0.6.3/LICENSE"
+    ]
+  },
+  {
+    "package": "dlist-1.0",
+    "url": "https://hackage-content.haskell.org/package/dlist-1.0.tar.gz",
+    "sha256": "173d637328bb173fcc365f30d29ff4a94292a1e0e5558aeb3dfc11de81510115",
+    "files": [
+      "dlist-1.0/license.md"
     ]
   },
   {
@@ -325,142 +233,6 @@
     ]
   },
   {
-    "package": "os-string-2.0.8",
-    "url": "https://hackage-content.haskell.org/package/os-string-2.0.8.tar.gz",
-    "sha256": "02794279dd30282e7b0d45a860dda50ee26a92b1461f5da4545f62dab4172686",
-    "files": [
-      "os-string-2.0.8/LICENSE"
-    ]
-  },
-  {
-    "package": "parsec-3.1.18.0",
-    "url": "https://hackage-content.haskell.org/package/parsec-3.1.18.0.tar.gz",
-    "sha256": "402f9f133a71462678f9c257934f504f55e441d70c54a73ee70582182450d0af",
-    "files": [
-      "parsec-3.1.18.0/LICENSE"
-    ]
-  },
-  {
-    "package": "process-1.6.26.1",
-    "url": "https://hackage-content.haskell.org/package/process-1.6.26.1.tar.gz",
-    "sha256": "b431d2ba77607986fa84b42ff3021505b8637b8d638ff664be3292dd44aba8f0",
-    "files": [
-      "process-1.6.26.1/LICENSE"
-    ]
-  },
-  {
-    "package": "OneTuple-0.4.3",
-    "url": "https://hackage-content.haskell.org/package/OneTuple-0.4.3.tar.gz",
-    "sha256": "643d1f48e63480ac6d03a8f0ab5976d66527c9b42b1fca81d1bf373d10099c6b",
-    "files": [
-      "OneTuple-0.4.3/LICENSE"
-    ]
-  },
-  {
-    "package": "QuickCheck-2.18.0.0",
-    "url": "https://hackage-content.haskell.org/package/QuickCheck-2.18.0.0.tar.gz",
-    "sha256": "fd8462ad3b1c3bb90465ec581356cf5214673c1015d73f28f2e7a3df179bbc55",
-    "files": [
-      "QuickCheck-2.18.0.0/LICENSE"
-    ]
-  },
-  {
-    "package": "StateVar-1.2.2",
-    "url": "https://hackage-content.haskell.org/package/StateVar-1.2.2.tar.gz",
-    "sha256": "5e4b39da395656a59827b0280508aafdc70335798b50e5d6fd52596026251825",
-    "files": [
-      "StateVar-1.2.2/LICENSE"
-    ]
-  },
-  {
-    "package": "aeson-2.2.5.0",
-    "url": "https://hackage-content.haskell.org/package/aeson-2.2.5.0.tar.gz",
-    "sha256": "e22f9883adce9e02d77de6a1bba36f2f98d322c8a9fa3bc51596d31493d00ac5",
-    "files": [
-      "aeson-2.2.5.0/LICENSE"
-    ]
-  },
-  {
-    "package": "assoc-1.1.1",
-    "url": "https://hackage-content.haskell.org/package/assoc-1.1.1.tar.gz",
-    "sha256": "231149b7fef09f5dd95af51228615e3b296dbd0faadeca053e0644a4b13b0ff6",
-    "files": [
-      "assoc-1.1.1/LICENSE"
-    ]
-  },
-  {
-    "package": "base-orphans-0.9.4",
-    "url": "https://hackage-content.haskell.org/package/base-orphans-0.9.4.tar.gz",
-    "sha256": "08cc283a31350f7bd28b2a5d31af693ee337f2593d3e7222999b72dd4954c72b",
-    "files": [
-      "base-orphans-0.9.4/LICENSE"
-    ]
-  },
-  {
-    "package": "bifunctors-5.6.3",
-    "url": "https://hackage-content.haskell.org/package/bifunctors-5.6.3.tar.gz",
-    "sha256": "ad7a357f022f4c780c505040d73f1c06a4fd697b4a0bab6123bbd73b55d8115c",
-    "files": [
-      "bifunctors-5.6.3/LICENSE"
-    ]
-  },
-  {
-    "package": "character-ps-0.1",
-    "url": "https://hackage-content.haskell.org/package/character-ps-0.1.tar.gz",
-    "sha256": "22de71fde38b236d3e9168a832b5e1e75d1fb4f4028667bdf747b3b4c8c1529c",
-    "files": [
-      "character-ps-0.1/LICENSE"
-    ]
-  },
-  {
-    "package": "comonad-5.0.10",
-    "url": "https://hackage-content.haskell.org/package/comonad-5.0.10.tar.gz",
-    "sha256": "e9739df2bf5944958062a4ea73bde3bf35c0879cee0944edf7f05bebf993f9c1",
-    "files": [
-      "comonad-5.0.10/LICENSE"
-    ]
-  },
-  {
-    "package": "contravariant-1.5.6",
-    "url": "https://hackage-content.haskell.org/package/contravariant-1.5.6.tar.gz",
-    "sha256": "65f3260354ee5fd1f2c7ffc54cff99d22b794c254f053734979ad37820e6efe3",
-    "files": [
-      "contravariant-1.5.6/LICENSE"
-    ]
-  },
-  {
-    "package": "cryptohash-sha256-0.11.102.1",
-    "url": "https://hackage-content.haskell.org/package/cryptohash-sha256-0.11.102.1.tar.gz",
-    "sha256": "73a7dc7163871a80837495039a099967b11f5c4fe70a118277842f7a713c6bf6",
-    "files": [
-      "cryptohash-sha256-0.11.102.1/LICENSE"
-    ]
-  },
-  {
-    "package": "data-fix-0.3.4",
-    "url": "https://hackage-content.haskell.org/package/data-fix-0.3.4.tar.gz",
-    "sha256": "8df052d18c047ab9e9200536a8799b5af3997ebecbbb091a7384b6be8416ab37",
-    "files": [
-      "data-fix-0.3.4/LICENSE"
-    ]
-  },
-  {
-    "package": "distributive-0.6.3",
-    "url": "https://hackage-content.haskell.org/package/distributive-0.6.3.tar.gz",
-    "sha256": "aeeb028a23db9f9b073e24a6bd766b79b9d58c2b407b06bf33296c27e9264baa",
-    "files": [
-      "distributive-0.6.3/LICENSE"
-    ]
-  },
-  {
-    "package": "dlist-1.0",
-    "url": "https://hackage-content.haskell.org/package/dlist-1.0.tar.gz",
-    "sha256": "173d637328bb173fcc365f30d29ff4a94292a1e0e5558aeb3dfc11de81510115",
-    "files": [
-      "dlist-1.0/license.md"
-    ]
-  },
-  {
     "package": "hashable-1.5.1.0",
     "url": "https://hackage-content.haskell.org/package/hashable-1.5.1.0.tar.gz",
     "sha256": "ed0b7c10ce92c9ffe45420dadc38c6d39db486ff3633ff13567cc9f75f79b112",
@@ -469,19 +241,19 @@
     ]
   },
   {
-    "package": "indexed-traversable-instances-0.1.2.1",
-    "url": "https://hackage-content.haskell.org/package/indexed-traversable-instances-0.1.2.1.tar.gz",
-    "sha256": "e69d41f23a95463c2e03aee03374a4f489c72f7bf235be251499c4cca9411fec",
-    "files": [
-      "indexed-traversable-instances-0.1.2.1/LICENSE"
-    ]
-  },
-  {
     "package": "indexed-traversable-0.1.5",
     "url": "https://hackage-content.haskell.org/package/indexed-traversable-0.1.5.tar.gz",
     "sha256": "6423597d3528ac66c54beaab9f5408429c0a29b8cb98c45a1645f255aef7fef0",
     "files": [
       "indexed-traversable-0.1.5/LICENSE"
+    ]
+  },
+  {
+    "package": "indexed-traversable-instances-0.1.2.1",
+    "url": "https://hackage-content.haskell.org/package/indexed-traversable-instances-0.1.2.1.tar.gz",
+    "sha256": "e69d41f23a95463c2e03aee03374a4f489c72f7bf235be251499c4cca9411fec",
+    "files": [
+      "indexed-traversable-instances-0.1.2.1/LICENSE"
     ]
   },
   {
@@ -501,11 +273,43 @@
     ]
   },
   {
+    "package": "mtl-2.3.1",
+    "url": "https://hackage.haskell.org/package/mtl-2.3.1/mtl-2.3.1.tar.gz",
+    "sha256": "2178f1cb60fe2a4cb780827a2bfbab01b56eed92f7f502dc728fecd9f56cdca7",
+    "files": [
+      "mtl-2.3.1/LICENSE"
+    ]
+  },
+  {
     "package": "network-uri-2.6.4.2",
     "url": "https://hackage-content.haskell.org/package/network-uri-2.6.4.2.tar.gz",
     "sha256": "9c188973126e893250b881f20e8811dca06c223c23402b06f7a1f2e995797228",
     "files": [
       "network-uri-2.6.4.2/LICENSE"
+    ]
+  },
+  {
+    "package": "os-string-2.0.8",
+    "url": "https://hackage-content.haskell.org/package/os-string-2.0.8.tar.gz",
+    "sha256": "02794279dd30282e7b0d45a860dda50ee26a92b1461f5da4545f62dab4172686",
+    "files": [
+      "os-string-2.0.8/LICENSE"
+    ]
+  },
+  {
+    "package": "parsec-3.1.18.0",
+    "url": "https://hackage-content.haskell.org/package/parsec-3.1.18.0.tar.gz",
+    "sha256": "402f9f133a71462678f9c257934f504f55e441d70c54a73ee70582182450d0af",
+    "files": [
+      "parsec-3.1.18.0/LICENSE"
+    ]
+  },
+  {
+    "package": "pretty-1.1.3.6",
+    "url": "https://hackage.haskell.org/package/pretty-1.1.3.6/pretty-1.1.3.6.tar.gz",
+    "sha256": "eb12cc23cbaf7d3f3e2a5e804e2e0ddb2a2d98d3ad456617d1b87fd3951d66e8",
+    "files": [
+      "pretty-1.1.3.6/LICENSE"
     ]
   },
   {
@@ -515,6 +319,14 @@
     "files": [
       "primitive-0.9.1.0/LICENSE",
       "primitive-0.9.1.0/test/LICENSE"
+    ]
+  },
+  {
+    "package": "process-1.6.26.1",
+    "url": "https://hackage-content.haskell.org/package/process-1.6.26.1.tar.gz",
+    "sha256": "b431d2ba77607986fa84b42ff3021505b8637b8d638ff664be3292dd44aba8f0",
+    "files": [
+      "process-1.6.26.1/LICENSE"
     ]
   },
   {
@@ -686,6 +498,14 @@
     "files": [
       "transformers-compat-0.8/LICENSE",
       "transformers-compat-0.8/tests/LICENSE"
+    ]
+  },
+  {
+    "package": "unix-2.8.8.0",
+    "url": "https://hackage-content.haskell.org/package/unix-2.8.8.0.tar.gz",
+    "sha256": "a128dea3bfeb731a562f22d376fa606e902154d95321363f7ec1ea6b787a5a3e",
+    "files": [
+      "unix-2.8.8.0/LICENSE"
     ]
   },
   {

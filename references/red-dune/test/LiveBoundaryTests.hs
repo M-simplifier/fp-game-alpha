@@ -57,6 +57,11 @@ main = do
     check ("reject noncanonical/overflow Word64: " ++ show raw) (isLeft (number raw))
   check "JSON exact integral literal above 2^53" (J.parseJSON "9007199254740993" == Right (J.JInteger 9007199254740993))
   initial <- must (startGame "settlement" defaultPack)
+  let withoutWarehouses = survivalPolicies ((gameDescriptor initial) {s01Warehouses = []})
+  check
+    "missing warehouses omit warehouse-only policies without inventing a destination"
+    (map policyId (deliveryPolicies withoutWarehouses) == ["pantry-water", "pantry-food", "farm-water", "kitchen-crops", "kitchen-water"])
+  check "every remaining delivery has a physical source" (all (not . null . policySources) (deliveryPolicies withoutWarehouses))
   bytes <- must (encodeGame initial)
   loaded <- must (decodeGame bytes)
   check "complete checkpoint exact round trip" (loaded == initial)

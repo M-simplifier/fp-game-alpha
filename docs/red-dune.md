@@ -18,25 +18,23 @@ Haskell owns committed world transitions, campaign evidence and saves. A host
 supplies time, input and durable effects; a UI counter or privileged material
 grant cannot stand in for real production and consumption.
 
-## Read three different kinds of evidence
+## Choose checks for the change
 
-- [Bounded host verification](../references/red-dune/docs/HOST-VERIFICATION.md)
-  and [verification commands](../references/red-dune/README.md#verification-commands)
-  cover their named native/protocol/lifecycle cases. An HTTP client or Node test
-  does not exercise browser rendering, focus or device input
-- [Campaign and performance evidence](../references/red-dune/docs/ACCEPTANCE.md)
-  records the authored 66-game-hour settlement and 42-game-hour recovery runs,
-  selected checkpoint continuations and actual-checkpoint measurements. These
-  are CPU-running scenarios, not wall-clock waits. Keep pre-optimization full
-  runs distinct from later exact-order and serialized-suffix checks
-- Actual browser/native interaction and human play require their own observed
-  results. Neither scripted endings nor performance samples establish usability
-  or enjoyment; consult the host reports for completed and remaining checks
+The [verification guide](verification.md) gives the current bounded checks.
+[Host boundaries](../references/red-dune/docs/HOST-VERIFICATION.md) explain the
+protocol, ownership, checkpoint and HTTP contracts those checks protect.
+An HTTP client or Node test does not exercise browser rendering, focus or device input.
 
-The bounded CI workflow does not run the long campaigns by default. A workflow
-file is not evidence of a passed remote run. This active fork uses the
-[pinned formatter](formatting.md); the archive-only formatting exemption does
-not apply. Layout alone establishes neither readability nor correct gameplay.
+[Campaign scenarios](../references/red-dune/docs/ACCEPTANCE.md) provide commands
+for the authored 66-game-hour settlement and 42-game-hour recovery scenarios,
+checkpoint continuations and performance measurements. Run the relevant cases
+when changing their rules; record the actual toolchain, inputs and observed
+results. These are CPU-running scenarios, not wall-clock waits. They are not
+part of the bounded CI default, and an available command is not a passed run.
+
+Actual interaction and human play require their own observations. Scripted
+endings and performance samples do not establish usability or enjoyment.
+Current source uses the [pinned formatter](formatting.md).
 
 ## Distribution boundary
 

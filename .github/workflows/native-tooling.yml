@@ -66,7 +66,7 @@ jobs:
             ${{ steps.cache-environment.outputs.packages }}
           key: native-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-environment.outputs.image }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-${{ hashFiles('tools/haskell/*.cabal', 'tools/haskell/cabal.project*', '.github/workflows/native-tooling.yml') }}
       - name: Select explicit Windows compiler profile
-        # Run the complete path/Template Haskell preflight once, before bootstrap.
+        # Check Unicode builds and stream relay boundaries once, before bootstrap.
         # Selection output is written only after every required assertion passes.
         # Linux/macOS need not wait for an unrelated Windows toolchain setup.
         if: runner.os == 'Windows'

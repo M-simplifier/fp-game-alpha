@@ -1,8 +1,8 @@
 # Validated level data in the real game
 
-This experiment extends Paper Circuit itself, including its production pure
-transition, SVG renderer, native tests and GHC-Wasm browser adapter. It is a
-small fixed level family, not a new game engine or arbitrary level format.
+Paper Circuit accepts validated level data through its pure transition, SVG
+renderer and native/browser adapters. The supported data describes a small
+fixed level family.
 
 ## Edit data, then play
 
@@ -70,33 +70,3 @@ integers, staging, restart and undo. Real Wasm cases cover stage rejection,
 current/new session behavior, superseded asynchronous responses, disposal and
 existing gameplay. These are not browser mouse, focus, keyboard or paint tests.
 Actual browser UI execution remains unverified; no UI pass is claimed.
-
-## Same-game iteration measurement
-
-Activate the existing GHC-Wasm toolchain, then run:
-
-```sh
-python test/iteration/measure.py
-```
-
-This intentionally edits the default budget in `src/Paper/Game.hs` locally for
-five trials, restoring the original file and rebuilding in `finally`. Run with
-no concurrent edits or builds. It does not install tools or publish files.
-Both paths change the same budget to 19/20, rotate tile 4, and force the same
-Haskell SVG; exact hashes and moves must match for each pair.
-
-The data path starts timing before writing a local data file, sends its path
-to an already initialized Node/Wasm process, reads and validates it, creates a
-session, rotates, renders and returns a hash. The source path starts before
-writing the Haskell constant, incrementally compiles/links, starts a fresh
-Node/Wasm runtime, then performs the same gameplay/render observation.
-Both include Python/Node protocol overhead. Toolchains and compiler object
-caches are warm. The data runtime is warm while the rebuilt runtime must be
-initialized; that distinction is intentional and explicitly part of the loop.
-
-Recorded medians were 9.31 ms for data and 2,584.45 ms for source rebuild,
-with exact paired observation equality. Raw results are in
-`test/iteration/measurements.json`. This is one local environment
-and five ordered pairs, not a universal performance claim. It measures neither
-HTTP transport nor a file watcher, browser navigation, first paint, input
-responsiveness, developer editing time or player enjoyment.

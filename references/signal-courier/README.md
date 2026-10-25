@@ -5,7 +5,7 @@ a small night city; jump the canals and collect optional rooftop stamps.
 
 ## Build and play
 
-With native GHC 9.6+ and GHC-Wasm on PATH:
+With native GHC 9.14.1 and GHC-Wasm 9.14.1.20260731 plus its matching WASI toolchain on PATH:
 
 ```sh
 ./test-native.sh
@@ -29,7 +29,7 @@ license. No CDN, package install or sibling repository is needed at runtime.
 ## Continue and learn
 
 Use `.agents/skills/game-dev` for changes and `.agents/skills/learn-code` to
-understand the real code. See [experiment evidence and limits](../../docs/verification.md).
+understand the real code.
 To follow one input directly, read `Command` and the private `Session` in
 `src/Signal/Game.hs`, then `advance` → `runTick` → `resolveMotion`. A raw fall
 is resolved before stamp collection and beacon delivery; `finishTick` applies

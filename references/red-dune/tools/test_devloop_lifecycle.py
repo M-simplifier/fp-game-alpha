@@ -53,7 +53,7 @@ for raw in sys.stdin:
    (folder/'release-reload').unlink()
   if (folder/'fail-reload').exists():
    (folder/'fail-reload').unlink();print('error: transient B failed\nFailed, no modules loaded.',flush=True)
-  else:print('Ok, 8 modules loaded.',flush=True)
+  else:print('Ok, 8 modules reloaded.',flush=True)
  elif line.startswith('dev <- Main.start '):
   match=re.match(r'dev <- Main.start "([0-9a-f]+)" ([0-9]+) ',line)
   revision,port=match.groups();identity=str(uuid.uuid4())
@@ -217,9 +217,17 @@ def main():
                     fixture.project.write_text('-- changed compiled dependency configuration\n')
                 else:
                     # A synchronous status-write error enters closeSession before
-                    # any signal was sent. Its first signal must still reap.
+                    # any interrupt. Its first SIGINT must still reap.
                     status = fixture.build / 'status.json'
-                    status.unlink();status.mkdir()
+                    # Freeze the owned writer while replacing the file; an
+                    # ordinary concurrent status update must not win the gap.
+                    fixture.process.send_signal(signal.SIGSTOP)
+                    _, stopped = os.waitpid(fixture.process.pid, os.WUNTRACED)
+                    assert os.WIFSTOPPED(stopped), stopped
+                    try:
+                        status.unlink();status.mkdir()
+                    finally:
+                        fixture.process.send_signal(signal.SIGCONT)
                     fixture.pack.write_text('trigger status failure')
                 fixture.file('quit-entered')
                 fixture.process.send_signal(signal.SIGINT)

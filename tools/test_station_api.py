@@ -32,7 +32,7 @@ def main():
     if good_code != 0:
         raise RuntimeError('Public Station projection/dependencies did not compile')
     bad_code, diagnostic = compile_fixture(ghc, 'RejectGameUpdate')
-    if bad_code == 0 or 'stats' not in diagnostic or 'is not a record selector' not in diagnostic:
+    if bad_code == 0 or 'stats' not in diagnostic or not any(message in diagnostic for message in ('is not a record selector', 'Not in scope: record field')):
         raise RuntimeError('GameState record update was not rejected for the intended reason')
     bad_code, diagnostic = compile_fixture(ghc, 'RejectTurnId')
     if bad_code == 0 or 'TurnId' not in diagnostic or 'Illegal term-level use of the type constructor' not in diagnostic:

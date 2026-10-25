@@ -15,7 +15,7 @@ the same Haskell rules, content and framed game codec as the Linux host. It
 needs an installed Japanese Windows system font; no font files are shipped.
 See [native play controls and saves](docs/WINDOWS-PLAY.md).
 
-With GHC 9.14.1, Cabal 3.x, Python 3 and the official `h-raylib-5.6.0.0` sources
+With GHC 9.14.1, Cabal 3.x, Python 3 and the official `h-raylib-6.1.0.0` sources
 available in Cabal's cache, build from the repository root:
 
 ```powershell
@@ -58,16 +58,16 @@ From the repository root:
 
 ```sh
 cabal update
-cabal build --project-file=cabal.project.red-dune exe:red-dune-live
+cabal build --project-file=cabal.project.red-dune exe:red-dune-http
 cd references/red-dune
-cabal run --project-file=../../cabal.project.red-dune exe:red-dune-live
+cabal run --project-file=../../cabal.project.red-dune exe:red-dune-http
 ```
 
 Open the exact URL printed by the host, normally loopback port `8787`. Run the
 command from this game directory so its `ui/` assets are found. A different port:
 
 ```sh
-cabal run --project-file=../../cabal.project.red-dune exe:red-dune-live -- --port 8888
+cabal run --project-file=../../cabal.project.red-dune exe:red-dune-http -- --port 8888
 ```
 
 The host binds only to loopback. It is a local single-player host, not a public
@@ -168,13 +168,14 @@ For a small tuning exercise, copy the pack, increase its revision and modestly
 change a recipe's work time. Stage it, inspect its identity, restart, then compare
 observations. Running jobs and saved campaigns keep the original pinned catalog.
 
-## Checked campaign evidence
+## Campaign scenarios
 
-The [acceptance report](docs/ACCEPTANCE.md) records scripted 66-hour settlement
-and 42-hour recovery endings, save-continuation comparisons and actual-checkpoint
-CPU/allocation measurements. Full campaigns were run before the exact-order tile
-optimization; its separate ordering and serialized-suffix checks are explicit.
-These finite scripted results do not establish human enjoyment or browser play.
+The [scenario guide](docs/ACCEPTANCE.md) gives commands for the authored
+66-hour settlement and 42-hour recovery scenarios, save continuations and
+checkpoint measurements. Use the cases relevant to a rule change and record
+actual inputs/results; available scenarios do not establish a passed run.
+The [current verification guide](../../docs/verification.md) summarizes bounded
+platform coverage. Automated checks do not establish human enjoyment.
 
 ## Verification commands
 

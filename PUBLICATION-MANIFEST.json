@@ -28,11 +28,11 @@
   },
   {
    "path": ".agents/skills/haskell-editor-setup/SKILL.md",
-   "sha256_lf": "97799b5e39abcc103061c3f790895d4f7d451c0afd362d926d8027fb4a8e8042"
+   "sha256_lf": "4a226057022bd20db06b1d5aef5ae98801fe31caa2bde0e1c42a6a78d7302f46"
   },
   {
    "path": ".agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs",
-   "sha256_lf": "066630359c422b43312a8c7dd71127b84633a5a318a31f486930d5b20b36e1bf"
+   "sha256_lf": "bdb5c71bec224121bfd116e04ce416c101193ae7244a839b9d7cf973552e3a34"
   },
   {
    "path": ".agents/skills/haskell-excellence/SKILL.md",
@@ -52,27 +52,23 @@
   },
   {
    "path": ".gitattributes",
-   "sha256_lf": "f59658c486cc6c4b023382e3ea601f43f1a3b5676f1ae0366174036f5d6d4b2f"
+   "sha256_lf": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c"
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "a83bcd0250801fe095bee69ee2b3c681d02f42d3409595733eb1b07d705513be"
+   "sha256_lf": "79973af1252ada7d5d74f0ea5782059fdf862d8aa10bcad56f8565966300c074"
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "637ce301ba360dc00d8ca039160c68cf697d7afa0b449631a40c3f453e3abce3"
+   "sha256_lf": "25dd7f1506bb9dc4d9cf1bd69e3e9b2b55a76db04319784b1b1c10244a18543b"
   },
   {
    "path": ".github/workflows/red-dune.yml",
-   "sha256_lf": "b1e4b633a117a906d064b134ed88417515e246ec9b2e5df3f1fa17d2b64efd3d"
+   "sha256_lf": "c178bf68920968bf4e7139eaf23237b457cabcc08d04d8f1fb83176f2febc665"
   },
   {
    "path": ".gitignore",
    "sha256_lf": "e56d5358ef6ccec6256811da62a7e20a6325ddbc56fc805434ce0c3708eb0d21"
-  },
-  {
-   "path": "CURRENT-VERIFICATION.md",
-   "sha256_lf": "bc5fa939fde58a8de8ed1c2d1f9413fcc6ac0f6ed37ff0f77bfb38c2f9bf7718"
   },
   {
    "path": "LICENSE",
@@ -88,7 +84,7 @@
   },
   {
    "path": "README.md",
-   "sha256_lf": "1c767bfcbd71dd131faf4a42c0ac77b84eb6c1f696f554ea230dab29d8899cec"
+   "sha256_lf": "f20ba89fa8390eb2acd6908786cbba01a1329dec94a42f969387876e17a4e44d"
   },
   {
    "path": "cabal.project",
@@ -100,11 +96,11 @@
   },
   {
    "path": "cabal.project.red-dune-dev",
-   "sha256_lf": "2edebfd50cdf17bbbca21864d79b8c75ec2bf94f29286afad20d8da43ad256f6"
+   "sha256_lf": "5bf2dfe01998b054d0d8cb3d7b6ec619f29cf84348ab4021657bd1338238f3e9"
   },
   {
    "path": "cabal.project.red-dune-native",
-   "sha256_lf": "14da8cd012cec7b97fa9efb59459d4bfcf3abbf949ad33035532d47578ee6108"
+   "sha256_lf": "c0a32daecb5cf59b0b31adc2651e73ebe3abf806792fd74890ff4fef0e74044d"
   },
   {
    "path": "docs/acceptance.md",
@@ -144,11 +140,11 @@
   },
   {
    "path": "docs/haskell-design.md",
-   "sha256_lf": "9423b37f8937177425410f0fffe3c71a79f934e4c97bc249d14f90f1b0dd4e6d"
+   "sha256_lf": "90aa4884fd5e81227e08f75508b722f14ede02e1422856f5b4496748f8b39cc0"
   },
   {
    "path": "docs/haskell.md",
-   "sha256_lf": "ed6f66be4f851abe2f531d8c0cec047c71dc2e91c22d9594ed297cdae29b3aa3"
+   "sha256_lf": "3d129ff9606e73ff513c65d7e68047c6e19126bb507bb3311cb5908e4a0cebf4"
   },
   {
    "path": "docs/headless-play.md",
@@ -164,7 +160,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "51a22140af05b66c069a07aeae727ea81a7edce76ecfb504f98e09cdebc6e571"
+   "sha256_lf": "ead78f2c7565fdcd55fd6281da2d4f8c865c6fd3f79941ac62607f09c965faa0"
   },
   {
    "path": "docs/new-game.md",
@@ -172,7 +168,7 @@
   },
   {
    "path": "docs/platforms.md",
-   "sha256_lf": "b363dddd04fe109bae709360cbd1bc14ff8b7295b613515327b61687408305ee"
+   "sha256_lf": "dc5fc16fd4a853d32567924d693557c80052ba9a33671070b442084bf0b41349"
   },
   {
    "path": "docs/practice/LICENSE.upstream",
@@ -196,11 +192,11 @@
   },
   {
    "path": "docs/practice/games/code-reading.md",
-   "sha256_lf": "a55e10f6896c6987b2cfd5aa79dcf18fb176e2b03cb541ad767dd93780645ff8"
+   "sha256_lf": "57596be8f3840811a47375ec14ad3b6247facedfe2aeba40d1644ae023dfd4ca"
   },
   {
    "path": "docs/practice/games/editors.md",
-   "sha256_lf": "52c92d987883d2f35ad6663c28fb28645295ac85c0aba6e42d951b89eac5f800"
+   "sha256_lf": "2961ba0b93642589309c122de2df7432127cee37f4aef4d2029cbd74f89827ac"
   },
   {
    "path": "docs/practice/games/performance.md",
@@ -216,7 +212,7 @@
   },
   {
    "path": "docs/practice/games/stack.md",
-   "sha256_lf": "3fe45def42a1d38da7079475cc2b71d59e52cc16bf2702a5c9bb6884221b185c"
+   "sha256_lf": "60c06d36e5e30a424f9398ab29363bd95624bd9e6c6ef466e49c1b3b6c7154b8"
   },
   {
    "path": "docs/practice/games/time-and-state.md",
@@ -240,7 +236,7 @@
   },
   {
    "path": "docs/red-dune.md",
-   "sha256_lf": "c017d183201f751d861038bf7e2ecc7c627c54026431b38ce3bb04f82e5e92d9"
+   "sha256_lf": "975a4b8e6dce418ae9a8ce20b2077c6250ee6c29cb78a63565aef38c141e696f"
   },
   {
    "path": "docs/roadmap.md",
@@ -248,15 +244,15 @@
   },
   {
    "path": "docs/setup.md",
-   "sha256_lf": "cc6fed59661b9198e64f5a87d37eb4441d561e9af2030e0fa8224ecaba4755fe"
+   "sha256_lf": "33d95c4a712a0760ec0ab69deeaa284515c8e62f9fe59256b3402f1c96746f46"
   },
   {
    "path": "docs/signal-courier.md",
-   "sha256_lf": "b1fa7c21b2befad1ddd9297eaeb7a6a2a6a4a5c855d55adba0d2e66b34a509f1"
+   "sha256_lf": "0770a03154818f6c14a5c772a388c909c51e24df4721a92d40b0896f304ed57b"
   },
   {
    "path": "docs/support/routes.json",
-   "sha256_lf": "85d4d94f23f4c84f96419cb300f45087a741dcb7a24d9ed152a2cf37268f4261"
+   "sha256_lf": "3680fc132f6d2b94a94564d2b298496e358cd9b999152d32745d37fecdb564e5"
   },
   {
    "path": "docs/terminal-starter.md",
@@ -268,7 +264,7 @@
   },
   {
    "path": "docs/verification.md",
-   "sha256_lf": "0e90f9aca9b96c10078e6bd9efdb4953ffa2f05d2d918ad43016ee37c4a44389"
+   "sha256_lf": "82295f378bf9c9828f76d27daf3018fbe66cf68d740789b9abc46ea90dc9748e"
   },
   {
    "path": "editors/fixtures/portable-game/.gitignore",
@@ -300,7 +296,7 @@
   },
   {
    "path": "editors/fixtures/portable-game/lantern-courier.cabal",
-   "sha256_lf": "e45ab57d84afb4dc6b5ae05ff8a59b227704cb4aba4bc361e7370e792c9a0166"
+   "sha256_lf": "bb453a2c8ffcd9e9dc78c2d32c54b6d18782101800b8d9676c55fbf914eda2f2"
   },
   {
    "path": "editors/haskell-design/.gitignore",
@@ -312,7 +308,7 @@
   },
   {
    "path": "editors/haskell-design/CHANGELOG.md",
-   "sha256_lf": "ae52c4117856916ebd0fd540ef59acbff0410c351d17cafc833ac398ac66f45d"
+   "sha256_lf": "91d5ae3cfba44a59de5f8288b17931518c497d0ad5c1cbcf0c71631d50ea206d"
   },
   {
    "path": "editors/haskell-design/LICENSE",
@@ -320,11 +316,11 @@
   },
   {
    "path": "editors/haskell-design/PORTING.md",
-   "sha256_lf": "77afd6af2d7dc85105f4f66149d9a74602e49e6ea902e112aa4986a5ee4359f5"
+   "sha256_lf": "b8878d09cb953dce547f5de319b4d8169894d1e452c53559419ca5e726711fc1"
   },
   {
    "path": "editors/haskell-design/README.md",
-   "sha256_lf": "7f793d327a6fd57e1157085d003db9e0c75d3062e41f0678840a534bef371ff6"
+   "sha256_lf": "6b84e679b0f328e350dc7f33e79ac9afaf64c009f1fa975aa05a9c5f3dcca7a5"
   },
   {
    "path": "editors/haskell-design/THIRD_PARTY_NOTICES.md",
@@ -332,7 +328,7 @@
   },
   {
    "path": "editors/haskell-design/compiler/Main.hs",
-   "sha256_lf": "e3a3c21101850140e6283242585e459df0f31ec9ba38fb0c31016c954bd56699"
+   "sha256_lf": "18b0b0fe4a2d1f1e60add17800a7f4460c025eeb8e414f86a91ba6560972c339"
   },
   {
    "path": "editors/haskell-design/docs/automatic-design.md",
@@ -340,11 +336,11 @@
   },
   {
    "path": "editors/haskell-design/docs/native.md",
-   "sha256_lf": "d46c47e67015f8bb5a6ad291e1705a2ff93932e6c054749683a101bea2efbcff"
+   "sha256_lf": "cb9e274621f929357be5d636448c7eca9d91112070f6e58b28e51e02f848ee1a"
   },
   {
    "path": "editors/haskell-design/docs/reader.md",
-   "sha256_lf": "1b48f26c9923f487e455d52b4ce9918f8376a632bd7b8f1292babef0aa104e9f"
+   "sha256_lf": "f0a67b7007941d92aae42117c7a93579dfb419e3bc11e5c5622ae6c20e4f0bc3"
   },
   {
    "path": "editors/haskell-design/examples/Application/Checkout.hs",
@@ -376,7 +372,7 @@
   },
   {
    "path": "editors/haskell-design/native/app/Main.hs",
-   "sha256_lf": "b47027da729782dfd1cfa60b190c3fd361d1c407e0ed5b2557427e2947c8645f"
+   "sha256_lf": "96c37ba2b037213bca609a266df095a1cdcfa1b61680b78cb6ba9d55bf5b4dd6"
   },
   {
    "path": "editors/haskell-design/native/cabal.project",
@@ -384,7 +380,7 @@
   },
   {
    "path": "editors/haskell-design/native/cabal.project.freeze",
-   "sha256_lf": "1778e6653ff004bd812e03ee4337ab4d26317006fae22bbcbd30b66901f2d435"
+   "sha256_lf": "16be0038f8a96e7bbc385311e3b2452152d4b74c3c5075dcba276e14510e9f9e"
   },
   {
    "path": "editors/haskell-design/native/cbits/tree.c",
@@ -392,74 +388,162 @@
   },
   {
    "path": "editors/haskell-design/native/haskell-design.cabal",
-   "sha256_lf": "5c1abfc862e2723dc8589e78df888e76498846c92f0ae49496032b9bfdb18b87"
+   "sha256_lf": "8bb738b01e16630875190c1a5507338e78eca67b1f1102ed081b3ada4dd4f5de"
   },
   {
-   "path": "editors/haskell-design/native/licenses/Cabal-syntax-3.10.3.0/LICENSE",
-   "sha256_lf": "897843a592f960bcc467db572835f242ba58e19711aea3f9fbd43d5dc8f11ea8"
+   "path": "editors/haskell-design/native/licenses/Cabal-syntax-3.16.0.0/LICENSE",
+   "sha256_lf": "257c2debea128c7825197cfe696de871e3586bee820faca8669850219e9f9115"
   },
   {
-   "path": "editors/haskell-design/native/licenses/Win32-2.13.3.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/OneTuple-0.4.3/LICENSE",
+   "sha256_lf": "32834a07f32ee71f13b28ee19f4c49532630c99bd115267713b8e3b727db0250"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/QuickCheck-2.18.0.0/LICENSE",
+   "sha256_lf": "17035f93180f20bc9c9eb2fd5e0c8836c699b6dedae654b3f2a7a76e737bf2b9"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/StateVar-1.2.2/LICENSE",
+   "sha256_lf": "0e64a0908ba147b6c38f3e905a6d193bf1b0a4cd9af2a1cd8d58a60509e7cfa2"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/Win32-2.14.2.1/LICENSE",
    "sha256_lf": "be5f35ab473d27de3e13e04acd79119b97a661d10e3a3c0a826cee472462fb47"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/aeson-2.2.5.0/LICENSE",
+   "sha256_lf": "0447823bc7935d43958ae6fe9a779b7f78cac08df3b4f6a89b61b80d3af1cca0"
   },
   {
    "path": "editors/haskell-design/native/licenses/array-0.5.8.0/LICENSE",
    "sha256_lf": "87ededd935c29e5b06e2a42de021a11c753cbbb4be331992a2ffbef1281b03ef"
   },
   {
-   "path": "editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/assoc-1.1.1/LICENSE",
+   "sha256_lf": "5f3facf95bb7d0de63aac65ff31e1c071cf37cfa28a56cadf236eac1bd9c9fa3"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/base-4.22.0.0/LICENSE",
    "sha256_lf": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d"
   },
   {
-   "path": "editors/haskell-design/native/licenses/binary-0.8.9.1/LICENSE",
+   "path": "editors/haskell-design/native/licenses/base-orphans-0.9.4/LICENSE",
+   "sha256_lf": "924b65e4acfff34d5b46f3de783d051b591d25932d113d2cf2332bcd2bf9f82a"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/bifunctors-5.6.3/LICENSE",
+   "sha256_lf": "bcc90708feb8a742f4702201849b51b6fc99d48308ddccdecc5498d144c3a223"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/binary-0.8.9.3/LICENSE",
    "sha256_lf": "b0400f7ccef7de35184d413828dabcd15e6970b11972d11c6100f869f6de1831"
   },
   {
-   "path": "editors/haskell-design/native/licenses/bytestring-0.11.5.4/LICENSE",
+   "path": "editors/haskell-design/native/licenses/bytestring-0.12.2.0/LICENSE",
    "sha256_lf": "236de8169415cc6e1fd5fbb96035dd36dacc6444e8a600575566753cda4cbf7d"
   },
   {
-   "path": "editors/haskell-design/native/licenses/containers-0.6.7/LICENSE",
+   "path": "editors/haskell-design/native/licenses/character-ps-0.1/LICENSE",
+   "sha256_lf": "acdcccb0242a8497e4d1deaca0692770d55e8cd30298634382f4b6505bb1766b"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/comonad-5.0.10/LICENSE",
+   "sha256_lf": "1cd5d1f57ac61339dbad8f0a0b2e7dcf977c17e0b93021fbad3650a52c8d4975"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/containers-0.8/LICENSE",
    "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
   },
   {
-   "path": "editors/haskell-design/native/licenses/deepseq-1.4.8.1/LICENSE",
+   "path": "editors/haskell-design/native/licenses/contravariant-1.5.6/LICENSE",
+   "sha256_lf": "ca552b03f51300af9f01341076808d7df603a1dab4dbbf47e2cae276cb15c770"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/cryptohash-sha256-0.11.102.1/LICENSE",
+   "sha256_lf": "85cba5053cc10efdbf66295af758de7c6d2c0e29533638f6bde5a4f31a6eab9b"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/data-fix-0.3.4/LICENSE",
+   "sha256_lf": "a79799c00ff9b9e0edec255f12f2b27f459db1f166a584f6779efcb957ec2ddf"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/deepseq-1.5.1.0/LICENSE",
    "sha256_lf": "bb015371a164f83d605ffefa79007f0cf42b8984d4e80cc6f11bdc14d60c8ea3"
   },
   {
-   "path": "editors/haskell-design/native/licenses/directory-1.3.8.5/LICENSE",
+   "path": "editors/haskell-design/native/licenses/directory-1.3.10.0/LICENSE",
    "sha256_lf": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557"
   },
   {
-   "path": "editors/haskell-design/native/licenses/exceptions-0.10.7/AUTHORS.markdown",
+   "path": "editors/haskell-design/native/licenses/distributive-0.6.3/LICENSE",
+   "sha256_lf": "7d94212fab30a5dd88ff193657043cf9c3df8353380ad4c7de6bc10b45d6fed8"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/dlist-1.0/license.md",
+   "sha256_lf": "9b659a8f7227402615c243adf2db24b97d1cbaa6b29f79ea4991289b0b37c7be"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/exceptions-0.10.11/AUTHORS.markdown",
    "sha256_lf": "75bf4cabcb2f62f8b523dcc9fbf54209c02e979d9c8972e1902115b7e2232930"
   },
   {
-   "path": "editors/haskell-design/native/licenses/exceptions-0.10.7/LICENSE",
+   "path": "editors/haskell-design/native/licenses/exceptions-0.10.11/LICENSE",
    "sha256_lf": "09baf819c095749d4f8563600b5ffca346ed1124a2d964dc2085515627029091"
   },
   {
-   "path": "editors/haskell-design/native/licenses/filepath-1.4.301.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/file-io-0.1.5/LICENSE",
+   "sha256_lf": "33a22015aa12755668404c19b1d81bda96f7a21b3429ed725c44a9c56fed6590"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/filepath-1.5.4.0/LICENSE",
    "sha256_lf": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd"
   },
   {
-   "path": "editors/haskell-design/native/licenses/ghc-bignum-1.3/LICENSE",
-   "sha256_lf": "e06de4065c35a04115f989bd4922ae9446a68c6cbd7f21a8c9703ad259e374ac"
-  },
-  {
-   "path": "editors/haskell-design/native/licenses/ghc-boot-th-9.6.7/LICENSE",
+   "path": "editors/haskell-design/native/licenses/ghc-boot-th-9.14.1/LICENSE",
    "sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
   },
   {
-   "path": "editors/haskell-design/native/licenses/ghc-prim-0.10.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/ghc-internal-9.1401.0/LICENSE",
+   "sha256_lf": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/ghc-prim-0.13.1/LICENSE",
    "sha256_lf": "e17dc2656f2bdc4b5715a6a35fa4cdfa403b0e95a8d63e97366818e067fe6f6e"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/hashable-1.5.1.0/LICENSE",
+   "sha256_lf": "3112022b0b06d7f529bc5bf8cc767973191d3d6502693c9e4ad9c79de9318db0"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/indexed-traversable-0.1.5/LICENSE",
+   "sha256_lf": "c40d7afbc07af51f50301617e1f9dd122a3517caab8564ad3baa4d2c85491796"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/indexed-traversable-instances-0.1.2.1/LICENSE",
+   "sha256_lf": "c40d7afbc07af51f50301617e1f9dd122a3517caab8564ad3baa4d2c85491796"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/integer-conversion-0.1.1/LICENSE",
+   "sha256_lf": "acdcccb0242a8497e4d1deaca0692770d55e8cd30298634382f4b6505bb1766b"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/integer-logarithms-1.0.5/LICENSE",
+   "sha256_lf": "ce24460cb902fe28fef98b8d3ce0cc4105d9d8204dccc819a8233452de3b38b7"
   },
   {
    "path": "editors/haskell-design/native/licenses/mtl-2.3.1/LICENSE",
    "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
   },
   {
-   "path": "editors/haskell-design/native/licenses/parsec-3.1.16.1/LICENSE",
+   "path": "editors/haskell-design/native/licenses/network-uri-2.6.4.2/LICENSE",
+   "sha256_lf": "52b7b34c66e567678e498103d010a1bd163ef8b06e7e044016b04286a08db982"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/os-string-2.0.8/LICENSE",
+   "sha256_lf": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/parsec-3.1.18.0/LICENSE",
    "sha256_lf": "eae9baac9236cb84023f659665e9af6993de24d715350d2300a3c73d784a4252"
   },
   {
@@ -467,52 +551,144 @@
    "sha256_lf": "43ea4e43d7fa62834449ab5ba5a8dd07cd86ceea5cfafe385f3e236c88b493b4"
   },
   {
-   "path": "editors/haskell-design/native/licenses/process-1.6.19.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/primitive-0.9.1.0/LICENSE",
+   "sha256_lf": "cd6b51ecce7bc97a7bbd8500797c350a72f2f9c8e3aaf9d7154b9064d16316ea"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/primitive-0.9.1.0/test/LICENSE",
+   "sha256_lf": "cd6b51ecce7bc97a7bbd8500797c350a72f2f9c8e3aaf9d7154b9064d16316ea"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/process-1.6.26.1/LICENSE",
    "sha256_lf": "9297dea19dc57cb380328b8b9311352c9a73f9d2d81863dff454de55b85c0f20"
   },
   {
-   "path": "editors/haskell-design/native/licenses/rts-1.0.2/LICENSE",
+   "path": "editors/haskell-design/native/licenses/random-1.3.1/LICENSE",
+   "sha256_lf": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/rts-1.0.3/LICENSE",
    "sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
   },
   {
-   "path": "editors/haskell-design/native/licenses/sources.json",
-   "sha256_lf": "db04738e9d74cdb6333954400e65ca9ac69c72408ce6a98c487e7884eaa7facf"
+   "path": "editors/haskell-design/native/licenses/scientific-0.3.10.0/LICENSE",
+   "sha256_lf": "4809f8a687a81a714ca99fc2a9a366d3fa5dec4adc284a5e026c909da924ba53"
   },
   {
-   "path": "editors/haskell-design/native/licenses/stm-2.5.1.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/semialign-1.4/LICENSE",
+   "sha256_lf": "ac2ed60fbb868f568b86a26cfe93b608359decaf125f506bd5fdf04975fb35f8"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/semigroupoids-6.0.2/LICENSE",
+   "sha256_lf": "c9ed0c32e5332899f31bfad68cdb6e949a712a155318a0eb4872cc8f5bf4c95b"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/sources.json",
+   "sha256_lf": "2bc0b5d6c9d89b7838b25d820b167b2711b1f46c85a75b9f08a6c1251d75d5bc"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/splitmix-0.1.3.2/LICENSE",
+   "sha256_lf": "5f3facf95bb7d0de63aac65ff31e1c071cf37cfa28a56cadf236eac1bd9c9fa3"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/stm-2.5.3.1/LICENSE",
    "sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23"
   },
   {
-   "path": "editors/haskell-design/native/licenses/template-haskell-2.20.0.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/strict-0.5.1/LICENSE",
+   "sha256_lf": "79c71a6ece44448f34b5395c358367e1c94c2c3924cbf690f251551bd392a185"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/tagged-0.8.11/LICENSE",
+   "sha256_lf": "3b9fcb04037a8eb1389717d322ed727c60080a9dab2cb6f76882f45f56e6cb12"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/template-haskell-2.24.0.0/LICENSE",
    "sha256_lf": "29a12cdf7350473abfa64d71beb390216c6ad7827843726c9c3a7afab912be72"
   },
   {
-   "path": "editors/haskell-design/native/licenses/text-2.0.2/LICENSE",
+   "path": "editors/haskell-design/native/licenses/temporary-1.3/LICENSE",
+   "sha256_lf": "a219a531e2ab495cb53f30041f688d52c114bb566c1b245856c9dcb4e72fe7d2"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/text-2.1.3/LICENSE",
    "sha256_lf": "cf522e3d53b8d1768695fe5b66438baf4514fcd64b7a95739960f2f5b50c6ee8"
   },
   {
-   "path": "editors/haskell-design/native/licenses/text-2.0.2/simdutf__LICENSE-APACHE",
+   "path": "editors/haskell-design/native/licenses/text-2.1.3/simdutf/LICENSE-APACHE",
    "sha256_lf": "0f009071e566feef91923797658317a78790393797d21eb85dfdb6126358c772"
   },
   {
-   "path": "editors/haskell-design/native/licenses/text-2.0.2/simdutf__LICENSE-MIT",
+   "path": "editors/haskell-design/native/licenses/text-2.1.3/simdutf/LICENSE-MIT",
    "sha256_lf": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f"
   },
   {
-   "path": "editors/haskell-design/native/licenses/time-1.12.2/LICENSE",
+   "path": "editors/haskell-design/native/licenses/text-iso8601-0.1.1.2/LICENSE",
+   "sha256_lf": "e885635ca8d75bf5e3988aa4cb77d13793133ab2b4f6c6416a4d8d4fec6a6aa3"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/text-short-0.1.6.1/LICENSE",
+   "sha256_lf": "11a5b1f0c369358d5b4d0baee31232033b8b0dc3ec034f2dcc9ad393d1dc75a4"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/th-abstraction-0.7.2.0/LICENSE",
+   "sha256_lf": "499e8e5638d8d217fc7b8e0aa4dfcc1852495fe3d1f8ac9e8dd707a8ee213009"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/th-compat-0.1.7/LICENSE",
+   "sha256_lf": "24132d6adf696164c3cc6e3fdbec6f095934aaff90bca1d330ef01eff7ade6f4"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/these-1.2.1/LICENSE",
+   "sha256_lf": "ac2ed60fbb868f568b86a26cfe93b608359decaf125f506bd5fdf04975fb35f8"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/time-1.15/LICENSE",
    "sha256_lf": "7308114bd92aee5b33c1ff98e804a6f72ad2b90917bf06ed0b88ec278d07076b"
   },
   {
-   "path": "editors/haskell-design/native/licenses/transformers-0.6.1.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/time-compat-1.9.9/LICENSE",
+   "sha256_lf": "1bfcfa37bada908246a9908f61535a116f53283bdbb3550504c46c28da402e5c"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/transformers-0.6.1.2/LICENSE",
    "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
   },
   {
-   "path": "editors/haskell-design/native/licenses/unix-2.8.4.0/LICENSE",
+   "path": "editors/haskell-design/native/licenses/transformers-compat-0.8/LICENSE",
+   "sha256_lf": "bbb4823c79bfc2d482513e9f7020d63bf490b91639cc5812a8500c5cbe167618"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/transformers-compat-0.8/tests/LICENSE",
+   "sha256_lf": "bbb4823c79bfc2d482513e9f7020d63bf490b91639cc5812a8500c5cbe167618"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/unix-2.8.8.0/LICENSE",
    "sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23"
   },
   {
-   "path": "editors/haskell-design/native/licenses/unix-2.8.6.0/LICENSE",
-   "sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23"
+   "path": "editors/haskell-design/native/licenses/unordered-containers-0.2.21/LICENSE",
+   "sha256_lf": "f48ff1f157f254305a224bbb92978b44d562cd735504008575f53201e6ae410b"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/uuid-types-1.0.6.1/LICENSE",
+   "sha256_lf": "9fd9cbfc86dd7e1831281a4ba4edf63a03a1f7adf59fc9fdc243b8600f08164d"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/vector-0.13.2.0/LICENSE",
+   "sha256_lf": "a2bb7af96394e2cf79f5ceb0b7c85b088219814339fd0edb61d4fafb6dfd1c71"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/vector-0.13.2.0/tests/LICENSE",
+   "sha256_lf": "c9a857cf93831c86d7de8775a19ea24cad13a584c27a8ca9098e3277065393a8"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/vector-stream-0.1.0.1/LICENSE",
+   "sha256_lf": "a2bb7af96394e2cf79f5ceb0b7c85b088219814339fd0edb61d4fafb6dfd1c71"
+  },
+  {
+   "path": "editors/haskell-design/native/licenses/witherable-0.5/LICENSE",
+   "sha256_lf": "acdbcfe3ef2b455b38bcec8fa9184a9fefb950cf9d6c6b10e092d72581345b16"
   },
   {
    "path": "editors/haskell-design/native/src/HaskellDesign/Model.hs",
@@ -520,15 +696,15 @@
   },
   {
    "path": "editors/haskell-design/native/src/HaskellDesign/Project.hs",
-   "sha256_lf": "fc2dda1ea53ea94f5b91653835f097b9249f6dba5a12c1457be2bd25c91b815d"
+   "sha256_lf": "4fbb4d073dead923e314fab01a1df1aa7afbee2d9d5b4166582312930f91c78a"
   },
   {
    "path": "editors/haskell-design/native/src/HaskellDesign/Reader.hs",
-   "sha256_lf": "acc81831c27ec03c822856ce1dfc1662d4bc9f85709d88f782845ebd12e5aa4d"
+   "sha256_lf": "b5f1f97c380036af144844b56923a097a86a6f75b765883758c5029be370af43"
   },
   {
    "path": "editors/haskell-design/native/src/HaskellDesign/Scope.hs",
-   "sha256_lf": "0857c7ec7a08502962e35e28b9cd1d1304f1028268baa3050fbc77e1e07d9476"
+   "sha256_lf": "f33b4aea0e7e51db1e5434f2a4068a7404fea1ac521d594f80272997ff4385f1"
   },
   {
    "path": "editors/haskell-design/native/src/HaskellDesign/Tree.hs",
@@ -536,7 +712,7 @@
   },
   {
    "path": "editors/haskell-design/native/src/HaskellDesign/Verify.hs",
-   "sha256_lf": "17e50d79c10eaedde056c2850fda86bbc12c365af45a511a94d8ecd6970a1190"
+   "sha256_lf": "92ad158b9991435907545890e97a5f72049b0e6ce9ec49c06755f2d410ba7a25"
   },
   {
    "path": "editors/haskell-design/package-lock.json",
@@ -544,15 +720,11 @@
   },
   {
    "path": "editors/haskell-design/package.json",
-   "sha256_lf": "b0acd17da8719c3d987b2ba43c802df004c7cfa65b5fd72c0816e75c3372b292"
+   "sha256_lf": "774a0c4d32228ad9ef6f43b8a48e6e057275d32fe3a015033eb4c90ae31b38eb"
   },
   {
    "path": "editors/haskell-design/plugin/haskell-design.lua",
    "sha256_lf": "fd0b90b8a7f142cc3bbb37b27a2494d78516fe2a03b28665af2a7e18c8e72be4"
-  },
-  {
-   "path": "editors/haskell-design/scripts/benchmark-reader.mjs",
-   "sha256_lf": "7a84a7e0375eab097c245ce4d67704a8977c1b9b90b1c934ce1876ed0e82516b"
   },
   {
    "path": "editors/haskell-design/scripts/build-native.mjs",
@@ -564,7 +736,7 @@
   },
   {
    "path": "editors/haskell-design/scripts/native-notices.mjs",
-   "sha256_lf": "3e96b6e8edbd9dc3351829f143b5ddff0f7efe6125ca7e9a0d1f7fb545831c1a"
+   "sha256_lf": "65d5dbac9a47d6c6c4363d005f9181c469e7bbc7c91aac245f5466b31a41d04e"
   },
   {
    "path": "editors/haskell-design/scripts/package-neovim.mjs",
@@ -608,7 +780,7 @@
   },
   {
    "path": "editors/haskell-design/src/compiler.ts",
-   "sha256_lf": "a76ce979fcacf1de18de3260bea8141f148baa3dd30ec165d1be2690a730daf9"
+   "sha256_lf": "cc752096ba52254cca03328d857c34a8c03af5332eb0e14a20c3a04c2a2c4130"
   },
   {
    "path": "editors/haskell-design/src/extension.ts",
@@ -652,7 +824,7 @@
   },
   {
    "path": "editors/haskell-design/tests/audit.test.ts",
-   "sha256_lf": "24772321a9af192c23dc96b94099861896eb631a1782f836e8124070ce53413e"
+   "sha256_lf": "f177f55eb7eb1f9edca80ba1f4d35a459b741270df83deb95c2dff6b14cb63d9"
   },
   {
    "path": "editors/haskell-design/tests/compiler.test.ts",
@@ -740,11 +912,11 @@
   },
   {
    "path": "editors/vscode/test/native-contract.js",
-   "sha256_lf": "4e27f34bb20d93403a9ca007f75af0c10e046718d5ef94fc1b460ca1abd8845d"
+   "sha256_lf": "ef7027882d9ea31a020fb0b301f37b7b8568345888394d5ed21a59e7434aef5b"
   },
   {
    "path": "formatter.json",
-   "sha256_lf": "f9d0c13b1c07c6b0fa8d08899371cfbcb8c7b75b9c24121a92be3a9d7e7176a2"
+   "sha256_lf": "f0511ac19536268e40045fc91671adb90f4e7dfb706e2a2144282fbb69a58785"
   },
   {
    "path": "libraries/game-arena/LICENSE",
@@ -752,7 +924,7 @@
   },
   {
    "path": "libraries/game-arena/game-arena.cabal",
-   "sha256_lf": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f"
+   "sha256_lf": "420fb06922c515c1d76123ce6583c44cd31b5c8602e940cf4d7a58ce7c7a3760"
   },
   {
    "path": "libraries/game-arena/src/Game/Arena.hs",
@@ -772,7 +944,7 @@
   },
   {
    "path": "libraries/game-transition/game-transition.cabal",
-   "sha256_lf": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1"
+   "sha256_lf": "73f0fcc3757c38d9fdd6678722a0a37fd1b4ccec2ee5c494e2b2ed1e8a294c50"
   },
   {
    "path": "libraries/game-transition/src/Game/Transition.hs",
@@ -784,11 +956,11 @@
   },
   {
    "path": "publication/policy.json",
-   "sha256_lf": "d4ca0df46fa5b72ba6a3716eeb0af069b1f9661d4ed2473476f3545d3b04b515"
+   "sha256_lf": "aa4fb2e58e309c3ce6d7fff8ea305ac2c37bf212baacbd5b16fc32cdd1419191"
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "656399082768cc4e172ad935bef191e654f05d3b7f86186178998f436f602e0c"
+   "sha256_lf": "9052adc2f411663e0555b52dd9ce67f47df0c530307c1bbfcc8ee351a14612ba"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -804,11 +976,11 @@
   },
   {
    "path": "references/afterlight/THIRD-PARTY.md",
-   "sha256_lf": "09e52451385c8a50628e7d3cab94cd174b89899296b4a864f55a2ec06e8e9271"
+   "sha256_lf": "6c351dbe00dfbe90af245929d6e4f08531fc15c369a31022cf84c59ee5672373"
   },
   {
    "path": "references/afterlight/afterlight-arena.cabal",
-   "sha256_lf": "a4357978067455a9b2c43f6e0d71b5c4c9edfd9ca4dc634657afa6efb6b359d1"
+   "sha256_lf": "5dc86ca9363e6e865a566bb395c6171f692560acecc970a683038b915a29fb22"
   },
   {
    "path": "references/afterlight/assets/shaders/bloom.fs",
@@ -836,11 +1008,11 @@
   },
   {
    "path": "references/afterlight/cabal.project",
-   "sha256_lf": "ce2fd13cd23d39c785ec93da6040e43444f5ab54b6790ad08fda2298498a0d02"
+   "sha256_lf": "918c9ec69b4b83553a4993e5606ea6e1bd22e99e734c5b301afbf734694e2aef"
   },
   {
    "path": "references/afterlight/docs/rendering.md",
-   "sha256_lf": "eda4f33950bd885e7f6c476adaadc39002c32ff837b5bbf660d8e3ab5d8d89b9"
+   "sha256_lf": "efac55849a3268f4898ecddbaf2614585f48dd444cdfb801a064b68657bc8302"
   },
   {
    "path": "references/afterlight/licenses/h-raylib-LICENSE",
@@ -868,7 +1040,7 @@
   },
   {
    "path": "references/afterlight/runtime/Garden/Render/Resources.hs",
-   "sha256_lf": "90477ba81d0240f111c17db50348321ef2c70e96133b9a0a6e13ffe36d7f2192"
+   "sha256_lf": "91a2c9ef26b2eede16078756a099c8b70c348301ac35c25fba5a2364f67c9481"
   },
   {
    "path": "references/afterlight/runtime/Garden/Runtime.hs",
@@ -880,7 +1052,7 @@
   },
   {
    "path": "references/afterlight/scripts/check-core.py",
-   "sha256_lf": "775ba755c3d8361ee5b43f4da46f3f753c04e440705f8da4e1e42d8260e262d9"
+   "sha256_lf": "55f70f57f45e4e99bb50dae73c6d709cf65b19552afeaaa9343a495ff5415b88"
   },
   {
    "path": "references/afterlight/scripts/check-cpp-format.py",
@@ -895,16 +1067,12 @@
    "sha256_lf": "913dcd9ed679a42e839f0eba58e6e41a0bf6466ce1c93048fae78c23cef17d11"
   },
   {
-   "path": "references/afterlight/scripts/test-check-core.py",
-   "sha256_lf": "908b39b180485df8c34125b3175fd24a7dafc82c39e3799f3c62f55f44b9c1f4"
-  },
-  {
    "path": "references/afterlight/scripts/test-cpp-format.py",
    "sha256_lf": "e50da3776ad280621cebef813a3959981de9c49452bd4a874e3ae65232e26883"
   },
   {
    "path": "references/afterlight/scripts/test-session-api.py",
-   "sha256_lf": "2d5abab429a319c3bc501a280476c0f29c74628162aea7e1acdf29a5a74b774c"
+   "sha256_lf": "db9c4362a8dde5eb191e71653780126a9d1d188552d642bac98c6b3604b3cfc9"
   },
   {
    "path": "references/afterlight/src/Garden/Arena.hs",
@@ -916,7 +1084,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Checkpoint.hs",
-   "sha256_lf": "1d6f69adcfa0c1cb291445bb287d6ccdbb50608c4f752f8da9104a0d4bc2e3dd"
+   "sha256_lf": "957e24a6993b6570c33f3713dcc7e5eff293ddc584e1a075fa2e2ce40f47c145"
   },
   {
    "path": "references/afterlight/src/Garden/Checkpoint/Legacy.hs",
@@ -964,7 +1132,7 @@
   },
   {
    "path": "references/afterlight/src/Garden/Session.hs",
-   "sha256_lf": "b79455b0f7425052ada1232900bc5b2ac8f069bcf6d91f3a489c7996455ce7b7"
+   "sha256_lf": "0dc00b5185632f0611eca35d706cd0ba5dd06bf2ee3b642c9650c40ef55b0736"
   },
   {
    "path": "references/afterlight/src/Garden/Signal.hs",
@@ -1012,7 +1180,7 @@
   },
   {
    "path": "references/afterlight/tools/GardenCheck.hs",
-   "sha256_lf": "396862a6e9962b99e139513ae8a104432c333d3730033a4a38c3f9123e34fdf1"
+   "sha256_lf": "45cf0c3d318fe81120dc27a7c74ad585676d39774d3019745a890d05aedd02ae"
   },
   {
    "path": "references/afterlight/tools/GardenMain.hs",
@@ -1036,11 +1204,11 @@
   },
   {
    "path": "references/afterlight/web/EXPERIENCE.md",
-   "sha256_lf": "2dce2fd297944dd1ada831eee02b39a3f10e3220e6e0a5a7b50010710d602faa"
+   "sha256_lf": "15848141674dce92c58f371d2a21b2dd2084bdc0a0e4bcff8daddc91b3357369"
   },
   {
    "path": "references/afterlight/web/README.md",
-   "sha256_lf": "e511717f9e533d06f3f796ed3273827ff0c7da0cb95d2b2cb7bfd79efe56b9aa"
+   "sha256_lf": "1b3846b82978b115717eb92c23c8c6fe9d67fc453f323914dea4ec1ab1e9025d"
   },
   {
    "path": "references/afterlight/web/bridge.c",
@@ -1048,15 +1216,15 @@
   },
   {
    "path": "references/afterlight/web/build.sh",
-   "sha256_lf": "a994bad48da7f49fa699c3949e3ad2ae172f01a638f6c58bdbf0e6d2d7748ae0"
+   "sha256_lf": "ee4f51dbf61ddad25eaa9344f656a3eefa2cc40681255dc543ac100e6a1fb56b"
   },
   {
    "path": "references/afterlight/web/cabal.project.template",
-   "sha256_lf": "1dd59e1b77ac671d92defc48f4562f65151bf8e346493cc476af63831955f89a"
+   "sha256_lf": "291762161298762a7a7d0fe493f67f45c260161024b3c22e69f3b31640898fc0"
   },
   {
    "path": "references/afterlight/web/checks/abi.c",
-   "sha256_lf": "f09132020b5a53c538bb63b5c7ba5bb0da9f799080994cca743e10393dabbfa1"
+   "sha256_lf": "e6063fcd48734b7b07aded4876ad6638fbabfe3292e19b1186a68cf4eb10d514"
   },
   {
    "path": "references/afterlight/web/checks/assets.py",
@@ -1064,19 +1232,19 @@
   },
   {
    "path": "references/afterlight/web/checks/build.py",
-   "sha256_lf": "fb18dba449c68ab1f59dadfd4a47fcf98f775b2a8db2228ab42a2eeddec4a025"
+   "sha256_lf": "76e929995a3a594b9f6209b366e21f02c07602118179deadb12ba1b5a90a7e80"
   },
   {
    "path": "references/afterlight/web/flake.lock",
-   "sha256_lf": "5e6a8883e034d8bbb46c53099aa3a457272acc14c3d68df27b6270aa5b69f4d9"
+   "sha256_lf": "1dae265ccb06e4e00c1799d5897cd28acdf0af73b99ad3b5baa5624ae55efa57"
   },
   {
    "path": "references/afterlight/web/flake.nix",
-   "sha256_lf": "79e24ce69766ae4f7175e2ac32de55d0b1dbdf0330d060ed0d27902827a65d9e"
+   "sha256_lf": "93a192e34611582e372ab4fa80bd306a39a65cb16a9a1974abbbf82a3fedc0aa"
   },
   {
    "path": "references/afterlight/web/host/README.md",
-   "sha256_lf": "ab52d837d4f64d37cf7a213de98c1849e936a32f248d6e75ce0aa5f7cc0724fb"
+   "sha256_lf": "eb77d00689c7f3750796688a0bf72623314ca5a186b94c700d504cc759ce1e15"
   },
   {
    "path": "references/afterlight/web/host/memory-guard.c",
@@ -1160,11 +1328,11 @@
   },
   {
    "path": "references/afterlight/web/patches/README.md",
-   "sha256_lf": "0e21b005844e95ca087b38627dada981979581dc9634fed4bed2f33ba30ba106"
+   "sha256_lf": "2f4b6c863e7e87f5a664bfaf38c4eee1ca3a171db6d931feca5d873e6c5f850e"
   },
   {
    "path": "references/afterlight/web/patches/h-raylib-web.patch",
-   "sha256_lf": "245082c0d9d2cfbbc2acd45603d23722f00380b66c9516caeab4951c17e2bc73"
+   "sha256_lf": "0c3f588bb8c6896215b6e00d381ad2446405204cfeb738a375d0017ec41258f4"
   },
   {
    "path": "references/afterlight/web/prepare-assets.py",
@@ -1192,7 +1360,7 @@
   },
   {
    "path": "references/garden/garden.cabal",
-   "sha256_lf": "76e4a6c50dc17c538ba0f14b787a8bfc70416bfc50d3b6f403b96a76fbf9f245"
+   "sha256_lf": "49621f25f7e130a355bf9f973664ec7c860e5b192380808ffe602effbc5158d6"
   },
   {
    "path": "references/garden/src/Garden/Adapter.hs",
@@ -1208,11 +1376,11 @@
   },
   {
    "path": "references/garden/src/Garden/Session.hs",
-   "sha256_lf": "0d77757e714c70bbd37af32a6a6216bbca45d92690e6eb549487f2c457cd20cb"
+   "sha256_lf": "6f2bdea826e86cf1ec3d1256f8be21994d2477cf393575d22184e44a97e9608f"
   },
   {
    "path": "references/garden/src/Garden/Simulation.hs",
-   "sha256_lf": "a7d9e4609ebb2e6ce5f1b3b587a2c98b5892ad9aa53af5bd9dfc9359a0735aaa"
+   "sha256_lf": "9f1d30625486ebe273da453d497ce7c8ba50919ac620c32829336fae7aed0778"
   },
   {
    "path": "references/garden/src/Garden/View.hs",
@@ -1220,11 +1388,11 @@
   },
   {
    "path": "references/garden/src/Garden/World.hs",
-   "sha256_lf": "afbee8ccf6e59c5382a0e0a1e972168f6a8dfe71cea3de5b413f136bd1675a90"
+   "sha256_lf": "ccb2146eb75854b024ef7182daa6d98aaedfd3a58e1569f4be5e76bd3779e496"
   },
   {
    "path": "references/garden/test/Laws.hs",
-   "sha256_lf": "021cc57941f6d4357f560f9767cd51759ad239df94e1532e1a15a31c10837145"
+   "sha256_lf": "1fce1e72fe4c63c500ca3f69a66c660b88826ac1d2f2431bf19cd7850f85775e"
   },
   {
    "path": "references/garden/test/SimulationChecks.hs",
@@ -1244,11 +1412,11 @@
   },
   {
    "path": "references/lantern/lantern-puzzle.cabal",
-   "sha256_lf": "ba3aa7ab27a5a67356c13dd630c4630548b77ba56135e3684e2231451d79e19a"
+   "sha256_lf": "323100a6c15a7493a93eb366b31014b29d14f37ad947bf36ba7d0b3919c03ccf"
   },
   {
    "path": "references/lantern/src/Lantern.hs",
-   "sha256_lf": "6fddbe9dbe34df8976800a7e26efdbf96ab3c8dba0aa6fd68a015e53d2a74661"
+   "sha256_lf": "4964f8357cb9e89fa8849c179e5d794fe7b5868d500f47ec6909c60839a01866"
   },
   {
    "path": "references/lantern/test/Laws.hs",
@@ -1280,7 +1448,7 @@
   },
   {
    "path": "references/paper-circuit/README.md",
-   "sha256_lf": "8cf29671cfc30426f886753be35cba9e0ad772ec47d2ac20acd92d8d7051f631"
+   "sha256_lf": "dd4ef53de6b8af0111f5ab7011f0e7f3d0ffe9e7c8638c1550646a10e01048b5"
   },
   {
    "path": "references/paper-circuit/app/Browser.hs",
@@ -1296,15 +1464,11 @@
   },
   {
    "path": "references/paper-circuit/docs/development.md",
-   "sha256_lf": "6119fecf6ed94e8e849a07b5d16b4a52b39c628284ff83f13650a30fa0080173"
+   "sha256_lf": "ad629962022183e2c6e72d3760d5ed252a3e5cd69149258ddc9fc848d3e0315d"
   },
   {
    "path": "references/paper-circuit/docs/live-tuning.md",
-   "sha256_lf": "01132f24ea10daf16e076c734d61caa1062c51ba3d4ca55409f9260fd28131ad"
-  },
-  {
-   "path": "references/paper-circuit/docs/readability-review.md",
-   "sha256_lf": "250ac7889062d86c2be8cecf51caad6719383cfa4da17daa11b4abe24a7c413c"
+   "sha256_lf": "c6536bdcb9d8b68cdb3a33c2e8493c48c65b1a6075417d437e4d74855f45dd83"
   },
   {
    "path": "references/paper-circuit/foundation.lock.json",
@@ -1312,7 +1476,7 @@
   },
   {
    "path": "references/paper-circuit/paper-circuit.cabal",
-   "sha256_lf": "f8cd9f8821a799389642c69a664c6240037c4af324b2c7a361ee24fece35420f"
+   "sha256_lf": "73bd99e86825232fa41bcfadf70974581e9129be9cafca8c5f489fd50397aba4"
   },
   {
    "path": "references/paper-circuit/src/Paper/Game.hs",
@@ -1325,10 +1489,6 @@
   {
    "path": "references/paper-circuit/src/Paper/View.hs",
    "sha256_lf": "eef7d865300192518023544d264add4da4a554e132cfde5ca0fd2e4c1de1a651"
-  },
-  {
-   "path": "references/paper-circuit/test/CompareBaseline.hs",
-   "sha256_lf": "d999c9a5f4e52584557f5d6d5045e2dc857872698a3f46dbb010505a722c1a4c"
   },
   {
    "path": "references/paper-circuit/test/Laws.hs",
@@ -1360,23 +1520,7 @@
   },
   {
    "path": "references/paper-circuit/test/check-opaque-api.sh",
-   "sha256_lf": "b6184d23bd999b2f0a47bbe191f588776f50717ffbd6c800b07d26b299b28484"
-  },
-  {
-   "path": "references/paper-circuit/test/compare-baseline.sh",
-   "sha256_lf": "0a5efaca5f768ac5c775359ec4c891eef6c7a7bf4671ee219329990ee76ec267"
-  },
-  {
-   "path": "references/paper-circuit/test/iteration/measure.py",
-   "sha256_lf": "84ff50e08b0970eae2a9e603cc263b479e42fcae69979b678fd8ea89280beb6c"
-  },
-  {
-   "path": "references/paper-circuit/test/iteration/measurements.json",
-   "sha256_lf": "a11c16621da9af8e143278982db218ac70abffbb780359ae75a97600caec9f1c"
-  },
-  {
-   "path": "references/paper-circuit/test/iteration/probe.mjs",
-   "sha256_lf": "7270c2640b55a245783832e594001991c86a5d25ddc5322f85682f94f396e79e"
+   "sha256_lf": "9dd86626cc8d300eff74a1ba27f7950e2289d02aeecb42889fbacf25728247a1"
   },
   {
    "path": "references/paper-circuit/vendor/game-arena/LICENSE",
@@ -1384,19 +1528,19 @@
   },
   {
    "path": "references/paper-circuit/vendor/game-arena/game-arena.cabal",
-   "sha256_lf": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f"
+   "sha256_lf": "420fb06922c515c1d76123ce6583c44cd31b5c8602e940cf4d7a58ce7c7a3760"
   },
   {
    "path": "references/paper-circuit/vendor/game-arena/src/Game/Arena.hs",
-   "sha256_lf": "8433e468e45f9602da1d83a676ead73bc0da8c17f0f2ef6c0affb8cdaedebc18"
+   "sha256_lf": "08d15eaa8a13966734abf8b6c110625f35dde716263bdad2c19b04d9fdd8d77e"
   },
   {
    "path": "references/paper-circuit/vendor/game-arena/src/Game/Arena/Finite.hs",
-   "sha256_lf": "f4fb8aa96d2b3f0bf626550bec1cf36ecce1caefaa3a47aa6f82caf6743f7c78"
+   "sha256_lf": "ce396e78e36a2dc829157b52e86f368d6733a44de0ee7d929fddcdd64a684f95"
   },
   {
    "path": "references/paper-circuit/vendor/game-arena/test/Laws.hs",
-   "sha256_lf": "45bd16e14b4313daa87a5fd538eff2663160069d2c578640b12a438fa1f9a894"
+   "sha256_lf": "1abdc26df6667cf6355b8bd2b7a58af4e5acd276b98cd8d4f5cae59062d8df2c"
   },
   {
    "path": "references/paper-circuit/vendor/game-transition/LICENSE",
@@ -1404,15 +1548,15 @@
   },
   {
    "path": "references/paper-circuit/vendor/game-transition/game-transition.cabal",
-   "sha256_lf": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1"
+   "sha256_lf": "73f0fcc3757c38d9fdd6678722a0a37fd1b4ccec2ee5c494e2b2ed1e8a294c50"
   },
   {
    "path": "references/paper-circuit/vendor/game-transition/src/Game/Transition.hs",
-   "sha256_lf": "f4ca9908eedd9c7bc6c33105f7136af7e03d326635983cac2106c542067d9202"
+   "sha256_lf": "811b03719b7ec72b49bb17118ee7b3e9123152c4895b9926ded5a3b25b78854d"
   },
   {
    "path": "references/paper-circuit/vendor/game-transition/test/Laws.hs",
-   "sha256_lf": "1f28e487e74b663fcbdd5be07dcf63d61a3b099fd83a693315f47fedb29d85fa"
+   "sha256_lf": "9ec80a32d615a5f882ac248011ae474f63418d2acca4191efaba472205021c0b"
   },
   {
    "path": "references/paper-circuit/web/controls.mjs",
@@ -1508,7 +1652,7 @@
   },
   {
    "path": "references/red-dune/README.md",
-   "sha256_lf": "43858d3dec19eb088e3cbb630fc3fe33860d8fc0c1f1a19c3204f6923bb09a87"
+   "sha256_lf": "3780f97d23863b2c0508969e95809d4be46efd4d42b048969a6159e651e4217d"
   },
   {
    "path": "references/red-dune/app/HostMain.hs",
@@ -1528,7 +1672,7 @@
   },
   {
    "path": "references/red-dune/core/Colony/CheckpointLibrary.hs",
-   "sha256_lf": "1a66c21ae83ab6b808d9197e276d5bdd29a39245c81ea55791d30000998c5557"
+   "sha256_lf": "cbbecbbf019b38078eed7d98eb0077d3f7f98e4f027ef05c10efb37586145d23"
   },
   {
    "path": "references/red-dune/core/Colony/Codec.hs",
@@ -1560,7 +1704,7 @@
   },
   {
    "path": "references/red-dune/core/Colony/Content.hs",
-   "sha256_lf": "a7613d0dfeb9dd455dce33170bad7405b9dd1fd34d7285f0284b5af2ce838bcc"
+   "sha256_lf": "a9037746fe7cd93cdbc0e9860f59de09e782b4bd775db87da28ef25958d6358d"
   },
   {
    "path": "references/red-dune/core/Colony/ContentCodec.hs",
@@ -1576,7 +1720,7 @@
   },
   {
    "path": "references/red-dune/core/Colony/JSON.hs",
-   "sha256_lf": "1b33671417f4b6eedb1e8b66ff64f2c6bb71e2015d81b3088cb6126bdc0d4273"
+   "sha256_lf": "cedf51f9cecf72f48946097e559349a28dbd9756d0ebcea1b99541a9d9a42976"
   },
   {
    "path": "references/red-dune/core/Colony/Jobs.hs",
@@ -1632,7 +1776,7 @@
   },
   {
    "path": "references/red-dune/core/Colony/Pickup.hs",
-   "sha256_lf": "7b23d40730f2636b6db85ba6c1c96516fa27365d1b72f01bc58839be40d5569a"
+   "sha256_lf": "f7409d335965f7da9469f0a320722e6d40b741dc7695fa6ea3241a34f5184dbb"
   },
   {
    "path": "references/red-dune/core/Colony/Power.hs",
@@ -1652,11 +1796,11 @@
   },
   {
    "path": "references/red-dune/core/Colony/S01Fixture.hs",
-   "sha256_lf": "30962664ad37d74f5baad65113cdfe3b9582d8214d216c0e03ea5e640bf94b5c"
+   "sha256_lf": "8040c7c8071c2e40adbb6b858d2d87077cd34a668373d5a6453247a93de89d4d"
   },
   {
    "path": "references/red-dune/core/Colony/Save.hs",
-   "sha256_lf": "fed5af0eda908f2abbc9f7f93df618c168cd54f145c51a7947020a60bcd57541"
+   "sha256_lf": "38000c76db3cd22b21db90ed7539172fcd11b0a267d5fd62f49fcbb76b8838a5"
   },
   {
    "path": "references/red-dune/core/Colony/Scheduler.hs",
@@ -1676,7 +1820,7 @@
   },
   {
    "path": "references/red-dune/core/Colony/Space.hs",
-   "sha256_lf": "e2cb69d426d6f610f1789130f19232f04f11253b34b2a304dedac742342af0fb"
+   "sha256_lf": "bf231c6ea477ce1f98d9666bc8a187840aea3e92ef9b8bce783a8b6d8fec2065"
   },
   {
    "path": "references/red-dune/core/Colony/SupplyChainFixture.hs",
@@ -1684,11 +1828,11 @@
   },
   {
    "path": "references/red-dune/core/Colony/Topology.hs",
-   "sha256_lf": "4e9fcea02e53d7b6b0a8572a1d4b8e9139b28f5a7d6d5bd77227531019d7b866"
+   "sha256_lf": "15f21ebe6b83047f3be49c7b01ea61c9450a7e0a81e2c044810429550dedd603"
   },
   {
    "path": "references/red-dune/core/Colony/Transport.hs",
-   "sha256_lf": "3f8312a7371fb28fb8ac535de3a584defd4af0254a990e33ffacdb018e803faf"
+   "sha256_lf": "a3f3c91fc2164c26d9431dba4bf86077ae20ea0dd43202783da03641ece71cd7"
   },
   {
    "path": "references/red-dune/core/Colony/Transport/Dispatch.hs",
@@ -1708,7 +1852,7 @@
   },
   {
    "path": "references/red-dune/core/Colony/UIShell.hs",
-   "sha256_lf": "8bdb0b6834c72f8dc1b064eb0c5ce9b0e4f7c60807c313c4c5ef64483c1823ee"
+   "sha256_lf": "4d0d74ddae43b82a77a4266e93f0c88c96a2dd64f473f4e7176e532024450c10"
   },
   {
    "path": "references/red-dune/core/Colony/Units.hs",
@@ -1736,11 +1880,11 @@
   },
   {
    "path": "references/red-dune/devloop/DevLoopMain.hs",
-   "sha256_lf": "3150780bb89bcc2ccfdccf1427ab7d4776f600c7592d559028bf658a4b96ad51"
+   "sha256_lf": "8179de539ca58a8f7981d3bc05a4dae65df35455bc9c938e00fc9c7c5bee7e42"
   },
   {
    "path": "references/red-dune/docs/ACCEPTANCE.md",
-   "sha256_lf": "a105da435a56bef930c7782bab1e4437d9cdc3d757a8b5fd207b228c6c753a41"
+   "sha256_lf": "3ee2dfe939c9539f11b96e141bb31e8dd186ee0cdf605e6880090718dec7db74"
   },
   {
    "path": "references/red-dune/docs/API.md",
@@ -1751,12 +1895,8 @@
    "sha256_lf": "e473eb76057f0201bec33d8fd94feaec4acee8bcaf17a5d3411322a424003436"
   },
   {
-   "path": "references/red-dune/docs/DEVELOPMENT-EVIDENCE.md",
-   "sha256_lf": "9931c0e8782bf577bc886e07a76693f0c26422a5b6c55d01d6a923accd9114e2"
-  },
-  {
    "path": "references/red-dune/docs/DEVELOPMENT.md",
-   "sha256_lf": "46e8b4abb859adc1bb62442ff124a9d0df4c5646fb338eac8dc77ee3dc7ed655"
+   "sha256_lf": "60e6a2d4bbb757a10127688fec832d00c61fd3b063fad60bf4b2a91fc8d2b85d"
   },
   {
    "path": "references/red-dune/docs/HOST-API.md",
@@ -1764,7 +1904,7 @@
   },
   {
    "path": "references/red-dune/docs/HOST-VERIFICATION.md",
-   "sha256_lf": "ca34be1bf6a739f2c6355a62c12965a4c375f8381d0ebe59d652f478848afaa3"
+   "sha256_lf": "496cbfbcd6fde91c3cffce306c19556bc23eca28173430f144341d197fb2a986"
   },
   {
    "path": "references/red-dune/docs/READABILITY.md",
@@ -1777,6 +1917,118 @@
   {
    "path": "references/red-dune/docs/WINDOWS-PLAY.md",
    "sha256_lf": "89e8055bfb973752fe4fef3e2a142f29e433498e5c616dcae8860f72c886ce48"
+  },
+  {
+   "path": "references/red-dune/licenses/Win32-2.14.2.1/LICENSE",
+   "sha256_lf": "be5f35ab473d27de3e13e04acd79119b97a661d10e3a3c0a826cee472462fb47"
+  },
+  {
+   "path": "references/red-dune/licenses/array-0.5.8.0/LICENSE",
+   "sha256_lf": "87ededd935c29e5b06e2a42de021a11c753cbbb4be331992a2ffbef1281b03ef"
+  },
+  {
+   "path": "references/red-dune/licenses/base-4.22.0.0/LICENSE",
+   "sha256_lf": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d"
+  },
+  {
+   "path": "references/red-dune/licenses/binary-0.8.9.3/LICENSE",
+   "sha256_lf": "b0400f7ccef7de35184d413828dabcd15e6970b11972d11c6100f869f6de1831"
+  },
+  {
+   "path": "references/red-dune/licenses/bytestring-0.12.2.0/LICENSE",
+   "sha256_lf": "236de8169415cc6e1fd5fbb96035dd36dacc6444e8a600575566753cda4cbf7d"
+  },
+  {
+   "path": "references/red-dune/licenses/containers-0.8/LICENSE",
+   "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
+  },
+  {
+   "path": "references/red-dune/licenses/deepseq-1.5.1.0/LICENSE",
+   "sha256_lf": "bb015371a164f83d605ffefa79007f0cf42b8984d4e80cc6f11bdc14d60c8ea3"
+  },
+  {
+   "path": "references/red-dune/licenses/directory-1.3.10.0/LICENSE",
+   "sha256_lf": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557"
+  },
+  {
+   "path": "references/red-dune/licenses/exceptions-0.10.11/AUTHORS.markdown",
+   "sha256_lf": "75bf4cabcb2f62f8b523dcc9fbf54209c02e979d9c8972e1902115b7e2232930"
+  },
+  {
+   "path": "references/red-dune/licenses/exceptions-0.10.11/LICENSE",
+   "sha256_lf": "09baf819c095749d4f8563600b5ffca346ed1124a2d964dc2085515627029091"
+  },
+  {
+   "path": "references/red-dune/licenses/file-io-0.1.5/LICENSE",
+   "sha256_lf": "33a22015aa12755668404c19b1d81bda96f7a21b3429ed725c44a9c56fed6590"
+  },
+  {
+   "path": "references/red-dune/licenses/filepath-1.5.4.0/LICENSE",
+   "sha256_lf": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd"
+  },
+  {
+   "path": "references/red-dune/licenses/ghc-boot-th-9.14.1/LICENSE",
+   "sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
+  },
+  {
+   "path": "references/red-dune/licenses/ghc-internal-9.1401.0/LICENSE",
+   "sha256_lf": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d"
+  },
+  {
+   "path": "references/red-dune/licenses/ghc-prim-0.13.1/LICENSE",
+   "sha256_lf": "e17dc2656f2bdc4b5715a6a35fa4cdfa403b0e95a8d63e97366818e067fe6f6e"
+  },
+  {
+   "path": "references/red-dune/licenses/mtl-2.3.1/LICENSE",
+   "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
+  },
+  {
+   "path": "references/red-dune/licenses/os-string-2.0.8/LICENSE",
+   "sha256_lf": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd"
+  },
+  {
+   "path": "references/red-dune/licenses/parsec-3.1.18.0/LICENSE",
+   "sha256_lf": "eae9baac9236cb84023f659665e9af6993de24d715350d2300a3c73d784a4252"
+  },
+  {
+   "path": "references/red-dune/licenses/pretty-1.1.3.6/LICENSE",
+   "sha256_lf": "43ea4e43d7fa62834449ab5ba5a8dd07cd86ceea5cfafe385f3e236c88b493b4"
+  },
+  {
+   "path": "references/red-dune/licenses/rts-1.0.3/LICENSE",
+   "sha256_lf": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
+  },
+  {
+   "path": "references/red-dune/licenses/sources.json",
+   "sha256_lf": "6e57ef9677ebd461751eb919e9a418c523171a732f7a6cafe91174d822d8491f"
+  },
+  {
+   "path": "references/red-dune/licenses/stm-2.5.3.1/LICENSE",
+   "sha256_lf": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23"
+  },
+  {
+   "path": "references/red-dune/licenses/template-haskell-2.24.0.0/LICENSE",
+   "sha256_lf": "29a12cdf7350473abfa64d71beb390216c6ad7827843726c9c3a7afab912be72"
+  },
+  {
+   "path": "references/red-dune/licenses/text-2.1.3/LICENSE",
+   "sha256_lf": "cf522e3d53b8d1768695fe5b66438baf4514fcd64b7a95739960f2f5b50c6ee8"
+  },
+  {
+   "path": "references/red-dune/licenses/text-2.1.3/simdutf/LICENSE-APACHE",
+   "sha256_lf": "0f009071e566feef91923797658317a78790393797d21eb85dfdb6126358c772"
+  },
+  {
+   "path": "references/red-dune/licenses/text-2.1.3/simdutf/LICENSE-MIT",
+   "sha256_lf": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f"
+  },
+  {
+   "path": "references/red-dune/licenses/time-1.15/LICENSE",
+   "sha256_lf": "7308114bd92aee5b33c1ff98e804a6f72ad2b90917bf06ed0b88ec278d07076b"
+  },
+  {
+   "path": "references/red-dune/licenses/transformers-0.6.1.2/LICENSE",
+   "sha256_lf": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c"
   },
   {
    "path": "references/red-dune/native/Main.hs",
@@ -1800,7 +2052,7 @@
   },
   {
    "path": "references/red-dune/native/RedDune/Native/View.hs",
-   "sha256_lf": "0bbb0027965b55290d48b94d58c9cb69fa551b72a3c13cdc2d5f9b2ede1a5705"
+   "sha256_lf": "43bf3dcc71aa00612773d67ab64de47d250241cd97d8f49cef85bb5db0abc64d"
   },
   {
    "path": "references/red-dune/native/assets/glyphs.txt",
@@ -1812,7 +2064,7 @@
   },
   {
    "path": "references/red-dune/red-dune.cabal",
-   "sha256_lf": "d5604287d38eb119bb81f872800a142532e8b8665349b11574dc3fbe9a821b1f"
+   "sha256_lf": "483bb4bd102672aa44d137a0a15d76289af4f1bf0eeb2a1a0982fdc41f1ea3a4"
   },
   {
    "path": "references/red-dune/src/RedDune/Campaign.hs",
@@ -1832,11 +2084,11 @@
   },
   {
    "path": "references/red-dune/src/RedDune/Policies.hs",
-   "sha256_lf": "9a73dce0ad93e831b20d2b7c0f3560e0921fc2460d38cc306a5a4c75a51b18f1"
+   "sha256_lf": "bd890050acc8e2c6fb682f646c80970d8b733a4885a38739876569b8d8a15b77"
   },
   {
    "path": "references/red-dune/src/RedDune/Protocol.hs",
-   "sha256_lf": "280eba7ef9d5352ff251e76abb11ad4985cab33fbefece1c867173274ef8ef26"
+   "sha256_lf": "8a3bbffcf0f9216a1ddfaf5261e09a13f9b84b0addc98a0e1ed83495b1a7f98d"
   },
   {
    "path": "references/red-dune/test/Core/SessionTests.hs",
@@ -1856,7 +2108,7 @@
   },
   {
    "path": "references/red-dune/test/LiveBoundaryTests.hs",
-   "sha256_lf": "d91727ff0634bfc1ad08ad26232a0e64e0b68333376c487c50455f65fb1f9ce5"
+   "sha256_lf": "ece82efb3d0ace2f775caebf1d00f07ec23b2fbfc5d11e666df963fd1f1d5e22"
   },
   {
    "path": "references/red-dune/test/LiveCampaignTests.hs",
@@ -1864,7 +2116,7 @@
   },
   {
    "path": "references/red-dune/test/LiveConstructionTests.hs",
-   "sha256_lf": "7cdddff34fe47aa491ae92f3c1032f770a3dfdad049b7c49504ccb25f1ce0c88"
+   "sha256_lf": "034ddd119b3d06ef253cf04fa8ad21705ded6d82f25ffb940fe796b011c4fc43"
   },
   {
    "path": "references/red-dune/test/LiveDiningTests.hs",
@@ -1872,7 +2124,7 @@
   },
   {
    "path": "references/red-dune/test/LiveLegacyTests.hs",
-   "sha256_lf": "5a7a39a40545e7f9ffea7008c7653ac2b0a4d9fd6d30b3e42a48a6738aeb383b"
+   "sha256_lf": "f0696e684f4cff81c465ca8a31e7bfa75e20f805e5410070d58da5154c57470f"
   },
   {
    "path": "references/red-dune/test/LiveTickBench.hs",
@@ -1912,19 +2164,19 @@
   },
   {
    "path": "references/red-dune/test/check_core_api.py",
-   "sha256_lf": "9bf7e2c489c8658d3ef02e5eda9ee1c42f49b2c96575a91aede201e132d7ea1d"
+   "sha256_lf": "b8deda041a0131488249c9a5275930a1d542747f8ab73a5a753f6dd4a6129f15"
   },
   {
    "path": "references/red-dune/test/check_native_api.py",
-   "sha256_lf": "768313e2104fb9d92f8016616a782bbab7732d7392f83b92f2bbfa08887271af"
+   "sha256_lf": "bc29bda8cb5beb508020e511c26460918f95381f6771d60d192ed2920156118c"
   },
   {
    "path": "references/red-dune/test/check_workforce_api.py",
-   "sha256_lf": "c58b21004311e485a44d78b621584abf1039238d1eb1a139d9d9b6b901e3e1d0"
+   "sha256_lf": "4edaa98541bb39fa1fa3f1321a104e97e820ed486040892fa92c4f5bde06c7b2"
   },
   {
    "path": "references/red-dune/tools/bench_dev.py",
-   "sha256_lf": "be4d4486f831f3929fe92749325dd94141a8ef280d8fed429a75fe44c8799258"
+   "sha256_lf": "c378f241a4d4a760c57ab15fc130eee0948aa48a31fdc654d5da2da6d3c0f7a7"
   },
   {
    "path": "references/red-dune/tools/build-native.ps1",
@@ -1932,7 +2184,7 @@
   },
   {
    "path": "references/red-dune/tools/check.sh",
-   "sha256_lf": "298aab0eda0817d22f6fed833b7e42ce4b3b8e15bda8a354721ee38ff9a60381"
+   "sha256_lf": "9d4317e18e38066b36cb87fc21e727516e922f0e65bdff494a5e2a05683d2aa9"
   },
   {
    "path": "references/red-dune/tools/dev-native.ps1",
@@ -1948,7 +2200,7 @@
   },
   {
    "path": "references/red-dune/tools/native_notices.py",
-   "sha256_lf": "eec19ba45870d4de1bb014e5dd29a26f1f0cc8bedb6883df93b5b4da9d4b79b4"
+   "sha256_lf": "1d5e52b832613cae0d82a06eb5614931d1001bb23cd4da8daa5f385689cadc14"
   },
   {
    "path": "references/red-dune/tools/test_browser_protocol.cjs",
@@ -1960,7 +2212,7 @@
   },
   {
    "path": "references/red-dune/tools/test_devloop_lifecycle.py",
-   "sha256_lf": "8fde3bd6d13e9904b91dc14db535023bed39f915cb716adf774f068a1916d001"
+   "sha256_lf": "c29e2d74add1dfdadfb2534253dfc574045b535e81ed6e0832b1e6ae09b31dbd"
   },
   {
    "path": "references/red-dune/tools/test_http.cjs",
@@ -1996,7 +2248,7 @@
   },
   {
    "path": "references/river/river.cabal",
-   "sha256_lf": "6c8323f0f5f3407a4fcb355d4d36e4b5729b914b6a619d46320e782f3c47c6ae"
+   "sha256_lf": "1c968394667d42095c0ec35bfcedacd60b46b2b6e0c904af32d464489fc60806"
   },
   {
    "path": "references/river/src/Life/Adapter.hs",
@@ -2012,11 +2264,11 @@
   },
   {
    "path": "references/river/src/Life/Internal/Core.hs",
-   "sha256_lf": "80779a774c6452f18635f17859ca40bb7d1347ac45f05b0b310d50f694c9ba27"
+   "sha256_lf": "09a5fe7ec56449a83c9e16f3beaa1100336d322b66ed25b87ad4eb7d9bfd7d51"
   },
   {
    "path": "references/river/src/Life/Internal/Journey.hs",
-   "sha256_lf": "6cc6fad55b953c307f6fc72c89d754a5e64083b4f653f58e0873bbf2b1ce918b"
+   "sha256_lf": "a70a931f73a23b7cc5a002bc9e31e8a03595c2d7539019ae658c2f5cb258a4a9"
   },
   {
    "path": "references/river/src/Life/Internal/Presentation.hs",
@@ -2060,7 +2312,7 @@
   },
   {
    "path": "references/river/test/River/Protocol.hs",
-   "sha256_lf": "e91a49b3ea8b60aded52669a5a1474dba1bbc76497cd248e5f7d26f23fe3f579"
+   "sha256_lf": "39509b6c9f119f29f74906c442e8a264460bc09ea2dd7794224f122f732b0b71"
   },
   {
    "path": "references/river/test/River/Snapshot.hs",
@@ -2088,7 +2340,7 @@
   },
   {
    "path": "references/signal-courier/README.md",
-   "sha256_lf": "cf6dd4bbd46d4619cd04ec475c1363bbdb7768605341199820b41b110a9fc20c"
+   "sha256_lf": "a57ed688f6fd999f0548d5b9e0aaf3e198780dbabd9bb4f8706154bee237b04e"
   },
   {
    "path": "references/signal-courier/app/Browser.hs",
@@ -2116,7 +2368,7 @@
   },
   {
    "path": "references/signal-courier/signal-courier.cabal",
-   "sha256_lf": "0797e7dd5d5dd9e694d5dc1f2d877bd75fe681ebadff6203b37292f9d4ec53dc"
+   "sha256_lf": "0bb73fcb6113bfd57daac27f6c68597d89f422b8396bd26c7c22b2691a3e7fae"
   },
   {
    "path": "references/signal-courier/src/Signal/Game.hs",
@@ -2136,7 +2388,7 @@
   },
   {
    "path": "references/signal-courier/test/check-opaque-api.sh",
-   "sha256_lf": "3401452cabb3e0d1700c1626bd59418e0415e7ccad8967f79998ed8725d2c22b"
+   "sha256_lf": "de1a44f40e7a16229a8b39f861cf6c1685cca670478ade51e1a80d2337765b6a"
   },
   {
    "path": "references/signal-courier/tools/formatter.lock.json",
@@ -2152,7 +2404,7 @@
   },
   {
    "path": "references/signal-courier/vendor/game-arena/game-arena.cabal",
-   "sha256_lf": "29ceefd72023001ee7a1e4fe0727baa3bbe237865129e7770d0c6a175a9e268f"
+   "sha256_lf": "420fb06922c515c1d76123ce6583c44cd31b5c8602e940cf4d7a58ce7c7a3760"
   },
   {
    "path": "references/signal-courier/vendor/game-arena/src/Game/Arena.hs",
@@ -2164,7 +2416,7 @@
   },
   {
    "path": "references/signal-courier/vendor/game-arena/test/Laws.hs",
-   "sha256_lf": "05005934d41e516d91d40eada89f2016e6b9dd99ac4fdbc994997671f386cda8"
+   "sha256_lf": "1abdc26df6667cf6355b8bd2b7a58af4e5acd276b98cd8d4f5cae59062d8df2c"
   },
   {
    "path": "references/signal-courier/vendor/game-transition/LICENSE",
@@ -2172,7 +2424,7 @@
   },
   {
    "path": "references/signal-courier/vendor/game-transition/game-transition.cabal",
-   "sha256_lf": "e7762567803d20a03a9480b4a61475e98fb86a81102821427b754acf6e3344a1"
+   "sha256_lf": "73f0fcc3757c38d9fdd6678722a0a37fd1b4ccec2ee5c494e2b2ed1e8a294c50"
   },
   {
    "path": "references/signal-courier/vendor/game-transition/src/Game/Transition.hs",
@@ -2180,7 +2432,7 @@
   },
   {
    "path": "references/signal-courier/vendor/game-transition/test/Laws.hs",
-   "sha256_lf": "390f00b442cf68cdb5fa14c32b101fefaff2d042f41bef94681f1e655e91d9b5"
+   "sha256_lf": "9ec80a32d615a5f882ac248011ae474f63418d2acca4191efaba472205021c0b"
   },
   {
    "path": "references/signal-courier/web/controls.mjs",
@@ -2252,7 +2504,7 @@
   },
   {
    "path": "references/station/README.md",
-   "sha256_lf": "76b3fef67723f665229196d91cadb7fdb29ade6c5f71f8de5d689ceb9235f36c"
+   "sha256_lf": "68fb04a77f88b034429529d0b6b1e8ff6b775d1c07042d7584881a81d284af37"
   },
   {
    "path": "references/station/app/HeadlessMain.hs",
@@ -2268,7 +2520,7 @@
   },
   {
    "path": "references/station/station.cabal",
-   "sha256_lf": "37791ae501e43f763c4d5f8abe2c0dd8d0861f26d0856602640c6cd963d03b9d"
+   "sha256_lf": "8aa973659e92d5eff3527d2cd670b9a993cb688f418e3f5a1a8a7bf40d0a31a8"
   },
   {
    "path": "references/station/test/Laws.hs",
@@ -2304,7 +2556,7 @@
   },
   {
    "path": "references/tapline/src/Tapline/Domain.hs",
-   "sha256_lf": "c2b541c603060a1fc5f87b310bd7fc300c4c6da20b3b2548b56dd54ab885fbc0"
+   "sha256_lf": "20ff689cd25cea6bc33b46b72eea91df65eba673704fe419687f6fde407855ae"
   },
   {
    "path": "references/tapline/src/Tapline/Input.hs",
@@ -2316,11 +2568,11 @@
   },
   {
    "path": "references/tapline/tapline.cabal",
-   "sha256_lf": "b7c967f149ed8aa679a7279dc1f25632113e458ecdbda404f8de4494fae88576"
+   "sha256_lf": "0bce1f6359c69bf69827cdc8bacdaff03f5db206741486dbdee90dfd932131b9"
   },
   {
    "path": "references/tapline/test/Laws.hs",
-   "sha256_lf": "7cfaf50b61310e30e35f3aad51f2754900e8ee907b8910d70c2667683c542353"
+   "sha256_lf": "49ffcbdd7a89034e89d147267738ce042c86d456c14268bac323bad2a402adea"
   },
   {
    "path": "research/public-page/README.ja.md",
@@ -2404,7 +2656,7 @@
   },
   {
    "path": "templates/terminal-adventure/game.cabal.tmpl",
-   "sha256_lf": "e51a65ec960946d65ae56c47bca1613377d6fa7062630da9b865b83535dda0cc"
+   "sha256_lf": "501794bd009ef4b02eec456c62963c9e1fdaabf9718ecce4519869c3ccb0e1a9"
   },
   {
    "path": "templates/terminal-adventure/skills/game-dev/SKILL.md.tmpl",
@@ -2448,7 +2700,7 @@
   },
   {
    "path": "tools/bootstrap-fp-game.ps1",
-   "sha256_lf": "41dd8a34950d082bcbfbe7e5446bd946417f0ec59e9d520148784b36e72f6b1e"
+   "sha256_lf": "27aa8f391654abebeb9ceb872b6ac4c638b993e5ebf9decda1b3ba12fa6990cc"
   },
   {
    "path": "tools/bootstrap-fp-game.sh",
@@ -2476,7 +2728,7 @@
   },
   {
    "path": "tools/haskell/README.md",
-   "sha256_lf": "60a08850cd2199ef3f24c358c75b63afa0bbc8329d6d78c527ea163366ad5029"
+   "sha256_lf": "948f5e90e2c3aa52c8689debdf46051b65312bfa0ecd1bfb10f3cdd9b828edae"
   },
   {
    "path": "tools/haskell/app/Main.hs",
@@ -2484,15 +2736,15 @@
   },
   {
    "path": "tools/haskell/cabal.project",
-   "sha256_lf": "25f08a9d44f8aeaca807c6d5725f4a1f8f5cb1b90266b11c3f4b9dd763771fc3"
+   "sha256_lf": "04abc7ee4a4c6f94795c2789145dad03e612d264b7521ca3b2ea80b192163188"
   },
   {
    "path": "tools/haskell/cabal.project.freeze",
-   "sha256_lf": "f151b4cb20713dc0aba3ad25eab29d7bba8eabbed484e0c47ee3dfaf59cc9b54"
+   "sha256_lf": "50f5ed5eb8ce1732a115b3b0683d946c109d156aa901e8a68fd7e28be69bfb64"
   },
   {
    "path": "tools/haskell/fp-game-tooling.cabal",
-   "sha256_lf": "932fb4d317a0919046ece0e5d29aa5ed86f08a17071a843d95918c809395b6bd"
+   "sha256_lf": "1b178d8302ec8664b81c8de2b8e7c51e2d312334e732eae84fa3e8dde64e1495"
   },
   {
    "path": "tools/haskell/src/FpGame/CLI.hs",
@@ -2500,11 +2752,11 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Cabal.hs",
-   "sha256_lf": "b3063fbbf725f5d880906035e45d53bcc9e95fc52b48a89aba89edbd2df6a581"
+   "sha256_lf": "e13b8f9ff14612680fac699faca0d572743bcd6d002c5bffc5e8e35e80da9bd9"
   },
   {
    "path": "tools/haskell/src/FpGame/Command.hs",
-   "sha256_lf": "7c96460b50fbd0d2a365eb36447b697be47cffe639b9e8ec0c185f5b5871fbdd"
+   "sha256_lf": "e6c35277cf34d757446e019f00a78ff8fae786647bfd02a1db6df6d89239eb53"
   },
   {
    "path": "tools/haskell/src/FpGame/Config.hs",
@@ -2516,7 +2768,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Create/Distribution.hs",
-   "sha256_lf": "7c8407754d34abb330e6837cdef5e2f84fcda60aaa4a899f84b9fcfbd9e2006c"
+   "sha256_lf": "02c9cac6b382f7b8b5604d526ad414f53ec78f5957bcefd828228a3c442077a2"
   },
   {
    "path": "tools/haskell/src/FpGame/Create/Filesystem.hs",
@@ -2536,7 +2788,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Process.hs",
-   "sha256_lf": "afeb9a9e82e35001ab35a5b59f13203c94aae46bf423137e9fa75674ce953ea4"
+   "sha256_lf": "e389031ce2b19c19057acc1777e080621d1267e793d2398da478d5a2e27fb52b"
   },
   {
    "path": "tools/haskell/src/FpGame/Result.hs",
@@ -2548,7 +2800,7 @@
   },
   {
    "path": "tools/haskell/test/Main.hs",
-   "sha256_lf": "ba8eb5f3837f17b79ce68a3de233012d32ae6a5464554ef71abfc176bb7bd526"
+   "sha256_lf": "09c9c2ba66325e024abe500144fe143abdc2ce44ab6d19e559ec0b91b5d3a2b5"
   },
   {
    "path": "tools/haskell/test/ProcessSpec.hs",
@@ -2572,7 +2824,7 @@
   },
   {
    "path": "tools/quantity/check.py",
-   "sha256_lf": "1b35237b061aeb5c88fda8d8bb2c0ee70bd8a399f2c74d8cb1791c25d8679174"
+   "sha256_lf": "7a3d67b4d8bfa64acc109c3b272442278bc8c82955aad80fdabede90aaeab7c3"
   },
   {
    "path": "tools/quantity/oracle.py",
@@ -2628,11 +2880,11 @@
   },
   {
    "path": "tools/test_lantern_api.py",
-   "sha256_lf": "ba9772f92f354eb30eec495434849034e8708250a184d842be9726f9feab646a"
+   "sha256_lf": "9081f438a35c67210099859122dbc0e4b5594ab94ef321cfc7663c906fcfa1cd"
   },
   {
    "path": "tools/test_native_cli.py",
-   "sha256_lf": "caab28dbaaf44a98f5a982a601ad906bb8b05e35399b24b102936aca7c89eeb1"
+   "sha256_lf": "dd4e3017b3dce4463dccfbebdd88dd96cdca95f1a8313730c7b75a4820769e02"
   },
   {
    "path": "tools/test_native_terminal.py",
@@ -2644,11 +2896,11 @@
   },
   {
    "path": "tools/test_river_api.py",
-   "sha256_lf": "7b5d81955c185a16a78fae3af9f978818b6dd6f277a533181211d05144d7a59a"
+   "sha256_lf": "fc36e528233994e5db4b8d581e03343a1ee114f2e32e10facb387f5aca196357"
   },
   {
    "path": "tools/test_station_api.py",
-   "sha256_lf": "61119bd8264750761d5ac36f8060de183571ad44d809e6031048cccd74b636cf"
+   "sha256_lf": "d618d40b81ef1f6cca8f62adb0e2be2dad45e9b5099ab501608989a53de38f44"
   },
   {
    "path": "tools/test_tools.py",
@@ -2656,15 +2908,35 @@
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",
-   "sha256_lf": "a959b03a7a69f0a542513ee12626e919f21093128b6dcfef6f920013b3c924e5"
+   "sha256_lf": "0a9567f5c83d7320c3e7dcca9bd501bfb54ab2442805c088a06f09098d529877"
   },
   {
    "path": "tools/test_workspace.py",
-   "sha256_lf": "4984964fe859fcc357f5541267ab8ce351ddeca6e5b8459b11f8a09567e9808a"
+   "sha256_lf": "7f86dc11b0c16788e2c267b83e1c3b3f07a06ed960abac42cb1a4d4fdf4b84d6"
   },
   {
    "path": "tools/toolchains.json",
-   "sha256_lf": "32e39c823f87e4672a3fb2ca419e24c838a2f455b00ec60af2b48ae546f6083c"
+   "sha256_lf": "ba314a0cf5ccc2f85998c25e6d1edbee161aa5646830964058dd845739e3ac70"
+  },
+  {
+   "path": "tools/windows-console/LICENSE",
+   "sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d"
+  },
+  {
+   "path": "tools/windows-console/Main.hs",
+   "sha256_lf": "9d0b172c22eb1b1af616b117c170386fc3e2b0567acf6516c7d52e88d11d2980"
+  },
+  {
+   "path": "tools/windows-console/cabal.project",
+   "sha256_lf": "abc5c465838be7e3109ad73b9106a704ac2a29fe240237d86c8210b612f1cb1a"
+  },
+  {
+   "path": "tools/windows-console/fp-game-console.cabal",
+   "sha256_lf": "33004ec168ee12eb74880260e75aa5f239c23eba1efbef54c921ac4ec8bc3dfb"
+  },
+  {
+   "path": "tools/windows-console/hidden-console.c",
+   "sha256_lf": "382b417ddedd990c46b48b3ec23563005e59f004130b9e305150d75af6cafe1b"
   }
  ]
 }

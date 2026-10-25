@@ -32,8 +32,8 @@ python3 -c 'import sys; sys.version_info >= (3, 10) or sys.exit("Python 3.10+ is
 cabal=${CABAL:-cabal}
 ghc_version=$(wasm32-wasi-ghc --numeric-version)
 cabal_version=$("$cabal" --numeric-version)
-[[ "$ghc_version" == 9.14.1.20260330 && "$cabal_version" == 3.16.1.0 ]] || {
-  printf 'Expected GHC-Wasm 9.14.1.20260330 / Cabal 3.16.1.0; got %s / %s.\n' "$ghc_version" "$cabal_version" >&2
+[[ "$ghc_version" == 9.14.1.20260731 && "$cabal_version" == 3.14.2.0 ]] || {
+  printf 'Expected GHC-Wasm 9.14.1.20260731 / Cabal 3.14.2.0; got %s / %s.\n' "$ghc_version" "$cabal_version" >&2
   exit 1
 }
 mkdir -p -- "$cache" "$output"
@@ -79,9 +79,9 @@ fonttools="$cache/fonttools-4.61.1-py3-none-any.whl"
 download https://files.pythonhosted.org/packages/c7/4e/ce75a57ff3aebf6fc1f4e9d508b8e5810618a33d900ad6c19eb30b290b97/fonttools-4.61.1-py3-none-any.whl \
   "$fonttools" 17d2bf5d541add43822bcf0c43d7d847b160c9bb01d15d5007d84e2217aaa371
 
-hackage_sha=09aec4df1f8974a90366bd78612839549e387643b20826a519bb4f1e831591aa
-archive="$cache/h-raylib-5.6.0.0.tar.gz"
-download https://hackage.haskell.org/package/h-raylib-5.6.0.0/h-raylib-5.6.0.0.tar.gz "$archive" "$hackage_sha"
+hackage_sha=081199e097ebd510f0d4134122e72a623901d0903473e96e23c24bdfd104c3a5
+archive="$cache/h-raylib-6.1.0.0.tar.gz"
+download https://hackage.haskell.org/package/h-raylib-6.1.0.0/h-raylib-6.1.0.0.tar.gz "$archive" "$hackage_sha"
 patch_sha=$(sha256sum "$web/patches/h-raylib-web.patch" | cut -d ' ' -f 1)
 vendor="$cache/h-raylib-$patch_sha"
 if [[ ! -f "$vendor/.afterlight-patched" ]]; then
@@ -89,7 +89,20 @@ if [[ ! -f "$vendor/.afterlight-patched" ]]; then
   # the next build's input. No user checkout is patched or deleted.
   staging=$(mktemp -d "$cache/h-raylib-extract.XXXXXX")
   tar -xzf "$archive" --strip-components=1 -C "$staging"
+  # Normalize archive metadata line endings before applying the published revision.
+  python3 - "$staging/h-raylib.cabal" <<'PY_META'
+import pathlib, sys
+path = pathlib.Path(sys.argv[1])
+path.write_bytes(path.read_bytes().replace(b"\r\n", b"\n"))
+PY_META
   patch --batch --fuzz=0 -d "$staging" -p1 < "$web/patches/h-raylib-web.patch"
+  # The publisher's authenticated revision uses CRLF, even on Unix.
+  python3 - "$staging/h-raylib.cabal" <<'PY_META'
+import pathlib, sys
+path = pathlib.Path(sys.argv[1])
+path.write_bytes(path.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+PY_META
+  printf '%s  %s\n' 341c48bea1990d790b58d9a7e3ba0532d9d6a2a98160ebaf156a8856d506edc4 "$staging/h-raylib.cabal" | sha256sum --check --status
   touch "$staging/.afterlight-patched"
   [[ ! -e "$vendor" ]] || { printf 'Incomplete vendor cache: %s\n' "$vendor" >&2; exit 1; }
   mv -- "$staging" "$vendor"
@@ -100,12 +113,12 @@ fi
 build_key=$(printf '%s\n' "$ghc_version" "$cabal_version" "$vendor" "$(sha256sum "$web/cabal.project.template" "$web/wasm-link")" | sha256sum | cut -d ' ' -f 1)
 build="$cache/haskell-$build_key"
 mkdir -p -- "$build"
-python3 - "$web/cabal.project.template" "$build/cabal.project" "$repo" "$vendor" "$cache/cabal-store" <<'PY'
+python3 - "$web/cabal.project.template" "$build/cabal.project" "$repo" "$vendor" <<'PY'
 import json, pathlib, sys
-template, target, repo, vendor, store = sys.argv[1:]
+template, target, repo, vendor = sys.argv[1:]
 text = pathlib.Path(template).read_text()
 shared = pathlib.Path(repo).parents[1] / 'libraries'
-for name, value in [('@REPO@', repo), ('@H_RAYLIB@', vendor), ('@STORE@', store),
+for name, value in [('@REPO@', repo), ('@H_RAYLIB@', vendor),
                     ('@TRANSITION@', str(shared / 'game-transition')),
                     ('@ARENA@', str(shared / 'game-arena'))]:
     text = text.replace(name, json.dumps(value))
@@ -113,7 +126,7 @@ path = pathlib.Path(target)
 if not path.exists() or path.read_text() != text:
     path.write_text(text)
 PY
-# Cabal 3.16 can rediscover ghc-pkg when reusing its compiler cache, despite
+# Cabal can rediscover ghc-pkg when reusing its compiler cache, despite
 # --with-hc-pkg. Keep that fallback inside this build's cross toolchain too.
 tool_bin="$build/tool-bin"
 mkdir -p -- "$tool_bin"
@@ -122,7 +135,7 @@ ln -sfn -- "$(command -v wasm32-wasi-ghc-pkg)" "$tool_bin/ghc-pkg"
 # Windows-created source archives may lose the original executable bit.
 [[ -x "$web/wasm-link" ]] || chmod u+x -- "$web/wasm-link"
 export PATH="$web:$PATH"
-PATH="$tool_bin:$PATH" "$cabal" build exe:afterlight-browser --project-file="$build/cabal.project" \
+PATH="$tool_bin:$PATH" "$cabal" --store-dir="$cache/cabal-store" build exe:afterlight-browser --project-file="$build/cabal.project" \
   --with-compiler="$(command -v wasm32-wasi-ghc)" --with-hc-pkg="$(command -v wasm32-wasi-ghc-pkg)" \
   --builddir="$build/dist" -j"$jobs" --ghc-options=-pgmlwasm-link
 artifact=$(python3 - "$build/dist/cache/plan.json" <<'PY'

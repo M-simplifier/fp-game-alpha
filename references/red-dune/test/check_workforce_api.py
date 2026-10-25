@@ -72,7 +72,7 @@ forge evidence = evidence {{{field} = {value}}}
                 raise AssertionError(f"public getters failed to compile:\n{output}")
         elif not result.returncode:
             raise AssertionError(f"evidence forgery was accepted: {name}")
-        elif not all(expected in output for expected in expected_errors):
+        elif not all(expected in output or (expected == 'not a record selector' and 'Not in scope: record field' in output) for expected in expected_errors):
             raise AssertionError(f"{name} failed for an unrelated reason:\n{output}")
         print("PASS:", name)
 

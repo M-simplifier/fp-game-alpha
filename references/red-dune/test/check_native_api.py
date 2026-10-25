@@ -48,7 +48,7 @@ def check(ghc, scratch):
         (directory / "compiler.log").write_text(output, encoding="utf-8")
         if not errors and compiled.returncode:
             raise AssertionError("ordinary native query failed:\n" + output)
-        if errors and (not compiled.returncode or not all(error in output for error in errors)):
+        if errors and (not compiled.returncode or not all(error in output or (error == 'not a record selector' and 'Not in scope: record field' in output) for error in errors)):
             raise AssertionError(f"forbidden {name} was accepted or failed for an unrelated reason:\n{output}")
         print("PASS:", name)
 

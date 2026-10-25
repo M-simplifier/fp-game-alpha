@@ -1,13 +1,13 @@
 # Browser build
 
 This builds the existing Haskell game and raylib renderer into one directory
-of static browser files. The tested build host is **x86-64 Linux or WSL2**.
+of static browser files. The supported build host is **x86-64 Linux or WSL2**.
 The runtime assets are supplied separately, as with the native public source.
 
 ## Build
 
 With [Nix](https://nixos.org/download/) and its `nix-command` / `flakes`
-features enabled, run from the repository root:
+features enabled, run from `references/afterlight/`:
 
 ```sh
 nix develop path:./web --command bash web/build.sh --assets /path/to/native/assets
@@ -42,21 +42,26 @@ separate cache and output directories.
 
 ## Fixed inputs
 
+This cross SDK uses its supplied Cabal 3.14.2 driver. Native projects use
+Cabal 3.18.2; that driver's wired-unit constraints conflict with the SDK's
+host/target unit identities. Use the locked pair rather than changing package
+IDs or rebuilding compiler boot libraries.
+
 | Input | Verified version / source |
 | --- | --- |
-| GHC-Wasm | `9.14.1.20260330`, official `ghc-wasm-meta` revision `60098a5076557e327b326a1a3ba3b5fb4fec1e49` |
-| GHC bindist | Release `20260401T092957`; its archive hash is fixed by the meta-flake |
-| Cabal | `3.16.1.0`, official Linux archive with SHA256 in `flake.nix` |
+| GHC-Wasm | `9.14.1.20260731`, official `ghc-wasm-meta` revision `8079eb96bbc63823d99ad8acaff0765532625474` |
+| GHC bindist | Release `20260731T193144`; its archive hash is fixed by the meta-flake |
+| Cabal | `3.14.2.0`, the matching driver and archive hash from the locked official meta-flake |
 | Emscripten | `3.1.45`; SDK manager revision and archive SHA256 in `build.sh` |
-| h-raylib | `5.6.0.0`, Hackage archive SHA256 in `build.sh` |
+| h-raylib | `6.1.0.0`, Hackage archive SHA256 in `build.sh` |
 | Haskell packages | Compiler boot packages plus version constraints and index date in `cabal.project.template` |
 | Browser packages | `host/package-lock.json` |
 | Font subsetter | [fontTools 4.61.1](https://pypi.org/project/fonttools/4.61.1/), pure-Python wheel with SHA256 in `build.sh` (MIT) |
 
 `patches/h-raylib-web.patch` is applied to the verified archive in the cache.
-It corrects the wasm32 layouts of raylib structures and the bundled web focus
-callback, and selects a sized DEPTH_COMPONENT24 attachment for WebGL 2. The native layout values remain unchanged. `checks/abi.c` asks the
-actual Emscripten compiler to verify 20 structures and 94 field offsets.
+It adapts the wasm32 layouts of the Haskell binding while preserving native
+values. The bundled raylib C source is unchanged. `checks/abi.c` asks the actual
+Emscripten compiler to verify 21 structures and 94 field offsets.
 
 The compiler supports Template Haskell. Selecting its installed `time`, `unix`
 and `directory` avoids linking additional boot-library versions into the TH
@@ -70,25 +75,9 @@ directory. The browser reactor path comes from Cabal's `plan.json`: using
 cross build. `build-info.json` in the output records the selected tool versions
 and h-raylib archive/patch hashes.
 
-With Cabal 3.16.1.0, a `.cabal` edit or changed build option can replan using a
-cached compiler but rediscover native `ghc-pkg` from `PATH`, despite
-`--with-hc-pkg`. The build creates `tool-bin/ghc-pkg` as a symlink to the selected
-Wasm package manager and prepends it to the Cabal process's `PATH` only. No
-global toolchain changes or cache deletion are needed. To check reconfiguration,
-set `build` to the existing `<cache>/haskell-<key>` directory prepared by the
-script and run from the repository root in the same toolchain environment:
-
-```sh
-PATH="$build/tool-bin:$PWD/web:$PATH" "${CABAL:-cabal}" build exe:afterlight-browser \
-  --project-file="$build/cabal.project" --builddir="$build/dist" \
-  --with-compiler="$(command -v wasm32-wasi-ghc)" \
-  --with-hc-pkg="$(command -v wasm32-wasi-ghc-pkg)" \
-  --ghc-options=-pgmlwasm-link --disable-executable-stripping --dry-run -v3
-```
-
-The verbose log should select Wasm `ghc-pkg` 9.14.1.20260330 even when it reports
-`compiler` unchanged and `elaborated-plan` changed. Repeat without
-`--disable-executable-stripping` to check the return to normal build options.
+The build scopes `tool-bin/ghc-pkg` to the selected Wasm package manager.
+This prevents a replan from rediscovering a native package tool on `PATH`.
+It changes neither the global toolchain nor another project's cache.
 
 ## Assets and HTTP delivery
 
@@ -142,57 +131,30 @@ The checks compare the actual font and generated manifest/sidecars, then exercis
 HTTP GET/HEAD, gzip refusal, variant ETags, 304 revalidation and rebuild handling
 against a local server.
 
-## Validation scope
-
-On 2026-09-20, the public `build.sh` completed using the existing compiler/SDK
-environment and a new output directory, rebuilding h-raylib from its verified
-Hackage archive and this repository's patch. The generated site included both
-WASM modules, the bundled JavaScript host and 21 prepared assets. Reproduce
-that path after activating the versions above:
+## Verify a changed build
 
 ```sh
-bash web/build.sh --assets /path/to/native/assets --output ../afterlight-web-local
-python3 web/checks/build.py --archive /path/to/h-raylib-5.6.0.0.tar.gz
+bash web/build.sh --assets /path/to/native/assets --output /path/to/site
+# Activate the cached Emscripten SDK in this shell for the independent ABI check.
+source "${AFTERLIGHT_WEB_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/afterlight-web}/emsdk-c59d6e841da55c2c21af32004c4c173cbd1c0f10/emsdk_env.sh"
+python3 web/checks/build.py --archive /path/to/h-raylib-6.1.0.0.tar.gz
+npm ci --prefix web/host --ignore-scripts --no-audit --no-fund
+node --test web/host/test/*.test.mjs
 ```
 
-The checks passed five linker-argument cases, clean-archive patch application
-and all 134 C ABI assertions. Nix resolved the pinned compiler source to the
-same store artifact used by the successful build, and evaluated the locked
-development shell. Installing that shell and the SDK from an entirely empty
-machine/cache has not been tested. Runtime behavior is checked separately
-against the generated site; these build checks alone do not prove playability.
+The second command checks linker arguments, patch application to the exact
+archive and the C ABI. The host tests check protocol and loading behavior.
+See the [current verification guide](../../../docs/verification.md)
+for observed platform coverage. A successful build is not browser play acceptance.
 
-Before the loading/capture redesign, the actual garden rendered in the Codex
-in-app browser and Chrome. In the in-app browser, DOM keyboard/mouse input moved the player and mined terrain;
-the edited mesh appeared, F5 saved, and reloading restored the moved player.
-Photo mode generated a 1.27 MB PNG and exposed its download link. Startup,
-focus pause/resume and orderly shutdown were also exercised. The rebuilt
-output was separately served and its 3D scene rendered successfully.
+For actual browser acceptance, verify preview, resize/quality changes, pointer
+capture and refusal/retry, movement/mining/building, save/reload, pause/focus,
+audio and the downloaded photo. Each browser/device needs its own observations.
+No human play or enjoyment claim follows from automated checks.
 
-The final host adds automatic staged preparation, viewport sizing, capture-
-confirmed engagement, and explicit pause transitions. Its 42 JavaScript tests
-and eight asset/HTTP checks pass, including full-density sizing, explicit render
-scales, asset transfer during compilation and source-comment font handling.
-Full-scene startup in both browsers, ready-scene resize, fullscreen entry/exit
-in the in-app browser, and missing-script retry display were also checked. A fresh-origin in-app run reached its
-first visible content at 0.10 seconds and its scene at 14.23 seconds; same-tab
-reload reached the scene at 11.83 seconds. Those startup observations predate
-the display-density default. The current build was rendered at DPR 1.25 with
-high/standard/light settings, fullscreen transitions and preference persistence.
-See the report for conditions and a same-scene rendering comparison.
-
-Automation still rejected Pointer Lock with WrongDocumentError despite fresh
-activation (UnknownError inside in-app fullscreen). Refusal/retry and Chrome's
-AudioContext reaching running were checked; successful capture, audible output and the final downloaded file
-remain unverified. The new capture-gated manual gameplay path is not certified
-by the earlier host's input results. No Safari, Firefox or mobile
-compatibility claim is made. The payload measurements above are this game's
-inputs, not a minimum size for the stack.
-
-For a different game, replace the package/executable names, `BrowserMain.hs`
-connection, asset list, save paths and game-specific input settings. Keep the
-ABI patch, linker, memory guard and FFI bridge together. The shared low-level
-host contracts and focused JavaScript tests are documented in [host/README.md](host/README.md).
+For a different game, change the package/executable names, `BrowserMain.hs`,
+asset list, save paths and input settings. Keep the ABI patch, linker, memory
+guard and FFI bridge together; [host/README.md](host/README.md) explains them.
 
 ## Rendering preferences and pointer-free verification
 

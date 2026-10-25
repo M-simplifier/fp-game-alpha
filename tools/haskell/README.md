@@ -44,7 +44,7 @@ cabal test all --offline --builddir=../../.build/native-tool --test-show-details
 The freeze file pins external dependencies and the project pins the package
 index. GHC's bundled packages are selected by the tested compiler, rather than
 forcing Linux-specific package versions onto Windows. Source compilation needs
-GHC 9.6 or newer APIs; only the GHC 9.14.1 baseline is verified. Other compilers
+GHC 9.14 APIs; the declared baseline is GHC 9.14.1. Other compilers
 and their dependency resolutions remain unverified. The built tool uses the
 compiler selected by the game's Cabal project, independently of the compiler
 that built it. Doctor and saved-source check use Cabal's bounded structured query,

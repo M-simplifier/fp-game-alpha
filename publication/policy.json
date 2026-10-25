@@ -217,11 +217,6 @@
       "maturity": "experimental"
     },
     {
-      "prefix": "PUBLICATION-MANIFEST",
-      "license": "LICENSE",
-      "maturity": "completed"
-    },
-    {
       "prefix": "cabal.project",
       "license": "LICENSE",
       "maturity": "experimental"
@@ -367,136 +362,6 @@
       "maturity": "experimental"
     },
     {
-      "prefix": "editors/haskell-design/native/licenses/time-1.12.2/LICENSE",
-      "license": "editors/haskell-design/native/licenses/time-1.12.2/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/template-haskell-2.20.0.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/template-haskell-2.20.0.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/bytestring-0.11.5.4/LICENSE",
-      "license": "editors/haskell-design/native/licenses/bytestring-0.11.5.4/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/parsec-3.1.16.1/LICENSE",
-      "license": "editors/haskell-design/native/licenses/parsec-3.1.16.1/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/Win32-2.13.3.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/Win32-2.13.3.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/directory-1.3.8.5/LICENSE",
-      "license": "editors/haskell-design/native/licenses/directory-1.3.8.5/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/filepath-1.4.301.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/filepath-1.4.301.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/binary-0.8.9.1/LICENSE",
-      "license": "editors/haskell-design/native/licenses/binary-0.8.9.1/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/ghc-boot-th-9.6.7/LICENSE",
-      "license": "editors/haskell-design/native/licenses/ghc-boot-th-9.6.7/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/mtl-2.3.1/LICENSE",
-      "license": "editors/haskell-design/native/licenses/mtl-2.3.1/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/text-2.0.2/LICENSE",
-      "license": "editors/haskell-design/native/licenses/text-2.0.2/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/ghc-bignum-1.3/LICENSE",
-      "license": "editors/haskell-design/native/licenses/ghc-bignum-1.3/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/unix-2.8.6.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/unix-2.8.6.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/containers-0.6.7/LICENSE",
-      "license": "editors/haskell-design/native/licenses/containers-0.6.7/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/unix-2.8.4.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/unix-2.8.4.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/stm-2.5.1.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/stm-2.5.1.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/Cabal-syntax-3.10.3.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/Cabal-syntax-3.10.3.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/deepseq-1.4.8.1/LICENSE",
-      "license": "editors/haskell-design/native/licenses/deepseq-1.4.8.1/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/process-1.6.19.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/process-1.6.19.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/array-0.5.8.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/array-0.5.8.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/pretty-1.1.3.6/LICENSE",
-      "license": "editors/haskell-design/native/licenses/pretty-1.1.3.6/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/ghc-prim-0.10.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/ghc-prim-0.10.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/exceptions-0.10.7/LICENSE",
-      "license": "editors/haskell-design/native/licenses/exceptions-0.10.7/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/transformers-0.6.1.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/transformers-0.6.1.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/rts-1.0.2/LICENSE",
-      "license": "editors/haskell-design/native/licenses/rts-1.0.2/LICENSE",
-      "maturity": "experimental"
-    },
-    {
-      "prefix": "editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
-      "license": "editors/haskell-design/native/licenses/base-4.18.3.0/LICENSE",
-      "maturity": "experimental"
-    },
-    {
       "prefix": "formatter.json",
       "license": "LICENSE",
       "maturity": "experimental"
@@ -517,11 +382,6 @@
       "maturity": "experimental"
     },
     {
-      "prefix": "references/red-dune/",
-      "license": "references/red-dune/LICENSE",
-      "maturity": "experimental"
-    },
-    {
       "prefix": "tools/haskell/",
       "license": "tools/haskell/LICENSE",
       "maturity": "experimental"
@@ -529,6 +389,506 @@
     {
       "prefix": ".github/workflows/native-tooling.yml",
       "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/aeson-2.2.5.0/",
+      "license": "editors/haskell-design/native/licenses/aeson-2.2.5.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/array-0.5.8.0/",
+      "license": "editors/haskell-design/native/licenses/array-0.5.8.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/assoc-1.1.1/",
+      "license": "editors/haskell-design/native/licenses/assoc-1.1.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/base-4.22.0.0/",
+      "license": "editors/haskell-design/native/licenses/base-4.22.0.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/base-orphans-0.9.4/",
+      "license": "editors/haskell-design/native/licenses/base-orphans-0.9.4/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/bifunctors-5.6.3/",
+      "license": "editors/haskell-design/native/licenses/bifunctors-5.6.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/binary-0.8.9.3/",
+      "license": "editors/haskell-design/native/licenses/binary-0.8.9.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/bytestring-0.12.2.0/",
+      "license": "editors/haskell-design/native/licenses/bytestring-0.12.2.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/Cabal-syntax-3.16.0.0/",
+      "license": "editors/haskell-design/native/licenses/Cabal-syntax-3.16.0.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/character-ps-0.1/",
+      "license": "editors/haskell-design/native/licenses/character-ps-0.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/comonad-5.0.10/",
+      "license": "editors/haskell-design/native/licenses/comonad-5.0.10/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/containers-0.8/",
+      "license": "editors/haskell-design/native/licenses/containers-0.8/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/contravariant-1.5.6/",
+      "license": "editors/haskell-design/native/licenses/contravariant-1.5.6/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/cryptohash-sha256-0.11.102.1/",
+      "license": "editors/haskell-design/native/licenses/cryptohash-sha256-0.11.102.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/data-fix-0.3.4/",
+      "license": "editors/haskell-design/native/licenses/data-fix-0.3.4/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/deepseq-1.5.1.0/",
+      "license": "editors/haskell-design/native/licenses/deepseq-1.5.1.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/directory-1.3.10.0/",
+      "license": "editors/haskell-design/native/licenses/directory-1.3.10.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/distributive-0.6.3/",
+      "license": "editors/haskell-design/native/licenses/distributive-0.6.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/dlist-1.0/",
+      "license": "editors/haskell-design/native/licenses/dlist-1.0/license.md",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/exceptions-0.10.11/",
+      "license": "editors/haskell-design/native/licenses/exceptions-0.10.11/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/file-io-0.1.5/",
+      "license": "editors/haskell-design/native/licenses/file-io-0.1.5/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/filepath-1.5.4.0/",
+      "license": "editors/haskell-design/native/licenses/filepath-1.5.4.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/ghc-boot-th-9.14.1/",
+      "license": "editors/haskell-design/native/licenses/ghc-boot-th-9.14.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/ghc-internal-9.1401.0/",
+      "license": "editors/haskell-design/native/licenses/ghc-internal-9.1401.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/ghc-prim-0.13.1/",
+      "license": "editors/haskell-design/native/licenses/ghc-prim-0.13.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/hashable-1.5.1.0/",
+      "license": "editors/haskell-design/native/licenses/hashable-1.5.1.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/indexed-traversable-0.1.5/",
+      "license": "editors/haskell-design/native/licenses/indexed-traversable-0.1.5/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/indexed-traversable-instances-0.1.2.1/",
+      "license": "editors/haskell-design/native/licenses/indexed-traversable-instances-0.1.2.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/integer-conversion-0.1.1/",
+      "license": "editors/haskell-design/native/licenses/integer-conversion-0.1.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/integer-logarithms-1.0.5/",
+      "license": "editors/haskell-design/native/licenses/integer-logarithms-1.0.5/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/mtl-2.3.1/",
+      "license": "editors/haskell-design/native/licenses/mtl-2.3.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/network-uri-2.6.4.2/",
+      "license": "editors/haskell-design/native/licenses/network-uri-2.6.4.2/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/OneTuple-0.4.3/",
+      "license": "editors/haskell-design/native/licenses/OneTuple-0.4.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/os-string-2.0.8/",
+      "license": "editors/haskell-design/native/licenses/os-string-2.0.8/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/parsec-3.1.18.0/",
+      "license": "editors/haskell-design/native/licenses/parsec-3.1.18.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/pretty-1.1.3.6/",
+      "license": "editors/haskell-design/native/licenses/pretty-1.1.3.6/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/primitive-0.9.1.0/",
+      "license": "editors/haskell-design/native/licenses/primitive-0.9.1.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/primitive-0.9.1.0/test/LICENSE",
+      "license": "editors/haskell-design/native/licenses/primitive-0.9.1.0/test/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/process-1.6.26.1/",
+      "license": "editors/haskell-design/native/licenses/process-1.6.26.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/QuickCheck-2.18.0.0/",
+      "license": "editors/haskell-design/native/licenses/QuickCheck-2.18.0.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/random-1.3.1/",
+      "license": "editors/haskell-design/native/licenses/random-1.3.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/rts-1.0.3/",
+      "license": "editors/haskell-design/native/licenses/rts-1.0.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/scientific-0.3.10.0/",
+      "license": "editors/haskell-design/native/licenses/scientific-0.3.10.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/semialign-1.4/",
+      "license": "editors/haskell-design/native/licenses/semialign-1.4/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/semigroupoids-6.0.2/",
+      "license": "editors/haskell-design/native/licenses/semigroupoids-6.0.2/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/splitmix-0.1.3.2/",
+      "license": "editors/haskell-design/native/licenses/splitmix-0.1.3.2/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/StateVar-1.2.2/",
+      "license": "editors/haskell-design/native/licenses/StateVar-1.2.2/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/stm-2.5.3.1/",
+      "license": "editors/haskell-design/native/licenses/stm-2.5.3.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/strict-0.5.1/",
+      "license": "editors/haskell-design/native/licenses/strict-0.5.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/tagged-0.8.11/",
+      "license": "editors/haskell-design/native/licenses/tagged-0.8.11/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/template-haskell-2.24.0.0/",
+      "license": "editors/haskell-design/native/licenses/template-haskell-2.24.0.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/temporary-1.3/",
+      "license": "editors/haskell-design/native/licenses/temporary-1.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/text-2.1.3/",
+      "license": "editors/haskell-design/native/licenses/text-2.1.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/text-2.1.3/simdutf/LICENSE-APACHE",
+      "license": "editors/haskell-design/native/licenses/text-2.1.3/simdutf/LICENSE-APACHE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/text-2.1.3/simdutf/LICENSE-MIT",
+      "license": "editors/haskell-design/native/licenses/text-2.1.3/simdutf/LICENSE-MIT",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/text-iso8601-0.1.1.2/",
+      "license": "editors/haskell-design/native/licenses/text-iso8601-0.1.1.2/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/text-short-0.1.6.1/",
+      "license": "editors/haskell-design/native/licenses/text-short-0.1.6.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/th-abstraction-0.7.2.0/",
+      "license": "editors/haskell-design/native/licenses/th-abstraction-0.7.2.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/th-compat-0.1.7/",
+      "license": "editors/haskell-design/native/licenses/th-compat-0.1.7/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/these-1.2.1/",
+      "license": "editors/haskell-design/native/licenses/these-1.2.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/time-1.15/",
+      "license": "editors/haskell-design/native/licenses/time-1.15/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/time-compat-1.9.9/",
+      "license": "editors/haskell-design/native/licenses/time-compat-1.9.9/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/transformers-0.6.1.2/",
+      "license": "editors/haskell-design/native/licenses/transformers-0.6.1.2/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/transformers-compat-0.8/",
+      "license": "editors/haskell-design/native/licenses/transformers-compat-0.8/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/transformers-compat-0.8/tests/LICENSE",
+      "license": "editors/haskell-design/native/licenses/transformers-compat-0.8/tests/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/unordered-containers-0.2.21/",
+      "license": "editors/haskell-design/native/licenses/unordered-containers-0.2.21/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/uuid-types-1.0.6.1/",
+      "license": "editors/haskell-design/native/licenses/uuid-types-1.0.6.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/vector-0.13.2.0/",
+      "license": "editors/haskell-design/native/licenses/vector-0.13.2.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/vector-0.13.2.0/tests/LICENSE",
+      "license": "editors/haskell-design/native/licenses/vector-0.13.2.0/tests/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/vector-stream-0.1.0.1/",
+      "license": "editors/haskell-design/native/licenses/vector-stream-0.1.0.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/Win32-2.14.2.1/",
+      "license": "editors/haskell-design/native/licenses/Win32-2.14.2.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/witherable-0.5/",
+      "license": "editors/haskell-design/native/licenses/witherable-0.5/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/array-0.5.8.0/",
+      "license": "references/red-dune/licenses/array-0.5.8.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/base-4.22.0.0/",
+      "license": "references/red-dune/licenses/base-4.22.0.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/binary-0.8.9.3/",
+      "license": "references/red-dune/licenses/binary-0.8.9.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/bytestring-0.12.2.0/",
+      "license": "references/red-dune/licenses/bytestring-0.12.2.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/containers-0.8/",
+      "license": "references/red-dune/licenses/containers-0.8/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/deepseq-1.5.1.0/",
+      "license": "references/red-dune/licenses/deepseq-1.5.1.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/directory-1.3.10.0/",
+      "license": "references/red-dune/licenses/directory-1.3.10.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/exceptions-0.10.11/",
+      "license": "references/red-dune/licenses/exceptions-0.10.11/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/file-io-0.1.5/",
+      "license": "references/red-dune/licenses/file-io-0.1.5/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/filepath-1.5.4.0/",
+      "license": "references/red-dune/licenses/filepath-1.5.4.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/ghc-boot-th-9.14.1/",
+      "license": "references/red-dune/licenses/ghc-boot-th-9.14.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/ghc-internal-9.1401.0/",
+      "license": "references/red-dune/licenses/ghc-internal-9.1401.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/ghc-prim-0.13.1/",
+      "license": "references/red-dune/licenses/ghc-prim-0.13.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/mtl-2.3.1/",
+      "license": "references/red-dune/licenses/mtl-2.3.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/os-string-2.0.8/",
+      "license": "references/red-dune/licenses/os-string-2.0.8/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/parsec-3.1.18.0/",
+      "license": "references/red-dune/licenses/parsec-3.1.18.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/pretty-1.1.3.6/",
+      "license": "references/red-dune/licenses/pretty-1.1.3.6/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/rts-1.0.3/",
+      "license": "references/red-dune/licenses/rts-1.0.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/stm-2.5.3.1/",
+      "license": "references/red-dune/licenses/stm-2.5.3.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/template-haskell-2.24.0.0/",
+      "license": "references/red-dune/licenses/template-haskell-2.24.0.0/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/text-2.1.3/",
+      "license": "references/red-dune/licenses/text-2.1.3/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/text-2.1.3/simdutf/LICENSE-APACHE",
+      "license": "references/red-dune/licenses/text-2.1.3/simdutf/LICENSE-APACHE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/text-2.1.3/simdutf/LICENSE-MIT",
+      "license": "references/red-dune/licenses/text-2.1.3/simdutf/LICENSE-MIT",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/time-1.15/",
+      "license": "references/red-dune/licenses/time-1.15/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/transformers-0.6.1.2/",
+      "license": "references/red-dune/licenses/transformers-0.6.1.2/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/red-dune/licenses/Win32-2.14.2.1/",
+      "license": "references/red-dune/licenses/Win32-2.14.2.1/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "PUBLICATION-MANIFEST",
+      "license": "LICENSE",
+      "maturity": "completed"
+    },
+    {
+      "prefix": "editors/haskell-design/native/licenses/unix-2.8.8.0/",
+      "license": "editors/haskell-design/native/licenses/unix-2.8.8.0/LICENSE",
       "maturity": "experimental"
     }
   ]

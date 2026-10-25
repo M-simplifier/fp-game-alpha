@@ -21,6 +21,7 @@ from test_native_cli import compiler_profile
 
 ROOT = Path(__file__).resolve().parents[1]
 RECORDS = []
+CONSOLE_HELPER = None
 
 
 def run(label, command, project, input_text=None, expected=0):
@@ -38,7 +39,7 @@ def run(label, command, project, input_text=None, expected=0):
 
 
 def cabal(project, action, *extras, input_text=None, label=None):
-    command = [shutil.which('cabal'), '--config-file=build.config', action]
+    command = ([str(CONSOLE_HELPER)] if CONSOLE_HELPER else []) + [shutil.which('cabal'), '--config-file=build.config', action]
     command += ['all'] if action in {'build', 'test'} else ['acceptance-game']
     command += ['--offline', '--builddir=.build/dist']
     if action == 'test':
@@ -71,10 +72,11 @@ def check_public_model_api(game):
     (output / 'RejectModelUpdate.json').write_text(json.dumps(rejection, indent=2), encoding='utf-8')
     require('public-model-update-rejected-for-selector',
             rejection['exit_code'] != 0 and 'position' in rejection['stderr']
-            and 'is not a record selector' in rejection['stderr'])
+            and ('is not a record selector' in rejection['stderr'] or 'Not in scope: record field' in rejection['stderr']))
 
 
 def main():
+    global CONSOLE_HELPER
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--binary', type=Path)
     parser.add_argument('--windows-compiler', type=Path)
@@ -83,6 +85,9 @@ def main():
     if os.name == 'nt' and args.windows_compiler is None:
         parser.error('Windows acceptance requires --windows-compiler from the declared profile')
     binary = binary_path(args.binary)
+    if os.name == 'nt':
+        CONSOLE_HELPER = binary.with_name('fp-game-console.exe')
+        require('private-console-bootstrap-present', CONSOLE_HELPER.is_file())
     temporary_root = Path(tempfile.gettempdir()).resolve()
     trial = Path(tempfile.mkdtemp(prefix='FP game development ', dir=temporary_root)).resolve()
     require('independent-space-path', trial.is_relative_to(temporary_root) and not trial.is_relative_to(ROOT) and ' ' in trial.name)
@@ -127,6 +132,8 @@ def main():
     local_binary = relocated / '.build/tools' / binary.name
     local_binary.parent.mkdir(parents=True)
     shutil.copy2(binary, local_binary)
+    if CONSOLE_HELPER:
+        shutil.copy2(CONSOLE_HELPER, local_binary.with_name(CONSOLE_HELPER.name))
     run('local-cli-run', [str(local_binary), 'run', '--smoke', '--json'], relocated)
     run('local-continuation-cli', [sys.executable, 'tools/inspect_haskell.py', 'context', 'src/Game/Rules.hs', '--symbol', 'advance', '--json'], relocated)
     add_stamina(relocated)

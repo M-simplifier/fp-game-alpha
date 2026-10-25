@@ -20,8 +20,7 @@ requires its pinned external dependencies once. There are no published native
 binary releases in this route. Installing GHC/Cabal is a separate, explicit
 step using the [official GHCup guide](https://www.haskell.org/ghcup/install/).
 The verified baseline is GHC 9.14.1 / Cabal 3.18.2.0. Source compilation requires
-GHC 9.6 or newer APIs; other compiler versions and dependency resolutions remain
-unverified. The resulting binary uses Cabal's project-selected game compiler
+GHC 9.14 and its base 4.22 APIs; other compiler families remain unverified. The resulting binary uses Cabal's project-selected game compiler
 and the Cabal executable on PATH. It does not silently change the game compiler
 or inherit a GHC-API helper's version lock.
 
@@ -50,8 +49,9 @@ On Windows, use the [explicit compiler profile](#windows-explicitly-select-the-i
 below before bootstrapping and operating on a game with Japanese paths.
 
 With a populated dependency index/store, omit `--download` / `-Download` for an
-offline build. The source is under `tools/haskell`, build objects under
-`.build/native-tool`, and the copied executable under `.build/tools`. A custom
+offline build. The CLI source is under `tools/haskell`, with Windows host glue in
+`tools/windows-console`. Build objects stay under `.build/`; executables are
+copied to `.build/tools`. A custom
 Cabal configuration may be selected explicitly with `CABAL_CONFIG`. Bootstrap
 uses the selected dependency cache and does not rewrite an existing global
 configuration. A first Cabal invocation can initialize its ordinary default
@@ -69,15 +69,17 @@ Do not describe an already-warm dependency cache as a clean-machine setup test.
 
 ## Windows: explicitly select the installed compiler
 
-The verified Windows profile explicitly selects an installed compiler to
-avoid a known launcher boundary. It never automatically replaces a compiler. In the pinned GHC 9.14.1 installation, the
-unversioned C launcher aliases corrupted Japanese arguments. The same
-installation's `ghc-9.14.1.exe` passed the bounded actual library and executable
-Japanese-path builds in the [Windows compiler-path probe](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37295633672/job/111716047359#step:5:1).
-The declared profile subsequently passed the complete native CLI/game-development
-suite on [Windows](https://github.com/M-simplifier/fp-game-alpha/actions/runs/37309094405/job/111761295675) at `be1208af`, alongside Linux and macOS. It remains an
-experimental, pinned-toolchain route. This does not establish that every Windows
-installation, wrapper or compiler version has the same behavior.
+Windows bootstrap also builds the internal `fp-game-console.exe` from boot
+packages. Keep the whole `.build/tools` directory together when moving the
+executables. Cabal and its compiler tools run inside one hidden UTF-8 console;
+the calling console's code pages and global tool configuration stay unchanged.
+The [current compiler preflight](https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_windows_toolchain_paths.py)
+builds a fresh library/executable under a Japanese path using that same boundary.
+
+With the tested Windows Cabal 3.18.2 driver, direct Cabal builds under Unicode
+paths remain sensitive to its response-file encoding. The generated CLI's
+build/test/run commands use the private console automatically. This host glue
+travels with the complete tooling source when the game is relocated.
 
 Choose an executable that actually exists on this machine and probe it. The
 following path is an example, not a discovered installation location:
@@ -94,7 +96,7 @@ if ($LASTEXITCODE -ne 0) { throw 'The selected compiler probe failed.' }
 
 Inspect the reported version and path before proceeding. `-CompilerPath` probes
 and reports the selected executable and passes the same selection to both
-`cabal build` and `cabal list-bin`. Omit `-Download` when the pinned dependency
+bootstrap builds. Omit `-Download` when the pinned dependency
 cache is ready. Bootstrap does not edit PATH, switch the installed GHC version,
 rewrite aliases or add a game compiler profile. Without this option it retains
 its ordinary selection; it never silently bypasses an alias.

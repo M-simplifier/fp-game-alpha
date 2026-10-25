@@ -163,8 +163,8 @@ A download link exposes the latest PNG; replacing it revokes the old Blob URL.
 Photos and their Haskell sidecar files last for the current page session only
 and do not enter browser checkpoint storage.
 
-Implementation sources checked 2026-09-20:
-- [GHC WASM megablock allocation](https://github.com/ghc/ghc/blob/ghc-9.6/rts/wasm/OSMem.c)
+Allocator implementation references:
+- [GHC 9.14.1 source](https://downloads.haskell.org/ghc/9.14.1/ghc-9.14.1-src.tar.xz), `rts/wasm/OSMem.c`
 - [Emscripten 3.1.45 sbrk](https://github.com/emscripten-core/emscripten/blob/3.1.45/system/lib/libc/sbrk.c)
 - [LLVM memory layout](https://github.com/llvm/llvm-project/blob/llvmorg-16.0.6/lld/wasm/Writer.cpp)
 - [browser_wasi_shim](https://github.com/bjorn3/browser_wasi_shim)

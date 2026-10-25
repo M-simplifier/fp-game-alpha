@@ -67,7 +67,7 @@ selectedCompiler root = do
             "--verbose=0"
           ]
     Bytes.writeFile config (Text.encodeUtf8 (Text.pack (configuration state)))
-    result <- execute root (ProcessRequest cabal command (Just 20) Captured)
+    result <- executeCabal root (ProcessRequest cabal command (Just 20) Captured)
     case result of
       Executed _ 0 output _ -> case parseCompiler output of
         Left problem -> failTool InvalidConfig ("Invalid Cabal compiler query: " ++ problem)

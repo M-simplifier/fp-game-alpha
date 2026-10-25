@@ -47,12 +47,9 @@ rotations, then five winning rotations). Keep the constructive win, undo-budget
 restoration and victory-before-loss assertions. Run both suites below. This is
 an exercise, not an already-applied rule change.
 
-See the [scoped readability review](docs/readability-review.md) for strengths,
-remaining improvements, and the limits of this review.
-
 ## Build and check
 
-Native core tests require GHC with its bundled `containers` package:
+Native core tests use GHC 9.14.1 with its bundled `containers` package:
 
 ```sh
 mkdir -p .build/native
@@ -62,13 +59,7 @@ bash test/check-opaque-api.sh
 node web/controls.test.mjs
 ```
 
-Optional historical compatibility check, when this game is inside the foundation
-Git clone with its baseline history: `bash test/compare-baseline.sh`. It compares
-public observations and outcomes with the pinned original source over all
-four-command traces and 200 longer deterministic traces. It requires no network;
-a standalone game copy can run the native rules and API checks without it.
-
-Activate GHC-Wasm 9.14.1.20260330 and its matching WASI toolchain on PATH, then:
+Activate GHC-Wasm 9.14.1.20260731 and its matching WASI toolchain on PATH, then:
 
 ```sh
 bash build-web.sh
@@ -81,19 +72,17 @@ fetch dependencies, call an LLM, or alter another project. The bundled browser
 shim is `@bjorn3/browser_wasi_shim` 0.4.2 with its original MIT/Apache notices.
 The source core's MIT notices remain under vendor/.
 
-## Evidence and unfinished acceptance
+## Check boundaries
 
-- Current readability revision: native transition/history/terminal regressions,
-  [opaque-API rejection checks](test/check-opaque-api.sh) and 304 direct/Arena comparisons passed with
-  GHC9.14.1. Historical evidence is retained in CHECKS.json
-- Haskell Wasm: built with GHC9.14.1.20260330
-- Real Wasm in Node with the browser WASI shim: input/refusal, independent
-  sessions, win/loss/reset/undo, SVG and repeated allocation/disposal passed
-- The original Haskell-generated SVG was rasterized and visually inspected
-  separately; visual inspection was not repeated for this readability revision
-- Actual browser mouse/touch/keyboard, focus, resize and back/forward execution
-  remain unverified. Neither Node tests nor static SVG inspection establish them
-- No persistence, level progression or human-enjoyment claim in this slice
+The native laws check rotation, undo, terminal states and direct/Arena agreement.
+The [API checks](test/check-opaque-api.sh) reject forged addresses, levels,
+catalogs and world updates. `web/smoke.mjs` exercises the actual compiled Wasm
+through the browser WASI shim: independent sessions, win/loss/reset/undo, SVG
+and allocation/disposal. `web/tuning.test.mjs` checks validated catalog reloads.
+
+These checks do not exercise actual browser mouse/touch/keyboard, focus,
+resize or back/forward navigation. There is no persistence or level progression
+in this slice; human play acceptance requires its own session.
 
 First a complete rotation/network game was built and checked. One-use undo was
 then added to the existing game, its pure transition, browser adapter, view and

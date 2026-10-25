@@ -3,7 +3,7 @@ packages: .
 index-state: 2026-10-24T00:00:00Z
 
 -- Match the supported game profile: archive response files preserve Windows
--- paths containing spaces and Japanese text when GHC invokes GNU ar.
+-- paths containing spaces and Japanese text when GHC invokes the bundled archive tool.
 if os(windows)
   package *
     ar-options: --rsp-quoting=posix

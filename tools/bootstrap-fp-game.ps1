@@ -51,7 +51,8 @@ $root = Split-Path -Parent $PSScriptRoot
 $state = Join-Path $root '.build'
 $bin = Join-Path $state 'tools'
 $build = Join-Path $state 'native-tool'
-foreach ($path in @($state, $bin, $build)) {
+$cabalBuild = Join-Path $state 'windows-console'
+foreach ($path in @($state, $bin, $build, $cabalBuild)) {
     $item = Get-Item -LiteralPath $path -Force -ErrorAction SilentlyContinue
     if ($null -ne $item -and ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
         throw 'Refusing a linked bootstrap output directory.'
@@ -63,40 +64,49 @@ if (-not (Test-Path -LiteralPath (Join-Path $project 'cabal.project') -PathType 
 }
 $destination = Join-Path $bin 'fp-game.exe'
 function Assert-ExecutableDestination {
+    param([string]$destination)
     $item = Get-Item -LiteralPath $destination -Force -ErrorAction SilentlyContinue
     if ($null -ne $item -and ($item.PSIsContainer -or
         ($item.Attributes -band [IO.FileAttributes]::ReparsePoint))) {
         throw 'Refusing a linked or non-file bootstrap executable destination.'
     }
 }
-Assert-ExecutableDestination
+Assert-ExecutableDestination $destination
 New-Item -ItemType Directory -Path $bin -Force | Out-Null
+function Install-BuiltTool {
+    param([string]$command, [string]$target, [string]$projectFile,
+          [string]$buildDirectory, [string]$destination, [string[]]$prefixArguments = @())
+    Assert-ExecutableDestination $destination
+    $options = @('build', $target, "--project-file=$projectFile", "--builddir=$buildDirectory")
+    if (-not $Download) { $options += '--offline' }
+    if ($null -ne $compiler) { $options += "--with-compiler=$compiler" }
+    & $command @prefixArguments @options
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    # plan.json is UTF-8 even when the bootstrap Cabal's console output uses
+    # an ANSI code page. Do not decode a Unicode list-bin path as console text.
+    $plan = Get-Content -LiteralPath (Join-Path $buildDirectory 'cache/plan.json') -Encoding UTF8 -Raw | ConvertFrom-Json
+    $units = @($plan.'install-plan' | Where-Object { $_.PSObject.Properties['component-name'] -and $_.'component-name' -eq $target })
+    if ($units.Count -ne 1) { throw "Expected one built $target in Cabal plan.json." }
+    $source = $units[0].'bin-file'
+    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw 'Cabal did not identify the built executable.' }
+    $temporary = Join-Path $bin ('.fp-game-' + [Guid]::NewGuid().ToString('N') + '.exe')
+    try {
+        Copy-Item -LiteralPath $source -Destination $temporary
+        Assert-ExecutableDestination $destination
+        Move-Item -LiteralPath $temporary -Destination $destination -Force
+    } finally {
+        if (Test-Path -LiteralPath $temporary) { Remove-Item -LiteralPath $temporary }
+    }
+}
 Push-Location -LiteralPath $project
 try {
     if ($Download) {
         & cabal update
         if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     }
-    $options = @('build', 'exe:fp-game', "--builddir=$build")
-    if (-not $Download) { $options += '--offline' }
-    $compilerOptions = @()
-    if ($null -ne $compiler) { $compilerOptions += "--with-compiler=$compiler" }
-    $options += $compilerOptions
-    & cabal @options
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    $source = & cabal list-bin exe:fp-game --offline "--builddir=$build" @compilerOptions
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    $source = ($source -join "`n").Trim()
-    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw 'Cabal did not identify the built executable.' }
-    $temporary = Join-Path $bin ('.fp-game-' + [Guid]::NewGuid().ToString('N') + '.exe')
-    try {
-        Copy-Item -LiteralPath $source -Destination $temporary
-        # Windows may refuse replacement while this executable is running.
-        # Report that failure; never rebuild or replace it on every CLI command.
-        Assert-ExecutableDestination
-        Move-Item -LiteralPath $temporary -Destination $destination -Force
-    } finally {
-        if (Test-Path -LiteralPath $temporary) { Remove-Item -LiteralPath $temporary }
-    }
+    $cabalExecutable = Join-Path $bin 'fp-game-console.exe'
+    $cabalProject = Join-Path $root 'tools/windows-console/cabal.project'
+    Install-BuiltTool 'cabal' 'exe:fp-game-console' $cabalProject $cabalBuild $cabalExecutable
+    Install-BuiltTool $cabalExecutable 'exe:fp-game' (Join-Path $project 'cabal.project') $build $destination @('cabal')
     [Console]::Error.WriteLine("Ready: $destination")
 } finally { Pop-Location }

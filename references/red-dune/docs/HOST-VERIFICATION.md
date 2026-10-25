@@ -1,35 +1,13 @@
 # Host verification and boundaries
 
-## Evidence as of 2026-10-04
+## Run the current checks
 
-- Native GHC 9.14.1 build with `-Wall -Werror` passed; the full Cabal pure
-  library and native host component also built successfully
-- `node tools/test_browser_protocol.cjs` passed: decimal identities above 2^53,
-  noncanonical identity rejection, reordered/retired runtime responses, exact
-  uncertain retry bodies, concurrent-mutation exclusion, session reset, and a late old-session rejection
-  that must not erase a new in-flight action
-- `node tools/test_http.cjs <built-host>` passed: observation leaves paused world
-  unchanged; only an owner mutates; hostile Origin/Host and duplicate/oversized
-  HTTP headers/bodies are rejected; exact duplicate commands retain their result;
-  changed bodies cannot reuse IDs; policies and a physical expansion queue run;
-  host ticks stop on pause; durable save, preview/cancel, activation, stale old
-  session rejection, lease expiry, recovery restart and static assets work
-- Deterministic `live-host-lifecycle` native checks passed with controlled IO
-  barriers: read cancellation, invisible not-yet-durable candidate, cancellation
-  during activation write, restart while that candidate is blocked, ignored late
-  completion, safely retained orphan checkpoint, old save failure isolation, and
-  rejection of a request whose detailed receipt has been evicted
-- Expanded HTTP checks passed for save-folder failure preserving prior files,
-  read-phase cancellation, route-bound request identity, Word64 overflow rejection,
-  raw pack revision 9007199254740993, stale pack rejection, and durable restart
-  into the staged pack; second-process store locking, all supported construction
-  menu options, corrupt-checkpoint warnings and outside-store path rejection
-- Actual browser rendering, keyboard/pointer, browser reload and responsive layout
-  acceptance have **not** been run. A restricted localhost browser route must not
-  be bypassed by publishing or tunneling. Native HTTP tests are not a substitute
-- Long campaign progression, construction coverage and core boundary tests are
-  owned by the separate executable suites; their output is the relevant evidence
-  for authored endings, not the shorter HTTP flow
+Use the bounded commands in the [verification guide](../../../docs/verification.md)
+and the game's [verification commands](../README.md#verification-commands).
+`test_browser_protocol.cjs` covers decimal identities, retry ownership and session
+changes; `test_http.cjs` exercises the actual local HTTP host and checkpoint IO.
+The lifecycle suite uses controlled IO barriers to test cancellation and stale
+completions. These do not exercise actual browser rendering or human input.
 
 ## Protocol ownership
 
@@ -98,16 +76,3 @@ Unreadable checkpoint files remain untouched and appear as catalog warnings.
 - Stage an edited pack, reject a stale revision, restart and see the new identity
 - Complete a successful campaign and experience a failed recovery attempt
 - Check layout at narrow viewport, 150/200% text, high contrast and reduced motion
-
-## Review-driven prevention
-
-- New/restart activation originally preceded durable write. It now writes and
-  verifies before publication; restart/save assertions exercise that boundary
-- Ordinary JSON parsing in a browser rounds large pack integers. Upload now sends
-  raw pack text for the strict Haskell parser; no Number conversion occurs
-- Saving world-only would lose campaign evidence. Every checkpoint encodes the
-  entire `GameState`; world-only archive input is a separate explicit migration
-- A paused ownerless loop must not issue repeated Pause commands. `pauseGame`
-  checks the authoritative mode; observation/lease tests catch revision churn
-- Evicted transport receipts cannot safely mean unseen. Canonical monotonic
-  high-water counters reject old IDs even after the exact result cache expires

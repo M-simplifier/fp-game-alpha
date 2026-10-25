@@ -8,6 +8,7 @@ module FpGame.Process
   ( ProcessRequest (..),
     Capture (..),
     execute,
+    executeCabal,
     requireTool,
     withTerminationHandler,
   )
@@ -36,6 +37,9 @@ import System.Posix.Process (executeFile)
 import System.Posix.Signals (Handler(Catch), installHandler, signalProcessGroup, sigKILL, sigTERM)
 #else
 import Control.Concurrent (readMVar)
+import System.Directory (doesFileExist)
+import System.Environment (getExecutablePath)
+import System.FilePath ((</>), takeDirectory)
 #endif
 
 data Capture = Captured | Interactive deriving (Eq, Show)
@@ -57,6 +61,27 @@ execute root request = runSelected root request `catch` failedIO
     failedIO :: IOException -> IO Result
     failedIO errorValue = pure (Executed command 1 "" (Text.pack (show errorValue)))
     command = processExecutable request : processArguments request
+
+-- Keep Cabal and its Windows compiler tools in one private UTF-8 console.
+-- The helper is the root of this same captured/interactive Job Object; it
+-- relays streams and never changes the caller's shared console code page.
+executeCabal :: ProjectRoot -> ProcessRequest -> IO Result
+#ifdef mingw32_HOST_OS
+executeCabal root request = do
+  sibling <- (</> "fp-game-console.exe") . takeDirectory <$> getExecutablePath
+  helper <- choose [projectPath root </> ".build" </> "tools" </> "fp-game-console.exe", sibling]
+  result <- execute root request {processExecutable = helper, processArguments = processExecutable request : processArguments request}
+  pure $ case result of
+    Executed _ code output errors -> Executed (processExecutable request : processArguments request) code output errors
+    other -> other
+  where
+    choose [] = failTool MissingTool "Windows console helper is missing. Run tools/bootstrap-fp-game.ps1 and keep .build/tools together."
+    choose (path : rest) = do
+      exists <- doesFileExist path
+      if exists then pure path else choose rest
+#else
+executeCabal = execute
+#endif
 
 runSelected :: ProjectRoot -> ProcessRequest -> IO Result
 #ifdef mingw32_HOST_OS

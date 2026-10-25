@@ -3,7 +3,7 @@
 import: cabal.project.red-dune
 
 tests: False
-package red-dune-live
+package red-dune
   flags: +development
   -- Keep optimized module bodies, but do not expose optimization details that
   -- make an implementation-only edit rebuild the whole downstream graph.

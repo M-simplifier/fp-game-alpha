@@ -364,7 +364,7 @@ validateTransport state inventory = do
         check (not (null route) && cost >= 0 && cost <= quantityMax) "Invalid request cached route"
         check (all (\(a, b) -> nodeDistance a b == 1) (zip route (drop 1 route))) "Request cached route contains teleport"
         when (requestRouteRevision request == topologyRevision (transportTopology state)) $ do
-          check (case route of { [] -> False; first : _ -> M.lookup (requestSource request) (transportPorts state) == Just first && M.lookup (requestDestination request) (transportPorts state) == Just (last route) }) "Request cached route endpoints mismatch"
+          check (case route of [] -> False; first : _ -> M.lookup (requestSource request) (transportPorts state) == Just first && M.lookup (requestDestination request) (transportPorts state) == Just (last route)) "Request cached route endpoints mismatch"
           let edges = [openEdge (transportTopology state) a b | (a, b) <- zip route (drop 1 route)]
           check (all (\edge -> case edge of Just _ -> True; _ -> False) edges && sum [roadCost edge | Just edge <- edges] == cost) "Request cached route/cost invalid"
       _ -> pure ()

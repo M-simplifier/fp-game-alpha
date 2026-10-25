@@ -77,7 +77,7 @@ def check(ghc, scratch):
             raise AssertionError(f"ordinary public query failed: {name}\n{output}")
         if expected_errors and not compiled.returncode:
             raise AssertionError(f"private construction/update/import was accepted: {name}")
-        if expected_errors and not all(error in output for error in expected_errors):
+        if expected_errors and not all(error in output or (error == 'not a record selector' and 'Not in scope: record field' in output) for error in expected_errors):
             raise AssertionError(f"client failed for an unrelated reason: {name}\n{output}")
         print("PASS:", name)
 

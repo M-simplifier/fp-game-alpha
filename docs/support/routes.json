@@ -262,7 +262,7 @@
       "evidence": [
         "docs/verification.md"
       ],
-      "scope": "GHC 9.6 native loopback host; bounded core/construction/save/lifecycle/HTTP and Node protocol checks. Full campaign is a separate explicit long gate. Real-browser rendering, keyboard/pointer, reload/layout and human play acceptance remain unverified; no Wasm or deployed service claim."
+      "scope": "GHC 9.14.1 native loopback host; bounded core/construction/save/lifecycle/HTTP and Node protocol checks. Full campaign is a separate explicit long gate. Real-browser rendering, keyboard/pointer, reload/layout and human play acceptance remain unverified; no Wasm or deployed service claim."
     },
     {
       "id": "linux-native-haskell-tooling",

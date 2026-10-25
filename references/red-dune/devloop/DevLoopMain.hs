@@ -563,7 +563,7 @@ readCompilerOutput repl = do
 checked :: String -> Bool
 checked compilerOutput = any loaded (lines compilerOutput) && not (commandFailed compilerOutput)
   where
-    loaded line = "Ok, " `isPrefixOf` line && any (`isSuffixOf` line) [" modules loaded.", " module loaded."]
+    loaded line = "Ok, " `isPrefixOf` line && any (`isSuffixOf` line) [" modules loaded.", " module loaded.", " modules reloaded.", " module reloaded."]
 
 commandFailed :: String -> Bool
 commandFailed contents = any (`isInfixOf` contents) ["Failed,", "error:", "*** Exception:"]

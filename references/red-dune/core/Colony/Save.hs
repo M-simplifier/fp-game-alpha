@@ -1,4 +1,3 @@
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 -- | Linux/POSIX native checkpoint protocol. One adapter is shared by a save
@@ -58,7 +57,6 @@ import Data.IORef (modifyIORef', newIORef, readIORef)
 import Data.List (sortOn)
 import Data.Maybe (listToMaybe, mapMaybe)
 import Data.Text qualified as T
-import Data.Typeable (Typeable)
 import Data.Word (Word64)
 import Foreign.Ptr (castPtr)
 import System.Directory (doesDirectoryExist, listDirectory, removeFile, renameFile)
@@ -186,7 +184,7 @@ data SaveFailure
   | ShortWriteDetected FileRole Word64
   | StaleCallback
   | SequenceNotFresh
-  deriving (Eq, Show, Typeable)
+  deriving (Eq, Show)
 
 instance Exception SaveFailure
 

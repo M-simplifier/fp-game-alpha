@@ -1,0 +1,23 @@
+cabal-version: 3.0
+name: fp-game-console
+version: 0.1.0.0
+synopsis: Internal hidden UTF-8 console for Windows Cabal children
+license: MIT
+license-file: LICENSE
+build-type: Simple
+
+executable fp-game-console
+  main-is: Main.hs
+  c-sources: hidden-console.c
+  default-language: GHC2021
+  -- Bootstrap precedes the private UTF-8 console. GHC's default resource
+  -- embedding would first send this Unicode path to llvm-rc in an ANSI locale.
+  -- This internal console helper has no GUI/UAC manifest requirements.
+  ghc-options: -Wall -Werror -threaded -fno-embed-manifest
+  cc-options: -Wall -Wextra -Werror
+  build-depends:
+    base >=4.22 && <4.23,
+    process >=1.6.19 && <1.7,
+    Win32 >=2.13 && <2.15
+  if !os(windows)
+    buildable: False

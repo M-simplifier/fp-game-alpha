@@ -1,4 +1,3 @@
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
@@ -54,7 +53,6 @@ import Data.ByteString.Char8 qualified as BSC
 import Data.List (sort, stripPrefix)
 import Data.Map.Strict qualified as M
 import Data.Maybe (mapMaybe)
-import Data.Typeable (Typeable)
 import Data.Word (Word64)
 import GHC.Generics (Generic)
 import System.Directory (createDirectory, listDirectory, makeAbsolute)
@@ -91,7 +89,7 @@ defaultLibraryConfig =
     (Just "evidence/ui/runtime-saves")
     (Just "evidence/migration-fixtures")
 
-data LibraryError = LibraryError String deriving (Eq, Show, Typeable)
+data LibraryError = LibraryError String deriving (Eq, Show)
 
 instance Exception LibraryError
 

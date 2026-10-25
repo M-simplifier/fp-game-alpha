@@ -3,3 +3,6 @@ packages: .
           ../../libraries/game-arena
 optimization: 2
 constraints: Yampa ==0.15, QuickCheck >=2.16 && <2.18, h-raylib ==6.1.0.0
+
+package h-raylib
+  flags: +disable-lens

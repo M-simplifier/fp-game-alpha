@@ -24,32 +24,32 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1775305067,
-        "narHash": "sha256-KFWRYVYPgsXu51stX/7/416qc31HFltfQiHPc6nEmH0=",
-        "ref": "refs/heads/master",
-        "rev": "60098a5076557e327b326a1a3ba3b5fb4fec1e49",
-        "revCount": 539,
+        "lastModified": 1791804790,
+        "narHash": "sha256-Bi4vIdDi1kp21EwXoYOQJQZFvETRhPBC2QIFdu8A5K8=",
+        "ref": "master",
+        "rev": "8079eb96bbc63823d99ad8acaff0765532625474",
+        "revCount": 630,
         "type": "git",
         "url": "https://gitlab.haskell.org/ghc/ghc-wasm-meta.git"
       },
       "original": {
-        "rev": "60098a5076557e327b326a1a3ba3b5fb4fec1e49",
+        "rev": "8079eb96bbc63823d99ad8acaff0765532625474",
         "type": "git",
         "url": "https://gitlab.haskell.org/ghc/ghc-wasm-meta.git"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1774399958,
-        "narHash": "sha256-Q+g1Np4wyNYpylt8RFM8UprAmyRoA3q3EZj7lQV+ZuQ=",
+        "lastModified": 1792683697,
+        "narHash": "sha256-P4nss8/EUu51hOQDdkso+pCQBdt0DT/lrfXWaZEDnEA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "735a15e91bcb1b3e0883a91d3c9dfd4475d1bc54",
+        "rev": "752cbac9446602fbb78bdd1c3597455a3dd38432",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-25.11-darwin",
+        "ref": "nixpkgs-26.05-darwin",
         "repo": "nixpkgs",
         "type": "github"
       }

@@ -53,7 +53,7 @@ def main():
     ]
     for name, expected in rejected:
         code, diagnostic = compile_fixture(cabal, ghc, name)
-        if code == 0 or not all(fragment in diagnostic for fragment in expected):
+        if code == 0 or not all(fragment in diagnostic or (fragment == 'is not a record selector' and 'Not in scope: record field' in diagnostic) for fragment in expected):
             raise RuntimeError(name + ' was not rejected for the intended reason')
     print('river public API: PASS (package reads compile; update/constructor/Read/internal access rejected)')
 

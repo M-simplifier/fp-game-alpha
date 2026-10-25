@@ -49,20 +49,25 @@ survivalPolicies d =
   Policies
     True
     [s01Pump d, s01Farm d, s01Kitchen d]
-    [ route "pantry-water" (pump : stores) (s01Pantry d) Water 120000 40000 0,
-      route "pantry-food" (kitchen : stores) (s01Pantry d) Ration 60000 18000 0,
-      route "farm-water" (pump : stores) farm Water 120000 60000 1,
-      route "kitchen-crops" [Owner MachineOutput (s01Farm d)] kitchenInput Crops 40000 20000 1,
-      route "kitchen-water" (pump : stores) kitchenInput Water 20000 10000 1,
-      route "kitchen-fuel" stores kitchenInput Fuel 6000 2000 1,
-      route "farm-biomass" [Owner MachineOutput (s01Farm d)] primaryStore Biomass 200000 10000 3,
-      route "kitchen-waste" [kitchen] primaryStore Waste 200000 12000 3
-    ]
+    ( [ route "pantry-water" (pump : stores) (s01Pantry d) Water 120000 40000 0,
+        route "pantry-food" (kitchen : stores) (s01Pantry d) Ration 60000 18000 0,
+        route "farm-water" (pump : stores) farm Water 120000 60000 1,
+        route "kitchen-crops" [Owner MachineOutput (s01Farm d)] kitchenInput Crops 40000 20000 1,
+        route "kitchen-water" (pump : stores) kitchenInput Water 20000 10000 1
+      ]
+        ++ warehouseRoutes
+    )
     True
     True
   where
     stores = s01Warehouses d
-    primaryStore = case stores of { first : _ -> first; [] -> error "survivalPolicies requires an authored warehouse" }
+    warehouseRoutes = case stores of
+      [] -> []
+      primaryStore : _ ->
+        [ route "kitchen-fuel" stores kitchenInput Fuel 6000 2000 1,
+          route "farm-biomass" [Owner MachineOutput (s01Farm d)] primaryStore Biomass 200000 10000 3,
+          route "kitchen-waste" [kitchen] primaryStore Waste 200000 12000 3
+        ]
     pump = Owner MachineOutput (s01Pump d)
     kitchen = Owner MachineOutput (s01Kitchen d)
     farm = Owner MachineInput (s01Farm d)

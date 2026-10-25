@@ -12,9 +12,9 @@ The ordinary optimized play and acceptance commands remain in `tools/check.sh`.
 From the repository root in PowerShell:
 
 ```powershell
-.\references\red-dune-live\tools\dev-native.ps1
+.\references\red-dune\tools\dev-native.ps1
 # Or start the recovery scenario:
-.\references\red-dune-live\tools\dev-native.ps1 -Scenario recovery
+.\references\red-dune\tools\dev-native.ps1 -Scenario recovery
 ```
 
 Save a source or data edit, close the previous development window, and run the
@@ -34,13 +34,8 @@ The command explicitly selects this path, even if `RED_DUNE_NATIVE_STORE` points
 elsewhere. It does not install over the owner's app or use their ordinary saves.
 Re-running creates a new branch and retains earlier development checkpoints.
 
-On the measured Windows host, cached unchanged launch took 4.01 s to an actual
-native GPU capture, a pack edit 6.39 s, and a small Haskell view edit 10.19 s.
-These are single observations, including process startup and packaging, not a
-general speed guarantee. First dependency builds and large source edits differ.
-The [measurement and failure checks](DEVELOPMENT-EVIDENCE.md)
-keep this separate from the historical Linux reload results. There is no watcher;
-the same explicit command is the edit/play boundary.
+There is no watcher; the same explicit command is the edit/play boundary.
+First dependency builds and large source edits differ from cached rebuilds.
 
 ## Three useful edit boundaries
 
@@ -100,30 +95,34 @@ changes are served without a Haskell rebuild; reload the page to replace its cod
 ## Measure rather than assume
 
 A native HTTP response is not a rendered browser frame. The `#dev` status line
-shows the checked source revision and current mode. This run did not have actual
-browser access, so rendered-frame and browser-input measurements remain unrun;
-all machine-readable browser timing fields remain null.
+shows the checked source revision and current mode. HTTP readiness does not
+qualify browser rendering or input. Measure those at the actual browser; the
+regression drivers leave unobserved browser timing fields null.
 
 The independent benchmark alternates actual policy values or an initial-resident
 health value, then checks the resulting value through the real host and submits
 an ordinary policy input. It keeps separate source-save/detection, compilation,
 HTTP-ready and HTTP-input measurements. It restores the edited file byte-for-byte
 and refuses to overwrite a concurrent editor's change. Run it only in an isolated
-worktree. The checked evidence and exact measured scope are in
-[development evidence](DEVELOPMENT-EVIDENCE.md).
+worktree. `tools/test_devloop_lifecycle.py` checks host termination/reaping and
+failed or superseded reloads with a controlled interpreter; `tools/test_devloop.py`
+checks real GHCi/source changes. Run both against the actual devloop binary.
+A successful reload starts a fresh paused authority and preserves explicit
+save/retry semantics. Current platform coverage is in the
+[verification guide](../../../docs/verification.md); no fixed edit latency is promised.
 
 ## Why this split
 
 [GHC 9.14.1 documents mixed compiled and interpreted modules](https://downloads.haskell.org/ghc/9.14.1/docs/users_guide/ghci.html#loading-compiled-code).
-The compiled dependency closure must stay compiled. [Cabal 3.12's component REPL](https://cabal.readthedocs.io/en/3.12/cabal-commands.html#cabal-repl)
+The compiled dependency closure must stay compiled. [Cabal 3.18's component REPL](https://cabal.readthedocs.io/en/3.18/cabal-commands.html#cabal-repl)
 provides the actual package database, language extensions, dependencies and source
 roots; the launcher does not maintain a second hand-written GHC configuration.
 It uses `--repl-options` for GHCi options and disables multi-repl so the simulation
 package remains compiled. The development project also sets
-`-fomit-interface-pragmas` for `red-dune-live`: optimized module bodies remain,
+`-fomit-interface-pragmas` for `red-dune`: optimized module bodies remain,
 but consumers cannot inline their exported implementations or use exported
 strictness information. Implementation-only edits therefore invalidate fewer
-modules. This has a measured runtime cost; it is not the release profile. Every
+modules. It can also reduce runtime optimization; this is a development profile. Every
 optimized acceptance component still uses the original project. The package's printed build-profile `-O1` is not sufficient to
 infer effective per-component flags: the Colony stanza explicitly retains `-O2`.
 

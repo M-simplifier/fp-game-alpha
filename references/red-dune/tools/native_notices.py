@@ -8,6 +8,7 @@ import tarfile
 
 
 ROOT = Path(__file__).resolve().parents[3]
+LICENSES = Path(__file__).resolve().parents[1] / 'licenses'
 
 
 def command(*arguments):
@@ -63,10 +64,18 @@ def main():
                                 seen.add(block)
                                 notices.append(f'{label}: {relative}\n{block}')
         else:
-            license_path = documents / label / 'LICENSE'
-            if name == 'rts' and not license_path.is_file():
-                license_path = documents / plan['compiler-id'] / 'LICENSE'
-            text = license_path.read_text(encoding='utf-8')
+            # GHC bindists need not install documentation for boot packages.
+            # Retain the exact upstream notices for the supported compiler;
+            # sources.json records the verified archive and original paths.
+            retained = LICENSES / label
+            files = sorted(path for path in retained.rglob('*') if path.is_file())
+            if files:
+                text = '\n\n'.join(path.read_text(encoding='utf-8') for path in files)
+            else:
+                license_path = documents / label / 'LICENSE'
+                if name == 'rts' and not license_path.is_file():
+                    license_path = documents / plan['compiler-id'] / 'LICENSE'
+                text = license_path.read_text(encoding='utf-8')
         notices.append(f'{label}\n{text}')
     arguments.output.write_text(
         'Red Dune native build dependency notices\n\n'

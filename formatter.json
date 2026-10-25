@@ -26,7 +26,8 @@
     "references/red-dune/app",
     "references/red-dune/test",
     "references/red-dune/native",
-    "tools/haskell"
+    "tools/haskell",
+    "tools/windows-console"
   ],
   "preserved_source_roots": []
 }

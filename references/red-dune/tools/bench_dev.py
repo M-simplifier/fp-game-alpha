@@ -127,9 +127,9 @@ def main():
     def start_native(tag):
         nonlocal process
         start = time.monotonic_ns()
-        subprocess.run([args.cabal,*config,'build',*flags,'exe:red-dune'],cwd=ROOT,
+        subprocess.run([args.cabal,*config,'build',*flags,'exe:red-dune-http'],cwd=ROOT,
                        stdout=log,stderr=subprocess.STDOUT,check=True)
-        binary = subprocess.check_output([args.cabal,*config,'list-bin',*flags,'exe:red-dune'],cwd=ROOT,text=True).strip()
+        binary = subprocess.check_output([args.cabal,*config,'list-bin',*flags,'exe:red-dune-http'],cwd=ROOT,text=True).strip()
         compiled = time.monotonic_ns()
         process = subprocess.Popen([binary,'--port',str(args.port)],cwd=GAME,start_new_session=True,
             stdout=log,stderr=subprocess.STDOUT,env={**os.environ,'RED_DUNE_STORE':str(args.build_dir/'saves'),'RED_DUNE_DEV_REVISION':tag})

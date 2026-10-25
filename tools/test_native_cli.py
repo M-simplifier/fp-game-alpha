@@ -29,7 +29,7 @@ ENVIRONMENT = {'os': platform.system(), 'architecture': platform.machine()}
 
 def source_hashes():
     inputs = set()
-    for name in ['tools/haskell', 'templates/terminal-adventure',
+    for name in ['tools/haskell', 'tools/windows-console', 'templates/terminal-adventure',
                  'libraries/game-transition', 'libraries/game-arena']:
         for path in (ROOT / name).rglob('*'):
             if path.is_file() and not any(part in {'.build', 'dist-newstyle', '__pycache__', 'cabal.project.local'}
@@ -200,7 +200,7 @@ def source_snapshot(destination):
     for name in ['libraries', 'templates', 'docs', 'tools', '.agents', 'editors']:
         shutil.copytree(ROOT / name, destination / name,
                         ignore=shutil.ignore_patterns('.build', 'dist-newstyle', '__pycache__',
-                                                     'node_modules', 'dist', 'vendor', '.runtime',
+                                                     'node_modules', 'dist', 'vendor', '.runtime', '.test-output',
                                                      '*.hi', '*.o', '*.exe', 'cabal.project.local'))
     shutil.copy2(ROOT / 'LICENSE', destination / 'LICENSE')
     # A genuine boot-package-only project for Cabal's authoritative path query.
@@ -410,6 +410,10 @@ def acceptance(binary, trial, compiler=None):
     installed = trial / 'installed tooling 日本語' / binary.name
     installed.parent.mkdir()
     shutil.copy2(binary, installed)
+    if os.name == 'nt':
+        launcher = binary.with_name('fp-game-console.exe')
+        require('bootstrap-includes-private-windows-console', launcher.is_file())
+        shutil.copy2(launcher, installed.with_name(launcher.name))
     binary = installed
     game = trial / 'first independent game 日本語'
     args = ['acceptance-game', str(game), '--title', '独立したゲーム']
@@ -612,7 +616,7 @@ def acceptance(binary, trial, compiler=None):
     good.write_bytes('-- 日本語\r\nmodule Unicode where\r\nvalue :: Integer\r\nvalue = 7\r\n'.encode())
     native = cli(binary, 'native-crlf-unicode-check', 'check', game, 'src/Unicode.hs')
     require('saved-check-uses-selected-compiler', same_path(native['command'][0], selected_compiler))
-    require('saved-check-execution-schema', set(native) == {'status', 'exit_code', 'command', 'stdout', 'stderr'})
+    executed('saved-check', native)
     require('saved-check-compiler-flags', all(flag in native['command']
             for flag in ['-fno-code', '-fforce-recomp', '-XGHC2021', '-Wall', '-fdiagnostics-color=never']))
     good.write_text('module Unicode where\nvalue :: Integer\nvalue = True\n', encoding='utf-8')
