@@ -331,7 +331,7 @@ first-use failures, their structural fixes and the tests that prevent recurrence
 
 ## Verification scope
 
-The commands above and the [current verification guide](verification.md) describe
+The commands above and the [foundation's current verification guide](https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/verification.md) describe
 the required checks and their exercised scope.
 Tooling changes need their affected checks and current CI; a game's feature
 change needs its own tests and host play checks. Source-only relocation proves
