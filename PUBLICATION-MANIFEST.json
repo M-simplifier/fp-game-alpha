@@ -3544,7 +3544,7 @@
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",
-   "sha256_lf": "0a9567f5c83d7320c3e7dcca9bd501bfb54ab2442805c088a06f09098d529877"
+   "sha256_lf": "ce00ca92ea2b265f6129de6aaf16ed5565e286f34e38b5d10fbe6ccf1055df59"
   },
   {
    "path": "tools/test_workspace.py",
