@@ -38,7 +38,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    # Python 3.14.2 has Ubuntu 24.04 builds, not the new 26.04 latest image.
+    # Preserve the existing matrix check names while fixing the actual runner.
+    runs-on: ${{ matrix.os == 'ubuntu-latest' && 'ubuntu-24.04' || matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -103,7 +105,8 @@ jobs:
     uses: ./.github/workflows/native-tooling.yml
 
   afterlight-pure-core:
-    runs-on: ubuntu-latest
+    # Keep the pinned Python/toolchain on its supported Linux runner image.
+    runs-on: ubuntu-24.04
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262

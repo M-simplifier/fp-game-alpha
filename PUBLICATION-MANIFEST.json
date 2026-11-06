@@ -60,11 +60,11 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "97d58dac8c6ede9cd50c4bced6c89c8eeab3e4177e1a01ac11ba38f25c129f2e"
+   "sha256_lf": "29437a4fdebdc93aac271cdbdab65dfceb83dc5bf2e17fd8d24656554af782e4"
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "25dd7f1506bb9dc4d9cf1bd69e3e9b2b55a76db04319784b1b1c10244a18543b"
+   "sha256_lf": "ee357dafd59cabb6474957363a121a44a54a942a675b467df0b8ed1c2d67a8b3"
   },
   {
    "path": ".github/workflows/red-dune.yml",
