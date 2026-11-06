@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>ゲームをどう表し、動かし、確かめるか — fp-game-alpha</title>
+  <meta name="description" content="配達の一手、生成される森、続く音楽、三つのテトリス。具体的な実装から、ゲーム研究の考え方とつながりを読む。">
+  <link rel="canonical" href="https://m-simplifier.github.io/fp-game-alpha/guide.html">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="research.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <header class="site-header wrap"><a class="brand" href="index.html"><span aria-hidden="true">↦</span> fp-game-alpha <small>α</small></a><nav aria-label="主な内容"><a href="research.html">研究目録</a><a href="guide.html" aria-current="page">考え方を読む</a><a href="index.html#studies">教材</a><a href="create.html">AIと作る ↗</a></nav></header>
+  <main id="main" class="wrap">
+    <header class="guide-hero"><p class="eyebrow">研究の全体像 / 実装を行き来しながら読む</p><h1>ゲームをどう表し、<br>動かし、確かめるか。</h1><p class="lead">配達を一件引き受ける。まだ見たことのない森を歩く。音楽が次の小節へ進む。画面の中の出来事を、どのような規則と計算で作っているのでしょうか。異なる作品で試した設計を、順に辿ってみます。</p></header>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="この解説の目次"><strong>この解説を辿る</strong><a href="#transition">01 操作と状態</a><a href="#world">02 必要な場所を求める</a><a href="#graphics">03 同じ世界を描く</a><a href="#music">04 必要な時間を求める</a><a href="#representations">05 別の表現で問い直す</a><a href="#composition">06 合成するときの条件</a><a href="#evidence">07 根拠を読む</a></nav>
+      <div class="guide-body">
+        <section id="transition" aria-labelledby="transition-title">
+          <p class="section-no">01 / 操作と状態</p><h2 id="transition-title">一件の配達で、何が変わるか。</h2>
+          <p>Station Dispatchでは、配達を選ぶと体力を使い、届けた結果を記録して、次の依頼へ進みます。前の依頼への操作がもう一度届いても、現在の手番と合わなければ受け付けません。拒否された操作によって、体力が減ったり、依頼が進んだりすることはありません。</p>
+          <p>この一連の判断を、現在の状態と入力から、次の状態と結果を返す関数として書きます。画面を開かなくても、同じ条件を渡して何度でも結果を確かめられます。音を実際に鳴らしたり、保存ファイルを書いたりする処理は、その結果を受け取る側が担当します。</p>
+          <div class="schema" role="img" aria-label="現在の状態と入力を規則に渡すと、次の状態と効果の記述が返る。外部処理がその記述を画面や音に反映する。"><div><span>渡すもの</span><strong>現在の状態と入力</strong><p>体力、依頼、手番。<br>今回届いた操作。</p></div><div><span>純粋な規則</span><strong>受け付け、判断する</strong><p>この手番の操作か。<br>必要な資源があるか。</p></div><div><span>返すもの</span><strong>次の状態と効果</strong><p>配達後の状態。<br>表示・音などの指示。</p></div></div>
+          <p>共通ライブラリの<code>Step</code>は、この形を表します。ただし、何を「一回の入力」とするかはゲームの意味に関わります。Taplineでは、一回の更新（フレーム）にResetが含まれると、その後に続く操作は実行しません。ところが、Resetの直後で二つのフレームに分けると、後半の操作は別の更新として処理されます。同じ操作列でも、結果が変わる場合があります。処理をまとめたり分割したりする前に、守るべき単位を決める必要があります。</p>
+          <p>複数の参加者がいる場合は、さらに、誰が操作できるか、誰に何が見えるかを区別します。Arenaはその入口を表すための仕組みです。操作を受け付けることと、その操作がゲーム内で成功することも、別の判断になります。</p>
+          <p class="source-note">実装と条件：<a href="learn.html">Stationのコード教材</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/architecture.md">Step・Transition・Arena</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/tapline/test/Laws.hs">Taplineの反例</a></p>
+        </section>
+
+        <section id="world" aria-labelledby="world-title">
+          <p class="section-no">02 / 必要な場所を求める</p><h2 id="world-title">森を、すべて保存しておく必要はあるか。</h2>
+          <p>Stillroomでは、生成の出発点となる値（シード）を保存し、位置と組み合わせて地形や植物の分布を計算します。まだ訪れていない場所にも生成の規則があり、近づいた範囲を形にします。遠く離れた場所の描画用データは手放し、戻ってきたら同じシードから再生成できます。</p>
+          <p>ここで保存する「世界」と、いま描画に必要なデータは同じものではありません。生成の規則は場所への問い合わせに答え、描画側のキャッシュは、その答えのうち現在必要な部分を保持します。長く歩いたぶんだけ全地形を蓄積する構造を避けられます。</p>
+          <figure><img src="https://raw.githubusercontent.com/M-simplifier/stillroom/v0.12.0/docs/rest-landscape.png" width="1600" height="900" alt="Stillroomの生成風景。湖の周囲に白樺と草が生え、遠景に山が重なる。" loading="lazy"><figcaption>Stillroomの実画面。ここに写っているのは固定の自然景で、地形の形状や材質、植物の配置をコードで組み立てたものです。画像はv0.12.0に収録された画面資料を参照しています。</figcaption></figure>
+          <p>自然らしさは、ばらばらの物体をランダムに置くだけでは生まれません。地形と水辺、植生の分布、木の枝と葉、草の根元と風の動きに関係があります。Stillroomでは、こうした関係を生成の構造として持たせています。シードが同じでも、規則の版が変われば同じ風景になるとは限らないため、再現するときには実装の版も重要です。</p>
+          <div class="guide-callout"><p>これを、木を伐ったり建物を置いたりできるゲームへ使うなら、生成したもとの世界と、プレイヤーが加えた変更をどう組み合わせるかが次の課題になります。「再生成すると伐った木が戻る」という挙動を防ぐには、その変更を保存し、再訪時にも反映する設計が必要です。これは転用時の例で、Stillroomが伐採を実装しているという意味ではありません。</p></div>
+          <p>「広がり続ける世界」には、実用上の座標範囲や数値精度もあります。Stillroomの成果は、必要な範囲を生成して保持する風景であり、あらゆる距離まで同じ精度が続くという主張ではありません。</p>
+          <p class="source-note">生成・造形・衝突・キャッシュの関係：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/landscapes-and-graphics.md">風景と描画の研究</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/journeys.md">Stillroomの旅の設計</a></p>
+        </section>
+
+        <section id="graphics" aria-labelledby="graphics-title">
+          <p class="section-no">03 / 同じ世界を描く</p><h2 id="graphics-title">視点が変わっても、地面まで変わらないように。</h2>
+          <p>一つの風景を描くにも、目から見た画面、光から見た影、水面に映る反射など、複数の計算があります。そのたびに別の基準で地形の細かさを選ぶと、地面と影が違う形になることがあります。</p>
+          <p>Stillroomの描画基盤では、どの形状を使うかという基準と、どこから観測するかを区別しています。影や反射など、同じ風景を異なる目的で描く処理では、形状の細かさを選ぶ基準と時刻をそろえます。また、影を作るための深度情報を記録するときと、それを使って画面に影を付けるときで、座標の変換を一致させています。</p>
+          <p>座標にも区別があります。物体の中の位置、世界の位置、描画原点からの位置、画面への投影を、すべて同じ数値の組として扱うと取り違えやすくなります。Haskellの型で空間を区別すれば、接続する空間が合わない変換をコンパイル時に拒否できます。ただし、その型だけでGPU上の計算や実際の画像が正しいと決まるわけではありません。</p>
+          <h3>一つの定義を、二つの場所で実行する。</h3>
+          <p>草の形を計算する小さな算術定義は、Haskell側で数値として評価でき、GPUで実行する式にも変換できます。描画時には草一本の情報と共通の頂点配置を渡し、展開済みの頂点を一本ごとに持つ量を減らしています。</p>
+          <p>この成果では、意味を保ったかという比較と、何が速くなったかという測定を分けています。保持するデータが小さくなったことから、アプリ全体が必ず速くなったとは言えません。異なる実行経路の比較に加え、わざと座標の扱いを間違えた場合に検査が失敗するかも確かめています。</p>
+          <p class="source-note">型、形状、観測、GPUの接続と測定：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/README.md">Stillroom研究の案内</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/graphics-foundation.md">版を固定した描画設計</a></p>
+        </section>
+
+        <section id="music" aria-labelledby="music-title">
+          <p class="section-no">04 / 必要な時間を求める</p><h2 id="music-title">音楽の「この先」を、どう作り続けるか。</h2>
+          <p>Stillroomの内蔵音楽は、決められた和声、リズム、音色、間の取り方をもとに、小さな変化を選びながら続きます。再生の開始からすべての音符を記録する代わりに、現在必要な時間帯に鳴る音を求めます。前から続いている音の余韻も、その範囲に含めます。</p>
+          <p>場所への問い合わせで風景を求めたように、ここでは時間区間への問い合わせで音を求めます。それぞれの音がいつ鳴るかは、音楽の時間軸上で決まります。音声装置が一度に要求するサンプル数とは切り離しているため、同じ時間区間を細かく分けて生成しても、結果が変わらないかを検査できます。</p>
+          <div class="schema" role="img" aria-label="空間ではシードと場所から地形や植生を、音楽ではシードと時間区間から音の出来事を求める。どちらも必要な範囲を計算する。"><div><span>空間の問い合わせ</span><strong>シード ＋ 場所</strong><p>地形の高さ、植生、<br>必要な範囲の形状。</p></div><div><span>時間の問い合わせ</span><strong>シード ＋ 時間区間</strong><p>その間に鳴る音と、<br>前から続く余韻。</p></div></div>
+          <p>ただし、すべての音がこの形に収まるわけではありません。車輪の音は、いまの速度だけでなく、それまでの進み方にも関係します。速度に絶対時刻を掛けて位相を作ると、速度が変わった瞬間に音が飛ぶことがあります。環境音では、移動に応じて進む位相など、履歴に依存する状態も保持します。</p>
+          <p>音楽として自然に聞こえるかも、別に確かめます。音量や波形の検査だけでは、和音が単調でないか、別々の声部が気持ちよく動くか、作品の雰囲気に合うかは決まりません。作曲上の選択と実際の試聴を、音声処理の検査と併せて残しています。</p>
+          <p class="source-note">時間、声部、ミックス、環境音と試聴：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/music-and-time.md">音楽と時間の研究</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/builtin-world.md">内蔵音楽の設計</a></p>
+        </section>
+
+        <section id="representations" aria-labelledby="representations-title">
+          <p class="section-no">05 / 別の表現で問い直す</p><h2 id="representations-title">テトリスを、何として記述するか。</h2>
+          <p>ゲームを次へ進める関数があれば、プレイヤーの操作を処理できます。一方、「この形が収まる位置を全部知りたい」「現在地からそこへ辿り着く手順を知りたい」と考えると、ゲームへの問いが変わります。</p>
+          <p>Haskell、APL、Prologによる三つのテトリスは、その違いを考える作例です。それぞれ独立したルールや実行環境を持つため、同じ条件で速度だけを競う比較ではありません。</p>
+          <div class="table-scroll"><table><thead><tr><th scope="col">表現</th><th scope="col">作例で見えるもの</th><th scope="col">さらに確かめたいこと</th></tr></thead><tbody><tr><th scope="row">純粋な関数</th><td>入力と状態から次の状態を求める。時計と規則を分け、再生する。</td><td>操作のまとまりや時刻を変えても、意味を保てるか。</td></tr><tr><th scope="row">配列</th><td>配置とセルの対応をまとめ、合法な配置や操作の結果を計算する。</td><td>個別には合法な配置を同時に使ったとき、重なりや資源の競合をどう扱うか。</td></tr><tr><th scope="row">関係と制約</th><td>位置や回転を未知にして問い合わせ、到達する手順を探索する。</td><td>静的に置けること、操作で届くこと、時間内に届くことをどう区別するか。</td></tr></tbody></table></div>
+          <p>配列指向の考え方で、ECSをさらに一般化できるでしょうか。ECSは、ゲーム内の対象とその属性を分け、属性に応じた処理を組み合わせる設計方式です。対象と属性をまとめて扱うだけでなく、対象間の関係や、複数の条件が同時に成立することまで、どのように表現できるかを考えます。その可能性を調べていますが、一般的なゲーム基盤としての形はまだ定まっていません。</p>
+          <p class="source-note">実装、操作できる教材、ルールと検証範囲：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/README.md">三つのテトリス</a> · <a href="studies/array-fall.html">APLの教材</a> · <a href="studies/prolog-fall.html">Prologの教材</a></p>
+        </section>
+
+        <section id="composition" aria-labelledby="composition-title">
+          <p class="section-no">06 / 合成するときの条件</p><h2 id="composition-title">組み合わせても、同じ意味を保てるか。</h2>
+          <p>Freeモナドの研究では、操作とその返答に応じた続き方を、実行方法から分けて記述します。同じ手順を別の解釈で動かしたり、その手順について調べたりする入口になります。すでに純粋な遷移と再生がある基盤に対して、何が追加でできるようになるかが重要な問いです。</p>
+          <p>ここから、部品の合成や表現の変換を圏論の概念で捉える研究にも進んでいます。ただし、式がきれいに書けるだけでは、ゲームの意味が同じだとは分かりません。実際に違いが出る小さな例を用意し、条件を確かめます。</p>
+          <h3>三つの、見落とせない違い。</h3>
+          <p><strong>時間。</strong>ある場所への操作列が存在しても、制限時間内に実行できるとは限りません。時計を消したモデルでは到達できるのに、時計を戻すと間に合わない例があります。</p>
+          <p><strong>資源。</strong>在庫が一つあるとき、二つの仕事はそれぞれ単独なら受け付けられるかもしれません。しかし同じ在庫を同時に使うことはできません。個々の合法性から、全体を組み合わせた合法性は出ません。</p>
+          <p><strong>情報。</strong>同時に手を出すじゃんけんと、相手の手を見てから出せるじゃんけんでは、現れる手の組は同じでも、使える戦略が変わります。終わった状態の集合が一致するだけでは不十分です。</p>
+          <p>これらを通して、何を同じと見なすか、どの条件なら変換してよいかを具体的にしていきます。Freeは手順、Prologは探索、APLは高速化、と用途を先に割り振るのではなく、それぞれの表現から見える新しい問いを残しています。</p>
+          <p class="source-note">既存研究、有限モデル、成立条件：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/composition.md">解釈と合成の研究</a> · <a href="studies/free-monad.html">Freeモナドの教材</a> · <a href="studies/clock-and-reachability.html">時計と到達の教材</a></p>
+        </section>
+
+        <section id="evidence" aria-labelledby="evidence-title">
+          <p class="section-no">07 / 根拠を読む</p><h2 id="evidence-title">「確かめた」の中身を読む。</h2>
+          <p>ここまでの研究には、コードの構造から分かること、検査を動かして分かること、実際の画面や音を観測して分かることがあります。読者が自分の目的へ使うときに判断できるよう、その違いを記録しています。</p>
+          <p>たとえば、座標の型が合っていることは、GPUに渡す数値の並べ方まで保証しません。同じ生成式を二つの経路で計算して一致しても、両方に同じ誤りがあるかもしれません。そのため、別の方法で求めた答えとも比較します。また、意図的に誤りを入れた場合に、検査がその誤りを見つけられるかも確かめています。</p>
+          <p>逆に、ある検査が通らなかったことも研究結果です。道具の前提や、主張した保証が実際に成り立つかを見直す材料になります。成功した数値だけを集めず、失敗や未解決の条件も実装と一緒に辿れるようにしています。</p>
+          <p>研究をゲーム制作へ使うときは、自分の作品で守りたい意味を決め、必要な知見を選び、実際の環境で試します。その結果が、次の研究や共通の基盤を育てる材料になります。</p>
+          <p class="source-note"><a href="research.html?topic=assurance">検証に関する研究目録</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/README.md">研究の歩み</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">収録範囲と出典</a></p>
+          <div class="guide-next"><h3>次に、どこを読むか。</h3><p>気になった問いを目録で探すことも、一つの作例からコードを読むこともできます。自分の企画があれば、AIと制作を始める手順へ進めます。</p><div class="inline-links"><a href="research.html">研究目録へ ↗</a><a href="index.html#studies">操作できる教材へ ↗</a><a href="create.html">AIとゲームを作る ↗</a></div></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer wrap"><div><a class="brand" href="index.html">↦ fp-game-alpha</a><p>ゲーム開発研究の公開リファレンス</p></div><div><a href="https://github.com/M-simplifier/fp-game-alpha">ソースと研究資料 ↗</a><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/assets.md">Stillroom画面の出典</a></div></footer>
+</body>
+</html>

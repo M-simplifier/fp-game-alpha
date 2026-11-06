@@ -1,0 +1,10 @@
+.runtime/
+.scratch/
+.build/
+dist-newstyle/
+release/
+assets/audio/
+*.hi
+*.o
+*.exe
+cabal.project.local

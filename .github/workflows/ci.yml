@@ -18,8 +18,16 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24.13.0'
+      - run: python3 tools/research.py check
+      - run: python3 tools/test_research.py
+      - run: node tools/test_research_ui.cjs
       - run: python3 tools/check_site.py
       - run: node --check site/site.js
+      - run: node --check site/research.js
+      - name: Reproduce the finite research examples
+        run: |
+          python3 research/frontiers/category/finite_witness.py
+          git diff --exit-code -- research/frontiers/category/finite-results.json
       - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
@@ -86,6 +94,8 @@ jobs:
           bash references/signal-courier/test/check-opaque-api.sh
           node references/signal-courier/web/controls.test.mjs
       - run: python tools/quantity/check.py check
+      - name: Execute the selected Free witness against the shared libraries
+        run: runghc -XGHC2021 -ilibraries/game-transition/src -ilibraries/game-arena/src research/frontiers/free/AlphaFreeWitness.hs
 
   native-tooling:
     # One native dependency bootstrap per OS; its moved generated-doc,

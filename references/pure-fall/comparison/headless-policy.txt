@@ -1,0 +1,3 @@
+headless ticks=623 pieces=47 score=771 phase=Lost
+same transition / checkpoint=True
+ENDLESS / LEVEL 1

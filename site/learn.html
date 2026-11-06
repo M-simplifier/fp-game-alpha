@@ -11,7 +11,7 @@
 </head>
 <body class="learning-page">
   <a class="skip" href="#lesson">本文へ移動</a>
-  <header class="lesson-header"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">↦</span> fp-game-alpha</a><a href="index.html#start">自分のゲームを作る <span aria-hidden="true">↗</span></a></header>
+  <header class="lesson-header"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">↦</span> fp-game-alpha</a><a href="create.html#start">自分のゲームを作る <span aria-hidden="true">↗</span></a></header>
   <main id="lesson">
     <header class="lesson-hero">
       <p class="eyebrow">コードを読む / Station Dispatch</p>
@@ -97,7 +97,7 @@ stationStep = Step $ \(Dispatch turn choice) game -&gt;
       <div class="lesson-prose"><p>このレポには<code>learn-code</code>スキルもあります。読み終えたら、「値を一つ変えると何が起きるか」を予想して確かめると、自分が理解できた部分と、もう少し読みたい部分を見分けられます。</p><p><a class="text-link" href="https://github.com/M-simplifier/fp-game-alpha/blob/main/.agents/skills/learn-code/SKILL.md">learn-codeを使う ↗</a></p></div>
     </section>
 
-    <aside class="lesson-evidence" aria-labelledby="evidence-title"><h2 id="evidence-title">この教材で確かめていること</h2><p>コード片は、このレポのStationの実装から取り出しています。ここで示した初期値・配達後・拒否後・回復上限の例は、その実装を実行して照合しています。古い手番の拒否はDomainとAdapterの経路を説明しています。端末の文字列入力には、別の入力検査もあります。</p><p>Stationのテストは、到達できる状態を列挙して、資源、履歴、三つの結末、画面へ示す選択肢と実行結果の一致を調べます。この教材は、全ゲームの正しさや、画面操作の確認、読者の理解度を証明するものではありません。</p><p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/test/Laws.hs">実際の検査を読む ↗</a> <a href="index.html#start">自分の企画からゲームを作る ↗</a></p></aside>
+    <aside class="lesson-evidence" aria-labelledby="evidence-title"><h2 id="evidence-title">この教材で確かめていること</h2><p>コード片は、このレポのStationの実装から取り出しています。ここで示した初期値・配達後・拒否後・回復上限の例は、その実装を実行して照合しています。古い手番の拒否はDomainとAdapterの経路を説明しています。端末の文字列入力には、別の入力検査もあります。</p><p>Stationのテストは、到達できる状態を列挙して、資源、履歴、三つの結末、画面へ示す選択肢と実行結果の一致を調べます。この教材は、全ゲームの正しさや、画面操作の確認、読者の理解度を証明するものではありません。</p><p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/test/Laws.hs">実際の検査を読む ↗</a> <a href="create.html#start">自分の企画からゲームを作る ↗</a></p></aside>
   </main>
   <footer class="lesson-footer"><a href="index.html">← fp-game-alpha</a><span>Station Dispatch / コードから学ぶ</span><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/LICENSE">MIT License</a></footer>
 </body>

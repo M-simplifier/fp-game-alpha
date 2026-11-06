@@ -2649,5 +2649,1195 @@
     "origin": "https://hackage.haskell.org/package/h-raylib-6.1.0.0/h-raylib-6.1.0.0.tar.gz",
     "archive_sha256": "081199e097ebd510f0d4134122e72a623901d0903473e96e23c24bdfd104c3a5",
     "source_sha256_lf": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1"
+  },
+  "research/stillroom/evidence/renderer-measurements-2026-11-06.json": {
+    "kind": "selected-research-source",
+    "origin": "Stillroom development documentation for v0.12.0, selected 2026-11-06; measurement file is outside the public tag",
+    "source_sha256_lf": "bc55d4e1309dced4de901cad23694edfcebe456e09a7ea9bf1c3264f3a98675a",
+    "published_sha256_lf": "6281deda9fee26e7e2b7e457b7ac56229d0e39935552add5762d2017eb55c58a",
+    "license": "research/stillroom/evidence/LICENSE",
+    "adaptation": "Selected final grass comparisons and their conditions. All selected numerical values are unchanged. Earlier migration and retained-mesh studies are omitted. Added publication note distinguishing supplemental documentation from tagged source and rerun checks."
+  },
+  "research/stillroom/evidence/LICENSE": {
+    "kind": "selected-research-source",
+    "origin": "Stillroom development documentation for v0.12.0, selected 2026-11-06; measurement file is outside the public tag",
+    "source_sha256_lf": "2bbb7123890957417628d07fa4e538f68ccb559f863c72761c9b9decf98dc096",
+    "published_sha256_lf": "2bbb7123890957417628d07fa4e538f68ccb559f863c72761c9b9decf98dc096",
+    "license": "research/stillroom/evidence/LICENSE",
+    "adaptation": "Unchanged Stillroom MIT notice, including the original Stillroom contributors copyright."
+  },
+  "references/apl-fall/apl/core.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "ec571090993b8ee5aea2a651c9c6f50035c072cd7e8e4477109b9fd19f254f36",
+    "published_sha256_lf": "ec571090993b8ee5aea2a651c9c6f50035c072cd7e8e4477109b9fd19f254f36",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/apl/demo.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "4ab5dc43c7debd3ac4c1c8aaa0017a4dc78ea7bd162dafb1f54033de5dab90ad",
+    "published_sha256_lf": "4ab5dc43c7debd3ac4c1c8aaa0017a4dc78ea7bd162dafb1f54033de5dab90ad",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/apl/game.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "68c7685d4d21ae2102515a71cc53f3acd0dc5f795280bad2736adcd4bb065d81",
+    "published_sha256_lf": "68c7685d4d21ae2102515a71cc53f3acd0dc5f795280bad2736adcd4bb065d81",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/apl/inspect.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "26ac085285e08d7b8df0943a29d7edd12132bfafc437d9a5224fb26ad9e287a0",
+    "published_sha256_lf": "26ac085285e08d7b8df0943a29d7edd12132bfafc437d9a5224fb26ad9e287a0",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/host/api.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "3032c433077d0d69b0b3341fb8bf1e68eeb1f4a172ccd9b6b6cf4e0857cd0553",
+    "published_sha256_lf": "3032c433077d0d69b0b3341fb8bf1e68eeb1f4a172ccd9b6b6cf4e0857cd0553",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/host/array_host.c": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "38d248baa53c08aeb3391337abfdc37aa66bcd2b206df0415be99d1084dccf9f",
+    "published_sha256_lf": "38d248baa53c08aeb3391337abfdc37aa66bcd2b206df0415be99d1084dccf9f",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/array-smoke.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "cda91a4437ecc89756500a1bc245609b98fb2df2bf036da100e3cc702b8095c5",
+    "published_sha256_lf": "cda91a4437ecc89756500a1bc245609b98fb2df2bf036da100e3cc702b8095c5",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/input-diagnostic.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "30ad51d4cf2cf3e87392b9ed0416548c74b9c8310610094b1b6b399180be7b46",
+    "published_sha256_lf": "30ad51d4cf2cf3e87392b9ed0416548c74b9c8310610094b1b6b399180be7b46",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/native-key-check.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "b3c4f970a237668168f4e6b6c7819d2e8e546a330ece72028a565847c8117af3",
+    "published_sha256_lf": "b3c4f970a237668168f4e6b6c7819d2e8e546a330ece72028a565847c8117af3",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/native-key-input.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "836037a42c8831dd7867d75550de86947b3fc05ed40bfc25e183d38a8e5339c9",
+    "published_sha256_lf": "836037a42c8831dd7867d75550de86947b3fc05ed40bfc25e183d38a8e5339c9",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/platform-check.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "2158a8921b2f7b84cdcfbeefa78355e4f441afac63624b6e317abfae0bee4542",
+    "published_sha256_lf": "2158a8921b2f7b84cdcfbeefa78355e4f441afac63624b6e317abfae0bee4542",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/platform-error.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "c289463c930f1385aae3b3cb465d4aa83efcee3162a1b017dbf1a5df103e64e8",
+    "published_sha256_lf": "c289463c930f1385aae3b3cb465d4aa83efcee3162a1b017dbf1a5df103e64e8",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/platform-input.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "bbae0f8a45484a45d0d218945f5d65fc5f20994e4932b71a78ce33dfd584ffa9",
+    "published_sha256_lf": "bbae0f8a45484a45d0d218945f5d65fc5f20994e4932b71a78ce33dfd584ffa9",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/examples/platform-stall.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "22694ba32da75090d523c9dcbd3f55292afdf55d0c3a67061e50f41b39b10f92",
+    "published_sha256_lf": "22694ba32da75090d523c9dcbd3f55292afdf55d0c3a67061e50f41b39b10f92",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tests/fixed-seed.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "9c5b5ec225df8b838705c5afb6473420906281238064904830f622877a200b63",
+    "published_sha256_lf": "9c5b5ec225df8b838705c5afb6473420906281238064904830f622877a200b63",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tests/gui_smoke.py": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "153ac5632d1e799aa82e80c2ad8e798dd10f593fd4a295c45fef663199567b48",
+    "published_sha256_lf": "3b8216b50d423c3d18a8310e2e0911c628a81530fca24c3efd74e995b61ff989",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Dependency lookup accepts ARRAY_FALL_RUNTIME for an already installed runtime; all independent oracle, expected values and traces unchanged."
+  },
+  "references/apl-fall/tests/oracle.py": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "b0ba75194e8852f5c01e74e6850107cd8ff419124debf43af9b3e88a8e0c799a",
+    "published_sha256_lf": "b4b1f4ef728fa0bb12ce3d6bba092d7a22273751d1167afdc53d2da6a28ce4ef",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Dependency lookup accepts ARRAY_FALL_RUNTIME for an already installed runtime; all independent oracle, expected values and traces unchanged."
+  },
+  "references/apl-fall/tests/t-inspect.apl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "4a0818964f0fe668de2c345cb24727cc8c7f843a51c8cc835f5ee4787066ab0b",
+    "published_sha256_lf": "4a0818964f0fe668de2c345cb24727cc8c7f843a51c8cc835f5ee4787066ab0b",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tests/test-game.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "5a5c6f5027e4f33d6f89f6a59022a92fc0e10ef724654a52f84a48858495c8d1",
+    "published_sha256_lf": "5a5c6f5027e4f33d6f89f6a59022a92fc0e10ef724654a52f84a48858495c8d1",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tools/setup.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "6554cef77ba47a034c96104cf263e109a25ad8a7ff8262f6d521aaeca1dc45c1",
+    "published_sha256_lf": "6554cef77ba47a034c96104cf263e109a25ad8a7ff8262f6d521aaeca1dc45c1",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tools/build.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "01e322a25c58e1bb35020fee732e3a32ea93ee464caa64fcf9e875c1a830ca9f",
+    "published_sha256_lf": "01e322a25c58e1bb35020fee732e3a32ea93ee464caa64fcf9e875c1a830ca9f",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tools/run.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "224d2328b1f8dacd09879586861986edb5f802d722c689281ed6d683562c1cb0",
+    "published_sha256_lf": "224d2328b1f8dacd09879586861986edb5f802d722c689281ed6d683562c1cb0",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tools/test.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "12cdc082fd517806af98cc665e7f7262c9a75eff20cb469c6f1cc154f538eecc",
+    "published_sha256_lf": "12cdc082fd517806af98cc665e7f7262c9a75eff20cb469c6f1cc154f538eecc",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/tools/test-platform.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "984fb98145b917b21991f3627192456734407ce66ceb4e3eb70b7f483376ad43",
+    "published_sha256_lf": "984fb98145b917b21991f3627192456734407ce66ceb4e3eb70b7f483376ad43",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/docs/DESIGN.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "16cbf971360ab5831165f9daedff7da680c8992ec1550064c78fe7798565a13b",
+    "published_sha256_lf": "16cbf971360ab5831165f9daedff7da680c8992ec1550064c78fe7798565a13b",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/docs/IMPLEMENTATION.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "84d8eec119af7639af96af4feafee80607732cfeae82dab94fa7a120ca1273eb",
+    "published_sha256_lf": "84d8eec119af7639af96af4feafee80607732cfeae82dab94fa7a120ca1273eb",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/docs/VALIDATION.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "60b59cc31e88f0ebfa7fbfc88db974f333c028acb9c329c6b1cad432111bb6c8",
+    "published_sha256_lf": "a7f897a74bbdad59fc4b91407457044a5bcfa1eea9bff40a5c4f24b3bf7879e5",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Historical validation preserved; unavailable individual gameover image is explicitly omitted, with obtainable embedded documentary figures and test source referenced instead."
+  },
+  "references/apl-fall/docs/PLATFORM.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "77ebfb5b5cd78edf97500b468c4f37ba6a8320102e6cb5cf3ca8ced90e9f4c7b",
+    "published_sha256_lf": "77ebfb5b5cd78edf97500b468c4f37ba6a8320102e6cb5cf3ca8ced90e9f4c7b",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/Play.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "2f2cf885e74f8f8209b9197a063ed107cff4d9661a0cd827d2fe7b742c8db3ed",
+    "published_sha256_lf": "2f2cf885e74f8f8209b9197a063ed107cff4d9661a0cd827d2fe7b742c8db3ed",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/Demo.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "a998bbde62aa97b04ac4538158c37843aa813064060e9044186d91598781fb98",
+    "published_sha256_lf": "a998bbde62aa97b04ac4538158c37843aa813064060e9044186d91598781fb98",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/Setup.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "b1aea536ad8d873092502cad65c2430679b4fa3f34e235bc78b8ce3e977542f0",
+    "published_sha256_lf": "b1aea536ad8d873092502cad65c2430679b4fa3f34e235bc78b8ce3e977542f0",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/Test.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "e974411896be183bc0207cde16f2b15dce0503b4264f0ed1acc85d58f71d896c",
+    "published_sha256_lf": "e974411896be183bc0207cde16f2b15dce0503b4264f0ed1acc85d58f71d896c",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/apl-fall/vendor/licenses/7zip-License.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "32369594a3a9f7c643d124035120eaa6a7707e75e57c4386ef509f801447bc49",
+    "published_sha256_lf": "32369594a3a9f7c643d124035120eaa6a7707e75e57c4386ef509f801447bc49",
+    "license": "references/apl-fall/vendor/licenses/7zip-License.txt",
+    "adaptation": "Unchanged upstream license notice; no third-party runtime or source distribution copied."
+  },
+  "references/apl-fall/vendor/licenses/GNU-APL-COPYING": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "published_sha256_lf": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "license": "references/apl-fall/vendor/licenses/GNU-APL-COPYING",
+    "adaptation": "Unchanged upstream license notice; no third-party runtime or source distribution copied."
+  },
+  "references/apl-fall/vendor/licenses/raylib-LICENSE": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "882a5a819cf562aa3583aae3af3f2211dda15c63de9fc8cc4b399a2f9e78d799",
+    "published_sha256_lf": "882a5a819cf562aa3583aae3af3f2211dda15c63de9fc8cc4b399a2f9e78d799",
+    "license": "references/apl-fall/vendor/licenses/raylib-LICENSE",
+    "adaptation": "Unchanged upstream license notice; no third-party runtime or source distribution copied."
+  },
+  "references/apl-fall/vendor/licenses/winpthreads-COPYING": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177",
+    "published_sha256_lf": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177",
+    "license": "references/apl-fall/vendor/licenses/winpthreads-COPYING",
+    "adaptation": "Unchanged upstream license notice; no third-party runtime or source distribution copied."
+  },
+  "references/prolog-fall/src/examples.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "0e0de62173eaf5c1ed75cbdf16c8469bca678c9f93eb0eae584dc3e217756fb1",
+    "published_sha256_lf": "0e0de62173eaf5c1ed75cbdf16c8469bca678c9f93eb0eae584dc3e217756fb1",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/src/game.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "0a7c893b1220de13553fab080da3382f45f1e235bcc029a9b4030fd6d5c9bc68",
+    "published_sha256_lf": "0a7c893b1220de13553fab080da3382f45f1e235bcc029a9b4030fd6d5c9bc68",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/src/main.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "f63c2e57125ed9a3ba54a2eda5da221ef32bc96b3b5adbdb30cf86d683d00692",
+    "published_sha256_lf": "f63c2e57125ed9a3ba54a2eda5da221ef32bc96b3b5adbdb30cf86d683d00692",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/src/raylib.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "954218fd8e4530a79d7ceb15a3233d12a55574b2a4a474940a6b05dd30398a15",
+    "published_sha256_lf": "954218fd8e4530a79d7ceb15a3233d12a55574b2a4a474940a6b05dd30398a15",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/src/reachability.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "0dff444bb7cd06d087cb6f681677c7fed42e6c20063d81d4f8b86f5e4ebc7e95",
+    "published_sha256_lf": "0dff444bb7cd06d087cb6f681677c7fed42e6c20063d81d4f8b86f5e4ebc7e95",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/src/tetromino.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "f6b721ef77a18b2176459caddda03bf4e767f0f48553ae4bbdfc5487203a6d49",
+    "published_sha256_lf": "f6b721ef77a18b2176459caddda03bf4e767f0f48553ae4bbdfc5487203a6d49",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/src/view.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1d940311524fe94fccc765f2900d47298dd307e191cd665c51f4ee2540dd50f0",
+    "published_sha256_lf": "1d940311524fe94fccc765f2900d47298dd307e191cd665c51f4ee2540dd50f0",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/native/ray_bridge.c": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "4afd9078b9df9d84a691e46d613522524cf047c49a27bc25a81c7ea63a051ad0",
+    "published_sha256_lf": "4afd9078b9df9d84a691e46d613522524cf047c49a27bc25a81c7ea63a051ad0",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/tests/core_tests.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "c5d80238201fbeaa0f7d449b5bc7887b3773820bd0e0478c126cf60e3a9eddb1",
+    "published_sha256_lf": "c5d80238201fbeaa0f7d449b5bc7887b3773820bd0e0478c126cf60e3a9eddb1",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/build-guide.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "f6b4a6f9ae89ab0e98c8e335afa106764110f1c4e45fe96b7742f257aea4e5f9",
+    "published_sha256_lf": "f6b4a6f9ae89ab0e98c8e335afa106764110f1c4e45fe96b7742f257aea4e5f9",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/build-guide.py": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "b0d0c4e218943268e15412f4c27edfb36f285cc62d9503bde52bd461c02fbbdb",
+    "published_sha256_lf": "3a57c7fc4c3b0301bec8fb0511d3c8f94de925da622399c3543f6f4f409b3416",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Accepts installed SWI-Prolog; records the original snapshot base without requiring original Git history; current file hashes remain authoritative."
+  },
+  "references/prolog-fall/scripts/build.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "e86bd8e350d992f707551e196c46585c86f472c50aef2abb05c19f7af1a691bd",
+    "published_sha256_lf": "e86bd8e350d992f707551e196c46585c86f472c50aef2abb05c19f7af1a691bd",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/check-guide.cjs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "9b9ae8900d3e28ed862d5a00df37d960ff3f5b77c71673942ba02fe52424bb6a",
+    "published_sha256_lf": "d1577b4a2044a148794f090278f358b53cb38ebcbf28f0bc8c33c68f8537d454",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Browser test uses standard Playwright module resolution and installed Chrome; optional environment overrides retained; assertions unchanged. PROLOG_GUIDE_FILE optionally selects the public lesson for the same consumer assertions."
+  },
+  "references/prolog-fall/scripts/export-guide.pl": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "29922048e8c09c20af9359fc08fce7f0e6016f8f19ed038f83fd276b348104b1",
+    "published_sha256_lf": "29922048e8c09c20af9359fc08fce7f0e6016f8f19ed038f83fd276b348104b1",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/package.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "90d341cb8553b71997324d71936778359e7e834bf119512529095e6ee188401f",
+    "published_sha256_lf": "90d341cb8553b71997324d71936778359e7e834bf119512529095e6ee188401f",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/query-demo.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "a6f97943adf969d982c5da6409e1ebaa62736d9c80b39cfc1e2cbf9c6923879b",
+    "published_sha256_lf": "859bfd5d53c3055828027e3a00bd5cb190ce71c0a524d1b705c94df469e280e2",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Accepts PROLOG_FALL_SWIPL for an installed SWI-Prolog; query/test logic unchanged."
+  },
+  "references/prolog-fall/scripts/run.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "ae5b4782230795b2f4b86768876262879ab27410df694213dd391900a5a85a2a",
+    "published_sha256_lf": "ae5b4782230795b2f4b86768876262879ab27410df694213dd391900a5a85a2a",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/setup.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "8b640c2739ec71fe0e265f6f68a44fa56aa0bb4bac208fb629ff7fc8c20d2ac6",
+    "published_sha256_lf": "8b640c2739ec71fe0e265f6f68a44fa56aa0bb4bac208fb629ff7fc8c20d2ac6",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/smoke.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "62c063e69655297a39c559e740f6cbf8ef314b285cbd123cdbb6cb28288eaad8",
+    "published_sha256_lf": "62c063e69655297a39c559e740f6cbf8ef314b285cbd123cdbb6cb28288eaad8",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/scripts/test.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "b6d8614d10d0ef5bd013552bde73376af01e0a5222b0a8bd90054ba212be142f",
+    "published_sha256_lf": "9aa3bec4e9680b78493cf759f46a2e512e52d2ac58fa78c39d95da3a1ee6112e",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Accepts PROLOG_FALL_SWIPL for an installed SWI-Prolog; query/test logic unchanged."
+  },
+  "references/prolog-fall/scripts/validate-guide.py": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "68ce06fb04a61a2a6dfca266cf37155d2355d8f33f071f449751a206699af20c",
+    "published_sha256_lf": "68ce06fb04a61a2a6dfca266cf37155d2355d8f33f071f449751a206699af20c",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/guide/guide.css": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "9108b1c70b6e33fffca64dc59a06683b5e58c091806706a091dfc38bcea402a6",
+    "published_sha256_lf": "9108b1c70b6e33fffca64dc59a06683b5e58c091806706a091dfc38bcea402a6",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/guide/guide.js": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "fd45e9ad0199aa63cdef276c21028ad4e0801f96bb449cd827273b9578fea0ac",
+    "published_sha256_lf": "fd45e9ad0199aa63cdef276c21028ad4e0801f96bb449cd827273b9578fea0ac",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/guide/guide.template.html": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "c3646367460d5ed3bd2bbea7c027f516c1d1bf147cf219a0b0991cdae955b8ba",
+    "published_sha256_lf": "c3646367460d5ed3bd2bbea7c027f516c1d1bf147cf219a0b0991cdae955b8ba",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/guide/native-demo.png": {
+    "kind": "selected-documentary-figure",
+    "origin": "Owner-authored screenshot of the native Prolog prototype",
+    "source_sha256_raw": "fe7e9c2e329244e747b23d5832dc0d9718f6b57f92c6864d0d7e057b34573f35",
+    "published_sha256_raw": "fe7e9c2e329244e747b23d5832dc0d9718f6b57f92c6864d0d7e057b34573f35",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged 1120x800 documentary screenshot, 47715 bytes; required input to reproducible original Prolog lesson generator."
+  },
+  "references/prolog-fall/Play.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "42b7c4a3e65a56dc32cff0352718015d33668519ca6ba377c03e5bf5318dea20",
+    "published_sha256_lf": "42b7c4a3e65a56dc32cff0352718015d33668519ca6ba377c03e5bf5318dea20",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/Demo.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "c1680846860577c972bf23a056cc3f1680366d40cf92d787745f28c1b2d56c7d",
+    "published_sha256_lf": "c1680846860577c972bf23a056cc3f1680366d40cf92d787745f28c1b2d56c7d",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/Queries.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "55557ae70795ab201bf093967a2ff008eee44e973fdff866e67c0fe99401f2ee",
+    "published_sha256_lf": "55557ae70795ab201bf093967a2ff008eee44e973fdff866e67c0fe99401f2ee",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/THIRD_PARTY_NOTICES.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "39a6c350c4edba2b458a77dfb79cbc0a433d30f6152ee9abd0cec1d74eb6f5ac",
+    "published_sha256_lf": "39a6c350c4edba2b458a77dfb79cbc0a433d30f6152ee9abd0cec1d74eb6f5ac",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/IMPLEMENTATION.ja.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "f1b5378d11cdf8b883ea89393c1e3506b97f35658ca408ee26ec90b740833148",
+    "published_sha256_lf": "f1b5378d11cdf8b883ea89393c1e3506b97f35658ca408ee26ec90b740833148",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/MATHEMATICAL-LENS.ja.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "2f1f5076d2280d590ee8f541d4fad626e5e21781216ce4daa068dd14c1b8894f",
+    "published_sha256_lf": "2f1f5076d2280d590ee8f541d4fad626e5e21781216ce4daa068dd14c1b8894f",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/VALIDATION.ja.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "78316363b5d4422c85326c2416e185c1f131dc4c32fef6aa7fa3a22502454bc9",
+    "published_sha256_lf": "78316363b5d4422c85326c2416e185c1f131dc4c32fef6aa7fa3a22502454bc9",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/prolog-fall/docs/SOURCES.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "02e5ddea4d4ff81886c85b1c1b4b28d1b78d133f11421b4fac1c5e37eff8fa32",
+    "published_sha256_lf": "02e5ddea4d4ff81886c85b1c1b4b28d1b78d133f11421b4fac1c5e37eff8fa32",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/src/PureFall/Core.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "a95073311b102a6262b432b1014b67dccd993e6128a67d49fb7b19745f38eca7",
+    "published_sha256_lf": "a95073311b102a6262b432b1014b67dccd993e6128a67d49fb7b19745f38eca7",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/src/PureFall/Session.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "4725ce4e7be95c69c3e32f51f417fe8b972a8ec52808296c618a0b8fd5fbc870",
+    "published_sha256_lf": "4725ce4e7be95c69c3e32f51f417fe8b972a8ec52808296c618a0b8fd5fbc870",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/src/PureFall/Time.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "ce587f2a4dd60d3a961b96bbdd215b78f95c1b47eabb65631aa71c1fb079f4fa",
+    "published_sha256_lf": "ce587f2a4dd60d3a961b96bbdd215b78f95c1b47eabb65631aa71c1fb079f4fa",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/src/PureFall/View.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "0bc9ac6e54746f0e495d1a38d00e74933b17328beb8357fc36de059c2f4188b5",
+    "published_sha256_lf": "0bc9ac6e54746f0e495d1a38d00e74933b17328beb8357fc36de059c2f4188b5",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/app/Main.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "b6afe1bfbc64d58acb120e9a0a28d792a2e39c1e8dd031f9f5a7c388ffbd0fc7",
+    "published_sha256_lf": "b6afe1bfbc64d58acb120e9a0a28d792a2e39c1e8dd031f9f5a7c388ffbd0fc7",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/app/PureFall/Host/Audio.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "2e9b5a9e276ca7b9d00ea8a29fee16c1c7c31f853077e7f4d25e287113462138",
+    "published_sha256_lf": "2e9b5a9e276ca7b9d00ea8a29fee16c1c7c31f853077e7f4d25e287113462138",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/app/PureFall/Host/Font.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "4fd383739e6e4a8f954a7873274985b88ce794d8df9d3fb416cb818b5536c741",
+    "published_sha256_lf": "4fd383739e6e4a8f954a7873274985b88ce794d8df9d3fb416cb818b5536c741",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/app/PureFall/Host/Render.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "24935a7b12b887b115d5baf9866e99f3239728a17a983f156bda1f30ceef93d2",
+    "published_sha256_lf": "24935a7b12b887b115d5baf9866e99f3239728a17a983f156bda1f30ceef93d2",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/app/PureFall/Host/Save.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "eeb23d9eaf4d3fa25b745fae76995680b52723f762298b65bab7012c14bc89ac",
+    "published_sha256_lf": "eeb23d9eaf4d3fa25b745fae76995680b52723f762298b65bab7012c14bc89ac",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/test/HostSaveSpec.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "20d3481d66e55e98a42ebbffc8175eaab1dc6f9e047d4f6c68ce9f8066c1654d",
+    "published_sha256_lf": "20d3481d66e55e98a42ebbffc8175eaab1dc6f9e047d4f6c68ce9f8066c1654d",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/test/Spec.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "8fa63d679e41060ba2c2d0e408f7ccfc4a5a183c31bff01d52dca7f064ed3175",
+    "published_sha256_lf": "8fa63d679e41060ba2c2d0e408f7ccfc4a5a183c31bff01d52dca7f064ed3175",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-arena/game-arena.cabal": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "420fb06922c515c1d76123ce6583c44cd31b5c8602e940cf4d7a58ce7c7a3760",
+    "published_sha256_lf": "420fb06922c515c1d76123ce6583c44cd31b5c8602e940cf4d7a58ce7c7a3760",
+    "license": "references/pure-fall/vendor/game-arena/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-arena/LICENSE": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "published_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "license": "references/pure-fall/vendor/game-arena/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-arena/src/Game/Arena/Finite.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "ce396e78e36a2dc829157b52e86f368d6733a44de0ee7d929fddcdd64a684f95",
+    "published_sha256_lf": "ce396e78e36a2dc829157b52e86f368d6733a44de0ee7d929fddcdd64a684f95",
+    "license": "references/pure-fall/vendor/game-arena/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-arena/src/Game/Arena.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "08d15eaa8a13966734abf8b6c110625f35dde716263bdad2c19b04d9fdd8d77e",
+    "published_sha256_lf": "08d15eaa8a13966734abf8b6c110625f35dde716263bdad2c19b04d9fdd8d77e",
+    "license": "references/pure-fall/vendor/game-arena/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-arena/test/Laws.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1abdc26df6667cf6355b8bd2b7a58af4e5acd276b98cd8d4f5cae59062d8df2c",
+    "published_sha256_lf": "1abdc26df6667cf6355b8bd2b7a58af4e5acd276b98cd8d4f5cae59062d8df2c",
+    "license": "references/pure-fall/vendor/game-arena/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-transition/game-transition.cabal": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "73f0fcc3757c38d9fdd6678722a0a37fd1b4ccec2ee5c494e2b2ed1e8a294c50",
+    "published_sha256_lf": "73f0fcc3757c38d9fdd6678722a0a37fd1b4ccec2ee5c494e2b2ed1e8a294c50",
+    "license": "references/pure-fall/vendor/game-transition/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-transition/LICENSE": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "published_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "license": "references/pure-fall/vendor/game-transition/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-transition/src/Game/Transition.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "811b03719b7ec72b49bb17118ee7b3e9123152c4895b9926ded5a3b25b78854d",
+    "published_sha256_lf": "811b03719b7ec72b49bb17118ee7b3e9123152c4895b9926ded5a3b25b78854d",
+    "license": "references/pure-fall/vendor/game-transition/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/vendor/game-transition/test/Laws.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "9ec80a32d615a5f882ac248011ae474f63418d2acca4191efaba472205021c0b",
+    "published_sha256_lf": "9ec80a32d615a5f882ac248011ae474f63418d2acca4191efaba472205021c0b",
+    "license": "references/pure-fall/vendor/game-transition/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/pure-fall.cabal": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "250f1607ef9367386901dfc18cff0ba9b9a9a633f6fa489fe1316e82db7c2b4d",
+    "published_sha256_lf": "250f1607ef9367386901dfc18cff0ba9b9a9a633f6fa489fe1316e82db7c2b4d",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/cabal.project": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "e131626b504a1c76bd51a4d391149a83ccaa5d9ec29a0654a80153964e9b21a1",
+    "published_sha256_lf": "e131626b504a1c76bd51a4d391149a83ccaa5d9ec29a0654a80153964e9b21a1",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/cabal.project.freeze": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "56513ef1894e1932917d982c5d0ed16b600c07b352e711c529630789a9782f40",
+    "published_sha256_lf": "56513ef1894e1932917d982c5d0ed16b600c07b352e711c529630789a9782f40",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded. Final staged-source audit: freeze text uses repository LF newlines; raw hash table records published LF bytes and retains original hash/size. Dependency versions and rules unchanged."
+  },
+  "references/pure-fall/GAME-SPEC.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "bdf4f79ab103d4d8393c6c9da1404593fd9a5eec085999ef96ae056d02ad6f55",
+    "published_sha256_lf": "bdf4f79ab103d4d8393c6c9da1404593fd9a5eec085999ef96ae056d02ad6f55",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/README_PLAY.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "3aa6da78c703eb723b5d061b1fc0091718affa5ba8be0ec1fe9cfda8b3f08127",
+    "published_sha256_lf": "3aa6da78c703eb723b5d061b1fc0091718affa5ba8be0ec1fe9cfda8b3f08127",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/LICENSE": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "6173c663a52e1daf6057803489cec924bdfc97068ebf2830869503b164341491",
+    "published_sha256_lf": "6173c663a52e1daf6057803489cec924bdfc97068ebf2830869503b164341491",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/THIRD_PARTY_NOTICES.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "e3a6a2efb5c2f6daaa4a33004fc30277a8462dedf795116a256c06746982b915",
+    "published_sha256_lf": "f705ccd317651eaddc5b18f2541d469b4ff300a281f3f7011ff12d6efd23d909",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Dependency versions and upstream notices retained; optional formatter text identifies original development context and omission from this selected source export."
+  },
+  "references/pure-fall/Play.cmd": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "e068ad7d9561179b0b06e1d3c037ed6acf0bee79d7497fb6fe33b747b85db186",
+    "published_sha256_lf": "e068ad7d9561179b0b06e1d3c037ed6acf0bee79d7497fb6fe33b747b85db186",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/docs/ARCHITECTURE.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "7cd0c6fe57eea2bf10514fd91f5d1ca6bca54c846e818c5ce176b89a4aae21e6",
+    "published_sha256_lf": "7cd0c6fe57eea2bf10514fd91f5d1ca6bca54c846e818c5ce176b89a4aae21e6",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Historical document retained; private evidence path replaced by an explicit non-exported-evidence description."
+  },
+  "references/pure-fall/docs/DEPENDENCIES.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "977d4ec1c50bf2efe375848afa5a7949abc26714e5807757eda8fc18dc23b76b",
+    "published_sha256_lf": "b2b9bf347dd68206b14730a7face146d1cee9e6e1a141f89ec1c0eb2610b57bb",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Dependency versions and upstream notices retained; optional formatter text identifies original development context and omission from this selected source export."
+  },
+  "references/pure-fall/docs/VERIFICATION.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "c1002f7e8bbd8755516d34857fbcf72e3643aaaf599041b07796f7522c5d2324",
+    "published_sha256_lf": "69c0ba6d056917402760fc92afa37a8d4b0191c30a4947367168233106e94014",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Historical document retained; private evidence path replaced by an explicit non-exported-evidence description."
+  },
+  "references/pure-fall/docs/source-hashes.json": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "6b4d539f095b2a6c6887ca02c8679d3fbd4c7b1af8fb8a8dbcdc6c80cbcd2c31",
+    "published_sha256_lf": "7c82ab815139fbe758478df6bbe3a9c9747ad46ec5b4a2fa41fefd4b9151fc7d",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Raw hashes cover retained source. Omitted formatter/configuration entries removed. Adapted package staging has current hash plus original_sha256; game/host/oracle files retain exact original bytes. Final staged-source audit: freeze text uses repository LF newlines; raw hash table records published LF bytes and retains original hash/size. Dependency versions and rules unchanged."
+  },
+  "references/pure-fall/docs/vendor-hashes.json": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "f920ef94d30668ee5e76cab626880661c44cdfe62be06ba25f466ab0e5e1a7a5",
+    "published_sha256_lf": "f920ef94d30668ee5e76cab626880661c44cdfe62be06ba25f466ab0e5e1a7a5",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Historical document retained; private evidence path replaced by an explicit non-exported-evidence description."
+  },
+  "references/pure-fall/tools/Study.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "396e7bdeb45fdc5b0bad296b8a622332426c138394b06492ceb5677c838412f8",
+    "published_sha256_lf": "396e7bdeb45fdc5b0bad296b8a622332426c138394b06492ceb5677c838412f8",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/tools/check-api.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "3758c67c4cfb74399aad3ab1a457548037d2bc8a5b96450998c1a0e9a144935e",
+    "published_sha256_lf": "3758c67c4cfb74399aad3ab1a457548037d2bc8a5b96450998c1a0e9a144935e",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/tools/package.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "28ec2f6ce500c819be0f5d98dec4b6f43bc56de6ce41226471d213d052bd4cd9",
+    "published_sha256_lf": "1836efb108686aa928f9e6ec8bfcd912ece4e7726828dd6b67d41b1cff652ab8",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Stages unchanged license bytes from source-only licenses/ and audio provenance from AUDIO-PROVENANCE.txt; verifies notices in ZIP; bounded helper starts hide their console. Game code/audio generation unchanged. Staged and extracted restricted-PATH smoke verified."
+  },
+  "references/pure-fall/tools/native-smoke.ps1": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "36b578536a3eb0756ae3b6534f0fdce2bf29a3e7c9fffe6d286d0d40191540d9",
+    "published_sha256_lf": "36b578536a3eb0756ae3b6534f0fdce2bf29a3e7c9fffe6d286d0d40191540d9",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/comparison/README.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "afa82fbe30316110554a184346c729aec3f73c6e0139cdd46feae4f81f33a774",
+    "published_sha256_lf": "ec90ce870f9f6681b8423a8dd933406498153b1b53847ca5612051e6991eed17",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Independent audit reproduction and limits retained; source paths point at exported files rather than original private scratch."
+  },
+  "references/pure-fall/comparison/fixtures.json": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "a2ebfdf95390c6f3eaecd6c587d2bfbfc5e3570f685e6bd6f404d95229f93e55",
+    "published_sha256_lf": "a2ebfdf95390c6f3eaecd6c587d2bfbfc5e3570f685e6bd6f404d95229f93e55",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/comparison/headless-policy.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1b1b5d199bb6f63417bbe5a8b85118a2fc705ccbc3a8e25946bac96e3cff6653",
+    "published_sha256_lf": "1b1b5d199bb6f63417bbe5a8b85118a2fc705ccbc3a8e25946bac96e3cff6653",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/comparison/audit/RotationOracle.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "4b62239c1d03d99e297f6caa7f1aabbf288f4334b464cea308ee95d471a0a227",
+    "published_sha256_lf": "4b62239c1d03d99e297f6caa7f1aabbf288f4334b464cea308ee95d471a0a227",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/comparison/audit/Retest.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "fda7c84d5325419cbf440a9ac0775a9ac0f5a1a030baafea79513288cdc3646c",
+    "published_sha256_lf": "fda7c84d5325419cbf440a9ac0775a9ac0f5a1a030baafea79513288cdc3646c",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/comparison/audit/RepeatProbe.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "fddd752883f6238d013d7117026134df101ea564734c5680ebd545ede3a02350",
+    "published_sha256_lf": "fddd752883f6238d013d7117026134df101ea564734c5680ebd545ede3a02350",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/comparison/audit/Audit.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "c1aef5148688c0f9735539fab9993565ac19cf4cecc3dd0e72948a423115d1e1",
+    "published_sha256_lf": "c1aef5148688c0f9735539fab9993565ac19cf4cecc3dd0e72948a423115d1e1",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/comparison/audit/REVIEW.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "2b53839d3c1c208d16344e0e355d7b8e34482d694b9a0e90ecf3c1e1e240b387",
+    "published_sha256_lf": "117d42644f2849bea164278466b163f5ecbfb101675aa8888f8673a55d3e6c74",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Audit findings preserved; private absolute reproduction paths replaced by current exported-source commands; private raw logs not exported."
+  },
+  "research/frontiers/free/AlphaFreeWitness.hs": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "3deaf8ce2bd487687d30da0c05bfd3c9909f702373ee5e0ba57aacd2440dc524",
+    "published_sha256_lf": "3deaf8ce2bd487687d30da0c05bfd3c9909f702373ee5e0ba57aacd2440dc524",
+    "license": "LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "research/frontiers/category/finite_witness.py": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "07400515b4c7a50b9e11aa5b545eff4f62b27136bc65d80bbf0db7ab332dcb10",
+    "published_sha256_lf": "07400515b4c7a50b9e11aa5b545eff4f62b27136bc65d80bbf0db7ab332dcb10",
+    "license": "LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "research/frontiers/category/finite-results.json": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "83f2f6d91268b0b87f6069c81f3a1b6e0cd62bf5ffd5e59191755a496b804068",
+    "published_sha256_lf": "83f2f6d91268b0b87f6069c81f3a1b6e0cd62bf5ffd5e59191755a496b804068",
+    "license": "LICENSE",
+    "adaptation": "Public-safe finite model results retained with executable generator; no host timings or private context."
+  },
+  "site/studies/array-fall.html": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "a9ca69e7b4d0c80c765369d9b8d7548296f68696a010c3240e27b7e6052954c1",
+    "published_sha256_lf": "fed24db3f5cbdb18c13860150b82bdcfadf641b62e88245c22d5029f3b59267d",
+    "license": "LICENSE",
+    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer."
+  },
+  "site/studies/prolog-fall.html": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "5a58bdee6789a7c9c4df7b8bc17dcce3c5fe71bd7148032155d9bb28def8d975",
+    "published_sha256_lf": "ed9319e0a4b4c0717973c73ae250325b752139f756aadb00aa55f5bb34c04faa",
+    "license": "LICENSE",
+    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer."
+  },
+  "site/studies/pure-fall.html": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "314e397c3b971a3666c8c1118e9398f8f74237a419014d5d8d20ebe86f3ad784",
+    "published_sha256_lf": "51c9dc34358006df673b95ee4ae9cbe1e8cdb55c91c1ab2795d736b8abfe43f4",
+    "license": "LICENSE",
+    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer."
+  },
+  "site/studies/free-monad.html": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "badba6c20d5d444ffc221e0fc6bf428afccdaa7f2fd810de85c715636668ac98",
+    "published_sha256_lf": "9df46df7c2fd8566a05f66b9a7c707b1e5141169d19c188275816fba00676d05",
+    "license": "LICENSE",
+    "adaptation": "Original authored offline Free lesson and controls retained; public research/source navigation added. Linked literature remains attribution, not vendored third-party paper content."
+  },
+  "site/studies/clock-and-reachability.html": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "79b590fb39cf2b035b389342886a30880c502aa8abf5b870b80f05553f212682",
+    "published_sha256_lf": "c0d623806fc5c2c4ffd1b2ffd00c9c65894f92b5dcb73e2f52edae97d3a29e6f",
+    "license": "LICENSE",
+    "adaptation": "Extracted authored clock/door widget unchanged in model and drawing; removed provider frame, external unused libraries and host-specific widget-state persistence; added self-contained CSS, concrete explanation and executable source links."
+  },
+  "references/apl-fall/LICENSE": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+    "published_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Repository MIT license applied to this newly published owner-authored source export; upstream runtime/license notices retain their own terms."
+  },
+  "references/prolog-fall/LICENSE": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+    "published_sha256_lf": "51f8b3a0fc46d628802296ddecb3bffef93d0948679abfeb7a8706557e24be7d",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Repository MIT license applied to this newly published owner-authored source export; upstream runtime/license notices retain their own terms."
+  },
+  "references/apl-fall/README.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "468ffb65af61d85d88a14e45610666491fdafd1843102a3ee414143297bab5b1",
+    "published_sha256_lf": "1316188bba73aa000a1f1227fcacebe1af189f4758d6547c648149adfbcf62c2",
+    "license": "references/apl-fall/LICENSE",
+    "adaptation": "Authored public synthesis/selection grounded in the original authored study and linked exact implementation; private locators removed, available reproduction and non-adoption/evidence boundaries stated. Not a verbatim private record export."
+  },
+  "references/prolog-fall/README.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1dd756aaa62688f2d6d2f27406c950c8170a947b2b87edc5fd8d149323d92e59",
+    "published_sha256_lf": "450869acf75d5983dcabf02c266bd6d84c14f9021bed0a726d4ca635cfc9525c",
+    "license": "references/prolog-fall/LICENSE",
+    "adaptation": "Authored public synthesis/selection grounded in the original authored study and linked exact implementation; private locators removed, available reproduction and non-adoption/evidence boundaries stated. Not a verbatim private record export."
+  },
+  "references/pure-fall/README.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "7cf0294c6faef462a91fb008df92119b89f477da4f4913d8c92e52d9032bb8b9",
+    "published_sha256_lf": "748b6c0296f892c248d673ddb85e29dd18f8048c25c83f3e185ca32a70fef5d1",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Authored public synthesis/selection grounded in the original authored study and linked exact implementation; private locators removed, available reproduction and non-adoption/evidence boundaries stated. Not a verbatim private record export."
+  },
+  "research/frontiers/composition.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "d6c56771f2131455f25c2af0d23643744c570eb6c5dabff0397aeaa2ea8a1c79",
+    "published_sha256_lf": "3ff14bf949afb235df2a5b9d174c87b7692cfcb4aa73a9e95972f191bfdd4b8f",
+    "license": "LICENSE",
+    "adaptation": "Authored public synthesis/selection grounded in the original authored study and linked exact implementation; private locators removed, available reproduction and non-adoption/evidence boundaries stated. Not a verbatim private record export."
+  },
+  "research/frontiers/README.md": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "16cbf971360ab5831165f9daedff7da680c8992ec1550064c78fe7798565a13b",
+    "published_sha256_lf": "9d974a4e7f260879d46117716aac02bcada8f7110d1f0ca7fbdcf64804d70956",
+    "license": "LICENSE",
+    "adaptation": "Authored public synthesis/selection grounded in the original authored study and linked exact implementation; private locators removed, available reproduction and non-adoption/evidence boundaries stated. Not a verbatim private record export."
+  },
+  "research/history/formal-methods.md": {
+    "kind": "authored-research-synthesis",
+    "origin": "Previously published alpha formal-research source and receipts at revision 7682f7c620fbc03c288a501d5a9c116bbba7d999",
+    "inputs": [
+      {
+        "label": "Public formal research reproduction guide at fixed revision",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/research-reproduction.md",
+        "source_sha256_lf": "67c063cf238ff46a12478466b71ffdb93b6b0fea18be2057f18e28306855ca74"
+      }
+    ],
+    "license": "LICENSE",
+    "adaptation": "New public explanation of selected findings and their limits; no raw private notes, conversations or local paths included."
+  },
+  "research/history/transitions-and-arenas.md": {
+    "kind": "authored-research-synthesis",
+    "origin": "Author-supplied selected game research, 2026-10-01 to 2026-10-03",
+    "inputs": [
+      {
+        "label": "Transition study and integration record, 2026-10-01",
+        "source_sha256_lf": "2f115b092db11ff903280ea53efe4a3c46d7269c4eae8cf0b8ad55566b59e11a"
+      },
+      {
+        "label": "Arena study and five-game integration record, 2026-10-01",
+        "source_sha256_lf": "9ba40910c92eba7fe57b9bfbe16e0805571bbd076b7d9a22014df57ae9c2e2b8"
+      },
+      {
+        "label": "Five-level finite-table study, 2026-10-03",
+        "source_sha256_lf": "63521e852e283ddbd10e11ccc6733b138605cc6fec9557d3289c3b5201760106"
+      }
+    ],
+    "license": "LICENSE",
+    "adaptation": "New public explanation of selected findings and their limits; no raw private notes, conversations or local paths included."
+  },
+  "research/history/iteration-and-platforms.md": {
+    "kind": "authored-research-synthesis",
+    "origin": "Published iteration source and selected author-supplied host/tooling studies",
+    "inputs": [
+      {
+        "label": "Public formal research reproduction guide at fixed revision",
+        "url": "https://github.com/M-simplifier/fp-game-alpha/blob/7682f7c620fbc03c288a501d5a9c116bbba7d999/docs/research-reproduction.md",
+        "source_sha256_lf": "67c063cf238ff46a12478466b71ffdb93b6b0fea18be2057f18e28306855ca74"
+      },
+      {
+        "label": "Tooling design study, 2026-10-04",
+        "source_sha256_lf": "3d1cb5cdf954c73c46ca1379a7bae7d55fa35aacd3ab46b95db629d4c41bb9c7"
+      },
+      {
+        "label": "Mobile game and save study, 2026-10-01",
+        "source_sha256_lf": "181e1adc485f3cac537d3c7b90407551e03133471b0a2627af742d5ddfa73507"
+      }
+    ],
+    "license": "LICENSE",
+    "adaptation": "New public explanation of selected findings and their limits; no raw private notes, conversations or local paths included."
+  },
+  "research/history/earlier-prototypes.md": {
+    "kind": "authored-research-synthesis",
+    "origin": "Selected author-supplied historical prototype review; original full source and assets are outside this export",
+    "inputs": [
+      {
+        "label": "Author-supplied prototype closeout and evidence distinctions, 2026-09-08",
+        "source_sha256_lf": "3b31f3438ca46dc766a7af65517e61f0153d05db7eba549bd354ae331e925b74"
+      }
+    ],
+    "license": "LICENSE",
+    "adaptation": "New public explanation of selected findings and their limits; no raw private notes, conversations or local paths included."
+  },
+  "research/stillroom/README.md": {
+    "kind": "authored-research-synthesis",
+    "origin": "New explanatory study of public Stillroom v0.12.0 source and explicitly distinguished supplemental development measurement",
+    "inputs": [
+      {
+        "label": "Canonical public Stillroom source",
+        "url": "https://github.com/M-simplifier/stillroom/tree/v0.12.0"
+      }
+    ],
+    "license": "LICENSE",
+    "adaptation": "New public explanation of selected findings and their limits; no raw private notes, conversations or local paths included."
+  },
+  "research/stillroom/landscapes-and-graphics.md": {
+    "kind": "authored-research-synthesis",
+    "origin": "New explanatory study of public Stillroom v0.12.0 source and explicitly distinguished supplemental development measurement",
+    "inputs": [
+      {
+        "label": "Canonical public Stillroom source",
+        "url": "https://github.com/M-simplifier/stillroom/tree/v0.12.0"
+      }
+    ],
+    "license": "LICENSE",
+    "adaptation": "New public explanation of selected findings and their limits; no raw private notes, conversations or local paths included."
+  },
+  "research/stillroom/music-and-time.md": {
+    "kind": "authored-research-synthesis",
+    "origin": "New explanatory study of public Stillroom v0.12.0 source and explicitly distinguished supplemental development measurement",
+    "inputs": [
+      {
+        "label": "Canonical public Stillroom source",
+        "url": "https://github.com/M-simplifier/stillroom/tree/v0.12.0"
+      }
+    ],
+    "license": "LICENSE",
+    "adaptation": "New public explanation of selected findings and their limits; no raw private notes, conversations or local paths included."
+  },
+  "references/pure-fall/AUDIO-PROVENANCE.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "5e2beb5b480fb2ce0124c07c425a99f4611fcaf2a7cdba7227767c66d3413720",
+    "published_sha256_lf": "5e2beb5b480fb2ce0124c07c425a99f4611fcaf2a7cdba7227767c66d3413720",
+    "license": "references/pure-fall/LICENSE",
+    "adaptation": "Unchanged authored source; line-ending-normalized identity recorded."
+  },
+  "references/pure-fall/licenses/game-arena-LICENSE.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "published_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "license": "references/pure-fall/licenses/game-arena-LICENSE.txt",
+    "adaptation": "Unchanged original upstream/license notice, relocated from original assets/legal to source-only licenses/; no binary copied."
+  },
+  "references/pure-fall/licenses/game-transition-LICENSE.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "published_sha256_lf": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+    "license": "references/pure-fall/licenses/game-transition-LICENSE.txt",
+    "adaptation": "Unchanged original upstream/license notice, relocated from original assets/legal to source-only licenses/; no binary copied."
+  },
+  "references/pure-fall/licenses/h-raylib-LICENSE.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+    "published_sha256_lf": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+    "license": "references/pure-fall/licenses/h-raylib-LICENSE.txt",
+    "adaptation": "Unchanged original upstream/license notice, relocated from original assets/legal to source-only licenses/; no binary copied."
+  },
+  "references/pure-fall/licenses/raylib-LICENSE.txt": {
+    "kind": "selected-research-source",
+    "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
+    "source_sha256_lf": "eb7e0b678b2b9ed43a9defaf234b38e9943ea1b13493533fe51c1a8b7de40807",
+    "published_sha256_lf": "eb7e0b678b2b9ed43a9defaf234b38e9943ea1b13493533fe51c1a8b7de40807",
+    "license": "references/pure-fall/licenses/raylib-LICENSE.txt",
+    "adaptation": "Unchanged original upstream/license notice, relocated from original assets/legal to source-only licenses/; no binary copied."
   }
 }

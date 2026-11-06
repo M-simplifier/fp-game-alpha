@@ -1,0 +1,138 @@
+{
+  "scope": "finite mathematical examples; no production game equivalence or speed claim",
+  "checks": {
+    "relation_matrix_compositions": 256,
+    "reachability_comparisons": 1536,
+    "footprint_adjunction_instances": 1024,
+    "constraint_intersections": 4096,
+    "timed_traces": 511,
+    "state_encoding_transitions": 64,
+    "observation_restricted_policies": 30
+  },
+  "counterexamples": {
+    "individually_legal_but_jointly_overlapping": [
+      0,
+      1
+    ],
+    "forget_clock": {
+      "same_visible_room": 2,
+      "states": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "after_forward": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    "same_outcomes_different_strategies": {
+      "terminal_action_pairs": 9,
+      "hidden_winning_policies": 0,
+      "visible_winning_policies": 1,
+      "meaning": "B commits without seeing A versus B observes A before committing"
+    }
+  },
+  "deadlines": [
+    {
+      "deadline": 0,
+      "timed_possible": false,
+      "time_erased_possible": false,
+      "witness": null
+    },
+    {
+      "deadline": 1,
+      "timed_possible": false,
+      "time_erased_possible": false,
+      "witness": null
+    },
+    {
+      "deadline": 2,
+      "timed_possible": false,
+      "time_erased_possible": false,
+      "witness": null
+    },
+    {
+      "deadline": 3,
+      "timed_possible": false,
+      "time_erased_possible": true,
+      "witness": null
+    },
+    {
+      "deadline": 4,
+      "timed_possible": true,
+      "time_erased_possible": true,
+      "witness": [
+        "forward",
+        "forward",
+        "forward",
+        "forward"
+      ]
+    },
+    {
+      "deadline": 5,
+      "timed_possible": true,
+      "time_erased_possible": true,
+      "witness": [
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward"
+      ]
+    },
+    {
+      "deadline": 6,
+      "timed_possible": true,
+      "time_erased_possible": true,
+      "witness": [
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward"
+      ]
+    },
+    {
+      "deadline": 7,
+      "timed_possible": true,
+      "time_erased_possible": true,
+      "witness": [
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward"
+      ]
+    },
+    {
+      "deadline": 8,
+      "timed_possible": true,
+      "time_erased_possible": true,
+      "witness": [
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward",
+        "forward"
+      ]
+    }
+  ]
+}

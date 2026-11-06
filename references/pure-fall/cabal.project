@@ -1,0 +1,5 @@
+packages: . vendor/game-transition vendor/game-arena
+with-compiler: ghc-9.14.1
+
+package h-raylib
+  flags: +disable-lens +detect-platform

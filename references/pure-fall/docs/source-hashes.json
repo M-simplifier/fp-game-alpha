@@ -1,0 +1,102 @@
+{
+  "files": [
+    {
+      "path": "app/Main.hs",
+      "sha256": "b6afe1bfbc64d58acb120e9a0a28d792a2e39c1e8dd031f9f5a7c388ffbd0fc7",
+      "bytes": 30395
+    },
+    {
+      "path": "app/PureFall/Host/Audio.hs",
+      "sha256": "2e9b5a9e276ca7b9d00ea8a29fee16c1c7c31f853077e7f4d25e287113462138",
+      "bytes": 6686
+    },
+    {
+      "path": "app/PureFall/Host/Font.hs",
+      "sha256": "4fd383739e6e4a8f954a7873274985b88ce794d8df9d3fb416cb818b5536c741",
+      "bytes": 3183
+    },
+    {
+      "path": "app/PureFall/Host/Render.hs",
+      "sha256": "24935a7b12b887b115d5baf9866e99f3239728a17a983f156bda1f30ceef93d2",
+      "bytes": 20806
+    },
+    {
+      "path": "app/PureFall/Host/Save.hs",
+      "sha256": "eeb23d9eaf4d3fa25b745fae76995680b52723f762298b65bab7012c14bc89ac",
+      "bytes": 4048
+    },
+    {
+      "path": "cabal.project",
+      "sha256": "e131626b504a1c76bd51a4d391149a83ccaa5d9ec29a0654a80153964e9b21a1",
+      "bytes": 137
+    },
+    {
+      "path": "cabal.project.freeze",
+      "sha256": "56513ef1894e1932917d982c5d0ed16b600c07b352e711c529630789a9782f40",
+      "bytes": 1342,
+      "original_sha256": "d7286a50f53ca67ef0d8238ed36adf6c39ad23527aa6555ec848f7431d86e761",
+      "original_bytes": 1374
+    },
+    {
+      "path": "pure-fall.cabal",
+      "sha256": "250f1607ef9367386901dfc18cff0ba9b9a9a633f6fa489fe1316e82db7c2b4d",
+      "bytes": 1435
+    },
+    {
+      "path": "src/PureFall/Core.hs",
+      "sha256": "a95073311b102a6262b432b1014b67dccd993e6128a67d49fb7b19745f38eca7",
+      "bytes": 28277
+    },
+    {
+      "path": "src/PureFall/Session.hs",
+      "sha256": "4725ce4e7be95c69c3e32f51f417fe8b972a8ec52808296c618a0b8fd5fbc870",
+      "bytes": 8194
+    },
+    {
+      "path": "src/PureFall/Time.hs",
+      "sha256": "ce587f2a4dd60d3a961b96bbdd215b78f95c1b47eabb65631aa71c1fb079f4fa",
+      "bytes": 1036
+    },
+    {
+      "path": "src/PureFall/View.hs",
+      "sha256": "0bc9ac6e54746f0e495d1a38d00e74933b17328beb8357fc36de059c2f4188b5",
+      "bytes": 3530
+    },
+    {
+      "path": "test/HostSaveSpec.hs",
+      "sha256": "20d3481d66e55e98a42ebbffc8175eaab1dc6f9e047d4f6c68ce9f8066c1654d",
+      "bytes": 5825
+    },
+    {
+      "path": "test/Spec.hs",
+      "sha256": "8fa63d679e41060ba2c2d0e408f7ccfc4a5a183c31bff01d52dca7f064ed3175",
+      "bytes": 20624
+    },
+    {
+      "path": "tools/check-api.ps1",
+      "sha256": "3758c67c4cfb74399aad3ab1a457548037d2bc8a5b96450998c1a0e9a144935e",
+      "bytes": 1613
+    },
+    {
+      "path": "tools/native-smoke.ps1",
+      "sha256": "36b578536a3eb0756ae3b6534f0fdce2bf29a3e7c9fffe6d286d0d40191540d9",
+      "bytes": 6582
+    },
+    {
+      "path": "tools/package.ps1",
+      "sha256": "1836efb108686aa928f9e6ec8bfcd912ece4e7726828dd6b67d41b1cff652ab8",
+      "bytes": 7826,
+      "original_sha256": "28ec2f6ce500c819be0f5d98dec4b6f43bc56de6ce41226471d213d052bd4cd9"
+    },
+    {
+      "path": "tools/Study.hs",
+      "sha256": "396e7bdeb45fdc5b0bad296b8a622332426c138394b06492ceb5677c838412f8",
+      "bytes": 4612
+    }
+  ],
+  "schema": 1,
+  "alpha_source": "da3ff4de888be9ec62407d57836b075d763a7c89",
+  "executable_sha256": "fdca1d47a2aa2936b3c5ab1ea82821a493ae2903cfcc39e0ca9736c602449a1b",
+  "observed_at": "2026-10-27T00:00:13.9518615+09:00",
+  "selection": "Raw hashes of the retained 2026-11-06 source-only export as published with LF text under repository attributes. Optional formatter/configuration entries omitted. Adapted package staging and freeze-file newline normalization retain original_sha256 separately; game rules, host code, dependency versions and independent oracles are unchanged."
+}

@@ -10,13 +10,15 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import struct
 import sys
+import zlib
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = 'PUBLICATION-MANIFEST.json'
 HEADER = {
-    'schema': 2,
-    'digest_format': 'SHA256 of UTF-8 source with LF newlines',
+    'schema': 3,
+    'digest_format': 'UTF-8 text: SHA256 after LF normalization; explicitly selected documentary PNG: raw SHA256',
     'self_hash': 'manifest excluded to avoid recursive hash',
     'selection_policy': 'publication/policy.json',
     'provenance': 'publication/provenance.json',
@@ -63,7 +65,58 @@ def canonical(path):
 
 
 def digest(path):
-    return hashlib.sha256(canonical(path)).hexdigest()
+    content = path.read_bytes() if path.suffix.lower() == '.png' else canonical(path)
+    return hashlib.sha256(content).hexdigest()
+
+
+def digest_field(name):
+    return 'sha256_raw' if Path(name).suffix.lower() == '.png' else 'sha256_lf'
+
+
+def documentary_png(path, rule, origin):
+    """An exact reviewed figure is the only binary exception, never runtime art."""
+    if (not isinstance(rule, dict) or set(rule) != {'sha256_raw', 'width', 'height'}
+            or not isinstance(rule['sha256_raw'], str)
+            or not re.fullmatch('[0-9a-f]{64}', rule['sha256_raw'])
+            or any(type(rule[field]) is not int or not 1 <= rule[field] <= 4096
+                   for field in ('width', 'height'))):
+        return 'invalid-documentary-figure-policy'
+    if (not isinstance(origin, dict) or origin.get('kind') != 'selected-documentary-figure'
+            or origin.get('source_sha256_raw') != rule['sha256_raw']
+            or origin.get('published_sha256_raw') != rule['sha256_raw']
+            or not origin.get('origin') or not origin.get('license')):
+        return 'missing-documentary-figure-provenance'
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != rule['sha256_raw']:
+        return 'documentary-figure-digest'
+    return png_problem(raw, rule['width'], rule['height'])
+
+
+def png_problem(raw, width, height):
+    """Check a bounded documentary PNG without decoding pixels or trusting metadata."""
+    if raw[:8] != b'\x89PNG\r\n\x1a\n':
+        return 'invalid-documentary-png'
+    offset, chunks = 8, []
+    while offset + 12 <= len(raw):
+        size = struct.unpack('>I', raw[offset:offset + 4])[0]
+        kind = raw[offset + 4:offset + 8]
+        end = offset + size + 12
+        if end > len(raw) or kind not in {b'IHDR', b'IDAT', b'IEND'}:
+            return 'invalid-documentary-png'
+        payload = raw[offset + 8:offset + 8 + size]
+        crc = struct.unpack('>I', raw[offset + size + 8:end])[0]
+        if zlib.crc32(kind + payload) & 0xffffffff != crc:
+            return 'invalid-documentary-png'
+        if kind == b'IHDR':
+            if size != 13 or chunks or struct.unpack('>II', payload[:8]) != (width, height):
+                return 'documentary-figure-dimensions'
+        if kind == b'IEND' and (size or end != len(raw)):
+            return 'invalid-documentary-png'
+        chunks.append(kind)
+        offset = end
+    if offset != len(raw) or not chunks or chunks[0] != b'IHDR' or chunks[-1] != b'IEND' or b'IDAT' not in chunks:
+        return 'invalid-documentary-png'
+    return None
 
 
 def metadata(name, policy):
@@ -78,7 +131,7 @@ def snapshot():
     records = []
     for name in sorted(set(selected_files()) | {MANIFEST}):
         metadata(name, policy)
-        records.append({'path': name, 'sha256_lf': None if name == MANIFEST
+        records.append({'path': name, digest_field(name): None if name == MANIFEST
                         else digest(source_path(name))})
     value = dict(HEADER, files=records)
     source_path(MANIFEST).write_text(json.dumps(value, ensure_ascii=False, indent=1) + '\n',
@@ -96,10 +149,13 @@ def read_manifest():
     if not isinstance(records, list):
         raise ValueError('Manifest files must be a sorted list')
     for record in records:
-        if not isinstance(record, dict) or set(record) != {'path', 'sha256_lf'}:
+        if not isinstance(record, dict) or 'path' not in record:
             raise ValueError('Malformed manifest file record')
         source_path(record['path'])
-        value = record['sha256_lf']
+        field = digest_field(record['path'])
+        if set(record) != {'path', field}:
+            raise ValueError('Malformed manifest digest field')
+        value = record[field]
         valid = value is None if record['path'] == MANIFEST else (
             isinstance(value, str) and re.fullmatch('[0-9a-f]{64}', value))
         if not valid:
@@ -144,6 +200,13 @@ def gate(report_path):
         raise ValueError('Malformed provenance inventory')
     actual = set(selected_files())
     problems = []
+    figures = policy.get('documentary_figures', {})
+    if not isinstance(figures, dict):
+        raise ValueError('Malformed documentary figure selection')
+    for name in figures:
+        source_path(name)
+        if name not in actual or not name.endswith('.png'):
+            problems.append({'rule': 'documentary-figure-selection', 'path': name})
     if set(expected) != actual:
         problems.append({'rule': 'manifest-file-set', 'missing': sorted(actual - set(expected)),
                          'stale': sorted(set(expected) - actual)})
@@ -152,6 +215,7 @@ def gate(report_path):
     for name in sorted(actual):
         path = source_path(name)
         issues = []
+        origin = provenance.get(name, HEADER['default_origin'])
         if any(part in forbidden for part in Path(name).parts):
             issues.append({'rule': 'internal-or-linked-file'})
         if '.agents' in Path(name).parts and name not in policy.get('authored_public_skills', []):
@@ -160,6 +224,9 @@ def gate(report_path):
             issues.append({'rule': 'not-regular-file'})
         elif path.stat().st_size > policy['max_source_bytes']:
             issues.append({'rule': 'large-source-file'})
+        elif name in figures:
+            if issue := documentary_png(path, figures[name], origin):
+                issues.append({'rule': issue})
         else:
             try:
                 text = canonical(path).decode('utf-8')
@@ -170,9 +237,8 @@ def gate(report_path):
                 issues.append({'rule': 'binary-or-unknown-encoding'})
         record = expected.get(name)
         if record is not None:
-            if name != MANIFEST and path.is_file() and digest(path) != record['sha256_lf']:
+            if name != MANIFEST and path.is_file() and digest(path) != record[digest_field(name)]:
                 issues.append({'rule': 'manifest-digest'})
-            origin = provenance.get(name, HEADER['default_origin'])
             if not isinstance(origin, dict) or not isinstance(origin.get('kind'), str) or not origin['kind']:
                 issues.append({'rule': 'missing-origin-or-license'})
             try:
@@ -184,6 +250,13 @@ def gate(report_path):
                     issues.append({'rule': 'invalid-disposition'})
                 if rule['license'] not in expected or not source_path(rule['license']).is_file():
                     issues.append({'rule': 'missing-origin-or-license'})
+                if isinstance(origin, dict) and origin.get('kind') in {'selected-research-source', 'selected-documentary-figure'}:
+                    if origin.get('license') != rule['license'] or not origin.get('adaptation'):
+                        issues.append({'rule': 'research-import-provenance'})
+                    if origin['kind'] == 'selected-research-source':
+                        if (not re.fullmatch('[0-9a-f]{64}', str(origin.get('source_sha256_lf', '')))
+                                or origin.get('published_sha256_lf') != digest(path)):
+                            issues.append({'rule': 'research-import-digest'})
         inspection.append({'path': name, 'status': 'FAIL' if issues else 'PASS', 'checks': issues})
     ok = not problems and all(row['status'] == 'PASS' for row in inspection)
     report = {'schema': 1, 'status': 'PASS' if ok else 'FAIL',

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="四つの部屋と周期的に開く扉を使い、時刻を消した到達探索と時間内の実行の違いを操作して確かめる。">
+<title>扉が開く時刻と、到着できる期限</title>
+<style>:root{--font-size-base:16px;--foreground:#182e35;--muted-foreground:#576c73;--border:#bccdd0;--viz-series-1:#137e83;--viz-series-2:#b46327;--background:#fff}*{box-sizing:border-box}body{margin:0;background:#f4f7f6;color:var(--foreground);font:16px/1.9 system-ui,sans-serif}main,header,footer{max-width:820px;margin:auto;padding:24px}main{background:#fff;border-radius:16px}a{color:#086f77}h1{font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.5}.viz-controls label{display:grid;gap:.4rem}.form-range{width:100%;min-height:32px}.text-small{font-size:13px}svg text{font:13px system-ui,sans-serif}code{overflow-wrap:anywhere}#reach-detail{padding:16px;background:#eaf5f3;border-radius:8px}#clock-reachability-1105 h3{padding-inline-end:0!important}footer{font-size:14px}</style>
+</head><body><header><nav aria-label="研究資料の案内"><a href="../research.html">研究一覧</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/composition.md">考察と検証コード</a></nav><h1>扉が開く時刻と、到着できる期限</h1><p>出発点から三回進めば出口に届くように見えます。しかし、最後の扉が開くのは4刻み目だけです。到着期限を変えて、時計を消した探索が返す候補と、時計を残した実行を比べてください。</p></header><main><div id="clock-reachability-1105">
+  <h3>同じ道でも、扉が開く時刻で答えが変わる</h3>
+  <div class="viz-controls">
+    <label class="form-label" for="reach-deadline"><span>到着期限 <span id="reach-value" class="tabular-nums">3</span> 刻み</span>
+      <input class="form-range" id="reach-deadline" type="range" min="2" max="6" step="1" value="3">
+    </label>
+  </div>
+  <div id="reach-drawing"></div>
+  <div id="reach-detail" aria-live="polite"></div>
+</div>
+<style>
+  #clock-reachability-1105 {display:grid;gap:calc(var(--font-size-base) * 1)}
+  #clock-reachability-1105 h3 {padding-inline-end:90px}
+  #clock-reachability-1105 .reach-chart {display:block;width:100%;overflow:visible}
+  #clock-reachability-1105 .reach-chart text {fill:var(--foreground)}
+  #clock-reachability-1105 .reach-chart .secondary {fill:var(--muted-foreground)}
+  #clock-reachability-1105 .reach-chart .axis {stroke:var(--border);stroke-width:1}
+  #clock-reachability-1105 .reach-chart .route {stroke:var(--viz-series-1);stroke-width:2;fill:none}
+  #clock-reachability-1105 .reach-chart .pending {stroke:var(--muted-foreground);stroke-width:1;stroke-dasharray:4 4;fill:none}
+  #clock-reachability-1105 .reach-chart .room {fill:var(--background);stroke:var(--viz-series-1);stroke-width:2}
+  #clock-reachability-1105 .reach-chart .reached {fill:var(--viz-series-1);stroke:none}
+  #clock-reachability-1105 .reach-chart .deadline {stroke:var(--viz-series-2);stroke-width:2;stroke-dasharray:5 4}
+</style>
+<script>
+(() => {
+  const root = document.getElementById('clock-reachability-1105');
+  const control = root.querySelector('#reach-deadline');
+  const value = root.querySelector('#reach-value');
+  const drawing = root.querySelector('#reach-drawing');
+  const detail = root.querySelector('#reach-detail');
+  let deadline = 3;
+  const commands = ['forward','forward','wait','forward'];
+  function step(state, command) {
+    const [room,tick] = state;
+    const arrival = tick + 1;
+    let target = command === 'forward' ? Math.min(3,room+1) : room;
+    if (room === 2 && target === 3 && arrival % 4 !== 0) target = room;
+    return [target,arrival];
+  }
+  function possible(horizon) {
+    let states = [[0,0]];
+    for (let i=0;i<horizon;i++) {
+      const next = new Map();
+      for (const s of states) for (const action of ['forward','wait']) {
+        const n=step(s,action); next.set(n.join(','),n);
+      }
+      states=[...next.values()];
+    }
+    return states.some(s=>s[0]===3);
+  }
+  const actual=[[0,0]];
+  for (const action of commands) actual.push(step(actual[actual.length-1],action));
+  const abstract=[[0,0],[1,1],[2,2],[3,3]];
+  const names=['出発','通路','扉前','出口'];
+  function draw() {
+    value.textContent=String(deadline);
+    control.value=String(deadline);
+    const width=Math.max(280,Math.floor(drawing.getBoundingClientRect().width));
+    const margin=24, end=width-24, x=t=>margin+(end-margin)*t/6;
+    const isNarrow=width<450;
+    let content='<title>時計を省くと3刻みで出口へ届く候補が出るが、扉が開くのは4刻み目。時計を含めると最短到着は4刻み目。</title>';
+    content+='<text x="0" y="18">時計を省いた探索</text>';
+    content+='<text x="0" y="118">時計を含む実行</text>';
+    for (const [path,y] of [[abstract,56],[actual,156]]) {
+      content+=`<line class="axis" x1="${x(0)}" x2="${x(6)}" y1="${y}" y2="${y}"/>`;
+      for(let i=1;i<path.length;i++) {
+        content+=`<path class="${path[i][1]<=deadline?'route':'pending'}" d="M ${x(path[i-1][1])} ${y} L ${x(path[i][1])} ${y}"/>`;
+      }
+      for(const [room,tick] of path) {
+        const done=tick<=deadline;
+        content+=`<circle class="${done?'reached':'room'}" cx="${x(tick)}" cy="${y}" r="5"/>`;
+        content+=`<text class="text-small" x="${x(tick)}" y="${y+25}" text-anchor="middle">${names[room]}</text>`;
+      }
+    }
+    const dx=x(deadline);
+    content+=`<line class="deadline" x1="${dx}" x2="${dx}" y1="26" y2="197"/>`;
+    content+=`<text class="text-small" x="${Math.min(dx+5,width-55)}" y="211">到着期限</text>`;
+    content+=`<text class="text-small secondary" x="${x(4)}" y="136" text-anchor="middle">扉が開く</text>`;
+    for(let t=0;t<=6;t++) if(!isNarrow || t%2===0) {
+      content+=`<text class="text-small secondary" x="${x(t)}" y="234" text-anchor="middle">${t}</text>`;
+    }
+    content+=`<text class="text-small secondary" x="${width/2}" y="257" text-anchor="middle">経過時間（刻み）</text>`;
+    drawing.innerHTML=`<svg class="reach-chart" viewBox="0 0 ${width} 265" height="265" role="img" aria-label="時計を省いた探索と時計を含む実行の比較">${content}</svg>`;
+    detail.textContent=`期限${deadline}刻み ／ 時計を省略：${deadline>=3?'候補あり':'到達不可'} ／ 時計を保持：${possible(deadline)?'到達できる':'到達不可'}`;
+  }
+  function restore(state) {
+    const saved=state?.modelContent?.deadline;
+    if(Number.isInteger(saved) && saved>=2 && saved<=6) deadline=saved;
+    draw();
+  }
+  control.addEventListener('input',()=>{
+    deadline=Number(control.value);draw();
+  });
+  new ResizeObserver(draw).observe(drawing);
+  restore(null);
+})();
+</script><noscript><p>3刻みでは、時刻を省いた図は到達候補を返しますが、実際の扉はまだ開きません。4刻みなら到達できます。</p></noscript><p>図の実線は例の手順「進む、進む、待つ、進む」です。到達可否は、各刻みに「進む」「待つ」を選ぶ全候補を調べます。「進む」を4回選ぶ手順でも、3回目が扉に止められるため4刻みで到着できます。</p><p>同じ扉前にいても、時刻2と時刻3では、次の「進む」の結果が違います。部屋番号だけに状態を縮めると、この違いを失います。時刻を含む計算の正しさは、<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/category/finite_witness.py">別のPython有限モデル</a>で総当たりと照合しています。この図はゲームエンジンやAPL/Prolog実行器ではありません。</p></main><footer>2026-11-05の著者作成の操作図を2026-11-06に公開用に書き出しました。図と計算は保持し、アプリ固有の外枠・保存連携・未使用の外部ライブラリを除きました。MIT License。</footer></body></html>

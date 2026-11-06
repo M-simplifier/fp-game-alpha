@@ -7,6 +7,12 @@ Follow [the intent-first workflow](../../../docs/new-game.md). Reuse the user's
 brief and existing decisions; ask only about missing choices that change the game.
 The references teach techniques, not mandatory genres, hosts or layouts.
 
+Use [game-research](../game-research/SKILL.md) to find relevant current knowledge
+when the brief raises a concrete research question. Select from the
+[catalog](../../../research/catalog.json), then inspect the chosen source and its
+evidence limits. The newest study is not automatically the best fit; no game
+needs to adopt every tool, experiment or proposed architecture.
+
 Use `$fp-gamedev`, `$haskell-excellence` and `$game-platform` for the implementation
 and actual target host. Use [game-experience](../game-experience/SKILL.md) when
 choosing player actions, feedback, progression or copy. Read only the guidance

@@ -1,12 +1,15 @@
 """Behavioral checks for publication rejection and actual compiler queries."""
 import contextlib
+import hashlib
 import io
 import json
 from pathlib import Path
 import tempfile
 import subprocess
 import shutil
+import struct
 import sys
+import zlib
 from unittest.mock import patch
 
 import unittest
@@ -91,7 +94,7 @@ class PublicationGate(unittest.TestCase):
         self.snapshot()
         self.assertEqual((self.root / publication.MANIFEST).read_bytes(), original)
         manifest = json.loads(original)
-        self.assertEqual(manifest['schema'], 2)
+        self.assertEqual(manifest['schema'], 3)
         self.assertEqual(manifest['provenance'], 'publication/provenance.json')
         for record in manifest['files']:
             self.assertEqual(set(record), {'path', 'sha256_lf'})
@@ -111,6 +114,63 @@ class PublicationGate(unittest.TestCase):
         result, report, _ = self.inspect()
         self.assertEqual(result, 1)
         self.assertEqual(report['problems'][0]['stale'], ['source.txt'])
+
+    def add_documentary_figure(self):
+        def chunk(kind, payload):
+            return (struct.pack('>I', len(payload)) + kind + payload
+                    + struct.pack('>I', zlib.crc32(kind + payload) & 0xffffffff))
+        raw = (b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', 1, 1, 8, 2, 0, 0, 0))
+               + chunk(b'IDAT', zlib.compress(b'\0\xff\xff\xff')) + chunk(b'IEND', b''))
+        (self.root / 'figure.png').write_bytes(raw)
+        sha = hashlib.sha256(raw).hexdigest()
+        self.policy['documentary_figures'] = {'figure.png': {'sha256_raw': sha, 'width': 1, 'height': 1}}
+        self.provenance['figure.png'] = {'kind': 'selected-documentary-figure', 'origin': 'Authored study figure',
+                                         'source_sha256_raw': sha, 'published_sha256_raw': sha,
+                                         'license': 'LICENSE', 'adaptation': 'Unmodified'}
+        self.write_json('publication/policy.json', self.policy)
+        self.write_json('publication/provenance.json', self.provenance)
+        self.snapshot()
+
+    def test_documentary_png_is_exact_path_raw_hash_dimension_and_origin_bound(self):
+        self.add_documentary_figure()
+        self.assertEqual(self.inspect()[0], 0)
+        manifest = json.loads((self.root / publication.MANIFEST).read_text())
+        row = next(r for r in manifest['files'] if r['path'] == 'figure.png')
+        self.assertEqual(set(row), {'path', 'sha256_raw'})
+        self.assertEqual(row['sha256_raw'], hashlib.sha256((self.root / 'figure.png').read_bytes()).hexdigest())
+        self.policy['documentary_figures']['figure.png']['width'] = 2
+        self.write_json('publication/policy.json', self.policy)
+        self.snapshot()
+        self.assert_rule('figure.png', 'documentary-figure-dimensions')
+
+    def test_documentary_figure_exception_does_not_allow_arbitrary_binaries(self):
+        self.add_documentary_figure()
+        raw = (self.root / 'figure.png').read_bytes()
+        (self.root / 'other.png').write_bytes(raw)
+        self.snapshot()
+        self.assert_rule('other.png', 'binary-or-unknown-encoding')
+        (self.root / 'figure.png').write_bytes(raw + b'changed')
+        self.snapshot()
+        self.assert_rule('figure.png', 'documentary-figure-digest')
+
+    def test_documentary_figure_requires_selected_provenance_even_after_snapshot(self):
+        self.add_documentary_figure()
+        self.provenance.pop('figure.png')
+        self.write_json('publication/provenance.json', self.provenance)
+        self.snapshot()
+        self.assert_rule('figure.png', 'missing-documentary-figure-provenance')
+
+    def test_imported_research_cannot_silently_change_its_recorded_bytes(self):
+        self.provenance['source.txt'] = {'kind': 'selected-research-source', 'origin': 'Authored source snapshot',
+                                         'source_sha256_lf': publication.digest(self.root / 'source.txt'),
+                                         'published_sha256_lf': publication.digest(self.root / 'source.txt'),
+                                         'license': 'LICENSE', 'adaptation': 'Unmodified'}
+        self.write_json('publication/provenance.json', self.provenance)
+        self.snapshot()
+        self.assertEqual(self.inspect()[0], 0)
+        (self.root / 'source.txt').write_text('Edited without updating provenance\n')
+        self.snapshot()
+        self.assert_rule('source.txt', 'research-import-digest')
 
     def test_cli_report_paths_preserve_the_actual_verdict(self):
         script = self.root / 'tools/publication.py'
@@ -208,7 +268,7 @@ class PublicationGate(unittest.TestCase):
     def test_malformed_manifest_contracts_fail_closed(self):
         original = json.loads((self.root / publication.MANIFEST).read_text())
         changes = [
-            {'schema': 1}, {'schema': 99}, {'schema': 2.0},
+            {'schema': 1}, {'schema': 2}, {'schema': 99}, {'schema': 3.0},
             {'provenance': '../provenance.json'},
             {'selection_policy': '/policy.json'},
             {'default_origin': {'kind': 'anything'}}, {'export': 'excluded'},

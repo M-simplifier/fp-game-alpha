@@ -2,10 +2,12 @@
   "schema": 1,
   "max_source_bytes": 524288,
   "public_repository_links": [
+    "Anut-py/h-raylib",
     "Anut-py/h-raylib-web-template",
     "Bodigrim/bitvec",
     "Bodigrim/logict",
     "Bodigrim/smallcheck",
+    "Brian-ED/raylibAPL",
     "DanielSchuessler/th-expand-syns",
     "GaloisInc/cereal",
     "HigherOrderCO/Bend1",
@@ -13,6 +15,7 @@
     "LeventErkok/sbv",
     "M-simplifier/fp-game-alpha",
     "M-simplifier/garden-of-afterlight",
+    "M-simplifier/stillroom",
     "RyanGlScott/th-lift",
     "UnkindPartition/ansi-terminal",
     "UnkindPartition/tasty",
@@ -20,6 +23,7 @@
     "Z3Prover/z3",
     "acfoltzer/gitrev",
     "actions/cache",
+    "ai-robert/raylib-prolog-poc",
     "barrucadu/dejafu",
     "basvandijk/case-insensitive",
     "basvandijk/lifted-base",
@@ -109,12 +113,14 @@
     "hvr/text-short",
     "inikulin/parse5",
     "intersectmbo/io-sim",
+    "ip7z/7zip",
     "llvm/llvm-project",
     "mboes/th-lift",
     "mgsloan/store",
     "mgsloan/th-orphans",
     "mgsloan/th-reify-many",
     "microsoft/TextWorld",
+    "mingw-w64/mingw-w64",
     "mokus0/monad-loops",
     "mrkkrp/megaparsec",
     "mrkkrp/parser-combinators",
@@ -135,6 +141,7 @@
     "seereason/Diff",
     "simonmar/async",
     "simonmar/ghc-paths",
+    "snowleopard/selective",
     "snoyberg/conduit",
     "snoyberg/githash",
     "snoyberg/mono-traversable",
@@ -178,7 +185,8 @@
     ".agents/skills/haskell-editor-setup/LICENSE",
     ".agents/skills/haskell-editor-setup/scripts/configure-cabal.mjs",
     "references/signal-courier/.agents/skills/game-dev/SKILL.md",
-    "references/signal-courier/.agents/skills/learn-code/SKILL.md"
+    "references/signal-courier/.agents/skills/learn-code/SKILL.md",
+    ".agents/skills/game-research/SKILL.md"
   ],
   "selections": [
     {
@@ -890,6 +898,93 @@
       "prefix": "editors/haskell-design/native/licenses/unix-2.8.8.0/",
       "license": "editors/haskell-design/native/licenses/unix-2.8.8.0/LICENSE",
       "maturity": "experimental"
+    },
+    {
+      "prefix": "research/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "research/stillroom/evidence/",
+      "license": "research/stillroom/evidence/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/apl-fall/",
+      "license": "references/apl-fall/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/prolog-fall/",
+      "license": "references/prolog-fall/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/pure-fall/",
+      "license": "references/pure-fall/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/pure-fall/vendor/game-transition/",
+      "license": "references/pure-fall/vendor/game-transition/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/pure-fall/vendor/game-arena/",
+      "license": "references/pure-fall/vendor/game-arena/LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/apl-fall/vendor/licenses/7zip-License.txt",
+      "license": "references/apl-fall/vendor/licenses/7zip-License.txt",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/apl-fall/vendor/licenses/GNU-APL-COPYING",
+      "license": "references/apl-fall/vendor/licenses/GNU-APL-COPYING",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/apl-fall/vendor/licenses/raylib-LICENSE",
+      "license": "references/apl-fall/vendor/licenses/raylib-LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/apl-fall/vendor/licenses/winpthreads-COPYING",
+      "license": "references/apl-fall/vendor/licenses/winpthreads-COPYING",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": ".agents/skills/game-research/",
+      "license": "LICENSE",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/pure-fall/licenses/game-arena-LICENSE.txt",
+      "license": "references/pure-fall/licenses/game-arena-LICENSE.txt",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/pure-fall/licenses/game-transition-LICENSE.txt",
+      "license": "references/pure-fall/licenses/game-transition-LICENSE.txt",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/pure-fall/licenses/h-raylib-LICENSE.txt",
+      "license": "references/pure-fall/licenses/h-raylib-LICENSE.txt",
+      "maturity": "experimental"
+    },
+    {
+      "prefix": "references/pure-fall/licenses/raylib-LICENSE.txt",
+      "license": "references/pure-fall/licenses/raylib-LICENSE.txt",
+      "maturity": "experimental"
     }
-  ]
+  ],
+  "documentary_figures": {
+    "references/prolog-fall/docs/guide/native-demo.png": {
+      "sha256_raw": "fe7e9c2e329244e747b23d5832dc0d9718f6b57f92c6864d0d7e057b34573f35",
+      "width": 1120,
+      "height": 800
+    }
+  }
 }
