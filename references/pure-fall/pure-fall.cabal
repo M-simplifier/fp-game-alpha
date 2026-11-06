@@ -1,0 +1,50 @@
+cabal-version: 3.0
+name: pure-fall
+version: 1.0.0.0
+build-type: Simple
+synopsis: PURE / FALL deterministic native falling blocks and placement study
+license: MIT
+license-file: LICENSE
+author: PURE / FALL contributors
+category: Game
+
+common checked
+  default-language: GHC2021
+  ghc-options: -Wall -Wcompat -Werror
+  build-depends: base >=4.22 && <4.23
+
+library
+  import: checked
+  hs-source-dirs: src
+  exposed-modules: PureFall.Core, PureFall.Session, PureFall.View, PureFall.Time
+  build-depends: containers, game-transition, game-arena
+  ghc-options: -O2
+
+executable pure-fall
+  import: checked
+  main-is: Main.hs
+  hs-source-dirs: app
+  other-modules: PureFall.Host.Render, PureFall.Host.Audio, PureFall.Host.Font, PureFall.Host.Save
+  build-depends: pure-fall, h-raylib ==6.1.0.0, directory, filepath, bytestring, containers, time
+  ghc-options: -O2 -threaded -rtsopts -optl-mwindows
+
+test-suite pure-fall-check
+  import: checked
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs: test
+  build-depends: pure-fall, containers, game-transition, game-arena, QuickCheck
+
+executable pure-fall-study
+  import: checked
+  main-is: Study.hs
+  hs-source-dirs: tools
+  build-depends: pure-fall, containers, game-transition, game-arena
+
+test-suite native-host-check
+  import: checked
+  type: exitcode-stdio-1.0
+  main-is: HostSaveSpec.hs
+  hs-source-dirs: test, app
+  other-modules: PureFall.Host.Save
+  build-depends: pure-fall

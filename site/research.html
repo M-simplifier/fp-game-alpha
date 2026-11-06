@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="ゲーム開発研究の問い、実装、検証範囲を主題から探す。">
+<title>研究目録 · fp-game-alpha</title>
+<link rel="canonical" href="https://m-simplifier.github.io/fp-game-alpha/research.html">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="research.css">
+<script src="research.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site-header wrap">
+<a class="brand" href="index.html"><span aria-hidden="true">↦</span> fp-game-alpha <small>α</small></a>
+<nav aria-label="主な案内">
+<a href="research.html" aria-current="page">研究目録</a> <a href="guide.html">考え方を読む</a> <a href="index.html#studies">教材</a> <a href="create.html">AIと作る ↗</a>
+</nav>
+</header>
+<main id="main" class="wrap">
+<header class="catalog-header">
+<p class="eyebrow">研究目録</p>
+<h1>問いから研究を探す</h1>
+<p>入力の順序を変えると何が壊れるか。影と本体が同じ形を描くには何を揃えるか。知りたいことから、説明、実装、確かめた範囲へ進めます。</p>
+<p>作品と実験を通して調べてきたゲーム開発研究を収録しています。現在の実装、有限の検査、過去の結果、未解決の問いを区別し、原実装と説明へ案内します。</p>
+<p class="meta">整理日 <time datetime="2026-11-07">2026-11-07</time> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">調査した資料と残る範囲</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/catalog.json">目録の元データ</a></p>
+</header>
+<section aria-labelledby="find-heading" class="catalog-search">
+<h2 id="find-heading">絞り込む</h2>
+<p>区分は研究の置かれている状態です。優劣の順位ではありません。実装に接続した研究にも、未検証の範囲があります。</p>
+<form id="research-filters" class="catalog-controls" role="search" hidden>
+<label for="research-search">言葉で探す
+<input id="research-search" type="search" autocomplete="off" placeholder="例：保存、観測、音楽"></label>
+<label for="research-topic">主題
+<select id="research-topic"><option value="">すべての主題</option>
+<option value="rules-time">規則・入力・時間</option>
+<option value="worlds">世界・生成・資源</option>
+<option value="graphics">形と描画</option>
+<option value="music">音楽・音・時間区間</option>
+<option value="logic-arrays">論理・配列によるゲーム</option>
+<option value="composition">合成と次の構造</option>
+<option value="assurance">型・法則・検証</option>
+<option value="practice">制作・体験・道具</option>
+</select></label>
+<label for="research-status">区分
+<select id="research-status"><option value="">すべての区分</option>
+<option value="implemented">実装に接続</option>
+<option value="example">具体的な作品</option>
+<option value="experiment">実験</option>
+<option value="question">未解決の問い</option>
+<option value="historical">過去の研究</option>
+</select></label>
+<button class="button" type="reset">絞り込みを戻す</button>
+</form>
+<noscript><p>すべての研究を以下に表示しています。ページ内検索も使えます。</p></noscript>
+<p id="research-count" role="status" aria-live="polite">39件の研究</p>
+</section>
+<section aria-labelledby="entries-heading" class="catalog">
+<h2 id="entries-heading">研究一覧</h2>
+<article id="transition-boundaries" class="catalog-entry" data-topics="rules-time composition assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/architecture.md">作品ごとの一回分を保ち、遷移と履歴を共有する</a></h3>
+<p>庭の時間刻みとTaplineの順序付きFrameを同じ入力へ潰さず、Stepの外側で再生、合成、最初の不一致を扱う。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>共有ライブラリと現行の法則を確かめる検査がある。初期研究は四作品・時計込みの計406入力列を比較し、内部分割や重複除去の反例も残した。</dd>
+<dt>残る範囲</dt><dd>完全な入力の間の合成則は、Frame内部の並べ替え、時計の配り直し、外部IOの効果が一度だけ実行されることを保証しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/libraries/game-transition/src/Game/Transition.hs">共有遷移の実装</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/libraries/game-transition/test/Laws.hs">実行可能な法則</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/transitions-and-arenas.md">成立の経緯と壊れる例</a></li>
+</ul>
+</article>
+<article id="arena-agency-observation" class="catalog-entry" data-topics="rules-time composition assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/architecture.md">誰が選び、何を観測し、どの提出を受け取るか</a></h3>
+<p>Arenaは参加者の操作と外部の時計を分け、元の核の入力へ翻訳する。有限解析では「道がある」と「相手に妨げられても達成できる」を分ける。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>Jointの重複拒否、提出の受理、観測制約、有限の強制到達・継続条件に実装と反例テストがある。異なる参照ゲームを同じAPIへ接続している。</dd>
+<dt>残る範囲</dt><dd>有限解析は有限・完全情報・手番制。クロージャによる隠れた状態の捕捉を型だけで防ぐ証明や、一般の同時手・確率・連続時間の解析器ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/libraries/game-arena/src/Game/Arena.hs">Arenaの実装</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/libraries/game-arena/src/Game/Arena/Finite.hs">有限の戦略解析</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/transitions-and-arenas.md">歴史と条件</a></li>
+</ul>
+</article>
+<article id="station-delivery" class="catalog-entry" data-topics="rules-time assurance practice" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/README.md">配達の費用と、古いターンの拒否を一件ずつ追う</a></h3>
+<p>選んだ配達が体力（energy）を使い、配達の成果（delivered）を増やす。古いターン番号で再送すると、同じ状態のまま拒否される。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>純粋な規則の核、Step/Arena、画面なしの実行部、有限の場面と外部APIの拒否テストがある。公開教材のコード抜粋と三つの応答は実ソースに照合される。</dd>
+<dt>残る範囲</dt><dd>現在の参照版は画面なしで使う規則の核。元の非同期保存・UIの経路や、ブラウザでの操作を再検証した結果ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="learn.html">配達をコードで読む教材</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/src/Station/Domain.hs">本物の規則</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_station_api.py">外部clientのAPI検査</a></li>
+</ul>
+</article>
+<article id="lantern-finite-puzzle" class="catalog-entry" data-topics="rules-time assurance" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/lantern/README.md">小さなパズルの、すべての到達状態を調べる</a></h3>
+<p>盤面と世界の対応を検査し、合法手から次の状態を得る。有限の探索で、到達できる状態と解へ戻れる状態を扱う。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>実際の規則の核、Arenaへの接続部、有限の状態・辺の検査がある。外部プログラムからのコンストラクタ利用やレコード更新を拒む検査もある。</dd>
+<dt>残る範囲</dt><dd>固定盤面の到達可能性は任意盤面の解法や全操作の終了保証ではない。元の写真を使った別UI・配布表の歴史と現在の選抜ソースを区別する。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/lantern/src">Lanternの核</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_lantern_api.py">外部APIの検査</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">独立モデルを選ぶための形式手法の記録</a></li>
+</ul>
+</article>
+<article id="garden-clock-control" class="catalog-entry" data-topics="rules-time assurance" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/garden/README.md">庭の時間を、一時停止と繰越時間を含めて進める</a></h3>
+<p>経過時間を有限個の時間刻みへ割り当て、一時停止、再開、一歩進める操作を純粋な時計と規則へ渡す。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>Eventと時計込みFrameの二つの接続部、元の核との有限比較、繰越時間と操作順の回帰検査がある。</dd>
+<dt>残る範囲</dt><dd>同じ経過時間でも、制御操作をまたいで分割すると同じ結果とは限らない。実時間の処理期限や任意端末の速度は保証しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/garden/src">庭の現行実装</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/garden/test/Laws.hs">法則の検査</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/games/time-and-state.md">時間と状態を設計する</a></li>
+</ul>
+</article>
+<article id="tapline-ordered-input" class="catalog-entry" data-topics="rules-time composition assurance" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/tapline/README.md">同時刻のJ・J・Kを、順番も重複も残して扱う</a></h3>
+<p>操作の列、入力のフォーカス、締切の時刻をFrameへまとめる。Resetで後続の操作を捨てる境界が、一般化しすぎた法則の反例になる。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>順序と重複、同時刻の締切、Resetが同じ入力内の後続操作を捨てることに対して、実行可能な反例を保持する。</dd>
+<dt>残る範囲</dt><dd>操作の集合への置換、重複除去、Frame内部の分割を意味保存とは扱わない。ネイティブ環境で動く核の検査は入力装置や音響の感触を保証しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/tapline/src">Taplineの規則</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/tapline/test/Laws.hs">境界を壊す反例</a></li>
+</ul>
+</article>
+<article id="river-days-and-saves" class="catalog-entry" data-topics="rules-time worlds assurance" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/river/README.md">眠る前の天気と、翌朝の世界を取り違えない</a></h3>
+<p>畑、屋根、薪、隣人との食事を日々の規則でつなぐ。保存から戻した世界も、元のadvanceを続けられるようにする。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">世界・生成・資源</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>実際の操作による一〜三日目の旅程、夜の成長・乾燥、検査付きの保存用スナップショットと保存後の継続を検査する。内部構造を公開しないGameの外部プログラム検査もある。</dd>
+<dt>残る範囲</dt><dd>限られた場面の結果で、長期の楽しさ、全操作列、携帯端末での保存や実端末を保証しない。保存形式の将来の自動移行はない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/river/src/Life/Domain.hs">Riverの公開facade</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/river/test/Laws.hs">旅程と保存の法則の検査</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">mobile・保存の歴史</a></li>
+</ul>
+</article>
+<article id="paper-circuit-undo" class="catalog-entry" data-topics="rules-time assurance practice" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/paper-circuit/README.md">一度だけのUndoを、予算と終端状態まで戻す</a></h3>
+<p>回転する配管のパズルに、過去の局面へ戻る一回の選択を入れる。新作品を別作品の進行へ押し込まず、同じ小さな核へつなぐ。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>純粋な規則、Undo、ネイティブとWasmの実行部、内部構造を公開しないAPI、Nodeで実Wasmを呼ぶ検査と操作入力の検査がある。</dd>
+<dt>残る範囲</dt><dd>NodeのWasm実行は、実ブラウザのマウス、入力のフォーカス、描画の検査とは別。固定したレベルの種類を、任意のパズルへ一般化しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/paper-circuit/src">Paper Circuitの実装</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/paper-circuit/GAME-SPEC.md">ゲームの仕様</a></li>
+</ul>
+</article>
+<article id="signal-courier-fixed-ticks" class="catalog-entry" data-topics="rules-time worlds assurance" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/signal-courier/README.md">ジャンプ、チェックポイント、再試行を固定の時間刻みでつなぐ</a></h3>
+<p>プラットフォーマーの移動と障害物を、描画フレームとは別の入力列で再生する。チェックポイントは規則の一部として復帰を決める。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">世界・生成・資源</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>純粋核、固定の時間刻み、ネイティブ環境とWebへの接続部、Wasm実行とブラウザの操作入力、非公開APIの検査がある。</dd>
+<dt>残る範囲</dt><dd>目標へ届く実行履歴は初見の人が同じ操作を見つけられる証明ではない。実ブラウザの描画、実入力の遅延、難度と楽しさは別に調べる。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/signal-courier/src">Signal Courierの実装</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/signal-courier/GAME-SPEC.md">ゲーム仕様</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/verification.md">現在の検証範囲</a></li>
+</ul>
+</article>
+<article id="afterlight-world-and-host" class="catalog-entry" data-topics="rules-time worlds graphics music" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/afterlight/README.md">採掘で変わる世界を、形・音・保存へ渡す</a></h3>
+<p>同じ地形から衝突、照準、編集、メッシュと保存差分を導く。Cueから音やFRPの光の余韻へつなぎ、GPU資源を外側で管理する。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">世界・生成・資源</span>
+<span class="topic-label">形と描画</span>
+<span class="topic-label">音楽・音・時間区間</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>純粋な核、固定の時間刻み、Yampaの局所的な信号、ネイティブのh-raylibとWebの実行部のソース、法則・時間境界・APIの検査と素材・ABIの検査がある。</dd>
+<dt>残る範囲</dt><dd>外部素材の取得、実ブラウザ入力、実端末、長時間プレイと性能再測定をソースの存在や短い起動から認定しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/afterlight">純粋核とhost</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/afterlight/docs/rendering.md">描画の設計</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/afterlight/web/README.md">Web境界</a></li>
+</ul>
+</article>
+<article id="red-dune-ownership" class="catalog-entry" data-topics="rules-time worlds assurance practice" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/red-dune/README.md">在庫、予約、輸送中の荷物を、二重に使わせない</a></h3>
+<p>継続するコロニーで、資源がどこにあり、誰が仕事を受け持ち、取消し時に何を戻すかを型と取引で表す。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">世界・生成・資源</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>現行キャンペーン、輸送・取消・保存の検査、Windowsのネイティブ実行部とLinuxのHTTP実行部の検証経路がある。実際の数量モジュールへの独立した参照実装も保持する。</dd>
+<dt>残る範囲</dt><dd>有限取引や短い実行部試験から全キャンペーン、任意の処理順序、全端末、長期の楽しさへ広げない。旧Colonyの形式結果は現在の核へ自動適用されない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/red-dune/core">現行colonyの核</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/red-dune/docs/ACCEPTANCE.md">利用経路別の検証</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/quantity/README.md">資源数量の独立検査</a></li>
+</ul>
+</article>
+<article id="terminal-starter-continuation" class="catalog-entry" data-topics="rules-time practice assurance" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/terminal-starter.md">小さな探索ゲームを作り、別の場所でも育てる</a></h3>
+<p>terminal-adventureは、新しいゲーム用ディレクトリに核、実行部、検査、制作道具を渡す。取得元から離しても開発を続ける例になる。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>ネイティブCLIで生成・build・check・test・runを実行し、独立したディレクトリへの移動と、不要な生成物がある状態からの選抜を検査する。</dd>
+<dt>残る範囲</dt><dd>ターミナル用ひな型は任意のゲームの企画の代用品ではない。別の描画実行部や対象環境には、それぞれ実装と実際に使う経路での検査が要る。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/templates/terminal-adventure">starterのソース</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_native_cli.py">独立生成と移動の検査</a></li>
+</ul>
+</article>
+<article id="independent-oracles" class="catalog-entry" data-topics="assurance practice graphics" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/guarantees.md">二つの経路が同じ誤りを共有しても、検査で見つける</a></h3>
+<p>共通実装同士の一致に加え、別に定めた意味の基準と実行結果を比べる。意図的に壊した例が拒否されることも確かめる。</p>
+<p class="topic-labels">
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">形と描画</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>数量のPython整数参照実装、正常な外部プログラムのコンパイルと意図した拒否、拒否後の状態保持などの検査がある。描画経路の一致と、意図した形の照合も区別する。</dd>
+<dt>残る範囲</dt><dd>別言語・別精度というだけで独立性は決まらない。通った範囲の有限検査で、依存コンパイラ、GPU、全入力の正しさを証明しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/haskell/verification-review.md">検証の設計</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/quantity/check.py">現行quantity checker</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/failure-prevention.md">繰り返しやすい失敗の対処</a></li>
+</ul>
+</article>
+<article id="readable-haskell" class="catalog-entry" data-topics="practice assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell.md">型と名前から、一つの行為の結果を読めるようにする</a></h3>
+<p>純粋関数、検査付きの値、効果の外側を、ゲームの行為に沿って読む。整形、説明、理解、別作品への応用を分けて確かめる。</p>
+<p class="topic-labels">
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>技法選択と検証の資料、現在のソースを読むlearn-code、版を固定したOrmolu、既存API・保存挙動を保った書き直しの記録がある。</dd>
+<dt>残る範囲</dt><dd>整形や挙動一致から初心者の理解、AIのトークン削減、別作品への転移を認定しない。すでに明快なコードを抽象化のためだけに変えない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/haskell/technique-choices.md">Haskell技法の選択</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/learn-code.md">コードを読む入口と実験の限界</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/formatting.md">整形とsource選択</a></li>
+</ul>
+</article>
+<article id="compiler-backed-reading" class="catalog-entry" data-topics="practice assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/haskell-design.md">説明する前に、コンパイラが読んだソースと型を確かめる</a></h3>
+<p>保存済みソースをコンパイラで読み、モジュール、定義、型と文脈を返す。コメントをモジュールと誤認する検索や、空出力を成功にする経路を避ける。</p>
+<p class="topic-labels">
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>Haskell Designのネイティブ読取機能とエディタへの接続部、信頼設定を必要とする型推論、キャッシュの失敗、独立したパッケージと移動の検査がある。</dd>
+<dt>残る範囲</dt><dd>保存済みソースと未保存の編集内容、CLIと実際のエディタ画面を区別する。任意の読取補助は、新しいゲームの制作に必須ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/editors/haskell-design/README.md">読取機能の実装と利用</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_editors.py">native consumerの検査</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_tools.py">コンパイラ入力のregression</a></li>
+</ul>
+</article>
+<article id="native-tools-human-ai" class="catalog-entry" data-topics="practice assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/native-tooling.md">人の制作意図を、AIと繰り返せる工具へ渡す</a></h3>
+<p>人が遊びの意味を決め、AIが設計と実装を引き受ける。同じビルド、診断、生成、実行を工具へ移し、作品の設計判断をひな型へ閉じ込めない。</p>
+<p class="topic-labels">
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>HaskellのネイティブCLIは独立した生成、配置を変えた後の実行、Unicode、失敗・取消しと子プロセスの所有を検査する。ゲーム側と工具の構築で使うコンパイラを分離する。</dd>
+<dt>残る範囲</dt><dd>工具の実装だけで、あらゆるAI・ゲーム企画・端末で一貫して制作に成功することを保証しない。モデル固有の効率は測定していない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/haskell/README.md">ネイティブCLIの実装</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/new-game.md">制作の入口</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">反復制作の研究</a></li>
+</ul>
+</article>
+<article id="game-experience-design" class="catalog-entry" data-topics="practice worlds" data-status="experiment">
+<p class="entry-meta"><span class="status-label">実験</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/game-experience/design.md">遊んだ結果が、次にしたいことを変えるか</a></h3>
+<p>建てた場に料理が届き、住民が使う。規則、結果の読み取り、本人が次に選びたいことをつなぎ、どこで関係が切れたかを調べる。</p>
+<p class="topic-labels">
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">世界・生成・資源</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>公開理論と開発者の制作例を照合し、Red Duneの実利用をつないだ版と当時の肯定的試遊反応を区別して記録している。</dd>
+<dt>残る範囲</dt><dd>MDA、Agency、価値連鎖や動機の理論は楽しさの公式ではない。反応の原因を分離した比較、長期再訪、別ジャンルでの成功は未検証。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/game-experience/sources.md">原典、観察、残った仮説</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/earlier-prototypes.md">初期作品で残った体験上の失敗</a></li>
+</ul>
+</article>
+<article id="ux-and-japanese" class="catalog-entry" data-topics="practice assurance" data-status="experiment">
+<p class="entry-meta"><span class="status-label">実験</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/game-experience/ui-and-japanese.md">受付、進行、届いた成果を、画面と言葉で区別する</a></h3>
+<p>「現在120／目標240」なら、何のどこにある量かを示す。操作と実状態を対応させ、必要な説明を必要な場で読み直せるようにする。</p>
+<p class="topic-labels">
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>Red Duneの数量表示、停止と班解除、HELP中の時間停止などを踏まえた説明資料と原典の読書範囲がある。</dd>
+<dt>残る範囲</dt><dd>短い文や文字サイズの定数だけで理解・可読性を判定しない。実画面での切れ、操作、初見の理解は作品と端末ごとに確かめる。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/game-experience/sources.md">出典と当時の検査</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/red-dune/README.md">具体的な現行作品</a></li>
+</ul>
+</article>
+<article id="headless-observation-decisions" class="catalog-entry" data-topics="rules-time assurance practice" data-status="experiment">
+<p class="entry-meta"><span class="status-label">実験</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/headless-play.md">AIが見えた情報から選び、結果を受けて遊び直す</a></h3>
+<p>画面なしの実行部へ観測を求め、実際に行動を選び、その結果を読む。定めた手順による正しさの検査と、判断の調査を区別する。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>Station等の実際の核を呼ぶ操作の送受信規約と古い手番の拒否、観測・選択・保存を扱う工具がある。</dd>
+<dt>残る範囲</dt><dd>ソースを読んだAI、初見のAI、人間の初見は情報条件が異なる。正解手順の再生だけで学習や楽しさを認定しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/play.py">実際のplay工具</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/test_play.py">送受信規約の回帰検査</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/station/app/HeadlessMain.hs">Stationのheadless入口</a></li>
+</ul>
+</article>
+<article id="live-tuning-session-boundary" class="catalog-entry" data-topics="rules-time practice assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/paper-circuit/docs/live-tuning.md">調整したレベルを、次の試行から採用する</a></h3>
+<p>設定を読めても進行中の盤面は勝手に変えない。新しい試行、restart、Undoのそれぞれが使うレベルを明示する。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>内部構造を公開しないLevel/Catalog、Integerでの範囲確認、具体解による手数予算の受理、古い非同期取得結果の破棄、実Wasmでのstageと新しい試行の検査がある。</dd>
+<dt>残る範囲</dt><dd>固定したレベルの種類で、実際に解ける操作列を使う十分条件であり、最短解の探索器や任意のHaskellコードの状態を保った再読込ではない。実ブラウザの画面と操作は別の検査。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/paper-circuit/src">調整機能の実装</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">前段の小実験と測定</a></li>
+</ul>
+</article>
+<article id="platform-source-consumer" class="catalog-entry" data-topics="practice assurance graphics" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/platforms.md">ソース、ビルド、実行、端末での操作を別々に確かめる</a></h3>
+<p>同じ純粋核をネイティブとWebへつないでも、ABI、保存、入力のフォーカス、GPU資源、配布物の依存は実行部側に残る。</p>
+<p class="topic-labels">
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">形と描画</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>ネイティブのターミナル、各参照作品、GHC-WasmとHTTPの実行部に、それぞれ経路と検証範囲がある。現在の開発環境と実際に使う経路の検査を、文書へ対応させる。</dd>
+<dt>残る範囲</dt><dd>宣言した実行経路や通ったCIだけで実ブラウザ、携帯端末、エディタの実画面、長期稼働を保証しない。ソースの有無は実装能力や作品の許可範囲を決めない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/verification.md">現在の検証記録</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/support/routes.json">routeの状態</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">過去のhost統合で見つかったこと</a></li>
+</ul>
+</article>
+<article id="historical-quantity-refinement" class="catalog-entry" data-topics="assurance" data-status="historical">
+<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">数量の6関数を、型・論理式・機械整数へつなぐ</a></h3>
+<p>資源の型と範囲付きの算術を検査し、数学的整数の主張がInt64の実行をどこまで扱うかを切り分けた。</p>
+<p class="topic-labels">
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>2026-10-05の固定版は6関数のSAFE25、6種類の誤った実装のUNSAFE、独立SMTの8 UNSATと1 SAT反例を記録する。現行には軽量な数量検査器が残る。</dd>
+<dt>残る範囲</dt><dd>過去の専用GHC/LH環境は現行の既定環境ではない。モジュール全体、ゲーム全体、任意の型変換・保存形式への変換の証明ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/7682f7c620fbc03c288a501d5a9c116bbba7d999/research/quantity/lh-checker">固定した再現ソース</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/quantity/README.md">現行quantity検査</a></li>
+</ul>
+</article>
+<article id="historical-liquid-failed-soundness" class="catalog-entry" data-topics="assurance" data-status="historical">
+<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">誤った除算の契約がSAFEになった失敗を残す</a></h3>
+<p>普通のHaskellが0を返す入力に99という契約を付けたところ、固定した検査器が受理した。観察の再現成功と保証の失敗を分離した。</p>
+<p class="topic-labels">
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>LH 0.9.6.3.1 / GHC 9.6.3の12診断と、実際の実行との照合を記録。厳格な健全性の判定は失敗し、終了コードは1。</dd>
+<dt>残る範囲</dt><dd>新しいLH版の判定ではなく、修復したという結果でもない。SAFE表示のみを任意の規則の保証へ使えない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/7682f7c620fbc03c288a501d5a9c116bbba7d999/research/liquidhaskell">失敗を含む固定診断と再現方法</a></li>
+</ul>
+</article>
+<article id="historical-sbv-cancellation" class="catalog-entry" data-topics="assurance worlds" data-status="historical">
+<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">取消しで資源が増減しないか、式と実取引で調べる</a></h3>
+<p>投入量、進捗、返却の丸めをSBVで扱い、実際の補助関数と取引の有限実行へつないだ。</p>
+<p class="topic-labels">
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">世界・生成・資源</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>固定版は一般4件と有界2件のUNSAT、3件のSAT対照例、36,400件の補助関数入力と1,412取引・127,011検査条件を記録する。</dd>
+<dt>残る範囲</dt><dd>固定した古いColonyの結果。十分な返却容量と与えた進捗を前提とし、現行の処理順の決定や任意配置の保証ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/7682f7c620fbc03c288a501d5a9c116bbba7d999/research/sbv-cancellation">固定したSBVソース・実行記録</a></li>
+</ul>
+</article>
+<article id="historical-tlc-save-lifecycle" class="catalog-entry" data-topics="rules-time assurance" data-status="historical">
+<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">古い保存応答と、成功を知らせる順序を調べる</a></h3>
+<p>状態の世代（epoch）、要求の識別子（ticket）、永続化と完了通知を有限モデルにし、反例を実Haskellと保存・読み戻しで再生した。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>2026-10-05の固定範囲で79,227個の異なる状態、三つの変異反例、13項目の実際の実行履歴照合と公平性の負例を記録する。</dd>
+<dt>残る範囲</dt><dd>2世代などの有限範囲、新鮮な要求識別子、直列の呼び出し元、要求別の保存領域、弱公平性が前提。共有の書き込み元、電源断、任意実行の精緻化の証明ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/7682f7c620fbc03c288a501d5a9c116bbba7d999/research/save-lifecycle">モデル、fixture、実装との照合</a></li>
+</ul>
+</article>
+<article id="historical-change-play-latency" class="catalog-entry" data-topics="practice assurance" data-status="historical">
+<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">小さな変更から遊び直すまでを、三つの経路で測る</a></h3>
+<p>データ読込、起動済みGHCiでの再読込（:reload）、ネイティブ環境でのコンパイル・リンク・起動を、変更後の盤面出力まで測った。</p>
+<p class="topic-labels">
+<span class="topic-label">制作・体験・道具</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>七セルのLinux/GHC9.6.7実験で7回の試行、中央値0.284 / 58.820 / 960.813msを記録。検査・試行境界と巨大整数の解析処理の修正も残す。</dd>
+<dt>残る範囲</dt><dd>異なる費用を持つ制作手順の小実験。人の入力、画面描画、ブラウザ、任意の状態を保った実行中の差替えや、一般性能の結果ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/tree/7682f7c620fbc03c288a501d5a9c116bbba7d999/research/live-tuning">固定した実験・全サンプル</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/paper-circuit/docs/live-tuning.md">現行Paper Circuitへの実装</a></li>
+</ul>
+</article>
+<article id="historical-prototype-lessons" class="catalog-entry" data-topics="worlds graphics assurance practice" data-status="historical">
+<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/earlier-prototypes.md">3D、物理、大量の内容から、何を引き継ぐか</a></h3>
+<p>城と一軒家の共有形状、3DoFの崩落、未達の厳密6DoF、音や空間の品質不足を、成功と反証の両方として読む。</p>
+<p class="topic-labels">
+<span class="topic-label">世界・生成・資源</span>
+<span class="topic-label">形と描画</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>2026-09-08の終了整理を読み戻し、到達性の格子条件、5,768体の実用3DoF、10,000体の実験環境の期限超過、局所130体を全崩落と誤認しない条件を編集した。</dd>
+<dt>残る範囲</dt><dd>元の全ソース・素材・配布物はこの選抜公開に含めず、今回は再実行していない。終了した作品や未達研究を現行開発予定へ復活させない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/earlier-prototypes.md">公開向けに編集した歴史</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/games/simulation.md">現在のsimulation資料</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/games/performance.md">描画と実行を測る資料</a></li>
+</ul>
+</article>
+<article id="historical-finite-table-distribution" class="catalog-entry" data-topics="rules-time assurance practice" data-status="historical">
+<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/transitions-and-arenas.md">有限パズルの核を、配布用の遷移表へ変える</a></h3>
+<p>Haskellで全到達状態を計算し、ブラウザは状態番号と枝を選ぶ。規則をJavaScriptへ複写せずに、小さな固定五面を配った研究。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>2026-10-03の記録は4,327到達状態・23,641遷移、全到達状態からの解の存在と配布JSON再生成一致、JSDOMで43操作とUndo・遅延応答を検査した。</dd>
+<dt>残る範囲</dt><dd>固定した五面の核についての結果。UI・Undo・非同期の全状態を列挙したわけではない。全操作の終了、実ブラウザ・携帯端末、一般世界への拡大は保証しない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://fugu-lantern-way-home.m-simplifier.chatgpt.site/">当時の作品とsource配布</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/lantern/README.md">現在の選抜された核</a></li>
+</ul>
+</article>
+<article id="stillroom-procedural-landscapes" class="catalog-entry" data-topics="worlds graphics rules-time" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/landscapes-and-graphics.md">同じ場所を作り直せる、シード付きの生成風景</a></h3>
+<p>構図を持つ固定風景と、旅の周囲だけを生成する区画を読む。地形・樹木・歩行が共通の規則を使う利点と、Floatでの標本化や三角形補間による差を扱う。</p>
+<p class="topic-labels">
+<span class="topic-label">世界・生成・資源</span>
+<span class="topic-label">形と描画</span>
+<span class="topic-label">規則・入力・時間</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>近景49・遠景81区画の実装と再生成検査。公開移行記録は17,137個の場の標本、固定3風景と近遠24区画を比較。本資料ではシードを交互に調べる例と曲面／三角形の反例を実行した。</dd>
+<dt>残る範囲</dt><dd>キャッシュの有限性は生成待ち時間を消さない。世界の座標範囲は有限。解析的な歩行面と描画面は同一ではなく、破壊・建築を残すには変更状態が別に必要。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/journeys.md">Stillroom v0.12.0の旅の設計</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Landscape/Field.hs">seed付きの地形・配置・歩行判定</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/test/LandscapeChecks.hs">標本化と区画境界の検査</a></li>
+</ul>
+</article>
+<article id="stillroom-geometry-observations" class="catalog-entry" data-topics="graphics composition assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/landscapes-and-graphics.md">一つの形を、通常画面・影・反射で観測する</a></h3>
+<p>形を選ぶ位置と時刻を投影の視点から分け、型付き座標と検査済みのFramePlanをGPUへ渡す。公開操作の抜け道、行列の共有、GPU資源の寿命を具体的に追う。</p>
+<p class="topic-labels">
+<span class="topic-label">形と描画</span>
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>公開された0.10基盤の検査はRTX3050/OpenGL3.3、車体5,394頂点、67条件、3パス。誤った行列・物体種別の対照例を検出。v0.12.0の実装と不正レコード更新の拒否例を読める。</dd>
+<dt>残る範囲</dt><dd>二つの経路の一致だけでは共通の誤りを排除できない。頂点の検査は画素の可視性・全地形・全GPUを証明しない。三視点を共有する方針はStillroomの旅に属する。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/graphics-foundation.md">描画基盤の実装と検証範囲</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Graphics/Observation.hs">画像と投影を一組にするObservation</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/runtime/Stillroom/Runtime/Graphics/Resource.hs">描画スレッドで管理するGPU資源</a></li>
+</ul>
+</article>
+<article id="stillroom-exact-boundary" class="catalog-entry" data-topics="graphics composition assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/landscapes-and-graphics.md">箱を組み立ててから、外側の面を取り出す</a></h3>
+<p>接する箱の面積が、別々の表面なら12、結合後の表面なら10になる反例から、部品の結合と境界抽出を分ける。Rationalの座標と材質の優先順を描画まで保つ。</p>
+<p class="topic-labels">
+<span class="topic-label">形と描画</span>
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>公開実装は71個の車体部品に使用。矩形差分・体積などの法則と過去の独立占有検査がある。本資料では、二つの単位箱の結合前後で外面積が12と10になる反例を実行した。</dd>
+<dt>残る範囲</dt><dd>材質の優先順は部品順序に依存する。軸に沿う箱の算法であり、一般曲面のCSGや車輪を含む車両全体の水密性は示さない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Graphics/BoxUnion.hs">正確な箱の外面の抽出</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Journey/Railcar.hs">算法から分離された車体の意匠</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/test/GraphicsChecks.hs">矩形差分と体積の検査</a></li>
+</ul>
+</article>
+<article id="stillroom-shared-grass-kernel" class="catalog-entry" data-topics="graphics assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/landscapes-and-graphics.md">草の算術をHaskellで記述し、CPUとGLSLで使う</a></h3>
+<p>草一枚の展開済みデータ660バイトを、40バイトのパラメータと共通の角へ置き換える。小さな算術の共有、花と風の扱い、頂点・画素・全工程の別々の評価を読む。</p>
+<p class="topic-labels">
+<span class="topic-label">形と描画</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>公開GPU記録は各変種・各系列77,760頂点、最大位置差の実測9.54e-7m、誤った風座標を拒否。12画像中8枚が一致。補足データは準備済み描画の比較と全工程の逆転を条件付きで保存。</dd>
+<dt>残る範囲</dt><dd>任意のHaskellをGPUで実行する仕組みではない。草の属性量の削減はアプリ全体のメモリやFPSの保証ではなく、80.51秒対73.10秒の全工程の逆転は未解明。本資料でGPU測定は再実行していない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Landscape/Grass/Kernel.hs">CPU評価とGLSL出力を共有する算術</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/graphics-foundation.md">公開タグの検証記録</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/evidence/renderer-measurements-2026-11-06.json">2026-11-06補足測定データ（公開タグ外）</a></li>
+</ul>
+</article>
+<article id="stillroom-continuous-music" class="catalog-entry" data-topics="music rules-time assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/music-and-time.md">時間区間へ問い合わせ、前から続く響きも鳴らす</a></h3>
+<p>Rationalの拍、Integerのサンプル位置、シード付き作曲から必要なPCMを作る。24秒の過去窓と音色の長さを結び付け、分割の一致だけでは響きの欠落を見逃す反例を説明する。</p>
+<p class="topic-labels">
+<span class="topic-label">音楽・音・時間区間</span>
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>本資料の20秒後も開始音を含む例と、現行の独立ミキサー・分割・遠未来・シード検査を実行。元資料は69音源の再生成一致と有限のネイティブ環境での音声供給検査を記録。</dd>
+<dt>残る範囲</dt><dd>隣り合う問い合わせの発音リストを単純連結すると過去の発音が重複する。PCM一致は音楽の美しさや実聴を証明しない。無限の響きやフィードバックには追加の状態の契約が必要。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Audio/Composition.hs">区間へ問い合わせる作曲</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/test/AudioChecks.hs">独立の波形期待値と分割検査</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/tools/audio/README.md">音源の再生成と来歴</a></li>
+</ul>
+</article>
+<article id="stillroom-environmental-sound" class="catalog-entry" data-topics="music worlds rules-time assurance" data-status="implemented">
+<p class="entry-meta"><span class="status-label">実装に接続</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/music-and-time.md">場所と走行履歴に応じて変わる環境音</a></h3>
+<p>乗車状態・速度・生息域由来の森の度合い・岸距離から環境音を作る。車輪の位相を積分し、音の状態とデバイスの所有を分け、速度変更と停止再開を検査する。</p>
+<p class="topic-labels">
+<span class="topic-label">音楽・音・時間区間</span>
+<span class="topic-label">世界・生成・資源</span>
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>現行の環境音六検査を実行し、PCM／状態の分割一致、速度変更時の独立期待値、フェード後の凍結、徒歩、不正入力を確認。七素材と最大四つの車体音を使う実装を確認。</dd>
+<dt>残る範囲</dt><dd>同じ現在地と速度でも履歴で位相が変わる。分割比較は同じサンプル位置で同じ入力を採用する条件に限る。三次元音源、頭の向き、HRTF、遮蔽を扱う空間音響ではない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Audio/Environment.hs">環境音の入力と有限の状態</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/test/EnvironmentChecks.hs">独立の位相計算と停止再開の検査</a></li>
+<li><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/runtime/Stillroom/Runtime/Journey.hs">旅から四つの値を渡す箇所</a></li>
+</ul>
+</article>
+<article id="apl-array-placement" class="catalog-entry" data-topics="logic-arrays rules-time assurance" data-status="experiment">
+<p class="entry-meta"><span class="status-label">実験</span></p>
+<h3><a href="studies/array-fall.html">APLで配置・経路・行消去を配列として記述する</a></h3>
+<p>固定盤面から全1300姿勢の合法性と到達集合を求める独立したARRAY / FALL。累積ANDで屋根を飛び越えない落下を計算する。</p>
+<p class="topic-labels">
+<span class="topic-label">論理・配列によるゲーム</span>
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>選別後のソースで91,000配置、455,000操作、72,800到達判定を別のセル列挙と照合。8本のネイティブ画面記録も通過。</dd>
+<dt>残る範囲</dt><dd>固定盤面の有限例。簡易な壁蹴りでSRSは採用しない。探索中は時計を止める。全状態の列挙、一般のECS、全ゲームでの速度優位は未証明。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/apl-fall/README.md">ソースと再現方法</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/apl-fall/docs/DESIGN.md">配置の随伴と軸の設計</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/apl-fall/tests/oracle.py">独立セル列挙oracle</a></li>
+</ul>
+</article>
+<article id="prolog-relations-reachability" class="catalog-entry" data-topics="logic-arrays rules-time composition assurance" data-status="experiment">
+<p class="entry-meta"><span class="status-label">実験</span></p>
+<h3><a href="studies/prolog-fall.html">Prologで四セルから形を求め、操作列を返す</a></h3>
+<p>有限領域の配置関係とBFSを実際に問い合わせる。屋根つき空洞、同じ見た目で異なる回転、行消去で失う情報を原実行記録で比較する。</p>
+<p class="topic-labels">
+<span class="topic-label">論理・配列によるゲーム</span>
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>選抜後の54テストが通過。614姿勢・34接地経路をPrologで再生成し171データを検査。公開HTMLの37項目のオフライン・ブラウザ検査も通過。</dd>
+<dt>残る範囲</dt><dd>盤面は入力として確定。独自壁蹴り、非SRS。探索・再生中の時計を止める。未定変数での否定を集合の補集合と扱えない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/prolog-fall/README.md">ソースと再現方法</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/prolog-fall/src/tetromino.pl">移動・有限制約の本体</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/prolog-fall/src/reachability.pl">到達探索と経路再生</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/prolog-fall/scripts/export-guide.pl">実Prologからの解説生成</a></li>
+</ul>
+</article>
+<article id="pure-fall-representative" class="catalog-entry" data-topics="rules-time assurance practice" data-status="example">
+<p class="entry-meta"><span class="status-label">具体的な作品</span></p>
+<h3><a href="studies/pure-fall.html">PURE / FALLで純粋な一手・入力・保存を結ぶ</a></h3>
+<p>alphaのStep/Arenaを継承する独立したHaskellゲーム。短押しと時間の端数、SRS、保存改ざん、巻き戻した後の分岐を実装と独立検査で確かめる。</p>
+<p class="topic-labels">
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+<span class="topic-label">制作・体験・道具</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>選抜後のCabal検査4群、4種類のAPI拒否、10件の独立再検査、9,408姿勢のセル比較と57,502回転比較が通過。9音源を同じバイト列で再生成し、構築とZIP展開後の制限PATHで4行消去・音声再生も通過。</dd>
+<dt>残る範囲</dt><dd>APL/Prolog版とは盤面寸法・回転等のルールが異なる。Practice探索は時計を止める。元のプレイ・配布観察と今回のソース検査を区別する。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/pure-fall/README.md">ソースと再現方法</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/pure-fall/src/PureFall/Core.hs">ゲーム規則と公開境界</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/pure-fall/src/PureFall/Session.hs">時間・履歴のSession</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/references/pure-fall/comparison/audit/RotationOracle.hs">独立したSRS oracle</a></li>
+</ul>
+</article>
+<article id="free-programs-information" class="catalog-entry" data-topics="composition rules-time assurance" data-status="experiment">
+<p class="entry-meta"><span class="status-label">実験</span></p>
+<h3><a href="studies/free-monad.html">Freeは純粋なStepへ何を追加できるか</a></h3>
+<p>返答によって続きが変わる未実行手順を、実行・探索・説明へ読む候補。コインの情報境界、入力のまとまり、失敗時の仮状態を具体例で検査する。</p>
+<p class="topic-labels">
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>同じ葉でも最良成功率1/2と1が異なる有限例。既存Policyでも同値を計算でき、情報覗き・二つの失敗解釈を含む9検査が通過。操作HTMLも115検査通過。</dd>
+<dt>残る範囲</dt><dd>Freeの導入は未採用。順序だけでは観測を制限できず、単なる効果列は追加価値が薄い。時間・停止・資源・並行性は別契約。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/composition.md">現在の考察と再現方法</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/free/AlphaFreeWitness.hs">Haskellの9検査</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/libraries/game-transition/src/Game/Transition.hs">比較元の純粋Step</a></li>
+</ul>
+</article>
+<article id="category-preservation-counterexamples" class="catalog-entry" data-topics="composition logic-arrays rules-time assurance" data-status="experiment">
+<p class="entry-meta"><span class="status-label">実験</span></p>
+<h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/composition.md">時間・情報・共同配置を忘れる変換の反例</a></h3>
+<p>部品をつなぐことと表現を取り替えることを分ける探索。周期扉、個別合法でも重なる配置、同じ九つの結果で必勝方策が変わるじゃんけんを有限計算する。</p>
+<p class="topic-labels">
+<span class="topic-label">合成と次の構造</span>
+<span class="topic-label">論理・配列によるゲーム</span>
+<span class="topic-label">規則・入力・時間</span>
+<span class="topic-label">型・法則・検証</span>
+</p>
+<dl>
+<dt>確かめたこと</dt><dd>関係合成256件、到達1536件、配置随伴1024件、条件交差4096件、時刻付き511列、符号化64遷移、情報制限30方策を照合。</dd>
+<dt>残る範囲</dt><dd>有限の数学例であり、汎用DSLや次世代の共通基盤は未採用。正確な変換、過大近似、意図した規則変更を別の契約として扱う。一般ゲームの同値、性能、面白さは示していない。</dd>
+</dl>
+<ul class="entry-sources" aria-label="実装と根拠">
+<li><a href="studies/clock-and-reachability.html">時計と到達を操作する図</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/category/finite_witness.py">実行できる有限モデル</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/category/finite-results.json">再生成可能な結果</a></li>
+</ul>
+</article>
+</section>
+<p id="research-empty" hidden>該当する研究はありません。言葉や区分を変えてください。</p>
+</main>
+<footer class="site-footer wrap"><p>実装の正本と、有限の検査、実機での観察、人の評価を区別して読みます。</p></footer>
+</body>
+</html>

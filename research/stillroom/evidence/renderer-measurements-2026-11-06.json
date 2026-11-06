@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "release": "v0.12.0",
+  "measurement_date": "2026-11-06",
+  "environment": {
+    "platform": "Windows x64",
+    "ghc": "9.6.7",
+    "application_optimization": "O2",
+    "h_raylib": "5.6.0.0",
+    "rts_capabilities": 2,
+    "scope": "One laptop and one GPU/driver configuration; no cross-device guarantee"
+  },
+  "representation": {
+    "expanded_blade_attribute_bytes": 660,
+    "instance_record_bytes": 40,
+    "shared_corner_bytes_per_renderer": 180,
+    "vertices_per_blade": 15,
+    "triangles_per_blade": 5,
+    "excludes": "Object/driver overhead, other scene geometry and total process/GPU memory"
+  },
+  "grass_resident_abba": {
+    "conditions": "Final grass snapshot;one process/context with two retained worlds;49 near+81 far each;1600x900 output,1120x630 Low raster,1024 shadow;fingerprints off;I/E/E/I then E/I/I/E;60 samples/block;20 untimed warm frames/block;generation/upload excluded",
+    "metric_order": [
+      "expanded_for_check",
+      "instanced"
+    ],
+    "results": [
+      {
+        "scene": "meadow-low",
+        "gpu_interval_median_ms": [
+          5.101568,
+          4.849664
+        ],
+        "render_submit_median_ms": [
+          2.7987,
+          2.77695
+        ],
+        "whole_instrumented_frame_mean_ms": [
+          8.815627,
+          8.55594
+        ],
+        "query_begin_median_ms": [
+          5.98935,
+          5.7247
+        ],
+        "whole_block_frame_mean_range_ms": [
+          [
+            8.547843,
+            9.181553
+          ],
+          [
+            8.42234,
+            8.651958
+          ]
+        ],
+        "plan_and_uniforms_all8_exact": true,
+        "changed_pixels_between_paths": 2,
+        "max_rgb_delta_8bit": 1,
+        "image_width": 1600,
+        "image_height": 900,
+        "alpha_changed_pixels": 0
+      },
+      {
+        "scene": "lake-low",
+        "gpu_interval_median_ms": [
+          3.837952,
+          3.700736
+        ],
+        "render_submit_median_ms": [
+          2.7914,
+          2.75485
+        ],
+        "whole_instrumented_frame_mean_ms": [
+          7.514547,
+          7.37105
+        ],
+        "query_begin_median_ms": [
+          4.63535,
+          4.48935
+        ],
+        "whole_block_frame_mean_range_ms": [
+          [
+            7.204225,
+            7.987008
+          ],
+          [
+            7.148245,
+            7.857307
+          ]
+        ],
+        "plan_and_uniforms_all8_exact": true,
+        "changed_pixels_between_paths": 0,
+        "max_rgb_delta_8bit": 0,
+        "image_width": 1600,
+        "image_height": 900,
+        "alpha_changed_pixels": 0
+      }
+    ],
+    "limit": "GL elapsed is a command interval including possible CPU supply gaps, not pure GPU busy time;whole samples include substantial glBeginQuery driver/instrumentation waits;not uninstrumented FPS"
+  },
+  "normal_stream_single_pair": {
+    "metric": "internal_accelerated_loop_wall_seconds",
+    "instanced": 80.511842,
+    "expanded_for_check": 73.0982238,
+    "stream_stage_seconds": [
+      13.597432,
+      21.1808
+    ],
+    "submit_stage_seconds": [
+      39.82573,
+      44.369592
+    ],
+    "unseparated_remainder_seconds": [
+      27.08868,
+      7.547831
+    ],
+    "stage_order": [
+      "instanced",
+      "expanded_for_check"
+    ],
+    "conditions": "Same final helper;fingerprints off;both start from compact CPU geometry;expanded path reconstructs old vertices during upload;82 warm frames+1800 travel frames/600 semantic seconds+3 PNG saves;960x540 Standard;no audio/pacing",
+    "limit": "Single sequential pair;wall is slower for instancing despite lower stream/submit counters;remainder not causally localized;no whole-application speedup established"
+  },
+  "source_code": [
+    "https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Landscape/Grass.hs",
+    "https://github.com/M-simplifier/stillroom/blob/v0.12.0/src/Stillroom/Landscape/Grass/Kernel.hs",
+    "https://github.com/M-simplifier/stillroom/blob/v0.12.0/runtime/Stillroom/Runtime/Graphics/Resource.hs",
+    "https://github.com/M-simplifier/stillroom/blob/v0.12.0/runtime/Stillroom/Runtime/Graphics/Renderer.hs"
+  ],
+  "overall_limit": "No universal whole-application,FPS,energy,all-day or language-superiority claim;ordinary GHC CPU work,GLSL GPU work and explicit native/OpenGL dependencies remain separate",
+  "publication_note": {
+    "source_project": "Stillroom",
+    "source_document": "2026-11-06 Haskell renderer measurement summary",
+    "scope": "Selected supplemental development evidence for the v0.12.0 application; this data file was not included in that release tag.",
+    "adaptation": "Selected final grass comparisons and their conditions. All selected numerical values are unchanged. Earlier migration and retained-mesh studies are omitted.",
+    "verification": "Imported documentation evidence; GPU timings were not rerun while authoring this research guide.",
+    "license_notice": "LICENSE"
+  }
+}

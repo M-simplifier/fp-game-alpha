@@ -20,6 +20,23 @@ play; keep human feedback separate from deterministic replay evidence.
 
 ## Write the game's own rules
 
+Use [the research map](../research/README.md) and
+[game-research](../.agents/skills/game-research/SKILL.md) when the brief raises a
+question beyond the implementation guides. Select relevant entries in the
+[catalog](../research/catalog.json), read their guides, and follow actual source
+and evidence limits before deciding what to reuse. For example, generated worlds
+and continuous audio have useful Stillroom studies; relational, array and Free
+studies can help test a different representation. None requires adopting every
+study, a proposed engine, or another language for this game. A dated experiment
+and a supported implementation carry different obligations.
+
+Choose knowledge for the next player-visible slice. A seed can reconstruct an
+unchanged landscape, but a digging/building game also needs its edits; a music
+window can reconstruct finite sounding tails, but moving environmental sound
+can depend on prior phase. When a transfer assumption matters, test that
+assumption in this game's actual boundary rather than inheriting a reference's
+successful check.
+
 Use [the kernel contract](architecture.md), [Haskell guidance](haskell.md) and
 only the [technical practice](practice/README.md) relevant to the next boundary.
 Define this game's state, inputs, effects and observations. `Step` / `Machine`
@@ -79,7 +96,9 @@ does not replace target-host input, graphics or audio checks.
 
 Add a local `$game-dev` entry pointing to the current spec, commands, selected
 guides and next requirement. Keep technical knowledge reachable by copying
-needed guides with notices or linking to a reviewed public commit. For
+needed guides with notices or linking to a reviewed public commit. Retain the
+selected research entries and their source/evidence context when they affect
+the game's design; do not copy the whole catalog as a new local authority. For
 player-facing work, retain the `game-experience` entry and its three linked
 documents, or their pinned public links. Make [learn-code](learn-code.md)
 available for later explanations of this game's actual code. None of these

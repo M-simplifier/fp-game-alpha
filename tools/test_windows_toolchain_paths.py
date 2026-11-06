@@ -45,8 +45,18 @@ print('Split UTF-8 prefix reaches real console; closed downstream output exits w
 
 
 def run(label, command, cwd):
-    result = subprocess.run(list(map(str, command)), cwd=cwd, capture_output=True,
-                            encoding='utf-8', errors='replace', timeout=120)
+    try:
+        result = subprocess.run(list(map(str, command)), cwd=cwd, capture_output=True,
+                                encoding='utf-8', errors='replace', timeout=120)
+    except subprocess.TimeoutExpired as error:
+        # Keep the same deadline/failure, but retain the last compiler phase.
+        # TimeoutExpired can carry bytes even when text decoding was requested.
+        print(label + ': timed out; captured child output follows', file=sys.stderr, flush=True)
+        for output in (error.stdout, error.stderr):
+            if output:
+                print(output.decode('utf-8', errors='replace') if isinstance(output, bytes) else output,
+                      file=sys.stderr, flush=True)
+        raise
     print(json.dumps({'check': label, 'exit_code': result.returncode}), flush=True)
     if result.returncode:
         raise RuntimeError(label + ':\n' + result.stdout + result.stderr)

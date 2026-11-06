@@ -2,14 +2,24 @@
 
 from html import unescape
 from html.parser import HTMLParser
+import base64
+import binascii
 import json
 from pathlib import Path
 import re
+import struct
 from urllib.parse import unquote, urlsplit
+
+from publication import png_problem
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
+PUBLIC_FIGURES = {
+    "https://raw.githubusercontent.com/M-simplifier/stillroom/v0.12.0/docs/journey.png",
+    "https://raw.githubusercontent.com/M-simplifier/stillroom/v0.12.0/docs/rest-landscape.png",
+    "https://m-simplifier.github.io/garden-of-afterlight/guide/assets/night.png",
+}
 
 
 class Page(HTMLParser):
@@ -18,6 +28,9 @@ class Page(HTMLParser):
         self.ids = set()
         self.links = []
         self.errors = []
+        self.elements = {}
+        self.labels = set()
+        self.named_controls = []
 
     def handle_starttag(self, tag, pairs):
         attributes = dict(pairs)
@@ -25,6 +38,9 @@ class Page(HTMLParser):
             if identifier in self.ids:
                 self.errors.append(f"duplicate id: {identifier}")
             self.ids.add(identifier)
+            self.elements[identifier] = (tag, attributes)
+        if tag == "label" and attributes.get("for"):
+            self.labels.add(attributes["for"])
         for name in ("src", "href"):
             if attributes.get(name):
                 self.links.append((tag, name, attributes[name], attributes.get("rel")))
@@ -34,18 +50,30 @@ class Page(HTMLParser):
             self.errors.append("an image needs a meaningful alternative")
         if tag == "form" and attributes.get("action"):
             self.errors.append("the local-only game brief must not have a submission endpoint")
-        if tag in {"input", "textarea"} and "name" in attributes:
-            self.errors.append("brief controls must not serialize into a native form submission")
+        if tag in {"input", "textarea", "select", "button"} and "name" in attributes:
+            self.named_controls.append(attributes["name"])
 
 
 def check_links(page, page_path=SITE / "index.html"):
     for tag, attribute, target, relation in page.links:
         parsed = urlsplit(target)
         if parsed.scheme:
+            if tag == "img" and attribute == "src" and target.startswith("data:image/png;base64,"):
+                try:
+                    content = base64.b64decode(target.split(",", 1)[1], validate=True)
+                    dimensions = struct.unpack('>II', content[16:24]) if len(content) >= 24 else (0, 0)
+                    if (len(content) > 524288 or not all(1 <= value <= 4096 for value in dimensions)
+                            or png_problem(content, *dimensions)):
+                        page.errors.append("invalid or oversized embedded documentary PNG")
+                except (ValueError, binascii.Error):
+                    page.errors.append("invalid embedded documentary PNG")
+                continue
             if parsed.scheme != "https":
                 page.errors.append(f"unexpected URL scheme: {target}")
             if tag == "script" or (tag == "link" and relation == "stylesheet"):
                 page.errors.append(f"unexpected remote executable/style dependency: {target}")
+            if tag == "img" and target not in PUBLIC_FIGURES:
+                page.errors.append(f"unreviewed remote documentary figure: {target}")
             for prefix in ("/M-simplifier/fp-game-alpha/blob/main/",
                            "/M-simplifier/fp-game-alpha/tree/main/"):
                 if parsed.netloc == "github.com" and parsed.path.startswith(prefix):
@@ -67,6 +95,45 @@ def check_links(page, page_path=SITE / "index.html"):
                 target_page.feed(local.read_text(encoding="utf-8"))
             if unquote(parsed.fragment) not in target_page.ids:
                 page.errors.append(f"missing page anchor: {target}")
+
+
+def check_creator():
+    path = SITE / "create.html"
+    page = Page()
+    page.feed(path.read_text(encoding="utf-8"))
+    script = (SITE / "site.js").read_text(encoding="utf-8")
+    required = {"brief-form", "game-brief", "game-target", "ai-prompt", "copy-status",
+                "copy-brief", "prompt-details", "trace-next", "trace-reset", "trace-count",
+                "trace-label", "trace-title", "trace-command", "trace-description",
+                "trace-energy", "trace-turn", "trace-delivered"}
+    assert required <= page.ids, "creator controls or Station trace disappeared"
+    assert not page.named_controls, "brief controls must not serialize into a native form submission"
+    for identifier in ("game-brief", "game-target", "ai-prompt"):
+        assert identifier in page.labels, f"creator control needs a label: {identifier}"
+        assert "name" not in page.elements[identifier][1], "brief must not serialize into a URL"
+    assert "disabled" in page.elements["copy-brief"][1], "copy needs JS before native submit is enabled"
+    assert not page.elements["brief-form"][1].get("action"), "creator must remain local-only"
+    assert ("script", "src", "site.js", None) in page.links, "creator script must load at its new location"
+    assert "navigator.clipboard.writeText" in script and "promptBox.select()" in script, "copy needs a manual fallback"
+    assert "$new-game" in script and "docs/purpose.md" in script, "creator prompt lost its current source route"
+
+
+def check_research():
+    import research
+    catalog = research.validate(research.read_catalog())
+    document = (SITE / "research.html").read_text(encoding="utf-8")
+    assert document == research.render(catalog), "research page is stale; run tools/research.py build"
+    page = Page()
+    page.feed(document)
+    for identifier in ("research-search", "research-topic", "research-status"):
+        assert identifier in page.labels, f"search control needs a label: {identifier}"
+    assert '<noscript>' in document and 'aria-live="polite"' in document, "missing accessible search fallback"
+    for entry in catalog["entries"]:
+        tag, attributes = page.elements[entry["id"]]
+        assert tag == "article" and "catalog-entry" in attributes.get("class", "").split()
+        assert "hidden" not in attributes, "research must remain readable with JavaScript disabled"
+        assert attributes["data-status"] == entry["status"]
+    assert ("script", "src", "research.js", None) in page.links, "missing local search script"
 
 
 def check_lesson_sources(document):
@@ -122,9 +189,14 @@ def main():
         check_lesson_sources((SITE / "learn.html").read_text(encoding="utf-8"))
     except (AssertionError, KeyError, ValueError, OSError) as error:
         errors.append(f"Station evidence: {error}")
+    for label, check in (("Creator", check_creator), ("Research", check_research)):
+        try:
+            check()
+        except (AssertionError, KeyError, ValueError, TypeError, OSError) as error:
+            errors.append(f"{label}: {error}")
     for error in errors:
         print(error)
-    print(f"public site: {'FAIL' if errors else 'PASS'} ({len(pages)} pages; {links} links/assets; Station record and lesson sources)")
+    print(f"public site: {'FAIL' if errors else 'PASS'} ({len(pages)} pages; {links} links/assets; catalog, creator, Station record and lesson sources)")
     return 1 if errors else 0
 
 

@@ -15,7 +15,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    # Python 3.14.2 has no Ubuntu 26.04 build; retain its supported 24.04 image.
+    # Keep matrix labels unchanged so required check names remain stable.
+    runs-on: ${{ matrix.os == 'ubuntu-latest' && 'ubuntu-24.04' || matrix.os }}
     # The measured index acquisition plus resumed cold dependency build already
     # took about fourteen minutes on Linux. Allow slower first Windows/macOS
     # setup; cached runs still finish normally and subprocess tests stay bounded.

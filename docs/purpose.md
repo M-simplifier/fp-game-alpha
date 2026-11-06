@@ -1,81 +1,54 @@
-# Research direction and the public alpha
+# このリポジトリの役割
 
-The long-term aim is a **pure functional game engine**. Its design and APIs are
-being refined by building different concrete games and comparing what those
-games need. This alpha makes the useful implementation knowledge, shared code
-and development workflows available while that research continues.
+fp-game-alphaは、我々のゲーム開発研究を集約する公開リファレンスです。
+具体的なゲームライブラリ・エンジン・システムが確立するまでの間、これまでの
+蓄積から現在の最前線まで、知見、実装、教材、検証結果、未解決の問いを
+収集・整理・体系化して公開します。2026年11月の再編で、この役割を明確にしました。
 
-## Why publish an alpha now?
+## 研究を見渡し、実装まで辿る
 
-[Garden of Afterlight](https://github.com/M-simplifier/garden-of-afterlight)
-already shares a game implementation and skills for building other games.
-This foundation brings that reusable knowledge together with the subsequent
-common libraries and reference games. A developer and their AI can use the
-current techniques to make their own game, then improve it through play.
-They do not need to wait for the eventual engine to be complete.
+純粋関数型アーキテクチャは出発点です。状態遷移と参加者の観測から、
+Haskellによる描画、自然物と風景の生成、連続する音楽、Prologの関係、
+APLの配列、Freeモナドや圏論を用いた合成へ、探求は広がっています。
+言語や技法の役割を先に固定せず、それぞれが何を表せるかを実物で調べます。
 
-The immediate outcome is an independently editable game with its own rules,
-working host and continuation instructions. The [new-game workflow](new-game.md)
-starts from its brief. The [terminal starter](terminal-starter.md) provides one
-small, tested example of that workflow; it does not define the intended range
-of games.
+研究目録には、問いと結果、実装や教材への入口、確認した範囲を置きます。
+読者が知見を辿る途中で、元の会話や私的な作業環境を必要としないことが目標です。
+収録した出典の範囲は [coverage](../research/coverage.md) に明示します。
 
-## Human → AI → tools
+作例は、動かせる成果であり、研究を検査する材料でもあります。
+短いゲームの一つの操作、大きなシミュレーションの資源管理、生成される風景、
+時間に沿って続く音楽は、それぞれ異なる設計の難しさを露わにします。
+異なる作品から共通の構造が見つかる場合も、共通化すると失われる区別が
+見つかる場合も、研究結果として残します。
 
-Start with the human's game idea. Equip their coding AI with the knowledge,
-conventions, examples and feedback needed to design, prepare and build that game
-with little supervision. As concrete workflows become stable and repeatable,
-move those parts into deterministic tools.
+## 読むことと、使うこと
 
-This order matters: **human intent → adaptable AI work → reliable tools**.
-A missing generator or platform recipe is a task for the AI to investigate and
-implement, not a reason to substitute a supported template for the requested
-game. Respect real permission and technical limits, and report evidence honestly.
-Tools should progressively reduce repeated work without becoming the ceiling of
-what the AI can create. New-game setup must preserve this flexibility, including
-independent project directories, local continuation skills and chosen hosts.
+研究を調べたい人には、主題別の目録と、その意味を具体例から読める教材を用意します。
+Haskellを初めて読む人にも、一つの操作と型の関係から入れる順路を残します。
+原理を深く調べたい人は、実装、数学的な条件、反例、文献へ進めます。
 
-## How concrete games shape the shared design
+ゲームを作りたい人には、企画をAIへ渡して制作を始める手順とスキルを用意します。
+従来からの順序は **人間の意図 → AIによる設計・制作 → 再現可能なツール** です。
+目録に載っている技法や既存のテンプレートが、作れるゲームの上限になるわけではありません。
+企画に必要な知識を選び、まだないものは調べ、実際のゲームで確かめます。
 
-A shared abstraction should explain a rule or boundary that different games
-actually need. Similar record layouts alone are a weak reason to share an API.
-Keep each game's vocabulary and identify both the common law and the behavior
-that must stay specific to it.
+## 正本と説明を分ける
 
-| Concrete problem | Current material | Boundary to retain |
-| --- | --- | --- |
-| Repeat inputs and compare an adapter with the original rules | [Transition and Arena](architecture.md) | One authoritative transition; chronological outputs; whole input boundaries |
-| Preserve repeated commands and distinguish active from paused time | [Tapline](../references/tapline/README.md) | Ordered commands and the game's own clock semantics |
-| Reject a repeated turn without confusing it with a legal failed action | [Station Dispatch](../references/station/README.md) | Protocol admission, domain refusal and observation have different jobs |
-| Reconstruct a multi-day game from persisted state | [River Home](../references/river/README.md) | Validated saves and the actual rules used after resuming |
-| Edit a world while maintaining derived rendering and host resources | [Afterlight](../references/afterlight/README.md) | Pure world authority and separately verified graphical hosts |
+実装の構成や挙動はコードを正本とし、関数一覧や設計情報の複製を増やしません。
+ドキュメントには、設計の理由、使いどころ、失敗例、外部との約束、
+意図して人間のために書いた教材を置きます。少数のよい説明からソースへ
+辿れる構成を目指します。
 
-The [technical guides](practice/README.md) also retain lessons about types,
-temporal composition, spatial reasoning, resource lifetimes and performance.
-They explain when a technique helps and how to check it. An example need not
-use every technique, and the shared core does not prescribe one renderer or FRP
-network for every game.
+別の公開作品が正本を持つ場合は、版を指定したリンクで接続します。
+ローカルにしかなかった研究は、公開に必要なソースと教材を選んで収録し、
+出典・変更点・依存物の条件を記録します。私的な会話や開発環境そのものは公開しません。
 
-## What counts as progress
+## 何が分かったと言えるか
 
-A useful increment lets someone create or improve a real game, or resolves a
-specific design question raised by one. For a new development route, record
-the brief, the first playable interaction on the requested host, the change
-made after playing, and how work continued in the independent project.
+実装済みであること、検査が通ったこと、実機で動いたこと、人が体験を評価したこと、
+別作品でも再利用できたことは、それぞれ別の結果です。その違いを残します。
+形式手法や有限の実験には前提と範囲を付け、未確定の理論を完成した基盤として扱いません。
 
-For a candidate shared API, record the concrete difficulty, the repeated law,
-the game-specific remainder and a case where the abstraction would distort
-the game. Use those observations to keep, revise or remove it. This is how the
-engine design develops; it is not a requirement to finish every research
-experiment before publishing the next useful increment.
-
-Technical guarantees and the quality of play need their own evidence.
-[Types, tests and formal tools](guarantees.md) establish different kinds of
-claims under different assumptions. Source-informed [headless play](headless-play.md)
-can examine decisions, while actual input, presentation and player experience
-need their corresponding checks. More passing tests alone do not establish
-that a game is enjoyable.
-
-The [roadmap](roadmap.md) records remaining work. Publish each
-usable result with its scope and reproducible evidence, then use new games and
-user feedback to decide what the common design needs next.
+研究から具体的なエンジンやライブラリが育つことは、引き続き長期的な目標です。
+その形を先に約束することなく、使える成果と開いた問いを同じ場所で追えるようにします。

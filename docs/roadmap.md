@@ -1,14 +1,34 @@
-# Direction
+# 研究をどう続け、更新するか
 
-Help a person and an AI create and grow their own Haskell game: small shared
-transition/admission libraries, current implementations worth reading, and
-practical build/play/change guidance. Real games should improve the common
-engine design without forcing every game into one template.
+この公開αの役割は [研究の集約と体系化](purpose.md) です。新しい結果が出たら、
+その実装と検証を正本に保ち、[研究目録](../research/catalog.json)と関連する教材を
+更新します。ここは日付のない作業待ち一覧ではなく、次の成果をどう位置づけるかの案内です。
 
-Continue from the current game and its actual player-visible boundary. Keep
-APIs, save/protocol invariants and deterministic tests strong. A new abstraction
-should pay for itself in more than one concrete use. Add formal tools only for
-a current, precise property whose value exceeds the extra environment.
+## 続いている問い
 
-Other-host, browser/device, actual editor and human play coverage must earn
-their own verification; source availability is not a passed run.
+- **状態、時間、資源、観測。** 同じ最終状態に着いても、途中で見える情報や
+  選択できる手が変わればゲームは変わります。何を保存すれば二つの実装を
+  同じものとして扱えるか、具体的な反例とともに調べます。
+- **生成される世界と音。** 場所や時間帯への問い合わせ、必要範囲の生成、
+  キャッシュ、形状と描画の対応を、異なる作品でも使える形へ育てます。
+  作品固有の造形・音楽語彙や、移動の履歴に依存する音も区別します。
+- **関数、関係、配列、解釈。** APL、Prolog、Freeモナド、圏論の研究では、
+  新しい記述で可能になる操作と、失われる条件を比較します。
+  共通DSLや各言語の役割分担はまだ固定していません。
+- **制作と体験。** 知見を渡されたAIが別のゲームを実装・修正できるか、
+  人間がコードを理解できるか、実際に遊びたくなるかを、それぞれの方法で確かめます。
+
+## 成果を追加するとき
+
+まず既存の主題・資料へ統合できるかを見ます。新しい項目が必要なら、何を知りたい
+ときに読むものか、正本の所在、確認した範囲と残る問いを目録へ加えます。
+必要な教材は実コードや観測結果に結び付け、出典と条件を追えるようにします。
+網羅性は [収録範囲](../research/coverage.md) に照らして点検します。
+
+共通APIを取り出す場合は、そのAPIで簡潔になる実際の用途と、残すべき作品固有の
+意味を示します。原理の成立、別作品への転用、実機性能は別々に確認します。
+新しい手法を全作例へ機械的に適用する必要はありません。
+
+公開前には、関連するコードと教材の検査、読者が辿るリンク、出典・ライセンス、
+既存の必須CIを確認します。詳しい手順は [検証](verification.md) と
+[公開マニフェスト](../PUBLICATION-MANIFEST.md) にあります。

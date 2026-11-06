@@ -1,0 +1,5 @@
+# A down+up pair in one poll must remain a press while held returns 0.
+2 8 1
+2 8 0
+4 0 1
+4 0 0

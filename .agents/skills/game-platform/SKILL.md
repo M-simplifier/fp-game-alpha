@@ -11,6 +11,13 @@ Use the [native CLI](../../../docs/native-tooling.md) for operational commands:
 bootstrap once, then run `.build/tools/fp-game` (`fp-game.exe` on Windows).
 Keep its bootstrap compiler separate from the game's Cabal-selected compiler.
 
+When a graphics, audio or resource-lifetime question needs research, use
+[game-research](../game-research/SKILL.md) and the relevant
+[catalog](../../../research/catalog.json) entry. Keep the recorded compiler,
+backend, hardware, workload and date attached to its result. A working app or
+finite measurement on one host does not establish support or performance on the
+requested host; verify that boundary in the entrusted task.
+
 Choose from the user's requirements and existing project, not a reference's
 fixed defaults. Establish actual versions/dependencies and a minimal host probe,
 then connect the game's authoritative core. Respect installation/deployment

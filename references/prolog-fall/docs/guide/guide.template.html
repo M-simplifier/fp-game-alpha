@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="実際のPrologテトリスの答えを動かして読む。形の制約、到達の手順、時計と情報の違いを、一つのゲームから考える。">
+<title>Prologでテトリスを作ると、何が見えるか</title>
+<style>/*__STYLE__*/</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ進む</a>
+<header class="masthead"><a href="#top" class="brand"><span class="brand-mark" aria-hidden="true">▟</span> PROLOG / TETRIS</a><span class="edition">動くゲームから、関係を読む · 2026.10.26</span></header>
+<nav class="contents" aria-label="目次"><div>
+<a href="#q-mode">01 手順</a><a href="#relations">02 未定の値</a><a href="#cavity">03 届くか</a><a href="#search">04 探索と状態</a><a href="#time">05 時計と履歴</a><a href="#next">06 次の問い</a>
+</div></nav>
+<main id="main">
+<section class="hero" id="top">
+<p class="eyebrow">実装から考える、Prolog のゲームづくり</p>
+<h1>Prologでテトリスを<span class="keep">作ると、</span><br class="wide-only">何が見えるか</h1>
+<p class="lead">Qを押すと、いまのピースが届く着地点が並ぶ。選ぶと、そこへ運ぶ手順まで動く。<br class="wide-only">同じゲームの規則に、どんな問いを渡していたのだろう。</p>
+<p class="hero-note">このページでは、動くゲームの盤面を足場に、Prologの記述と数学を一つずつつなげる。</p>
+</section>
+
+<section id="q-mode" class="chapter">
+<div class="chapter-title"><span>01</span><h2>「ここへ運べる」の答えを、一手ずつ見る</h2></div>
+<div class="prose"><p>このT字を、下の三マスのくぼみに入れる。下へ19回動かせば一行が消える。Qの答えには、着地点だけでなく、<strong>開始位置からそこへたどる操作列</strong>も入っている。</p>
+</div>
+<div class="record-note"><strong>このHTMLの動きは、実際のPrologの答えの再生。</strong>生成時にネイティブのSWI-Prologで問い合わせ、全手順をゲームの規則で検査してから記録した。ブラウザー内で別の探索器を動かしているわけではない。オフラインで読める。</div>
+<div class="lab q-lab" id="q-lab">
+<div class="lab-header"><span class="lab-label">Q / 記録された34の着地点</span><span id="query-observation" class="observation"></span></div>
+<div class="q-layout">
+<div class="board-column"><div id="q-board" class="board-container"></div><p class="board-caption">横10 × 縦20。上の点線部分は隠れ行 −4〜−1。<br>白い枠：候補の着地点 / 色付き：現在の姿勢</p></div>
+<div class="player-panel">
+<label class="field-label" for="candidate-select">着地点を選ぶ</label>
+<select id="candidate-select"></select>
+<div class="button-row"><button id="candidate-prev" type="button">← 前の候補</button><button id="candidate-next" type="button">次の候補 →</button></div>
+<label class="check-row"><input id="clear-filter" type="checkbox"> 一行以上消える答えだけ</label>
+<button id="motion-example" type="button" class="text-button">横移動と回転のある例を見る ↗</button>
+<div class="candidate-summary"><p id="candidate-summary" class="large-readout"></p><p id="candidate-pose" class="mono"></p></div>
+<div class="playback-controls" role="group" aria-label="操作列の再生">
+<button id="q-reset" type="button" title="開始位置に戻す">最初</button><button id="q-back" type="button" title="一手戻る">−1手</button><button id="q-step" type="button">＋1手</button><button id="q-play" type="button" class="primary" aria-pressed="false">再生</button><button id="q-result" type="button">固定・消去後</button>
+</div>
+<label class="field-label timeline-label" for="q-timeline">どこまで進めたか <output id="q-frame-label" for="q-timeline"></output></label><input id="q-timeline" type="range" min="0" max="1" value="0" step="1">
+<p id="q-status" class="status" role="status"></p>
+<div id="q-actions" class="action-list" aria-label="記録された操作列"></div>
+<p class="small">ここでの一手は「左・右・下・右回転・左回転」の一操作。再生速度は説明用で、実プレイの所要時間を表さない。</p>
+</div></div></div>
+<div class="prose"><p>候補を変えてみよう。「横移動と回転のある例」では、まず横へ運び、途中で向きを変える。画面の四マスは、各操作が返した姿勢を順番に表示している。</p><h3>遊ぶときと調べるときで、移動の規則を共有する</h3>
+<p>遊ぶ側は「左を押した。次の姿勢は？」と尋ねる。探索する側は、左・右・下・回転を試し、「この一歩を重ねると、どこまで行ける？」と尋ねる。<code>move_pose/4</code> は両方から呼ばれる、同じ一歩の規則だ。</p>
+<pre class="code-block"><code data-excerpt="move"></code></pre>
+<p>これは実際の左移動の節。原点Xを一つ減らし、その姿勢が盤面に置けるかを確かめる。探索の答えを再生するときも、同じ述語を通して各一歩を確認する。</p>
+<details><summary>操作列が「証拠」になる範囲</summary><p>開始姿勢が合法で、一歩の規則が合法な次姿勢だけを返すなら、その一歩をつないだ有限の列も合法な姿勢をたどる。これが手順を再検査できる理由だ。ただし、共有した規則そのものに誤りがあれば、探索も再生も同じ誤りを共有する。壁・床・回転・行消去には、別に手書きの期待値を使う検査を置いている。ゲーム全体の機械検証済み定理とは区別する。</p><pre class="code-block"><code data-excerpt="replay"></code></pre></details>
+</div>
+</section>
+
+<section id="relations" class="chapter">
+<div class="chapter-title"><span>02</span><h2>決めていない値を、問いの中に残す</h2></div>
+<div class="prose"><p>普通は「T字をこの位置に置くと、どの四マスを占めるか」を計算する。では、四マスだけを先に示し、<strong>種類・向き・位置を全部未定</strong>にしたらどうなるか。</p><p>下の四つの例は、実際の <code>cover_cells/2</code> に渡したものだ。Tには一つの答え、Iには二つ、Oには四つの姿勢表現がある。離れ離れの四マスには、答えがない。</p></div>
+<div class="lab inverse-lab"><div class="lab-header"><span class="lab-label">四マスを、ぴったり覆う姿勢は？</span><span class="observation">順番は問わない / 四マスは決まっている</span></div>
+<div class="inverse-layout"><div><label class="field-label" for="target-select">渡す四マス</label><select id="target-select"><option value="t">回転・平行移動したT</option><option value="i">水平なI</option><option value="o">正方形のO</option><option value="impossible">離れ離れの四マス</option></select><div id="target-board" class="board-container crop-board"></div></div>
+<div class="answer-panel"><pre class="code-block query"><code id="target-query"></code></pre><div id="target-answer" class="answer-output" aria-live="polite"></div><div class="button-row"><button id="answer-next" type="button" class="primary">記録された次の解 ;</button><button id="answer-reset" type="button">最初の解へ</button></div><p id="answer-caption" class="small"></p><p class="small"><code>X-Y</code> は、このコードで座標対を表す項。たとえば <code>6-9</code> を、ここでは「(6,9)のセル」として使う。自動で引き算する場所ではない。</p></div></div></div>
+<div class="prose"><h3>Prologの「値」は、まだ穴があいていてもよい</h3>
+<p><code>pose(t,1,4,8)</code> は、T字・回転番号1・原点(4,8)という項。<code>pose(P,R,X,Y)</code> なら、四つの場所がまだ未定だ。<strong>大文字から始まる名前は変数</strong>で、条件に合う値を受け取れる。<code>t</code> や <code>o</code> のような小文字の名前はアトムという定数になる。</p>
+<p>二つの項の形と中身を、矛盾なくそろえる操作が<strong>単一化</strong>だ。次の問いでは、一つの <code>Pose</code> に二つの記述を同時に合わせる。</p>
+<pre class="code-block"><code>?- Pose = pose(t,R,X,Y),
+   Pose = pose(P,1,4,8).
+
+P = t, R = 1, X = 4, Y = 8.</code></pre>
+<p>ここで「関数の返り値」という場所を一つに固定していない。<code>P</code> を先に決めても、四マスを先に決めても、対応する関係に条件を渡せる。ただし、どの引数を未定にできるかは述語ごとに違う。今回の <code>cover_cells/2</code> は、四つのセルが決まっている呼び方に限っている。</p>
+<h3><code>=</code> は単一化、<code>#=</code> は整数の制約</h3>
+<p>同じ「等しい」ように見えても、扱うものが違う。下の二つは、ネイティブのPrologで確かめた出力だ。</p>
+<div class="equality-example"><div><code>A = 2+3</code><strong id="ordinary-equality"></strong><p><code>2+3</code> という項にそろう。ここでは計算しない。</p></div><div><code>A #= 2+3</code><strong id="integer-equality"></strong><p>整数の関係を課す。この場合はAが5に決まる。</p></div></div>
+<p>この試作では、局所座標と原点を <code>#=</code> で結ぶ。原点からセルを求めるだけでなく、セルが決まったときに原点へ条件を戻すこともできる。これは整数の制約を扱う <a href="https://www.swi-prolog.org/pldoc/man?section=clpfd">CLP(FD)</a> の役割だ。</p>
+<pre class="code-block"><code data-excerpt="cells"></code></pre>
+<dl class="syntax-notes"><div><dt><code>Head :- A, B.</code></dt><dd>AとBが成り立つとHeadが成り立つ、という節。実行するときは体を左から試す。</dd></div><div><dt><code>R in 0..3</code></dt><dd>Rを0〜3の整数に限る。この有限の範囲が、後の列挙の土台になる。</dd></div><div><dt><code>maplist(...)</code></dt><dd>四つの局所セルそれぞれについて、座標を結ぶ同じ関係を課す。</dd></div></dl>
+<p>候補を試し、条件に合わなければその分岐で決めた値を戻し、別の候補へ進む。これがバックトラッキングの基本的な働きだ。上のIやOの「次の解」は、その代替解を記録した順で見せている。<strong>別の答えを探すことと、ゲームの過去へ戻ることは違う。</strong> 通常の <code>=/2</code> の意味は <a href="https://www.swi-prolog.org/pldoc/man?predicate=%3D%2F2">SWI-Prologの定義</a>でも確認できる。</p>
+</div>
+
+<div class="subsection-head"><h3>値を一つ選ぶ前に、条件を絞る</h3><p>同じ <code>legal_pose/3</code> に、Xを決めて渡すか、未定のまま渡すか。</p></div>
+<div class="lab constraint-lab"><div class="constraint-layout"><div><div id="constraint-board" class="board-container crop-board"></div><p class="board-caption">底の(4,19)だけが埋まっている。Oの原点は、見た目の左端より一マス左。</p><button id="collision-example" type="button" aria-pressed="false">範囲表示に残るX=2を見てみる</button><p id="known-verdict" class="small">X=4：実際に置ける。</p></div><div><p class="small">値が決まった検査</p><pre class="code-block query"><code id="known-query">?- legal_pose([cell(4,19,j)],
+              pose(o,0,4,18), Cells).
+Cells = [5-18,6-18,5-19,6-19].</code></pre><p>原点X=4なら、Oは既存ブロックの右に収まる。X=2なら四セルの一つが(4,19)と衝突し、この問いは失敗する。</p><label class="field-label" for="constraint-stage">Xを未定にしたときの段階</label><select id="constraint-stage"><option value="0">1. 原点の有限領域を置く</option><option value="1">2. 四セルが盤面内に収まる条件</option><option value="2">3. 既存セルと重ならない条件も課す</option><option value="3">4. labelingで実際の答えを列挙する</option></select><div id="domain-values" class="domain-values" aria-label="各段階で残るX"></div><p id="constraint-explanation" class="status" aria-live="polite"></p><pre class="code-block query"><code id="constraint-query"></code></pre></div></div></div>
+<div class="prose"><p><strong>ここは、実行して初めて分かった大切な点だ。</strong> 境界の制約でXの領域は13個から9個へ狭まる。一方、この実装で衝突の制約を加えただけでは、Xの領域表示はまだ <code>-1..7</code> のままになる。X=2,3は衝突条件にすでに反するが、Xだけの表示には残っている。</p><p>Xの範囲表示と、残っている制約全体と、条件をすべて満たす解の集合は違う。Xと結ばれた各セルの変数に条件が残り、<code>labeling/2</code> が具体的なXを選ぶ段階で、2と3が失敗する。最終的な答えは <code>[-1,0,1,4,5,6,7]</code>。<strong>途中の変数の領域表示は、全解の一覧とは限らない。</strong></p>
+<details><summary>実際に残った制約と、呼び出し方の境界を見る</summary><pre class="code-block"><code id="residual-constraints"></code></pre><p>表示中のAは元のXに対応する。ほかの変数は、Xに1や2を足したセル座標に対応する。これは今回のSWI-Prolog 10.0.2と実装で観測した伝播の結果であり、どんな制約でも同じ強さで絞れるという保証ではない。</p><p><code>legal_pose/3</code> は制約を課し、<code>enumerate_pose/3</code> や呼び出し側の <code>labeling/2</code> が座標を列挙する。形と回転には有限個の事実の分岐がある。制約の記述と全列挙を分ける考え方は、<a href="https://www.swi-prolog.org/pldoc/man?section=clpfd-search">公式の説明</a>にもある。</p></details>
+</div>
+</section>
+
+<section id="cavity" class="chapter">
+<div class="chapter-title"><span>03</span><h2>形が収まっても、そこへ運べるとは限らない</h2></div>
+<div class="prose"><p>下の中央に、O字がぴったり入る幅二マスの空洞がある。床にも支えられる。でも、その上には横長の屋根がある。いま上にいるO字を、この空洞へ運べるだろうか。</p><p>屋根を外して比べてみよう。変わるのは、空洞に「置けるか」ではなく、そこへ<strong>入っていく操作のつながり</strong>だ。</p></div>
+<div class="lab cavity-lab"><div class="lab-header"><span class="lab-label">同じ目標 / 屋根だけを変える</span><button id="roof-toggle" type="button" class="primary" aria-pressed="true">屋根あり → 外して比べる</button></div>
+<div class="cavity-layout"><div id="cavity-overview" class="board-container cavity-overview"></div><div><div id="cavity-detail" class="board-container cavity-detail"></div><p class="board-caption">下5行の拡大。白い枠が目標のO。屋根は完成した一行ではなく、中央の四マスだけ。</p><div class="verdicts"><p>目標に収まる・支えがある <strong>はい</strong></p><p>開始位置から到達できる <strong id="cavity-verdict"></strong></p></div><p id="cavity-explanation" class="status" aria-live="polite"></p><div class="button-row"><button id="cavity-reset" type="button">開始位置</button><button id="cavity-step" type="button">＋1手</button><button id="cavity-play" type="button" class="primary" aria-pressed="false">通れる手順を再生</button></div><label class="field-label" for="cavity-timeline">記録された手順 <output id="cavity-frame"></output></label><input id="cavity-timeline" type="range" min="0" max="1" value="0"><p id="cavity-status" class="small"></p></div></div></div>
+<div class="prose"><p>屋根ありでも <code>legal_pose/3</code> と <code>supported/2</code> は目標の姿勢に成功する。しかし、開始位置から訪問した628姿勢に目標は現れない。屋根を外すと656姿勢がつながり、目標までの下移動19回が見つかる。ここでは、盤面上の条件と、操作による到達を別々に尋ねている。</p></div>
+</section>
+
+<section id="search" class="chapter">
+<div class="chapter-title"><span>04</span><h2>探索を閉じることと、状態を同じとみなすこと</h2></div>
+<div class="prose"><p>開始姿勢から一手で届く姿勢を足す。次に、その姿勢から一手で届く姿勢を足す。もう新しい姿勢が増えなくなるまで続ける。この「届く範囲を増やす」操作を、今回のコードでは<strong>キューと訪問済み集合を持つ幅優先探索</strong>で実装した。</p><p>Prologが自動で幅優先に探すわけではない。一歩の候補を作る関係と、どの順にその候補を調べるかは、分けて書いている。</p></div>
+<div class="lab layers-lab"><div class="lab-header"><span class="lab-label">デモ盤面で実際に発見した層</span><span class="observation">同じ姿勢は一度だけ訪問</span></div><label class="field-label" for="layer-range">何手以内まで広げるか <output id="layer-value"></output></label><input id="layer-range" type="range" min="0" value="0"><div id="layer-chart" class="layer-chart"></div><p id="layer-explanation" class="status" aria-live="polite"></p><div class="button-row"><button id="layer-next" type="button">もう一層広げる</button><button id="layer-all" type="button">増えなくなるところまで</button><button id="layer-reset" type="button">開始姿勢だけ</button></div></div>
+<div class="prose"><p>この範囲には、614の姿勢があった。そのうち下へ進めず、四セルが見える盤面に収まるものを固定候補にする。同じ四マスを占める表示上の重複をまとめると、Qに並ぶ34候補になる。</p><p>幅優先探索が最小化するのは、五種類の操作をそれぞれ一単位と数えた手数。経過時間や人間にとっての難しさは、この費用には含まれていない。</p>
+<details class="math-detail"><summary>この増やし方を「最小不動点」と呼ぶ</summary><p>姿勢pから操作aで姿勢qへ進めることを E<sub>B</sub>(p,a,q) と書く。Bは固定した盤面だ。集合Xから一歩で届く姿勢を post<sub>B</sub>(X) とする。</p><div class="equation">F<sub>B</sub>(X) = {p<sub>0</sub>} ∪ post<sub>B</sub>(X)</div><p>開始姿勢を含み、一歩進んでも外へ出ない集合のうち、最も小さいものが到達集合Rになる。</p><div class="equation">R = μX. F<sub>B</sub>(X)</div><p>μは「その条件を満たす<strong>最小の不動点</strong>を取る」という記号。ここでは、Fを適用しても増えなくなった集合を指す。上の表示はR<sub>0</sub>={p<sub>0</sub>}から始め、R<sub>d+1</sub>=R<sub>d</sub>∪post<sub>B</sub>(R<sub>d</sub>)と増やした層を見せている。</p><p>一種類について、原点Xは−3〜9の13通り、Yは−4〜19の24通り、回転は4通り。高々 <strong>13 × 24 × 4 = 1248姿勢</strong>で、一歩の操作は最大五つ。実際には壁や衝突でさらに減る。この有限領域と訪問済み管理が、今回の探索の終了を支える。</p><pre class="code-block"><code data-excerpt="bfs"></code></pre><p>これはその範囲での探索の説明であり、ホールド、次のピース、固定時間、無限のゲーム全体の戦略まで解いたという意味ではない。</p></details>
+<h3>同じ四マスなら、同じ状態にまとめてよい？</h3><p>水平なIは、二つの姿勢で同じ四マスを占める。ところが、両方を右回転させると、次に占める四マスは違う。<strong>いま同じに見えることだけでは、次の操作も同じだとは言えない。</strong></p></div>
+<div class="lab representation-lab"><div class="lab-header"><span class="lab-label">同じ見た目 / 違う原点と回転番号</span><button id="rotate-toggle" type="button" class="primary" aria-pressed="false">両方を右回転させる</button></div><div class="representation-tabs" role="group" aria-label="注目する姿勢表現"><button id="representation-a" type="button" aria-pressed="true">A：r=0 / 原点(4,11)</button><button id="representation-b" type="button" aria-pressed="false">B：r=2 / 原点(4,10)</button></div><div class="representation-layout"><div><div id="representation-board-a" class="board-container crop-board"></div><p id="representation-pose-a" class="mono"></p></div><div><div id="representation-board-b" class="board-container crop-board"></div><p id="representation-pose-b" class="mono"></p></div></div><p id="representation-explanation" class="status" aria-live="polite"></p><p class="small">丸印は局所座標(0,0)に対応する原点のマス。ピースの左端や回転中心そのものとは限らない。ここは盤面の一部、X=3〜8・Y=9〜15を拡大している。</p></div>
+<div class="prose"><p>だから、探索中のキーには種類・回転番号・原点を全部残す。到達を調べ終わった後で、表示する固定候補だけを四セルの集合でまとめ、手順を一つ残している。</p><div class="equation">p ∼ q　⇔　C(p) = C(q)</div><p>C(p)は姿勢pが占めるセル集合。この同値関係で<strong>表示をまとめること</strong>と、この同値関係で<strong>探索の状態をまとめても操作が保存されること</strong>は別の主張だ。後者を確かめずに、前者の都合で情報を消してはいけない。</p></div>
+</section>
+
+<section id="time" class="chapter">
+<div class="chapter-title"><span>05</span><h2>時計を進めること、残る情報を選ぶこと</h2></div>
+<div class="prose"><p>Qの探索には、重力も固定までの残り時間も入っていない。通常プレイでは、それらが進む。探索で見つかる操作列が、時計の進むゲームでも間に合うかは、もう一つの問いになる。</p><p>ネイティブ版でEnterを押して手順を再生するときも、重力と固定待ちを止めている。途中へ瞬間移動するのではなく同じ一歩を通すが、実時間の成立まで証明する再生ではない。</p></div>
+<div class="pipeline" aria-label="実行の流れ"><div><b>キー・時刻</b><small>外の世界で起きる</small></div><span aria-hidden="true">→</span><div class="pipeline-main"><b>SWI-Prolog</b><small>act / tick / 関係・探索 / 描画指示 / ループ</small></div><span aria-hidden="true">→</span><div><b>薄いCの橋渡し</b><small>raylibへ矩形・文字などを渡す</small></div><span aria-hidden="true">→</span><div><b>Windowsの画面</b><small>実際に描かれる</small></div></div>
+<div class="prose"><p>Prologが入口なので、ゲームの規則、入力の解釈、探索、画面の組み立ては <code>.pl</code> にある。現在の外部述語で足りる変更なら、Cを再ビルドせずゲームを起動し直せる。一方、画像・音声・3Dを足すなら、関数に加えて外部資源の読み込み・識別・解放を扱う橋渡しが必要で、まだ実装していない。</p><h3>別の答えが出ることと、過去を復元できること</h3><p>下の二つの盤面を消してみよう。一行埋まった盤面も、二行埋まった盤面も、残る盤面は同じ空になる。</p></div>
+<div class="lab projection-lab"><div class="lab-header"><span class="lab-label">行消去で、盤面から消える区別</span><button id="projection-toggle" type="button" class="primary" aria-pressed="false">両方の完成行を消す</button></div><div class="projection-layout"><div><h4>A：10セル</h4><div id="projection-a" class="board-container crop-board"></div><p>消えた行数：<strong id="projection-lines-a">まだ消していない</strong></p></div><div><h4>B：20セル</h4><div id="projection-b" class="board-container crop-board"></div><p>消えた行数：<strong id="projection-lines-b">まだ消していない</strong></p></div></div><p id="projection-explanation" class="status" aria-live="polite"></p><p class="small">「消す前へ戻す」は保存済みの表示を切り替える操作。消去後の盤面から、実際の履歴を計算し直しているわけではない。</p></div>
+<div class="prose"><div class="equation">A ≠ B　でも　clearBoard(A) = clearBoard(B) = []</div><p>盤面だけを見る行消去は<strong>単射ではない</strong>。異なる入力が同じ出力になるため、空の盤面だけでは、どちらが過去だったのか一つに決まらない。消えた行数も保存すれば、この二つは区別できる。スコアや行数を含むゲーム状態全体まで同じだという話ではない。</p><p>関係を逆向きに尋ねれば「あり得る以前の盤面」を複数求められるかもしれない。でも、それだけでは実際に起きた歴史が一つに戻るわけではない。どの情報を観測し、保存したかが問題になる。</p>
+<details><summary>このプログラム全体が、逆向きに動くわけではない</summary><p><code>piece_cells/5</code> の一部の引数は未定にできるが、盤面の生成、時刻、乱数、描画まで同じように逆向きに扱えるわけではない。</p><ul><li><code>supported/2</code> は、決まった盤面・姿勢で「下移動が失敗するか」を <code>\+</code> で調べる。未定の変数に対する一般的な否定として使わない。</li><li>回転は壁蹴り候補の最初の成功を <code>once/1</code> で選ぶ。探索だけに別の壁蹴りを自由に選ばせない。今回の簡易壁蹴りはSRS準拠ではない。</li><li>移動の <code>is/2</code>、バッグ、スコア、時刻、キー入力、描画には方向がある。外へ描いた画面や起きた入力は、バックトラッキングで巻き戻るものとして扱わない。</li><li>CLP(FD)を使う部分も、整数の有限領域を早く置くという呼び出し条件に限る。エンジン全体の単調性や、あらゆる算術項での関係性を主張しない。</li></ul></details>
+</div>
+</section>
+
+<section id="next" class="chapter final-chapter">
+<div class="chapter-title"><span>06</span><h2>Prologを選んで、何を調べられるようになったか</h2></div>
+<div class="prose"><p>この一作で、四マスを埋める条件、操作がつながる範囲、時計が進む状態、観測に残る情報を、実際に動く同じゲームから取り出せた。</p><p>Prologを中心に置くと、「入力から答えを一つ作る」だけでなく、<strong>何を決め、何を未定にし、どの条件で結ぶか</strong>をコードの入口にできる。その代わり、条件を記述する部分と、解を列挙する部分、探索の順序、外の世界への作用を、丁寧に見分ける必要がある。Qで動いたのは、その区別を具体的に試せる、小さいが本物の場だった。</p><p>Haskellの関数や型を知っているなら、値を一つ作る視点に、条件を満たす項の組を探す視点を並べてみるとよい。関係や探索はHaskellでも表せる。今回の成果は、言語ごとに役割を固定することより、どんな記述を共有し、どの情報を残す必要があるかを、実装と反例から比べられることにある。</p>
+<h3>一本の手順の先には、「どの場合にも応じる」がある</h3><p>いまの探索が求めるのは、現在の一個について成功する操作列があるか、という答えだ。次に何が来るか分からない状況まで考えるなら、問いの形が変わる。</p><blockquote>いま一手を選ぶ。次にどのピースが来ても、<br>その後に、また適切な手を選べるだろうか。</blockquote><div class="equation">∃a<sub>0</sub>　∀k<sub>1</sub>　∃a<sub>1</sub>　…</div><p>「ある手を選べる」と「どの場合にも、その後の手を選べる」では、量化の順序が違う。これは将来の研究候補で、現在の34候補が解いている戦略ではない。時間も確率も、fp-gameとの統合も、ここから別に考えられる。</p>
+<h3>この場面を、自分の言葉で説明してみる</h3><p>図を思い浮かべて、まず自分の言葉で説明してみよう。必要なところだけ答えを開ける。</p>
+<details><summary>Oの答えが四つある。四つの違う置き方が見える？</summary><p>この例では同じ四マスで、回転番号0〜3が残っている。物理的なセル集合が一つでも、姿勢の表現は複数あり得る。</p></details>
+<details><summary>空洞に収まり、床にも支えられるのに、Qの答えに出ないのは？</summary><p>形と衝突の条件は満たすが、開始位置から共有する操作をつないで入る経路がないため。静的な条件だけでは到達の答えにならない。</p></details>
+<details><summary>Iの見た目が同じなら、探索で片方を消してよい？</summary><p>この二つは右回転後に違うセルを占める。見た目で同じとみなすとき、その同一視が次の操作も保存するかを確かめる必要がある。今回の探索は、回転と原点を残した。</p></details>
+<details><summary>ある着地点への最短手順が見つかった。これだけで、通常プレイでも間に合うと分かる？</summary><p>現在の探索からは判断できない。最短は一操作一単位の手数で、時計や入力の繰り返しを含まない。</p></details>
+<details><summary>行消去後が空なら、消す前も一つに決まる？</summary><p>決まらない。10セルと20セルの二つの盤面が同じ空の盤面になる。盤面以外に何を記録したかが、区別できる過去を変える。</p></details>
+</div>
+</section>
+
+<section id="evidence" class="evidence-section"><h2>このページの記録と、確かめられる出所</h2><div class="prose"><p>表示する座標、答え、操作列、消去後の盤面、発見した層は、既存のゲーム述語を呼んで書き出した。34候補の全手順を再生し、逆問い合わせの具体的な答え、屋根の有無、Iの右回転後の座標を、生成時に検査する。JavaScriptは保存されたデータの選択と描画だけを担当する。</p><p id="provenance-summary"></p><p>614姿勢・34候補・約22msは、2026年10月26日にこのPCのデモで観測した例。盤面や環境が変わった場合の性能保証ではない。2026年10月26日、このゲームを実際に遊んだユーザー本人が通常プレイとQでの探索の動作を確認した。検査の詳細と範囲は、プロジェクトのVALIDATION.ja.mdに記録している。</p><details><summary>ソースの指紋と、再生成方法</summary><p>プロジェクト内で <code>scripts/build-guide.ps1</code> を実行すると、ネイティブのPrologから再度書き出して、この単独HTMLを作り直す。閲覧自体にはProlog、Python、サーバー、ネット接続は不要。</p><pre class="code-block"><code id="source-fingerprints"></code></pre><p>ゲームの規則は <code>src/tetromino.pl</code>、探索は <code>src/reachability.pl</code>、時間を伴う更新は <code>src/game.pl</code>、入口は <code>src/main.pl</code>。書き出しは <code>scripts/export-guide.pl</code>、HTMLの組み立ては <code>scripts/build-guide.py</code> にある。</p></details><details><summary>ネイティブ版の実際の画面を見る</summary><img class="native-screenshot" src="__NATIVE_SCREENSHOT__" alt="ネイティブ版のProlog Tetris。Qで34候補と19手の操作列を表示している実際の画面。" loading="lazy"><p class="small">初回試作の実ウィンドウから保存した画像。このページの盤面は、それを動く画像に加工したものではなく、Prologの座標データを別に描いたもの。</p></details><p class="reference-links"><a href="https://www.swi-prolog.org/pldoc/man?predicate=%3D%2F2">単一化 =/2</a><a href="https://www.swi-prolog.org/pldoc/man?section=clpfd">CLP(FD)</a><a href="https://www.swi-prolog.org/pldoc/man?section=clpfd-search">制約の記述と探索</a><a href="https://www.swi-prolog.org/pldoc/man?section=foreign">Foreign Language Interface</a></p></div></section>
+<footer><span>PROLOG / TETRIS · 実装と問いを同じ盤面で</span><a href="#top">冒頭へ戻る ↑</a></footer>
+</main>
+<noscript><p class="noscript">本文は読めますが、記録された盤面を操作するにはJavaScriptを有効にしてください。通信は行いません。</p></noscript>
+<script id="guide-data" type="application/json">__GUIDE_DATA__</script>
+<script>/*__SCRIPT__*/</script>
+</body>
+</html>

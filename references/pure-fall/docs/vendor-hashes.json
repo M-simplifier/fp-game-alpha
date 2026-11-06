@@ -1,0 +1,42 @@
+{
+  "source": "https://github.com/M-simplifier/fp-game-alpha",
+  "files": [
+    {
+      "sha256": "73f0fcc3757c38d9fdd6678722a0a37fd1b4ccec2ee5c494e2b2ed1e8a294c50",
+      "path": "vendor/game-transition/game-transition.cabal"
+    },
+    {
+      "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "path": "vendor/game-transition/LICENSE"
+    },
+    {
+      "sha256": "811b03719b7ec72b49bb17118ee7b3e9123152c4895b9926ded5a3b25b78854d",
+      "path": "vendor/game-transition/src/Game/Transition.hs"
+    },
+    {
+      "sha256": "9ec80a32d615a5f882ac248011ae474f63418d2acca4191efaba472205021c0b",
+      "path": "vendor/game-transition/test/Laws.hs"
+    },
+    {
+      "sha256": "420fb06922c515c1d76123ce6583c44cd31b5c8602e940cf4d7a58ce7c7a3760",
+      "path": "vendor/game-arena/game-arena.cabal"
+    },
+    {
+      "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "path": "vendor/game-arena/LICENSE"
+    },
+    {
+      "sha256": "08d15eaa8a13966734abf8b6c110625f35dde716263bdad2c19b04d9fdd8d77e",
+      "path": "vendor/game-arena/src/Game/Arena.hs"
+    },
+    {
+      "sha256": "ce396e78e36a2dc829157b52e86f368d6733a44de0ee7d929fddcdd64a684f95",
+      "path": "vendor/game-arena/src/Game/Arena/Finite.hs"
+    },
+    {
+      "sha256": "1abdc26df6667cf6355b8bd2b7a58af4e5acd276b98cd8d4f5cae59062d8df2c",
+      "path": "vendor/game-arena/test/Laws.hs"
+    }
+  ],
+  "commit": "da3ff4de888be9ec62407d57836b075d763a7c89"
+}

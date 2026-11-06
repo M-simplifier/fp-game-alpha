@@ -1,0 +1,13 @@
+PURE / FALL procedural audio
+
+All WAV files in assets/audio are original deterministic output of
+app/PureFall/Host/Audio.hs, authored for PURE / FALL under the project MIT license.
+Regenerate with:
+  pure-fall.exe --generate-audio --audio-dir assets/audio
+
+Format: mono PCM, 22050 Hz, signed 16 bit.
+quiet-rhythm.wav is a ten-second, 96 BPM loop with a minor/add9 pad, pulse and motif.
+No recorded samples, downloaded music, or external artwork are used.
+
+The game optionally loads installed Windows fonts. Those font files are never
+copied or redistributed; raylib's built-in font is the fallback.

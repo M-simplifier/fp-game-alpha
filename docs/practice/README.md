@@ -1,15 +1,40 @@
-# Technical knowledge preserved from the original skills
+# Technical practice and research sources
 
-These canonical documents preserve the technical substance of the public
-`haskell-excellence` and `fp-gamedev` reference guides, instead of reducing them
-to a short readability checklist. Thin project skills select the relevant guide;
-there is no obligation to read every document before writing a game.
+Use this shelf for implementation guidance and concrete routes into the wider
+game-development research. [The research map](../../research/README.md) and
+[catalog](../../research/catalog.json) connect current implementations, examples,
+experiments, open questions and historical results. Select knowledge for the
+problem in front of you; there is no obligation to read every document before
+writing a game. The [game-research skill](../../.agents/skills/game-research/SKILL.md)
+helps an AI follow that question to source and evidence without choosing one
+engine or representation for the whole programme.
+
+The Haskell and game practice guides below preserve the technical substance of
+the original public `haskell-excellence` and `fp-gamedev` reference guides. Their
+import provenance remains distinct from the newer authored research routes.
 
 Source: [public Afterlight skills](https://github.com/M-simplifier/garden-of-afterlight/tree/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/.agents/skills).
 The MIT notice is retained in [LICENSE.upstream](LICENSE.upstream).
 [PROVENANCE.json](PROVENANCE.json) records source paths/hashes and adaptations.
 The new routers are authored for this foundation; old project-specific defaults
 and confirmation scripts are not inherited as universal instructions.
+
+## Reach the newer studies
+
+- Procedural nature, streamed worlds, typed graphics and GPU ownership:
+  [Stillroom](../../research/stillroom/README.md)
+- Continuous composition, finite sounding tails and path-dependent ambience:
+  [music and time](../../research/stillroom/music-and-time.md)
+- Function, array and relation models of game rules, including their different
+  legality/reachability questions: [three Tetris studies](../../research/frontiers/README.md)
+- Free interpreters, composition and counterexamples to stronger architectural
+  claims: [interpretation and composition](../../research/frontiers/composition.md)
+- Earlier transitions, participant observations, formal work and failed transfer
+  assumptions: [research history](../../research/history/README.md)
+
+These are reading routes, not required dependencies for a game. The catalog's
+status describes what exists; its evidence and limits say what was actually
+checked. Read the selected implementation and its assumptions before reuse.
 
 ## Choose by the current design problem
 
@@ -35,16 +60,15 @@ and confirmation scripts are not inherited as universal instructions.
 - A concrete illustration, not a template requirement:
   [Afterlight source map](games/afterlight.md)
 
-- Optional colony simulation, ordered boundaries and restored save fixtures:
-  [archived Red Dune source route](../red-dune.md)
-- Active long-session colony campaign, physical policies and a local command room:
+- Colony simulation, save compatibility, long sessions and physical policies:
   [Red Dune source and check route](../red-dune.md)
 
-## What this restoration does and does not establish
+## Read the evidence at its actual scope
 
-It restores documentation and discoverable skill routes. It does not by itself
-port the original Haskell Design reader/editor executable, run new browser/device
-checks, or demonstrate a fresh arbitrary game brief end to end. The original
+The preserved guides and newer research routes make the material readable and
+discoverable. Their presence does not by itself port the original Haskell Design
+reader/editor executable, run new browser/device checks, or demonstrate a fresh
+arbitrary game brief end to end. The original
 `map`/`outline`/`show` reader and the current saved-source `inspect`/`context`
 helper are different capabilities. Do not claim they are equivalent.
 
