@@ -3,6 +3,10 @@ name: native-tooling
 # Manual dispatch is retained for explicitly requested native-only diagnostics.
 on:
   workflow_call:
+    inputs:
+      hosts:
+        type: string
+        required: true
   workflow_dispatch:
 permissions:
   contents: read
@@ -14,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: ${{ fromJSON(inputs.hosts || '["ubuntu-latest", "windows-latest", "macos-latest"]') }}
     # Python 3.14.2 has no Ubuntu 26.04 build; retain its supported 24.04 image.
     # Keep matrix labels unchanged so required check names remain stable.
     runs-on: ${{ matrix.os == 'ubuntu-latest' && 'ubuntu-24.04' || matrix.os }}
@@ -22,6 +26,11 @@ jobs:
     # took about fourteen minutes on Linux. Allow slower first Windows/macOS
     # setup; cached runs still finish normally and subprocess tests stay bounded.
     timeout-minutes: 45
+    env:
+      GHC_VERSION: '9.14.1'
+      # Same-repository draft runs can reuse their own merge-ref caches.
+      # GitHub never exposes that ref's caches to main or to another PR.
+      SAVE_CACHE: ${{ github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.event.pull_request.draft && github.event.pull_request.head.repo.full_name == github.repository) }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -39,17 +48,35 @@ jobs:
           xcrun --find clang
           xcrun --find ld
           xcrun --sdk macosx --show-sdk-path
+      - name: Identify compiler and dependency cache host
+        id: build-host
+        shell: bash
+        run: |
+          host=$(bash tools/ci_build_host.sh)
+          echo "abi=$host" >> "$GITHUB_OUTPUT"
+          if [ "$RUNNER_OS" = macOS ]; then
+            echo "ghcup=${GHCUP_INSTALL_BASE_PREFIX:-$HOME}/.ghcup" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Restore installed macOS GHC
+        if: runner.os == 'macOS'
+        id: macos-ghc
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ${{ steps.build-host.outputs.ghcup }}/ghc/${{ env.GHC_VERSION }}
+            ${{ steps.build-host.outputs.ghcup }}/db/ghc/${{ env.GHC_VERSION }}
+            ${{ steps.build-host.outputs.ghcup }}/db/ghc/${{ env.GHC_VERSION }}.spec
+          key: macos-ghc-v1-${{ steps.build-host.outputs.abi }}-${{ env.GHC_VERSION }}-exact
       - id: haskell
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '9.14.1'
+          ghc-version: ${{ env.GHC_VERSION }}
           cabal-version: '3.18.2.0'
           cabal-update: false
       - name: Identify native dependency cache
         id: cache-environment
         shell: bash
         run: |
-          echo "image=${ImageOS}-${ImageVersion}" >> "$GITHUB_OUTPUT"
           python - <<'PY'
           import json, os, subprocess
           paths = json.loads(subprocess.check_output(['cabal', 'path', '--verbose=0', '--ignore-project', '--output-format=json'], text=True))
@@ -58,7 +85,7 @@ jobs:
           PY
       # Only immutable package/index artifacts and compiled dependencies are cached.
       # Never restore project objects, final executables, game output or local config.
-      # PRs restore only; a validated main push is the only cache producer.
+      # The exact plan is locked; source trees and workflow edits do not key it.
       - name: Restore pinned native dependencies
         id: native-dependencies
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
@@ -66,7 +93,7 @@ jobs:
           path: |
             ${{ steps.haskell.outputs.cabal-store }}
             ${{ steps.cache-environment.outputs.packages }}
-          key: native-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-environment.outputs.image }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-${{ hashFiles('tools/haskell/*.cabal', 'tools/haskell/cabal.project*', '.github/workflows/native-tooling.yml') }}
+          key: native-deps-v2-${{ runner.os }}-${{ steps.build-host.outputs.abi }}-ghc${{ steps.haskell.outputs.ghc-version }}-cabal${{ steps.haskell.outputs.cabal-version }}-${{ hashFiles('tools/haskell/*.cabal', 'tools/haskell/cabal.project', 'tools/haskell/cabal.project.freeze') }}-exact
       - name: Select explicit Windows compiler profile
         # Check Unicode builds and stream relay boundaries once, before bootstrap.
         # Selection output is written only after every required assertion passes.
@@ -169,11 +196,20 @@ jobs:
           python tools/docs_lint.py --binary "$FP_GAME_BINARY"
           python tools/test_formatter.py --integration
           node editors/vscode/test/native-contract.js --binary "$FP_GAME_BINARY"
-      - name: Save validated native dependencies on main only
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.native-dependencies.outputs.cache-hit != 'true'
+      - name: Save validated native dependencies
+        if: env.SAVE_CACHE == 'true' && steps.native-dependencies.outputs.cache-hit != 'true'
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: |
             ${{ steps.haskell.outputs.cabal-store }}
             ${{ steps.cache-environment.outputs.packages }}
           key: ${{ steps.native-dependencies.outputs.cache-primary-key }}
+      - name: Save the validated macOS GHC install
+        if: runner.os == 'macOS' && env.SAVE_CACHE == 'true' && steps.macos-ghc.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ${{ steps.build-host.outputs.ghcup }}/ghc/${{ env.GHC_VERSION }}
+            ${{ steps.build-host.outputs.ghcup }}/db/ghc/${{ env.GHC_VERSION }}
+            ${{ steps.build-host.outputs.ghcup }}/db/ghc/${{ env.GHC_VERSION }}.spec
+          key: ${{ steps.macos-ghc.outputs.cache-primary-key }}
