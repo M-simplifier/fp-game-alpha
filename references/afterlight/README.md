@@ -28,7 +28,8 @@ This route does not establish native GPU, audio playback or browser acceptance.
 ## Native host
 
 For Windows x64, use the Game IO integration project from the repository root.
-It expects the `haskell-game-io` checkout at the path named in that project.
+Cabal fetches the pinned Game IO commit on the first build. The app requires a
+Vulkan 1.3 driver with KHR or EXT surface and swapchain maintenance1 support.
 
 ```powershell
 python references/afterlight/scripts/prepare-splitmix.py

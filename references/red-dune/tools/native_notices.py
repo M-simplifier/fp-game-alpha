@@ -2,7 +2,6 @@
 import argparse
 import json
 from pathlib import Path
-import re
 import subprocess
 import tarfile
 
@@ -31,7 +30,7 @@ def main():
         if identity not in visited:
             visited.add(identity)
             pending.extend(units[identity].get('depends', []))
-    paths = json.loads(command('cabal', 'path', '--output-format=json'))
+    paths = json.loads(command('cabal', 'path', '--ignore-project', '--output-format=json'))
     compiler = Path(command('ghc', '--print-libdir'))
     documents = compiler / 'doc' / (plan['arch'] + '-' + plan['os']
                                     + '-' + plan['compiler-id'])
@@ -50,23 +49,9 @@ def main():
             archive = Path(paths['remote-repo-cache']) / 'hackage.haskell.org' / name / version / (label + '.tar.gz')
             with tarfile.open(archive) as bundle:
                 text = bundle.extractfile(label + '/LICENSE').read().decode('utf-8')
-                if name == 'h-raylib':
-                    # Vendored raylib, GLFW and codecs retain their notices in
-                    # source comments. Copy notices only, never example assets.
-                    seen = set()
-                    for member in bundle.getmembers():
-                        relative = member.name.removeprefix(label + '/')
-                        if not member.isfile() or not relative.startswith('raylib/src/') or not relative.endswith(('.c', '.h')):
-                            continue
-                        content = bundle.extractfile(member).read().decode('utf-8', errors='replace')
-                        for block in re.findall(r'/\*[\s\S]*?\*/|(?:^[ \t]*//[^\n]*(?:\n|$))+', content, re.MULTILINE):
-                            if re.search(r'copyright|permission is hereby|license|public domain', block, re.IGNORECASE) and block not in seen:
-                                seen.add(block)
-                                notices.append(f'{label}: {relative}\n{block}')
         else:
-            # GHC bindists need not install documentation for boot packages.
-            # Retain the exact upstream notices for the supported compiler;
-            # sources.json records the verified archive and original paths.
+            # Use retained notices for the pinned Game IO source and GHC
+            # packages whose bindists omit documentation.
             retained = LICENSES / label
             files = sorted(path for path in retained.rglob('*') if path.is_file())
             if files:

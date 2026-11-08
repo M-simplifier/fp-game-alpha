@@ -24,8 +24,8 @@ third-party artwork, audio recordings, fonts, textures or prebuilt executables.
 
 The optional official Hackage `network` and `hsc2hs` dependencies are resolved by
 Cabal; their downloaded sources and binaries are not copied into this repository.
-The local native build collects resolved Haskell package and vendored raylib
-notices in `THIRD-PARTY-NOTICES.txt`. Wider binary redistribution still needs a
+The local native build collects resolved Haskell package notices in
+`THIRD-PARTY-NOTICES.txt`. Wider binary redistribution still needs a
 review of the actual compiler/runtime and platform license requirements.
 
 Keep `.build/`, `dist-newstyle/`, dependency downloads, `.red-dune-saves/`, `.rdg`

@@ -1,4 +1,4 @@
-param([string]$OutputDirectory, [string]$BuildDirectory, [string]$CabalConfig)
+param([string]$OutputDirectory, [string]$BuildDirectory, [string]$CabalConfig, [switch]$Offline)
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 if (-not $OutputDirectory) { $OutputDirectory = Join-Path $repo '.build\red-dune-native' }
@@ -9,9 +9,11 @@ try {
     $cabalOptions = @()
     if ($CabalConfig) { $cabalOptions += '--config-file=' + (Resolve-Path -LiteralPath $CabalConfig).Path }
     if ($BuildDirectory) { $component += '--builddir=' + [System.IO.Path]::GetFullPath($BuildDirectory) }
-    & cabal @cabalOptions build --offline @component exe:red-dune
+    $offlineOption = @()
+    if ($Offline) { $offlineOption = @('--offline') }
+    & cabal @cabalOptions build @offlineOption @component exe:red-dune
     if ($LASTEXITCODE -ne 0) { throw 'Native build failed' }
-    $binary = (& cabal @cabalOptions list-bin @component exe:red-dune).Trim()
+    $binary = (& cabal @cabalOptions list-bin @offlineOption @component exe:red-dune).Trim()
     if ($LASTEXITCODE -ne 0) { throw 'Cannot locate native executable' }
     New-Item -ItemType Directory -Force -Path (Join-Path $output 'assets') | Out-Null
     & python (Join-Path $PSScriptRoot 'native_icon.py') (Join-Path $output 'assets')
@@ -21,7 +23,7 @@ try {
     $glyphs = -join ($source.ToCharArray() | Where-Object { [int]$_ -gt 126 } | Sort-Object -Unique)
     [System.IO.File]::WriteAllText((Join-Path $output 'assets\glyphs.txt'), $glyphs, [System.Text.UTF8Encoding]::new($false))
     Copy-Item -LiteralPath (Join-Path $repo 'references\red-dune\LICENSE') -Destination (Join-Path $output 'LICENSE.RedDune.txt')
-    Copy-Item -LiteralPath (Join-Path $repo '..\..\haskell-game-io\LICENSE') -Destination (Join-Path $output 'LICENSE.GameIO.txt')
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../licenses/haskell-game-io-0.1.0.0/LICENSE') -Destination (Join-Path $output 'LICENSE.GameIO.txt')
     Copy-Item -LiteralPath (Join-Path $repo 'references\red-dune\ASSETS.md') -Destination (Join-Path $output 'ASSETS.md')
     Copy-Item -LiteralPath (Join-Path $repo 'references\red-dune\docs\WINDOWS-PLAY.md') -Destination (Join-Path $output '遊び方.md')
     $noticeArguments = @((Join-Path $output 'THIRD-PARTY-NOTICES.txt'))

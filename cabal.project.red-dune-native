@@ -2,6 +2,10 @@ packages:
   libraries/game-transition
   libraries/game-arena
   references/red-dune
-  ../../haskell-game-io
 
 tests: False
+
+source-repository-package
+  type: git
+  location: https://github.com/M-simplifier/haskell-game-io
+  tag: 19dde99dc005aceafae934d7178d2b5ecf517e54
