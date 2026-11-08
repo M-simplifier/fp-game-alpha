@@ -1,0 +1,18 @@
+cabal-version: 2.4
+name: splitmix
+version: 0.1.3.2
+synopsis: SplitMix with direct Windows seed acquisition
+license: BSD-3-Clause
+license-file: LICENSE
+build-type: Simple
+
+library
+  hs-source-dirs: src
+  exposed-modules: System.Random.SplitMix, System.Random.SplitMix32
+  other-modules: System.Random.SplitMix.Init
+  default-language: Haskell2010
+  build-depends: base >=4.12 && <4.23, deepseq >=1.4.4 && <1.6
+  if os(windows) && arch(x86_64)
+    extra-libraries: bcrypt
+  else
+    buildable: False

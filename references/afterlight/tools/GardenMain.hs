@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 module Main where
 
 import Control.Exception (IOException, SomeException, displayException, try)
@@ -13,10 +15,10 @@ import System.IO (BufferMode (LineBuffering), IOMode (AppendMode), hPutStrLn, hS
 main :: IO ()
 main = do
   setLocaleEncoding utf8
-  here <- doesFileExist "assets/shaders/voxel.fs"
+  here <- doesFileExist assetMarker
   executable <- getExecutablePath
   let directory = takeDirectory executable
-  beside <- doesFileExist (directory </> "assets/shaders/voxel.fs")
+  beside <- doesFileExist (directory </> assetMarker)
   if not here && beside then setCurrentDirectory directory else pure ()
   -- Explorer provides no console handle; preserve redirected diagnostic output
   -- when present and give ordinary GUI launches a local log instead.
@@ -36,3 +38,8 @@ main = do
     Left problem -> hPutStrLn stderr (displayException problem) >> exitFailure
   where
     banner = "NOEMA / Garden of Afterlight - Windows edition"
+#if defined(AFTERLIGHT_GAMEIO)
+    assetMarker = "assets/fonts/NotoSansCJKjp-Regular.otf"
+#else
+    assetMarker = "assets/shaders/voxel.fs"
+#endif

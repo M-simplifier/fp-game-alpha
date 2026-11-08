@@ -11,9 +11,11 @@ description: The pinned original game, renderer, audio and photo hosts with
              a pure frame session, complete observation and state invariants.
 category: Game
 extra-source-files:
-    README.md, THIRD-PARTY.md, licenses/h-raylib-LICENSE, docs/*.md, docs/*.json, docs/qa/*.json,
+    README.md, THIRD-PARTY.md, licenses/h-raylib-LICENSE, docs/*.md,
     tools/fixtures/garden-v3.txt, tools/*.ps1, test/api/*.hs, assets/shaders/*.vs, assets/shaders/*.fs,
     scripts/*.py, scripts/*.ps1, web/*.md, web/*.sh, web/*.py, web/*.c,
+    dependencies/splitmix-win64/Init.hs, dependencies/splitmix-win64/splitmix.cabal,
+    dependencies/splitmix-win64/README.md,
     web/*.vs, web/*.nix, web/flake.lock, web/wasm-link, web/cabal.project.template,
     web/checks/*.c, web/checks/*.py, web/patches/*.md, web/patches/*.patch,
     web/patches/*.txt, web/host/*.md, web/host/*.json,
@@ -21,7 +23,11 @@ extra-source-files:
     web/host/public/index.html
 
 flag native
-    description: Build the full native raylib runtime
+    description: Build the full native runtime
+    default: False
+    manual: True
+flag gameio-native
+    description: Use the Windows Haskell Game IO integration
     default: False
     manual: True
 flag web
@@ -53,12 +59,21 @@ library runtime
         buildable: False
     hs-source-dirs: runtime
     ghc-options: -O2
-    exposed-modules: Garden.Runtime, Garden.Input, Garden.Render, Garden.Audio,
-        Garden.Render.Resources, Garden.Render.GPU, Garden.Render.Radiance
-    other-modules: Garden.Runtime.Control
+    exposed-modules: Garden.Runtime, Garden.Audio
+    other-modules: Garden.Runtime.Control, Garden.Render.HUD
     build-depends: base, afterlight-arena, game-transition, game-arena,
         bytestring, containers, directory >=1.3 && <1.4, filepath >=1.4 && <1.6,
-        time >=1.12 && <1.16, Yampa, h-raylib >=6.1.0.0 && <6.1.1
+        time >=1.12 && <1.16, Yampa
+    if flag(gameio-native) && flag(native) && os(windows) && arch(x86_64) && !flag(web)
+        cpp-options: -DAFTERLIGHT_GAMEIO -DAFTERLIGHT_GAMEIO_AUDIO
+        exposed-modules: Garden.Render.Native
+        other-modules: Garden.Input.Native, Garden.Render.NativeHUD, Garden.Render.NativeShaders
+        build-depends: haskell-game-io:audio >=0.1 && <0.2, haskell-game-io:core >=0.1 && <0.2,
+            haskell-game-io:graphics >=0.1 && <0.2
+    else
+        exposed-modules: Garden.Input, Garden.Render, Garden.Render.Resources,
+            Garden.Render.GPU, Garden.Render.Radiance
+        build-depends: h-raylib >=6.1.0.0 && <6.1.1
 
 executable afterlight-native
     import: checked
@@ -69,11 +84,13 @@ executable afterlight-native
     ghc-options: -O2 -threaded -rtsopts -with-rtsopts=-N2
     if os(windows)
         ghc-options: -optl-mwindows
+    if flag(gameio-native) && os(windows) && arch(x86_64) && !flag(web)
+        cpp-options: -DAFTERLIGHT_GAMEIO
     build-depends: base, afterlight-arena:runtime, directory, filepath
 
 executable afterlight-render-check
     import: checked
-    if !flag(native)
+    if !flag(native) || (flag(gameio-native) && os(windows) && arch(x86_64) && !flag(web))
         buildable: False
     hs-source-dirs: tools
     main-is: GardenRenderCheck.hs
@@ -89,6 +106,26 @@ executable afterlight-audio
     main-is: GardenAudio.hs
     ghc-options: -O2
     build-depends: base, afterlight-arena:runtime
+
+executable afterlight-audio-check
+    import: checked
+    if !(flag(gameio-native) && flag(native) && os(windows) && arch(x86_64)) || flag(web)
+        buildable: False
+    hs-source-dirs: tools
+    main-is: GardenAudioCheck.hs
+    ghc-options: -O2 -threaded -rtsopts -with-rtsopts=-N2
+    build-depends: base, containers, afterlight-arena, afterlight-arena:runtime,
+        haskell-game-io:audio >=0.1 && <0.2
+
+executable afterlight-gameio-render-check
+    import: checked
+    if !(flag(gameio-native) && flag(native) && os(windows) && arch(x86_64)) || flag(web)
+        buildable: False
+    hs-source-dirs: tools
+    main-is: GardenVulkanCheck.hs
+    ghc-options: -O2 -threaded -rtsopts
+    build-depends: base, afterlight-arena, afterlight-arena:runtime, bytestring, containers, directory >=1.3 && <1.4,
+        haskell-game-io:core >=0.1 && <0.2, haskell-game-io:graphics >=0.1 && <0.2
 
 executable afterlight-browser
     import: checked

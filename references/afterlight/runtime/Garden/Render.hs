@@ -10,6 +10,7 @@ import Data.Map.Strict qualified as M
 import Garden.Mesh (palette)
 import Garden.Photo
 import Garden.Render.Chunk
+import Garden.Render.HUD qualified as HUD
 import Garden.Render.Radiance
 import Garden.Render.Resources
 import Garden.Render.Settings
@@ -21,7 +22,6 @@ import Raylib.Core.Shapes
 import Raylib.Core.Text (drawText)
 import Raylib.Types
 import Raylib.Util (blendMode, mode2D)
-import Text.Printf (printf)
 
 cameraFor :: SceneView -> Camera3D
 cameraFor view = Camera3D (toRay (sceneEye view)) (toRay (plus (sceneEye view) (sceneForward view))) (Vector3 0 1 0) 68 CameraPerspective
@@ -156,133 +156,69 @@ drawBursts view = forM_ (sceneBursts view) $ \burst -> do
         size = max 0.01 (0.12 * (1 - age / 1.15))
     drawCubeV (toRay p) (Vector3 size size size) hue
 
--- CPP branches are formatted by scripts/check-cpp-format.py.
-{- ORMOLU_DISABLE -}
 renderInterface :: Resources -> SceneView -> Bool -> Float -> IO ()
 renderInterface resources view debug fps = withUIScale $ \width height zoom -> do
-  let wf = fromIntegral width
-      hf = fromIntegral height
-      ink = Color 239 241 219 255
-      soft = Color 179 207 196 255
-      gold = Color 234 204 139 255
-      label = textAt resources
-  drawRectangleGradientV 0 0 width 130 (Color 7 20 25 178) (Color 7 20 25 0)
   settings <- readIORef (resourceQuality resources)
-#if defined(wasm32_HOST_ARCH)
-  label (qualityName (renderQuality settings)) 210 26 14 soft
-#else
-  label ("F4  " <> qualityName (renderQuality settings)) 210 26 14 soft
-#endif
-  label (regionName view) 32 20 32 ink
-  drawLine 33 64 134 64 gold
-  label (sceneObjective view) 32 77 22 ink
-  let lifeW = 180; lifeX = width - lifeW - 34
-  label "生命" (fromIntegral lifeX) 27 15 soft
-  drawRectangle lifeX 55 lifeW 4 (Color 22 46 49 220)
-  drawRectangle lifeX 55 (round (fromIntegral lifeW * sceneLife view / 100)) 4 (if sceneLife view < 30 then Color 237 125 115 255 else Color 165 220 182 255)
-  label ("光 " <> show (sceneCharges view) <> "   Q 使う") (fromIntegral lifeX) 70 15 soft
-  -- Small ordinal markers remain readable even when gem colors coincide.
-  forM_ (zip [0 :: Int ..] (sceneGems view)) $ \(i, (g, count)) -> do
-    let x = wf - 213 + fromIntegral (i * 47)
-    drawRectangle (round x) 108 8 8 (toColor (palette (Ore g)) 1)
-    label (show count) (x + 13) 102 15 ink
-  let cx = width `div` 2
-      cy = height `div` 2
-      targetColor = case sceneTarget view of EnemyTarget -> Color 255 130 139 240; _ -> Color 245 239 208 200
-  drawLine (cx - 7) cy (cx - 3) cy targetColor
-  drawLine (cx + 3) cy (cx + 7) cy targetColor
-  drawLine cx (cy - 7) cx (cy - 3) targetColor
-  drawLine cx (cy + 3) cx (cy + 7) targetColor
-  when (sceneDashRecovery view > 0) $ do
-    drawRectangle (cx - 24) (cy + 27) 48 2 (Color 22 46 49 150)
-    drawRectangle (cx - 24) (cy + 27) (round (48 * (1 - sceneDashRecovery view))) 2 gold
-  drawRectangleGradientV 0 (height - 172) width 172 (Color 4 18 24 0) (Color 4 18 24 185)
-  let hint = sceneHint view
-  hintWidth <- textWidth resources hint 22
-  let hintX = max 25 ((wf - hintWidth) / 2)
-  label hint hintX (hf - 143) 22 ink
-  let slotWidth = 66; start = cx - 198
-  forM_ (zip [0 ..] (sceneSlots view)) $ \(i, (m, count)) -> do
-    let x = start + i * slotWidth; selected = i == sceneSelection view `mod` 6
-    drawRectangle x (height - 100) 60 60 (if selected then Color 81 104 91 220 else Color 12 33 38 188)
-    when selected $ drawRectangle x (height - 103) 60 3 gold
-    drawRectangle (x + 23) (height - 86) 14 14 (toColor (palette m) 1)
-    label (show (i + 1)) (fromIntegral (x + 5)) (hf - 96) 15 soft
-    label (show count) (fromIntegral (x + 35)) (hf - 64) 17 ink
-  label (materialName (slotMaterial (sceneSelection view))) (wf / 2 - 30) (hf - 30) 15 soft
-  label "C  灯花を編む" 32 (hf - 74) 19 soft
-  label "白石 2 ＋ 宝石 1" 32 (hf - 45) 16 soft
-  label ("TAB  素材棚 " <> show (sceneSelection view `div` 6 + 1) <> " / 2") (wf / 2 + 216) (hf - 64) 16 soft
-  label "ESC  一時停止" (wf - 172) (hf - 38) 14 soft
-  when (not (null (sceneNotice view))) $ do
-    measured <- textWidth resources (sceneNotice view) 20
-    let noticeWidth = measured + 48
-        noticeX = max 24 ((wf - noticeWidth) / 2)
-    drawRectangle (round noticeX) (round (hf * 0.72 - 12)) (round noticeWidth) 47 (Color 6 27 32 210)
-    label (sceneNotice view) (noticeX + 24) (hf * 0.72) 20 gold
-  forM_ (sceneKin view) $ \(KinView pos g bond safe) -> do
-    let d = distance (sceneEye view) pos
-    when (d < 20 && dot (minus pos (sceneEye view)) (sceneForward view) > 0) $ do
-      Vector2 rawX rawY <- getWorldToScreen (toRay (plus pos (V3 0 4.4 0))) (cameraFor view)
-      let sx = rawX / zoom; sy = rawY / zoom
-      when (sx > 50 && sx < wf - 150 && sy > 120 && sy < hf - 180) $ do
-        label (if safe then "光の記憶" else kinName g <> "  ·  " <> gemName g) (sx - 85) sy 16 ink
-        label (if bond >= 2 then "結ばれている" else if bond == 1 then "もうひとつの贈り物を" else "宝石を待っている") (sx - 55) (sy + 24) 15 soft
-  forM_ (sceneEnemies view) $ \(EnemyView pos health windup kind) -> do
-    let delta = minus (plus pos (V3 0 1.7 0)) (sceneEye view)
-        d = magnitude delta
-        maximumHealth = case kind of Wanderer -> 4; Custodian -> 7; Skitter -> 3; SkyMoth -> 3 :: Float
-    when (d < 13 && dot (unit delta) (sceneForward view) > 0.96) $ do
-      Vector2 rawX rawY <- getWorldToScreen (toRay (plus pos (V3 0 3.5 0))) (cameraFor view)
-      let x = round (rawX / zoom) - 28; y = round (rawY / zoom)
-      when (y > 120 && y < height - 175) $ do
-        drawRectangle x y 56 3 (Color 32 20 38 210)
-        drawRectangle x y (round (56 * fromIntegral health / maximumHealth)) 3 (if windup > 0 then Color 255 92 116 255 else Color 224 164 169 220)
-  when debug $ do
-    drawRectangle 24 135 330 52 (Color 0 0 0 170)
-    drawText (printf "%.1f FPS  /  %.1f ms" fps (1000 / max 1 fps)) 33 143 16 ink
-    drawText (printf "%.0f voxels / revision %d" (fromIntegral (M.size (sceneCells view)) :: Float) (sceneRevision view)) 33 163 15 ink
+  let label = qualityPrefix <> qualityName (renderQuality settings)
+  HUD.renderInterface (rayPainter resources (width, height) zoom (Just view)) label view debug fps
 
-{- ORMOLU_ENABLE -}
-
--- CPP branches are formatted by scripts/check-cpp-format.py.
-{- ORMOLU_DISABLE -}
 renderMenu :: Resources -> Maybe Bool -> Bool -> IO ()
-renderMenu resources saved invertY = withUIScale $ \w h _ -> do
-  let x = fromIntegral w / 2 - 440; y = fromIntegral h / 2 - 205
-  drawRectangle 0 0 w h (Color 3 14 23 211)
-  textAt resources "余光の庭" x y 38 (Color 239 235 207 255)
-#if defined(wasm32_HOST_ARCH)
-  textAt resources "クリック  旅を続ける" x (y + 75) 23 (Color 207 229 216 255)
-#else
-  textAt resources "ESC  旅を続ける" x (y + 75) 23 (Color 207 229 216 255)
-#endif
-  textAt resources "F5   記録する" x (y + 118) 23 (Color 207 229 216 255)
-  textAt resources "ENTER  記録して終了" x (y + 161) 23 (Color 207 229 216 255)
-  textAt resources ("I  視点の上下反転：" <> if invertY then "ON" else "OFF") x (y + 212) 18 (Color 175 200 192 255)
-  textAt resources "F11  全画面   ·   F2  撮影表示" x (y + 246) 17 (Color 175 200 192 255)
-  textAt resources "F6  フォトモード   ·   F12  撮影" x (y + 271) 17 (Color 175 200 192 255)
-  forM_ saved $ \ok -> textAt resources (if ok then "保存しました" else "保存できませんでした。F5 で再試行") x (y + 296) 18 (Color 238 211 148 255)
-  let guide = textAt resources; gx = x + 465; soft = Color 175 200 192 255
-  guide "旅の手引き" gx (y + 8) 25 (Color 239 235 207 255)
-  forM_
-    ( zip
-        [0 :: Int ..]
-        [ "WASD  移動   マウス  視点",
-          "SPACE  跳ぶ   SHIFT  走る",
-          "E  回避   左クリック  採掘・攻撃",
-          "右クリック  置く   1–6 / ホイール  切替",
-          "TAB  素材棚を切り替える",
-          "F  宝石を贈る・灯りの下へ迎える",
-          "Q  生命の光を使う   C  灯花を編む",
-          "飛翔後  SPACE 上昇 / CTRL 下降",
-          "30秒ごとに自動保存"
-        ]
-    )
-    $ \(i, line) ->
-      guide line gx (y + 70 + fromIntegral i * 34) 19 soft
+renderMenu resources saved invertY = withUIScale $ \width height zoom ->
+  HUD.renderMenu (rayPainter resources (width, height) zoom Nothing) resumeLabel saved invertY
 
-{- ORMOLU_ENABLE -}
+qualityPrefix, resumeLabel :: String
+#if defined(wasm32_HOST_ARCH)
+qualityPrefix = ""
+resumeLabel = "クリック  旅を続ける"
+#else
+qualityPrefix = "F4  "
+resumeLabel = "ESC  旅を続ける"
+#endif
+
+renderSaveFeedback :: Resources -> Maybe Bool -> IO ()
+renderSaveFeedback resources status = withUIScale $ \width height zoom ->
+  HUD.renderSaveFeedback (rayPainter resources (width, height) zoom Nothing) status
+
+renderPhotoFrame :: Photo -> IO ()
+renderPhotoFrame photo = do
+  width <- getScreenWidth
+  height <- getScreenHeight
+  HUD.renderPhotoFrame (rayShapePainter (width, height)) photo
+
+renderPhotoChrome :: Resources -> Photo -> Maybe String -> IO ()
+renderPhotoChrome resources photo message = withUIScale $ \width height zoom ->
+  HUD.renderPhotoChrome (rayPainter resources (width, height) zoom Nothing) photo message
+
+renderPhotoToast :: Resources -> String -> IO ()
+renderPhotoToast resources line = withUIScale $ \width height zoom ->
+  HUD.renderPhotoToast (rayPainter resources (width, height) zoom Nothing) line
+
+rayPainter :: Resources -> (Int, Int) -> Float -> Maybe SceneView -> HUD.Painter
+rayPainter resources extent zoom view =
+  (rayShapePainter extent)
+    { HUD.textAt = \label x y size tint -> textAt resources label x y size (rayColor tint)
+    , HUD.textWidth = textWidth resources
+    , HUD.projectPoint = \point -> case view of
+        Nothing -> pure (0, 0)
+        Just scene -> do
+          Vector2 x y <- getWorldToScreen (toRay point) (cameraFor scene)
+          pure (x / zoom, y / zoom)
+    }
+
+rayShapePainter :: (Int, Int) -> HUD.Painter
+rayShapePainter extent = HUD.Painter
+  { HUD.viewport = extent
+  , HUD.drawRectangle = \x y width height tint -> drawRectangle x y width height (rayColor tint)
+  , HUD.drawRectangleGradientV = \x y width height top bottom -> drawRectangleGradientV x y width height (rayColor top) (rayColor bottom)
+  , HUD.drawLine = \x y x' y' tint -> drawLine x y x' y' (rayColor tint)
+  , HUD.textAt = \_ _ _ _ _ -> pure ()
+  , HUD.drawText = \label x y size tint -> drawText label x y size (rayColor tint)
+  , HUD.textWidth = \_ _ -> pure 0
+  , HUD.projectPoint = \_ -> pure (0, 0)
+  }
+
+rayColor :: HUD.Color -> Color
+rayColor (HUD.Color r g b a) = Color (fromIntegral r) (fromIntegral g) (fromIntegral b) (fromIntegral a)
 
 withUIScale :: (Int -> Int -> Float -> IO ()) -> IO ()
 withUIScale action = do
@@ -292,54 +228,6 @@ withUIScale action = do
   mode2D
     (Camera2D (Vector2 0 0) (Vector2 0 0) 0 zoom)
     (action (round (fromIntegral width / zoom)) (round (fromIntegral height / zoom)) zoom)
-
-renderSaveFeedback :: Resources -> Maybe Bool -> IO ()
-renderSaveFeedback resources status = withUIScale $ \w h _ -> forM_ status $ \ok ->
-  textAt
-    resources
-    (if ok then "記録しました" else "記録できませんでした。F5 で再試行")
-    (fromIntegral w - 430)
-    (fromIntegral h - 112)
-    18
-    (if ok then Color 211 223 183 255 else Color 245 150 139 255)
-
-renderPhotoFrame :: Photo -> IO ()
-renderPhotoFrame p = when (photoCinema p) $ do
-  w <- getScreenWidth
-  h <- getScreenHeight
-  let bar = max 0 (round ((fromIntegral h - fromIntegral w / 2.39) / 2 :: Float))
-  drawRectangle 0 0 w bar (Color 0 0 0 255)
-  drawRectangle 0 (h - bar) w bar (Color 0 0 0 255)
-
-renderPhotoChrome :: Resources -> Photo -> Maybe String -> IO ()
-renderPhotoChrome resources p message = withUIScale $ \w h _ -> do
-  when (photoGrid p) $ do
-    let inset = if photoCinema p then max 0 (round ((fromIntegral h - fromIntegral w / 2.39) / 2 :: Float)) else 0
-        ink = Color 238 234 208 65
-    forM_ [1, 2] $ \n -> do
-      drawLine (w * n `div` 3) inset (w * n `div` 3) (h - inset) ink
-      drawLine 0 (inset + (h - 2 * inset) * n `div` 3) w (inset + (h - 2 * inset) * n `div` 3) ink
-  drawRectangle 24 24 260 66 (Color 6 21 28 215)
-  textAt resources "余光を写す" 40 31 26 (Color 243 231 191 255)
-  textAt resources "時を止めた庭 / PHOTO MODE" 41 65 13 (Color 174 205 193 255)
-  let label = printf "画角 %.0f°   傾き %+.0f°   露出 %+.1f EV" (photoFov p) (photoRoll p * 180 / pi) (photoExposure p)
-      x = fromIntegral w - 440
-      flag yes = if yes then "入" else "切"
-  drawRectangle (w - 456) 24 432 89 (Color 6 21 28 215)
-  textAt resources label x 36 17 (Color 237 229 200 255)
-  textAt resources (gradeName (photoGrade p) <> "   発光 " <> flag (photoBloom p) <> "   周辺減光 " <> flag (photoVignette p)) x 65 17 (Color 174 205 193 255)
-  drawRectangle 24 (h - 132) (w - 48) 108 (Color 6 21 28 225)
-  textAt resources "ENTER / F12  撮影     F6 / ESC  戻る     F2  案内を隠す" 41 (fromIntegral h - 121) 19 (Color 243 231 191 255)
-  textAt resources "WASD / SPACE / CTRL  移動   SHIFT  高速   ALT  微速   マウス  視点   ホイール  画角" 41 (fromIntegral h - 86) 16 (Color 185 211 200 255)
-  textAt resources "Q / E  傾き   ↑ / ↓  露出   TAB  色味   B  発光   V  周辺減光   G  ガイド   C  映画枠   R  リセット" 41 (fromIntegral h - 57) 16 (Color 185 211 200 255)
-  forM_ message $ \line -> do
-    drawRectangle 24 (h - 182) (w - 48) 38 (Color 6 21 28 230)
-    textAt resources line 40 (fromIntegral h - 175) 16 (Color 243 231 191 255)
-
-renderPhotoToast :: Resources -> String -> IO ()
-renderPhotoToast resources line = withUIScale $ \w h _ -> do
-  drawRectangle 24 (h - 190) (w - 48) 42 (Color 6 21 28 230)
-  textAt resources line 40 (fromIntegral h - 180) 16 (Color 243 231 191 255)
 
 white :: Color
 white = Color 255 255 255 255

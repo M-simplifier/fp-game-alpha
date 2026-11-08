@@ -50,17 +50,15 @@ def main():
         if digest(target) != expected:
             raise SystemExit(f"Refusing to replace a different existing asset: {target}")
         records.append({"path": name, "source": SOURCE + origin, "sha256": expected, "bytes": target.stat().st_size})
-    # These are conservative source characters, as in the original web asset
-    # preparation. Restrict to the fixed font's supported Japanese/UI ranges.
+    # Include visible UI punctuation as well as Japanese glyphs. The pause and
+    # photo screens use symbols outside the earlier Japanese-only ranges.
     text = "".join(p.read_text(encoding="utf-8") for folder in ["src", "runtime"]
                    for p in sorted((ROOT / folder).rglob("*.hs")))
-    points = set(range(32, 127)) | {ord(c) for c in text if
-        0x2000 <= ord(c) <= 0x206F or 0x3000 <= ord(c) <= 0x30FF or
-        0x4E00 <= ord(c) <= 0x9FFF or 0xFF00 <= ord(c) <= 0xFFEF}
+    points = set(range(32, 127)) | {ord(c) for c in text if c.isprintable()}
     glyphs = assets / "fonts/glyphs.txt"
     glyphs.write_text("".join(map(chr, sorted(points))) + "\n", encoding="utf-8", newline="\n")
     records.append({"path": "fonts/glyphs.txt", "sha256": digest(glyphs), "characters": len(points),
-                    "source": "ASCII and conservative Japanese/UI ranges from src/ and runtime/"})
+                    "source": "ASCII and visible source characters from src/ and runtime/"})
     for path in sorted((assets / "garden-audio").glob("*.wav")):
         records.append({"path": path.relative_to(assets).as_posix(), "sha256": digest(path), "bytes": path.stat().st_size,
                         "source": "Original Garden.Soundscape / Garden.Audio deterministic PCM"})

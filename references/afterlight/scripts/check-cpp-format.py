@@ -1,4 +1,4 @@
-"""Check/reproduce formatting of the six mid-declaration CPP exclusions.
+"""Check/reproduce formatting of the mid-declaration CPP exclusions.
 
 Uses the repository's verified, pinned Ormolu, never --unsafe. Each declaration
 is formatted in both configurations with temporary boundary comments, then
@@ -24,7 +24,6 @@ import formatter
 
 DECLARATIONS = {
     'runtime/Garden/Render/Radiance.hs': ['acquireRadiance'],
-    'runtime/Garden/Render.hs': ['renderInterface', 'renderMenu'],
     'runtime/Garden/Runtime.hs': ['beginGarden', 'advancePreparation', 'stepFrame'],
 }
 REGION = re.compile(r'\{- ORMOLU_DISABLE -\}\n(.*?)\{- ORMOLU_ENABLE -\}', re.S)
