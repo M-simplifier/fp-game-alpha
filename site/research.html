@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta name="description" content="ゲーム開発研究の問い、実装、検証範囲を主題から探す。">
-<title>研究目録 · fp-game-alpha</title>
+<meta name="description" content="ゲーム開発の問いと、それに関わる知見、実装、教材、検証結果を八つのテーマから探せる公開リファレンス。">
+<title>技術目録 · fp-game-alpha</title>
 <link rel="canonical" href="https://m-simplifier.github.io/fp-game-alpha/research.html">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="research.css">
@@ -16,20 +16,20 @@
 <header class="site-header wrap">
 <a class="brand" href="index.html"><span aria-hidden="true">↦</span> fp-game-alpha <small>α</small></a>
 <nav aria-label="主な案内">
-<a href="research.html" aria-current="page">研究目録</a> <a href="guide.html">考え方を読む</a> <a href="index.html#studies">教材</a> <a href="create.html">AIと作る ↗</a>
+<a href="research.html" aria-current="page">技術目録</a> <a href="guide.html">考え方を読む</a> <a href="index.html#studies">教材</a> <a href="create.html">AIと作る ↗</a>
 </nav>
 </header>
 <main id="main" class="wrap">
 <header class="catalog-header">
-<p class="eyebrow">研究目録</p>
-<h1>問いから研究を探す</h1>
+<p class="eyebrow">技術目録</p>
+<h1>問いから、知見と実装を探す</h1>
 <p>入力の順序を変えると何が壊れるか。影と本体が同じ形を描くには何を揃えるか。知りたいことから、説明、実装、確かめた範囲へ進めます。</p>
-<p>作品と実験を通して調べてきたゲーム開発研究を収録しています。現在の実装、有限の検査、過去の結果、未解決の問いを区別し、原実装と説明へ案内します。</p>
+<p>ここには、ゲーム制作と技術探究を通して積み重ねてきた知見を収録しています。実際の作品に使った技法、小さな実験、これまでの試み、未解決の問いを区別し、元のコードや出典まで辿れるようにしています。</p>
 <p class="meta">整理日 <time datetime="2026-11-07">2026-11-07</time> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">調査した資料と残る範囲</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/catalog.json">目録の元データ</a></p>
 </header>
 <section aria-labelledby="find-heading" class="catalog-search">
 <h2 id="find-heading">絞り込む</h2>
-<p>区分は研究の置かれている状態です。優劣の順位ではありません。実装に接続した研究にも、未検証の範囲があります。</p>
+<p>区分は、その項目の現在の状態を示しています。優劣の順位ではありません。実装に使われている技法にも、まだ確かめられていない範囲があります。</p>
 <form id="research-filters" class="catalog-controls" role="search" hidden>
 <label for="research-search">言葉で探す
 <input id="research-search" type="search" autocomplete="off" placeholder="例：保存、観測、音楽"></label>
@@ -50,15 +50,15 @@
 <option value="example">具体的な作品</option>
 <option value="experiment">実験</option>
 <option value="question">未解決の問い</option>
-<option value="historical">過去の研究</option>
+<option value="historical">これまでの試み</option>
 </select></label>
 <button class="button" type="reset">絞り込みを戻す</button>
 </form>
-<noscript><p>すべての研究を以下に表示しています。ページ内検索も使えます。</p></noscript>
-<p id="research-count" role="status" aria-live="polite">39件の研究</p>
+<noscript><p>すべての項目を以下に表示しています。ページ内検索も使えます。</p></noscript>
+<p id="research-count" role="status" aria-live="polite">39件の項目</p>
 </section>
 <section aria-labelledby="entries-heading" class="catalog">
-<h2 id="entries-heading">研究一覧</h2>
+<h2 id="entries-heading">項目一覧</h2>
 <article id="transition-boundaries" class="catalog-entry" data-topics="rules-time composition assurance" data-status="implemented">
 <p class="entry-meta"><span class="status-label">実装に接続</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/architecture.md">作品ごとの一回分を保ち、遷移と履歴を共有する</a></h3>
@@ -354,7 +354,7 @@
 <ul class="entry-sources" aria-label="実装と根拠">
 <li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/tools/haskell/README.md">ネイティブCLIの実装</a></li>
 <li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/new-game.md">制作の入口</a></li>
-<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">反復制作の研究</a></li>
+<li><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">反復制作と実行環境</a></li>
 </ul>
 </article>
 <article id="game-experience-design" class="catalog-entry" data-topics="practice worlds" data-status="experiment">
@@ -448,7 +448,7 @@
 </ul>
 </article>
 <article id="historical-quantity-refinement" class="catalog-entry" data-topics="assurance" data-status="historical">
-<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<p class="entry-meta"><span class="status-label">これまでの試み</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">数量の6関数を、型・論理式・機械整数へつなぐ</a></h3>
 <p>資源の型と範囲付きの算術を検査し、数学的整数の主張がInt64の実行をどこまで扱うかを切り分けた。</p>
 <p class="topic-labels">
@@ -464,7 +464,7 @@
 </ul>
 </article>
 <article id="historical-liquid-failed-soundness" class="catalog-entry" data-topics="assurance" data-status="historical">
-<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<p class="entry-meta"><span class="status-label">これまでの試み</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">誤った除算の契約がSAFEになった失敗を残す</a></h3>
 <p>普通のHaskellが0を返す入力に99という契約を付けたところ、固定した検査器が受理した。観察の再現成功と保証の失敗を分離した。</p>
 <p class="topic-labels">
@@ -479,7 +479,7 @@
 </ul>
 </article>
 <article id="historical-sbv-cancellation" class="catalog-entry" data-topics="assurance worlds" data-status="historical">
-<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<p class="entry-meta"><span class="status-label">これまでの試み</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">取消しで資源が増減しないか、式と実取引で調べる</a></h3>
 <p>投入量、進捗、返却の丸めをSBVで扱い、実際の補助関数と取引の有限実行へつないだ。</p>
 <p class="topic-labels">
@@ -495,7 +495,7 @@
 </ul>
 </article>
 <article id="historical-tlc-save-lifecycle" class="catalog-entry" data-topics="rules-time assurance" data-status="historical">
-<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<p class="entry-meta"><span class="status-label">これまでの試み</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/formal-methods.md">古い保存応答と、成功を知らせる順序を調べる</a></h3>
 <p>状態の世代（epoch）、要求の識別子（ticket）、永続化と完了通知を有限モデルにし、反例を実Haskellと保存・読み戻しで再生した。</p>
 <p class="topic-labels">
@@ -511,7 +511,7 @@
 </ul>
 </article>
 <article id="historical-change-play-latency" class="catalog-entry" data-topics="practice assurance" data-status="historical">
-<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<p class="entry-meta"><span class="status-label">これまでの試み</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/iteration-and-platforms.md">小さな変更から遊び直すまでを、三つの経路で測る</a></h3>
 <p>データ読込、起動済みGHCiでの再読込（:reload）、ネイティブ環境でのコンパイル・リンク・起動を、変更後の盤面出力まで測った。</p>
 <p class="topic-labels">
@@ -528,7 +528,7 @@
 </ul>
 </article>
 <article id="historical-prototype-lessons" class="catalog-entry" data-topics="worlds graphics assurance practice" data-status="historical">
-<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<p class="entry-meta"><span class="status-label">これまでの試み</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/earlier-prototypes.md">3D、物理、大量の内容から、何を引き継ぐか</a></h3>
 <p>城と一軒家の共有形状、3DoFの崩落、未達の厳密6DoF、音や空間の品質不足を、成功と反証の両方として読む。</p>
 <p class="topic-labels">
@@ -548,7 +548,7 @@
 </ul>
 </article>
 <article id="historical-finite-table-distribution" class="catalog-entry" data-topics="rules-time assurance practice" data-status="historical">
-<p class="entry-meta"><span class="status-label">過去の研究</span></p>
+<p class="entry-meta"><span class="status-label">これまでの試み</span></p>
 <h3><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/transitions-and-arenas.md">有限パズルの核を、配布用の遷移表へ変える</a></h3>
 <p>Haskellで全到達状態を計算し、ブラウザは状態番号と枝を選ぶ。規則をJavaScriptへ複写せずに、小さな固定五面を配った研究。</p>
 <p class="topic-labels">
@@ -779,7 +779,7 @@
 </ul>
 </article>
 </section>
-<p id="research-empty" hidden>該当する研究はありません。言葉や区分を変えてください。</p>
+<p id="research-empty" hidden>該当する項目はありません。言葉や区分を変えてください。</p>
 </main>
 <footer class="site-footer wrap"><p>実装の正本と、有限の検査、実機での観察、人の評価を区別して読みます。</p></footer>
 </body>

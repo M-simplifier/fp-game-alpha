@@ -22,7 +22,7 @@
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="fp-game-alpha ホーム"><span class="brand-mark" aria-hidden="true">↦</span> fp-game-alpha <span class="alpha">α</span></a>
     <nav aria-label="主な内容">
-      <a href="index.html">研究の全体像</a><a href="#practice">何を守るか</a><a href="#examples">実装例</a>
+      <a href="index.html">公式ページ</a><a href="#practice">何を守るか</a><a href="#examples">実装例</a>
       <a class="nav-start" href="#start">制作を始める <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
@@ -75,7 +75,7 @@
 
     <section class="section-wrap section-space" id="examples" aria-labelledby="examples-title"><div class="section-heading"><p class="eyebrow">03 / ゲームから確かめる</p><h2 id="examples-title">実装と、その考え方を読む。</h2><p>異なるゲームを作りながら、設計と共通のAPIを磨いています。作りたい企画に合わせて、必要な実装を参照できます。</p></div>
       <div class="example-list"><a class="example-row" href="https://m-simplifier.github.io/garden-of-afterlight/guide/"><span class="example-kind">3D / Haskell・raylib</span><div><h3>Garden of Afterlight <span>余光の庭</span></h3><p>採掘、贈答、浮島への飛行。画面の動きから、純粋なルールと描画・音のつなぎ方を読みます。</p></div><span class="example-arrow" aria-hidden="true">↗</span></a><a class="example-row" href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/paper-circuit"><span class="example-kind">2D / Haskell・SVG</span><div><h3>Paper Circuit</h3><p>パイプを回し、庭へ水を届けるパズル。独自の企画から作り、既存コードへ「一度だけ戻す」操作を加えた例です。</p><span class="example-scope">ブラウザ向けソース。実ブラウザの操作確認は未完了。</span></div><span class="example-arrow" aria-hidden="true">↗</span></a><a class="example-row" href="https://github.com/M-simplifier/fp-game-alpha/tree/main/references/station"><span class="example-kind">意思決定 / Haskell</span><div><h3>Station Dispatch</h3><p>限られた体力と速達札で、6件の依頼を配達。手番、資源、拒否される操作を、小さいルールから追えます。</p></div><span class="example-arrow" aria-hidden="true">↗</span></a></div>
-      <p class="research-direction">目指すのは、純粋関数型ゲームエンジン。研究を続けながら、いま制作に使える基盤と知見をαとして公開しています。<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/purpose.md">研究の目的を読む</a></p>
+      <p class="research-direction">目指しているのは、純粋関数型ゲームエンジンです。さまざまなゲームを作りながら設計と技術を探究し、いま使える基盤や知見をαとして公開しています。新しい試みや、まだ解決していない問いも、実装とともに積み重ねています。<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/purpose.md">このプロジェクトの目的を読む</a></p>
     </section>
 
     <section class="start section-space" id="start" aria-labelledby="start-title"><div class="section-wrap start-grid"><div class="start-copy"><p class="eyebrow">04 / 自分のゲームを始める</p><h2 id="start-title">作りたいゲームを、<br>あなたのAIへ。</h2><p>企画と制作手順をコピーして、ファイル編集とコマンド実行ができるAIへ渡してください。AIが公開資料を読み、環境の準備と最初の一場面の実装を進めます。</p><p>Haskellの経験は問いません。必要な環境や、まだ決まっていない企画の部分は、AIと確認できます。</p><p class="start-scope">現在は公開αです。任意の企画から作る経路は実験的で、遊ぶ環境に応じた準備と動作確認が必要です。<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/platforms.md">対象ごとの確認状況</a></p><a class="text-link" href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/new-game.md">詳しい制作の始め方 <span aria-hidden="true">↗</span></a></div>
@@ -89,6 +89,6 @@
       <details><summary>作ったゲームのコードも理解したいです。</summary><p>学習用の<code>learn-code</code>スキルを用意しています。自分のゲームの操作を一つ選び、実際の型と関数、変更前後の値をAIと読み解きます。Haskellの知識は前提にせず、気になった動きから始められます。</p><a href="learn.html">まずは「配達を一件、コードで追う」を読む</a><p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/learn-code.md">自分のゲームをAIと読むための案内</a></p><p>Afterlightの日本語ガイドでは、採掘の動きから、状態の更新、音、描画までを図とコードで説明しています。</p><a href="https://m-simplifier.github.io/garden-of-afterlight/guide/">Afterlightの設計を読む</a></details>
     </div></section>
   </main>
-  <footer class="site-footer section-wrap"><div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">↦</span> fp-game-alpha</a><p>純粋関数型ゲーム開発の基盤と研究</p></div><nav aria-label="資料"><a href="https://github.com/M-simplifier/fp-game-alpha">GitHub</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/README.md">技術ガイド</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/public-page/README.ja.md">このページの設計と根拠</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/LICENSE">MIT License</a><a href="https://github.com/M-simplifier/fp-game-alpha/issues">相談・不具合</a></nav></footer>
+  <footer class="site-footer section-wrap"><div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">↦</span> fp-game-alpha</a><p>純粋関数型ゲーム開発の基盤と技術探究</p></div><nav aria-label="資料"><a href="https://github.com/M-simplifier/fp-game-alpha">GitHub</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/practice/README.md">技術ガイド</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/public-page/README.ja.md">このページの設計と根拠</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/LICENSE">MIT License</a><a href="https://github.com/M-simplifier/fp-game-alpha/issues">相談・不具合</a></nav></footer>
 </body>
 </html>

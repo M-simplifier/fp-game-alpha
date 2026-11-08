@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>ゲームをどう表し、動かし、確かめるか — fp-game-alpha</title>
-  <meta name="description" content="配達の一手、生成される森、続く音楽、三つのテトリス。具体的な実装から、ゲーム研究の考え方とつながりを読む。">
+  <meta name="description" content="配達の一手、生成される森、続く音楽、三つのテトリス。ゲームを作りながら考えてきた設計とそのつながりを、具体的な実装から辿る。">
   <link rel="canonical" href="https://m-simplifier.github.io/fp-game-alpha/guide.html">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="research.css">
 </head>
 <body>
   <a class="skip" href="#main">本文へ移動</a>
-  <header class="site-header wrap"><a class="brand" href="index.html"><span aria-hidden="true">↦</span> fp-game-alpha <small>α</small></a><nav aria-label="主な内容"><a href="research.html">研究目録</a><a href="guide.html" aria-current="page">考え方を読む</a><a href="index.html#studies">教材</a><a href="create.html">AIと作る ↗</a></nav></header>
+  <header class="site-header wrap"><a class="brand" href="index.html"><span aria-hidden="true">↦</span> fp-game-alpha <small>α</small></a><nav aria-label="主な内容"><a href="research.html">技術目録</a><a href="guide.html" aria-current="page">考え方を読む</a><a href="index.html#studies">教材</a><a href="create.html">AIと作る ↗</a></nav></header>
   <main id="main" class="wrap">
-    <header class="guide-hero"><p class="eyebrow">研究の全体像 / 実装を行き来しながら読む</p><h1>ゲームをどう表し、<br>動かし、確かめるか。</h1><p class="lead">配達を一件引き受ける。まだ見たことのない森を歩く。音楽が次の小節へ進む。画面の中の出来事を、どのような規則と計算で作っているのでしょうか。異なる作品で試した設計を、順に辿ってみます。</p></header>
+    <header class="guide-hero"><p class="eyebrow">全体ガイド / 実装を行き来しながら読む</p><h1>ゲームをどう表し、<br>動かし、確かめるか。</h1><p class="lead">配達を一件引き受ける。まだ見たことのない森を歩く。音楽が次の小節へ進む。画面の中の出来事を、どのような規則と計算で作っているのでしょうか。異なる作品で試した設計を、順に辿ってみます。</p></header>
     <div class="guide-layout">
       <nav class="guide-toc" aria-label="この解説の目次"><strong>この解説を辿る</strong><a href="#transition">01 操作と状態</a><a href="#world">02 必要な場所を求める</a><a href="#graphics">03 同じ世界を描く</a><a href="#music">04 必要な時間を求める</a><a href="#representations">05 別の表現で問い直す</a><a href="#composition">06 合成するときの条件</a><a href="#evidence">07 根拠を読む</a></nav>
       <div class="guide-body">
@@ -36,7 +36,7 @@
           <p>自然らしさは、ばらばらの物体をランダムに置くだけでは生まれません。地形と水辺、植生の分布、木の枝と葉、草の根元と風の動きに関係があります。Stillroomでは、こうした関係を生成の構造として持たせています。シードが同じでも、規則の版が変われば同じ風景になるとは限らないため、再現するときには実装の版も重要です。</p>
           <div class="guide-callout"><p>これを、木を伐ったり建物を置いたりできるゲームへ使うなら、生成したもとの世界と、プレイヤーが加えた変更をどう組み合わせるかが次の課題になります。「再生成すると伐った木が戻る」という挙動を防ぐには、その変更を保存し、再訪時にも反映する設計が必要です。これは転用時の例で、Stillroomが伐採を実装しているという意味ではありません。</p></div>
           <p>「広がり続ける世界」には、実用上の座標範囲や数値精度もあります。Stillroomの成果は、必要な範囲を生成して保持する風景であり、あらゆる距離まで同じ精度が続くという主張ではありません。</p>
-          <p class="source-note">生成・造形・衝突・キャッシュの関係：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/landscapes-and-graphics.md">風景と描画の研究</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/journeys.md">Stillroomの旅の設計</a></p>
+          <p class="source-note">生成・造形・衝突・キャッシュの関係：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/landscapes-and-graphics.md">風景と描画の技術解説</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/journeys.md">Stillroomの旅の設計</a></p>
         </section>
 
         <section id="graphics" aria-labelledby="graphics-title">
@@ -47,7 +47,7 @@
           <h3>一つの定義を、二つの場所で実行する。</h3>
           <p>草の形を計算する小さな算術定義は、Haskell側で数値として評価でき、GPUで実行する式にも変換できます。描画時には草一本の情報と共通の頂点配置を渡し、展開済みの頂点を一本ごとに持つ量を減らしています。</p>
           <p>この成果では、意味を保ったかという比較と、何が速くなったかという測定を分けています。保持するデータが小さくなったことから、アプリ全体が必ず速くなったとは言えません。異なる実行経路の比較に加え、わざと座標の扱いを間違えた場合に検査が失敗するかも確かめています。</p>
-          <p class="source-note">型、形状、観測、GPUの接続と測定：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/README.md">Stillroom研究の案内</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/graphics-foundation.md">版を固定した描画設計</a></p>
+          <p class="source-note">型、形状、観測、GPUの接続と測定：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/README.md">Stillroomの実装解説</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/graphics-foundation.md">版を固定した描画設計</a></p>
         </section>
 
         <section id="music" aria-labelledby="music-title">
@@ -57,7 +57,7 @@
           <div class="schema" role="img" aria-label="空間ではシードと場所から地形や植生を、音楽ではシードと時間区間から音の出来事を求める。どちらも必要な範囲を計算する。"><div><span>空間の問い合わせ</span><strong>シード ＋ 場所</strong><p>地形の高さ、植生、<br>必要な範囲の形状。</p></div><div><span>時間の問い合わせ</span><strong>シード ＋ 時間区間</strong><p>その間に鳴る音と、<br>前から続く余韻。</p></div></div>
           <p>ただし、すべての音がこの形に収まるわけではありません。車輪の音は、いまの速度だけでなく、それまでの進み方にも関係します。速度に絶対時刻を掛けて位相を作ると、速度が変わった瞬間に音が飛ぶことがあります。環境音では、移動に応じて進む位相など、履歴に依存する状態も保持します。</p>
           <p>音楽として自然に聞こえるかも、別に確かめます。音量や波形の検査だけでは、和音が単調でないか、別々の声部が気持ちよく動くか、作品の雰囲気に合うかは決まりません。作曲上の選択と実際の試聴を、音声処理の検査と併せて残しています。</p>
-          <p class="source-note">時間、声部、ミックス、環境音と試聴：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/music-and-time.md">音楽と時間の研究</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/builtin-world.md">内蔵音楽の設計</a></p>
+          <p class="source-note">時間、声部、ミックス、環境音と試聴：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/music-and-time.md">音楽と時間の技術解説</a> · <a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/builtin-world.md">内蔵音楽の設計</a></p>
         </section>
 
         <section id="representations" aria-labelledby="representations-title">
@@ -71,28 +71,28 @@
 
         <section id="composition" aria-labelledby="composition-title">
           <p class="section-no">06 / 合成するときの条件</p><h2 id="composition-title">組み合わせても、同じ意味を保てるか。</h2>
-          <p>Freeモナドの研究では、操作とその返答に応じた続き方を、実行方法から分けて記述します。同じ手順を別の解釈で動かしたり、その手順について調べたりする入口になります。すでに純粋な遷移と再生がある基盤に対して、何が追加でできるようになるかが重要な問いです。</p>
-          <p>ここから、部品の合成や表現の変換を圏論の概念で捉える研究にも進んでいます。ただし、式がきれいに書けるだけでは、ゲームの意味が同じだとは分かりません。実際に違いが出る小さな例を用意し、条件を確かめます。</p>
+          <p>Freeモナドを使った実験では、操作とその返答に応じた続き方を、実行方法から分けて記述します。同じ手順を別の解釈で動かしたり、その手順について調べたりする入口になります。すでに純粋な遷移と再生がある基盤に対して、何が追加でできるようになるかが重要な問いです。</p>
+          <p>ここから、部品の合成や表現の変換を圏論の概念で捉える探究にも進んでいます。ただし、式がきれいに書けるだけでは、ゲームの意味が同じだとは分かりません。実際に違いが出る小さな例を用意し、条件を確かめます。</p>
           <h3>三つの、見落とせない違い。</h3>
           <p><strong>時間。</strong>ある場所への操作列が存在しても、制限時間内に実行できるとは限りません。時計を消したモデルでは到達できるのに、時計を戻すと間に合わない例があります。</p>
           <p><strong>資源。</strong>在庫が一つあるとき、二つの仕事はそれぞれ単独なら受け付けられるかもしれません。しかし同じ在庫を同時に使うことはできません。個々の合法性から、全体を組み合わせた合法性は出ません。</p>
           <p><strong>情報。</strong>同時に手を出すじゃんけんと、相手の手を見てから出せるじゃんけんでは、現れる手の組は同じでも、使える戦略が変わります。終わった状態の集合が一致するだけでは不十分です。</p>
           <p>これらを通して、何を同じと見なすか、どの条件なら変換してよいかを具体的にしていきます。Freeは手順、Prologは探索、APLは高速化、と用途を先に割り振るのではなく、それぞれの表現から見える新しい問いを残しています。</p>
-          <p class="source-note">既存研究、有限モデル、成立条件：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/composition.md">解釈と合成の研究</a> · <a href="studies/free-monad.html">Freeモナドの教材</a> · <a href="studies/clock-and-reachability.html">時計と到達の教材</a></p>
+          <p class="source-note">既存研究、有限モデル、成立条件：<a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/frontiers/composition.md">解釈と合成の考察</a> · <a href="studies/free-monad.html">Freeモナドの教材</a> · <a href="studies/clock-and-reachability.html">時計と到達の教材</a></p>
         </section>
 
         <section id="evidence" aria-labelledby="evidence-title">
           <p class="section-no">07 / 根拠を読む</p><h2 id="evidence-title">「確かめた」の中身を読む。</h2>
-          <p>ここまでの研究には、コードの構造から分かること、検査を動かして分かること、実際の画面や音を観測して分かることがあります。読者が自分の目的へ使うときに判断できるよう、その違いを記録しています。</p>
+          <p>ここまで見てきた例には、コードの構造から分かること、検査を動かして分かること、実際の画面や音を観測して分かることがあります。読者が自分の目的へ使うときに判断できるよう、その違いを記録しています。</p>
           <p>たとえば、座標の型が合っていることは、GPUに渡す数値の並べ方まで保証しません。同じ生成式を二つの経路で計算して一致しても、両方に同じ誤りがあるかもしれません。そのため、別の方法で求めた答えとも比較します。また、意図的に誤りを入れた場合に、検査がその誤りを見つけられるかも確かめています。</p>
-          <p>逆に、ある検査が通らなかったことも研究結果です。道具の前提や、主張した保証が実際に成り立つかを見直す材料になります。成功した数値だけを集めず、失敗や未解決の条件も実装と一緒に辿れるようにしています。</p>
-          <p>研究をゲーム制作へ使うときは、自分の作品で守りたい意味を決め、必要な知見を選び、実際の環境で試します。その結果が、次の研究や共通の基盤を育てる材料になります。</p>
-          <p class="source-note"><a href="research.html?topic=assurance">検証に関する研究目録</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/README.md">研究の歩み</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">収録範囲と出典</a></p>
-          <div class="guide-next"><h3>次に、どこを読むか。</h3><p>気になった問いを目録で探すことも、一つの作例からコードを読むこともできます。自分の企画があれば、AIと制作を始める手順へ進めます。</p><div class="inline-links"><a href="research.html">研究目録へ ↗</a><a href="index.html#studies">操作できる教材へ ↗</a><a href="create.html">AIとゲームを作る ↗</a></div></div>
+          <p>ある検査が通らなかったことも、重要な結果です。道具の前提や、守ろうとした性質が本当に成り立つかを見直す材料になります。成功した数値だけを集めず、失敗や未解決の条件も実装と一緒に辿れるようにしています。</p>
+          <p>ここで得られた知見をゲーム制作へ生かすときは、自分の作品で守りたい意味を決め、必要な技法を選び、実際の環境で試します。その結果が、次の探究や共通の基盤を育てる材料になります。</p>
+          <p class="source-note"><a href="research.html?topic=assurance">技術目録で型・法則・検証を調べる</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/README.md">探究の歩み</a> · <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">収録範囲と出典</a></p>
+          <div class="guide-next"><h3>次に、どこを読むか。</h3><p>気になった問いを目録で探すことも、一つの作例からコードを読むこともできます。自分の企画があれば、AIと制作を始める手順へ進めます。</p><div class="inline-links"><a href="research.html">技術目録へ ↗</a><a href="index.html#studies">操作できる教材へ ↗</a><a href="create.html">AIとゲームを作る ↗</a></div></div>
         </section>
       </div>
     </div>
   </main>
-  <footer class="site-footer wrap"><div><a class="brand" href="index.html">↦ fp-game-alpha</a><p>ゲーム開発研究の公開リファレンス</p></div><div><a href="https://github.com/M-simplifier/fp-game-alpha">ソースと研究資料 ↗</a><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/assets.md">Stillroom画面の出典</a></div></footer>
+  <footer class="site-footer wrap"><div><a class="brand" href="index.html">↦ fp-game-alpha</a><p>ゲーム開発の知見と実装を集めた公開リファレンス</p></div><div><a href="https://github.com/M-simplifier/fp-game-alpha">ソースと技術資料 ↗</a><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/assets.md">Stillroom画面の出典</a></div></footer>
 </body>
 </html>

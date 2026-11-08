@@ -29,7 +29,7 @@
       entry.hidden = !matches;
       if (matches) shown += 1;
     }
-    count.textContent = `${entries.length}件中 ${shown}件の研究`;
+    count.textContent = `${entries.length}件中 ${shown}件の項目`;
     empty.hidden = shown !== 0;
     const state = new URLSearchParams();
     for (const [name, value] of [["q", query.value.trim()], ["topic", topic.value], ["status", status.value]]) {

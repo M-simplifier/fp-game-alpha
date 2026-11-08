@@ -24,7 +24,7 @@
   },
   {
    "path": ".agents/skills/game-research/SKILL.md",
-   "sha256_lf": "490d39e17f38c3c6d3901e2554d8e304bc94e3936096705b43b52cc9abb5433f"
+   "sha256_lf": "f286ec652ec26fac81957b6f3c40bdc6d8f09f6e5ccf3d0828833dea89e432bb"
   },
   {
    "path": ".agents/skills/haskell-editor-setup/LICENSE",
@@ -88,7 +88,7 @@
   },
   {
    "path": "README.md",
-   "sha256_lf": "d2f8d851ec0a807e300e7c2ca837466eae7c5a04d24c882ea158b4fa8ba2c7b4"
+   "sha256_lf": "6857460a821f9c38480da38e45e6c7cd3b46b9c45eaedcddfd986d6ee6653ebe"
   },
   {
    "path": "cabal.project",
@@ -168,7 +168,7 @@
   },
   {
    "path": "docs/new-game.md",
-   "sha256_lf": "a55aa2bf100f2478991fedc7082671be97854d22a5a3ea6950871760cf26fea2"
+   "sha256_lf": "67daacbcb5ab76d81905d2e28f0c2c49f3d8e6d3af47709645cbb565f62bb2a0"
   },
   {
    "path": "docs/platforms.md",
@@ -184,7 +184,7 @@
   },
   {
    "path": "docs/practice/README.md",
-   "sha256_lf": "f5328f0af335f9a599fea2c40ffc43ad56bad285b38f898470c5de9822ecc37f"
+   "sha256_lf": "8787a94ee36a4aa77e8a98c00f4847e2ddc2f5d512f2f1504bc6713327f6b8c1"
   },
   {
    "path": "docs/practice/games/afterlight.md",
@@ -236,7 +236,7 @@
   },
   {
    "path": "docs/purpose.md",
-   "sha256_lf": "7fb7864933f160fdabc53cb3eebe854d2290fb8ce6c5d3ff55dd00d5750437d5"
+   "sha256_lf": "ace22653f29124c42b42280a7f3522218c9573b6ae7880041d127be8e703a151"
   },
   {
    "path": "docs/red-dune.md",
@@ -244,7 +244,7 @@
   },
   {
    "path": "docs/roadmap.md",
-   "sha256_lf": "54be0af32513f3153a4b7563e1e89f104158cee4e9092335f880a36c377c07d3"
+   "sha256_lf": "eca309f4da52d186de909e3986db11e6226b847a8faf0dca989054235039a69c"
   },
   {
    "path": "docs/setup.md",
@@ -964,7 +964,7 @@
   },
   {
    "path": "publication/provenance.json",
-   "sha256_lf": "edd6a885ed1d15914c3df943dfd290d3f30715f0d354b4adcfc906bafef5abda"
+   "sha256_lf": "5db734bb5c042e7650e61000f785dffd9ccad6d68ada1028de8796e7bd5d3998"
   },
   {
    "path": "references/afterlight/.gitignore",
@@ -3088,19 +3088,19 @@
   },
   {
    "path": "research/README.md",
-   "sha256_lf": "bbf4557845c23365b6ef7f6b7bb675379fc1d1066ebd1aa2e11475f1c82f8773"
+   "sha256_lf": "b0a6d8f0215d43abf7a40922e49cb5f349ad3235c8ea8a6534598dc3e2151204"
   },
   {
    "path": "research/catalog.json",
-   "sha256_lf": "2bf705d537aa6aadd2aecb74493a45f4c25004683c0e3208b1c21c4ab239833d"
+   "sha256_lf": "a4ffd734b988d798b01b3469bea16dca1d722430eaea57634b7b46f967fe82a0"
   },
   {
    "path": "research/coverage.md",
-   "sha256_lf": "f53866b8733ca905c31ca7bbc7859e8d9d9d95a8ed1124413b682a87be587552"
+   "sha256_lf": "91784e35d0a23e487d972dd283f3ce2580c53e0d33be3fba36f414474dc4e601"
   },
   {
    "path": "research/frontiers/README.md",
-   "sha256_lf": "9d974a4e7f260879d46117716aac02bcada8f7110d1f0ca7fbdcf64804d70956"
+   "sha256_lf": "13c8cd396b0ebcf5136bb5d9f4cc1eeb58f40898921a4bdab37806b265558800"
   },
   {
    "path": "research/frontiers/category/finite-results.json",
@@ -3120,11 +3120,11 @@
   },
   {
    "path": "research/history/README.md",
-   "sha256_lf": "a2b2f1a7307a1dd0abc416df94a74be0c5b0eb3eacca66dd05dac6ae21ebc473"
+   "sha256_lf": "198ee850b9ba898ece1496d9f2122226e8e8c24763aefb9f9699e7e780848474"
   },
   {
    "path": "research/history/earlier-prototypes.md",
-   "sha256_lf": "99ad7713681b5f7249a73e1a841cf129b2e24daeb8bb5672d25142733218947a"
+   "sha256_lf": "6b225fe3a9cbe51ad95826fca61762d2a6bfb9189e089177e55f420b77b0c7e0"
   },
   {
    "path": "research/history/formal-methods.md",
@@ -3140,11 +3140,11 @@
   },
   {
    "path": "research/public-page/README.ja.md",
-   "sha256_lf": "b1529f50b28468e68c6dbded089dc8e46039d911a6418ce3b16398f645cb5720"
+   "sha256_lf": "3d4298bd5e7f20e6109ef9df6ffeb2ca31972ee1a34fd6c714fd4673d3c9515b"
   },
   {
    "path": "research/stillroom/README.md",
-   "sha256_lf": "378690a1cdf0e3f52cecd7c8f18bc852be14fc7a5778855b5088842fe6439388"
+   "sha256_lf": "0f6af203d7f19aa2aef3550a569fbd5717fa1f31478fcebf737d29ca1d70775a"
   },
   {
    "path": "research/stillroom/evidence/LICENSE",
@@ -3168,11 +3168,11 @@
   },
   {
    "path": "site/README.md",
-   "sha256_lf": "b241c59e3c5616d4253babc38a256168ed8e17bce4e071eb71ad3dd88a2eb2c8"
+   "sha256_lf": "54c3ba2d2e79f130144edc8a032489e7d0de683f00a87b3610de40f212d2e9a1"
   },
   {
    "path": "site/create.html",
-   "sha256_lf": "5eed7079b782a279cd20869b231cb5c6d095896124ccc5c64925f6c147b7c72a"
+   "sha256_lf": "9d2bfe319c14d5074f5f2f3ae7e7f4733d503ba48e3f28cc38bfee13fb1800a8"
   },
   {
    "path": "site/evidence/station-trace.json",
@@ -3180,7 +3180,7 @@
   },
   {
    "path": "site/guide.html",
-   "sha256_lf": "1c2675e6467fa2207e7e0d02bf8da162c34007d5697304f3b6731cbb39b026c8"
+   "sha256_lf": "4e6423216272a33427ebbb26065d44895c9d72bf37ffa0a69edf9a3ef5ad2810"
   },
   {
    "path": "site/icon.svg",
@@ -3188,7 +3188,7 @@
   },
   {
    "path": "site/index.html",
-   "sha256_lf": "fa9ba7becfade82f0a5fdb8fc22c33e08077dc8e64e2eab2879025a859806f98"
+   "sha256_lf": "ad6a25a42adb653bf63e2103ef09dad8cc476c9a1ddf218bd38b0ad8ff4db117"
   },
   {
    "path": "site/learn.css",
@@ -3204,11 +3204,11 @@
   },
   {
    "path": "site/research.html",
-   "sha256_lf": "e97d02b641c1d9c5aa72c190e9b6e780017884e7f91836d93b4967981060f4bb"
+   "sha256_lf": "6449b45e8a2532196b3da9ed2ac65d6fdbef344ef019be297c9f0f241ae27c05"
   },
   {
    "path": "site/research.js",
-   "sha256_lf": "283ce3486774c788c6b2ad01bfaf5e948da5dde9ddd8bbcf271b4dcb261da711"
+   "sha256_lf": "85c4c8e2e147d4683ddb6891b8517404491a31b7153d0ea139c5c73a07de8a8c"
   },
   {
    "path": "site/site.js",
@@ -3216,23 +3216,23 @@
   },
   {
    "path": "site/studies/array-fall.html",
-   "sha256_lf": "fed24db3f5cbdb18c13860150b82bdcfadf641b62e88245c22d5029f3b59267d"
+   "sha256_lf": "338f7b2c7da9e47a7aee5eff2567d129d1de7c421faf2d4fe3c96b4f1c73283e"
   },
   {
    "path": "site/studies/clock-and-reachability.html",
-   "sha256_lf": "c0d623806fc5c2c4ffd1b2ffd00c9c65894f92b5dcb73e2f52edae97d3a29e6f"
+   "sha256_lf": "f2a12c8fc761c159d71d2fe73e58463f017231c756c63eac408ce541114eeb8b"
   },
   {
    "path": "site/studies/free-monad.html",
-   "sha256_lf": "9df46df7c2fd8566a05f66b9a7c707b1e5141169d19c188275816fba00676d05"
+   "sha256_lf": "90119b0b2b6a957b39f3978a8c04ce15fb066d0639d12546f1cc3ff6ded9129c"
   },
   {
    "path": "site/studies/prolog-fall.html",
-   "sha256_lf": "ed9319e0a4b4c0717973c73ae250325b752139f756aadb00aa55f5bb34c04faa"
+   "sha256_lf": "a048907d1978e206db01f648fd45f072a44214fb9994c92fd0834262244be214"
   },
   {
    "path": "site/studies/pure-fall.html",
-   "sha256_lf": "51c9dc34358006df673b95ee4ae9cbe1e8cdb55c91c1ab2795d736b8abfe43f4"
+   "sha256_lf": "d6f7c03497cbe2489fb469c5d8ec03ed0c60cdf7b61d673ff96cd3031cf2abf9"
   },
   {
    "path": "site/style.css",
@@ -3496,7 +3496,7 @@
   },
   {
    "path": "tools/research.py",
-   "sha256_lf": "53478c4ecf54d707040893795d630fd69df861a0a4ba8bc9ebbc5b11cd07c7ed"
+   "sha256_lf": "1e3b069e46cf48dbafb6e0554164ff80187820286917c7b9000ecc24f1078797"
   },
   {
    "path": "tools/test_editors.py",
@@ -3528,7 +3528,7 @@
   },
   {
    "path": "tools/test_research_ui.cjs",
-   "sha256_lf": "f8bd732d1456ccb343d61e6c5bad817298ffca10beeec52f28e4d99a0125e7e6"
+   "sha256_lf": "3a528f3d7a4c88c5259a3ad4053deaf54c90e94f9339928f7119777f1bf152cd"
   },
   {
    "path": "tools/test_river_api.py",

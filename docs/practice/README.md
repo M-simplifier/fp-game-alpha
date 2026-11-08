@@ -1,17 +1,19 @@
-# Technical practice and research sources
+<a id="technical-practice-and-research-sources" name="technical-practice-and-research-sources"></a>
 
-Use this shelf for implementation guidance and concrete routes into the wider
-game-development research. [The research map](../../research/README.md) and
+# Technical practice and source guides
+
+Use this guide to find implementation techniques and the work that informed
+them. [The reading guide](../../research/README.md) and
 [catalog](../../research/catalog.json) connect current implementations, examples,
 experiments, open questions and historical results. Select knowledge for the
 problem in front of you; there is no obligation to read every document before
 writing a game. The [game-research skill](../../.agents/skills/game-research/SKILL.md)
 helps an AI follow that question to source and evidence without choosing one
-engine or representation for the whole programme.
+engine or representation for your game.
 
 The Haskell and game practice guides below preserve the technical substance of
 the original public `haskell-excellence` and `fp-gamedev` reference guides. Their
-import provenance remains distinct from the newer authored research routes.
+import provenance remains distinct from the newer authored guides.
 
 Source: [public Afterlight skills](https://github.com/M-simplifier/garden-of-afterlight/tree/6367b56e3ff2042199667f2a5bfa50695f4aaf2f/.agents/skills).
 The MIT notice is retained in [LICENSE.upstream](LICENSE.upstream).
@@ -30,7 +32,7 @@ and confirmation scripts are not inherited as universal instructions.
 - Free interpreters, composition and counterexamples to stronger architectural
   claims: [interpretation and composition](../../research/frontiers/composition.md)
 - Earlier transitions, participant observations, formal work and failed transfer
-  assumptions: [research history](../../research/history/README.md)
+  assumptions: [earlier work and findings](../../research/history/README.md)
 
 These are reading routes, not required dependencies for a game. The catalog's
 status describes what exists; its evidence and limits say what was actually
@@ -65,7 +67,7 @@ checked. Read the selected implementation and its assumptions before reuse.
 
 ## Read the evidence at its actual scope
 
-The preserved guides and newer research routes make the material readable and
+The preserved guides and newer studies make the material readable and
 discoverable. Their presence does not by itself port the original Haskell Design
 reader/editor executable, run new browser/device checks, or demonstrate a fresh
 arbitrary game brief end to end. The original

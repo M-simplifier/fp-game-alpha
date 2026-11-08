@@ -20,7 +20,7 @@ play; keep human feedback separate from deterministic replay evidence.
 
 ## Write the game's own rules
 
-Use [the research map](../research/README.md) and
+Use [the reading guide](../research/README.md) and
 [game-research](../.agents/skills/game-research/SKILL.md) when the brief raises a
 question beyond the implementation guides. Select relevant entries in the
 [catalog](../research/catalog.json), read their guides, and follow actual source
