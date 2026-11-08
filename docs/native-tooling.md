@@ -299,15 +299,22 @@ Replace that placeholder with the actual installed executable selected by the
 literal filename or automatic compiler discovery.
 
 The reusable `.github/workflows/native-tooling.yml` executes bootstrap, typed
-package tests and the same integration suite on Linux, Windows and macOS.
+package tests and independent generation and relocation on selected hosts.
 `alpha-checks` always verifies the site and published source. It selects native
 acceptance when the change can affect it, including shared libraries, templates,
-and documentation copied into generated games. Pages waits for all selected
-checks to succeed. Main uses the full suite when the preceding push has no
-confirmed successful run. Run `alpha-checks` manually for its full suite, or use
-`native-tooling` for native-only diagnostics. Inspect the results for the exact
-revision. Dependency caches are OS/architecture/toolchain/lock-specific, exclude
-game output and final executables, and can be written only by a validated main push.
+and documentation copied into generated games. Linux covers portable rules and
+generated content. Windows covers the native CLI, Windows bootstrap and selected
+build and path changes. macOS covers process and filesystem behavior, Darwin
+configuration and distribution, POSIX bootstrap and toolchain changes. Pages
+waits for all selected checks to succeed. Main uses
+the full suite when the preceding push has no confirmed successful run. Run
+`alpha-checks` manually for its full suite or `native-tooling` for native-only
+diagnostics across all three hosts.
+
+The native workflow reuses pinned dependencies and the installed macOS GHC.
+The cache keys use the actual toolchain and build host. Each run compiles the
+current source and executes its tests. Successful main runs seed shared caches.
+Draft PRs from this repository can write caches scoped to their own merge ref.
 The Windows matrix job runs the complete compiler-path and console preflight
 before native bootstrap. Bootstrap reuses the helper build from the same job.
 `--select-compiler-output` writes the selected path after every profile assertion
