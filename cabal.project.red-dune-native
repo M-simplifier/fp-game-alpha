@@ -4,7 +4,8 @@ packages:
   references/red-dune
 
 tests: False
-constraints: h-raylib ==6.1.0.0
 
-package h-raylib
-  flags: +disable-lens +detect-platform
+source-repository-package
+  type: git
+  location: https://github.com/M-simplifier/haskell-game-io
+  tag: 19dde99dc005aceafae934d7178d2b5ecf517e54

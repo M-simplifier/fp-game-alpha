@@ -10,20 +10,21 @@ from browser acceptance; see [verification](docs/HOST-VERIFICATION.md).
 
 ## Windows native app
 
-The Windows build renders and receives input in its own raylib window. It uses
-the same Haskell rules, content and framed game codec as the Linux host. It
-needs an installed Japanese Windows system font; no font files are shipped.
+The Windows build opens a Win32 window and draws with Vulkan through Haskell
+Game IO. It uses the game's Haskell rules, content, and framed save codec. It
+needs an installed Japanese Windows system font.
 See [native play controls and saves](docs/WINDOWS-PLAY.md).
 
-With GHC 9.14.1, Cabal 3.x, Python 3 and the official `h-raylib-6.1.0.0` sources
-available in Cabal's cache, build from the repository root:
+Use GHC 9.14.1, Cabal 3.x, Git, Python 3, and a Vulkan 1.3 driver with KHR or EXT
+surface and swapchain maintenance1 support. Build from the repository root:
 
 ```powershell
 references/red-dune/tools/build-native.ps1
 & '.build/red-dune-native/Red Dune.exe'
 ```
 
-If Windows and WSL builds share this checkout, pass
+The first build can fetch the pinned Haskell Game IO commit. Use `-Offline`
+after preparing the cache. If Windows and WSL builds share this checkout, pass
 `-BuildDirectory .build/red-dune-native-cache` to keep the Windows Cabal plan and
 artifacts separate from the Linux `dist-newstyle/` directory. Packaging reads
 dependency notices from that same plan. The native development launcher accepts

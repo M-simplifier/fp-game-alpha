@@ -1,4 +1,4 @@
-"""Check/reproduce formatting of the six mid-declaration CPP exclusions.
+"""Check/reproduce formatting of the mid-declaration CPP exclusions.
 
 Uses the repository's verified, pinned Ormolu, never --unsafe. Each declaration
 is formatted in both configurations with temporary boundary comments, then
@@ -6,7 +6,7 @@ woven back together only if shared text agrees exactly. These temporary comments
 keep CPP boundaries on their own lines; none are written to the source.
 
 --write additionally proves safe-Ormolu canonical equality before/after actual
-CPP preprocessing for both hosts, before writing any source. This is
+CPP preprocessing for every host, before writing any source. This is
 source equivalence evidence, not a runtime/typechecking or graphics test.
 """
 import argparse
@@ -23,9 +23,14 @@ sys.path.insert(0, str(FOUNDATION / 'tools'))
 import formatter
 
 DECLARATIONS = {
+    'runtime/Garden/Audio.hs': [],
     'runtime/Garden/Render/Radiance.hs': ['acquireRadiance'],
-    'runtime/Garden/Render.hs': ['renderInterface', 'renderMenu'],
-    'runtime/Garden/Runtime.hs': ['beginGarden', 'advancePreparation', 'stepFrame'],
+    'runtime/Garden/Runtime.hs': ['readRunOptions', 'beginGarden', 'advancePreparation', 'frameSource', 'stepFrame'],
+}
+CONFIGURATIONS = {
+    'legacy-native': (),
+    'wasm': ('wasm32_HOST_ARCH',),
+    'game-io': ('AFTERLIGHT_GAMEIO', 'AFTERLIGHT_GAMEIO_AUDIO'),
 }
 REGION = re.compile(r'\{- ORMOLU_DISABLE -\}\n(.*?)\{- ORMOLU_ENABLE -\}', re.S)
 MARKER = r'^[ \t]*-- AFTERLIGHT_CPP_BOUNDARY_(\d+)\n'
@@ -94,12 +99,10 @@ def weave(source, executable):
     return ''.join(parts).rstrip() + '\n\n'
 
 
-def canonical(source, wasm, executable):
+def canonical(source, defines, executable):
     source = source.replace(OLD_NOTE, '').replace(NOTE, '')
     source = re.sub(r'^\{- ORMOLU_(?:DISABLE|ENABLE) -\}\n', '', source, flags=re.M)
-    command = ['cpp', '-traditional-cpp', '-P']
-    if wasm:
-        command.append('-Dwasm32_HOST_ARCH')
+    command = ['cpp', '-traditional-cpp', '-P', *('-D' + name for name in defines)]
     result = subprocess.run(command, input=source, capture_output=True, text=True, encoding='utf-8', timeout=30, check=True)
     return format_haskell(executable, result.stdout)
 
@@ -131,11 +134,11 @@ def main():
             raise ValueError('Unexpected excluded declarations in ' + name)
         candidate = REGION.sub(lambda match: '{- ORMOLU_DISABLE -}\n' + weave(match[1], executable)
                                + '{- ORMOLU_ENABLE -}', source).replace(OLD_NOTE, NOTE)
-        for wasm in (False, True):
-            before, after = [canonical(text, wasm, executable) for text in (source, candidate)]
+        for configuration, defines in CONFIGURATIONS.items():
+            before, after = [canonical(text, defines, executable) for text in (source, candidate)]
             if before != after:
-                raise ValueError('CPP canonical source changed: ' + name + ' wasm=' + str(wasm))
-            comparisons.append({'path': name, 'configuration': 'wasm' if wasm else 'native',
+                raise ValueError('CPP canonical source changed: ' + name + ' / ' + configuration)
+            comparisons.append({'path': name, 'configuration': configuration,
                                 'normalized_preprocessed_sha256': sha(after), 'same': True})
         outputs[name] = candidate
         if not args.write and source != candidate:
@@ -144,7 +147,7 @@ def main():
         targets = checked_targets(ROOT)
         for name, source in outputs.items():
             targets[name].write_text(source, encoding='utf-8', newline='\n')
-    print('PASS six CPP declarations: reproducible branch-aware formatting and both host projections')
+    print('PASS branch-aware formatting and all three host projections')
 
 
 if __name__ == '__main__':

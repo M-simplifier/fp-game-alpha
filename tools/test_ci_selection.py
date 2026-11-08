@@ -3,7 +3,7 @@ from pathlib import Path
 import re
 import unittest
 
-from ci_selection import AFTERLIGHT, EDITOR, FULL, HOSTS, KERNEL_HOSTS, LINUX, MACOS, NATIVE, SOURCE, WINDOWS, selection
+from ci_selection import AFTERLIGHT, AFTERLIGHT_WINDOWS, EDITOR, FULL, HOSTS, KERNEL_HOSTS, LINUX, MACOS, NATIVE, SOURCE, WINDOWS, selection
 
 
 class SelectionTest(unittest.TestCase):
@@ -20,12 +20,14 @@ class SelectionTest(unittest.TestCase):
     def test_component_checks(self):
         linux = [LINUX]
         for path, expected in {
-            'libraries/game-transition/src/Game/Transition.hs': {SOURCE: linux, NATIVE: linux, AFTERLIGHT: True},
-            'libraries/game-arena/game-arena.cabal': {SOURCE: KERNEL_HOSTS, NATIVE: KERNEL_HOSTS, AFTERLIGHT: True},
+            'libraries/game-transition/src/Game/Transition.hs': {SOURCE: linux, NATIVE: linux, AFTERLIGHT: True, AFTERLIGHT_WINDOWS: True},
+            'libraries/game-arena/game-arena.cabal': {SOURCE: KERNEL_HOSTS, NATIVE: KERNEL_HOSTS, AFTERLIGHT: True, AFTERLIGHT_WINDOWS: True},
             'templates/terminal-adventure/build.config': {SOURCE: KERNEL_HOSTS, NATIVE: KERNEL_HOSTS},
             'references/station/src/Station/Domain.hs': {SOURCE: linux},
             'tools/play.py': {SOURCE: KERNEL_HOSTS},
-            'references/afterlight/runtime/Garden/Runtime.hs': {SOURCE: linux, AFTERLIGHT: True},
+            'cabal.project.gameio-afterlight': {AFTERLIGHT_WINDOWS: True},
+            'references/afterlight/runtime/Garden/Runtime.hs': {SOURCE: linux, AFTERLIGHT: True, AFTERLIGHT_WINDOWS: True},
+            'references/afterlight/web/BrowserMain.hs': {SOURCE: linux, AFTERLIGHT: True},
             'research/frontiers/free/AlphaFreeWitness.hs': {SOURCE: linux},
             'references/red-dune/core/Colony/Units.hs': {SOURCE: linux},
             'editors/haskell-design/package.json': {SOURCE: linux, EDITOR: True},
@@ -49,7 +51,7 @@ class SelectionTest(unittest.TestCase):
     def test_multiple_changes_union_the_checks(self):
         paths = ['references/afterlight/a.hs', 'cabal.project', 'editors/haskell-design/package.json',
                  'tools/bootstrap-fp-game.sh', 'tools/windows-console/hidden-console.c']
-        expected = {SOURCE: KERNEL_HOSTS, AFTERLIGHT: True, EDITOR: True, NATIVE: HOSTS}
+        expected = {SOURCE: KERNEL_HOSTS, AFTERLIGHT: True, AFTERLIGHT_WINDOWS: True, EDITOR: True, NATIVE: HOSTS}
         self.assertEqual(selection(paths), expected)
         self.assertEqual(selection(reversed(paths)), expected)
 

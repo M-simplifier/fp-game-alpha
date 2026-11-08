@@ -3839,5 +3839,14 @@
     "published_sha256_lf": "eb7e0b678b2b9ed43a9defaf234b38e9943ea1b13493533fe51c1a8b7de40807",
     "license": "references/pure-fall/licenses/raylib-LICENSE.txt",
     "adaptation": "Unchanged original upstream/license notice, relocated from original assets/legal to source-only licenses/; no binary copied."
+  },
+  "references/red-dune/licenses/haskell-game-io-0.1.0.0/LICENSE": {
+    "origin": "https://github.com/M-simplifier/haskell-game-io/blob/19dde99dc005aceafae934d7178d2b5ecf517e54/LICENSE",
+    "snapshot": "19dde99dc005aceafae934d7178d2b5ecf517e54",
+    "kind": "selected-research-source",
+    "source_sha256_lf": "5537aeb601eca017c8b312f4ed70408abc9da8d6b3ec1b0de7c6236b5a7c042f",
+    "published_sha256_lf": "5537aeb601eca017c8b312f4ed70408abc9da8d6b3ec1b0de7c6236b5a7c042f",
+    "license": "references/red-dune/licenses/haskell-game-io-0.1.0.0/LICENSE",
+    "adaptation": "Retain the unmodified license for the pinned native Game IO dependency."
   }
 }

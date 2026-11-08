@@ -213,6 +213,9 @@ runTests root = do
     Store.checkpoints store >>= check "restart catalog" . (>= 3) . length
     preferences <- Store.loadPreferences store
     check "guide OFF and seen IDs survive process restart" (fst preferences == Help.Preferences False (Set.fromList [Help.WellHint, Help.RoadHint]) && snd preferences == Nothing)
+  closed <- Store.withStore root pure
+  useAfterClose <- try (Store.checkpoints closed) :: IO (Either IOException [Store.Checkpoint])
+  check "closed store cannot enumerate an unpinned path" (case useAfterClose of Left _ -> True; _ -> False)
   Store.withStore (root </> "日本語") $ \store -> do
     saved <- Store.activateGame store original
     name <- Store.saveGame store saved
