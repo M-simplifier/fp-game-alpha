@@ -14,6 +14,9 @@ concurrency:
 jobs:
   public-page:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
     outputs:
       selection: ${{ steps.select.outputs.selection }}
     steps:
@@ -22,6 +25,8 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
       - id: select
+        env:
+          GH_TOKEN: ${{ github.event_name == 'push' && github.token || '' }}
         run: python3 tools/ci_selection.py
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:

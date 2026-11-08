@@ -108,14 +108,34 @@ def changed_paths(event_name, event, revision):
     return [path for path in diff.decode('utf-8').split('\0') if path]
 
 
+def previous_main_passed(base):
+    # A newer docs push may finish before an earlier source push. Do not
+    # inherit the earlier tree's checks until that exact push has passed.
+    repository = os.environ['GITHUB_REPOSITORY']
+    result = subprocess.check_output([
+        'gh', 'api', '--method', 'GET', f'repos/{repository}/actions/workflows/ci.yml/runs',
+        '-f', 'branch=main', '-f', 'event=push', '-f', f'head_sha={base}',
+        '--jq', 'any(.workflow_runs[]; .conclusion == "success")',
+    ], stderr=subprocess.PIPE, timeout=15)
+    return result.strip() == b'true'
+
+
+def select_event(event_name, event, revision):
+    paths = changed_paths(event_name, event, revision)
+    jobs = FULL if paths is None else selection(paths)
+    if event_name == 'push' and jobs != FULL and not previous_main_passed(event['before']):
+        print('Previous main revision has no successful alpha push run. Running all alpha checks.')
+        return FULL
+    return jobs
+
+
 def main():
     try:
         event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text(encoding='utf-8'))
-        paths = changed_paths(os.environ['GITHUB_EVENT_NAME'], event, os.environ['GITHUB_SHA'])
+        jobs = select_event(os.environ['GITHUB_EVENT_NAME'], event, os.environ['GITHUB_SHA'])
     except (OSError, KeyError, TypeError, ValueError, subprocess.SubprocessError):
-        print('Could not compare event revisions. Running all alpha checks.')
-        paths = None
-    jobs = FULL if paths is None else selection(paths)
+        print('Could not establish the event comparison. Running all alpha checks.')
+        jobs = FULL
     encoded = json.dumps(jobs, separators=(',', ':'))
     print(f'Selected alpha checks: {encoded}')
     with Path(os.environ['GITHUB_OUTPUT']).open('a', encoding='utf-8') as output:
