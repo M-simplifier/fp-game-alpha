@@ -27,26 +27,25 @@ This route does not establish native GPU, audio playback or browser acceptance.
 
 ## Native host
 
-For Windows x64, use the Game IO integration project from the repository root.
-Cabal fetches the pinned Game IO commit on the first build. The app requires a
-Vulkan 1.3 driver with KHR or EXT surface and swapchain maintenance1 support.
+On Windows x64, use GHC 9.14.1, Cabal 3.18.2.0, Git, and Python 3. The app
+requires a Vulkan 1.3 driver with KHR or EXT surface and swapchain maintenance1
+support. Build a local runnable folder from the repository root.
 
 ```powershell
-python references/afterlight/scripts/prepare-splitmix.py
-python references/afterlight/scripts/prepare-native.py
-cabal build --project-file=cabal.project.gameio-afterlight afterlight-native gameio-audio-worker
-$env:GAMEIO_AUDIO_WORKER = cabal list-bin --project-file=cabal.project.gameio-afterlight gameio-audio-worker
-Push-Location references/afterlight
-cabal run --project-file=../../cabal.project.gameio-afterlight afterlight-native
-Pop-Location
+cabal update
+references/afterlight/scripts/build-native.ps1
+& '.build/afterlight-native/Afterlight.exe'
 ```
 
-The Windows host uses Win32, Vulkan and a separate WASAPI process. For a
-packaged launch, place `gameio-audio-worker.exe` beside the game executable and
-keep `assets/fonts` and `assets/garden-audio` beside both. Asset preparation
-checks the pinned Noto CJK 2.004 font and retains its license. The game can
-generate its WAV assets on first launch. The dependency preparation preserves
-Yampa's SplitMix algorithm and uses Windows for seed acquisition. [SplitMix adaptation](dependencies/splitmix-win64/README.md)
+Keep `gameio-audio-worker.exe` and `assets` beside `Afterlight.exe`. The script
+fetches the pinned Game IO commit, verifies the Noto CJK 2.004 font and license,
+and generates the WAV bank. Pass `-OutputDirectory` to choose a fresh folder
+for another build. See [third-party notices](THIRD-PARTY.md) for redistribution.
+
+The Windows CI job builds `afterlight-native`, the WAV generator, and the
+worker through `cabal.project.gameio-afterlight`. The host uses Win32, Vulkan,
+and a separate WASAPI process. The dependency preparation preserves Yampa's
+SplitMix algorithm and uses Windows for seed acquisition. [SplitMix adaptation](dependencies/splitmix-win64/README.md)
 
 The older host is available through the original `-fnative -f-gameio-native`
 configuration. It uses h-raylib and remains the comparison route for the Vulkan

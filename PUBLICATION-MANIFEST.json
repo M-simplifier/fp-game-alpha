@@ -60,7 +60,7 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "89a35d74b7f0fec72d2d4c43f0b7db39709b3b0abf06398ab94d9f5bdb596db6"
+   "sha256_lf": "7b9cfdffed39fe99bb8cf2f4a0c28d7a5e3dd53bd0d1c258e0bb2b65274cdcb0"
   },
   {
    "path": ".github/workflows/native-tooling.yml",
@@ -980,7 +980,7 @@
   },
   {
    "path": "references/afterlight/README.md",
-   "sha256_lf": "2467a38ed1918a85a92ce8a038f8b7e3c5a7fabe6c4525606e533051b586715e"
+   "sha256_lf": "3f54506e075bd8777fa5b915582c413d1efbcafe2a4bd40ade603223c95ccc02"
   },
   {
    "path": "references/afterlight/THIRD-PARTY.md",
@@ -1089,6 +1089,10 @@
   {
    "path": "references/afterlight/runtime/Garden/Runtime/Control.hs",
    "sha256_lf": "355141f030bc242b5a5b9379896675ac7f4a1dcf993d2c702aa310983207c22a"
+  },
+  {
+   "path": "references/afterlight/scripts/build-native.ps1",
+   "sha256_lf": "580647049c5525e6bcb1b865bb7678b94492a8a5e01a3c23d25ccf05099f0ba1"
   },
   {
    "path": "references/afterlight/scripts/check-core.py",
@@ -3396,7 +3400,7 @@
   },
   {
    "path": "tools/ci_selection.py",
-   "sha256_lf": "9c13c92da6a34fe6d03cb3b7469e7c909821f4b185fc723488ccb668055a4a0d"
+   "sha256_lf": "ae0704767c753a8e55b781a51aeafc45945abb3859554c0f1ea6c57864cfca44"
   },
   {
    "path": "tools/docs_lint.py",
@@ -3564,7 +3568,7 @@
   },
   {
    "path": "tools/test_ci_selection.py",
-   "sha256_lf": "470c3f4240134899c5be45f612a74d19726727333e62e1e9785d6f8a41cd72a0"
+   "sha256_lf": "3a4ddd81c6013c7351fa36f2f2314ef899432db90fc2aa0aed8e7589286e5276"
   },
   {
    "path": "tools/test_editors.py",

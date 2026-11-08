@@ -9,13 +9,14 @@ import subprocess
 SOURCE = 'source-and-kernel'
 NATIVE = 'native-tooling'
 AFTERLIGHT = 'afterlight-pure-core'
+AFTERLIGHT_WINDOWS = 'afterlight-windows-native'
 EDITOR = 'haskell-design-linux'
 LINUX = 'ubuntu-latest'
 WINDOWS = 'windows-latest'
 MACOS = 'macos-latest'
 HOSTS = [LINUX, WINDOWS, MACOS]
 KERNEL_HOSTS = [LINUX, WINDOWS]
-FULL = {SOURCE: KERNEL_HOSTS, NATIVE: HOSTS, AFTERLIGHT: True, EDITOR: True}
+FULL = {SOURCE: KERNEL_HOSTS, NATIVE: HOSTS, AFTERLIGHT: True, AFTERLIGHT_WINDOWS: True, EDITOR: True}
 
 # These documents are also inputs to the generated game distribution.
 RENDERED_DOCS = {
@@ -56,6 +57,7 @@ def selection(paths):
             source.add(LINUX)
             native.add(LINUX)
             jobs[AFTERLIGHT] = True
+            jobs[AFTERLIGHT_WINDOWS] = True
             if path.endswith('.cabal'):
                 source.add(WINDOWS)
                 native.add(WINDOWS)
@@ -75,9 +77,13 @@ def selection(paths):
             source.add(LINUX)
             if path.endswith('.cabal'):
                 source.add(WINDOWS)
+        elif path == 'cabal.project.gameio-afterlight':
+            jobs[AFTERLIGHT_WINDOWS] = True
         elif path.startswith('references/afterlight/'):
             source.add(LINUX)
             jobs[AFTERLIGHT] = True
+            if not path.startswith('references/afterlight/web/'):
+                jobs[AFTERLIGHT_WINDOWS] = True
         elif path.startswith(('references/red-dune/', 'references/signal-courier/',
                               'research/frontiers/free/', 'tools/quantity/')):
             source.add(LINUX)

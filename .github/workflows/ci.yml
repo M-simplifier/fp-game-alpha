@@ -139,6 +139,26 @@ jobs:
           cabal-update: false
       - run: python references/afterlight/scripts/check-core.py --download
 
+  afterlight-windows-native:
+    needs: public-page
+    if: fromJSON(needs.public-page.outputs.selection || '{}')['afterlight-windows-native']
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.14.2'
+      - uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+        with:
+          ghc-version: '9.14.1'
+          cabal-version: '3.18.2.0'
+          cabal-update: false
+      - run: python references/afterlight/scripts/prepare-splitmix.py
+      - run: cabal update
+      - name: Build Afterlight and its audio worker
+        run: cabal build --project-file=cabal.project.gameio-afterlight exe:afterlight-native exe:afterlight-audio exe:gameio-audio-worker
+
   haskell-design-linux:
     needs: public-page
     if: fromJSON(needs.public-page.outputs.selection || '{}')['haskell-design-linux']
@@ -207,7 +227,7 @@ jobs:
 
   checks:
     if: always()
-    needs: [public-page, source-and-kernel, native-tooling, afterlight-pure-core, haskell-design-linux]
+    needs: [public-page, source-and-kernel, native-tooling, afterlight-pure-core, afterlight-windows-native, haskell-design-linux]
     runs-on: ubuntu-latest
     steps:
       - name: Require the public checks and each selected job
