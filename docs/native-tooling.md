@@ -303,7 +303,8 @@ package tests and the same integration suite on Linux, Windows and macOS.
 `alpha-checks` always verifies the site and published source. It selects native
 acceptance when the change can affect it, including shared libraries, templates,
 and documentation copied into generated games. Pages waits for all selected
-checks to succeed. Run `alpha-checks` manually for its full suite, or use
+checks to succeed. Main uses the full suite when the preceding push has no
+confirmed successful run. Run `alpha-checks` manually for its full suite, or use
 `native-tooling` for native-only diagnostics. Inspect the results for the exact
 revision. Dependency caches are OS/architecture/toolchain/lock-specific, exclude
 game output and final executables, and can be written only by a validated main push.
