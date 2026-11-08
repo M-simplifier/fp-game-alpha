@@ -37,7 +37,7 @@ function fixture(search = "") {
 const initial = fixture("?topic=assurance&q=保存&status=implemented");
 assert.equal(initial.controls["#research-filters"].hidden, false);
 assert.deepEqual(initial.entries.map(entry => entry.hidden), [false, true, true]);
-assert.equal(initial.controls["#research-count"].textContent, "3件中 1件の研究");
+assert.equal(initial.controls["#research-count"].textContent, "3件中 1件の項目");
 assert.match(initial.url(), /topic=assurance/);
 initial.controls["#research-search"].value = "存在しない言葉";
 initial.events.input();

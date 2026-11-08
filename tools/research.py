@@ -1,4 +1,4 @@
-"""Validate the authored research catalog and render its static, searchable page.
+"""Validate the authored catalog and render its static, searchable page.
 
 The JSON describes questions, results and their limits. Implementation details
 remain in their original source; the generated HTML is a reader-facing index.
@@ -24,7 +24,7 @@ STATUSES = {
     "example": "具体的な作品",
     "experiment": "実験",
     "question": "未解決の問い",
-    "historical": "過去の研究",
+    "historical": "これまでの試み",
 }
 SLUG = re.compile(r"[a-z][a-z0-9]*(?:-[a-z0-9]+)*\Z")
 FORBIDDEN_PARTS = {".git", ".codex", ".scratch", "node_modules", "brain", "AGENTS.md"}
@@ -165,18 +165,18 @@ def render(catalog, root=ROOT):
         "<!doctype html>", '<html lang="ja">', '<head>', '<meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
         '<meta name="color-scheme" content="light">',
-        '<meta name="description" content="ゲーム開発研究の問い、実装、検証範囲を主題から探す。">',
-        '<title>研究目録 · fp-game-alpha</title>',
+        '<meta name="description" content="ゲーム開発の問いと、それに関わる知見、実装、教材、検証結果を八つのテーマから探せる公開リファレンス。">',
+        '<title>技術目録 · fp-game-alpha</title>',
         '<link rel="canonical" href="https://m-simplifier.github.io/fp-game-alpha/research.html">',
         '<link rel="icon" href="icon.svg" type="image/svg+xml">', '<link rel="stylesheet" href="research.css">',
         '<script src="research.js" defer></script>', '</head>', '<body>',
         '<a class="skip" href="#main">本文へ</a>', '<header class="site-header wrap">',
         '<a class="brand" href="index.html"><span aria-hidden="true">↦</span> fp-game-alpha <small>α</small></a>',
         '<nav aria-label="主な案内">',
-        '<a href="research.html" aria-current="page">研究目録</a> <a href="guide.html">考え方を読む</a> '
+        '<a href="research.html" aria-current="page">技術目録</a> <a href="guide.html">考え方を読む</a> '
         '<a href="index.html#studies">教材</a> <a href="create.html">AIと作る ↗</a>',
         '</nav>', '</header>', '<main id="main" class="wrap">', '<header class="catalog-header">',
-        '<p class="eyebrow">研究目録</p>', '<h1>問いから研究を探す</h1>',
+        '<p class="eyebrow">技術目録</p>', '<h1>問いから、知見と実装を探す</h1>',
         '<p>入力の順序を変えると何が壊れるか。影と本体が同じ形を描くには何を揃えるか。'
         '知りたいことから、説明、実装、確かめた範囲へ進めます。</p>',
         f'<p>{esc(catalog["scope"])}</p>',
@@ -184,8 +184,8 @@ def render(catalog, root=ROOT):
         f'<a href="{REPOSITORY}/blob/main/research/coverage.md">調査した資料と残る範囲</a> · '
         f'<a href="{REPOSITORY}/blob/main/research/catalog.json">目録の元データ</a></p>', '</header>',
         '<section aria-labelledby="find-heading" class="catalog-search">', '<h2 id="find-heading">絞り込む</h2>',
-        '<p>区分は研究の置かれている状態です。優劣の順位ではありません。'
-        '実装に接続した研究にも、未検証の範囲があります。</p>',
+        '<p>区分は、その項目の現在の状態を示しています。優劣の順位ではありません。'
+        '実装に使われている技法にも、まだ確かめられていない範囲があります。</p>',
         '<form id="research-filters" class="catalog-controls" role="search" hidden>',
         '<label for="research-search">言葉で探す',
         '<input id="research-search" type="search" autocomplete="off" placeholder="例：保存、観測、音楽"></label>',
@@ -196,9 +196,9 @@ def render(catalog, root=ROOT):
               '<select id="research-status"><option value="">すべての区分</option>']
     lines.extend(f'<option value="{value}">{label}</option>' for value, label in STATUSES.items())
     lines += ['</select></label>', '<button class="button" type="reset">絞り込みを戻す</button>', '</form>',
-              '<noscript><p>すべての研究を以下に表示しています。ページ内検索も使えます。</p></noscript>',
-              f'<p id="research-count" role="status" aria-live="polite">{len(catalog["entries"])}件の研究</p>', '</section>',
-              '<section aria-labelledby="entries-heading" class="catalog">', '<h2 id="entries-heading">研究一覧</h2>']
+              '<noscript><p>すべての項目を以下に表示しています。ページ内検索も使えます。</p></noscript>',
+              f'<p id="research-count" role="status" aria-live="polite">{len(catalog["entries"])}件の項目</p>', '</section>',
+              '<section aria-labelledby="entries-heading" class="catalog">', '<h2 id="entries-heading">項目一覧</h2>']
     for entry in catalog["entries"]:
         lines += [f'<article id="{esc(entry["id"])}" class="catalog-entry" '
                   f'data-topics="{esc(" ".join(entry["topics"]))}" data-status="{esc(entry["status"])}">',
@@ -212,7 +212,7 @@ def render(catalog, root=ROOT):
         lines.extend(f'<li><a href="{esc(public_url(source["url"], root))}">{esc(source["label"])}</a></li>'
                      for source in entry["sources"])
         lines += ['</ul>', '</article>']
-    lines += ['</section>', '<p id="research-empty" hidden>該当する研究はありません。言葉や区分を変えてください。</p>',
+    lines += ['</section>', '<p id="research-empty" hidden>該当する項目はありません。言葉や区分を変えてください。</p>',
               '</main>', '<footer class="site-footer wrap"><p>実装の正本と、有限の検査、実機での観察、人の評価を区別して読みます。</p></footer>',
               '</body>', '</html>', '']
     return "\n".join(lines)

@@ -1,9 +1,9 @@
 ---
 name: game-research
-description: Find, compare or extend fp-game-alpha game-development research by question, following actual sources and stated evidence limits. Use for research and entrusted studies; a request to explore does not imply game implementation.
+description: Find, compare or extend fp-game-alpha game-development studies by question, following actual sources and stated evidence limits. Use for exploratory questions and entrusted studies; a request to explore does not imply game implementation.
 ---
 
-Start with the user's question and requested result. Read [the purpose and current scope](../../../docs/purpose.md) to distinguish this research reference from an adopted engine design. Use [the research map](../../../research/README.md), then select relevant entries in [the catalog](../../../research/catalog.json). Its topic IDs cover rules/time, worlds, graphics, music, logic/arrays, composition, assurance and practice. Read selected guides and the actual implementation/tests or versioned external sources needed to assess the claim; do not load the whole collection. [Coverage](../../../research/coverage.md) records the inspected source set and gaps.
+Start with the user's question and requested result. Read [the purpose and current scope](../../../docs/purpose.md) for the role of the public reference and its long-term aims. Use [the reading guide](../../../research/README.md), then select relevant entries in [the technical catalog](../../../research/catalog.json). Its topic IDs cover rules/time, worlds, graphics, music, logic/arrays, composition, assurance and practice. Read selected guides and the actual implementation/tests or versioned external sources needed to assess the claim; do not load the whole collection. [Coverage](../../../research/coverage.md) records the inspected source set and gaps.
 
 Keep the catalog's distinctions: `implemented` has a concrete implementation; `example` demonstrates a bounded case; `experiment` tests an alternative; `question` remains open; `historical` preserves a dated result. These describe the result, not a confidence ranking or an adopted architecture. Check each entry's `evidence` and `limits`: code, finite tests, a device observation, a person's judgment and reuse in another game are different evidence.
 

@@ -3606,41 +3606,41 @@
     "kind": "selected-research-source",
     "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
     "source_sha256_lf": "a9ca69e7b4d0c80c765369d9b8d7548296f68696a010c3240e27b7e6052954c1",
-    "published_sha256_lf": "fed24db3f5cbdb18c13860150b82bdcfadf641b62e88245c22d5029f3b59267d",
+    "published_sha256_lf": "338f7b2c7da9e47a7aee5eff2567d129d1de7c421faf2d4fe3c96b4f1c73283e",
     "license": "LICENSE",
-    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer."
+    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer. Public catalog navigation wording updated."
   },
   "site/studies/prolog-fall.html": {
     "kind": "selected-research-source",
     "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
     "source_sha256_lf": "5a58bdee6789a7c9c4df7b8bc17dcce3c5fe71bd7148032155d9bb28def8d975",
-    "published_sha256_lf": "ed9319e0a4b4c0717973c73ae250325b752139f756aadb00aa55f5bb34c04faa",
+    "published_sha256_lf": "a048907d1978e206db01f648fd45f072a44214fb9994c92fd0834262244be214",
     "license": "LICENSE",
-    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer."
+    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer. Public catalog navigation wording updated."
   },
   "site/studies/pure-fall.html": {
     "kind": "selected-research-source",
     "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
     "source_sha256_lf": "314e397c3b971a3666c8c1118e9398f8f74237a419014d5d8d20ebe86f3ad784",
-    "published_sha256_lf": "51c9dc34358006df673b95ee4ae9cbe1e8cdb55c91c1ab2795d736b8abfe43f4",
+    "published_sha256_lf": "d6f7c03497cbe2489fb469c5d8ec03ed0c60cdf7b61d673ff96cd3031cf2abf9",
     "license": "LICENSE",
-    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer."
+    "adaptation": "Original standalone authored lesson, including documentary screenshots and interactive data; source links remapped to public selected export; research/source navigation added. No game rules rewritten in the viewer. Public catalog navigation wording updated."
   },
   "site/studies/free-monad.html": {
     "kind": "selected-research-source",
     "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
     "source_sha256_lf": "badba6c20d5d444ffc221e0fc6bf428afccdaa7f2fd810de85c715636668ac98",
-    "published_sha256_lf": "9df46df7c2fd8566a05f66b9a7c707b1e5141169d19c188275816fba00676d05",
+    "published_sha256_lf": "90119b0b2b6a957b39f3978a8c04ce15fb066d0639d12546f1cc3ff6ded9129c",
     "license": "LICENSE",
-    "adaptation": "Original authored offline Free lesson and controls retained; public research/source navigation added. Linked literature remains attribution, not vendored third-party paper content."
+    "adaptation": "Original authored offline Free lesson and controls retained; public research/source navigation added. Linked literature remains attribution, not vendored third-party paper content. Public catalog navigation wording updated."
   },
   "site/studies/clock-and-reachability.html": {
     "kind": "selected-research-source",
     "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
     "source_sha256_lf": "79b590fb39cf2b035b389342886a30880c502aa8abf5b870b80f05553f212682",
-    "published_sha256_lf": "c0d623806fc5c2c4ffd1b2ffd00c9c65894f92b5dcb73e2f52edae97d3a29e6f",
+    "published_sha256_lf": "f2a12c8fc761c159d71d2fe73e58463f017231c756c63eac408ce541114eeb8b",
     "license": "LICENSE",
-    "adaptation": "Extracted authored clock/door widget unchanged in model and drawing; removed provider frame, external unused libraries and host-specific widget-state persistence; added self-contained CSS, concrete explanation and executable source links."
+    "adaptation": "Extracted authored clock/door widget unchanged in model and drawing; removed provider frame, external unused libraries and host-specific widget-state persistence; added self-contained CSS, concrete explanation and executable source links. Public catalog navigation wording updated."
   },
   "references/apl-fall/LICENSE": {
     "kind": "selected-research-source",
@@ -3694,9 +3694,9 @@
     "kind": "selected-research-source",
     "origin": "Author-supplied standalone game and theory study source, selected 2026-11-06 to 2026-11-07",
     "source_sha256_lf": "16cbf971360ab5831165f9daedff7da680c8992ec1550064c78fe7798565a13b",
-    "published_sha256_lf": "9d974a4e7f260879d46117716aac02bcada8f7110d1f0ca7fbdcf64804d70956",
+    "published_sha256_lf": "13c8cd396b0ebcf5136bb5d9f4cc1eeb58f40898921a4bdab37806b265558800",
     "license": "LICENSE",
-    "adaptation": "Authored public synthesis/selection grounded in the original authored study and linked exact implementation; private locators removed, available reproduction and non-adoption/evidence boundaries stated. Not a verbatim private record export."
+    "adaptation": "Authored public synthesis/selection grounded in the original authored study and linked exact implementation; private locators removed, available reproduction and non-adoption/evidence boundaries stated. Not a verbatim private record export. Introductory and concluding wording revised in the public guide."
   },
   "research/history/formal-methods.md": {
     "kind": "authored-research-synthesis",

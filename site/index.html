@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>ゲーム開発研究の公開リファレンス — fp-game-alpha</title>
-  <meta name="description" content="純粋関数型ゲームから、Haskellの描画、生成される世界と音楽、APL・Prolog、Freeモナドへ。ゲーム開発の知見、実装、教材、研究中の問いをまとめた公開リファレンスです。">
+  <title>ゲーム開発の知見と実装 — fp-game-alpha</title>
+  <meta name="description" content="純粋関数型ゲームを出発点に、Haskellによる描画、生成される世界と音楽、APL・Prolog、Freeモナドまで。ゲーム開発を通して得た知見、実装、教材、検証結果と、いま取り組んでいる問いをまとめた公開リファレンスです。">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ja_JP">
-  <meta property="og:title" content="ゲーム開発研究の公開リファレンス — fp-game-alpha">
-  <meta property="og:description" content="ゲームをどう表し、動かし、確かめるか。研究の蓄積を、問いと実装から辿る。">
+  <meta property="og:title" content="ゲーム開発の知見と実装 — fp-game-alpha">
+  <meta property="og:description" content="ゲームをどう表し、動かし、確かめるか。技術探究と実践の蓄積を、問いと実装からたどる。">
   <meta property="og:url" content="https://m-simplifier.github.io/fp-game-alpha/">
   <meta name="twitter:card" content="summary_large_image">
   <meta property="og:image" content="https://raw.githubusercontent.com/M-simplifier/stillroom/v0.12.0/docs/journey.png">
@@ -21,34 +21,34 @@
   <a class="skip" href="#main">本文へ移動</a>
   <header class="site-header wrap">
     <a class="brand" href="index.html" aria-label="fp-game-alpha ホーム"><span aria-hidden="true">↦</span> fp-game-alpha <small>α</small></a>
-    <nav aria-label="主な内容"><a href="research.html">研究目録</a><a href="guide.html">考え方を読む</a><a href="#studies">教材</a><a href="create.html">AIと作る <span aria-hidden="true">↗</span></a></nav>
+    <nav aria-label="主な内容"><a href="research.html">技術目録</a><a href="guide.html">考え方を読む</a><a href="#studies">教材</a><a href="create.html">AIと作る <span aria-hidden="true">↗</span></a></nav>
   </header>
   <main id="main">
     <section class="home-hero wrap" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">ゲーム開発研究の公開リファレンス</p>
-        <h1 id="hero-title">ゲーム開発の研究を、<br>実装からたどる。</h1>
+        <p class="eyebrow">ゲーム開発の知見と実装を集めた公開リファレンス</p>
+        <h1 id="hero-title">ゲーム開発の問いを、<br>実装からたどる。</h1>
         <p class="lead">ルールをどう書くか。<br>風景や音楽をどう生み出すか。<br>その仕組みをどう確かめるか。</p>
-        <p>純粋関数型ゲームの実装から、Haskellによる描画、自然物や音楽の生成、論理や配列を使った実験まで。積み重ねてきた研究を、実際の作例やコード、教材とともに公開しています。</p>
-        <div class="actions"><a class="button" href="research.html">研究目録を開く <span aria-hidden="true">↗</span></a><a class="under-link" href="guide.html">全体の考え方を読む</a></div>
+        <p>純粋関数型ゲームの実装から、Haskellによる描画、自然物や音楽の生成、論理や配列を使った試みまで。ゲームを作りながら考え、実際に試してきたことを、作例やコード、教材とともに公開しています。</p>
+        <div class="actions"><a class="button" href="research.html">技術目録を開く <span aria-hidden="true">↗</span></a><a class="under-link" href="guide.html">全体の考え方を読む</a></div>
         <p class="edition">収録の基準日 <time datetime="2026-11-06">2026.11.06</time> <a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">範囲と出典</a></p>
       </div>
       <figure class="hero-picture">
         <img src="https://raw.githubusercontent.com/M-simplifier/stillroom/v0.12.0/docs/journey.png" width="1600" height="900" alt="Stillroomの実画面。展望車の窓から、生成された湖と樹木の風景を見る。" fetchpriority="high">
-        <figcaption><span class="caption-number">実装から読む / Stillroom</span><strong>この風景は、どう生まれたのか。</strong><p>地形の起伏や木々の配置、水面に映る景色。画面に広がる風景と、それを作る規則やコードを結び付けながらたどれます。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/README.md">Stillroomの研究を読む <span aria-hidden="true">↗</span></a></figcaption>
+        <figcaption><span class="caption-number">実装から読む / Stillroom</span><strong>この風景は、どう生まれたのか。</strong><p>地形の起伏や木々の配置、水面に映る景色。画面に広がる風景と、それを作る規則やコードを結び付けながらたどれます。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/stillroom/README.md">Stillroomの技術解説を読む <span aria-hidden="true">↗</span></a></figcaption>
       </figure>
     </section>
 
     <section class="purpose-strip">
-      <div class="wrap purpose-inner"><p>fp-game-alphaは、ゲーム開発の研究を一つの場所で読めるようにまとめた公開リファレンスです。<strong>過去の実装から新しい試みまで</strong>、成果と、まだ答えの出ていない問いを整理しています。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/purpose.md">このプロジェクトについて <span aria-hidden="true">↗</span></a></div>
+      <div class="wrap purpose-inner"><p>fp-game-alphaは、ゲーム開発の中で得た知見と実装を、一つの場所で読めるようにまとめた公開リファレンスです。<strong>これまでの蓄積から、いま試していることまで。</strong> 実際に形になったものと、まだ答えの出ていない問いを、根拠や出典とともに整理しています。</p><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/purpose.md">このプロジェクトについて <span aria-hidden="true">↗</span></a></div>
     </section>
 
     <section class="reading-band" aria-labelledby="reading-title">
-      <div class="wrap reading-layout"><div><p class="section-no">01 / 最初に読む</p><h2 id="reading-title">ルール、世界、音。<br>具体例から始める。</h2><p>配達ゲームで一手進める。決めた規則から森を生み出す。音楽を鳴らし続ける。身近な出来事を出発点に、状態の扱い方や、場所・時間への問い合わせなど、設計の考え方を紹介します。</p><a class="button light" href="guide.html">研究の全体像を読む <span aria-hidden="true">↗</span></a></div><ol class="reading-outline"><li><span>01</span><div><strong>操作が何を変えるか</strong><p>入力の順序、拒否、資源、保存。</p></div></li><li><span>02</span><div><strong>必要な場所と時間を求める</strong><p>生成される風景と、時間区間から得る音。</p></div></li><li><span>03</span><div><strong>表現を変えて問い直す</strong><p>関数・配列・関係、解釈、合成の条件。</p></div></li><li><span>04</span><div><strong>結果を、根拠とともに読む</strong><p>実装、実験、反例、まだ確かめていないこと。</p></div></li></ol></div>
+      <div class="wrap reading-layout"><div><p class="section-no">01 / 最初に読む</p><h2 id="reading-title">ルール、世界、音。<br>具体例から始める。</h2><p>配達ゲームで一手進める。決めた規則から森を生み出す。音楽を鳴らし続ける。身近な出来事を出発点に、状態の扱い方や、場所・時間への問い合わせなど、設計の考え方を紹介します。</p><a class="button light" href="guide.html">全体ガイドを読む <span aria-hidden="true">↗</span></a></div><ol class="reading-outline"><li><span>01</span><div><strong>操作が何を変えるか</strong><p>入力の順序、拒否、資源、保存。</p></div></li><li><span>02</span><div><strong>必要な場所と時間を求める</strong><p>生成される風景と、時間区間から得る音。</p></div></li><li><span>03</span><div><strong>表現を変えて問い直す</strong><p>関数・配列・関係、解釈、合成の条件。</p></div></li><li><span>04</span><div><strong>結果を、根拠とともに読む</strong><p>実装、実験、反例、まだ確かめていないこと。</p></div></li></ol></div>
     </section>
 
     <section class="wrap section-space" id="subjects" aria-labelledby="subjects-title">
-      <div class="section-intro"><p class="section-no">02 / 研究の地図</p><div><h2 id="subjects-title">知りたいことから、たどる。</h2><p>研究を八つのテーマに分けました。関心のある問いから、関連する実装や実験へ進めます。</p></div></div>
+      <div class="section-intro"><p class="section-no">02 / 技術の地図</p><div><h2 id="subjects-title">知りたいことから、たどる。</h2><p>ゲームの規則、世界の生成、描画、音楽、検証、制作の実践まで。知見と実装を八つのテーマに整理しました。関心のある問いから、それに関わる作例や技術解説へ進めます。</p></div></div>
       <div class="topic-map">
         <a class="topic-row" href="research.html?topic=rules-time"><span class="topic-index">01</span><div><h3>規則・状態・時間</h3><p>プレイヤーの入力をどう受け取り、いつ、どの範囲で状態を変えるか。</p><span>純粋な遷移 / 入力 / 観測 / 保存と再生</span></div><span class="arrow" aria-hidden="true">↗</span></a>
         <a class="topic-row" href="research.html?topic=worlds"><span class="topic-index">02</span><div><h3>世界・自然・シミュレーション</h3><p>地形や植物をどう生み出し、世界の中で関わり合うものをどう動かすか。</p><span>地形 / 生態 / 自然物 / 資源と配送</span></div><span class="arrow" aria-hidden="true">↗</span></a>
@@ -62,25 +62,25 @@
     </section>
 
     <section class="wrap section-space" id="studies" aria-labelledby="studies-title">
-      <div class="section-intro"><p class="section-no">03 / 手を動かして読む</p><div><h2 id="studies-title">一つの具体例を、深く理解する。</h2><p>コードを追ったり、図を操作したりしながら、何が変わるかを確かめる教材です。</p></div></div>
+      <div class="section-intro"><p class="section-no">03 / 手を動かして読む</p><div><h2 id="studies-title">一つの具体例を、深く理解する。</h2><p>コードを追ったり、図を操作したりしながら、何が変わるかを確かめる教材です。実際のゲームや小さな計算を通して、設計の考え方を具体的に読み解きます。</p></div></div>
       <div class="study-list">
         <a href="learn.html"><span class="study-kind">HASKELL / 最初の一手</span><h3>配達を一件、コードで追う</h3><p>型、純粋関数、古い操作の拒否を、Stationの実コードで読みます。</p><span aria-hidden="true">↗</span></a>
         <a href="studies/pure-fall.html"><span class="study-kind">HASKELL / ゲーム全体</span><h3>純粋関数型で、テトリスを組み立てる</h3><p>規則と時計、入力、画面、再生をどう分けたかを辿ります。</p><span aria-hidden="true">↗</span></a>
         <a href="studies/array-fall.html"><span class="study-kind">APL / 配列で考える</span><h3>配置と操作を、配列として見る</h3><p>四つのセル、落下、行消去、到達する配置を操作図で読みます。</p><span aria-hidden="true">↗</span></a>
         <a href="studies/prolog-fall.html"><span class="study-kind">PROLOG / 問いを返す</span><h3>置ける場所と、辿り着ける場所</h3><p>逆向きの問い合わせと手順の探索、その違いを見ます。</p><span aria-hidden="true">↗</span></a>
         <a href="studies/free-monad.html"><span class="study-kind">FREE / 手順と解釈</span><h3>同じ手順を、違う世界で読む</h3><p>操作の記述とその実行を分ける意味を、扉の例から辿ります。</p><span aria-hidden="true">↗</span></a>
-        <a href="studies/clock-and-reachability.html"><span class="study-kind">合成の研究 / 有限の反例</span><h3>時計を消すと、何が変わるか</h3><p>到達できることと、間に合うこと。その間の条件を調べます。</p><span aria-hidden="true">↗</span></a>
+        <a href="studies/clock-and-reachability.html"><span class="study-kind">合成の考察 / 有限の反例</span><h3>時計を消すと、何が変わるか</h3><p>到達できることと、間に合うこと。その間の条件を調べます。</p><span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
     <section class="wrap evidence-section" aria-labelledby="evidence-title">
-      <div class="section-intro"><p class="section-no">04 / 研究の読み方</p><div><h2 id="evidence-title">何が分かり、何がまだ分からないのか。</h2><p>製品に使われた実装、小さな作例、有限の実験、これから試す考え。それぞれを区別して収録しています。</p></div></div>
+      <div class="section-intro"><p class="section-no">04 / 根拠の読み方</p><div><h2 id="evidence-title">何が分かり、何がまだ分からないのか。</h2><p>実際の作品に使われた実装、小さな作例、有限の実験、いま考えていること。それぞれを区別し、どこまで確かめられたかを記録しています。</p></div></div>
       <div class="evidence-columns"><article><h3>何があるか</h3><p>実際のソース、教材、検査の入口へ進めます。別の公開作品が実装を所有する場合は、参照する版を示します。</p></article><article><h3>何を確かめたか</h3><p>型の検査、法則、独立した比較、実機の観測など、主張を支える根拠を記します。</p></article><article><h3>何がまだ分からないか</h3><p>性能の適用範囲、未検証の環境、異なるゲームへの転用、未確定の理論を残します。</p></article></div>
-      <div class="inline-links"><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/README.md">研究の歩みを読む ↗</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">収録範囲と出典 ↗</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/guarantees.md">保証の範囲 ↗</a></div>
+      <div class="inline-links"><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/history/README.md">探究の歩みを読む ↗</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/research/coverage.md">収録範囲と出典 ↗</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/docs/guarantees.md">保証の範囲 ↗</a></div>
     </section>
 
-    <section class="create-band"><div class="wrap create-inner"><div><p class="section-no">研究を、自分の制作へ</p><h2>作りたいゲームから始める。</h2><p>企画を自分のAIへ渡し、必要な知見を選んで作る。Haskellの経験は問いません。</p></div><a class="button" href="create.html">制作の入口へ <span aria-hidden="true">↗</span></a></div></section>
+    <section class="create-band"><div class="wrap create-inner"><div><p class="section-no">知見を、自分の制作へ</p><h2>作りたいゲームから始める。</h2><p>企画を自分のAIへ渡し、必要な知見を選んで作る。Haskellの経験は問いません。</p></div><a class="button" href="create.html">制作の入口へ <span aria-hidden="true">↗</span></a></div></section>
   </main>
-  <footer class="site-footer wrap"><div><a class="brand" href="index.html">↦ fp-game-alpha</a><p>ゲーム開発研究の公開リファレンス</p></div><div><a href="https://github.com/M-simplifier/fp-game-alpha">ソースと研究資料 ↗</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/LICENSE">MIT / 個別の通知</a><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/assets.md">Stillroom画面の出典</a></div></footer>
+  <footer class="site-footer wrap"><div><a class="brand" href="index.html">↦ fp-game-alpha</a><p>ゲーム開発の知見と実装を集めた公開リファレンス</p></div><div><a href="https://github.com/M-simplifier/fp-game-alpha">ソースと技術資料 ↗</a><a href="https://github.com/M-simplifier/fp-game-alpha/blob/main/LICENSE">MIT / 個別の通知</a><a href="https://github.com/M-simplifier/stillroom/blob/v0.12.0/docs/assets.md">Stillroom画面の出典</a></div></footer>
 </body>
 </html>
