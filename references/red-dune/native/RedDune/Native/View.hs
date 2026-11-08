@@ -18,10 +18,10 @@ import Data.List (find, isInfixOf, sortOn)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
 import Data.Word (Word64)
-import RedDune.Native.Canvas
 import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game
+import RedDune.Native.Canvas
 import RedDune.Native.Font (NativeFont, drawNativeText, measureNativeText)
 import RedDune.Native.Help qualified as Help
 import RedDune.Native.Play

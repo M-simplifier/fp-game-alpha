@@ -27,36 +27,45 @@ main = do
     let frame = Audio.voiceSourceFrame
         near x y = abs (x - y) < 1e-6
     check "Both day and night ambience have begun" (frame (snapshotDay active) > 0 && frame (snapshotNight active) > 0)
-    check "Day and night use the square-root veil mix"
-      (near (Audio.voiceGain (snapshotDay active)) (0.55 * sqrt 0.75)
-        && near (Audio.voiceGain (snapshotNight active)) (0.55 * sqrt 0.25))
+    check
+      "Day and night use the square-root veil mix"
+      ( near (Audio.voiceGain (snapshotDay active)) (0.55 * sqrt 0.75)
+          && near (Audio.voiceGain (snapshotNight active)) (0.55 * sqrt 0.25)
+      )
     updateAudio assets 0.81 True
     let events = [Offering, Wings, Jump, Return]
-    check "Wings and Return suppress Offering without reordering the other cues"
+    check
+      "Wings and Return suppress Offering without reordering the other cues"
       (selectedCues events == [Wings, Jump, Return])
     playCues assets events
     threadDelay 220000
     paused <- snapshot assets
-    check "Pause/photo quiets both ambience voices while their source clocks advance"
-      (near (Audio.voiceGain (snapshotDay paused)) (0.10 * sqrt 0.19)
-        && near (Audio.voiceGain (snapshotNight paused)) (0.10 * sqrt 0.81)
-        && frame (snapshotDay paused) > frame (snapshotDay active)
-        && frame (snapshotNight paused) > frame (snapshotNight active))
-    check "The real audio path played Wings, Jump and Return without Offering"
+    check
+      "Pause/photo quiets both ambience voices while their source clocks advance"
+      ( near (Audio.voiceGain (snapshotDay paused)) (0.10 * sqrt 0.19)
+          && near (Audio.voiceGain (snapshotNight paused)) (0.10 * sqrt 0.81)
+          && frame (snapshotDay paused) > frame (snapshotDay active)
+          && frame (snapshotNight paused) > frame (snapshotNight active)
+      )
+    check
+      "The real audio path played Wings, Jump and Return without Offering"
       (M.keysSet (snapshotCues paused) == M.keysSet (M.fromList [(Wings, ()), (Jump, ()), (Return, ())]))
     playCues assets [Wings]
     threadDelay 50000
     restarted <- snapshot assets
-    check "A repeated cue restarts its existing voice"
-      (case (M.lookup Wings (snapshotCues paused), M.lookup Wings (snapshotCues restarted)) of
-        (Just old, Just new) -> frame new < frame old
-        _ -> False)
+    check
+      "A repeated cue restarts its existing voice"
+      ( case (M.lookup Wings (snapshotCues paused), M.lookup Wings (snapshotCues restarted)) of
+          (Just old, Just new) -> frame new < frame old
+          _ -> False
+      )
     print restarted
     when fullLoop (checkWrap assets)
 
 expectedAmbience :: Audio.PCM -> Bool
 expectedAmbience pcm =
-  Audio.pcmSampleRate pcm == 44100 && Audio.pcmChannels pcm == Audio.Stereo
+  Audio.pcmSampleRate pcm == 44100
+    && Audio.pcmChannels pcm == Audio.Stereo
     && Audio.pcmFrames pcm == 48 * 44100
 
 snapshot :: AudioAssets -> IO AudioSnapshot
@@ -77,7 +86,8 @@ checkWrap assets = do
         check "A 48-second source loop wrapped before the observation deadline" (now - started < 52000000000)
         if sawDayWrap && sawNightWrap
           then do
-            check "Both voices are still playing after the wrap"
+            check
+              "Both voices are still playing after the wrap"
               (all ((== Audio.VoicePlaying) . Audio.voiceStatus) [snapshotDay observed, snapshotNight observed])
             print observed
           else wrap day night sawDayWrap sawNightWrap

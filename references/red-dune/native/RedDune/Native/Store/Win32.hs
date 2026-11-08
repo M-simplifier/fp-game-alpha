@@ -1,10 +1,18 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
 module RedDune.Native.Store.Win32
-  ( PinnedStore, withPinnedStore, pinnedRoot
-  , listLeaves, writeLeaf, readCheckpoint, readPreferences
-  , commitCheckpoint, replacePreferences, showError
-  ) where
+  ( PinnedStore,
+    withPinnedStore,
+    pinnedRoot,
+    listLeaves,
+    writeLeaf,
+    readCheckpoint,
+    readPreferences,
+    commitCheckpoint,
+    replacePreferences,
+    showError,
+  )
+where
 
 import Control.Concurrent (runInBoundThread)
 import Control.Concurrent.MVar (MVar, modifyMVar_, newMVar, withMVar)
@@ -19,15 +27,26 @@ import Data.Text qualified as Text
 import Data.Text.Encoding (decodeUtf16LE, encodeUtf16LE)
 import Data.Word (Word16, Word32, Word8)
 import Foreign
-  ( Ptr, alloca, allocaArray, allocaBytesAligned, castPtr, intPtrToPtr
-  , nullPtr, peek, peekByteOff, plusPtr
+  ( Ptr,
+    alloca,
+    allocaArray,
+    allocaBytesAligned,
+    castPtr,
+    intPtrToPtr,
+    nullPtr,
+    peek,
+    peekByteOff,
+    plusPtr,
   )
 import System.Directory (listDirectory)
 import System.FilePath (dropTrailingPathSeparator, splitDirectories, splitDrive, (</>))
 
 type Handle = Ptr ()
+
 type Wide = Ptr Word16
+
 type Dword = Word32
+
 type Bool32 = Int32
 
 data PinnedStore = PinnedStore !FilePath !(MVar Bool)
@@ -37,28 +56,40 @@ pinnedRoot (PinnedStore root _) = root
 
 foreign import ccall safe "GetFullPathNameW"
   getFullPathName :: Wide -> Dword -> Wide -> Ptr Wide -> IO Dword
+
 foreign import ccall safe "CreateFileW"
   createFile :: Wide -> Dword -> Dword -> Ptr () -> Dword -> Dword -> Handle -> IO Handle
+
 foreign import ccall safe "CreateDirectoryW"
   createDirectory :: Wide -> Ptr () -> IO Bool32
+
 foreign import ccall unsafe "CloseHandle"
   closeHandle :: Handle -> IO Bool32
+
 foreign import ccall safe "GetFileInformationByHandle"
   fileInformation :: Handle -> Ptr () -> IO Bool32
+
 foreign import ccall safe "GetFileAttributesW"
   fileAttributes :: Wide -> IO Dword
+
 foreign import ccall safe "GetFileSizeEx"
   fileSize :: Handle -> Ptr Int64 -> IO Bool32
+
 foreign import ccall safe "ReadFile"
   readFileBytes :: Handle -> Ptr Word8 -> Dword -> Ptr Dword -> Ptr () -> IO Bool32
+
 foreign import ccall safe "WriteFile"
   writeFileBytes :: Handle -> Ptr Word8 -> Dword -> Ptr Dword -> Ptr () -> IO Bool32
+
 foreign import ccall safe "FlushFileBuffers"
   flushFile :: Handle -> IO Bool32
+
 foreign import ccall safe "MoveFileExW"
   moveFile :: Wide -> Wide -> Dword -> IO Bool32
+
 foreign import ccall unsafe "GetLastError"
   lastError :: IO Dword
+
 foreign import ccall safe "MessageBoxW"
   messageBox :: Handle -> Wide -> Wide -> Dword -> IO Int32
 
@@ -88,8 +119,8 @@ replaceExisting = 0x0001
 
 withWide :: String -> (Wide -> IO a) -> IO a
 withWide value action =
-  let bytes = encodeUtf16LE (Text.pack value) <> BS.pack [0,0]
-  in BS.useAsCString bytes (action . castPtr)
+  let bytes = encodeUtf16LE (Text.pack value) <> BS.pack [0, 0]
+   in BS.useAsCString bytes (action . castPtr)
 
 winError :: String -> Dword -> IO a
 winError label code = ioError (userError (label ++ " (Windows " ++ show code ++ ")"))
@@ -135,20 +166,26 @@ pinDirectory path = withWide path $ \name -> do
   let open = createFile name readAttributes (shareRead .|. shareWrite) nullPtr openExisting (backupSemantics .|. openReparse) nullPtr
   initial <- open
   directory <-
-    if initial /= invalidHandle then pure initial else do
-      errorCode <- lastError
-      if errorCode /= 2 && errorCode /= 3 then winError "Cannot pin save directory" errorCode else do
-        created <- createDirectory name nullPtr
-        when (created == 0) $ do
-          failure <- lastError
-          when (failure /= 183) (winError "Cannot create save directory" failure)
-        open >>= checkedHandle "Cannot pin newly created save directory"
-  (do
+    if initial /= invalidHandle
+      then pure initial
+      else do
+        errorCode <- lastError
+        if errorCode /= 2 && errorCode /= 3
+          then winError "Cannot pin save directory" errorCode
+          else do
+            created <- createDirectory name nullPtr
+            when (created == 0) $ do
+              failure <- lastError
+              when (failure /= 183) (winError "Cannot create save directory" failure)
+            open >>= checkedHandle "Cannot pin newly created save directory"
+  ( do
       attributes <- checkedAttributes directory
-      require (hasAttribute directoryAttribute attributes && not (hasAttribute reparseAttribute attributes))
+      require
+        (hasAttribute directoryAttribute attributes && not (hasAttribute reparseAttribute attributes))
         "Save directory ancestor is not a plain directory"
       pure directory
-    ) `onException` release directory
+    )
+    `onException` release directory
 
 checkedAttributes :: Handle -> IO Dword
 checkedAttributes handle =
@@ -171,11 +208,12 @@ release = void . closeHandle
 openRegular :: FilePath -> Dword -> Dword -> Dword -> Dword -> IO Handle
 openRegular path access sharing creation flags = withWide path $ \name -> do
   handle <- createFile name access sharing nullPtr creation flags nullPtr >>= checkedHandle "Cannot open save leaf"
-  (do
+  ( do
       attributes <- checkedAttributes handle
       require (not (hasAttribute (directoryAttribute .|. reparseAttribute) attributes)) "Save leaf is not a regular file"
       pure handle
-    ) `onException` release handle
+    )
+    `onException` release handle
 
 leafPath :: FilePath -> String -> IO FilePath
 leafPath root leaf = do
@@ -245,7 +283,8 @@ replacePreferences store temporary = withOperation store $ \root -> do
   source <- leafPath root temporary
   target <- leafPath root "ui-preferences.rdui"
   attributes <- withWide target fileAttributes
-  require (attributes == maxBound || not (hasAttribute (directoryAttribute .|. reparseAttribute) attributes))
+  require
+    (attributes == maxBound || not (hasAttribute (directoryAttribute .|. reparseAttribute) attributes))
     "Preference destination is not a regular file"
   rename source target (replaceExisting .|. renameWriteThrough)
 

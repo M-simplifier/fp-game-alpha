@@ -12,7 +12,7 @@ import Colony.Units (Resource (Stone))
 import Colony.World
 import Control.Concurrent (threadDelay)
 import Control.DeepSeq (force)
-import Control.Exception (Handler(..), IOException, bracket, catch, catches, evaluate)
+import Control.Exception (Handler (..), IOException, bracket, catch, catches, evaluate)
 import Control.Monad (forM_, when)
 import Data.ByteString qualified as BS
 import Data.List (find, intercalate, isPrefixOf)
@@ -20,13 +20,13 @@ import Data.Map.Strict qualified as M
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as TE
 import Data.Word (Word32, Word64)
+import GHC.Clock (getMonotonicTimeNSec)
+import GHC.IO.Encoding (setForeignEncoding, setLocaleEncoding, utf8)
 import GameIO.Graphics qualified as GPU
 import GameIO.Image qualified as Image
 import GameIO.Input qualified as Input
 import GameIO.Platform qualified as Platform
 import GameIO.Platform.Icon (withWindowIcon)
-import GHC.Clock (getMonotonicTimeNSec)
-import GHC.IO.Encoding (setForeignEncoding, setLocaleEncoding, utf8)
 import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game
@@ -41,17 +41,17 @@ import System.Directory
 import System.Environment
 import System.Exit (exitFailure)
 import System.FilePath
-import System.IO (BufferMode(..), Handle, IOMode(..), hPutStrLn, hSetBuffering, withFile)
+import System.IO (BufferMode (..), Handle, IOMode (..), hPutStrLn, hSetBuffering, withFile)
 import Text.Read (readMaybe)
 
 data Options = Options
-  { optionStore :: !FilePath
-  , optionQa :: !(Maybe FilePath)
-  , optionFrames :: !(Maybe Int)
-  , optionPack :: !(Maybe FilePath)
-  , optionNew :: !(Maybe String)
-  , optionHidden :: !Bool
-  , optionMetricsFile :: !(Maybe FilePath)
+  { optionStore :: !FilePath,
+    optionQa :: !(Maybe FilePath),
+    optionFrames :: !(Maybe Int),
+    optionPack :: !(Maybe FilePath),
+    optionNew :: !(Maybe String),
+    optionHidden :: !Bool,
+    optionMetricsFile :: !(Maybe FilePath)
   }
 
 data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool, appNewPack :: !ContentPack, appQaMilestones :: !(M.Map String Double), appPreview :: !(Maybe (PreviewKey, Maybe String))}
@@ -98,12 +98,11 @@ main =
             bracket (loadNativeFont renderer fontBytes ([' ' .. '~'] ++ glyphText)) (unloadNativeFont renderer) $ \font -> do
               start <- getMonotonicTimeNSec
               loop (Host window renderer start metrics) options store font start Input.initialInput (App screen 0 (gameRevision game) 0 0 0 False started pack M.empty Nothing)
-    `catches`
-      [ Handler (\(failure :: IOException) -> startupFailure "保存先や素材を開けませんでした。" (show failure))
-      , Handler (\(failure :: Platform.PlatformError) -> startupFailure "ウィンドウを開けませんでした。" (show failure))
-      , Handler (\(failure :: GPU.GraphicsError) -> startupFailure "画面を描けませんでした。" (show failure))
-      , Handler (\(failure :: GPU.VulkanError) -> startupFailure "Vulkan の描画を始められませんでした。" (show failure))
-      ]
+    `catches` [ Handler (\(failure :: IOException) -> startupFailure "保存先や素材を開けませんでした。" (show failure)),
+                Handler (\(failure :: Platform.PlatformError) -> startupFailure "ウィンドウを開けませんでした。" (show failure)),
+                Handler (\(failure :: GPU.GraphicsError) -> startupFailure "画面を描けませんでした。" (show failure)),
+                Handler (\(failure :: GPU.VulkanError) -> startupFailure "Vulkan の描画を始められませんでした。" (show failure))
+              ]
 
 startupFailure :: String -> String -> IO a
 startupFailure reason detail = do
@@ -152,8 +151,8 @@ loop host@(Host window renderer start metrics) options store font previousTime p
       changes = map snd stampedChanges
       dt = secondsSince previousTime now
       time = secondsSince start now
-      nativePoint = firstJust [Just (x,y) | Input.InputButton Input.PointerLeft True x y <- changes]
-      mouse = maybe (Vector2 (-1) (-1)) (\(x,y) -> Vector2 (fromIntegral x) (fromIntegral y)) (firstJust [nativePoint, Input.pointerPosition input])
+      nativePoint = firstJust [Just (x, y) | Input.InputButton Input.PointerLeft True x y <- changes]
+      mouse = maybe (Vector2 (-1) (-1)) (\(x, y) -> Vector2 (fromIntegral x) (fromIntegral y)) (firstJust [nativePoint, Input.pointerPosition input])
       nativeClick = nativePoint /= Nothing
       close = elem Input.InputClose changes
       focused = Input.hasFocus input
@@ -270,12 +269,12 @@ writeMetrics (Just handle) renderer frame interval preparation status = do
       details = case latest of
         Nothing -> replicate 6 ""
         Just result ->
-          [ show (GPU.framePrepareNSec result)
-          , show (GPU.frameFenceWaitNSec result)
-          , show (GPU.frameEncodeNSec result)
-          , show (GPU.frameSubmitNSec result)
-          , show (GPU.framePresentCallNSec result)
-          , maybe "" show (GPU.frameGPUNSec result)
+          [ show (GPU.framePrepareNSec result),
+            show (GPU.frameFenceWaitNSec result),
+            show (GPU.frameEncodeNSec result),
+            show (GPU.frameSubmitNSec result),
+            show (GPU.framePresentCallNSec result),
+            maybe "" show (GPU.frameGPUNSec result)
           ]
   hPutStrLn handle (intercalate "," (prefix ++ details ++ [show status]))
 
@@ -395,7 +394,8 @@ keyboard changes screen
   | pressed 0x78 = Just ShowLibrary
   | pressed 0x52 && canRotateBuild screen = Just RotateBuilding
   | otherwise = ChangeSpeed . snd <$> find (pressed . fst) (zip [0x31 .. 0x34] [1, 2, 4, 8])
-  where pressed = justPressed changes
+  where
+    pressed = justPressed changes
 
 justPressed :: [Input.InputChange] -> Word32 -> Bool
 justPressed changes key = elem key [Input.keyVirtual message | Input.InputKey Input.KeyPressed message <- changes]
@@ -413,13 +413,14 @@ cameraInput input changes dt screen
           q = justPressed changes 0x51
           e = justPressed changes 0x45
           zoom = sum [fromIntegral y / 120 | Input.InputWheel _ _ _ y <- changes]
-          next = camera
-            { cameraX = cameraX camera + realToFrac dt * 25 * (if right then 1 else 0) - realToFrac dt * 25 * (if left then 1 else 0),
-              cameraY = cameraY camera + realToFrac dt * 25 * (if down then 1 else 0) - realToFrac dt * 25 * (if up then 1 else 0),
-              cameraRotation = cameraRotation camera + (if q then -1 else 0) + (if e then 1 else 0),
-              cameraScale = max 4 (min 30 (cameraScale camera + zoom))
-            }
-      in screen {screenCamera = next}
+          next =
+            camera
+              { cameraX = cameraX camera + realToFrac dt * 25 * (if right then 1 else 0) - realToFrac dt * 25 * (if left then 1 else 0),
+                cameraY = cameraY camera + realToFrac dt * 25 * (if down then 1 else 0) - realToFrac dt * 25 * (if up then 1 else 0),
+                cameraRotation = cameraRotation camera + (if q then -1 else 0) + (if e then 1 else 0),
+                cameraScale = max 4 (min 30 (cameraScale camera + zoom))
+              }
+       in screen {screenCamera = next}
 
 perform :: Store.Store -> App -> UiCommand -> IO App
 perform store app command = do

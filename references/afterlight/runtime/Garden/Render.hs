@@ -196,9 +196,9 @@ renderPhotoToast resources line = withUIScale $ \width height zoom ->
 rayPainter :: Resources -> (Int, Int) -> Float -> Maybe SceneView -> HUD.Painter
 rayPainter resources extent zoom view =
   (rayShapePainter extent)
-    { HUD.textAt = \label x y size tint -> textAt resources label x y size (rayColor tint)
-    , HUD.textWidth = textWidth resources
-    , HUD.projectPoint = \point -> case view of
+    { HUD.textAt = \label x y size tint -> textAt resources label x y size (rayColor tint),
+      HUD.textWidth = textWidth resources,
+      HUD.projectPoint = \point -> case view of
         Nothing -> pure (0, 0)
         Just scene -> do
           Vector2 x y <- getWorldToScreen (toRay point) (cameraFor scene)
@@ -206,16 +206,17 @@ rayPainter resources extent zoom view =
     }
 
 rayShapePainter :: (Int, Int) -> HUD.Painter
-rayShapePainter extent = HUD.Painter
-  { HUD.viewport = extent
-  , HUD.drawRectangle = \x y width height tint -> drawRectangle x y width height (rayColor tint)
-  , HUD.drawRectangleGradientV = \x y width height top bottom -> drawRectangleGradientV x y width height (rayColor top) (rayColor bottom)
-  , HUD.drawLine = \x y x' y' tint -> drawLine x y x' y' (rayColor tint)
-  , HUD.textAt = \_ _ _ _ _ -> pure ()
-  , HUD.drawText = \label x y size tint -> drawText label x y size (rayColor tint)
-  , HUD.textWidth = \_ _ -> pure 0
-  , HUD.projectPoint = \_ -> pure (0, 0)
-  }
+rayShapePainter extent =
+  HUD.Painter
+    { HUD.viewport = extent,
+      HUD.drawRectangle = \x y width height tint -> drawRectangle x y width height (rayColor tint),
+      HUD.drawRectangleGradientV = \x y width height top bottom -> drawRectangleGradientV x y width height (rayColor top) (rayColor bottom),
+      HUD.drawLine = \x y x' y' tint -> drawLine x y x' y' (rayColor tint),
+      HUD.textAt = \_ _ _ _ _ -> pure (),
+      HUD.drawText = \label x y size tint -> drawText label x y size (rayColor tint),
+      HUD.textWidth = \_ _ -> pure 0,
+      HUD.projectPoint = \_ -> pure (0, 0)
+    }
 
 rayColor :: HUD.Color -> Color
 rayColor (HUD.Color r g b a) = Color (fromIntegral r) (fromIntegral g) (fromIntegral b) (fromIntegral a)

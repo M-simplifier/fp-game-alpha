@@ -3,14 +3,19 @@
 -- The authored HUD and photo layout is shared by the desktop and browser
 -- hosts. Painters receive coordinates in the layout's viewport units.
 module Garden.Render.HUD
-  ( Painter (..)
-  , Color (..)
-  , renderInterface, renderMenu, renderSaveFeedback
-  , renderPhotoFrame, renderPhotoChrome, renderPhotoToast
-  ) where
+  ( Painter (..),
+    Color (..),
+    renderInterface,
+    renderMenu,
+    renderSaveFeedback,
+    renderPhotoFrame,
+    renderPhotoChrome,
+    renderPhotoToast,
+  )
+where
 
 import Control.Monad (forM_, when)
-import qualified Data.Map.Strict as M
+import Data.Map.Strict qualified as M
 import Garden.Mesh (RGB (..), palette)
 import Garden.Photo
 import Garden.Types
@@ -20,14 +25,14 @@ import Text.Printf (printf)
 data Color = Color !Int !Int !Int !Int
 
 data Painter = Painter
-  { viewport :: !(Int, Int)
-  , drawRectangle :: Int -> Int -> Int -> Int -> Color -> IO ()
-  , drawRectangleGradientV :: Int -> Int -> Int -> Int -> Color -> Color -> IO ()
-  , drawLine :: Int -> Int -> Int -> Int -> Color -> IO ()
-  , textAt :: String -> Float -> Float -> Float -> Color -> IO ()
-  , drawText :: String -> Int -> Int -> Int -> Color -> IO ()
-  , textWidth :: String -> Float -> IO Float
-  , projectPoint :: V3 -> IO (Float, Float)
+  { viewport :: !(Int, Int),
+    drawRectangle :: Int -> Int -> Int -> Int -> Color -> IO (),
+    drawRectangleGradientV :: Int -> Int -> Int -> Int -> Color -> Color -> IO (),
+    drawLine :: Int -> Int -> Int -> Int -> Color -> IO (),
+    textAt :: String -> Float -> Float -> Float -> Color -> IO (),
+    drawText :: String -> Int -> Int -> Int -> Color -> IO (),
+    textWidth :: String -> Float -> IO Float,
+    projectPoint :: V3 -> IO (Float, Float)
   }
 
 renderInterface :: Painter -> String -> SceneView -> Bool -> Float -> IO ()
@@ -113,7 +118,8 @@ renderInterface Painter {..} quality view debug fps = do
 renderMenu :: Painter -> String -> Maybe Bool -> Bool -> IO ()
 renderMenu Painter {..} resume saved invertY = do
   let (w, h) = viewport
-      x = fromIntegral w / 2 - 440; y = fromIntegral h / 2 - 205
+      x = fromIntegral w / 2 - 440
+      y = fromIntegral h / 2 - 205
   drawRectangle 0 0 w h (Color 3 14 23 211)
   textAt "余光の庭" x y 38 (Color 239 235 207 255)
   textAt resume x (y + 75) 23 (Color 207 229 216 255)
@@ -145,12 +151,12 @@ renderMenu Painter {..} resume saved invertY = do
 renderSaveFeedback :: Painter -> Maybe Bool -> IO ()
 renderSaveFeedback Painter {..} status = forM_ status $ \ok ->
   let (w, h) = viewport
-  in textAt
-    (if ok then "記録しました" else "記録できませんでした。F5 で再試行")
-    (fromIntegral w - 430)
-    (fromIntegral h - 112)
-    18
-    (if ok then Color 211 223 183 255 else Color 245 150 139 255)
+   in textAt
+        (if ok then "記録しました" else "記録できませんでした。F5 で再試行")
+        (fromIntegral w - 430)
+        (fromIntegral h - 112)
+        18
+        (if ok then Color 211 223 183 255 else Color 245 150 139 255)
 
 renderPhotoFrame :: Painter -> Photo -> IO ()
 renderPhotoFrame Painter {..} p = when (photoCinema p) $ do
@@ -190,7 +196,6 @@ renderPhotoToast Painter {..} line = do
   let (w, h) = viewport
   drawRectangle 24 (h - 190) (w - 48) 42 (Color 6 21 28 230)
   textAt line 40 (fromIntegral h - 180) 16 (Color 243 231 191 255)
-
 
 toColor :: RGB -> Float -> Color
 toColor (RGB r g b) alpha = Color (channel r) (channel g) (channel b) (channel alpha)

@@ -1,6 +1,11 @@
 module RedDune.Native.Font
-  ( NativeFont, loadNativeFont, unloadNativeFont, drawNativeText, measureNativeText
-  ) where
+  ( NativeFont,
+    loadNativeFont,
+    unloadNativeFont,
+    drawNativeText,
+    measureNativeText,
+  )
+where
 
 import Control.Monad.IO.Class (liftIO)
 import Data.ByteString qualified as BS
@@ -44,7 +49,7 @@ style (NativeFont texture available) label size spacing =
       scale = realToFrac size / max 1 (ascender - descender)
       tracking = realToFrac spacing / scale
       caption = map (\c -> if Set.member c available then c else '?') label
-  in (ascender, scale, tracking, caption)
+   in (ascender, scale, tracking, caption)
 
-result :: Show e => Either e a -> IO a
+result :: (Show e) => Either e a -> IO a
 result = either (ioError . userError . show) pure

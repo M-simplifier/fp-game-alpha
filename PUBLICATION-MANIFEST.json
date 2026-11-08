@@ -980,7 +980,7 @@
   },
   {
    "path": "references/afterlight/README.md",
-   "sha256_lf": "3f54506e075bd8777fa5b915582c413d1efbcafe2a4bd40ade603223c95ccc02"
+   "sha256_lf": "ebf396bfa10ddff968d101836ca13049689d465dad4a1c92bbeafac15483f076"
   },
   {
    "path": "references/afterlight/THIRD-PARTY.md",
@@ -1020,7 +1020,7 @@
   },
   {
    "path": "references/afterlight/dependencies/splitmix-win64/Init.hs",
-   "sha256_lf": "70204cc2e9e2a919a145128e3e9e3ca6c481945477c291854b2f3be1edbcf5f2"
+   "sha256_lf": "df60de685eedfce3a4e4bccc9c28ed24aea0af82da49c37712d27f942e0e816d"
   },
   {
    "path": "references/afterlight/dependencies/splitmix-win64/README.md",
@@ -1040,7 +1040,7 @@
   },
   {
    "path": "references/afterlight/runtime/Garden/Audio.hs",
-   "sha256_lf": "0895efbc11ea7c6d452527e8842c1f8ae87ff47f35d759e85ef9c67416b216c8"
+   "sha256_lf": "14254e962a0b6fb6810b35daafe5602a5e621dd9d4b18714614ae6c359d0ee33"
   },
   {
    "path": "references/afterlight/runtime/Garden/Input.hs",
@@ -1048,11 +1048,11 @@
   },
   {
    "path": "references/afterlight/runtime/Garden/Input/Native.hs",
-   "sha256_lf": "a50558f6e53cb67ec5fc6a14e10127aec2dcd93ab83f6f13312628d674e6876b"
+   "sha256_lf": "a5e2a9c0a75da442d4cdecb0053a9eb8f2e1e58b2f9767ecdd72b1c56e8a59e4"
   },
   {
    "path": "references/afterlight/runtime/Garden/Render.hs",
-   "sha256_lf": "ac43d96b94e0e52ab98f582309d494984e5d82cb7c48dad63d912f5917fc4581"
+   "sha256_lf": "a95214b318f7546da79fd565295472cc4e4ab83029c73d8ac304b5be1ef00939"
   },
   {
    "path": "references/afterlight/runtime/Garden/Render/GPU.hs",
@@ -1060,19 +1060,19 @@
   },
   {
    "path": "references/afterlight/runtime/Garden/Render/HUD.hs",
-   "sha256_lf": "a33efae97c7b15bff260f263bd7d4d12d2cf575d5363434f3d97d4de9b2502d0"
+   "sha256_lf": "0a2237aec90a74ffa4e06e487ab0b4622ce3d660350449d6c2ce8815313b6eeb"
   },
   {
    "path": "references/afterlight/runtime/Garden/Render/Native.hs",
-   "sha256_lf": "c9a1b1ed50bb3534c5990a9e4d1ff20adadccf1a1d1de5056c60b9c055a39424"
+   "sha256_lf": "d2c934f1e3364ce448bdc580b10ca1fc7d8c2e20e9ea571ce389aa335f14bfe2"
   },
   {
    "path": "references/afterlight/runtime/Garden/Render/NativeHUD.hs",
-   "sha256_lf": "5afc32f6b45894ffefe649a6b20ba9843c9cc7a8da8d89e5f4eee00079dd3995"
+   "sha256_lf": "f4009e966166cc7c532d635b54f3b7e6ea3d5654ed9ec65e67ad0d336cc04274"
   },
   {
    "path": "references/afterlight/runtime/Garden/Render/NativeShaders.hs",
-   "sha256_lf": "09aaf8a13d3837bad0c7f045e7f26c771a219958845ac387c8e4b652e4d10f19"
+   "sha256_lf": "bea62e484cb9b338a6622c59cc1b93a2087efbf5082157429bfad149a9c8104d"
   },
   {
    "path": "references/afterlight/runtime/Garden/Render/Radiance.hs",
@@ -1084,7 +1084,7 @@
   },
   {
    "path": "references/afterlight/runtime/Garden/Runtime.hs",
-   "sha256_lf": "25bd234aabd4761bcf4749992e47d8e1d3bca7a198bd2d84667e5ae2b66ce96d"
+   "sha256_lf": "60eb9d3dedcb6db540cd9f241e2d32a0dac9010281e9971751b55ba05dff76e9"
   },
   {
    "path": "references/afterlight/runtime/Garden/Runtime/Control.hs",
@@ -1100,7 +1100,7 @@
   },
   {
    "path": "references/afterlight/scripts/check-cpp-format.py",
-   "sha256_lf": "d67717a0182091137767655bea491382e8dd3a31676eca8ac8b6d8fea4339f8c"
+   "sha256_lf": "c931e3d8b5e16a614b89ec5775c15c08843f3875268080c3284748404774df27"
   },
   {
    "path": "references/afterlight/scripts/contact-sheet.ps1",
@@ -1228,7 +1228,7 @@
   },
   {
    "path": "references/afterlight/tools/GardenAudioCheck.hs",
-   "sha256_lf": "d931041af99006fbcbd08da862dffa3aa6c8bf7af70f7b500f8b54d00f5b6ff8"
+   "sha256_lf": "13a54e9a7d276e48d4dda0939f6fcbbe5d530781a174c7e930aa9de3dc9e9e0a"
   },
   {
    "path": "references/afterlight/tools/GardenCheck.hs",
@@ -1244,7 +1244,7 @@
   },
   {
    "path": "references/afterlight/tools/GardenVulkanCheck.hs",
-   "sha256_lf": "d6ed2ffc064daf7a413dd743403b8db6d528e323d3389deca7895f1b9c0531df"
+   "sha256_lf": "558a9fd9fd1638b45d49013be396693a8429cac46dc2e0dae254bf262730d6e8"
   },
   {
    "path": "references/afterlight/tools/Observe-Garden.ps1",
@@ -2600,15 +2600,15 @@
   },
   {
    "path": "references/red-dune/native/Main.hs",
-   "sha256_lf": "33061bcb4400cc63e3c52ec894647806b5a93d169dc84a1bc758994c3e4bf566"
+   "sha256_lf": "cd9757f4bae99b9842071c602fcbba78bad320088d6027f249fc0ff4b626352e"
   },
   {
    "path": "references/red-dune/native/RedDune/Native/Canvas.hs",
-   "sha256_lf": "100fbb9875bac7a180f23dbe1d683a12636857bcb6183160e3490a903b1bde48"
+   "sha256_lf": "b62e03a831ab8b6efacea937fa2ad937f3dca1d4192f48e9c9139d749e5119df"
   },
   {
    "path": "references/red-dune/native/RedDune/Native/Font.hs",
-   "sha256_lf": "1e474319e95aee94c9e14827e4a5c1ee6b66b137bb5228052b26517a663ce113"
+   "sha256_lf": "e66ec2eb31d25955973fd574897cc673d881cc8199e61a93105ee54f63c9b17a"
   },
   {
    "path": "references/red-dune/native/RedDune/Native/Help.hs",
@@ -2624,11 +2624,11 @@
   },
   {
    "path": "references/red-dune/native/RedDune/Native/Store/Win32.hs",
-   "sha256_lf": "64cfde1c29d562fd1765b100f455425e51a7fd536a5df6be28c3e46032abe5f3"
+   "sha256_lf": "70c12af802868f1b3d7b2ff2bd39ffb77f2102d514ee3c70571797e7ee3dc7d7"
   },
   {
    "path": "references/red-dune/native/RedDune/Native/View.hs",
-   "sha256_lf": "082d0b7b4c1392b2d790a7ede8b2773c6d8ac91f949292f8f6885eb01a265557"
+   "sha256_lf": "9b40e2993d6010b767faa795cb403546a814d2a1d8024bbd9610ca05f512eeb0"
   },
   {
    "path": "references/red-dune/native/assets/glyphs.txt",

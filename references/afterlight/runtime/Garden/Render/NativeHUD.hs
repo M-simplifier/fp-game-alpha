@@ -1,20 +1,23 @@
 module Garden.Render.NativeHUD
-  ( withNativeHUD, recordHUD, drawLoading
-  ) where
+  ( withNativeHUD,
+    recordHUD,
+    drawLoading,
+  )
+where
 
 import Control.Monad (void, when)
-import qualified Data.ByteString as BS
+import Data.ByteString qualified as BS
 import Data.IORef (modifyIORef', newIORef, readIORef)
-import qualified GameIO.Graphics as GPU
+import GameIO.Graphics qualified as GPU
 import GameIO.Platform (Window, windowFramebufferSize)
-import qualified GameIO.Text as Font
-import qualified GameIO.Text.Atlas as Atlas
+import GameIO.Text qualified as Font
+import GameIO.Text.Atlas qualified as Atlas
 import GameIO.Text.Render
 import Garden.Photo (photoBasis)
-import qualified Garden.Render.HUD as HUD
+import Garden.Render.HUD qualified as HUD
 import Garden.Render.Settings (qualityName)
 import Garden.Types
-import Garden.View (SceneView(..), uiCorpus)
+import Garden.View (SceneView (..), uiCorpus)
 
 withNativeHUD :: GPU.Renderer -> (AtlasTexture -> IO a) -> IO a
 withNativeHUD renderer use = do
@@ -49,20 +52,21 @@ drawLoading window renderer font progress = do
     void (GPU.renderFrame renderer (GPU.Frame (GPU.Color 0.055 0.141 0.169 1) [] batches))
 
 painter :: (GPU.OverlayBatch -> IO ()) -> (Int, Int) -> Float -> AtlasTexture -> Maybe SceneView -> HUD.Painter
-painter emit (width, height) zoom font scene = HUD.Painter
-  { HUD.viewport = (round (fromIntegral width / zoom), round (fromIntegral height / zoom))
-  , HUD.drawRectangle = \x y w h color -> rectangle x y w h color color
-  , HUD.drawRectangleGradientV = rectangle
-  , HUD.drawLine = \x y x' y' color ->
-      rectangle (min x x') (min y y') (abs (x' - x) + 1) (abs (y' - y) + 1) color color
-  , HUD.textAt = text
-  , HUD.drawText = \label x y size color -> text label (fromIntegral x) (fromIntegral y) (fromIntegral size) color
-  , HUD.textWidth = \label size -> do
-      let scale' = textScale size
-      run <- checked (Atlas.atlasLine atlas (1 / scale') label)
-      pure (realToFrac (Font.runAdvance run * scale'))
-  , HUD.projectPoint = pure . project
-  }
+painter emit (width, height) zoom font scene =
+  HUD.Painter
+    { HUD.viewport = (round (fromIntegral width / zoom), round (fromIntegral height / zoom)),
+      HUD.drawRectangle = \x y w h color -> rectangle x y w h color color,
+      HUD.drawRectangleGradientV = rectangle,
+      HUD.drawLine = \x y x' y' color ->
+        rectangle (min x x') (min y y') (abs (x' - x) + 1) (abs (y' - y) + 1) color color,
+      HUD.textAt = text,
+      HUD.drawText = \label x y size color -> text label (fromIntegral x) (fromIntegral y) (fromIntegral size) color,
+      HUD.textWidth = \label size -> do
+        let scale' = textScale size
+        run <- checked (Atlas.atlasLine atlas (1 / scale') label)
+        pure (realToFrac (Font.runAdvance run * scale')),
+      HUD.projectPoint = pure . project
+    }
   where
     atlas = textureAtlas font
     (ascent, descent, _) = Atlas.atlasLineMetrics atlas
@@ -72,8 +76,16 @@ painter emit (width, height) zoom font scene = HUD.Painter
     text label x y size color = do
       let scale' = textScale size
           magnify value = realToFrac (value * zoom)
-      (_, batch) <- checked $ atlasTextBatch font (magnify x) (magnify y + ascent * scale' * realToFrac zoom)
-        (scale' * realToFrac zoom) (1 / scale') (toColor color) label
+      (_, batch) <-
+        checked $
+          atlasTextBatch
+            font
+            (magnify x)
+            (magnify y + ascent * scale' * realToFrac zoom)
+            (scale' * realToFrac zoom)
+            (1 / scale')
+            (toColor color)
+            label
       emit batch
     rectangle x y w h top bottom = when (w > 0 && h > 0) $ do
       let vertex a b color = GPU.Vertex (fromIntegral a * zoom) (fromIntegral b * zoom) 0 0 0 (toColor color)
@@ -91,13 +103,17 @@ painter emit (width, height) zoom font scene = HUD.Painter
             depth = dot delta forward'
             halfHeight = fromIntegral height / 2
             perspective = halfHeight / (tan (34 * pi / 180) * depth)
-        in if depth <= 0 then (0, 0)
-           else ((fromIntegral width / 2 + dot delta right * perspective) / zoom,
-                 (halfHeight - dot delta up * perspective) / zoom)
+         in if depth <= 0
+              then (0, 0)
+              else
+                ( (fromIntegral width / 2 + dot delta right * perspective) / zoom,
+                  (halfHeight - dot delta up * perspective) / zoom
+                )
 
 toColor :: HUD.Color -> GPU.Color
 toColor (HUD.Color r g b a) = GPU.Color (channel r) (channel g) (channel b) (channel a)
-  where channel value = fromIntegral value / 255
+  where
+    channel value = fromIntegral value / 255
 
-checked :: Show e => Either e a -> IO a
+checked :: (Show e) => Either e a -> IO a
 checked = either (ioError . userError . show) pure

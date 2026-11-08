@@ -1,19 +1,32 @@
 {-# LANGUAGE CPP #-}
 
-module Garden.Audio
-  ( AudioAssets
-  , ensureAudio
-  , generateAudio
-  , loadAudioAssets
-  , updateAudio
-  , playCues
-  , selectedCues
-  , shutdownAudio
 #if defined(AFTERLIGHT_GAMEIO_AUDIO)
-  , AudioSnapshot (..)
-  , audioSnapshot
+module Garden.Audio
+  ( AudioAssets,
+    ensureAudio,
+    generateAudio,
+    loadAudioAssets,
+    updateAudio,
+    playCues,
+    selectedCues,
+    shutdownAudio,
+    AudioSnapshot (..),
+    audioSnapshot,
+  )
+where
+#else
+module Garden.Audio
+  ( AudioAssets,
+    ensureAudio,
+    generateAudio,
+    loadAudioAssets,
+    updateAudio,
+    playCues,
+    selectedCues,
+    shutdownAudio,
+  )
+where
 #endif
-  ) where
 
 import Control.Monad (forM_, unless)
 import Data.ByteString.Builder (toLazyByteString)
@@ -83,7 +96,7 @@ selectedCues events
 ambienceGains :: Float -> Bool -> (Float, Float)
 ambienceGains veil paused =
   let level = if paused then 0.10 else 0.55
-  in (level * sqrt (max 0 (1 - veil)), level * sqrt (max 0 veil))
+   in (level * sqrt (max 0 (1 - veil)), level * sqrt (max 0 veil))
 
 #if defined(AFTERLIGHT_GAMEIO_AUDIO)
 loadAudioAssets :: IO AudioAssets

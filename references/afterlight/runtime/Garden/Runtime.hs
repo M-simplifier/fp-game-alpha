@@ -1,10 +1,10 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE PatternSynonyms #-}
 
-module Garden.Runtime
 #if defined(AFTERLIGHT_GAMEIO)
-  (runGarden)
+module Garden.Runtime (runGarden) where
 #else
+module Garden.Runtime
   ( GardenApp,
     RenderQuality (..),
     StartupStage (..),
@@ -21,8 +21,8 @@ module Garden.Runtime
     shutdownGarden,
     runGarden,
   )
-#endif
 where
+#endif
 
 #if defined(AFTERLIGHT_GAMEIO)
 import Control.Concurrent (threadDelay)
@@ -106,6 +106,8 @@ data RunOptions = RunOptions
     optionControl :: ControlMode
   }
 
+-- CPP branches are formatted by scripts/check-cpp-format.py.
+{- ORMOLU_DISABLE -}
 readRunOptions :: IO (RunOptions, Int, Int)
 readRunOptions = do
   scene <- lookupEnv "GARDEN_SCENE"
@@ -125,6 +127,8 @@ readRunOptions = do
   requestedControl <- lookupEnv "GARDEN_INPUT"
   control <- either (ioError . userError) pure (controlMode requestedControl (any isJust [frameLimit, shotFrame] || isJust tour))
   pure (RunOptions scene frameLimit shotFrame shotName tour pausedAtStart hiddenAtStart control, width, height)
+
+{- ORMOLU_ENABLE -}
 
 loadWorldFor :: RunOptions -> IO (World, SceneView)
 loadWorldFor options = do
@@ -504,13 +508,13 @@ logSessionTiming (Session _ _ _ timingRef _ _ _ _ _ _) = do
   unless (null rows) (writeTiming rows)
 
 data FrameSource = FrameSource
-  { frameTime :: !Double
-  , frameClosing :: !Bool
-  , frameCaptureLost :: !Bool
-  , readFramePresses :: IO [KeyboardKey]
-  , readFrameFocus :: IO Bool
-  , readFramePhoto :: [KeyboardKey] -> IO PhotoInput
-  , readFrameGame :: Bool -> Int -> [KeyboardKey] -> IO Input
+  { frameTime :: !Double,
+    frameClosing :: !Bool,
+    frameCaptureLost :: !Bool,
+    readFramePresses :: IO [KeyboardKey],
+    readFrameFocus :: IO Bool,
+    readFramePhoto :: [KeyboardKey] -> IO PhotoInput,
+    readFrameGame :: Bool -> Int -> [KeyboardKey] -> IO Input
   }
 
 data FrameChrome
@@ -588,6 +592,8 @@ paceFrame began = do
     subtract now <$> clockTime
 
 #else
+-- CPP branches are formatted by scripts/check-cpp-format.py.
+{- ORMOLU_DISABLE -}
 frameSource :: Resources -> ControlMode -> IO FrameSource
 frameSource _ mode = do
   now <- clockTime
@@ -597,6 +603,8 @@ frameSource _ mode = do
   close <- windowShouldClose
 #endif
   pure (FrameSource now close False (if mode == Interactive then readPresses else pure []) isWindowFocused pollPhotoInput pollInput)
+
+{- ORMOLU_ENABLE -}
 
 switchDisplay :: Resources -> IO ()
 switchDisplay _ = toggleBorderlessWindowed

@@ -68,6 +68,6 @@ by CPP use a branch-aware check with the same verified Ormolu:
 python references/afterlight/scripts/check-cpp-format.py
 ```
 
-`--write` formats both host branches and refuses a change to either current
-preprocessed module. This requires `cpp`; it compares the current input with
-the proposed formatting, with no chain of historical approval hashes.
+`--write` formats the marked declarations and checks that preprocessing yields
+equivalent modules for the Game IO, legacy native, and browser hosts. It uses
+`cpp` and compares the current source with the proposed formatting.
