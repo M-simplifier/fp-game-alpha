@@ -10,8 +10,12 @@ SOURCE = 'source-and-kernel'
 NATIVE = 'native-tooling'
 AFTERLIGHT = 'afterlight-pure-core'
 EDITOR = 'haskell-design-linux'
-HOSTS = ['ubuntu-latest', 'windows-latest', 'macos-latest']
-FULL = {SOURCE: HOSTS, NATIVE: True, AFTERLIGHT: True, EDITOR: True}
+LINUX = 'ubuntu-latest'
+WINDOWS = 'windows-latest'
+MACOS = 'macos-latest'
+HOSTS = [LINUX, WINDOWS, MACOS]
+KERNEL_HOSTS = [LINUX, WINDOWS]
+FULL = {SOURCE: KERNEL_HOSTS, NATIVE: HOSTS, AFTERLIGHT: True, EDITOR: True}
 
 # These documents are also inputs to the generated game distribution.
 RENDERED_DOCS = {
@@ -29,51 +33,81 @@ PUBLIC_FILES = {
     'tools/check_site.py', 'tools/research.py',
     'tools/test_research.py', 'tools/test_research_ui.cjs',
 }
+NATIVE_TRANSPORT = {
+    'tools/haskell/src/FpGame/Process.hs', 'tools/haskell/test/ProcessSpec.hs',
+    'tools/test_native_cli.py', 'tools/test_workspace.py',
+}
 
 
 def selection(paths):
     jobs = {}
+    source, native = set(), set()
     for path in paths:
         if path in RENDERED_DOCS or path.startswith('.agents/skills/learn-code/'):
-            jobs[NATIVE] = True
+            native.add(LINUX)
         elif (path in PUBLIC_FILES or path.startswith('site/')
               or (path.startswith(('docs/', 'research/', '.agents/skills/')) and path.endswith('.md'))):
             # The public job checks content, generated site output, and source hashes.
             continue
         elif path.startswith('libraries/'):
-            jobs.update({SOURCE: HOSTS, NATIVE: True, AFTERLIGHT: True})
+            source.add(LINUX)
+            native.add(LINUX)
+            jobs[AFTERLIGHT] = True
+            if path.endswith('.cabal'):
+                source.add(WINDOWS)
+                native.add(WINDOWS)
         elif path.startswith('templates/'):
-            jobs.update({SOURCE: HOSTS, NATIVE: True})
-        elif path in {'tools/publication.py', 'publication/policy.json'}:
-            jobs[SOURCE] = HOSTS
-        elif (path == 'cabal.project' or path.startswith((
+            source.add(LINUX)
+            native.add(LINUX)
+            if path.endswith(('/cabal.project', '/build.config', '.cabal', '.cabal.tmpl')):
+                source.add(WINDOWS)
+                native.add(WINDOWS)
+        elif path in {'tools/publication.py', 'publication/policy.json', 'tools/test_tools.py',
+                      'cabal.project', 'tools/play.py', 'tools/test_play.py'}:
+            source.update(KERNEL_HOSTS)
+        elif (path.startswith((
               'references/garden/', 'references/lantern/', 'references/paper-circuit/',
               'references/river/', 'references/station/', 'references/tapline/'))
-              or path in {'tools/play.py', 'tools/test_play.py', 'tools/test_lantern_api.py',
-                          'tools/test_river_api.py', 'tools/test_station_api.py'}):
-            jobs[SOURCE] = HOSTS
+              or path in {'tools/test_lantern_api.py', 'tools/test_river_api.py', 'tools/test_station_api.py'}):
+            source.add(LINUX)
+            if path.endswith('.cabal'):
+                source.add(WINDOWS)
         elif path.startswith('references/afterlight/'):
-            jobs.setdefault(SOURCE, HOSTS[:1])
+            source.add(LINUX)
             jobs[AFTERLIGHT] = True
         elif path.startswith(('references/red-dune/', 'references/signal-courier/',
                               'research/frontiers/free/', 'tools/quantity/')):
-            jobs.setdefault(SOURCE, HOSTS[:1])
+            source.add(LINUX)
         elif path.startswith(('editors/haskell-design/', 'editors/neovim/')):
-            jobs.setdefault(SOURCE, HOSTS[:1])
+            source.add(LINUX)
             jobs[EDITOR] = True
             if path.startswith('editors/neovim/'):
-                jobs[NATIVE] = True
+                native.add(LINUX)
         elif path.startswith('editors/vscode/'):
-            jobs.setdefault(SOURCE, HOSTS[:1])
-            jobs[NATIVE] = True
-        elif (path.startswith(('tools/haskell/', 'tools/windows-console/', 'tools/acceptance/'))
-              or path in {'tools/bootstrap-fp-game.ps1', 'tools/bootstrap-fp-game.sh', 'tools/docs_lint.py',
-                          'tools/test_native_cli.py', 'tools/test_windows_toolchain_paths.py', 'tools/test_workspace.py'}):
-            jobs.setdefault(SOURCE, HOSTS[:1])
-            jobs[NATIVE] = True
+            source.add(LINUX)
+            native.update(KERNEL_HOSTS)
+        elif path in NATIVE_TRANSPORT or path.startswith(('tools/acceptance/', 'tools/haskell/cabal.project')) or (
+                path.startswith('tools/haskell/') and path.endswith('.cabal')):
+            source.add(LINUX)
+            native.update(HOSTS)
+        elif path == 'tools/bootstrap-fp-game.sh':
+            native.update((LINUX, MACOS))
+        elif path.startswith('tools/windows-console/') or path in {
+                'tools/bootstrap-fp-game.ps1', 'tools/test_windows_toolchain_paths.py'}:
+            source.add(LINUX)
+            native.add(WINDOWS)
+        elif path.startswith('tools/haskell/') or path == 'tools/inspect_haskell.py':
+            source.add(LINUX)
+            native.update(KERNEL_HOSTS)
+        elif path == 'tools/docs_lint.py':
+            native.add(LINUX)
         else:
             # CI, formatter/toolchain configuration and unfamiliar paths run everything.
             return FULL
+    if source:
+        jobs[SOURCE] = [host for host in KERNEL_HOSTS if host in source]
+    if native:
+        jobs[NATIVE] = [host for host in HOSTS if host in native]
     return jobs
 
 

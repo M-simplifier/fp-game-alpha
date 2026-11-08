@@ -60,11 +60,11 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "99b1df158192113c442a271d7845f9f8d9b3f688b356a5edabb58e4b43c05863"
+   "sha256_lf": "89a35d74b7f0fec72d2d4c43f0b7db39709b3b0abf06398ab94d9f5bdb596db6"
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "4a55d8791f5ff9b86b50ee1566738140185429c49d73c2cecffb5e7ad0d7fd7f"
+   "sha256_lf": "c2fb3b043d39deab42372eb55d7a9f88a7c0b34b79f83b5e93dc3b6ccc75db43"
   },
   {
    "path": ".github/workflows/red-dune.yml",
@@ -164,7 +164,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "cd66f82dbd3a35e01942264d281355396732336d8ab8b4f68c172c65679463fb"
+   "sha256_lf": "96e82fc0895171b89a2e86ca7c349facae249f6406055d7971b29fa509660ade"
   },
   {
    "path": "docs/new-game.md",
@@ -3335,8 +3335,12 @@
    "sha256_lf": "9ae266b958a50eed4ff8d768e94765bfebf6f715907dde7561ba6370b1be6629"
   },
   {
+   "path": "tools/ci_build_host.sh",
+   "sha256_lf": "432db1af38d542db566cff56fc119fca991db0ff729306272a8e03599eb47ddf"
+  },
+  {
    "path": "tools/ci_selection.py",
-   "sha256_lf": "0e6bf70bb7fe6181caf808d1c6f507680ebb0727d65baea23c04d564e7a36370"
+   "sha256_lf": "037a01b2cb9da45ccc2c639aac1a7dbf00d4531e940687b019e9fc5836bd0980"
   },
   {
    "path": "tools/docs_lint.py",
@@ -3416,7 +3420,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Process.hs",
-   "sha256_lf": "3c15e84e3c1b0e90cb16da506d3456d4ce93b0ea3c5704ecf3e2379af6b52a25"
+   "sha256_lf": "47dbee6cc48e975f4950e7ea7b907fe0933b76b1a0f4b4c35b8363232a70f963"
   },
   {
    "path": "tools/haskell/src/FpGame/Result.hs",
@@ -3504,7 +3508,7 @@
   },
   {
    "path": "tools/test_ci_selection.py",
-   "sha256_lf": "1a229f421dd8d9e97dd0585a16c8955e465fea9d64689e54f80439914c74277c"
+   "sha256_lf": "4773a80e3a7d457d736e0e0145d2847a2923be990e7f6c5adcb7f97ea1a25c4f"
   },
   {
    "path": "tools/test_editors.py",
