@@ -1,5 +1,3 @@
-{-# LANGUAGE PatternSynonyms #-}
-
 module RedDune.Native.View where
 
 import Colony.Construction qualified as C
@@ -20,9 +18,7 @@ import Data.List (find, isInfixOf, sortOn)
 import Data.Map.Strict qualified as M
 import Data.Set qualified as Set
 import Data.Word (Word64)
-import Raylib.Core
-import Raylib.Core.Shapes
-import Raylib.Types (Color (..), Rectangle (..), Vector2, pattern Vector2)
+import RedDune.Native.Canvas
 import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game
@@ -139,7 +135,7 @@ data WorldCue = WorldCue {cueX :: !Float, cueY :: !Float, cueLabel :: !String, c
 data WorldLabel = WorldLabel
   { worldLabelPriority :: !Int,
     worldLabelBounds :: !Rectangle,
-    drawWorldLabel :: IO ()
+    drawWorldLabel :: Drawing ()
   }
 
 fadeCues :: Double -> [WorldCue] -> [WorldCue]
@@ -180,13 +176,13 @@ water = Color 43 117 154 255
 warning = Color 194 91 45 255
 line = Color 209 182 154 255
 
-txt :: NativeFont -> String -> Float -> Float -> Float -> Color -> IO ()
+txt :: NativeFont -> String -> Float -> Float -> Float -> Color -> Drawing ()
 txt font label x y size color = drawNativeText font label (Vector2 x y) (size * 1.45) 0.6 color
 
-measureLabel :: NativeFont -> String -> Float -> IO Vector2
+measureLabel :: NativeFont -> String -> Float -> Drawing Vector2
 measureLabel font label size = measureNativeText font label (size * 1.45) 0.6
 
-card :: Float -> Float -> Float -> Float -> Color -> IO ()
+card :: Float -> Float -> Float -> Float -> Color -> Drawing ()
 card x y width height color = drawRectangleRounded (Rectangle x y width height) 0.08 5 color
 
 inside :: Vector2 -> Rectangle -> Bool
@@ -264,7 +260,7 @@ placementExplanation prototype failure
 button :: Float -> Float -> Float -> String -> UiCommand -> Bool -> Button
 button x y width label command active = Button (Rectangle x y width 44) label command active
 
-drawButton :: NativeFont -> Vector2 -> Button -> IO ()
+drawButton :: NativeFont -> Vector2 -> Button -> Drawing ()
 drawButton font mouse b = do
   let Rectangle x y width height = buttonRect b
       hovered = inside mouse (buttonRect b)
@@ -290,7 +286,7 @@ unproject width height camera (Vector2 sx sy) =
       (x, y) = case cameraRotation camera `mod` 4 of 0 -> (dx, dy); 1 -> (dy, -dx); 2 -> (-dx, -dy); _ -> (-dy, dx)
    in S.Tile (floor (x + cameraX camera)) (floor (y + cameraY camera))
 
-quad :: Vector2 -> Vector2 -> Vector2 -> Vector2 -> Color -> IO ()
+quad :: Vector2 -> Vector2 -> Vector2 -> Vector2 -> Color -> Drawing ()
 quad a b c d color = do
   -- raylib triangles are counterclockwise in screen coordinates.
   drawTriangle a d c color
@@ -299,12 +295,12 @@ quad a b c d color = do
 raise :: Float -> Vector2 -> Vector2
 raise amount (Vector2 x y) = Vector2 x (y - amount)
 
-tileQuad :: Int -> Int -> Camera -> Float -> Float -> Float -> Float -> Float -> Color -> IO ()
+tileQuad :: Int -> Int -> Camera -> Float -> Float -> Float -> Float -> Float -> Color -> Drawing ()
 tileQuad width height camera x y w h elevation color =
   let p u v = raise elevation (project width height camera u v)
    in quad (p x y) (p (x + w) y) (p (x + w) (y + h)) (p x (y + h)) color
 
-buildingBox :: Int -> Int -> Camera -> Float -> Float -> Float -> Float -> Float -> Color -> IO ()
+buildingBox :: Int -> Int -> Camera -> Float -> Float -> Float -> Float -> Float -> Color -> Drawing ()
 buildingBox width height camera x y w h elevation color@(Color r g b a) = do
   let p = project width height camera
       high = raise elevation
@@ -331,7 +327,7 @@ placementAt game tile = do
         ]
   case candidates of { ident : _ -> Just ident; _ -> Nothing }
 
-drawColony :: NativeFont -> Int -> Int -> Double -> Vector2 -> Screen -> Maybe String -> IO [Button]
+drawColony :: NativeFont -> Int -> Int -> Double -> Vector2 -> Screen -> Maybe String -> Drawing [Button]
 drawColony font width height time mouse screen failure = do
   let camera = screenCamera screen
       game = screenGame screen
@@ -649,7 +645,7 @@ moodColor mood = case mood of MoodQuiet -> muted; MoodWaiting -> Color 143 93 31
 resourceColor :: Resource -> Color
 resourceColor resource = case resource of Water -> Color 75 161 178 255; Ration -> Color 242 184 76 255; Crops -> Color 109 153 79 255; Fuel -> Color 125 87 70 255; Parts -> Color 106 128 143 255; _ -> Color 177 137 96 255
 
-drawPlace :: Int -> Int -> Camera -> Float -> S.Tile -> PlaceKind -> S.Rotation -> IO ()
+drawPlace :: Int -> Int -> Camera -> Float -> S.Tile -> PlaceKind -> S.Rotation -> Drawing ()
 drawPlace width height camera night (S.Tile tx ty) kind rotation = do
   let x = fromInteger tx
       y = fromInteger ty
@@ -680,7 +676,7 @@ drawPlace width height camera night (S.Tile tx ty) kind rotation = do
       card (cx - s * 0.2) (cy - s * 1.6) (s * 0.4) (s * 0.5) (Color 247 206 114 255)
       when (night > 0.2) $ drawCircleV (Vector2 cx (cy - s * 1.25)) (s * 1.1) (Color 251 211 126 (round (night * 65)))
 
-drawPerson :: Vector2 -> Float -> Int -> Float -> IO ()
+drawPerson :: Vector2 -> Float -> Int -> Float -> Drawing ()
 drawPerson (Vector2 x y) size group bob = do
   let coat = [Color 59 121 125 255, Color 190 96 57 255, Color 100 124 76 255] !! (group `mod` 3)
       at u v = Vector2 (x + u * size) (y + (v + bob) * size)
@@ -691,7 +687,7 @@ drawPerson (Vector2 x y) size group bob = do
   drawCircleV (at 0 (-15)) (3 * size) (Color 240 198 145 255)
   drawLineEx (at (-4) (-17)) (at 4 (-17)) (2 * size) (Color 239 222 177 255)
 
-drawWorksite :: Int -> Int -> Camera -> Float -> Float -> Float -> Float -> Float -> IO ()
+drawWorksite :: Int -> Int -> Camera -> Float -> Float -> Float -> Float -> Float -> Drawing ()
 drawWorksite width height camera x y bw bh progress = do
   tileQuad width height camera x y bw bh 0 (Color 248 204 104 100)
   let p = project width height camera
@@ -699,7 +695,7 @@ drawWorksite width height camera x y bw bh progress = do
   forM_ [(x, y), (x + bw, y), (x + bw, y + bh), (x, y + bh)] $ \(u, v) -> drawLineEx (p u v) (raise h (p u v)) 4 (Color 140 90 55 255)
   quad (raise h (p x y)) (raise h (p (x + bw) y)) (raise h (p (x + bw) (y + bh))) (raise h (p x (y + bh))) (Color 243 203 111 65)
 
-drawFacility :: Int -> Int -> Camera -> Float -> Float -> String -> Float -> Float -> Float -> Float -> Bool -> Float -> (Resource -> Integer) -> IO ()
+drawFacility :: Int -> Int -> Camera -> Float -> Float -> String -> Float -> Float -> Float -> Float -> Bool -> Float -> (Resource -> Integer) -> Drawing ()
 drawFacility width height camera clock night name x y bw bh running progress stock = do
   let s = cameraScale camera
       p = project width height camera
@@ -801,7 +797,7 @@ buildingColor name
   | name == "housing" = Color 236 205 162 255
   | otherwise = Color 189 135 101 255
 
-drawView :: NativeFont -> Int -> Int -> Double -> Vector2 -> Screen -> Maybe String -> IO [Button]
+drawView :: NativeFont -> Int -> Int -> Double -> Vector2 -> Screen -> Maybe String -> Drawing [Button]
 drawView font width height time mouse screen previewFailure = do
   clearBackground paper
   sites <- drawColony font width height time mouse screen previewFailure
@@ -975,7 +971,7 @@ hintForScreen screen
 hintRectangle :: Rectangle
 hintRectangle = Rectangle 28 124 592 196
 
-drawHint :: NativeFont -> Screen -> IO [Button]
+drawHint :: NativeFont -> Screen -> Drawing [Button]
 drawHint font screen = case Help.activeHint (screenHelpUi screen) of
   Nothing -> pure []
   Just hint -> do
@@ -995,7 +991,7 @@ drawHint font screen = case Help.activeHint (screenHelpUi screen) of
     wrap font detail 46 180 548 21 muted
     pure ([button 46 268 164 (fst action) (snd action) False, button 325 268 98 "閉じる" (HelpCommand Help.DismissHint) False, button 431 268 164 "案内OFF" (HelpCommand (Help.SetGuides False)) False] ++ secondary)
 
-drawHelp :: NativeFont -> Int -> Int -> Screen -> Help.TopicId -> IO [Button]
+drawHelp :: NativeFont -> Int -> Int -> Screen -> Help.TopicId -> Drawing [Button]
 drawHelp font width height screen topic = do
   let x = 60
       y = 100
@@ -1023,32 +1019,32 @@ drawHelp font width height screen topic = do
   when (contentEnd < footer - 42) (txt font "読んでいる間は時間が止まります。Escで元の画面に戻ります。" (x + 26) (footer - 36) 20 muted)
   pure (topics ++ [button (x + 26) footer 194 (if enabled then "短い案内：ON" else "短い案内：OFF") (HelpCommand (Help.SetGuides (not enabled))) enabled, button (x + 234) footer 222 "案内をもう一度" (HelpCommand Help.RepeatHints) False, button (x + w - 232) footer 206 "元の画面へ" (HelpCommand Help.CloseHelp) True])
 
-stockBadge :: NativeFont -> Float -> Float -> String -> Integer -> Integer -> Color -> IO ()
+stockBadge :: NativeFont -> Float -> Float -> String -> Integer -> Integer -> Color -> Drawing ()
 stockBadge font x y label amount hourly color = do
   let hours = fromInteger amount / fromInteger hourly :: Double
   card x y 140 49 (Color 240 231 207 255)
   txt font (label ++ " " ++ printf "%.1f" hours) (x + 8) (y + 1) 23 (if hours < 2 then copper else color)
   txt font "時間分の備蓄" (x + 8) (y + 29) 19 muted
 
-meter :: NativeFont -> Float -> Float -> String -> String -> Float -> Color -> IO ()
+meter :: NativeFont -> Float -> Float -> String -> String -> Float -> Color -> Drawing ()
 meter font x y label value fraction color = do
   txt font label x y 15 muted
   txt font value (x + 212) y 17 (if fraction < 0.15 then copper else ink)
   card x (y + 25) 322 8 (Color 226 208 184 255)
   card x (y + 25) (max 0 (min 322 (322 * fraction))) 8 color
 
-wrap :: NativeFont -> String -> Float -> Float -> Float -> Float -> Color -> IO ()
+wrap :: NativeFont -> String -> Float -> Float -> Float -> Float -> Color -> Drawing ()
 wrap font content x y width size color = void (wrapMeasured font content x y width size color)
 
 -- Return the first free vertical position so callers can place controls after the text.
 -- Measuring with the drawing font keeps Japanese lines inside the panel's width.
-wrapMeasured :: NativeFont -> String -> Float -> Float -> Float -> Float -> Color -> IO Float
+wrapMeasured :: NativeFont -> String -> Float -> Float -> Float -> Float -> Color -> Drawing Float
 wrapMeasured font content x top width size color = do
   linesToDraw <- wrappedLines font content width size
   forM_ (zip [0 :: Int ..] linesToDraw) $ \(row, lineText) -> txt font lineText x (top + fromIntegral row * (size * 1.45 + 4)) size color
   pure (top + fromIntegral (length linesToDraw) * (size * 1.45 + 4))
 
-wrappedLines :: NativeFont -> String -> Float -> Float -> IO [String]
+wrappedLines :: NativeFont -> String -> Float -> Float -> Drawing [String]
 wrappedLines font content width size = go content
   where
     go [] = pure []
@@ -1072,7 +1068,7 @@ wrappedLines font content width size = go content
             then longestFitting remaining middle high
             else longestFitting remaining low (middle - 1)
 
-drawPanel :: NativeFont -> Float -> Float -> Int -> Screen -> IO [Button]
+drawPanel :: NativeFont -> Float -> Float -> Int -> Screen -> Drawing [Button]
 drawPanel font x y height screen = do
   let game = screenGame screen; world = gameWorld game; d = gameDescriptor game; policy = gamePolicies game
   case screenTab screen of
@@ -1167,7 +1163,7 @@ drawPanel font x y height screen = do
               button x (actionY + 54) 322 (if P.assistConstruction policy then "建設班：有効" else "建設班：停止") (Choose ToggleBuildingCrews) (P.assistConstruction policy)
             ]
 
-drawDiningPanel :: NativeFont -> Float -> Float -> GameState -> IO [Button]
+drawDiningPanel :: NativeFont -> Float -> Float -> GameState -> Drawing [Button]
 drawDiningPanel font x y game = do
   txt font "食事の場" x (y + 7) 30 copper
   case diningStatuses game of
@@ -1212,7 +1208,7 @@ objectives game =
         (campaignEnding c == SettlementSecured, "この土地に根づく", show (elapsedTicks (gameWorld game) c `div` 1200) ++ " / " ++ show (scenarioHours s) ++ "時間")
       ]
 
-drawDialog :: NativeFont -> Int -> Int -> Dialog -> IO [Button]
+drawDialog :: NativeFont -> Int -> Int -> Dialog -> Drawing [Button]
 drawDialog font width height dialog = do
   let x = case dialog of DiningPreview {} -> fromIntegral width - 626; _ -> fromIntegral width / 2 - 300
       y = fromIntegral height / 2 - 280
@@ -1298,7 +1294,7 @@ isDiningSite game ident = case worldM1 (gameWorld game) >>= M.lookup ident . S.s
   Just placement -> case S.placementShape placement of S.BuildingShape "pantry" tile _ -> M.member tile (gameDiningPlaces game); _ -> False
   _ -> False
 
-drawInspector :: NativeFont -> Float -> Float -> Int -> Screen -> EntityId -> IO [Button]
+drawInspector :: NativeFont -> Float -> Float -> Int -> Screen -> EntityId -> Drawing [Button]
 drawInspector font x y height screen ident
   | isDiningSite (screenGame screen) ident = drawDiningPanel font x y (screenGame screen)
   | otherwise = do

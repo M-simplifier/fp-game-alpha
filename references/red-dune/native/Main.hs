@@ -10,28 +10,28 @@ import Colony.Space qualified as Space
 import Colony.Transport (ShipmentStatus (ShipmentDelivered), shipmentStatus, transportShipments)
 import Colony.Units (Resource (Stone))
 import Colony.World
+import Control.Concurrent (threadDelay)
 import Control.DeepSeq (force)
-import Control.Exception (IOException, bracket, catch, evaluate)
+import Control.Exception (Handler(..), IOException, bracket, catch, catches, evaluate)
 import Control.Monad (forM_, when)
 import Data.ByteString qualified as BS
-import Data.Char (ord)
-import Data.List (find, intercalate, isPrefixOf, nub)
+import Data.List (find, intercalate, isPrefixOf)
 import Data.Map.Strict qualified as M
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as TE
-import Data.Word (Word64)
-import Foreign (castPtr)
-import Foreign.C (withCString)
+import Data.Word (Word32, Word64)
+import GameIO.Graphics qualified as GPU
+import GameIO.Image qualified as Image
+import GameIO.Input qualified as Input
+import GameIO.Platform qualified as Platform
+import GameIO.Platform.Icon (withWindowIcon)
+import GHC.Clock (getMonotonicTimeNSec)
 import GHC.IO.Encoding (setForeignEncoding, setLocaleEncoding, utf8)
-import Raylib.Core
-import Raylib.Core.Textures (c'exportImage, c'loadImageFromScreen, c'unloadImage, loadImage)
-import Raylib.Internal.Foreign (c'free)
-import Raylib.Types (ConfigFlag (..), KeyboardKey (..), MouseButton (..), Vector2, pattern Vector2)
-import Raylib.Util (drawing, withWindow)
 import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game
-import RedDune.Native.Font (NativeFont, fontFace, loadNativeFont, unloadNativeFont)
+import RedDune.Native.Canvas (Vector2 (..), drawFrame)
+import RedDune.Native.Font (NativeFont, loadNativeFont, unloadNativeFont)
 import RedDune.Native.Help qualified as Help
 import RedDune.Native.Play
 import RedDune.Native.Store qualified as Store
@@ -41,11 +41,22 @@ import System.Directory
 import System.Environment
 import System.Exit (exitFailure)
 import System.FilePath
+import System.IO (BufferMode(..), Handle, IOMode(..), hPutStrLn, hSetBuffering, withFile)
 import Text.Read (readMaybe)
 
-data Options = Options {optionStore :: !FilePath, optionQa :: !(Maybe FilePath), optionFrames :: !(Maybe Int), optionPack :: !(Maybe FilePath), optionNew :: !(Maybe String), optionHidden :: !Bool}
+data Options = Options
+  { optionStore :: !FilePath
+  , optionQa :: !(Maybe FilePath)
+  , optionFrames :: !(Maybe Int)
+  , optionPack :: !(Maybe FilePath)
+  , optionNew :: !(Maybe String)
+  , optionHidden :: !Bool
+  , optionMetricsFile :: !(Maybe FilePath)
+  }
 
 data App = App {appScreen :: !Screen, appDebt :: !Double, appSavedRevision :: !Word64, appSaveTime :: !Double, appQaRead :: !Int, appFrames :: !Int, appQuit :: !Bool, appStarted :: !Bool, appNewPack :: !ContentPack, appQaMilestones :: !(M.Map String Double), appPreview :: !(Maybe (PreviewKey, Maybe String))}
+
+data Host = Host !Platform.Window !GPU.Renderer !Word64 !(Maybe Handle)
 
 main :: IO ()
 main =
@@ -58,7 +69,7 @@ main =
     local <- lookupEnv "LOCALAPPDATA"
     configured <- lookupEnv "RED_DUNE_NATIVE_STORE"
     let fallback = maybe (root </> "saves") (\path -> path </> "RedDune" </> "saves") local
-    options <- either (ioError . userError) pure (parseOptions (Options (maybe fallback id configured) Nothing Nothing Nothing Nothing False) arguments)
+    options <- either (ioError . userError) pure (parseOptions (Options (maybe fallback id configured) Nothing Nothing Nothing Nothing False Nothing) arguments)
     pack <- case optionPack options of
       Nothing -> pure defaultPack
       Just path -> do
@@ -75,27 +86,40 @@ main =
       let started = optionNew options /= Nothing || null (Store.catalogEntries catalog)
       when started (Store.saveGame store game >> pure ())
       let screen = (newScreen game (if started then NoDialog else Welcome catalog)) {screenSaved = started, screenHelpUi = Help.newHelpUi preferences, screenNotice = maybe "" id preferenceNotice}
-      setConfigFlags ([Msaa4xHint, WindowResizable, VsyncHint] ++ [WindowHidden | optionHidden options])
-      withWindow 1440 940 "Red Dune" 60 $ \_resources -> do
-        setWindowMinSize 1280 880
-        setExitKey KeyNull
-        let iconPath = root </> "assets" </> "icon.png"
-        iconExists <- doesFileExist iconPath
-        when iconExists (loadImage iconPath >>= setWindowIcon)
-        glyphText <- readFile (root </> "assets" </> "glyphs.txt")
-        let glyphs = nub ([32 .. 126] ++ map ord glyphText)
-        fontFile <- findFont
-        fontBytes <- BS.readFile fontFile >>= either (ioError . userError) pure . fontFace
-        bracket (loadNativeFont fontBytes glyphs) unloadNativeFont $ \font -> do
-          loop root options store font (App screen 0 (gameRevision game) 0 0 0 False started pack M.empty Nothing)
-    `catch` ( \(errorValue :: IOException) -> do
-                temp <- getTemporaryDirectory
-                writeFile (temp </> "red-dune-startup-error.txt") (show errorValue)
-                arguments <- getArgs
-                when ("--hidden" `notElem` arguments) $
-                  Store.showNativeError ("Red Dune を起動できませんでした。\n保存先がほかのウィンドウで使用中なら、その開拓を閉じてから再度起動してください。\n\n" ++ show errorValue)
-                exitFailure
-            )
+      Platform.withWindowVisibility (not (optionHidden options)) (Platform.WindowConfig "Red Dune" 1440 940) $ \window -> do
+        Platform.setWindowMinimumSize window 1280 880
+        let icon = root </> "assets" </> "icon.ico"
+        iconExists <- doesFileExist icon
+        let showIcon action = if iconExists then withWindowIcon window icon action else action
+        showIcon $ GPU.withRenderer window $ \renderer -> do
+          glyphText <- readFile (root </> "assets" </> "glyphs.txt")
+          fontBytes <- findFont >>= BS.readFile
+          withMetricsFile (optionMetricsFile options) $ \metrics ->
+            bracket (loadNativeFont renderer fontBytes ([' ' .. '~'] ++ glyphText)) (unloadNativeFont renderer) $ \font -> do
+              start <- getMonotonicTimeNSec
+              loop (Host window renderer start metrics) options store font start Input.initialInput (App screen 0 (gameRevision game) 0 0 0 False started pack M.empty Nothing)
+    `catches`
+      [ Handler (\(failure :: IOException) -> startupFailure "保存先や素材を開けませんでした。" (show failure))
+      , Handler (\(failure :: Platform.PlatformError) -> startupFailure "ウィンドウを開けませんでした。" (show failure))
+      , Handler (\(failure :: GPU.GraphicsError) -> startupFailure "画面を描けませんでした。" (show failure))
+      , Handler (\(failure :: GPU.VulkanError) -> startupFailure "Vulkan の描画を始められませんでした。" (show failure))
+      ]
+
+startupFailure :: String -> String -> IO a
+startupFailure reason detail = do
+  temp <- getTemporaryDirectory
+  writeFile (temp </> "red-dune-startup-error.txt") detail
+  arguments <- getArgs
+  when ("--hidden" `notElem` arguments) $
+    Store.showNativeError ("Red Dune を続けられませんでした。\n" ++ reason ++ "\n\n" ++ detail)
+  exitFailure
+
+withMetricsFile :: Maybe FilePath -> (Maybe Handle -> IO a) -> IO a
+withMetricsFile Nothing use = use Nothing
+withMetricsFile (Just path) use = withFile path WriteMode $ \handle -> do
+  hSetBuffering handle (BlockBuffering (Just 65536))
+  hPutStrLn handle "frame,interval_ns,host_prepare_ns,renderer_prepare_ns,fence_wait_ns,encode_ns,submit_ns,present_call_ns,gpu_ns,status"
+  use (Just handle)
 
 parseOptions :: Options -> [String] -> Either String Options
 parseOptions options [] = Right options
@@ -106,8 +130,9 @@ parseOptions options ("--new" : scenario : rest)
   | scenario `elem` ["settlement", "recovery"] = parseOptions options {optionNew = Just scenario} rest
   | otherwise = Left "Unknown scenario"
 parseOptions options ("--hidden" : rest) = parseOptions options {optionHidden = True} rest
+parseOptions options ("--metrics" : path : rest) = parseOptions options {optionMetricsFile = Just path} rest
 parseOptions options ("--frames" : number : rest) = case readMaybe number of Just n | n > 0 -> parseOptions options {optionFrames = Just n} rest; _ -> Left "Invalid frame limit"
-parseOptions _ _ = Left "Red Dune: --store DIRECTORY [--pack FILE] [--new settlement|recovery] [--qa-dir DIRECTORY] [--frames NUMBER] [--hidden]"
+parseOptions _ _ = Left "Red Dune: --store DIRECTORY [--pack FILE] [--new settlement|recovery] [--qa-dir DIRECTORY] [--frames NUMBER] [--metrics FILE] [--hidden]"
 
 findFont :: IO FilePath
 findFont = do
@@ -118,16 +143,20 @@ findFont = do
   where
     filterMFile [] = pure []; filterMFile (path : rest) = do present <- doesFileExist path; remaining <- filterMFile rest; pure ([path | present] ++ remaining)
 
-loop :: FilePath -> Options -> Store.Store -> NativeFont -> App -> IO ()
-loop root options store font previous = do
-  width <- getScreenWidth
-  height <- getScreenHeight
-  dt <- realToFrac <$> getFrameTime
-  time <- getTime
-  mouse <- getMousePosition
-  nativeClick <- isMouseButtonPressed MouseButtonLeft
-  close <- windowShouldClose
-  focused <- isWindowFocused
+loop :: Host -> Options -> Store.Store -> NativeFont -> Word64 -> Input.InputState -> App -> IO ()
+loop host@(Host window renderer start metrics) options store font previousTime previousInput previous = do
+  events <- Platform.pollWindowEventsStamped window
+  (width, height) <- Platform.windowFramebufferSize window
+  now <- getMonotonicTimeNSec
+  let (input, stampedChanges) = Input.reduceInput previousInput events
+      changes = map snd stampedChanges
+      dt = secondsSince previousTime now
+      time = secondsSince start now
+      nativePoint = firstJust [Just (x,y) | Input.InputButton Input.PointerLeft True x y <- changes]
+      mouse = maybe (Vector2 (-1) (-1)) (\(x,y) -> Vector2 (fromIntegral x) (fromIntegral y)) (firstJust [nativePoint, Input.pointerPosition input])
+      nativeClick = nativePoint /= Nothing
+      close = elem Input.InputClose changes
+      focused = Input.hasFocus input
   qa <- readQa options (appQaRead previous)
   let (qaCount, qaLine) = qa
       qaPoint = qaPointer qaLine
@@ -140,17 +169,20 @@ loop root options store font previous = do
         newHeight >= 880,
         newWidth <= 3840,
         newHeight <= 2160 ->
-          setWindowSize newWidth newHeight
+          Platform.resizeWindow window newWidth newHeight
     _ -> pure ()
   let oldScreen = appScreen previous
       guidedScreen = if appStarted previous && isPlainScreen oldScreen then oldScreen {screenHelpUi = Help.refreshHint (hintForScreen oldScreen) (screenHelpUi oldScreen)} else oldScreen
       preview = previewForPointer width height usedMouse guidedScreen (appPreview previous)
       guided = previous {appScreen = guidedScreen, appPreview = preview}
-  buttons <- drawing (drawView font width height time usedMouse guidedScreen (maybe Nothing snd preview))
+  ((buttons, frame), preparation) <- timedPreparation metrics (drawFrame (drawView font width height time usedMouse guidedScreen (maybe Nothing snd preview)))
+  status <- GPU.renderFrame renderer frame
+  writeMetrics metrics renderer (appFrames previous + 1) (now - previousTime) preparation status
+  when (status == GPU.FrameMinimized) (threadDelay 16000)
   let click = nativeClick || qaClick qaLine /= Nothing
       command = buttonCommandAt click usedMouse buttons
-  keyCommand <- keyboard guidedScreen
-  let replayKeyCommand = qaKeyCommand guidedScreen qaLine
+  let keyCommand = keyboard changes guidedScreen
+      replayKeyCommand = qaKeyCommand guidedScreen qaLine
       -- Button hit testing, keyboard input, and replay keys retain this priority.
       requested = firstJust [command, keyCommand, replayKeyCommand]
       stamped = guided {appQaRead = qaCount, appFrames = appFrames previous + 1}
@@ -161,8 +193,8 @@ loop root options store font previous = do
       appendFile (folder </> "help-events.txt") (show action ++ " worldUnchanged=" ++ show (screenGame guidedScreen == screenGame (appScreen operated)) ++ "\n")
     _ -> pure ()
   let helpFrameHeld = Help.helpHoldsClock (screenHelpUi guidedScreen) (screenHelpUi (appScreen operated))
-  cameraScreen0 <- if helpFrameHeld then pure (appScreen operated) else cameraInput (max 0 (min 0.1 dt)) (appScreen operated)
-  let noticeAge = screenNoticeAge cameraScreen0 + dt
+  let cameraScreen0 = if helpFrameHeld then appScreen operated else cameraInput input changes (max 0 (min 0.1 dt)) (appScreen operated)
+      noticeAge = screenNoticeAge cameraScreen0 + dt
       persistent = any (`isPrefixOf` screenNotice cameraScreen0) ["操作を完了", "保存できない", "自動保存でき", "進行を停止", "厨房が故障"]
       cameraScreen = cameraScreen0 {screenCues = fadeCues dt (screenCues cameraScreen0), screenNoticeAge = noticeAge, screenNotice = if noticeAge > 8 && not persistent then "" else screenNotice cameraScreen0}
   selected <-
@@ -200,8 +232,8 @@ loop root options store font previous = do
       createDirectoryIfMissing True folder
       let capturePreview = previewKeyAt width height usedMouse (appScreen saved)
           captureFailure = maybe Nothing (previewFailureAt (screenGame (appScreen saved))) capturePreview
-      _ <- drawing (drawView font width height time usedMouse (appScreen saved) captureFailure)
-      captureFrame (folder </> name)
+      (_, capture) <- drawFrame (drawView font width height time usedMouse (appScreen saved) captureFailure)
+      captureFrame renderer capture (folder </> name)
       writeFile (folder </> replaceExtension name "json") (encodeJSON (observeGame (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "dining.txt") (show (diningStatuses (screenGame (appScreen saved))))
       writeFile (folder </> replaceExtension name "places.txt") (show (gamePlaces (screenGame (appScreen saved))))
@@ -216,8 +248,36 @@ loop root options store font previous = do
         Right () -> pure ()
         Left failure -> do
           paused <- pauseGame (screenGame (appScreen saved))
-          loop root options store font saved {appQuit = False, appScreen = (appScreen saved) {screenGame = paused, screenNotice = "保存できないため、終了を止めました。F5で再試行してください：" ++ take 60 failure}}
-    else loop root options store font saved
+          loop host options store font now input saved {appQuit = False, appScreen = (appScreen saved) {screenGame = paused, screenNotice = "保存できないため、終了を止めました。F5で再試行してください：" ++ take 60 failure}}
+    else loop host options store font now input saved
+
+secondsSince :: Word64 -> Word64 -> Double
+secondsSince first lastTime = fromIntegral (lastTime - first) / 1000000000
+
+timedPreparation :: Maybe Handle -> IO a -> IO (a, Word64)
+timedPreparation Nothing prepare = (,0) <$> prepare
+timedPreparation (Just _) prepare = do
+  before <- getMonotonicTimeNSec
+  drawing <- prepare
+  after <- getMonotonicTimeNSec
+  pure (drawing, after - before)
+
+writeMetrics :: Maybe Handle -> GPU.Renderer -> Int -> Word64 -> Word64 -> GPU.FrameStatus -> IO ()
+writeMetrics Nothing _ _ _ _ _ = pure ()
+writeMetrics (Just handle) renderer frame interval preparation status = do
+  latest <- if status == GPU.FramePresented then GPU.rendererLastMetrics renderer else pure Nothing
+  let prefix = [show frame, show interval, show preparation]
+      details = case latest of
+        Nothing -> replicate 6 ""
+        Just result ->
+          [ show (GPU.framePrepareNSec result)
+          , show (GPU.frameFenceWaitNSec result)
+          , show (GPU.frameEncodeNSec result)
+          , show (GPU.frameSubmitNSec result)
+          , show (GPU.framePresentCallNSec result)
+          , maybe "" show (GPU.frameGPUNSec result)
+          ]
+  hPutStrLn handle (intercalate "," (prefix ++ details ++ [show status]))
 
 -- TakeScreenshot prefixes raylib's fixed startup path. Export the actual
 -- framebuffer directly, retaining its native buffer for this bounded QA call.
@@ -235,11 +295,12 @@ recordMilestones options time app = case optionQa options of
       forM_ fresh $ \label -> appendFile (folder </> "milestones.txt") (label ++ " windowSeconds=" ++ show time ++ " simTick=" ++ show (simTick world) ++ " speed=" ++ show (screenSpeed screen) ++ "\n")
     pure app {appQaMilestones = foldr (\label -> M.insert label time) (appQaMilestones app) fresh}
 
-captureFrame :: FilePath -> IO ()
-captureFrame path = bracket c'loadImageFromScreen (\frame -> c'unloadImage frame >> c'free (castPtr frame)) $ \frame ->
-  withCString path $ \filename -> do
-    exported <- c'exportImage frame filename
-    when (exported == 0) (ioError (userError "Native GPU capture could not be saved"))
+captureFrame :: GPU.Renderer -> GPU.Frame -> FilePath -> IO ()
+captureFrame renderer frame path = do
+  (_, pixels) <- GPU.renderFrameReadback renderer frame
+  GPU.FramePixels width height rgba <- maybe (ioError (userError "Native GPU capture is unavailable")) pure pixels
+  image <- either (ioError . userError . show) pure (Image.rgbaImage width height rgba)
+  BS.writeFile path (Image.encodePng image)
 
 firstJust :: [Maybe a] -> Maybe a
 firstJust [] = Nothing
@@ -324,41 +385,41 @@ persistPreferences store before app
   where
     preferences = Help.helpPreferences (screenHelpUi (appScreen app))
 
-keyboard :: Screen -> IO (Maybe UiCommand)
-keyboard screen = do
-  space <- isKeyPressed KeySpace
-  save <- isKeyPressed KeyF5
-  load <- isKeyPressed KeyF9
-  escape <- isKeyPressed KeyEscape
-  help <- isKeyPressed KeyF1
-  rotate <- isKeyPressed KeyR
-  speeds <- mapM isKeyPressed [KeyOne, KeyTwo, KeyThree, KeyFour]
-  pure (if escape then Just CloseDialog else if help then Just (toggleHelp screen) else if save && isNoDialog (screenDialog screen) then Just SaveNow else if not (isPlainScreen screen) then Nothing else if space then Just (Choose ToggleTime) else if load then Just ShowLibrary else if rotate && canRotateBuild screen then Just RotateBuilding else ChangeSpeed . snd <$> find fst (zip speeds [1, 2, 4, 8]))
+keyboard :: [Input.InputChange] -> Screen -> Maybe UiCommand
+keyboard changes screen
+  | pressed 0x1b = Just CloseDialog
+  | pressed 0x70 = Just (toggleHelp screen)
+  | pressed 0x74 && isNoDialog (screenDialog screen) = Just SaveNow
+  | not (isPlainScreen screen) = Nothing
+  | pressed 0x20 = Just (Choose ToggleTime)
+  | pressed 0x78 = Just ShowLibrary
+  | pressed 0x52 && canRotateBuild screen = Just RotateBuilding
+  | otherwise = ChangeSpeed . snd <$> find (pressed . fst) (zip [0x31 .. 0x34] [1, 2, 4, 8])
+  where pressed = justPressed changes
 
-cameraInput :: Double -> Screen -> IO Screen
-cameraInput dt screen
-  | not (isPlainScreen screen) = pure screen
-  | otherwise = do
-      up <- isKeyDown KeyW
-      down <- isKeyDown KeyS
-      left <- isKeyDown KeyA
-      right <- isKeyDown KeyD
-      q <- isKeyPressed KeyQ
-      e <- isKeyPressed KeyE
-      f <- isKeyPressed KeyF
-      zoom <- getMouseWheelMove
+justPressed :: [Input.InputChange] -> Word32 -> Bool
+justPressed changes key = elem key [Input.keyVirtual message | Input.InputKey Input.KeyPressed message <- changes]
+
+cameraInput :: Input.InputState -> [Input.InputChange] -> Double -> Screen -> Screen
+cameraInput input changes dt screen
+  | not (isPlainScreen screen) = screen
+  | justPressed changes 0x46 = screen {screenCamera = overviewCamera (screenGame screen)}
+  | otherwise =
       let camera = screenCamera screen
-          next =
-            if f
-              then overviewCamera (screenGame screen)
-              else
-                camera
-                  { cameraX = cameraX camera + realToFrac dt * 25 * (if right then 1 else 0) - realToFrac dt * 25 * (if left then 1 else 0),
-                    cameraY = cameraY camera + realToFrac dt * 25 * (if down then 1 else 0) - realToFrac dt * 25 * (if up then 1 else 0),
-                    cameraRotation = cameraRotation camera + (if q then -1 else 0) + (if e then 1 else 0),
-                    cameraScale = max 4 (min 30 (cameraScale camera + zoom))
-                  }
-      pure screen {screenCamera = next}
+          up = Input.virtualKeyHeld input 0x57
+          down = Input.virtualKeyHeld input 0x53
+          left = Input.virtualKeyHeld input 0x41
+          right = Input.virtualKeyHeld input 0x44
+          q = justPressed changes 0x51
+          e = justPressed changes 0x45
+          zoom = sum [fromIntegral y / 120 | Input.InputWheel _ _ _ y <- changes]
+          next = camera
+            { cameraX = cameraX camera + realToFrac dt * 25 * (if right then 1 else 0) - realToFrac dt * 25 * (if left then 1 else 0),
+              cameraY = cameraY camera + realToFrac dt * 25 * (if down then 1 else 0) - realToFrac dt * 25 * (if up then 1 else 0),
+              cameraRotation = cameraRotation camera + (if q then -1 else 0) + (if e then 1 else 0),
+              cameraScale = max 4 (min 30 (cameraScale camera + zoom))
+            }
+      in screen {screenCamera = next}
 
 perform :: Store.Store -> App -> UiCommand -> IO App
 perform store app command = do

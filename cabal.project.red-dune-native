@@ -2,9 +2,6 @@ packages:
   libraries/game-transition
   libraries/game-arena
   references/red-dune
+  ../../haskell-game-io
 
 tests: False
-constraints: h-raylib ==6.1.0.0
-
-package h-raylib
-  flags: +disable-lens +detect-platform

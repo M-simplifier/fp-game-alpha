@@ -1,4 +1,3 @@
-{-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 -- Immutable native checkpoints use the existing framed GameSave codec.
@@ -30,33 +29,32 @@ where
 
 import Colony.Session
 import Colony.World
-import Control.Exception (IOException, bracket, finally, try)
+import Control.Exception (IOException, try)
 import Control.Monad (unless)
 import Data.ByteString qualified as BS
 import Data.List (sortOn, stripPrefix)
-import Data.Word (Word64, Word8)
-import Foreign (Ptr, alloca, castPtr, nullPtr, peek)
-import Foreign.C
+import Data.Word (Word64)
 import RedDune.Campaign
 import RedDune.ContentPack
 import RedDune.Game hiding (previewGame)
 import RedDune.GameSave
 import RedDune.Native.Help qualified as Help
-import System.Directory (listDirectory, makeAbsolute)
+import RedDune.Native.Store.Win32 qualified as Win32
+import System.Directory (makeAbsolute)
 import System.FilePath (dropExtension, splitDirectories, takeExtension)
 import Text.Read (readMaybe)
 
-data Store = Store !FilePath !(Ptr ()) !AuthorityFactory
+data Store = Store !Win32.PinnedStore !AuthorityFactory
 
 -- Enumeration and native writes must describe the same pinned directory.
 storeRoot :: Store -> FilePath
-storeRoot (Store root _ _) = root
+storeRoot (Store handle _) = Win32.pinnedRoot handle
 
-storeHandle :: Store -> Ptr ()
-storeHandle (Store _ handle _) = handle
+storeHandle :: Store -> Win32.PinnedStore
+storeHandle (Store handle _) = handle
 
 storeFactory :: Store -> AuthorityFactory
-storeFactory (Store _ _ factory) = factory
+storeFactory (Store _ factory) = factory
 
 data Checkpoint = Checkpoint {checkpointName :: !String, checkpointBranch :: !Word64, checkpointSequence :: !Word64, checkpointHour :: !Integer, checkpointScenario :: !String} deriving (Eq, Show)
 
@@ -75,28 +73,8 @@ previewBytes (Preview _ bytes _) = bytes
 previewGame :: Preview -> GameState
 previewGame (Preview _ _ game) = game
 
-foreign import ccall unsafe "rd_store_open" openStore :: CWString -> IO (Ptr ())
-
-foreign import ccall unsafe "rd_store_close" closeStore :: Ptr () -> IO ()
-
-foreign import ccall unsafe "rd_store_write" writeStore :: Ptr () -> CString -> Ptr Word8 -> CULong -> IO CInt
-
-foreign import ccall unsafe "rd_store_read" readStore :: Ptr () -> CString -> Ptr (Ptr Word8) -> Ptr CULong -> IO CInt
-
-foreign import ccall unsafe "rd_store_commit" commitStore :: Ptr () -> CString -> CString -> IO CInt
-
-foreign import ccall unsafe "rd_store_read_ui" readUiStore :: Ptr () -> CString -> Ptr (Ptr Word8) -> Ptr CULong -> IO CInt
-
-foreign import ccall unsafe "rd_store_replace_ui" replaceUiStore :: Ptr () -> CString -> IO CInt
-
-foreign import ccall unsafe "rd_store_error" storeError :: IO CULong
-
-foreign import ccall unsafe "rd_store_free" freeStore :: Ptr a -> IO ()
-
-foreign import ccall safe "rd_native_error" nativeError :: CWString -> IO ()
-
 showNativeError :: String -> IO ()
-showNativeError message = withCWString message nativeError
+showNativeError = Win32.showError
 
 must :: Either String a -> IO a
 must = either (ioError . userError) pure
@@ -104,43 +82,27 @@ must = either (ioError . userError) pure
 require :: Bool -> String -> IO ()
 require ok label = unless ok (ioError (userError label))
 
-checkResult :: CInt -> String -> IO ()
-checkResult result label = unless (result /= 0) $ do
-  code <- storeError
-  ioError (userError (label ++ " (Windows " ++ show code ++ ")"))
-
 withStore :: FilePath -> (Store -> IO a) -> IO a
 withStore path action = do
   require (not (null path) && '\0' `notElem` path && ".." `notElem` splitDirectories path) "Invalid save directory"
   absolute <- makeAbsolute path
-  bracket
-    (withCWString absolute openStore >>= \p -> if p == nullPtr then storeError >>= \e -> ioError (userError ("Cannot lock save directory (Windows " ++ show e ++ ")")) else pure p)
-    closeStore
-    $ \pointer -> do
-      factory <- newAuthorityFactory
-      action (Store absolute pointer factory)
+  Win32.withPinnedStore absolute $ \handle -> do
+    factory <- newAuthorityFactory
+    action (Store handle factory)
 
 readBytes :: Store -> String -> IO BS.ByteString
-readBytes = readWith readStore
-
-readWith :: (Ptr () -> CString -> Ptr (Ptr Word8) -> Ptr CULong -> IO CInt) -> Store -> String -> IO BS.ByteString
-readWith reader store name = withCString name $ \filename -> alloca $ \bytes -> alloca $ \size -> do
-  reader (storeHandle store) filename bytes size >>= (`checkResult` "Store read failed")
-  pointer <- peek bytes
-  count <- peek size
-  BS.packCStringLen (castPtr pointer, fromIntegral count) `finally` freeStore pointer
+readBytes = Win32.readCheckpoint . storeHandle
 
 writeBytes :: Store -> String -> BS.ByteString -> IO ()
-writeBytes store name bytes = withCString name $ \filename -> BS.useAsCStringLen bytes $ \(pointer, count) ->
-  writeStore (storeHandle store) filename (castPtr pointer) (fromIntegral count) >>= (`checkResult` "Checkpoint write failed")
+writeBytes = Win32.writeLeaf . storeHandle
 
 loadPreferences :: Store -> IO (Help.Preferences, Maybe String)
 loadPreferences store = do
-  names <- listDirectory (storeRoot store)
+  names <- Win32.listLeaves (storeHandle store)
   if "ui-preferences.rdui" `notElem` names
     then pure (Help.defaultPreferences, Nothing)
     else do
-      result <- try (readWith readUiStore store "ui-preferences.rdui") :: IO (Either IOException BS.ByteString)
+      result <- try (Win32.readPreferences (storeHandle store) "ui-preferences.rdui") :: IO (Either IOException BS.ByteString)
       pure $ case result of
         Right bytes | Just preferences <- Help.decodePreferences bytes -> (preferences, Nothing)
         _ -> (Help.defaultPreferences, Just "案内の設定を読み込めませんでした。遊び方から設定し直せます。")
@@ -148,21 +110,21 @@ loadPreferences store = do
 savePreferences :: Store -> Help.Preferences -> IO ()
 savePreferences store preferences = do
   let bytes = Help.encodePreferences preferences
-  names <- listDirectory (storeRoot store)
+  names <- Win32.listLeaves (storeHandle store)
   let sequences = [n | name <- names, Just suffix <- [stripPrefix "ui-preferences-" name], Just n <- [readMaybe (takeWhile (/= '.') suffix)]] :: [Word64]
       highest = maximum (0 : sequences)
   require (highest < maxBound) "UI preference sequence exhausted"
   let temporary = "ui-preferences-" ++ show (highest + 1) ++ ".pending"
   writeBytes store temporary bytes
-  readback <- readWith readUiStore store temporary
+  readback <- Win32.readPreferences (storeHandle store) temporary
   require (readback == bytes && Help.decodePreferences readback == Just preferences) "UI preference readback differs"
-  withCString temporary $ \filename -> replaceUiStore (storeHandle store) filename >>= (`checkResult` "UI preference commit failed")
-  committed <- readWith readUiStore store "ui-preferences.rdui"
+  Win32.replacePreferences (storeHandle store) temporary
+  committed <- Win32.readPreferences (storeHandle store) "ui-preferences.rdui"
   require (committed == bytes) "Committed UI preferences differ"
 
 reserveBranch :: Store -> Word64 -> IO Word64
 reserveBranch store sourceBranch = do
-  names <- listDirectory (storeRoot store)
+  names <- Win32.listLeaves (storeHandle store)
   let found =
         ( [n | name <- names, Just tailName <- [stripPrefix "branch-" name], Just n <- [readMaybe (takeWhile (/= '.') tailName)]]
             ++ [n | name <- names, Just tailName <- [stripPrefix "b-" name], Just n <- [readMaybe (takeWhile (/= '-') tailName)]]
@@ -190,7 +152,7 @@ activateGame store game = do
 saveGame :: Store -> GameState -> IO String
 saveGame store game = do
   bytes <- must (encodeGame game)
-  names <- listDirectory (storeRoot store)
+  names <- Win32.listLeaves (storeHandle store)
   let prefix = "b-" ++ show (branchId (gameWorld game)) ++ "-s-"
       found = [n | name <- names, Just suffix <- [stripPrefix prefix name], Just n <- [readMaybe (takeWhile (/= '.') suffix)]] :: [Word64]
       highest = maximum (0 : found)
@@ -203,7 +165,7 @@ saveGame store game = do
   require (readback == bytes) "Checkpoint readback differs"
   decoded <- must (decodeGame readback)
   require (decoded == game) "Checkpoint state differs"
-  withCString temporary $ \a -> withCString final $ \b -> commitStore (storeHandle store) a b >>= (`checkResult` "Checkpoint commit failed")
+  Win32.commitCheckpoint (storeHandle store) temporary final
   committed <- readBytes store final
   require (committed == bytes) "Committed checkpoint differs"
   _ <- must (decodeGame committed)
@@ -235,7 +197,7 @@ checkpointPage store page = do
   readCatalog store (length names) (take 7 (drop (max 0 page * 7) names))
 
 checkpointNames :: Store -> IO [String]
-checkpointNames store = reverse . sortOn filenameOrder . filter ((== ".rdlive") . takeExtension) <$> listDirectory (storeRoot store)
+checkpointNames store = reverse . sortOn filenameOrder . filter ((== ".rdlive") . takeExtension) <$> Win32.listLeaves (storeHandle store)
 
 readCatalog :: Store -> Int -> [String] -> IO Catalog
 readCatalog store total names = do

@@ -212,13 +212,15 @@ executable red-dune
   main-is: Main.hs
   hs-source-dirs: native
   other-modules:
+    RedDune.Native.Canvas
     RedDune.Native.Store
+    RedDune.Native.Store.Win32
     RedDune.Native.Play
     RedDune.Native.View
     RedDune.Native.Font
     RedDune.Native.Help
-  c-sources: native/cbits/store.c
-  build-depends: red-dune, h-raylib >=6.1.0.0 && <6.1.1
+  extra-libraries: kernel32, user32
+  build-depends: red-dune, haskell-game-io:core, haskell-game-io:graphics, transformers
   ghc-options: -O2 -threaded -rtsopts -optl-mwindows
 
 test-suite live-native
@@ -228,8 +230,8 @@ test-suite live-native
   type: exitcode-stdio-1.0
   main-is: NativeTests.hs
   hs-source-dirs: test, native
-  other-modules: RedDune.Native.Store, RedDune.Native.Play, RedDune.Native.Help
-  c-sources: native/cbits/store.c
+  other-modules: RedDune.Native.Store, RedDune.Native.Store.Win32, RedDune.Native.Play, RedDune.Native.Help
+  extra-libraries: kernel32, user32
   build-depends: red-dune
   ghc-options: -O2 -threaded
 
