@@ -149,7 +149,9 @@ capturedProcess root request = mask $ \restore ->
     -- Interactive children inherit their streams and bypass this conversion.
     decode = Text.replace "\r" "\n" . Text.replace "\r\n" "\n" . Text.decodeUtf8With lenientDecode
     exitNumber ExitSuccess = 0
-    exitNumber (ExitFailure code) = if code < 0 then 128 - code else code
+    exitNumber (ExitFailure code)
+      | code < 0 = 128 - code
+      | otherwise = code
 
 stopTree :: ProcessHandle -> Maybe Pid -> IO ()
 #ifdef mingw32_HOST_OS

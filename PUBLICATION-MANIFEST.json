@@ -3416,7 +3416,7 @@
   },
   {
    "path": "tools/haskell/src/FpGame/Process.hs",
-   "sha256_lf": "e389031ce2b19c19057acc1777e080621d1267e793d2398da478d5a2e27fb52b"
+   "sha256_lf": "3c15e84e3c1b0e90cb16da506d3456d4ce93b0ea3c5704ecf3e2379af6b52a25"
   },
   {
    "path": "tools/haskell/src/FpGame/Result.hs",
