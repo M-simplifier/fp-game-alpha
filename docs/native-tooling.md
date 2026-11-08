@@ -304,8 +304,9 @@ package tests and independent generation and relocation on selected hosts.
 acceptance when the change can affect it, including shared libraries, templates,
 and documentation copied into generated games. Linux covers portable rules and
 generated content. Windows covers the native CLI, Windows bootstrap and selected
-build and path changes. macOS covers native process transport, POSIX bootstrap
-and toolchain changes. Pages waits for all selected checks to succeed. Main uses
+build and path changes. macOS covers process and filesystem behavior, Darwin
+configuration and distribution, POSIX bootstrap and toolchain changes. Pages
+waits for all selected checks to succeed. Main uses
 the full suite when the preceding push has no confirmed successful run. Run
 `alpha-checks` manually for its full suite or `native-tooling` for native-only
 diagnostics across all three hosts.

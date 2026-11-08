@@ -33,8 +33,11 @@ PUBLIC_FILES = {
     'tools/check_site.py', 'tools/research.py',
     'tools/test_research.py', 'tools/test_research_ui.cjs',
 }
-NATIVE_TRANSPORT = {
-    'tools/haskell/src/FpGame/Process.hs', 'tools/haskell/test/ProcessSpec.hs',
+NATIVE_HOST_BOUNDARIES = {
+    'tools/haskell/src/FpGame/Command.hs', 'tools/haskell/src/FpGame/Config.hs',
+    'tools/haskell/src/FpGame/Create/Distribution.hs', 'tools/haskell/src/FpGame/Create/Filesystem.hs',
+    'tools/haskell/src/FpGame/Process.hs',
+    'tools/haskell/test/CreateSpec.hs', 'tools/haskell/test/ProcessSpec.hs',
     'tools/test_native_cli.py', 'tools/test_workspace.py',
 }
 
@@ -86,9 +89,8 @@ def selection(paths):
         elif path.startswith('editors/vscode/'):
             source.add(LINUX)
             native.update(KERNEL_HOSTS)
-        elif path in NATIVE_TRANSPORT or path.startswith(('tools/acceptance/', 'tools/haskell/cabal.project')) or (
+        elif path in NATIVE_HOST_BOUNDARIES or path.startswith(('tools/acceptance/', 'tools/haskell/cabal.project')) or (
                 path.startswith('tools/haskell/') and path.endswith('.cabal')):
-            source.add(LINUX)
             native.update(HOSTS)
         elif path == 'tools/bootstrap-fp-game.sh':
             native.update((LINUX, MACOS))
@@ -96,7 +98,10 @@ def selection(paths):
                 'tools/bootstrap-fp-game.ps1', 'tools/test_windows_toolchain_paths.py'}:
             source.add(LINUX)
             native.add(WINDOWS)
-        elif path.startswith('tools/haskell/') or path == 'tools/inspect_haskell.py':
+        elif path.startswith('tools/haskell/'):
+            # The native job already checks the CLI's own formatting and tests.
+            native.update(KERNEL_HOSTS)
+        elif path == 'tools/inspect_haskell.py':
             source.add(LINUX)
             native.update(KERNEL_HOSTS)
         elif path == 'tools/docs_lint.py':
