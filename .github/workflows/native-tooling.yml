@@ -70,13 +70,14 @@ jobs:
       - name: Select explicit Windows compiler profile
         # Check Unicode builds and stream relay boundaries once, before bootstrap.
         # Selection output is written only after every required assertion passes.
+        # Bootstrap reuses the console helper built in this job.
         # Linux/macOS need not wait for an unrelated Windows toolchain setup.
         if: runner.os == 'Windows'
         shell: pwsh
         timeout-minutes: 5
         run: |
           $selection = Join-Path $env:RUNNER_TEMP 'fp-game-compiler.txt'
-          python tools/test_windows_toolchain_paths.py --select-compiler-output $selection
+          python tools/test_windows_toolchain_paths.py --select-compiler-output $selection --reuse-bootstrap-build
           if ($LASTEXITCODE -ne 0) { throw 'Declared Windows compiler profile failed' }
           $compiler = [IO.File]::ReadAllText($selection).Trim()
           Write-Host "Explicit project compiler: $compiler"

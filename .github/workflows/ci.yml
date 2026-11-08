@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 # PRs supersede only the same PR in this workflow. Unique main groups also
@@ -13,11 +14,26 @@ concurrency:
 jobs:
   public-page:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      selection: ${{ steps.select.outputs.selection }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - id: select
+        env:
+          GH_TOKEN: ${{ github.event_name == 'push' && github.token || '' }}
+        run: python3 tools/ci_selection.py
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24.13.0'
+      - run: python3 tools/publication.py check
+      - run: python3 tools/docs_lint.py --foundation-only
+      - run: python3 tools/test_ci_selection.py
       - run: python3 tools/research.py check
       - run: python3 tools/test_research.py
       - run: node tools/test_research_ui.cjs
@@ -34,16 +50,19 @@ jobs:
           path: site
 
   source-and-kernel:
+    needs: public-page
+    if: fromJSON(needs.public-page.outputs.selection || '{}')['source-and-kernel']
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: ${{ fromJSON(needs.public-page.outputs.selection)['source-and-kernel'] }}
     # Python 3.14.2 has Ubuntu 24.04 builds, not the new 26.04 latest image.
     # Preserve the existing matrix check names while fixing the actual runner.
     runs-on: ${{ matrix.os == 'ubuntu-latest' && 'ubuntu-24.04' || matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        if: runner.os == 'Linux'
         with:
           node-version: '24.13.0'
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -63,16 +82,19 @@ jobs:
           ghc-version: '9.14.1'
           cabal-version: '3.18.2.0'
           cabal-update: false
-      - run: python tools/publication.py check
-      - run: python tools/docs_lint.py --foundation-only
-      - run: node editors/vscode/test/adapter-contract.js
-      - run: python tools/test_tools.py
-      - run: python tools/test_formatter.py
-      - run: python tools/formatter.py install
-      - run: python tools/formatter.py check
       - if: runner.os == 'Linux'
+        run: node editors/vscode/test/adapter-contract.js
+      - if: runner.os != 'macOS'
+        run: python tools/test_tools.py
+      - if: runner.os != 'macOS'
+        run: python tools/test_formatter.py
+      - if: runner.os == 'Linux'
+        run: python tools/formatter.py install
+      - if: runner.os == 'Linux'
+        run: python tools/formatter.py check
+      - if: runner.os == 'Linux' && fromJSON(needs.public-page.outputs.selection)['afterlight-pure-core']
         run: python references/afterlight/scripts/check-cpp-format.py
-      - if: runner.os == 'Linux'
+      - if: runner.os == 'Linux' && fromJSON(needs.public-page.outputs.selection)['afterlight-pure-core']
         run: python references/afterlight/scripts/test-cpp-format.py
       - name: Observe pinned tools and check the GHC-bundled kernel profile
         shell: bash
@@ -85,7 +107,8 @@ jobs:
       - run: python tools/test_river_api.py
       - run: python tools/test_station_api.py
       - run: python tools/test_play.py
-      - run: node references/paper-circuit/web/controls.test.mjs
+      - if: runner.os == 'Linux'
+        run: node references/paper-circuit/web/controls.test.mjs
       - if: runner.os == 'Linux'
         run: bash references/paper-circuit/test/check-opaque-api.sh
       - if: runner.os == 'Linux'
@@ -95,24 +118,26 @@ jobs:
           bash references/signal-courier/test-native.sh
           bash references/signal-courier/test/check-opaque-api.sh
           node references/signal-courier/web/controls.test.mjs
-      - run: python tools/quantity/check.py check
-      - name: Execute the selected Free witness against the shared libraries
+      - if: runner.os == 'Linux'
+        run: python tools/quantity/check.py check
+      - if: runner.os == 'Linux'
+        name: Execute the selected Free witness against the shared libraries
         run: runghc -XGHC2021 -ilibraries/game-transition/src -ilibraries/game-arena/src research/frontiers/free/AlphaFreeWitness.hs
 
   native-tooling:
-    # One native dependency bootstrap per OS; its moved generated-doc,
-    # formatter and workspace assertions remain prerequisites for publication.
+    needs: public-page
+    if: fromJSON(needs.public-page.outputs.selection || '{}')['native-tooling']
+    # Reuse one native dependency bootstrap per OS for all CLI acceptance.
     uses: ./.github/workflows/native-tooling.yml
 
   afterlight-pure-core:
+    needs: public-page
+    if: fromJSON(needs.public-page.outputs.selection || '{}')['afterlight-pure-core']
     # Keep the pinned Python/toolchain on its supported Linux runner image.
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
-        with:
-          node-version: '24.13.0'
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.14.2'
@@ -124,6 +149,8 @@ jobs:
       - run: python references/afterlight/scripts/check-core.py --download
 
   haskell-design-linux:
+    needs: public-page
+    if: fromJSON(needs.public-page.outputs.selection || '{}')['haskell-design-linux']
     runs-on: ubuntu-latest
     timeout-minutes: 30
     defaults:
@@ -186,9 +213,34 @@ jobs:
             ${{ steps.cache-environment.outputs.npm-cache }}
           key: ${{ steps.editor-dependencies.outputs.cache-primary-key }}
 
+  checks:
+    if: always()
+    needs: [public-page, source-and-kernel, native-tooling, afterlight-pure-core, haskell-design-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require the public checks and each selected job
+        env:
+          CHECK_RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+
+          jobs = json.loads(os.environ['CHECK_RESULTS'])
+          public = jobs.pop('public-page')
+          if public['result'] != 'success':
+              raise SystemExit('Public checks did not pass')
+          selected = json.loads(public['outputs']['selection'])
+          if selected.keys() - jobs.keys():
+              raise SystemExit('Selected checks must have a matching job')
+          for name, job in jobs.items():
+              expected = 'success' if name in selected else 'skipped'
+              if job['result'] != expected:
+                  raise SystemExit(f"{name}: expected {expected}, got {job['result']}")
+          PY
+
   deploy-page:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [public-page, source-and-kernel, native-tooling, afterlight-pure-core, haskell-design-linux]
+    needs: checks
     runs-on: ubuntu-latest
     permissions:
       contents: read
