@@ -60,11 +60,11 @@
   },
   {
    "path": ".github/workflows/ci.yml",
-   "sha256_lf": "29437a4fdebdc93aac271cdbdab65dfceb83dc5bf2e17fd8d24656554af782e4"
+   "sha256_lf": "d72985098194bae6dc838759226b700db4f3c473905000c104065aa64a5dbde3"
   },
   {
    "path": ".github/workflows/native-tooling.yml",
-   "sha256_lf": "ee357dafd59cabb6474957363a121a44a54a942a675b467df0b8ed1c2d67a8b3"
+   "sha256_lf": "4a55d8791f5ff9b86b50ee1566738140185429c49d73c2cecffb5e7ad0d7fd7f"
   },
   {
    "path": ".github/workflows/red-dune.yml",
@@ -164,7 +164,7 @@
   },
   {
    "path": "docs/native-tooling.md",
-   "sha256_lf": "30dcb55ac80ad7c5bbb12355d0126499147b25f4eccd27609bdd3bf4e3cc2dcc"
+   "sha256_lf": "b9ff26753872d76e82ccdcaa5280b2efb3c46a0dfcb7eb64cd1dd96185cd5bbe"
   },
   {
    "path": "docs/new-game.md",
@@ -3324,7 +3324,7 @@
   },
   {
    "path": "tools/bootstrap-fp-game.ps1",
-   "sha256_lf": "27aa8f391654abebeb9ceb872b6ac4c638b993e5ebf9decda1b3ba12fa6990cc"
+   "sha256_lf": "188090384b20d23ced25fc0d2e7708453154a69f1fea9986a7e3548f7680321b"
   },
   {
    "path": "tools/bootstrap-fp-game.sh",
@@ -3333,6 +3333,10 @@
   {
    "path": "tools/check_site.py",
    "sha256_lf": "9ae266b958a50eed4ff8d768e94765bfebf6f715907dde7561ba6370b1be6629"
+  },
+  {
+   "path": "tools/ci_selection.py",
+   "sha256_lf": "ac985ff1a39746dc57b0fd3416fd74d4c71152974ee733d5894325b1a68bde14"
   },
   {
    "path": "tools/docs_lint.py",
@@ -3499,6 +3503,10 @@
    "sha256_lf": "1e3b069e46cf48dbafb6e0554164ff80187820286917c7b9000ecc24f1078797"
   },
   {
+   "path": "tools/test_ci_selection.py",
+   "sha256_lf": "1a229f421dd8d9e97dd0585a16c8955e465fea9d64689e54f80439914c74277c"
+  },
+  {
    "path": "tools/test_editors.py",
    "sha256_lf": "fca670952e9a84485b3069e9d3064ecb3cdcc79bbcf7a84ddd3af3fd6f44106d"
   },
@@ -3544,7 +3552,7 @@
   },
   {
    "path": "tools/test_windows_toolchain_paths.py",
-   "sha256_lf": "ce00ca92ea2b265f6129de6aaf16ed5565e286f34e38b5d10fbe6ccf1055df59"
+   "sha256_lf": "9006f0c63d32483a5cbcca483a421c8b597ca250db0e3a7f0745ece9d67ddeb4"
   },
   {
    "path": "tools/test_workspace.py",

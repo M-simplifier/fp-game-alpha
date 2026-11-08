@@ -300,17 +300,17 @@ literal filename or automatic compiler discovery.
 
 The reusable `.github/workflows/native-tooling.yml` executes bootstrap, typed
 package tests and the same integration suite on Linux, Windows and macOS.
-`alpha-checks` calls it once on each PR/main push and requires it before Pages
-publication; manual native-only dispatch is also available. Its presence is not
-proof that those jobs passed; inspect results for the exact revision. Dependency
-caches are OS/architecture/toolchain/lock-specific, never cache game output or
-the final executable, and can be written only by a validated main push.
-The Windows matrix job runs the complete compiler-path and Template Haskell
-preflight once, before native bootstrap. `--select-compiler-output` adds an output
-file only after every required profile assertion passes; it does not select a
-smaller suite. Linux/macOS start independently, without a separate Windows job
-ahead of the whole matrix. A Windows failure still fails native acceptance and
-blocks Pages publication.
+`alpha-checks` always verifies the site and published source. It selects native
+acceptance when the change can affect it, including shared libraries, templates,
+and documentation copied into generated games. Pages waits for all selected
+checks to succeed. Run `alpha-checks` manually for its full suite, or use
+`native-tooling` for native-only diagnostics. Inspect the results for the exact
+revision. Dependency caches are OS/architecture/toolchain/lock-specific, exclude
+game output and final executables, and can be written only by a validated main push.
+The Windows matrix job runs the complete compiler-path and console preflight
+before native bootstrap. Bootstrap reuses the helper build from the same job.
+`--select-compiler-output` writes the selected path after every profile assertion
+passes. Linux and macOS start independently of the Windows preflight.
 The native job also runs generated-document lint, formatter integration, ordinary
 Cabal workspace continuation and real native editor-adapter subprocess checks.
 They reuse its existing executable rather than add another dependency bootstrap

@@ -78,7 +78,9 @@ function Install-BuiltTool {
           [string]$buildDirectory, [string]$destination, [string[]]$prefixArguments = @())
     Assert-ExecutableDestination $destination
     $options = @('build', $target, "--project-file=$projectFile", "--builddir=$buildDirectory")
-    if (-not $Download) { $options += '--offline' }
+    # The helper uses only GHC-bundled packages. Match the CI preflight build
+    # even when the native CLI needs to download Hackage dependencies.
+    if (-not $Download -or $target -eq 'exe:fp-game-console') { $options += '--offline' }
     if ($null -ne $compiler) { $options += "--with-compiler=$compiler" }
     & $command @prefixArguments @options
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

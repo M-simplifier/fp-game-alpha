@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -68,6 +69,8 @@ def main():
     sys.stderr.reconfigure(encoding='utf-8')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--select-compiler-output', type=Path)
+    parser.add_argument('--reuse-bootstrap-build', action='store_true',
+                        help='Place helper objects in the same build directory as Windows bootstrap.')
     args = parser.parse_args()
     if os.name != 'nt':
         parser.error('This acceptance checks the Windows compiler profile.')
@@ -98,9 +101,22 @@ def main():
     with tempfile.TemporaryDirectory(prefix='fp-compiler-profile-') as temporary:
         state = Path(temporary).resolve()
         build = state / 'helper'
-        run('bootstrap-private-console', [cabal, 'build', 'exe:fp-game-console', '--offline',
-            '--project-dir=' + str(ROOT / 'tools/windows-console'),
-            '--builddir=' + str(build), '--with-compiler=' + str(compiler)], ROOT)
+        if args.reuse_bootstrap_build:
+            build = ROOT / '.build/windows-console'
+            for directory in (build.parent, build):
+                try:
+                    info = directory.lstat()
+                except FileNotFoundError:
+                    continue
+                if not stat.S_ISDIR(info.st_mode) or info.st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT:
+                    raise ValueError('Refusing a linked or non-directory bootstrap output path.')
+        # Stream the linker output, without waiting on captured handles from
+        # compiler children. The build still has the original deadline.
+        subprocess.run([cabal, 'build', 'exe:fp-game-console',
+                        '--project-file=' + str(ROOT / 'tools/windows-console/cabal.project'),
+                        '--builddir=' + str(build), '--offline',
+                        '--with-compiler=' + str(compiler)], cwd=ROOT / 'tools/haskell',
+                       check=True, timeout=120)
         plan = json.loads((build / 'cache/plan.json').read_text(encoding='utf-8'))
         helper = next(unit['bin-file'] for unit in plan['install-plan']
                       if unit.get('component-name') == 'exe:fp-game-console')
@@ -133,6 +149,6 @@ def main():
 if __name__ == '__main__':
     try:
         sys.exit(main())
-    except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as error:
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
         print(str(error), file=sys.stderr)
         sys.exit(1)
